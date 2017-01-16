@@ -55,6 +55,14 @@
    */
   var exports = {
     /**
+     * The As constructor.
+     * @property {null}
+     */
+    As: function() {
+      this.ApiClient.impersonation = true;
+      return this;
+    },
+    /**
      * The ApiClient constructor.
      * @property {module:ApiClient}
      */

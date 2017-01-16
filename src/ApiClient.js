@@ -297,7 +297,11 @@
           break;
         case 'oauth2':
           if (auth.accessToken) {
-            request.set({'Authorization': 'Bearer ' + auth.accessToken});
+            if (!_this.impersonation) {
+              request.set({'Authorization': 'Bearer ' + auth.accessToken});
+            } else {
+              request.set({'Authorization': 'Bearer ' + auth.impersonationToken});
+            }
           }
           break;
         default:
@@ -402,8 +406,12 @@
       request.end(function(error, response) {
         if (error) {
           reject(error);
+          // reset impersonation boolean
+          _this.impersonate = false;
         } else {
           var data = _this.deserialize(response, returnType);
+          // reset impersonation boolean
+          _this.impersonate = false;
           resolve(data);
         }
       });
@@ -417,9 +425,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
     var url = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '') + path;
     var request = superagent(httpMethod, url);
-
-    // apply authentications
-    this.applyAuthToRequest(request, authNames);
 
     // set query parameters
     request.query(this.normalizeParams(queryParams));
