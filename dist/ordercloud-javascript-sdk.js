@@ -3686,7 +3686,11 @@ module.exports = request;
           break;
         case 'oauth2':
           if (auth.accessToken) {
-            request.set({'Authorization': 'Bearer ' + auth.accessToken});
+            if (!_this.impersonation) {
+              request.set({'Authorization': 'Bearer ' + auth.accessToken});
+            } else {
+              request.set({'Authorization': 'Bearer ' + auth.impersonationToken});
+            }
           }
           break;
         default:
@@ -3791,8 +3795,12 @@ module.exports = request;
       request.end(function(error, response) {
         if (error) {
           reject(error);
+          // reset impersonation boolean
+          _this.impersonate = false;
         } else {
           var data = _this.deserialize(response, returnType);
+          // reset impersonation boolean
+          _this.impersonate = false;
           resolve(data);
         }
       });
@@ -3806,9 +3814,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
     var url = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '') + path;
     var request = superagent(httpMethod, url);
-
-    // apply authentications
-    this.applyAuthToRequest(request, authNames);
 
     // set query parameters
     request.query(this.normalizeParams(queryParams));
@@ -16354,6 +16359,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @version 1.0.0
    */
   var exports = {
+    /**
+     * The As constructor.
+     * @property {null}
+     */
+    As: function() {
+      this.ApiClient.impersonation = true;
+      return this;
+    },
     /**
      * The ApiClient constructor.
      * @property {module:ApiClient}
