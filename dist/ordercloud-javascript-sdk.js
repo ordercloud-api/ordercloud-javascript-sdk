@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.OrderCloud = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
 'use strict'
@@ -3435,7 +3435,14 @@ module.exports = request;
      * @type {String}
      * @default https://api.ordercloud.io/v1
      */
-    this.basePath = 'https://api.ordercloud.io/v1'.replace(/\/+$/, '');
+    this.baseApiPath = 'https://api.ordercloud.io/v1'.replace(/\/+$/, '');
+
+    /**
+    * The base URL against Auth calls are resolved.
+    * @type {String}
+    * @default https://auth.ordercloud.io/v1
+    */
+    this.baseAuthPath = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '');
 
     /**
      * The authentication methods to be included for all API calls.
@@ -3485,8 +3492,8 @@ module.exports = request;
     if (!path.match(/^\//)) {
       path = '/' + path;
     }
-    var url = this.basePath + path;
     var _this = this;
+    var url = _this.baseApiPath + path;
     url = url.replace(/\{([\w-]+)\}/g, function(fullMatch, key) {
       var value;
       if (pathParams.hasOwnProperty(key)) {
@@ -3577,7 +3584,7 @@ module.exports = request;
           newParams[key] = this.paramToString(value);
         }
       }
-      else if (key == filters && params[key] != null) {
+      else if (key == "filters" && params[key] != null && params[key] != undefined) {
         for (var filterKey in params[key]) {
           if (params[key].hasOwnProperty(filterKey) && params[key][filterKey] != undefined && params[key][filterKey] != null) {
             var value = params[key][filterKey];
@@ -3812,7 +3819,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       returnType) {
 
     var _this = this;
-    var url = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '') + path;
+    var url = _this.baseAuthPath.replace(/\/+$/, '') + path;
     var request = superagent(httpMethod, url);
 
     // set query parameters
@@ -29414,4 +29421,5 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}]},{},[35]);
+},{"../ApiClient":9}]},{},[35])(35)
+});

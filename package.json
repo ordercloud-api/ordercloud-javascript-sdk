@@ -7,7 +7,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "npm run concat && npm run minify",
-    "concat": "browserify ./src/index.js --outfile ./dist/ordercloud-javascript-sdk.js",
+    "concat": "browserify ./src/index.js --outfile ./dist/ordercloud-javascript-sdk.js --standalone OrderCloud",
     "minify": "uglifyjs --compress unused=false --mangle --output dist/ordercloud-javascript-sdk.min.js -- dist/ordercloud-javascript-sdk.js",
     "test": "mocha --recursive"
   },

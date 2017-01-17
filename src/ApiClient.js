@@ -46,7 +46,14 @@
      * @type {String}
      * @default https://api.ordercloud.io/v1
      */
-    this.basePath = 'https://api.ordercloud.io/v1'.replace(/\/+$/, '');
+    this.baseApiPath = 'https://api.ordercloud.io/v1'.replace(/\/+$/, '');
+
+    /**
+    * The base URL against Auth calls are resolved.
+    * @type {String}
+    * @default https://auth.ordercloud.io/v1
+    */
+    this.baseAuthPath = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '');
 
     /**
      * The authentication methods to be included for all API calls.
@@ -96,8 +103,8 @@
     if (!path.match(/^\//)) {
       path = '/' + path;
     }
-    var url = this.basePath + path;
     var _this = this;
+    var url = _this.baseApiPath + path;
     url = url.replace(/\{([\w-]+)\}/g, function(fullMatch, key) {
       var value;
       if (pathParams.hasOwnProperty(key)) {
@@ -188,7 +195,7 @@
           newParams[key] = this.paramToString(value);
         }
       }
-      else if (key == filters && params[key] != null) {
+      else if (key == "filters" && params[key] != null && params[key] != undefined) {
         for (var filterKey in params[key]) {
           if (params[key].hasOwnProperty(filterKey) && params[key][filterKey] != undefined && params[key][filterKey] != null) {
             var value = params[key][filterKey];
@@ -423,7 +430,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       returnType) {
 
     var _this = this;
-    var url = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '') + path;
+    var url = _this.baseAuthPath.replace(/\/+$/, '') + path;
     var request = superagent(httpMethod, url);
 
     // set query parameters
