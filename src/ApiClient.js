@@ -414,11 +414,11 @@
         if (error) {
           reject(error);
           // reset impersonation boolean
-          _this.impersonate = false;
+          _this.impersonation = false;
         } else {
           var data = _this.deserialize(response, returnType);
           // reset impersonation boolean
-          _this.impersonate = false;
+          _this.impersonation = false;
           resolve(data);
         }
       });
@@ -452,9 +452,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       request.type('application/json');
     }
 
-    if (contentType === 'application/x-www-form-urlencoded') {
-      request.send(this.normalizeParams(formParams));
-    } else if (contentType == 'multipart/form-data') {
+    if (contentType == 'multipart/form-data') {
       var _formParams = this.normalizeParams(formParams);
       for (var key in _formParams) {
         if (_formParams.hasOwnProperty(key)) {

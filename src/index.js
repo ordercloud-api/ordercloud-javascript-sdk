@@ -14,12 +14,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/AdminCompany', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListAdminCompany', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListInventory', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageConfig', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListNativeIntegrationProxyAssignment', 'model/ListNativeIntegrtionProxyConfig', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListWebHook', 'model/ListWebHookRoute', 'model/ListXpIndex', 'model/MessageCCListenerAssignment', 'model/MessageConfig', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/NativeIntegrationProxyAssignment', 'model/NativeIntegrtionProxyConfig', 'model/Order', 'model/OrderApproval', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PingResponse', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/StripeCreditCard', 'model/Usage', 'model/UsageBuyer', 'model/UsageOrganization', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/WebHook', 'model/WebHookRoute', 'model/XpIndex', 'api/AddressApi', 'api/AdminAddressApi', 'api/AdminUserApi', 'api/AdminUserGroupApi', 'api/ApprovalRuleApi', 'api/BuyerApi', 'api/CatalogApi', 'api/CategoryApi', 'api/CostCenterApi', 'api/CreditCardApi', 'api/LineItemApi', 'api/MeApi', 'api/MessageSendersApi', 'api/OrderApi', 'api/PasswordResetApi', 'api/PaymentApi', 'api/PriceScheduleApi', 'api/ProductApi', 'api/PromotionApi', 'api/SecurityProfileApi', 'api/ShipmentApi', 'api/SpecApi', 'api/SpendingAccountApi', 'api/UserApi', 'api/UserGroupApi'], factory);
+    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/AdminCompany', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListAdminCompany', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListInventory', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageConfig', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListXpIndex', 'model/MessageCCListenerAssignment', 'model/MessageConfig', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PingResponse', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/StripeCreditCard', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categorys', 'api/CostCenters', 'api/CreditCards', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/AdminCompany'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListAdminCompany'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListInventory'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageConfig'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListNativeIntegrationProxyAssignment'), require('./model/ListNativeIntegrtionProxyConfig'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListWebHook'), require('./model/ListWebHookRoute'), require('./model/ListXpIndex'), require('./model/MessageCCListenerAssignment'), require('./model/MessageConfig'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/NativeIntegrationProxyAssignment'), require('./model/NativeIntegrtionProxyConfig'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PingResponse'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/StripeCreditCard'), require('./model/Usage'), require('./model/UsageBuyer'), require('./model/UsageOrganization'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/WebHook'), require('./model/WebHookRoute'), require('./model/XpIndex'), require('./api/AddressApi'), require('./api/AdminAddressApi'), require('./api/AdminUserApi'), require('./api/AdminUserGroupApi'), require('./api/ApprovalRuleApi'), require('./api/BuyerApi'), require('./api/CatalogApi'), require('./api/CategoryApi'), require('./api/CostCenterApi'), require('./api/CreditCardApi'), require('./api/LineItemApi'), require('./api/MeApi'), require('./api/MessageSendersApi'), require('./api/OrderApi'), require('./api/PasswordResetApi'), require('./api/PaymentApi'), require('./api/PriceScheduleApi'), require('./api/ProductApi'), require('./api/PromotionApi'), require('./api/SecurityProfileApi'), require('./api/ShipmentApi'), require('./api/SpecApi'), require('./api/SpendingAccountApi'), require('./api/UserApi'), require('./api/UserGroupApi'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/AdminCompany'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListAdminCompany'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListInventory'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageConfig'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListXpIndex'), require('./model/MessageCCListenerAssignment'), require('./model/MessageConfig'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PingResponse'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/StripeCreditCard'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categorys'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
   }
-}(function(ApiClient, AccessToken, Address, AddressAssignment, AdminCompany, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListAdminCompany, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListInventory, ListLineItem, ListMessageCCListenerAssignment, ListMessageConfig, ListMessageSender, ListMessageSenderAssignment, ListNativeIntegrationProxyAssignment, ListNativeIntegrtionProxyConfig, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListWebHook, ListWebHookRoute, ListXpIndex, MessageCCListenerAssignment, MessageConfig, MessageSender, MessageSenderAssignment, Meta, NativeIntegrationProxyAssignment, NativeIntegrtionProxyConfig, Order, OrderApproval, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PingResponse, PriceBreak, PriceSchedule, Product, ProductAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, StripeCreditCard, Usage, UsageBuyer, UsageOrganization, User, UserGroup, UserGroupAssignment, Variant, WebHook, WebHookRoute, XpIndex, AddressApi, AdminAddressApi, AdminUserApi, AdminUserGroupApi, ApprovalRuleApi, BuyerApi, CatalogApi, CategoryApi, CostCenterApi, CreditCardApi, LineItemApi, MeApi, MessageSendersApi, OrderApi, PasswordResetApi, PaymentApi, PriceScheduleApi, ProductApi, PromotionApi, SecurityProfileApi, ShipmentApi, SpecApi, SpendingAccountApi, UserApi, UserGroupApi) {
+}(function(ApiClient, AccessToken, Address, AddressAssignment, AdminCompany, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListAdminCompany, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListInventory, ListLineItem, ListMessageCCListenerAssignment, ListMessageConfig, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListXpIndex, MessageCCListenerAssignment, MessageConfig, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PingResponse, PriceBreak, PriceSchedule, Product, ProductAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, StripeCreditCard, User, UserGroup, UserGroupAssignment, Variant, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categorys, CostCenters, CreditCards, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Users, UserGroups, Auth) {
   'use strict';
 
   /**
@@ -55,13 +55,18 @@
    */
   var exports = {
     /**
-     * The As constructor.
+     * The As impersonation service.
      * @property {null}
      */
     As: function() {
-      this.ApiClient.impersonation = true;
+      this.ApiClient.instance.impersonation = true;
       return this;
     },
+    /**
+     * The Auth service.
+     * @property {null}
+     */
+    Auth: new Auth(),
     /**
      * The ApiClient constructor.
      * @property {module:ApiClient}
@@ -313,16 +318,6 @@
      */
     ListMessageSenderAssignment: ListMessageSenderAssignment,
     /**
-     * The ListNativeIntegrationProxyAssignment model constructor.
-     * @property {module:model/ListNativeIntegrationProxyAssignment}
-     */
-    ListNativeIntegrationProxyAssignment: ListNativeIntegrationProxyAssignment,
-    /**
-     * The ListNativeIntegrtionProxyConfig model constructor.
-     * @property {module:model/ListNativeIntegrtionProxyConfig}
-     */
-    ListNativeIntegrtionProxyConfig: ListNativeIntegrtionProxyConfig,
-    /**
      * The ListOrder model constructor.
      * @property {module:model/ListOrder}
      */
@@ -428,16 +423,6 @@
      */
     ListVariant: ListVariant,
     /**
-     * The ListWebHook model constructor.
-     * @property {module:model/ListWebHook}
-     */
-    ListWebHook: ListWebHook,
-    /**
-     * The ListWebHookRoute model constructor.
-     * @property {module:model/ListWebHookRoute}
-     */
-    ListWebHookRoute: ListWebHookRoute,
-    /**
      * The ListXpIndex model constructor.
      * @property {module:model/ListXpIndex}
      */
@@ -467,16 +452,6 @@
      * @property {module:model/Meta}
      */
     Meta: Meta,
-    /**
-     * The NativeIntegrationProxyAssignment model constructor.
-     * @property {module:model/NativeIntegrationProxyAssignment}
-     */
-    NativeIntegrationProxyAssignment: NativeIntegrationProxyAssignment,
-    /**
-     * The NativeIntegrtionProxyConfig model constructor.
-     * @property {module:model/NativeIntegrtionProxyConfig}
-     */
-    NativeIntegrtionProxyConfig: NativeIntegrtionProxyConfig,
     /**
      * The Order model constructor.
      * @property {module:model/Order}
@@ -598,21 +573,6 @@
      */
     StripeCreditCard: StripeCreditCard,
     /**
-     * The Usage model constructor.
-     * @property {module:model/Usage}
-     */
-    Usage: Usage,
-    /**
-     * The UsageBuyer model constructor.
-     * @property {module:model/UsageBuyer}
-     */
-    UsageBuyer: UsageBuyer,
-    /**
-     * The UsageOrganization model constructor.
-     * @property {module:model/UsageOrganization}
-     */
-    UsageOrganization: UsageOrganization,
-    /**
      * The User model constructor.
      * @property {module:model/User}
      */
@@ -633,145 +593,135 @@
      */
     Variant: Variant,
     /**
-     * The WebHook model constructor.
-     * @property {module:model/WebHook}
-     */
-    WebHook: WebHook,
-    /**
-     * The WebHookRoute model constructor.
-     * @property {module:model/WebHookRoute}
-     */
-    WebHookRoute: WebHookRoute,
-    /**
      * The XpIndex model constructor.
      * @property {module:model/XpIndex}
      */
     XpIndex: XpIndex,
     /**
-     * The AddressApi service constructor.
-     * @property {module:api/AddressApi}
+     * The Addresses service.
+     * @property {module:api/Addresses}
      */
-    AddressApi: AddressApi,
+    Addresses: new Addresses(),
     /**
-     * The AdminAddressApi service constructor.
-     * @property {module:api/AdminAddressApi}
+     * The AdminAddresses service.
+     * @property {module:api/AdminAddresses}
      */
-    AdminAddressApi: AdminAddressApi,
+    AdminAddresses: new AdminAddresses(),
     /**
-     * The AdminUserApi service constructor.
-     * @property {module:api/AdminUserApi}
+     * The AdminUsers service.
+     * @property {module:api/AdminUsers}
      */
-    AdminUserApi: AdminUserApi,
+    AdminUsers: new AdminUsers(),
     /**
-     * The AdminUserGroupApi service constructor.
-     * @property {module:api/AdminUserGroupApi}
+     * The AdminUserGroups service.
+     * @property {module:api/AdminUserGroups}
      */
-    AdminUserGroupApi: AdminUserGroupApi,
+    AdminUserGroups: new AdminUserGroups(),
     /**
-     * The ApprovalRuleApi service constructor.
-     * @property {module:api/ApprovalRuleApi}
+     * The ApprovalRules service.
+     * @property {module:api/ApprovalRules}
      */
-    ApprovalRuleApi: ApprovalRuleApi,
+    ApprovalRules: new ApprovalRules(),
     /**
-     * The BuyerApi service constructor.
-     * @property {module:api/BuyerApi}
+     * The Buyers service.
+     * @property {module:api/Buyers}
      */
-    BuyerApi: BuyerApi,
+    Buyers: new Buyers(),
     /**
-     * The CatalogApi service constructor.
-     * @property {module:api/CatalogApi}
+     * The Catalogs service.
+     * @property {module:api/Catalogs}
      */
-    CatalogApi: CatalogApi,
+    Catalogs: new Catalogs(),
     /**
-     * The CategoryApi service constructor.
-     * @property {module:api/CategoryApi}
+     * The Categorys service.
+     * @property {module:api/Categorys}
      */
-    CategoryApi: CategoryApi,
+    Categorys: new Categorys(),
     /**
-     * The CostCenterApi service constructor.
-     * @property {module:api/CostCenterApi}
+     * The CostCenters service.
+     * @property {module:api/CostCenters}
      */
-    CostCenterApi: CostCenterApi,
+    CostCenters: new CostCenters(),
     /**
-     * The CreditCardApi service constructor.
-     * @property {module:api/CreditCardApi}
+     * The CreditCards service.
+     * @property {module:api/CreditCards}
      */
-    CreditCardApi: CreditCardApi,
+    CreditCards: new CreditCards(),
     /**
-     * The LineItemApi service constructor.
-     * @property {module:api/LineItemApi}
+     * The LineItems service.
+     * @property {module:api/LineItems}
      */
-    LineItemApi: LineItemApi,
+    LineItems: new LineItems(),
     /**
-     * The MeApi service constructor.
-     * @property {module:api/MeApi}
+     * The Me service.
+     * @property {module:api/Me}
      */
-    MeApi: MeApi,
+    Me: new Me(),
     /**
-     * The MessageSendersApi service constructor.
-     * @property {module:api/MessageSendersApi}
+     * The MessageSenders service.
+     * @property {module:api/MessageSenders}
      */
-    MessageSendersApi: MessageSendersApi,
+    MessageSenders: new MessageSenders(),
     /**
-     * The OrderApi service constructor.
-     * @property {module:api/OrderApi}
+     * The Orders service.
+     * @property {module:api/Orders}
      */
-    OrderApi: OrderApi,
+    Orders: new Orders(),
     /**
-     * The PasswordResetApi service constructor.
-     * @property {module:api/PasswordResetApi}
+     * The PasswordResets service.
+     * @property {module:api/PasswordResets}
      */
-    PasswordResetApi: PasswordResetApi,
+    PasswordResets: new PasswordResets(),
     /**
-     * The PaymentApi service constructor.
-     * @property {module:api/PaymentApi}
+     * The Payments service.
+     * @property {module:api/Payments}
      */
-    PaymentApi: PaymentApi,
+    Payments: new Payments(),
     /**
-     * The PriceScheduleApi service constructor.
-     * @property {module:api/PriceScheduleApi}
+     * The PriceSchedules service.
+     * @property {module:api/PriceSchedules}
      */
-    PriceScheduleApi: PriceScheduleApi,
+    PriceSchedules: new PriceSchedules(),
     /**
-     * The ProductApi service constructor.
-     * @property {module:api/ProductApi}
+     * The Products service.
+     * @property {module:api/Products}
      */
-    ProductApi: ProductApi,
+    Products: new Products(),
     /**
-     * The PromotionApi service constructor.
-     * @property {module:api/PromotionApi}
+     * The Promotions service.
+     * @property {module:api/Promotions}
      */
-    PromotionApi: PromotionApi,
+    Promotions: new Promotions(),
     /**
-     * The SecurityProfileApi service constructor.
-     * @property {module:api/SecurityProfileApi}
+     * The SecurityProfiles service.
+     * @property {module:api/SecurityProfiles}
      */
-    SecurityProfileApi: SecurityProfileApi,
+    SecurityProfiles: new SecurityProfiles(),
     /**
-     * The ShipmentApi service constructor.
-     * @property {module:api/ShipmentApi}
+     * The Shipments service.
+     * @property {module:api/Shipments}
      */
-    ShipmentApi: ShipmentApi,
+    Shipments: new Shipments(),
     /**
-     * The SpecApi service constructor.
-     * @property {module:api/SpecApi}
+     * The Specs service.
+     * @property {module:api/Specs}
      */
-    SpecApi: SpecApi,
+    Specs: new Specs(),
     /**
-     * The SpendingAccountApi service constructor.
-     * @property {module:api/SpendingAccountApi}
+     * The SpendingAccounts service.
+     * @property {module:api/SpendingAccounts}
      */
-    SpendingAccountApi: SpendingAccountApi,
+    SpendingAccounts: new SpendingAccounts(),
     /**
-     * The UserApi service constructor.
-     * @property {module:api/UserApi}
+     * The Users service.
+     * @property {module:api/Users}
      */
-    UserApi: UserApi,
+    Users: new Users(),
     /**
-     * The UserGroupApi service constructor.
-     * @property {module:api/UserGroupApi}
+     * The UserGroups service.
+     * @property {module:api/UserGroups}
      */
-    UserGroupApi: UserGroupApi
+    UserGroups: new UserGroups()
   };
 
   return exports;

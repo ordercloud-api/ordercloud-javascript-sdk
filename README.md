@@ -59,7 +59,7 @@ var defaultClient = OrderCloud.ApiClient.instance;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = "YOUR ACCESS TOKEN"
 
-var api = new OrderCloud.AddressApi()
+var api = new OrderCloud.Addresses()
 
 var buyerID = "buyerID_example"; // {String} ID of the buyer.
 
@@ -80,256 +80,256 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*OrderCloud.AddressApi* | [**Create**](docs/AddressApi.md#Create) | **POST** /buyers/{buyerID}/addresses | 
-*OrderCloud.AddressApi* | [**Delete**](docs/AddressApi.md#Delete) | **DELETE** /buyers/{buyerID}/addresses/{addressID} | 
-*OrderCloud.AddressApi* | [**DeleteAssignment**](docs/AddressApi.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/addresses/{addressID}/assignments | 
-*OrderCloud.AddressApi* | [**Get**](docs/AddressApi.md#Get) | **GET** /buyers/{buyerID}/addresses/{addressID} | 
-*OrderCloud.AddressApi* | [**List**](docs/AddressApi.md#List) | **GET** /buyers/{buyerID}/addresses | 
-*OrderCloud.AddressApi* | [**ListAssignments**](docs/AddressApi.md#ListAssignments) | **GET** /buyers/{buyerID}/addresses/assignments | 
-*OrderCloud.AddressApi* | [**Patch**](docs/AddressApi.md#Patch) | **PATCH** /buyers/{buyerID}/addresses/{addressID} | 
-*OrderCloud.AddressApi* | [**SaveAssignment**](docs/AddressApi.md#SaveAssignment) | **POST** /buyers/{buyerID}/addresses/assignments | 
-*OrderCloud.AddressApi* | [**Update**](docs/AddressApi.md#Update) | **PUT** /buyers/{buyerID}/addresses/{addressID} | 
-*OrderCloud.AdminAddressApi* | [**Create**](docs/AdminAddressApi.md#Create) | **POST** /addresses | 
-*OrderCloud.AdminAddressApi* | [**Delete**](docs/AdminAddressApi.md#Delete) | **DELETE** /addresses/{addressID} | 
-*OrderCloud.AdminAddressApi* | [**Get**](docs/AdminAddressApi.md#Get) | **GET** /addresses/{addressID} | 
-*OrderCloud.AdminAddressApi* | [**List**](docs/AdminAddressApi.md#List) | **GET** /addresses | 
-*OrderCloud.AdminAddressApi* | [**Patch**](docs/AdminAddressApi.md#Patch) | **PATCH** /addresses/{addressID} | 
-*OrderCloud.AdminAddressApi* | [**Update**](docs/AdminAddressApi.md#Update) | **PUT** /addresses/{addressID} | 
-*OrderCloud.AdminUserApi* | [**Create**](docs/AdminUserApi.md#Create) | **POST** /adminusers | 
-*OrderCloud.AdminUserApi* | [**Delete**](docs/AdminUserApi.md#Delete) | **DELETE** /adminusers/{userID} | 
-*OrderCloud.AdminUserApi* | [**Get**](docs/AdminUserApi.md#Get) | **GET** /adminusers/{userID} | 
-*OrderCloud.AdminUserApi* | [**List**](docs/AdminUserApi.md#List) | **GET** /adminusers | 
-*OrderCloud.AdminUserApi* | [**Patch**](docs/AdminUserApi.md#Patch) | **PATCH** /adminusers/{userID} | 
-*OrderCloud.AdminUserApi* | [**Update**](docs/AdminUserApi.md#Update) | **PUT** /adminusers/{userID} | 
-*OrderCloud.AdminUserGroupApi* | [**Create**](docs/AdminUserGroupApi.md#Create) | **POST** /usergroups | 
-*OrderCloud.AdminUserGroupApi* | [**Delete**](docs/AdminUserGroupApi.md#Delete) | **DELETE** /usergroups/{userGroupID} | 
-*OrderCloud.AdminUserGroupApi* | [**DeleteUserAssignment**](docs/AdminUserGroupApi.md#DeleteUserAssignment) | **DELETE** /usergroups/{userGroupID}/assignments/{userID} | 
-*OrderCloud.AdminUserGroupApi* | [**Get**](docs/AdminUserGroupApi.md#Get) | **GET** /usergroups/{userGroupID} | 
-*OrderCloud.AdminUserGroupApi* | [**List**](docs/AdminUserGroupApi.md#List) | **GET** /usergroups | 
-*OrderCloud.AdminUserGroupApi* | [**ListUserAssignments**](docs/AdminUserGroupApi.md#ListUserAssignments) | **GET** /usergroups/assignments | 
-*OrderCloud.AdminUserGroupApi* | [**Patch**](docs/AdminUserGroupApi.md#Patch) | **PATCH** /usergroups/{userGroupID} | 
-*OrderCloud.AdminUserGroupApi* | [**SaveUserAssignment**](docs/AdminUserGroupApi.md#SaveUserAssignment) | **POST** /usergroups/assignments | 
-*OrderCloud.AdminUserGroupApi* | [**Update**](docs/AdminUserGroupApi.md#Update) | **PUT** /usergroups/{userGroupID} | 
-*OrderCloud.ApprovalRuleApi* | [**Create**](docs/ApprovalRuleApi.md#Create) | **POST** /buyers/{buyerID}/approvalrules | 
-*OrderCloud.ApprovalRuleApi* | [**Delete**](docs/ApprovalRuleApi.md#Delete) | **DELETE** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-*OrderCloud.ApprovalRuleApi* | [**Get**](docs/ApprovalRuleApi.md#Get) | **GET** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-*OrderCloud.ApprovalRuleApi* | [**List**](docs/ApprovalRuleApi.md#List) | **GET** /buyers/{buyerID}/approvalrules | 
-*OrderCloud.ApprovalRuleApi* | [**Patch**](docs/ApprovalRuleApi.md#Patch) | **PATCH** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-*OrderCloud.ApprovalRuleApi* | [**Update**](docs/ApprovalRuleApi.md#Update) | **PUT** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-*OrderCloud.BuyerApi* | [**Create**](docs/BuyerApi.md#Create) | **POST** /buyers | 
-*OrderCloud.BuyerApi* | [**Delete**](docs/BuyerApi.md#Delete) | **DELETE** /buyers/{buyerID} | 
-*OrderCloud.BuyerApi* | [**Get**](docs/BuyerApi.md#Get) | **GET** /buyers/{buyerID} | 
-*OrderCloud.BuyerApi* | [**List**](docs/BuyerApi.md#List) | **GET** /buyers | 
-*OrderCloud.BuyerApi* | [**Patch**](docs/BuyerApi.md#Patch) | **PATCH** /buyers/{buyerID} | 
-*OrderCloud.BuyerApi* | [**Update**](docs/BuyerApi.md#Update) | **PUT** /buyers/{buyerID} | 
-*OrderCloud.CatalogApi* | [**Create**](docs/CatalogApi.md#Create) | **POST** /catalogs | 
-*OrderCloud.CatalogApi* | [**Delete**](docs/CatalogApi.md#Delete) | **DELETE** /catalogs/{catalogID} | 
-*OrderCloud.CatalogApi* | [**DeleteAssignment**](docs/CatalogApi.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/assignments | 
-*OrderCloud.CatalogApi* | [**Get**](docs/CatalogApi.md#Get) | **GET** /catalogs/{catalogID} | 
-*OrderCloud.CatalogApi* | [**List**](docs/CatalogApi.md#List) | **GET** /catalogs | 
-*OrderCloud.CatalogApi* | [**ListAssignments**](docs/CatalogApi.md#ListAssignments) | **GET** /catalogs/assignments | 
-*OrderCloud.CatalogApi* | [**Patch**](docs/CatalogApi.md#Patch) | **PATCH** /catalogs/{catalogID} | 
-*OrderCloud.CatalogApi* | [**SaveAssignment**](docs/CatalogApi.md#SaveAssignment) | **POST** /catalogs/assignments | 
-*OrderCloud.CatalogApi* | [**Update**](docs/CatalogApi.md#Update) | **PUT** /catalogs/{catalogID} | 
-*OrderCloud.CategoryApi* | [**Create**](docs/CategoryApi.md#Create) | **POST** /catalogs/{catalogID}/categories | 
-*OrderCloud.CategoryApi* | [**Delete**](docs/CategoryApi.md#Delete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
-*OrderCloud.CategoryApi* | [**DeleteAssignment**](docs/CategoryApi.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
-*OrderCloud.CategoryApi* | [**DeleteProductAssignment**](docs/CategoryApi.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
-*OrderCloud.CategoryApi* | [**Get**](docs/CategoryApi.md#Get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
-*OrderCloud.CategoryApi* | [**List**](docs/CategoryApi.md#List) | **GET** /catalogs/{catalogID}/categories | 
-*OrderCloud.CategoryApi* | [**ListAssignments**](docs/CategoryApi.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
-*OrderCloud.CategoryApi* | [**ListProductAssignments**](docs/CategoryApi.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
-*OrderCloud.CategoryApi* | [**Patch**](docs/CategoryApi.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
-*OrderCloud.CategoryApi* | [**SaveAssignment**](docs/CategoryApi.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
-*OrderCloud.CategoryApi* | [**SaveProductAssignment**](docs/CategoryApi.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
-*OrderCloud.CategoryApi* | [**Update**](docs/CategoryApi.md#Update) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
-*OrderCloud.CostCenterApi* | [**Create**](docs/CostCenterApi.md#Create) | **POST** /buyers/{buyerID}/costcenters | 
-*OrderCloud.CostCenterApi* | [**Delete**](docs/CostCenterApi.md#Delete) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID} | 
-*OrderCloud.CostCenterApi* | [**DeleteAssignment**](docs/CostCenterApi.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID}/assignments | 
-*OrderCloud.CostCenterApi* | [**Get**](docs/CostCenterApi.md#Get) | **GET** /buyers/{buyerID}/costcenters/{costCenterID} | 
-*OrderCloud.CostCenterApi* | [**List**](docs/CostCenterApi.md#List) | **GET** /buyers/{buyerID}/costcenters | 
-*OrderCloud.CostCenterApi* | [**ListAssignments**](docs/CostCenterApi.md#ListAssignments) | **GET** /buyers/{buyerID}/costcenters/assignments | 
-*OrderCloud.CostCenterApi* | [**Patch**](docs/CostCenterApi.md#Patch) | **PATCH** /buyers/{buyerID}/costcenters/{costCenterID} | 
-*OrderCloud.CostCenterApi* | [**SaveAssignment**](docs/CostCenterApi.md#SaveAssignment) | **POST** /buyers/{buyerID}/costcenters/assignments | 
-*OrderCloud.CostCenterApi* | [**Update**](docs/CostCenterApi.md#Update) | **PUT** /buyers/{buyerID}/costcenters/{costCenterID} | 
-*OrderCloud.CreditCardApi* | [**Create**](docs/CreditCardApi.md#Create) | **POST** /buyers/{buyerID}/creditcards | 
-*OrderCloud.CreditCardApi* | [**Delete**](docs/CreditCardApi.md#Delete) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID} | 
-*OrderCloud.CreditCardApi* | [**DeleteAssignment**](docs/CreditCardApi.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID}/assignments | 
-*OrderCloud.CreditCardApi* | [**Get**](docs/CreditCardApi.md#Get) | **GET** /buyers/{buyerID}/creditcards/{creditCardID} | 
-*OrderCloud.CreditCardApi* | [**List**](docs/CreditCardApi.md#List) | **GET** /buyers/{buyerID}/creditcards | 
-*OrderCloud.CreditCardApi* | [**ListAssignments**](docs/CreditCardApi.md#ListAssignments) | **GET** /buyers/{buyerID}/creditcards/assignments | 
-*OrderCloud.CreditCardApi* | [**Patch**](docs/CreditCardApi.md#Patch) | **PATCH** /buyers/{buyerID}/creditcards/{creditCardID} | 
-*OrderCloud.CreditCardApi* | [**SaveAssignment**](docs/CreditCardApi.md#SaveAssignment) | **POST** /buyers/{buyerID}/creditcards/assignments | 
-*OrderCloud.CreditCardApi* | [**Update**](docs/CreditCardApi.md#Update) | **PUT** /buyers/{buyerID}/creditcards/{creditCardID} | 
-*OrderCloud.LineItemApi* | [**Create**](docs/LineItemApi.md#Create) | **POST** /buyers/{buyerID}/orders/{orderID}/lineitems | 
-*OrderCloud.LineItemApi* | [**Delete**](docs/LineItemApi.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
-*OrderCloud.LineItemApi* | [**Get**](docs/LineItemApi.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
-*OrderCloud.LineItemApi* | [**List**](docs/LineItemApi.md#List) | **GET** /buyers/{buyerID}/orders/{orderID}/lineitems | 
-*OrderCloud.LineItemApi* | [**Patch**](docs/LineItemApi.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
-*OrderCloud.LineItemApi* | [**PatchShippingAddress**](docs/LineItemApi.md#PatchShippingAddress) | **PATCH** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto | 
-*OrderCloud.LineItemApi* | [**SetShippingAddress**](docs/LineItemApi.md#SetShippingAddress) | **PUT** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto | 
-*OrderCloud.LineItemApi* | [**Update**](docs/LineItemApi.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
-*OrderCloud.MeApi* | [**CreateAddress**](docs/MeApi.md#CreateAddress) | **POST** /me/addresses | 
-*OrderCloud.MeApi* | [**CreateCreditCard**](docs/MeApi.md#CreateCreditCard) | **POST** /me/creditcards | 
-*OrderCloud.MeApi* | [**CreateFromTempUser**](docs/MeApi.md#CreateFromTempUser) | **PUT** /me/register | 
-*OrderCloud.MeApi* | [**DeleteAddress**](docs/MeApi.md#DeleteAddress) | **DELETE** /me/addresses/{addressID} | 
-*OrderCloud.MeApi* | [**DeleteCreditCard**](docs/MeApi.md#DeleteCreditCard) | **DELETE** /me/creditcards/{creditcardID} | 
-*OrderCloud.MeApi* | [**Get**](docs/MeApi.md#Get) | **GET** /me | 
-*OrderCloud.MeApi* | [**GetAddress**](docs/MeApi.md#GetAddress) | **GET** /me/addresses/{addressID} | 
-*OrderCloud.MeApi* | [**GetCreditCard**](docs/MeApi.md#GetCreditCard) | **GET** /me/creditcards/{creditcardID} | 
-*OrderCloud.MeApi* | [**GetOrder**](docs/MeApi.md#GetOrder) | **GET** /me/orders/{orderID} | 
-*OrderCloud.MeApi* | [**GetProduct**](docs/MeApi.md#GetProduct) | **GET** /me/products/{productID} | 
-*OrderCloud.MeApi* | [**GetPromotion**](docs/MeApi.md#GetPromotion) | **GET** /me/promotions/{promotionID} | 
-*OrderCloud.MeApi* | [**GetSpec**](docs/MeApi.md#GetSpec) | **GET** /me/products/{productID}/specs/{specID} | 
-*OrderCloud.MeApi* | [**GetSpendingAccount**](docs/MeApi.md#GetSpendingAccount) | **GET** /me/spendingaccounts/{spendingAccountID} | 
-*OrderCloud.MeApi* | [**ListAddresses**](docs/MeApi.md#ListAddresses) | **GET** /me/addresses | 
-*OrderCloud.MeApi* | [**ListCategories**](docs/MeApi.md#ListCategories) | **GET** /me/categories | 
-*OrderCloud.MeApi* | [**ListCostCenters**](docs/MeApi.md#ListCostCenters) | **GET** /me/costcenters | 
-*OrderCloud.MeApi* | [**ListCreditCards**](docs/MeApi.md#ListCreditCards) | **GET** /me/creditcards | 
-*OrderCloud.MeApi* | [**ListIncomingOrders**](docs/MeApi.md#ListIncomingOrders) | **GET** /me/orders/incoming | 
-*OrderCloud.MeApi* | [**ListOutgoingOrders**](docs/MeApi.md#ListOutgoingOrders) | **GET** /me/orders/outgoing | 
-*OrderCloud.MeApi* | [**ListProducts**](docs/MeApi.md#ListProducts) | **GET** /me/products | 
-*OrderCloud.MeApi* | [**ListPromotions**](docs/MeApi.md#ListPromotions) | **GET** /me/promotions | 
-*OrderCloud.MeApi* | [**ListSpecs**](docs/MeApi.md#ListSpecs) | **GET** /me/products/{productID}/specs | 
-*OrderCloud.MeApi* | [**ListSpendingAccounts**](docs/MeApi.md#ListSpendingAccounts) | **GET** /me/spendingAccounts | 
-*OrderCloud.MeApi* | [**ListUserGroups**](docs/MeApi.md#ListUserGroups) | **GET** /me/usergroups | 
-*OrderCloud.MeApi* | [**Patch**](docs/MeApi.md#Patch) | **PATCH** /me | 
-*OrderCloud.MeApi* | [**PatchAddress**](docs/MeApi.md#PatchAddress) | **PATCH** /me/addresses/{addressID} | 
-*OrderCloud.MeApi* | [**PatchCreditCard**](docs/MeApi.md#PatchCreditCard) | **PATCH** /me/creditcards/{creditcardID} | 
-*OrderCloud.MeApi* | [**Update**](docs/MeApi.md#Update) | **PUT** /me | 
-*OrderCloud.MeApi* | [**UpdateAddress**](docs/MeApi.md#UpdateAddress) | **PUT** /me/addresses/{addressID} | 
-*OrderCloud.MeApi* | [**UpdateCreditCard**](docs/MeApi.md#UpdateCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
-*OrderCloud.MessageSendersApi* | [**DeleteAssignment**](docs/MessageSendersApi.md#DeleteAssignment) | **DELETE** /MessageSenders/{messageSenderID}/assignments | 
-*OrderCloud.MessageSendersApi* | [**Get**](docs/MessageSendersApi.md#Get) | **GET** /MessageSenders/{messageSenderID} | 
-*OrderCloud.MessageSendersApi* | [**List**](docs/MessageSendersApi.md#List) | **GET** /MessageSenders | 
-*OrderCloud.MessageSendersApi* | [**ListAssignments**](docs/MessageSendersApi.md#ListAssignments) | **GET** /MessageSenders/assignments | 
-*OrderCloud.MessageSendersApi* | [**ListCCListenerAssignments**](docs/MessageSendersApi.md#ListCCListenerAssignments) | **GET** /MessageSenders/CCListenerAssignments | 
-*OrderCloud.MessageSendersApi* | [**SaveAssignment**](docs/MessageSendersApi.md#SaveAssignment) | **POST** /MessageSenders/assignments | 
-*OrderCloud.MessageSendersApi* | [**SaveCCListenerAssignment**](docs/MessageSendersApi.md#SaveCCListenerAssignment) | **POST** /MessageSenders/CCListenerAssignments | 
-*OrderCloud.OrderApi* | [**AddPromotion**](docs/OrderApi.md#AddPromotion) | **POST** /buyers/{buyerID}/orders/{orderID}/promotions/{promoCode} | 
-*OrderCloud.OrderApi* | [**Approve**](docs/OrderApi.md#Approve) | **POST** /buyers/{buyerID}/orders/{orderID}/approve | 
-*OrderCloud.OrderApi* | [**Cancel**](docs/OrderApi.md#Cancel) | **POST** /buyers/{buyerID}/orders/{orderID}/cancel | 
-*OrderCloud.OrderApi* | [**Create**](docs/OrderApi.md#Create) | **POST** /buyers/{buyerID}/orders | 
-*OrderCloud.OrderApi* | [**Decline**](docs/OrderApi.md#Decline) | **POST** /buyers/{buyerID}/orders/{orderID}/decline | 
-*OrderCloud.OrderApi* | [**Delete**](docs/OrderApi.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID} | 
-*OrderCloud.OrderApi* | [**Get**](docs/OrderApi.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID} | 
-*OrderCloud.OrderApi* | [**ListApprovals**](docs/OrderApi.md#ListApprovals) | **GET** /buyers/{buyerID}/orders/{orderID}/approvals | 
-*OrderCloud.OrderApi* | [**ListEligibleApprovers**](docs/OrderApi.md#ListEligibleApprovers) | **GET** /buyers/{buyerID}/orders/{orderID}/eligibleapprovers | 
-*OrderCloud.OrderApi* | [**ListIncoming**](docs/OrderApi.md#ListIncoming) | **GET** /orders/incoming | 
-*OrderCloud.OrderApi* | [**ListOutgoing**](docs/OrderApi.md#ListOutgoing) | **GET** /orders/outgoing | 
-*OrderCloud.OrderApi* | [**ListPromotions**](docs/OrderApi.md#ListPromotions) | **GET** /buyers/{buyerID}/orders/{orderID}/promotions | 
-*OrderCloud.OrderApi* | [**Patch**](docs/OrderApi.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID} | 
-*OrderCloud.OrderApi* | [**PatchBillingAddress**](docs/OrderApi.md#PatchBillingAddress) | **PATCH** /buyers/{buyerID}/orders/{orderID}/billto | 
-*OrderCloud.OrderApi* | [**PatchShippingAddress**](docs/OrderApi.md#PatchShippingAddress) | **PATCH** /buyers/{buyerID}/orders/{orderID}/shipto | 
-*OrderCloud.OrderApi* | [**RemovePromotion**](docs/OrderApi.md#RemovePromotion) | **DELETE** /buyers/{buyerID}/orders/{orderID}/promotions/{promoCode} | 
-*OrderCloud.OrderApi* | [**SetBillingAddress**](docs/OrderApi.md#SetBillingAddress) | **PUT** /buyers/{buyerID}/orders/{orderID}/billto | 
-*OrderCloud.OrderApi* | [**SetShippingAddress**](docs/OrderApi.md#SetShippingAddress) | **PUT** /buyers/{buyerID}/orders/{orderID}/shipto | 
-*OrderCloud.OrderApi* | [**Ship**](docs/OrderApi.md#Ship) | **POST** /buyers/{buyerID}/orders/{orderID}/ship | 
-*OrderCloud.OrderApi* | [**Submit**](docs/OrderApi.md#Submit) | **POST** /buyers/{buyerID}/orders/{orderID}/submit | 
-*OrderCloud.OrderApi* | [**TransferTempUserOrder**](docs/OrderApi.md#TransferTempUserOrder) | **PUT** /buyers/{buyerID}/orders | 
-*OrderCloud.OrderApi* | [**Update**](docs/OrderApi.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID} | 
-*OrderCloud.PasswordResetApi* | [**ResetPassword**](docs/PasswordResetApi.md#ResetPassword) | **PUT** /password/reset/{verificationCode} | 
-*OrderCloud.PasswordResetApi* | [**SendVerificationCode**](docs/PasswordResetApi.md#SendVerificationCode) | **POST** /password/reset | 
-*OrderCloud.PaymentApi* | [**Create**](docs/PaymentApi.md#Create) | **POST** /buyers/{buyerID}/orders/{orderID}/payments | 
-*OrderCloud.PaymentApi* | [**CreateTransaction**](docs/PaymentApi.md#CreateTransaction) | **POST** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions | 
-*OrderCloud.PaymentApi* | [**Delete**](docs/PaymentApi.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-*OrderCloud.PaymentApi* | [**DeleteTransaction**](docs/PaymentApi.md#DeleteTransaction) | **DELETE** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
-*OrderCloud.PaymentApi* | [**Get**](docs/PaymentApi.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-*OrderCloud.PaymentApi* | [**List**](docs/PaymentApi.md#List) | **GET** /buyers/{buyerID}/orders/{orderID}/payments | 
-*OrderCloud.PaymentApi* | [**Patch**](docs/PaymentApi.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-*OrderCloud.PaymentApi* | [**PatchTransaction**](docs/PaymentApi.md#PatchTransaction) | **PATCH** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
-*OrderCloud.PaymentApi* | [**Update**](docs/PaymentApi.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-*OrderCloud.PaymentApi* | [**UpdateTransaction**](docs/PaymentApi.md#UpdateTransaction) | **PUT** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
-*OrderCloud.PriceScheduleApi* | [**Create**](docs/PriceScheduleApi.md#Create) | **POST** /priceschedules | 
-*OrderCloud.PriceScheduleApi* | [**Delete**](docs/PriceScheduleApi.md#Delete) | **DELETE** /priceschedules/{priceScheduleID} | 
-*OrderCloud.PriceScheduleApi* | [**DeletePriceBreak**](docs/PriceScheduleApi.md#DeletePriceBreak) | **DELETE** /priceschedules/{priceScheduleID}/PriceBreaks | 
-*OrderCloud.PriceScheduleApi* | [**Get**](docs/PriceScheduleApi.md#Get) | **GET** /priceschedules/{priceScheduleID} | 
-*OrderCloud.PriceScheduleApi* | [**List**](docs/PriceScheduleApi.md#List) | **GET** /priceschedules | 
-*OrderCloud.PriceScheduleApi* | [**Patch**](docs/PriceScheduleApi.md#Patch) | **PATCH** /priceschedules/{priceScheduleID} | 
-*OrderCloud.PriceScheduleApi* | [**SavePriceBreak**](docs/PriceScheduleApi.md#SavePriceBreak) | **POST** /priceschedules/{priceScheduleID}/PriceBreaks | 
-*OrderCloud.PriceScheduleApi* | [**Update**](docs/PriceScheduleApi.md#Update) | **PUT** /priceschedules/{priceScheduleID} | 
-*OrderCloud.ProductApi* | [**Create**](docs/ProductApi.md#Create) | **POST** /products | 
-*OrderCloud.ProductApi* | [**Delete**](docs/ProductApi.md#Delete) | **DELETE** /products/{productID} | 
-*OrderCloud.ProductApi* | [**DeleteAssignment**](docs/ProductApi.md#DeleteAssignment) | **DELETE** /products/{productID}/assignments/{buyerID} | 
-*OrderCloud.ProductApi* | [**GenerateVariants**](docs/ProductApi.md#GenerateVariants) | **POST** /products/{productID}/variants/generate | 
-*OrderCloud.ProductApi* | [**Get**](docs/ProductApi.md#Get) | **GET** /products/{productID} | 
-*OrderCloud.ProductApi* | [**GetInventory**](docs/ProductApi.md#GetInventory) | **GET** /products/{productID}/inventory | 
-*OrderCloud.ProductApi* | [**GetVariant**](docs/ProductApi.md#GetVariant) | **GET** /products/{productID}/variants/{variantID} | 
-*OrderCloud.ProductApi* | [**GetVariantInventory**](docs/ProductApi.md#GetVariantInventory) | **GET** /products/{productID}/variants/inventory/{variantID} | 
-*OrderCloud.ProductApi* | [**List**](docs/ProductApi.md#List) | **GET** /products | 
-*OrderCloud.ProductApi* | [**ListAssignments**](docs/ProductApi.md#ListAssignments) | **GET** /products/assignments | 
-*OrderCloud.ProductApi* | [**ListInventory**](docs/ProductApi.md#ListInventory) | **GET** /products/inventory | 
-*OrderCloud.ProductApi* | [**ListVariantInventory**](docs/ProductApi.md#ListVariantInventory) | **GET** /products/{productID}/variants/inventory | 
-*OrderCloud.ProductApi* | [**ListVariants**](docs/ProductApi.md#ListVariants) | **GET** /products/{productID}/variants | 
-*OrderCloud.ProductApi* | [**Patch**](docs/ProductApi.md#Patch) | **PATCH** /products/{productID} | 
-*OrderCloud.ProductApi* | [**PatchVariant**](docs/ProductApi.md#PatchVariant) | **PATCH** /products/{productID}/variants/{variantID} | 
-*OrderCloud.ProductApi* | [**SaveAssignment**](docs/ProductApi.md#SaveAssignment) | **POST** /products/assignments | 
-*OrderCloud.ProductApi* | [**Update**](docs/ProductApi.md#Update) | **PUT** /products/{productID} | 
-*OrderCloud.ProductApi* | [**UpdateInventory**](docs/ProductApi.md#UpdateInventory) | **PUT** /products/{productID}/inventory/{inventory} | 
-*OrderCloud.ProductApi* | [**UpdateVariant**](docs/ProductApi.md#UpdateVariant) | **PUT** /products/{productID}/variants/{variantID} | 
-*OrderCloud.ProductApi* | [**UpdateVariantInventory**](docs/ProductApi.md#UpdateVariantInventory) | **PUT** /products/{productID}/variants/inventory/{variantID}/{inventory} | 
-*OrderCloud.PromotionApi* | [**Create**](docs/PromotionApi.md#Create) | **POST** /promotions | 
-*OrderCloud.PromotionApi* | [**Delete**](docs/PromotionApi.md#Delete) | **DELETE** /promotions/{promotionID} | 
-*OrderCloud.PromotionApi* | [**DeleteAssignment**](docs/PromotionApi.md#DeleteAssignment) | **DELETE** /promotions/{promotionID}/assignments | 
-*OrderCloud.PromotionApi* | [**Get**](docs/PromotionApi.md#Get) | **GET** /promotions/{promotionID} | 
-*OrderCloud.PromotionApi* | [**List**](docs/PromotionApi.md#List) | **GET** /promotions | 
-*OrderCloud.PromotionApi* | [**ListAssignments**](docs/PromotionApi.md#ListAssignments) | **GET** /promotions/assignments | 
-*OrderCloud.PromotionApi* | [**Patch**](docs/PromotionApi.md#Patch) | **PATCH** /promotions/{promotionID} | 
-*OrderCloud.PromotionApi* | [**SaveAssignment**](docs/PromotionApi.md#SaveAssignment) | **POST** /promotions/assignments | 
-*OrderCloud.PromotionApi* | [**Update**](docs/PromotionApi.md#Update) | **PUT** /promotions/{promotionID} | 
-*OrderCloud.SecurityProfileApi* | [**DeleteAssignment**](docs/SecurityProfileApi.md#DeleteAssignment) | **DELETE** /securityprofiles/{securityProfileID}/assignments | 
-*OrderCloud.SecurityProfileApi* | [**Get**](docs/SecurityProfileApi.md#Get) | **GET** /securityprofiles/{securityProfileID} | 
-*OrderCloud.SecurityProfileApi* | [**List**](docs/SecurityProfileApi.md#List) | **GET** /securityprofiles | 
-*OrderCloud.SecurityProfileApi* | [**ListAssignments**](docs/SecurityProfileApi.md#ListAssignments) | **GET** /securityprofiles/assignments | 
-*OrderCloud.SecurityProfileApi* | [**SaveAssignment**](docs/SecurityProfileApi.md#SaveAssignment) | **POST** /securityprofiles/assignments | 
-*OrderCloud.ShipmentApi* | [**Create**](docs/ShipmentApi.md#Create) | **POST** /buyers/{buyerID}/shipments | 
-*OrderCloud.ShipmentApi* | [**Delete**](docs/ShipmentApi.md#Delete) | **DELETE** /buyers/{buyerID}/shipments/{shipmentID} | 
-*OrderCloud.ShipmentApi* | [**DeleteItem**](docs/ShipmentApi.md#DeleteItem) | **DELETE** /buyers/{buyerID}/shipments/{shipmentID}/items/{orderID}/{lineItemID} | 
-*OrderCloud.ShipmentApi* | [**Get**](docs/ShipmentApi.md#Get) | **GET** /buyers/{buyerID}/shipments/{shipmentID} | 
-*OrderCloud.ShipmentApi* | [**List**](docs/ShipmentApi.md#List) | **GET** /buyers/{buyerID}/shipments | 
-*OrderCloud.ShipmentApi* | [**Patch**](docs/ShipmentApi.md#Patch) | **PATCH** /buyers/{buyerID}/shipments/{shipmentID} | 
-*OrderCloud.ShipmentApi* | [**SaveItem**](docs/ShipmentApi.md#SaveItem) | **POST** /buyers/{buyerID}/shipments/{shipmentID}/items | 
-*OrderCloud.ShipmentApi* | [**Update**](docs/ShipmentApi.md#Update) | **PUT** /buyers/{buyerID}/shipments/{shipmentID} | 
-*OrderCloud.SpecApi* | [**Create**](docs/SpecApi.md#Create) | **POST** /specs | 
-*OrderCloud.SpecApi* | [**CreateOption**](docs/SpecApi.md#CreateOption) | **POST** /specs/{specID}/options | 
-*OrderCloud.SpecApi* | [**Delete**](docs/SpecApi.md#Delete) | **DELETE** /specs/{specID} | 
-*OrderCloud.SpecApi* | [**DeleteOption**](docs/SpecApi.md#DeleteOption) | **DELETE** /specs/{specID}/options/{optionID} | 
-*OrderCloud.SpecApi* | [**DeleteProductAssignment**](docs/SpecApi.md#DeleteProductAssignment) | **DELETE** /specs/{specID}/productassignments/{productID} | 
-*OrderCloud.SpecApi* | [**Get**](docs/SpecApi.md#Get) | **GET** /specs/{specID} | 
-*OrderCloud.SpecApi* | [**GetOption**](docs/SpecApi.md#GetOption) | **GET** /specs/{specID}/options/{optionID} | 
-*OrderCloud.SpecApi* | [**List**](docs/SpecApi.md#List) | **GET** /specs | 
-*OrderCloud.SpecApi* | [**ListOptions**](docs/SpecApi.md#ListOptions) | **GET** /specs/{specID}/options | 
-*OrderCloud.SpecApi* | [**ListProductAssignments**](docs/SpecApi.md#ListProductAssignments) | **GET** /specs/productassignments | 
-*OrderCloud.SpecApi* | [**Patch**](docs/SpecApi.md#Patch) | **PATCH** /specs/{specID} | 
-*OrderCloud.SpecApi* | [**PatchOption**](docs/SpecApi.md#PatchOption) | **PATCH** /specs/{specID}/options/{optionID} | 
-*OrderCloud.SpecApi* | [**SaveProductAssignment**](docs/SpecApi.md#SaveProductAssignment) | **POST** /specs/productassignments | 
-*OrderCloud.SpecApi* | [**Update**](docs/SpecApi.md#Update) | **PUT** /specs/{specID} | 
-*OrderCloud.SpecApi* | [**UpdateOption**](docs/SpecApi.md#UpdateOption) | **PUT** /specs/{specID}/options/{optionID} | 
-*OrderCloud.SpendingAccountApi* | [**Create**](docs/SpendingAccountApi.md#Create) | **POST** /buyers/{buyerID}/spendingaccounts | 
-*OrderCloud.SpendingAccountApi* | [**Delete**](docs/SpendingAccountApi.md#Delete) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-*OrderCloud.SpendingAccountApi* | [**DeleteAssignment**](docs/SpendingAccountApi.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID}/assignments | 
-*OrderCloud.SpendingAccountApi* | [**Get**](docs/SpendingAccountApi.md#Get) | **GET** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-*OrderCloud.SpendingAccountApi* | [**List**](docs/SpendingAccountApi.md#List) | **GET** /buyers/{buyerID}/spendingaccounts | 
-*OrderCloud.SpendingAccountApi* | [**ListAssignments**](docs/SpendingAccountApi.md#ListAssignments) | **GET** /buyers/{buyerID}/spendingaccounts/assignments | 
-*OrderCloud.SpendingAccountApi* | [**Patch**](docs/SpendingAccountApi.md#Patch) | **PATCH** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-*OrderCloud.SpendingAccountApi* | [**SaveAssignment**](docs/SpendingAccountApi.md#SaveAssignment) | **POST** /buyers/{buyerID}/spendingaccounts/assignments | 
-*OrderCloud.SpendingAccountApi* | [**Update**](docs/SpendingAccountApi.md#Update) | **PUT** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-*OrderCloud.UserApi* | [**Create**](docs/UserApi.md#Create) | **POST** /buyers/{buyerID}/users | 
-*OrderCloud.UserApi* | [**Delete**](docs/UserApi.md#Delete) | **DELETE** /buyers/{buyerID}/users/{userID} | 
-*OrderCloud.UserApi* | [**Get**](docs/UserApi.md#Get) | **GET** /buyers/{buyerID}/users/{userID} | 
-*OrderCloud.UserApi* | [**GetAccessToken**](docs/UserApi.md#GetAccessToken) | **POST** /buyers/{buyerID}/users/{userID}/accesstoken | 
-*OrderCloud.UserApi* | [**List**](docs/UserApi.md#List) | **GET** /buyers/{buyerID}/users | 
-*OrderCloud.UserApi* | [**Patch**](docs/UserApi.md#Patch) | **PATCH** /buyers/{buyerID}/users/{userID} | 
-*OrderCloud.UserApi* | [**Update**](docs/UserApi.md#Update) | **PUT** /buyers/{buyerID}/users/{userID} | 
-*OrderCloud.UserGroupApi* | [**Create**](docs/UserGroupApi.md#Create) | **POST** /buyers/{buyerID}/usergroups | 
-*OrderCloud.UserGroupApi* | [**Delete**](docs/UserGroupApi.md#Delete) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID} | 
-*OrderCloud.UserGroupApi* | [**DeleteUserAssignment**](docs/UserGroupApi.md#DeleteUserAssignment) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID}/assignments/{userID} | 
-*OrderCloud.UserGroupApi* | [**Get**](docs/UserGroupApi.md#Get) | **GET** /buyers/{buyerID}/usergroups/{userGroupID} | 
-*OrderCloud.UserGroupApi* | [**List**](docs/UserGroupApi.md#List) | **GET** /buyers/{buyerID}/usergroups | 
-*OrderCloud.UserGroupApi* | [**ListUserAssignments**](docs/UserGroupApi.md#ListUserAssignments) | **GET** /buyers/{buyerID}/usergroups/assignments | 
-*OrderCloud.UserGroupApi* | [**Patch**](docs/UserGroupApi.md#Patch) | **PATCH** /buyers/{buyerID}/usergroups/{userGroupID} | 
-*OrderCloud.UserGroupApi* | [**SaveUserAssignment**](docs/UserGroupApi.md#SaveUserAssignment) | **POST** /buyers/{buyerID}/usergroups/assignments | 
-*OrderCloud.UserGroupApi* | [**Update**](docs/UserGroupApi.md#Update) | **PUT** /buyers/{buyerID}/usergroups/{userGroupID} | 
+*OrderCloud.Addresses* | [**Create**](docs/Addresses.md#Create) | **POST** /buyers/{buyerID}/addresses | 
+*OrderCloud.Addresses* | [**Delete**](docs/Addresses.md#Delete) | **DELETE** /buyers/{buyerID}/addresses/{addressID} | 
+*OrderCloud.Addresses* | [**DeleteAssignment**](docs/Addresses.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/addresses/{addressID}/assignments | 
+*OrderCloud.Addresses* | [**Get**](docs/Addresses.md#Get) | **GET** /buyers/{buyerID}/addresses/{addressID} | 
+*OrderCloud.Addresses* | [**List**](docs/Addresses.md#List) | **GET** /buyers/{buyerID}/addresses | 
+*OrderCloud.Addresses* | [**ListAssignments**](docs/Addresses.md#ListAssignments) | **GET** /buyers/{buyerID}/addresses/assignments | 
+*OrderCloud.Addresses* | [**Patch**](docs/Addresses.md#Patch) | **PATCH** /buyers/{buyerID}/addresses/{addressID} | 
+*OrderCloud.Addresses* | [**SaveAssignment**](docs/Addresses.md#SaveAssignment) | **POST** /buyers/{buyerID}/addresses/assignments | 
+*OrderCloud.Addresses* | [**Update**](docs/Addresses.md#Update) | **PUT** /buyers/{buyerID}/addresses/{addressID} | 
+*OrderCloud.AdminAddresses* | [**Create**](docs/AdminAddresses.md#Create) | **POST** /addresses | 
+*OrderCloud.AdminAddresses* | [**Delete**](docs/AdminAddresses.md#Delete) | **DELETE** /addresses/{addressID} | 
+*OrderCloud.AdminAddresses* | [**Get**](docs/AdminAddresses.md#Get) | **GET** /addresses/{addressID} | 
+*OrderCloud.AdminAddresses* | [**List**](docs/AdminAddresses.md#List) | **GET** /addresses | 
+*OrderCloud.AdminAddresses* | [**Patch**](docs/AdminAddresses.md#Patch) | **PATCH** /addresses/{addressID} | 
+*OrderCloud.AdminAddresses* | [**Update**](docs/AdminAddresses.md#Update) | **PUT** /addresses/{addressID} | 
+*OrderCloud.AdminUsers* | [**Create**](docs/AdminUsers.md#Create) | **POST** /adminusers | 
+*OrderCloud.AdminUsers* | [**Delete**](docs/AdminUsers.md#Delete) | **DELETE** /adminusers/{userID} | 
+*OrderCloud.AdminUsers* | [**Get**](docs/AdminUsers.md#Get) | **GET** /adminusers/{userID} | 
+*OrderCloud.AdminUsers* | [**List**](docs/AdminUsers.md#List) | **GET** /adminusers | 
+*OrderCloud.AdminUsers* | [**Patch**](docs/AdminUsers.md#Patch) | **PATCH** /adminusers/{userID} | 
+*OrderCloud.AdminUsers* | [**Update**](docs/AdminUsers.md#Update) | **PUT** /adminusers/{userID} | 
+*OrderCloud.AdminUserGroups* | [**Create**](docs/AdminUserGroups.md#Create) | **POST** /usergroups | 
+*OrderCloud.AdminUserGroups* | [**Delete**](docs/AdminUserGroups.md#Delete) | **DELETE** /usergroups/{userGroupID} | 
+*OrderCloud.AdminUserGroups* | [**DeleteUserAssignment**](docs/AdminUserGroups.md#DeleteUserAssignment) | **DELETE** /usergroups/{userGroupID}/assignments/{userID} | 
+*OrderCloud.AdminUserGroups* | [**Get**](docs/AdminUserGroups.md#Get) | **GET** /usergroups/{userGroupID} | 
+*OrderCloud.AdminUserGroups* | [**List**](docs/AdminUserGroups.md#List) | **GET** /usergroups | 
+*OrderCloud.AdminUserGroups* | [**ListUserAssignments**](docs/AdminUserGroups.md#ListUserAssignments) | **GET** /usergroups/assignments | 
+*OrderCloud.AdminUserGroups* | [**Patch**](docs/AdminUserGroups.md#Patch) | **PATCH** /usergroups/{userGroupID} | 
+*OrderCloud.AdminUserGroups* | [**SaveUserAssignment**](docs/AdminUserGroups.md#SaveUserAssignment) | **POST** /usergroups/assignments | 
+*OrderCloud.AdminUserGroups* | [**Update**](docs/AdminUserGroups.md#Update) | **PUT** /usergroups/{userGroupID} | 
+*OrderCloud.ApprovalRules* | [**Create**](docs/ApprovalRules.md#Create) | **POST** /buyers/{buyerID}/approvalrules | 
+*OrderCloud.ApprovalRules* | [**Delete**](docs/ApprovalRules.md#Delete) | **DELETE** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+*OrderCloud.ApprovalRules* | [**Get**](docs/ApprovalRules.md#Get) | **GET** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+*OrderCloud.ApprovalRules* | [**List**](docs/ApprovalRules.md#List) | **GET** /buyers/{buyerID}/approvalrules | 
+*OrderCloud.ApprovalRules* | [**Patch**](docs/ApprovalRules.md#Patch) | **PATCH** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+*OrderCloud.ApprovalRules* | [**Update**](docs/ApprovalRules.md#Update) | **PUT** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+*OrderCloud.Buyers* | [**Create**](docs/Buyers.md#Create) | **POST** /buyers | 
+*OrderCloud.Buyers* | [**Delete**](docs/Buyers.md#Delete) | **DELETE** /buyers/{buyerID} | 
+*OrderCloud.Buyers* | [**Get**](docs/Buyers.md#Get) | **GET** /buyers/{buyerID} | 
+*OrderCloud.Buyers* | [**List**](docs/Buyers.md#List) | **GET** /buyers | 
+*OrderCloud.Buyers* | [**Patch**](docs/Buyers.md#Patch) | **PATCH** /buyers/{buyerID} | 
+*OrderCloud.Buyers* | [**Update**](docs/Buyers.md#Update) | **PUT** /buyers/{buyerID} | 
+*OrderCloud.Catalogs* | [**Create**](docs/Catalogs.md#Create) | **POST** /catalogs | 
+*OrderCloud.Catalogs* | [**Delete**](docs/Catalogs.md#Delete) | **DELETE** /catalogs/{catalogID} | 
+*OrderCloud.Catalogs* | [**DeleteAssignment**](docs/Catalogs.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/assignments | 
+*OrderCloud.Catalogs* | [**Get**](docs/Catalogs.md#Get) | **GET** /catalogs/{catalogID} | 
+*OrderCloud.Catalogs* | [**List**](docs/Catalogs.md#List) | **GET** /catalogs | 
+*OrderCloud.Catalogs* | [**ListAssignments**](docs/Catalogs.md#ListAssignments) | **GET** /catalogs/assignments | 
+*OrderCloud.Catalogs* | [**Patch**](docs/Catalogs.md#Patch) | **PATCH** /catalogs/{catalogID} | 
+*OrderCloud.Catalogs* | [**SaveAssignment**](docs/Catalogs.md#SaveAssignment) | **POST** /catalogs/assignments | 
+*OrderCloud.Catalogs* | [**Update**](docs/Catalogs.md#Update) | **PUT** /catalogs/{catalogID} | 
+*OrderCloud.Categorys* | [**Create**](docs/Categorys.md#Create) | **POST** /catalogs/{catalogID}/categories | 
+*OrderCloud.Categorys* | [**Delete**](docs/Categorys.md#Delete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.Categorys* | [**DeleteAssignment**](docs/Categorys.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
+*OrderCloud.Categorys* | [**DeleteProductAssignment**](docs/Categorys.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
+*OrderCloud.Categorys* | [**Get**](docs/Categorys.md#Get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.Categorys* | [**List**](docs/Categorys.md#List) | **GET** /catalogs/{catalogID}/categories | 
+*OrderCloud.Categorys* | [**ListAssignments**](docs/Categorys.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
+*OrderCloud.Categorys* | [**ListProductAssignments**](docs/Categorys.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
+*OrderCloud.Categorys* | [**Patch**](docs/Categorys.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.Categorys* | [**SaveAssignment**](docs/Categorys.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
+*OrderCloud.Categorys* | [**SaveProductAssignment**](docs/Categorys.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
+*OrderCloud.Categorys* | [**Update**](docs/Categorys.md#Update) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.CostCenters* | [**Create**](docs/CostCenters.md#Create) | **POST** /buyers/{buyerID}/costcenters | 
+*OrderCloud.CostCenters* | [**Delete**](docs/CostCenters.md#Delete) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID} | 
+*OrderCloud.CostCenters* | [**DeleteAssignment**](docs/CostCenters.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID}/assignments | 
+*OrderCloud.CostCenters* | [**Get**](docs/CostCenters.md#Get) | **GET** /buyers/{buyerID}/costcenters/{costCenterID} | 
+*OrderCloud.CostCenters* | [**List**](docs/CostCenters.md#List) | **GET** /buyers/{buyerID}/costcenters | 
+*OrderCloud.CostCenters* | [**ListAssignments**](docs/CostCenters.md#ListAssignments) | **GET** /buyers/{buyerID}/costcenters/assignments | 
+*OrderCloud.CostCenters* | [**Patch**](docs/CostCenters.md#Patch) | **PATCH** /buyers/{buyerID}/costcenters/{costCenterID} | 
+*OrderCloud.CostCenters* | [**SaveAssignment**](docs/CostCenters.md#SaveAssignment) | **POST** /buyers/{buyerID}/costcenters/assignments | 
+*OrderCloud.CostCenters* | [**Update**](docs/CostCenters.md#Update) | **PUT** /buyers/{buyerID}/costcenters/{costCenterID} | 
+*OrderCloud.CreditCards* | [**Create**](docs/CreditCards.md#Create) | **POST** /buyers/{buyerID}/creditcards | 
+*OrderCloud.CreditCards* | [**Delete**](docs/CreditCards.md#Delete) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID} | 
+*OrderCloud.CreditCards* | [**DeleteAssignment**](docs/CreditCards.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID}/assignments | 
+*OrderCloud.CreditCards* | [**Get**](docs/CreditCards.md#Get) | **GET** /buyers/{buyerID}/creditcards/{creditCardID} | 
+*OrderCloud.CreditCards* | [**List**](docs/CreditCards.md#List) | **GET** /buyers/{buyerID}/creditcards | 
+*OrderCloud.CreditCards* | [**ListAssignments**](docs/CreditCards.md#ListAssignments) | **GET** /buyers/{buyerID}/creditcards/assignments | 
+*OrderCloud.CreditCards* | [**Patch**](docs/CreditCards.md#Patch) | **PATCH** /buyers/{buyerID}/creditcards/{creditCardID} | 
+*OrderCloud.CreditCards* | [**SaveAssignment**](docs/CreditCards.md#SaveAssignment) | **POST** /buyers/{buyerID}/creditcards/assignments | 
+*OrderCloud.CreditCards* | [**Update**](docs/CreditCards.md#Update) | **PUT** /buyers/{buyerID}/creditcards/{creditCardID} | 
+*OrderCloud.LineItems* | [**Create**](docs/LineItems.md#Create) | **POST** /buyers/{buyerID}/orders/{orderID}/lineitems | 
+*OrderCloud.LineItems* | [**Delete**](docs/LineItems.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
+*OrderCloud.LineItems* | [**Get**](docs/LineItems.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
+*OrderCloud.LineItems* | [**List**](docs/LineItems.md#List) | **GET** /buyers/{buyerID}/orders/{orderID}/lineitems | 
+*OrderCloud.LineItems* | [**Patch**](docs/LineItems.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
+*OrderCloud.LineItems* | [**PatchShippingAddress**](docs/LineItems.md#PatchShippingAddress) | **PATCH** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto | 
+*OrderCloud.LineItems* | [**SetShippingAddress**](docs/LineItems.md#SetShippingAddress) | **PUT** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto | 
+*OrderCloud.LineItems* | [**Update**](docs/LineItems.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
+*OrderCloud.Me* | [**CreateAddress**](docs/Me.md#CreateAddress) | **POST** /me/addresses | 
+*OrderCloud.Me* | [**CreateCreditCard**](docs/Me.md#CreateCreditCard) | **POST** /me/creditcards | 
+*OrderCloud.Me* | [**CreateFromTempUser**](docs/Me.md#CreateFromTempUser) | **PUT** /me/register | 
+*OrderCloud.Me* | [**DeleteAddress**](docs/Me.md#DeleteAddress) | **DELETE** /me/addresses/{addressID} | 
+*OrderCloud.Me* | [**DeleteCreditCard**](docs/Me.md#DeleteCreditCard) | **DELETE** /me/creditcards/{creditcardID} | 
+*OrderCloud.Me* | [**Get**](docs/Me.md#Get) | **GET** /me | 
+*OrderCloud.Me* | [**GetAddress**](docs/Me.md#GetAddress) | **GET** /me/addresses/{addressID} | 
+*OrderCloud.Me* | [**GetCreditCard**](docs/Me.md#GetCreditCard) | **GET** /me/creditcards/{creditcardID} | 
+*OrderCloud.Me* | [**GetOrder**](docs/Me.md#GetOrder) | **GET** /me/orders/{orderID} | 
+*OrderCloud.Me* | [**GetProduct**](docs/Me.md#GetProduct) | **GET** /me/products/{productID} | 
+*OrderCloud.Me* | [**GetPromotion**](docs/Me.md#GetPromotion) | **GET** /me/promotions/{promotionID} | 
+*OrderCloud.Me* | [**GetSpec**](docs/Me.md#GetSpec) | **GET** /me/products/{productID}/specs/{specID} | 
+*OrderCloud.Me* | [**GetSpendingAccount**](docs/Me.md#GetSpendingAccount) | **GET** /me/spendingaccounts/{spendingAccountID} | 
+*OrderCloud.Me* | [**ListAddresses**](docs/Me.md#ListAddresses) | **GET** /me/addresses | 
+*OrderCloud.Me* | [**ListCategories**](docs/Me.md#ListCategories) | **GET** /me/categories | 
+*OrderCloud.Me* | [**ListCostCenters**](docs/Me.md#ListCostCenters) | **GET** /me/costcenters | 
+*OrderCloud.Me* | [**ListCreditCards**](docs/Me.md#ListCreditCards) | **GET** /me/creditcards | 
+*OrderCloud.Me* | [**ListIncomingOrders**](docs/Me.md#ListIncomingOrders) | **GET** /me/orders/incoming | 
+*OrderCloud.Me* | [**ListOutgoingOrders**](docs/Me.md#ListOutgoingOrders) | **GET** /me/orders/outgoing | 
+*OrderCloud.Me* | [**ListProducts**](docs/Me.md#ListProducts) | **GET** /me/products | 
+*OrderCloud.Me* | [**ListPromotions**](docs/Me.md#ListPromotions) | **GET** /me/promotions | 
+*OrderCloud.Me* | [**ListSpecs**](docs/Me.md#ListSpecs) | **GET** /me/products/{productID}/specs | 
+*OrderCloud.Me* | [**ListSpendingAccounts**](docs/Me.md#ListSpendingAccounts) | **GET** /me/spendingAccounts | 
+*OrderCloud.Me* | [**ListUserGroups**](docs/Me.md#ListUserGroups) | **GET** /me/usergroups | 
+*OrderCloud.Me* | [**Patch**](docs/Me.md#Patch) | **PATCH** /me | 
+*OrderCloud.Me* | [**PatchAddress**](docs/Me.md#PatchAddress) | **PATCH** /me/addresses/{addressID} | 
+*OrderCloud.Me* | [**PatchCreditCard**](docs/Me.md#PatchCreditCard) | **PATCH** /me/creditcards/{creditcardID} | 
+*OrderCloud.Me* | [**Update**](docs/Me.md#Update) | **PUT** /me | 
+*OrderCloud.Me* | [**UpdateAddress**](docs/Me.md#UpdateAddress) | **PUT** /me/addresses/{addressID} | 
+*OrderCloud.Me* | [**UpdateCreditCard**](docs/Me.md#UpdateCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
+*OrderCloud.MessageSenders* | [**DeleteAssignment**](docs/MessageSenders.md#DeleteAssignment) | **DELETE** /MessageSenders/{messageSenderID}/assignments | 
+*OrderCloud.MessageSenders* | [**Get**](docs/MessageSenders.md#Get) | **GET** /MessageSenders/{messageSenderID} | 
+*OrderCloud.MessageSenders* | [**List**](docs/MessageSenders.md#List) | **GET** /MessageSenders | 
+*OrderCloud.MessageSenders* | [**ListAssignments**](docs/MessageSenders.md#ListAssignments) | **GET** /MessageSenders/assignments | 
+*OrderCloud.MessageSenders* | [**ListCCListenerAssignments**](docs/MessageSenders.md#ListCCListenerAssignments) | **GET** /MessageSenders/CCListenerAssignments | 
+*OrderCloud.MessageSenders* | [**SaveAssignment**](docs/MessageSenders.md#SaveAssignment) | **POST** /MessageSenders/assignments | 
+*OrderCloud.MessageSenders* | [**SaveCCListenerAssignment**](docs/MessageSenders.md#SaveCCListenerAssignment) | **POST** /MessageSenders/CCListenerAssignments | 
+*OrderCloud.Orders* | [**AddPromotion**](docs/Orders.md#AddPromotion) | **POST** /buyers/{buyerID}/orders/{orderID}/promotions/{promoCode} | 
+*OrderCloud.Orders* | [**Approve**](docs/Orders.md#Approve) | **POST** /buyers/{buyerID}/orders/{orderID}/approve | 
+*OrderCloud.Orders* | [**Cancel**](docs/Orders.md#Cancel) | **POST** /buyers/{buyerID}/orders/{orderID}/cancel | 
+*OrderCloud.Orders* | [**Create**](docs/Orders.md#Create) | **POST** /buyers/{buyerID}/orders | 
+*OrderCloud.Orders* | [**Decline**](docs/Orders.md#Decline) | **POST** /buyers/{buyerID}/orders/{orderID}/decline | 
+*OrderCloud.Orders* | [**Delete**](docs/Orders.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID} | 
+*OrderCloud.Orders* | [**Get**](docs/Orders.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID} | 
+*OrderCloud.Orders* | [**ListApprovals**](docs/Orders.md#ListApprovals) | **GET** /buyers/{buyerID}/orders/{orderID}/approvals | 
+*OrderCloud.Orders* | [**ListEligibleApprovers**](docs/Orders.md#ListEligibleApprovers) | **GET** /buyers/{buyerID}/orders/{orderID}/eligibleapprovers | 
+*OrderCloud.Orders* | [**ListIncoming**](docs/Orders.md#ListIncoming) | **GET** /orders/incoming | 
+*OrderCloud.Orders* | [**ListOutgoing**](docs/Orders.md#ListOutgoing) | **GET** /orders/outgoing | 
+*OrderCloud.Orders* | [**ListPromotions**](docs/Orders.md#ListPromotions) | **GET** /buyers/{buyerID}/orders/{orderID}/promotions | 
+*OrderCloud.Orders* | [**Patch**](docs/Orders.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID} | 
+*OrderCloud.Orders* | [**PatchBillingAddress**](docs/Orders.md#PatchBillingAddress) | **PATCH** /buyers/{buyerID}/orders/{orderID}/billto | 
+*OrderCloud.Orders* | [**PatchShippingAddress**](docs/Orders.md#PatchShippingAddress) | **PATCH** /buyers/{buyerID}/orders/{orderID}/shipto | 
+*OrderCloud.Orders* | [**RemovePromotion**](docs/Orders.md#RemovePromotion) | **DELETE** /buyers/{buyerID}/orders/{orderID}/promotions/{promoCode} | 
+*OrderCloud.Orders* | [**SetBillingAddress**](docs/Orders.md#SetBillingAddress) | **PUT** /buyers/{buyerID}/orders/{orderID}/billto | 
+*OrderCloud.Orders* | [**SetShippingAddress**](docs/Orders.md#SetShippingAddress) | **PUT** /buyers/{buyerID}/orders/{orderID}/shipto | 
+*OrderCloud.Orders* | [**Ship**](docs/Orders.md#Ship) | **POST** /buyers/{buyerID}/orders/{orderID}/ship | 
+*OrderCloud.Orders* | [**Submit**](docs/Orders.md#Submit) | **POST** /buyers/{buyerID}/orders/{orderID}/submit | 
+*OrderCloud.Orders* | [**TransferTempUserOrder**](docs/Orders.md#TransferTempUserOrder) | **PUT** /buyers/{buyerID}/orders | 
+*OrderCloud.Orders* | [**Update**](docs/Orders.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID} | 
+*OrderCloud.PasswordResets* | [**ResetPassword**](docs/PasswordResets.md#ResetPassword) | **PUT** /password/reset/{verificationCode} | 
+*OrderCloud.PasswordResets* | [**SendVerificationCode**](docs/PasswordResets.md#SendVerificationCode) | **POST** /password/reset | 
+*OrderCloud.Payments* | [**Create**](docs/Payments.md#Create) | **POST** /buyers/{buyerID}/orders/{orderID}/payments | 
+*OrderCloud.Payments* | [**CreateTransaction**](docs/Payments.md#CreateTransaction) | **POST** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions | 
+*OrderCloud.Payments* | [**Delete**](docs/Payments.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
+*OrderCloud.Payments* | [**DeleteTransaction**](docs/Payments.md#DeleteTransaction) | **DELETE** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
+*OrderCloud.Payments* | [**Get**](docs/Payments.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
+*OrderCloud.Payments* | [**List**](docs/Payments.md#List) | **GET** /buyers/{buyerID}/orders/{orderID}/payments | 
+*OrderCloud.Payments* | [**Patch**](docs/Payments.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
+*OrderCloud.Payments* | [**PatchTransaction**](docs/Payments.md#PatchTransaction) | **PATCH** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
+*OrderCloud.Payments* | [**Update**](docs/Payments.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
+*OrderCloud.Payments* | [**UpdateTransaction**](docs/Payments.md#UpdateTransaction) | **PUT** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
+*OrderCloud.PriceSchedules* | [**Create**](docs/PriceSchedules.md#Create) | **POST** /priceschedules | 
+*OrderCloud.PriceSchedules* | [**Delete**](docs/PriceSchedules.md#Delete) | **DELETE** /priceschedules/{priceScheduleID} | 
+*OrderCloud.PriceSchedules* | [**DeletePriceBreak**](docs/PriceSchedules.md#DeletePriceBreak) | **DELETE** /priceschedules/{priceScheduleID}/PriceBreaks | 
+*OrderCloud.PriceSchedules* | [**Get**](docs/PriceSchedules.md#Get) | **GET** /priceschedules/{priceScheduleID} | 
+*OrderCloud.PriceSchedules* | [**List**](docs/PriceSchedules.md#List) | **GET** /priceschedules | 
+*OrderCloud.PriceSchedules* | [**Patch**](docs/PriceSchedules.md#Patch) | **PATCH** /priceschedules/{priceScheduleID} | 
+*OrderCloud.PriceSchedules* | [**SavePriceBreak**](docs/PriceSchedules.md#SavePriceBreak) | **POST** /priceschedules/{priceScheduleID}/PriceBreaks | 
+*OrderCloud.PriceSchedules* | [**Update**](docs/PriceSchedules.md#Update) | **PUT** /priceschedules/{priceScheduleID} | 
+*OrderCloud.Products* | [**Create**](docs/Products.md#Create) | **POST** /products | 
+*OrderCloud.Products* | [**Delete**](docs/Products.md#Delete) | **DELETE** /products/{productID} | 
+*OrderCloud.Products* | [**DeleteAssignment**](docs/Products.md#DeleteAssignment) | **DELETE** /products/{productID}/assignments/{buyerID} | 
+*OrderCloud.Products* | [**GenerateVariants**](docs/Products.md#GenerateVariants) | **POST** /products/{productID}/variants/generate | 
+*OrderCloud.Products* | [**Get**](docs/Products.md#Get) | **GET** /products/{productID} | 
+*OrderCloud.Products* | [**GetInventory**](docs/Products.md#GetInventory) | **GET** /products/{productID}/inventory | 
+*OrderCloud.Products* | [**GetVariant**](docs/Products.md#GetVariant) | **GET** /products/{productID}/variants/{variantID} | 
+*OrderCloud.Products* | [**GetVariantInventory**](docs/Products.md#GetVariantInventory) | **GET** /products/{productID}/variants/inventory/{variantID} | 
+*OrderCloud.Products* | [**List**](docs/Products.md#List) | **GET** /products | 
+*OrderCloud.Products* | [**ListAssignments**](docs/Products.md#ListAssignments) | **GET** /products/assignments | 
+*OrderCloud.Products* | [**ListInventory**](docs/Products.md#ListInventory) | **GET** /products/inventory | 
+*OrderCloud.Products* | [**ListVariantInventory**](docs/Products.md#ListVariantInventory) | **GET** /products/{productID}/variants/inventory | 
+*OrderCloud.Products* | [**ListVariants**](docs/Products.md#ListVariants) | **GET** /products/{productID}/variants | 
+*OrderCloud.Products* | [**Patch**](docs/Products.md#Patch) | **PATCH** /products/{productID} | 
+*OrderCloud.Products* | [**PatchVariant**](docs/Products.md#PatchVariant) | **PATCH** /products/{productID}/variants/{variantID} | 
+*OrderCloud.Products* | [**SaveAssignment**](docs/Products.md#SaveAssignment) | **POST** /products/assignments | 
+*OrderCloud.Products* | [**Update**](docs/Products.md#Update) | **PUT** /products/{productID} | 
+*OrderCloud.Products* | [**UpdateInventory**](docs/Products.md#UpdateInventory) | **PUT** /products/{productID}/inventory/{inventory} | 
+*OrderCloud.Products* | [**UpdateVariant**](docs/Products.md#UpdateVariant) | **PUT** /products/{productID}/variants/{variantID} | 
+*OrderCloud.Products* | [**UpdateVariantInventory**](docs/Products.md#UpdateVariantInventory) | **PUT** /products/{productID}/variants/inventory/{variantID}/{inventory} | 
+*OrderCloud.Promotions* | [**Create**](docs/Promotions.md#Create) | **POST** /promotions | 
+*OrderCloud.Promotions* | [**Delete**](docs/Promotions.md#Delete) | **DELETE** /promotions/{promotionID} | 
+*OrderCloud.Promotions* | [**DeleteAssignment**](docs/Promotions.md#DeleteAssignment) | **DELETE** /promotions/{promotionID}/assignments | 
+*OrderCloud.Promotions* | [**Get**](docs/Promotions.md#Get) | **GET** /promotions/{promotionID} | 
+*OrderCloud.Promotions* | [**List**](docs/Promotions.md#List) | **GET** /promotions | 
+*OrderCloud.Promotions* | [**ListAssignments**](docs/Promotions.md#ListAssignments) | **GET** /promotions/assignments | 
+*OrderCloud.Promotions* | [**Patch**](docs/Promotions.md#Patch) | **PATCH** /promotions/{promotionID} | 
+*OrderCloud.Promotions* | [**SaveAssignment**](docs/Promotions.md#SaveAssignment) | **POST** /promotions/assignments | 
+*OrderCloud.Promotions* | [**Update**](docs/Promotions.md#Update) | **PUT** /promotions/{promotionID} | 
+*OrderCloud.SecurityProfiles* | [**DeleteAssignment**](docs/SecurityProfiles.md#DeleteAssignment) | **DELETE** /securityprofiles/{securityProfileID}/assignments | 
+*OrderCloud.SecurityProfiles* | [**Get**](docs/SecurityProfiles.md#Get) | **GET** /securityprofiles/{securityProfileID} | 
+*OrderCloud.SecurityProfiles* | [**List**](docs/SecurityProfiles.md#List) | **GET** /securityprofiles | 
+*OrderCloud.SecurityProfiles* | [**ListAssignments**](docs/SecurityProfiles.md#ListAssignments) | **GET** /securityprofiles/assignments | 
+*OrderCloud.SecurityProfiles* | [**SaveAssignment**](docs/SecurityProfiles.md#SaveAssignment) | **POST** /securityprofiles/assignments | 
+*OrderCloud.Shipments* | [**Create**](docs/Shipments.md#Create) | **POST** /buyers/{buyerID}/shipments | 
+*OrderCloud.Shipments* | [**Delete**](docs/Shipments.md#Delete) | **DELETE** /buyers/{buyerID}/shipments/{shipmentID} | 
+*OrderCloud.Shipments* | [**DeleteItem**](docs/Shipments.md#DeleteItem) | **DELETE** /buyers/{buyerID}/shipments/{shipmentID}/items/{orderID}/{lineItemID} | 
+*OrderCloud.Shipments* | [**Get**](docs/Shipments.md#Get) | **GET** /buyers/{buyerID}/shipments/{shipmentID} | 
+*OrderCloud.Shipments* | [**List**](docs/Shipments.md#List) | **GET** /buyers/{buyerID}/shipments | 
+*OrderCloud.Shipments* | [**Patch**](docs/Shipments.md#Patch) | **PATCH** /buyers/{buyerID}/shipments/{shipmentID} | 
+*OrderCloud.Shipments* | [**SaveItem**](docs/Shipments.md#SaveItem) | **POST** /buyers/{buyerID}/shipments/{shipmentID}/items | 
+*OrderCloud.Shipments* | [**Update**](docs/Shipments.md#Update) | **PUT** /buyers/{buyerID}/shipments/{shipmentID} | 
+*OrderCloud.Specs* | [**Create**](docs/Specs.md#Create) | **POST** /specs | 
+*OrderCloud.Specs* | [**CreateOption**](docs/Specs.md#CreateOption) | **POST** /specs/{specID}/options | 
+*OrderCloud.Specs* | [**Delete**](docs/Specs.md#Delete) | **DELETE** /specs/{specID} | 
+*OrderCloud.Specs* | [**DeleteOption**](docs/Specs.md#DeleteOption) | **DELETE** /specs/{specID}/options/{optionID} | 
+*OrderCloud.Specs* | [**DeleteProductAssignment**](docs/Specs.md#DeleteProductAssignment) | **DELETE** /specs/{specID}/productassignments/{productID} | 
+*OrderCloud.Specs* | [**Get**](docs/Specs.md#Get) | **GET** /specs/{specID} | 
+*OrderCloud.Specs* | [**GetOption**](docs/Specs.md#GetOption) | **GET** /specs/{specID}/options/{optionID} | 
+*OrderCloud.Specs* | [**List**](docs/Specs.md#List) | **GET** /specs | 
+*OrderCloud.Specs* | [**ListOptions**](docs/Specs.md#ListOptions) | **GET** /specs/{specID}/options | 
+*OrderCloud.Specs* | [**ListProductAssignments**](docs/Specs.md#ListProductAssignments) | **GET** /specs/productassignments | 
+*OrderCloud.Specs* | [**Patch**](docs/Specs.md#Patch) | **PATCH** /specs/{specID} | 
+*OrderCloud.Specs* | [**PatchOption**](docs/Specs.md#PatchOption) | **PATCH** /specs/{specID}/options/{optionID} | 
+*OrderCloud.Specs* | [**SaveProductAssignment**](docs/Specs.md#SaveProductAssignment) | **POST** /specs/productassignments | 
+*OrderCloud.Specs* | [**Update**](docs/Specs.md#Update) | **PUT** /specs/{specID} | 
+*OrderCloud.Specs* | [**UpdateOption**](docs/Specs.md#UpdateOption) | **PUT** /specs/{specID}/options/{optionID} | 
+*OrderCloud.SpendingAccounts* | [**Create**](docs/SpendingAccounts.md#Create) | **POST** /buyers/{buyerID}/spendingaccounts | 
+*OrderCloud.SpendingAccounts* | [**Delete**](docs/SpendingAccounts.md#Delete) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+*OrderCloud.SpendingAccounts* | [**DeleteAssignment**](docs/SpendingAccounts.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID}/assignments | 
+*OrderCloud.SpendingAccounts* | [**Get**](docs/SpendingAccounts.md#Get) | **GET** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+*OrderCloud.SpendingAccounts* | [**List**](docs/SpendingAccounts.md#List) | **GET** /buyers/{buyerID}/spendingaccounts | 
+*OrderCloud.SpendingAccounts* | [**ListAssignments**](docs/SpendingAccounts.md#ListAssignments) | **GET** /buyers/{buyerID}/spendingaccounts/assignments | 
+*OrderCloud.SpendingAccounts* | [**Patch**](docs/SpendingAccounts.md#Patch) | **PATCH** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+*OrderCloud.SpendingAccounts* | [**SaveAssignment**](docs/SpendingAccounts.md#SaveAssignment) | **POST** /buyers/{buyerID}/spendingaccounts/assignments | 
+*OrderCloud.SpendingAccounts* | [**Update**](docs/SpendingAccounts.md#Update) | **PUT** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+*OrderCloud.Users* | [**Create**](docs/Users.md#Create) | **POST** /buyers/{buyerID}/users | 
+*OrderCloud.Users* | [**Delete**](docs/Users.md#Delete) | **DELETE** /buyers/{buyerID}/users/{userID} | 
+*OrderCloud.Users* | [**Get**](docs/Users.md#Get) | **GET** /buyers/{buyerID}/users/{userID} | 
+*OrderCloud.Users* | [**GetAccessToken**](docs/Users.md#GetAccessToken) | **POST** /buyers/{buyerID}/users/{userID}/accesstoken | 
+*OrderCloud.Users* | [**List**](docs/Users.md#List) | **GET** /buyers/{buyerID}/users | 
+*OrderCloud.Users* | [**Patch**](docs/Users.md#Patch) | **PATCH** /buyers/{buyerID}/users/{userID} | 
+*OrderCloud.Users* | [**Update**](docs/Users.md#Update) | **PUT** /buyers/{buyerID}/users/{userID} | 
+*OrderCloud.UserGroups* | [**Create**](docs/UserGroups.md#Create) | **POST** /buyers/{buyerID}/usergroups | 
+*OrderCloud.UserGroups* | [**Delete**](docs/UserGroups.md#Delete) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID} | 
+*OrderCloud.UserGroups* | [**DeleteUserAssignment**](docs/UserGroups.md#DeleteUserAssignment) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID}/assignments/{userID} | 
+*OrderCloud.UserGroups* | [**Get**](docs/UserGroups.md#Get) | **GET** /buyers/{buyerID}/usergroups/{userGroupID} | 
+*OrderCloud.UserGroups* | [**List**](docs/UserGroups.md#List) | **GET** /buyers/{buyerID}/usergroups | 
+*OrderCloud.UserGroups* | [**ListUserAssignments**](docs/UserGroups.md#ListUserAssignments) | **GET** /buyers/{buyerID}/usergroups/assignments | 
+*OrderCloud.UserGroups* | [**Patch**](docs/UserGroups.md#Patch) | **PATCH** /buyers/{buyerID}/usergroups/{userGroupID} | 
+*OrderCloud.UserGroups* | [**SaveUserAssignment**](docs/UserGroups.md#SaveUserAssignment) | **POST** /buyers/{buyerID}/usergroups/assignments | 
+*OrderCloud.UserGroups* | [**Update**](docs/UserGroups.md#Update) | **PUT** /buyers/{buyerID}/usergroups/{userGroupID} | 
 
 
 ## Documentation for Models
@@ -383,8 +383,6 @@ Class | Method | HTTP request | Description
  - [OrderCloud.ListMessageConfig](docs/ListMessageConfig.md)
  - [OrderCloud.ListMessageSender](docs/ListMessageSender.md)
  - [OrderCloud.ListMessageSenderAssignment](docs/ListMessageSenderAssignment.md)
- - [OrderCloud.ListNativeIntegrationProxyAssignment](docs/ListNativeIntegrationProxyAssignment.md)
- - [OrderCloud.ListNativeIntegrtionProxyConfig](docs/ListNativeIntegrtionProxyConfig.md)
  - [OrderCloud.ListOrder](docs/ListOrder.md)
  - [OrderCloud.ListOrderApproval](docs/ListOrderApproval.md)
  - [OrderCloud.ListOrderPromotion](docs/ListOrderPromotion.md)
@@ -406,16 +404,12 @@ Class | Method | HTTP request | Description
  - [OrderCloud.ListUserGroup](docs/ListUserGroup.md)
  - [OrderCloud.ListUserGroupAssignment](docs/ListUserGroupAssignment.md)
  - [OrderCloud.ListVariant](docs/ListVariant.md)
- - [OrderCloud.ListWebHook](docs/ListWebHook.md)
- - [OrderCloud.ListWebHookRoute](docs/ListWebHookRoute.md)
  - [OrderCloud.ListXpIndex](docs/ListXpIndex.md)
  - [OrderCloud.MessageCCListenerAssignment](docs/MessageCCListenerAssignment.md)
  - [OrderCloud.MessageConfig](docs/MessageConfig.md)
  - [OrderCloud.MessageSender](docs/MessageSender.md)
  - [OrderCloud.MessageSenderAssignment](docs/MessageSenderAssignment.md)
  - [OrderCloud.Meta](docs/Meta.md)
- - [OrderCloud.NativeIntegrationProxyAssignment](docs/NativeIntegrationProxyAssignment.md)
- - [OrderCloud.NativeIntegrtionProxyConfig](docs/NativeIntegrtionProxyConfig.md)
  - [OrderCloud.Order](docs/Order.md)
  - [OrderCloud.OrderApproval](docs/OrderApproval.md)
  - [OrderCloud.OrderPromotion](docs/OrderPromotion.md)
@@ -440,15 +434,10 @@ Class | Method | HTTP request | Description
  - [OrderCloud.SpendingAccount](docs/SpendingAccount.md)
  - [OrderCloud.SpendingAccountAssignment](docs/SpendingAccountAssignment.md)
  - [OrderCloud.StripeCreditCard](docs/StripeCreditCard.md)
- - [OrderCloud.Usage](docs/Usage.md)
- - [OrderCloud.UsageBuyer](docs/UsageBuyer.md)
- - [OrderCloud.UsageOrganization](docs/UsageOrganization.md)
  - [OrderCloud.User](docs/User.md)
  - [OrderCloud.UserGroup](docs/UserGroup.md)
  - [OrderCloud.UserGroupAssignment](docs/UserGroupAssignment.md)
  - [OrderCloud.Variant](docs/Variant.md)
- - [OrderCloud.WebHook](docs/WebHook.md)
- - [OrderCloud.WebHookRoute](docs/WebHookRoute.md)
  - [OrderCloud.XpIndex](docs/XpIndex.md)
 
 
