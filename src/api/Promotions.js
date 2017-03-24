@@ -209,7 +209,7 @@
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
     this.List = function(opts) {
@@ -246,8 +246,8 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
+     * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.promotionID ID of the promotion.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
@@ -256,20 +256,15 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotionAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling ListAssignments");
-      }
 
 
       var pathParams = {
       };
       var queryParams = {
-        'buyerID': buyerID,
+        'buyerID': opts['buyerID'],
         'promotionID': opts['promotionID'],
         'userID': opts['userID'],
         'userGroupID': opts['userGroupID'],

@@ -47,6 +47,25 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -66,6 +85,63 @@
       if (data.hasOwnProperty('StandardPriceSchedule')) {
         obj['StandardPriceSchedule'] = PriceSchedule.constructFromObject(data['StandardPriceSchedule']);
       }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      }
+      if (data.hasOwnProperty('QuantityMultiplier')) {
+        obj['QuantityMultiplier'] = ApiClient.convertToType(data['QuantityMultiplier'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipWeight')) {
+        obj['ShipWeight'] = ApiClient.convertToType(data['ShipWeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipHeight')) {
+        obj['ShipHeight'] = ApiClient.convertToType(data['ShipHeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipWidth')) {
+        obj['ShipWidth'] = ApiClient.convertToType(data['ShipWidth'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipLength')) {
+        obj['ShipLength'] = ApiClient.convertToType(data['ShipLength'], 'Number');
+      }
+      if (data.hasOwnProperty('Active')) {
+        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+      }
+      if (data.hasOwnProperty('Type')) {
+        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
+      }
+      if (data.hasOwnProperty('InventoryEnabled')) {
+        obj['InventoryEnabled'] = ApiClient.convertToType(data['InventoryEnabled'], 'Boolean');
+      }
+      if (data.hasOwnProperty('InventoryNotificationPoint')) {
+        obj['InventoryNotificationPoint'] = ApiClient.convertToType(data['InventoryNotificationPoint'], 'Number');
+      }
+      if (data.hasOwnProperty('VariantLevelInventory')) {
+        obj['VariantLevelInventory'] = ApiClient.convertToType(data['VariantLevelInventory'], 'Boolean');
+      }
+      if (data.hasOwnProperty('SpecCount')) {
+        obj['SpecCount'] = ApiClient.convertToType(data['SpecCount'], 'Number');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
+      if (data.hasOwnProperty('AllowOrderExceedInventory')) {
+        obj['AllowOrderExceedInventory'] = ApiClient.convertToType(data['AllowOrderExceedInventory'], 'Boolean');
+      }
+      if (data.hasOwnProperty('InventoryVisible')) {
+        obj['InventoryVisible'] = ApiClient.convertToType(data['InventoryVisible'], 'Boolean');
+      }
+      if (data.hasOwnProperty('VariantCount')) {
+        obj['VariantCount'] = ApiClient.convertToType(data['VariantCount'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipFromAddressID')) {
+        obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
+      }
     }
     return obj;
   }
@@ -78,6 +154,82 @@
    * @member {module:model/PriceSchedule} StandardPriceSchedule
    */
   exports.prototype['StandardPriceSchedule'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
+   * @member {Number} QuantityMultiplier
+   */
+  exports.prototype['QuantityMultiplier'] = undefined;
+  /**
+   * @member {Number} ShipWeight
+   */
+  exports.prototype['ShipWeight'] = undefined;
+  /**
+   * @member {Number} ShipHeight
+   */
+  exports.prototype['ShipHeight'] = undefined;
+  /**
+   * @member {Number} ShipWidth
+   */
+  exports.prototype['ShipWidth'] = undefined;
+  /**
+   * @member {Number} ShipLength
+   */
+  exports.prototype['ShipLength'] = undefined;
+  /**
+   * @member {Boolean} Active
+   */
+  exports.prototype['Active'] = undefined;
+  /**
+   * @member {String} Type
+   */
+  exports.prototype['Type'] = undefined;
+  /**
+   * @member {Boolean} InventoryEnabled
+   */
+  exports.prototype['InventoryEnabled'] = undefined;
+  /**
+   * @member {Number} InventoryNotificationPoint
+   */
+  exports.prototype['InventoryNotificationPoint'] = undefined;
+  /**
+   * @member {Boolean} VariantLevelInventory
+   */
+  exports.prototype['VariantLevelInventory'] = undefined;
+  /**
+   * @member {Number} SpecCount
+   */
+  exports.prototype['SpecCount'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
+  /**
+   * @member {Boolean} AllowOrderExceedInventory
+   */
+  exports.prototype['AllowOrderExceedInventory'] = undefined;
+  /**
+   * @member {Boolean} InventoryVisible
+   */
+  exports.prototype['InventoryVisible'] = undefined;
+  /**
+   * @member {Number} VariantCount
+   */
+  exports.prototype['VariantCount'] = undefined;
+  /**
+   * @member {String} ShipFromAddressID
+   */
+  exports.prototype['ShipFromAddressID'] = undefined;
 
 
 

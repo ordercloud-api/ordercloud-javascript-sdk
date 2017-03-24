@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.OrderCloud = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.OrderCloudSDK = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 },{}],2:[function(require,module,exports){
 'use strict'
@@ -3440,9 +3440,9 @@ module.exports = request;
     /**
     * The base URL against Auth calls are resolved.
     * @type {String}
-    * @default https://auth.ordercloud.io/v1
+    * @default https://auth.ordercloud.io
     */
-    this.baseAuthPath = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '');
+    this.baseAuthPath = 'https://auth.ordercloud.io'.replace(/\/+$/, '');
 
     /**
      * The authentication methods to be included for all API calls.
@@ -4206,7 +4206,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
     this.List = function(buyerID, opts) {
@@ -4608,7 +4608,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
     this.List = function(opts) {
@@ -4937,7 +4937,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.List = function(opts) {
@@ -5134,7 +5134,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListUserGroup":104,"../model/ListUserGroupAssignment":105,"../model/UserGroup":138,"../model/UserGroupAssignment":139}],13:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListUserGroup":103,"../model/ListUserGroupAssignment":104,"../model/UserGroup":136,"../model/UserGroupAssignment":137}],13:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5297,7 +5297,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.List = function(opts) {
@@ -5420,7 +5420,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListUser":103,"../model/User":137}],14:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListUser":102,"../model/User":135}],14:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5605,7 +5605,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApprovalRule}
      */
     this.List = function(buyerID, opts) {
@@ -6157,7 +6157,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyer}
      */
     this.List = function(opts) {
@@ -6486,7 +6486,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
     this.List = function(opts) {
@@ -6975,7 +6975,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
     this.List = function(catalogID, opts) {
@@ -7535,7 +7535,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
     this.List = function(buyerID, opts) {
@@ -8004,7 +8004,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCard}
      */
     this.List = function(buyerID, opts) {
@@ -8446,7 +8446,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListLineItem}
      */
     this.List = function(buyerID, orderID, opts) {
@@ -8841,48 +8841,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} tempUserToken Temp user token of the me.
-     * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
-     */
-    this.CreateFromTempUser = function(tempUserToken, user) {
-      var postBody = user;
-
-      // verify the required parameter 'tempUserToken' is set
-      if (tempUserToken == undefined || tempUserToken == null) {
-        throw new Error("Missing the required parameter 'tempUserToken' when calling CreateFromTempUser");
-      }
-
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling CreateFromTempUser");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'tempUserToken': tempUserToken
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Object;
-
-      return this.apiClient.callApi(
-        '/me/register', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -9249,7 +9207,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerAddress}
      */
     this.ListAddresses = function(opts) {
@@ -9294,7 +9252,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
     this.ListCategories = function(opts) {
@@ -9339,7 +9297,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
     this.ListCostCenters = function(opts) {
@@ -9382,7 +9340,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerCreditCard}
      */
     this.ListCreditCards = function(opts) {
@@ -9427,7 +9385,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
     this.ListIncomingOrders = function(opts) {
@@ -9474,7 +9432,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
     this.ListOutgoingOrders = function(opts) {
@@ -9521,7 +9479,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerProduct}
      */
     this.ListProducts = function(opts) {
@@ -9566,7 +9524,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
     this.ListPromotions = function(opts) {
@@ -9610,7 +9568,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
      */
     this.ListSpecs = function(productID, opts) {
@@ -9659,7 +9617,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
     this.ListSpendingAccounts = function(opts) {
@@ -9702,7 +9660,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.ListUserGroups = function(opts) {
@@ -9979,7 +9937,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/BuyerAddress":44,"../model/BuyerCreditCard":45,"../model/BuyerProduct":46,"../model/BuyerSpec":47,"../model/CreditCard":55,"../model/ListBuyerAddress":67,"../model/ListBuyerCreditCard":68,"../model/ListBuyerProduct":69,"../model/ListBuyerSpec":70,"../model/ListCategory":73,"../model/ListCostCenter":76,"../model/ListOrder":86,"../model/ListPromotion":93,"../model/ListSpendingAccount":101,"../model/ListUserGroup":104,"../model/Order":113,"../model/Promotion":125,"../model/SpendingAccount":134,"../model/User":137}],23:[function(require,module,exports){
+},{"../ApiClient":9,"../model/Address":38,"../model/BuyerAddress":44,"../model/BuyerCreditCard":45,"../model/BuyerProduct":46,"../model/BuyerSpec":47,"../model/CreditCard":55,"../model/ListBuyerAddress":67,"../model/ListBuyerCreditCard":68,"../model/ListBuyerProduct":69,"../model/ListBuyerSpec":70,"../model/ListCategory":73,"../model/ListCostCenter":76,"../model/ListOrder":85,"../model/ListPromotion":92,"../model/ListSpendingAccount":100,"../model/ListUserGroup":103,"../model/Order":111,"../model/Promotion":123,"../model/SpendingAccount":132,"../model/User":135}],23:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10115,7 +10073,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSender}
      */
     this.List = function(opts) {
@@ -10203,7 +10161,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageCCListenerAssignment}
      */
     this.ListCCListenerAssignments = function(opts) {
@@ -10312,7 +10270,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListMessageCCListenerAssignment":82,"../model/ListMessageSender":84,"../model/ListMessageSenderAssignment":85,"../model/MessageCCListenerAssignment":108,"../model/MessageSender":110,"../model/MessageSenderAssignment":111}],24:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListMessageCCListenerAssignment":82,"../model/ListMessageSender":83,"../model/ListMessageSenderAssignment":84,"../model/MessageCCListenerAssignment":107,"../model/MessageSender":108,"../model/MessageSenderAssignment":109}],24:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10685,7 +10643,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderApproval}
      */
     this.ListApprovals = function(buyerID, orderID, opts) {
@@ -10742,7 +10700,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.ListEligibleApprovers = function(buyerID, orderID, opts) {
@@ -10800,7 +10758,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
     this.ListIncoming = function(opts) {
@@ -10849,7 +10807,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
     this.ListOutgoing = function(opts) {
@@ -10897,7 +10855,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderPromotion}
      */
     this.ListPromotions = function(buyerID, orderID, opts) {
@@ -11427,7 +11385,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/ListOrder":86,"../model/ListOrderApproval":87,"../model/ListOrderPromotion":88,"../model/ListUser":103,"../model/Order":113,"../model/Promotion":125,"../model/Shipment":129}],25:[function(require,module,exports){
+},{"../ApiClient":9,"../model/Address":38,"../model/ListOrder":85,"../model/ListOrderApproval":86,"../model/ListOrderPromotion":87,"../model/ListUser":102,"../model/Order":111,"../model/Promotion":123,"../model/Shipment":127}],25:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -11556,7 +11514,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/PasswordReset":116,"../model/PasswordResetRequest":117}],26:[function(require,module,exports){
+},{"../ApiClient":9,"../model/PasswordReset":114,"../model/PasswordResetRequest":115}],26:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -11876,7 +11834,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPayment}
      */
     this.List = function(buyerID, orderID, opts) {
@@ -12165,7 +12123,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListPayment":89,"../model/Payment":118,"../model/PaymentTransaction":119}],27:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListPayment":88,"../model/Payment":116,"../model/PaymentTransaction":117}],27:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12371,7 +12329,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPriceSchedule}
      */
     this.List = function(opts) {
@@ -12536,7 +12494,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListPriceSchedule":90,"../model/PriceBreak":121,"../model/PriceSchedule":122}],28:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListPriceSchedule":89,"../model/PriceBreak":119,"../model/PriceSchedule":120}],28:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12657,31 +12615,31 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} productID ID of the product.
      * @param {String} buyerID ID of the buyer.
+     * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(productID, buyerID, opts) {
+    this.DeleteAssignment = function(buyerID, productID, opts) {
       opts = opts || {};
       var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling DeleteAssignment");
-      }
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
         throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
       }
 
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling DeleteAssignment");
+      }
+
 
       var pathParams = {
-        'productID': productID,
-        'buyerID': buyerID
+        'buyerID': buyerID,
+        'productID': productID
       };
       var queryParams = {
         'userID': opts['userID'],
@@ -12910,7 +12868,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
     this.List = function(opts) {
@@ -13000,7 +12958,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
      */
     this.ListInventory = function(opts) {
@@ -13044,7 +13002,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
      */
     this.ListVariantInventory = function(productID, opts) {
@@ -13094,7 +13052,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListVariant}
      */
     this.ListVariants = function(productID, opts) {
@@ -13449,7 +13407,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Inventory":58,"../model/ListInventory":80,"../model/ListProduct":91,"../model/ListProductAssignment":92,"../model/ListVariant":106,"../model/Product":123,"../model/ProductAssignment":124,"../model/Variant":140}],29:[function(require,module,exports){
+},{"../ApiClient":9,"../model/Inventory":58,"../model/ListInventory":80,"../model/ListProduct":90,"../model/ListProductAssignment":91,"../model/ListVariant":105,"../model/Product":121,"../model/ProductAssignment":122,"../model/Variant":138}],29:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -13661,7 +13619,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
     this.List = function(opts) {
@@ -13698,8 +13656,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
+     * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.promotionID ID of the promotion.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
@@ -13708,20 +13666,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotionAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling ListAssignments");
-      }
 
 
       var pathParams = {
       };
       var queryParams = {
-        'buyerID': buyerID,
+        'buyerID': opts['buyerID'],
         'promotionID': opts['promotionID'],
         'userID': opts['userID'],
         'userGroupID': opts['userGroupID'],
@@ -13869,7 +13822,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListPromotion":93,"../model/ListPromotionAssignment":94,"../model/Promotion":125,"../model/PromotionAssignment":126}],30:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListPromotion":92,"../model/ListPromotionAssignment":93,"../model/Promotion":123,"../model/PromotionAssignment":124}],30:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14005,7 +13958,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfile}
      */
     this.List = function(opts) {
@@ -14124,7 +14077,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListSecurityProfile":95,"../model/ListSecurityProfileAssignment":96,"../model/SecurityProfile":127,"../model/SecurityProfileAssignment":128}],31:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListSecurityProfile":94,"../model/ListSecurityProfileAssignment":95,"../model/SecurityProfile":125,"../model/SecurityProfileAssignment":126}],31:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14367,7 +14320,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
     this.List = function(buyerID, opts) {
@@ -14560,7 +14513,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListShipment":97,"../model/Shipment":129,"../model/ShipmentItem":130}],32:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListShipment":96,"../model/Shipment":127,"../model/ShipmentItem":128}],32:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14894,7 +14847,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
     this.List = function(opts) {
@@ -14938,7 +14891,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecOption}
      */
     this.ListOptions = function(specID, opts) {
@@ -15239,7 +15192,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListSpec":98,"../model/ListSpecOption":99,"../model/ListSpecProductAssignment":100,"../model/Spec":131,"../model/SpecOption":132,"../model/SpecProductAssignment":133}],33:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListSpec":97,"../model/ListSpecOption":98,"../model/ListSpecProductAssignment":99,"../model/Spec":129,"../model/SpecOption":130,"../model/SpecProductAssignment":131}],33:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15473,7 +15426,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
     this.List = function(buyerID, opts) {
@@ -15708,7 +15661,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListSpendingAccount":101,"../model/ListSpendingAccountAssignment":102,"../model/SpendingAccount":134,"../model/SpendingAccountAssignment":135}],34:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListSpendingAccount":100,"../model/ListSpendingAccountAssignment":101,"../model/SpendingAccount":132,"../model/SpendingAccountAssignment":133}],34:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15943,7 +15896,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.List = function(buyerID, opts) {
@@ -16174,7 +16127,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListUserGroup":104,"../model/ListUserGroupAssignment":105,"../model/UserGroup":138,"../model/UserGroupAssignment":139}],35:[function(require,module,exports){
+},{"../ApiClient":9,"../model/ListUserGroup":103,"../model/ListUserGroupAssignment":104,"../model/UserGroup":136,"../model/UserGroupAssignment":137}],35:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16409,7 +16362,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.List = function(buyerID, opts) {
@@ -16553,7 +16506,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/AccessToken":37,"../model/ImpersonateTokenRequest":57,"../model/ListUser":103,"../model/User":137}],36:[function(require,module,exports){
+},{"../ApiClient":9,"../model/AccessToken":37,"../model/ImpersonateTokenRequest":57,"../model/ListUser":102,"../model/User":135}],36:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16570,12 +16523,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/AdminCompany', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListAdminCompany', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListInventory', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageConfig', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListXpIndex', 'model/MessageCCListenerAssignment', 'model/MessageConfig', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PingResponse', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/StripeCreditCard', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categorys', 'api/CostCenters', 'api/CreditCards', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
+    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/AdminCompany', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListAdminCompany', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListInventory', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListXpIndex', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PingResponse', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/StripeCreditCard', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categorys', 'api/CostCenters', 'api/CreditCards', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/AdminCompany'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListAdminCompany'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListInventory'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageConfig'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListXpIndex'), require('./model/MessageCCListenerAssignment'), require('./model/MessageConfig'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PingResponse'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/StripeCreditCard'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categorys'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/AdminCompany'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListAdminCompany'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListInventory'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListXpIndex'), require('./model/MessageCCListenerAssignment'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PingResponse'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/StripeCreditCard'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categorys'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
   }
-}(function(ApiClient, AccessToken, Address, AddressAssignment, AdminCompany, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListAdminCompany, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListInventory, ListLineItem, ListMessageCCListenerAssignment, ListMessageConfig, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListXpIndex, MessageCCListenerAssignment, MessageConfig, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PingResponse, PriceBreak, PriceSchedule, Product, ProductAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, StripeCreditCard, User, UserGroup, UserGroupAssignment, Variant, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categorys, CostCenters, CreditCards, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Users, UserGroups, Auth) {
+}(function(ApiClient, AccessToken, Address, AddressAssignment, AdminCompany, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListAdminCompany, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListInventory, ListLineItem, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListXpIndex, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PingResponse, PriceBreak, PriceSchedule, Product, ProductAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, StripeCreditCard, User, UserGroup, UserGroupAssignment, Variant, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categorys, CostCenters, CreditCards, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Users, UserGroups, Auth) {
   'use strict';
 
   /**
@@ -16859,11 +16812,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     ListMessageCCListenerAssignment: ListMessageCCListenerAssignment,
     /**
-     * The ListMessageConfig model constructor.
-     * @property {module:model/ListMessageConfig}
-     */
-    ListMessageConfig: ListMessageConfig,
-    /**
      * The ListMessageSender model constructor.
      * @property {module:model/ListMessageSender}
      */
@@ -16988,11 +16936,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/MessageCCListenerAssignment}
      */
     MessageCCListenerAssignment: MessageCCListenerAssignment,
-    /**
-     * The MessageConfig model constructor.
-     * @property {module:model/MessageConfig}
-     */
-    MessageConfig: MessageConfig,
     /**
      * The MessageSender model constructor.
      * @property {module:model/MessageSender}
@@ -17283,7 +17226,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"./ApiClient":9,"./api/Addresses":10,"./api/AdminAddresses":11,"./api/AdminUserGroups":12,"./api/AdminUsers":13,"./api/ApprovalRules":14,"./api/Auth":15,"./api/Buyers":16,"./api/Catalogs":17,"./api/Categorys":18,"./api/CostCenters":19,"./api/CreditCards":20,"./api/LineItems":21,"./api/Me":22,"./api/MessageSenders":23,"./api/Orders":24,"./api/PasswordResets":25,"./api/Payments":26,"./api/PriceSchedules":27,"./api/Products":28,"./api/Promotions":29,"./api/SecurityProfiles":30,"./api/Shipments":31,"./api/Specs":32,"./api/SpendingAccounts":33,"./api/UserGroups":34,"./api/Users":35,"./model/AccessToken":37,"./model/Address":38,"./model/AddressAssignment":39,"./model/AdminCompany":40,"./model/ApprovalRule":41,"./model/BaseSpec":42,"./model/Buyer":43,"./model/BuyerAddress":44,"./model/BuyerCreditCard":45,"./model/BuyerProduct":46,"./model/BuyerSpec":47,"./model/Catalog":48,"./model/CatalogAssignment":49,"./model/Category":50,"./model/CategoryAssignment":51,"./model/CategoryProductAssignment":52,"./model/CostCenter":53,"./model/CostCenterAssignment":54,"./model/CreditCard":55,"./model/CreditCardAssignment":56,"./model/ImpersonateTokenRequest":57,"./model/Inventory":58,"./model/LineItem":59,"./model/LineItemProduct":60,"./model/LineItemSpec":61,"./model/ListAddress":62,"./model/ListAddressAssignment":63,"./model/ListAdminCompany":64,"./model/ListApprovalRule":65,"./model/ListBuyer":66,"./model/ListBuyerAddress":67,"./model/ListBuyerCreditCard":68,"./model/ListBuyerProduct":69,"./model/ListBuyerSpec":70,"./model/ListCatalog":71,"./model/ListCatalogAssignment":72,"./model/ListCategory":73,"./model/ListCategoryAssignment":74,"./model/ListCategoryProductAssignment":75,"./model/ListCostCenter":76,"./model/ListCostCenterAssignment":77,"./model/ListCreditCard":78,"./model/ListCreditCardAssignment":79,"./model/ListInventory":80,"./model/ListLineItem":81,"./model/ListMessageCCListenerAssignment":82,"./model/ListMessageConfig":83,"./model/ListMessageSender":84,"./model/ListMessageSenderAssignment":85,"./model/ListOrder":86,"./model/ListOrderApproval":87,"./model/ListOrderPromotion":88,"./model/ListPayment":89,"./model/ListPriceSchedule":90,"./model/ListProduct":91,"./model/ListProductAssignment":92,"./model/ListPromotion":93,"./model/ListPromotionAssignment":94,"./model/ListSecurityProfile":95,"./model/ListSecurityProfileAssignment":96,"./model/ListShipment":97,"./model/ListSpec":98,"./model/ListSpecOption":99,"./model/ListSpecProductAssignment":100,"./model/ListSpendingAccount":101,"./model/ListSpendingAccountAssignment":102,"./model/ListUser":103,"./model/ListUserGroup":104,"./model/ListUserGroupAssignment":105,"./model/ListVariant":106,"./model/ListXpIndex":107,"./model/MessageCCListenerAssignment":108,"./model/MessageConfig":109,"./model/MessageSender":110,"./model/MessageSenderAssignment":111,"./model/Meta":112,"./model/Order":113,"./model/OrderApproval":114,"./model/OrderPromotion":115,"./model/PasswordReset":116,"./model/PasswordResetRequest":117,"./model/Payment":118,"./model/PaymentTransaction":119,"./model/PingResponse":120,"./model/PriceBreak":121,"./model/PriceSchedule":122,"./model/Product":123,"./model/ProductAssignment":124,"./model/Promotion":125,"./model/PromotionAssignment":126,"./model/SecurityProfile":127,"./model/SecurityProfileAssignment":128,"./model/Shipment":129,"./model/ShipmentItem":130,"./model/Spec":131,"./model/SpecOption":132,"./model/SpecProductAssignment":133,"./model/SpendingAccount":134,"./model/SpendingAccountAssignment":135,"./model/StripeCreditCard":136,"./model/User":137,"./model/UserGroup":138,"./model/UserGroupAssignment":139,"./model/Variant":140,"./model/XpIndex":141}],37:[function(require,module,exports){
+},{"./ApiClient":9,"./api/Addresses":10,"./api/AdminAddresses":11,"./api/AdminUserGroups":12,"./api/AdminUsers":13,"./api/ApprovalRules":14,"./api/Auth":15,"./api/Buyers":16,"./api/Catalogs":17,"./api/Categorys":18,"./api/CostCenters":19,"./api/CreditCards":20,"./api/LineItems":21,"./api/Me":22,"./api/MessageSenders":23,"./api/Orders":24,"./api/PasswordResets":25,"./api/Payments":26,"./api/PriceSchedules":27,"./api/Products":28,"./api/Promotions":29,"./api/SecurityProfiles":30,"./api/Shipments":31,"./api/Specs":32,"./api/SpendingAccounts":33,"./api/UserGroups":34,"./api/Users":35,"./model/AccessToken":37,"./model/Address":38,"./model/AddressAssignment":39,"./model/AdminCompany":40,"./model/ApprovalRule":41,"./model/BaseSpec":42,"./model/Buyer":43,"./model/BuyerAddress":44,"./model/BuyerCreditCard":45,"./model/BuyerProduct":46,"./model/BuyerSpec":47,"./model/Catalog":48,"./model/CatalogAssignment":49,"./model/Category":50,"./model/CategoryAssignment":51,"./model/CategoryProductAssignment":52,"./model/CostCenter":53,"./model/CostCenterAssignment":54,"./model/CreditCard":55,"./model/CreditCardAssignment":56,"./model/ImpersonateTokenRequest":57,"./model/Inventory":58,"./model/LineItem":59,"./model/LineItemProduct":60,"./model/LineItemSpec":61,"./model/ListAddress":62,"./model/ListAddressAssignment":63,"./model/ListAdminCompany":64,"./model/ListApprovalRule":65,"./model/ListBuyer":66,"./model/ListBuyerAddress":67,"./model/ListBuyerCreditCard":68,"./model/ListBuyerProduct":69,"./model/ListBuyerSpec":70,"./model/ListCatalog":71,"./model/ListCatalogAssignment":72,"./model/ListCategory":73,"./model/ListCategoryAssignment":74,"./model/ListCategoryProductAssignment":75,"./model/ListCostCenter":76,"./model/ListCostCenterAssignment":77,"./model/ListCreditCard":78,"./model/ListCreditCardAssignment":79,"./model/ListInventory":80,"./model/ListLineItem":81,"./model/ListMessageCCListenerAssignment":82,"./model/ListMessageSender":83,"./model/ListMessageSenderAssignment":84,"./model/ListOrder":85,"./model/ListOrderApproval":86,"./model/ListOrderPromotion":87,"./model/ListPayment":88,"./model/ListPriceSchedule":89,"./model/ListProduct":90,"./model/ListProductAssignment":91,"./model/ListPromotion":92,"./model/ListPromotionAssignment":93,"./model/ListSecurityProfile":94,"./model/ListSecurityProfileAssignment":95,"./model/ListShipment":96,"./model/ListSpec":97,"./model/ListSpecOption":98,"./model/ListSpecProductAssignment":99,"./model/ListSpendingAccount":100,"./model/ListSpendingAccountAssignment":101,"./model/ListUser":102,"./model/ListUserGroup":103,"./model/ListUserGroupAssignment":104,"./model/ListVariant":105,"./model/ListXpIndex":106,"./model/MessageCCListenerAssignment":107,"./model/MessageSender":108,"./model/MessageSenderAssignment":109,"./model/Meta":110,"./model/Order":111,"./model/OrderApproval":112,"./model/OrderPromotion":113,"./model/PasswordReset":114,"./model/PasswordResetRequest":115,"./model/Payment":116,"./model/PaymentTransaction":117,"./model/PingResponse":118,"./model/PriceBreak":119,"./model/PriceSchedule":120,"./model/Product":121,"./model/ProductAssignment":122,"./model/Promotion":123,"./model/PromotionAssignment":124,"./model/SecurityProfile":125,"./model/SecurityProfileAssignment":126,"./model/Shipment":127,"./model/ShipmentItem":128,"./model/Spec":129,"./model/SpecOption":130,"./model/SpecProductAssignment":131,"./model/SpendingAccount":132,"./model/SpendingAccountAssignment":133,"./model/StripeCreditCard":134,"./model/User":135,"./model/UserGroup":136,"./model/UserGroupAssignment":137,"./model/Variant":138,"./model/XpIndex":139}],37:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17821,13 +17764,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-
-
-
-
-
-
-
   };
 
   /**
@@ -17856,27 +17792,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('RuleExpression')) {
         obj['RuleExpression'] = ApiClient.convertToType(data['RuleExpression'], 'String');
       }
-      if (data.hasOwnProperty('Scope')) {
-        obj['Scope'] = ApiClient.convertToType(data['Scope'], 'String');
-      }
-      if (data.hasOwnProperty('ScopeTimeUnit')) {
-        obj['ScopeTimeUnit'] = ApiClient.convertToType(data['ScopeTimeUnit'], 'String');
-      }
-      if (data.hasOwnProperty('ScopeTimeNumber')) {
-        obj['ScopeTimeNumber'] = ApiClient.convertToType(data['ScopeTimeNumber'], 'Number');
-      }
-      if (data.hasOwnProperty('ScopeStartDate')) {
-        obj['ScopeStartDate'] = ApiClient.convertToType(data['ScopeStartDate'], 'String');
-      }
-      if (data.hasOwnProperty('ExpireAfterTimeUnit')) {
-        obj['ExpireAfterTimeUnit'] = ApiClient.convertToType(data['ExpireAfterTimeUnit'], 'String');
-      }
-      if (data.hasOwnProperty('ExpireAfterNumber')) {
-        obj['ExpireAfterNumber'] = ApiClient.convertToType(data['ExpireAfterNumber'], 'Number');
-      }
-      if (data.hasOwnProperty('ApproveOnExpire')) {
-        obj['ApproveOnExpire'] = ApiClient.convertToType(data['ApproveOnExpire'], 'Boolean');
-      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
       }
@@ -17904,34 +17819,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} RuleExpression
    */
   exports.prototype['RuleExpression'] = undefined;
-  /**
-   * @member {String} Scope
-   */
-  exports.prototype['Scope'] = undefined;
-  /**
-   * @member {String} ScopeTimeUnit
-   */
-  exports.prototype['ScopeTimeUnit'] = undefined;
-  /**
-   * @member {Number} ScopeTimeNumber
-   */
-  exports.prototype['ScopeTimeNumber'] = undefined;
-  /**
-   * @member {String} ScopeStartDate
-   */
-  exports.prototype['ScopeStartDate'] = undefined;
-  /**
-   * @member {String} ExpireAfterTimeUnit
-   */
-  exports.prototype['ExpireAfterTimeUnit'] = undefined;
-  /**
-   * @member {Number} ExpireAfterNumber
-   */
-  exports.prototype['ExpireAfterNumber'] = undefined;
-  /**
-   * @member {Boolean} ApproveOnExpire
-   */
-  exports.prototype['ApproveOnExpire'] = undefined;
   /**
    * @member {Object} xp
    */
@@ -18254,6 +18141,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -18279,6 +18178,42 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Editable')) {
         obj['Editable'] = ApiClient.convertToType(data['Editable'], 'Boolean');
       }
+      if (data.hasOwnProperty('CompanyName')) {
+        obj['CompanyName'] = ApiClient.convertToType(data['CompanyName'], 'String');
+      }
+      if (data.hasOwnProperty('FirstName')) {
+        obj['FirstName'] = ApiClient.convertToType(data['FirstName'], 'String');
+      }
+      if (data.hasOwnProperty('LastName')) {
+        obj['LastName'] = ApiClient.convertToType(data['LastName'], 'String');
+      }
+      if (data.hasOwnProperty('Street1')) {
+        obj['Street1'] = ApiClient.convertToType(data['Street1'], 'String');
+      }
+      if (data.hasOwnProperty('Street2')) {
+        obj['Street2'] = ApiClient.convertToType(data['Street2'], 'String');
+      }
+      if (data.hasOwnProperty('City')) {
+        obj['City'] = ApiClient.convertToType(data['City'], 'String');
+      }
+      if (data.hasOwnProperty('State')) {
+        obj['State'] = ApiClient.convertToType(data['State'], 'String');
+      }
+      if (data.hasOwnProperty('Zip')) {
+        obj['Zip'] = ApiClient.convertToType(data['Zip'], 'String');
+      }
+      if (data.hasOwnProperty('Country')) {
+        obj['Country'] = ApiClient.convertToType(data['Country'], 'String');
+      }
+      if (data.hasOwnProperty('Phone')) {
+        obj['Phone'] = ApiClient.convertToType(data['Phone'], 'String');
+      }
+      if (data.hasOwnProperty('AddressName')) {
+        obj['AddressName'] = ApiClient.convertToType(data['AddressName'], 'String');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -18299,6 +18234,54 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Boolean} Editable
    */
   exports.prototype['Editable'] = undefined;
+  /**
+   * @member {String} CompanyName
+   */
+  exports.prototype['CompanyName'] = undefined;
+  /**
+   * @member {String} FirstName
+   */
+  exports.prototype['FirstName'] = undefined;
+  /**
+   * @member {String} LastName
+   */
+  exports.prototype['LastName'] = undefined;
+  /**
+   * @member {String} Street1
+   */
+  exports.prototype['Street1'] = undefined;
+  /**
+   * @member {String} Street2
+   */
+  exports.prototype['Street2'] = undefined;
+  /**
+   * @member {String} City
+   */
+  exports.prototype['City'] = undefined;
+  /**
+   * @member {String} State
+   */
+  exports.prototype['State'] = undefined;
+  /**
+   * @member {String} Zip
+   */
+  exports.prototype['Zip'] = undefined;
+  /**
+   * @member {String} Country
+   */
+  exports.prototype['Country'] = undefined;
+  /**
+   * @member {String} Phone
+   */
+  exports.prototype['Phone'] = undefined;
+  /**
+   * @member {String} AddressName
+   */
+  exports.prototype['AddressName'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -18357,6 +18340,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
+
+
+
+
+
+
   };
 
   /**
@@ -18376,6 +18366,27 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Editable')) {
         obj['Editable'] = ApiClient.convertToType(data['Editable'], 'Boolean');
       }
+      if (data.hasOwnProperty('Token')) {
+        obj['Token'] = ApiClient.convertToType(data['Token'], 'String');
+      }
+      if (data.hasOwnProperty('DateCreated')) {
+        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
+      }
+      if (data.hasOwnProperty('CardType')) {
+        obj['CardType'] = ApiClient.convertToType(data['CardType'], 'String');
+      }
+      if (data.hasOwnProperty('PartialAccountNumber')) {
+        obj['PartialAccountNumber'] = ApiClient.convertToType(data['PartialAccountNumber'], 'String');
+      }
+      if (data.hasOwnProperty('CardholderName')) {
+        obj['CardholderName'] = ApiClient.convertToType(data['CardholderName'], 'String');
+      }
+      if (data.hasOwnProperty('ExpirationDate')) {
+        obj['ExpirationDate'] = ApiClient.convertToType(data['ExpirationDate'], 'String');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -18388,6 +18399,34 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Boolean} Editable
    */
   exports.prototype['Editable'] = undefined;
+  /**
+   * @member {String} Token
+   */
+  exports.prototype['Token'] = undefined;
+  /**
+   * @member {String} DateCreated
+   */
+  exports.prototype['DateCreated'] = undefined;
+  /**
+   * @member {String} CardType
+   */
+  exports.prototype['CardType'] = undefined;
+  /**
+   * @member {String} PartialAccountNumber
+   */
+  exports.prototype['PartialAccountNumber'] = undefined;
+  /**
+   * @member {String} CardholderName
+   */
+  exports.prototype['CardholderName'] = undefined;
+  /**
+   * @member {String} ExpirationDate
+   */
+  exports.prototype['ExpirationDate'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -18446,6 +18485,25 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -18465,6 +18523,63 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('StandardPriceSchedule')) {
         obj['StandardPriceSchedule'] = PriceSchedule.constructFromObject(data['StandardPriceSchedule']);
       }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      }
+      if (data.hasOwnProperty('QuantityMultiplier')) {
+        obj['QuantityMultiplier'] = ApiClient.convertToType(data['QuantityMultiplier'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipWeight')) {
+        obj['ShipWeight'] = ApiClient.convertToType(data['ShipWeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipHeight')) {
+        obj['ShipHeight'] = ApiClient.convertToType(data['ShipHeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipWidth')) {
+        obj['ShipWidth'] = ApiClient.convertToType(data['ShipWidth'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipLength')) {
+        obj['ShipLength'] = ApiClient.convertToType(data['ShipLength'], 'Number');
+      }
+      if (data.hasOwnProperty('Active')) {
+        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+      }
+      if (data.hasOwnProperty('Type')) {
+        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
+      }
+      if (data.hasOwnProperty('InventoryEnabled')) {
+        obj['InventoryEnabled'] = ApiClient.convertToType(data['InventoryEnabled'], 'Boolean');
+      }
+      if (data.hasOwnProperty('InventoryNotificationPoint')) {
+        obj['InventoryNotificationPoint'] = ApiClient.convertToType(data['InventoryNotificationPoint'], 'Number');
+      }
+      if (data.hasOwnProperty('VariantLevelInventory')) {
+        obj['VariantLevelInventory'] = ApiClient.convertToType(data['VariantLevelInventory'], 'Boolean');
+      }
+      if (data.hasOwnProperty('SpecCount')) {
+        obj['SpecCount'] = ApiClient.convertToType(data['SpecCount'], 'Number');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
+      if (data.hasOwnProperty('AllowOrderExceedInventory')) {
+        obj['AllowOrderExceedInventory'] = ApiClient.convertToType(data['AllowOrderExceedInventory'], 'Boolean');
+      }
+      if (data.hasOwnProperty('InventoryVisible')) {
+        obj['InventoryVisible'] = ApiClient.convertToType(data['InventoryVisible'], 'Boolean');
+      }
+      if (data.hasOwnProperty('VariantCount')) {
+        obj['VariantCount'] = ApiClient.convertToType(data['VariantCount'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipFromAddressID')) {
+        obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
+      }
     }
     return obj;
   }
@@ -18477,6 +18592,82 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {module:model/PriceSchedule} StandardPriceSchedule
    */
   exports.prototype['StandardPriceSchedule'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
+   * @member {Number} QuantityMultiplier
+   */
+  exports.prototype['QuantityMultiplier'] = undefined;
+  /**
+   * @member {Number} ShipWeight
+   */
+  exports.prototype['ShipWeight'] = undefined;
+  /**
+   * @member {Number} ShipHeight
+   */
+  exports.prototype['ShipHeight'] = undefined;
+  /**
+   * @member {Number} ShipWidth
+   */
+  exports.prototype['ShipWidth'] = undefined;
+  /**
+   * @member {Number} ShipLength
+   */
+  exports.prototype['ShipLength'] = undefined;
+  /**
+   * @member {Boolean} Active
+   */
+  exports.prototype['Active'] = undefined;
+  /**
+   * @member {String} Type
+   */
+  exports.prototype['Type'] = undefined;
+  /**
+   * @member {Boolean} InventoryEnabled
+   */
+  exports.prototype['InventoryEnabled'] = undefined;
+  /**
+   * @member {Number} InventoryNotificationPoint
+   */
+  exports.prototype['InventoryNotificationPoint'] = undefined;
+  /**
+   * @member {Boolean} VariantLevelInventory
+   */
+  exports.prototype['VariantLevelInventory'] = undefined;
+  /**
+   * @member {Number} SpecCount
+   */
+  exports.prototype['SpecCount'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
+  /**
+   * @member {Boolean} AllowOrderExceedInventory
+   */
+  exports.prototype['AllowOrderExceedInventory'] = undefined;
+  /**
+   * @member {Boolean} InventoryVisible
+   */
+  exports.prototype['InventoryVisible'] = undefined;
+  /**
+   * @member {Number} VariantCount
+   */
+  exports.prototype['VariantCount'] = undefined;
+  /**
+   * @member {String} ShipFromAddressID
+   */
+  exports.prototype['ShipFromAddressID'] = undefined;
 
 
 
@@ -18485,7 +18676,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./PriceSchedule":122}],47:[function(require,module,exports){
+},{"../ApiClient":9,"./PriceSchedule":120}],47:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18534,6 +18725,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
 
 
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -18550,6 +18750,33 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Options')) {
         obj['Options'] = ApiClient.convertToType(data['Options'], [SpecOption]);
       }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('ListOrder')) {
+        obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('DefaultValue')) {
+        obj['DefaultValue'] = ApiClient.convertToType(data['DefaultValue'], 'String');
+      }
+      if (data.hasOwnProperty('Required')) {
+        obj['Required'] = ApiClient.convertToType(data['Required'], 'Boolean');
+      }
+      if (data.hasOwnProperty('AllowOpenText')) {
+        obj['AllowOpenText'] = ApiClient.convertToType(data['AllowOpenText'], 'Boolean');
+      }
+      if (data.hasOwnProperty('DefaultOptionID')) {
+        obj['DefaultOptionID'] = ApiClient.convertToType(data['DefaultOptionID'], 'String');
+      }
+      if (data.hasOwnProperty('DefinesVariant')) {
+        obj['DefinesVariant'] = ApiClient.convertToType(data['DefinesVariant'], 'Boolean');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -18558,6 +18785,42 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Array.<module:model/SpecOption>} Options
    */
   exports.prototype['Options'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {Number} ListOrder
+   */
+  exports.prototype['ListOrder'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} DefaultValue
+   */
+  exports.prototype['DefaultValue'] = undefined;
+  /**
+   * @member {Boolean} Required
+   */
+  exports.prototype['Required'] = undefined;
+  /**
+   * @member {Boolean} AllowOpenText
+   */
+  exports.prototype['AllowOpenText'] = undefined;
+  /**
+   * @member {String} DefaultOptionID
+   */
+  exports.prototype['DefaultOptionID'] = undefined;
+  /**
+   * @member {Boolean} DefinesVariant
+   */
+  exports.prototype['DefinesVariant'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -18566,7 +18829,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./SpecOption":132}],48:[function(require,module,exports){
+},{"../ApiClient":9,"./SpecOption":130}],48:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19610,7 +19873,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         obj['ClientID'] = ApiClient.convertToType(data['ClientID'], 'String');
       }
       if (data.hasOwnProperty('Claims')) {
-        obj['Claims'] = ApiClient.convertToType(data['Claims'], 'String');
+        obj['Claims'] = ApiClient.convertToType(data['Claims'], ['String']);
       }
     }
     return obj;
@@ -19621,7 +19884,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['ClientID'] = undefined;
   /**
-   * @member {String} Claims
+   * @member {Array.<String>} Claims
    */
   exports.prototype['Claims'] = undefined;
 
@@ -20293,7 +20556,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Address":38,"./Meta":112}],63:[function(require,module,exports){
+},{"../ApiClient":9,"./Address":38,"./Meta":110}],63:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20382,7 +20645,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./AddressAssignment":39,"./Meta":112}],64:[function(require,module,exports){
+},{"../ApiClient":9,"./AddressAssignment":39,"./Meta":110}],64:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20471,7 +20734,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./AdminCompany":40,"./Meta":112}],65:[function(require,module,exports){
+},{"../ApiClient":9,"./AdminCompany":40,"./Meta":110}],65:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20560,7 +20823,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./ApprovalRule":41,"./Meta":112}],66:[function(require,module,exports){
+},{"../ApiClient":9,"./ApprovalRule":41,"./Meta":110}],66:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20649,7 +20912,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Buyer":43,"./Meta":112}],67:[function(require,module,exports){
+},{"../ApiClient":9,"./Buyer":43,"./Meta":110}],67:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20738,7 +21001,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerAddress":44,"./Meta":112}],68:[function(require,module,exports){
+},{"../ApiClient":9,"./BuyerAddress":44,"./Meta":110}],68:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20827,7 +21090,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerCreditCard":45,"./Meta":112}],69:[function(require,module,exports){
+},{"../ApiClient":9,"./BuyerCreditCard":45,"./Meta":110}],69:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20916,7 +21179,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerProduct":46,"./Meta":112}],70:[function(require,module,exports){
+},{"../ApiClient":9,"./BuyerProduct":46,"./Meta":110}],70:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21005,7 +21268,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerSpec":47,"./Meta":112}],71:[function(require,module,exports){
+},{"../ApiClient":9,"./BuyerSpec":47,"./Meta":110}],71:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21094,7 +21357,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Catalog":48,"./Meta":112}],72:[function(require,module,exports){
+},{"../ApiClient":9,"./Catalog":48,"./Meta":110}],72:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21183,7 +21446,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CatalogAssignment":49,"./Meta":112}],73:[function(require,module,exports){
+},{"../ApiClient":9,"./CatalogAssignment":49,"./Meta":110}],73:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21272,7 +21535,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Category":50,"./Meta":112}],74:[function(require,module,exports){
+},{"../ApiClient":9,"./Category":50,"./Meta":110}],74:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21361,7 +21624,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CategoryAssignment":51,"./Meta":112}],75:[function(require,module,exports){
+},{"../ApiClient":9,"./CategoryAssignment":51,"./Meta":110}],75:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21450,7 +21713,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CategoryProductAssignment":52,"./Meta":112}],76:[function(require,module,exports){
+},{"../ApiClient":9,"./CategoryProductAssignment":52,"./Meta":110}],76:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21539,7 +21802,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CostCenter":53,"./Meta":112}],77:[function(require,module,exports){
+},{"../ApiClient":9,"./CostCenter":53,"./Meta":110}],77:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21628,7 +21891,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CostCenterAssignment":54,"./Meta":112}],78:[function(require,module,exports){
+},{"../ApiClient":9,"./CostCenterAssignment":54,"./Meta":110}],78:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21717,7 +21980,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CreditCard":55,"./Meta":112}],79:[function(require,module,exports){
+},{"../ApiClient":9,"./CreditCard":55,"./Meta":110}],79:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21806,7 +22069,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CreditCardAssignment":56,"./Meta":112}],80:[function(require,module,exports){
+},{"../ApiClient":9,"./CreditCardAssignment":56,"./Meta":110}],80:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21895,7 +22158,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Inventory":58,"./Meta":112}],81:[function(require,module,exports){
+},{"../ApiClient":9,"./Inventory":58,"./Meta":110}],81:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21984,7 +22247,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./LineItem":59,"./Meta":112}],82:[function(require,module,exports){
+},{"../ApiClient":9,"./LineItem":59,"./Meta":110}],82:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22073,96 +22336,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageCCListenerAssignment":108,"./Meta":112}],83:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MessageConfig', 'model/Meta'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MessageConfig'), require('./Meta'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.ListMessageConfig = factory(root.OrderCloud.ApiClient, root.OrderCloud.MessageConfig, root.OrderCloud.Meta);
-  }
-}(this, function(ApiClient, MessageConfig, Meta) {
-  'use strict';
-
-
-
-
-  /**
-   * The ListMessageConfig model module.
-   * @module model/ListMessageConfig
-   * @version 1.0.0
-   */
-
-  /**
-   * Constructs a new <code>ListMessageConfig</code>.
-   * @alias module:model/ListMessageConfig
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-  };
-
-  /**
-   * Constructs a <code>ListMessageConfig</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ListMessageConfig} obj Optional instance to populate.
-   * @return {module:model/ListMessageConfig} The populated <code>ListMessageConfig</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [MessageConfig]);
-      }
-      if (data.hasOwnProperty('Meta')) {
-        obj['Meta'] = Meta.constructFromObject(data['Meta']);
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {Array.<module:model/MessageConfig>} Items
-   */
-  exports.prototype['Items'] = undefined;
-  /**
-   * @member {module:model/Meta} Meta
-   */
-  exports.prototype['Meta'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../ApiClient":9,"./MessageConfig":109,"./Meta":112}],84:[function(require,module,exports){
+},{"../ApiClient":9,"./MessageCCListenerAssignment":107,"./Meta":110}],83:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22251,7 +22425,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageSender":110,"./Meta":112}],85:[function(require,module,exports){
+},{"../ApiClient":9,"./MessageSender":108,"./Meta":110}],84:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22340,7 +22514,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageSenderAssignment":111,"./Meta":112}],86:[function(require,module,exports){
+},{"../ApiClient":9,"./MessageSenderAssignment":109,"./Meta":110}],85:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22429,7 +22603,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./Order":113}],87:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./Order":111}],86:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22518,7 +22692,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./OrderApproval":114}],88:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./OrderApproval":112}],87:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22607,7 +22781,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./OrderPromotion":115}],89:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./OrderPromotion":113}],88:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22696,7 +22870,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./Payment":118}],90:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./Payment":116}],89:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22785,7 +22959,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./PriceSchedule":122}],91:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./PriceSchedule":120}],90:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22874,7 +23048,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./Product":123}],92:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./Product":121}],91:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22963,7 +23137,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./ProductAssignment":124}],93:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./ProductAssignment":122}],92:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23052,7 +23226,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./Promotion":125}],94:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./Promotion":123}],93:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23141,7 +23315,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./PromotionAssignment":126}],95:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./PromotionAssignment":124}],94:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23230,7 +23404,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./SecurityProfile":127}],96:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./SecurityProfile":125}],95:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23319,7 +23493,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./SecurityProfileAssignment":128}],97:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./SecurityProfileAssignment":126}],96:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23408,7 +23582,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./Shipment":129}],98:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./Shipment":127}],97:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23497,7 +23671,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./Spec":131}],99:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./Spec":129}],98:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23586,7 +23760,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./SpecOption":132}],100:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./SpecOption":130}],99:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23675,7 +23849,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./SpecProductAssignment":133}],101:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./SpecProductAssignment":131}],100:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23764,7 +23938,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./SpendingAccount":134}],102:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./SpendingAccount":132}],101:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23853,7 +24027,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./SpendingAccountAssignment":135}],103:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./SpendingAccountAssignment":133}],102:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23942,7 +24116,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./User":137}],104:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./User":135}],103:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24031,7 +24205,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./UserGroup":138}],105:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./UserGroup":136}],104:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24120,7 +24294,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./UserGroupAssignment":139}],106:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./UserGroupAssignment":137}],105:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24209,7 +24383,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./Variant":140}],107:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./Variant":138}],106:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24298,7 +24472,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":112,"./XpIndex":141}],108:[function(require,module,exports){
+},{"../ApiClient":9,"./Meta":110,"./XpIndex":139}],107:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24419,112 +24593,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageSenderAssignment":111}],109:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.MessageConfig = factory(root.OrderCloud.ApiClient);
-  }
-}(this, function(ApiClient) {
-  'use strict';
-
-
-
-
-  /**
-   * The MessageConfig model module.
-   * @module model/MessageConfig
-   * @version 1.0.0
-   */
-
-  /**
-   * Constructs a new <code>MessageConfig</code>.
-   * @alias module:model/MessageConfig
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-
-
-  };
-
-  /**
-   * Constructs a <code>MessageConfig</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MessageConfig} obj Optional instance to populate.
-   * @return {module:model/MessageConfig} The populated <code>MessageConfig</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('URL')) {
-        obj['URL'] = ApiClient.convertToType(data['URL'], 'String');
-      }
-      if (data.hasOwnProperty('ElevatedClaimsList')) {
-        obj['ElevatedClaimsList'] = ApiClient.convertToType(data['ElevatedClaimsList'], 'String');
-      }
-      if (data.hasOwnProperty('SharedKey')) {
-        obj['SharedKey'] = ApiClient.convertToType(data['SharedKey'], 'String');
-      }
-      if (data.hasOwnProperty('ConfigData')) {
-        obj['ConfigData'] = ApiClient.convertToType(data['ConfigData'], Object);
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {String} URL
-   */
-  exports.prototype['URL'] = undefined;
-  /**
-   * @member {String} ElevatedClaimsList
-   */
-  exports.prototype['ElevatedClaimsList'] = undefined;
-  /**
-   * @member {String} SharedKey
-   */
-  exports.prototype['SharedKey'] = undefined;
-  /**
-   * @member {Object} ConfigData
-   */
-  exports.prototype['ConfigData'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../ApiClient":9}],110:[function(require,module,exports){
+},{"../ApiClient":9,"./MessageSenderAssignment":109}],108:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24595,7 +24664,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('MessageTypes')) {
-        obj['MessageTypes'] = ApiClient.convertToType(data['MessageTypes'], 'String');
+        obj['MessageTypes'] = ApiClient.convertToType(data['MessageTypes'], ['String']);
       }
     }
     return obj;
@@ -24610,7 +24679,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Name'] = undefined;
   /**
-   * @member {String} MessageTypes
+   * @member {Array.<String>} MessageTypes
    */
   exports.prototype['MessageTypes'] = undefined;
 
@@ -24621,7 +24690,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],111:[function(require,module,exports){
+},{"../ApiClient":9}],109:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24734,7 +24803,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],112:[function(require,module,exports){
+},{"../ApiClient":9}],110:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24847,7 +24916,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],113:[function(require,module,exports){
+},{"../ApiClient":9}],111:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24919,6 +24988,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -24937,6 +25007,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('Type')) {
         obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
+      }
+      if (data.hasOwnProperty('FromCompanyID')) {
+        obj['FromCompanyID'] = ApiClient.convertToType(data['FromCompanyID'], 'String');
       }
       if (data.hasOwnProperty('FromUserID')) {
         obj['FromUserID'] = ApiClient.convertToType(data['FromUserID'], 'String');
@@ -25016,6 +25089,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Type
    */
   exports.prototype['Type'] = undefined;
+  /**
+   * @member {String} FromCompanyID
+   */
+  exports.prototype['FromCompanyID'] = undefined;
   /**
    * @member {String} FromUserID
    */
@@ -25112,7 +25189,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Address":38}],114:[function(require,module,exports){
+},{"../ApiClient":9,"./Address":38}],112:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25257,7 +25334,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],115:[function(require,module,exports){
+},{"../ApiClient":9}],113:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25306,6 +25383,20 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -25322,6 +25413,48 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Amount')) {
         obj['Amount'] = ApiClient.convertToType(data['Amount'], 'Number');
       }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('Code')) {
+        obj['Code'] = ApiClient.convertToType(data['Code'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('RedemptionLimit')) {
+        obj['RedemptionLimit'] = ApiClient.convertToType(data['RedemptionLimit'], 'Number');
+      }
+      if (data.hasOwnProperty('RedemptionLimitPerUser')) {
+        obj['RedemptionLimitPerUser'] = ApiClient.convertToType(data['RedemptionLimitPerUser'], 'Number');
+      }
+      if (data.hasOwnProperty('RedemptionCount')) {
+        obj['RedemptionCount'] = ApiClient.convertToType(data['RedemptionCount'], 'Number');
+      }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      }
+      if (data.hasOwnProperty('FinePrint')) {
+        obj['FinePrint'] = ApiClient.convertToType(data['FinePrint'], 'String');
+      }
+      if (data.hasOwnProperty('StartDate')) {
+        obj['StartDate'] = ApiClient.convertToType(data['StartDate'], 'String');
+      }
+      if (data.hasOwnProperty('ExpirationDate')) {
+        obj['ExpirationDate'] = ApiClient.convertToType(data['ExpirationDate'], 'String');
+      }
+      if (data.hasOwnProperty('EligibleExpression')) {
+        obj['EligibleExpression'] = ApiClient.convertToType(data['EligibleExpression'], 'String');
+      }
+      if (data.hasOwnProperty('ValueExpression')) {
+        obj['ValueExpression'] = ApiClient.convertToType(data['ValueExpression'], 'String');
+      }
+      if (data.hasOwnProperty('CanCombine')) {
+        obj['CanCombine'] = ApiClient.convertToType(data['CanCombine'], 'Boolean');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -25330,6 +25463,62 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Number} Amount
    */
   exports.prototype['Amount'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} Code
+   */
+  exports.prototype['Code'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {Number} RedemptionLimit
+   */
+  exports.prototype['RedemptionLimit'] = undefined;
+  /**
+   * @member {Number} RedemptionLimitPerUser
+   */
+  exports.prototype['RedemptionLimitPerUser'] = undefined;
+  /**
+   * @member {Number} RedemptionCount
+   */
+  exports.prototype['RedemptionCount'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
+   * @member {String} FinePrint
+   */
+  exports.prototype['FinePrint'] = undefined;
+  /**
+   * @member {String} StartDate
+   */
+  exports.prototype['StartDate'] = undefined;
+  /**
+   * @member {String} ExpirationDate
+   */
+  exports.prototype['ExpirationDate'] = undefined;
+  /**
+   * @member {String} EligibleExpression
+   */
+  exports.prototype['EligibleExpression'] = undefined;
+  /**
+   * @member {String} ValueExpression
+   */
+  exports.prototype['ValueExpression'] = undefined;
+  /**
+   * @member {Boolean} CanCombine
+   */
+  exports.prototype['CanCombine'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -25338,7 +25527,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],116:[function(require,module,exports){
+},{"../ApiClient":9}],114:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25435,7 +25624,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],117:[function(require,module,exports){
+},{"../ApiClient":9}],115:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25540,7 +25729,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],118:[function(require,module,exports){
+},{"../ApiClient":9}],116:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25685,7 +25874,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./PaymentTransaction":119}],119:[function(require,module,exports){
+},{"../ApiClient":9,"./PaymentTransaction":117}],117:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25822,7 +26011,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],120:[function(require,module,exports){
+},{"../ApiClient":9}],118:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25903,7 +26092,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],121:[function(require,module,exports){
+},{"../ApiClient":9}],119:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25992,7 +26181,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],122:[function(require,module,exports){
+},{"../ApiClient":9}],120:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26153,7 +26342,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./PriceBreak":121}],123:[function(require,module,exports){
+},{"../ApiClient":9,"./PriceBreak":119}],121:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26378,7 +26567,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],124:[function(require,module,exports){
+},{"../ApiClient":9}],122:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26499,7 +26688,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],125:[function(require,module,exports){
+},{"../ApiClient":9}],123:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26684,7 +26873,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],126:[function(require,module,exports){
+},{"../ApiClient":9}],124:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26789,7 +26978,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],127:[function(require,module,exports){
+},{"../ApiClient":9}],125:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26894,7 +27083,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],128:[function(require,module,exports){
+},{"../ApiClient":9}],126:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26999,7 +27188,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],129:[function(require,module,exports){
+},{"../ApiClient":9}],127:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27136,7 +27325,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./ShipmentItem":130}],130:[function(require,module,exports){
+},{"../ApiClient":9,"./ShipmentItem":128}],128:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27233,7 +27422,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],131:[function(require,module,exports){
+},{"../ApiClient":9}],129:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27282,6 +27471,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
 
 
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -27298,6 +27496,33 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('OptionCount')) {
         obj['OptionCount'] = ApiClient.convertToType(data['OptionCount'], 'Number');
       }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('ListOrder')) {
+        obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('DefaultValue')) {
+        obj['DefaultValue'] = ApiClient.convertToType(data['DefaultValue'], 'String');
+      }
+      if (data.hasOwnProperty('Required')) {
+        obj['Required'] = ApiClient.convertToType(data['Required'], 'Boolean');
+      }
+      if (data.hasOwnProperty('AllowOpenText')) {
+        obj['AllowOpenText'] = ApiClient.convertToType(data['AllowOpenText'], 'Boolean');
+      }
+      if (data.hasOwnProperty('DefaultOptionID')) {
+        obj['DefaultOptionID'] = ApiClient.convertToType(data['DefaultOptionID'], 'String');
+      }
+      if (data.hasOwnProperty('DefinesVariant')) {
+        obj['DefinesVariant'] = ApiClient.convertToType(data['DefinesVariant'], 'Boolean');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -27306,6 +27531,42 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Number} OptionCount
    */
   exports.prototype['OptionCount'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {Number} ListOrder
+   */
+  exports.prototype['ListOrder'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} DefaultValue
+   */
+  exports.prototype['DefaultValue'] = undefined;
+  /**
+   * @member {Boolean} Required
+   */
+  exports.prototype['Required'] = undefined;
+  /**
+   * @member {Boolean} AllowOpenText
+   */
+  exports.prototype['AllowOpenText'] = undefined;
+  /**
+   * @member {String} DefaultOptionID
+   */
+  exports.prototype['DefaultOptionID'] = undefined;
+  /**
+   * @member {Boolean} DefinesVariant
+   */
+  exports.prototype['DefinesVariant'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -27314,7 +27575,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],132:[function(require,module,exports){
+},{"../ApiClient":9}],130:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27443,7 +27704,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],133:[function(require,module,exports){
+},{"../ApiClient":9}],131:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27548,7 +27809,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],134:[function(require,module,exports){
+},{"../ApiClient":9}],132:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27685,7 +27946,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],135:[function(require,module,exports){
+},{"../ApiClient":9}],133:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27790,7 +28051,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],136:[function(require,module,exports){
+},{"../ApiClient":9}],134:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27951,7 +28212,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],137:[function(require,module,exports){
+},{"../ApiClient":9}],135:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28112,7 +28373,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],138:[function(require,module,exports){
+},{"../ApiClient":9}],136:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28217,7 +28478,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],139:[function(require,module,exports){
+},{"../ApiClient":9}],137:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28306,7 +28567,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],140:[function(require,module,exports){
+},{"../ApiClient":9}],138:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28419,7 +28680,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],141:[function(require,module,exports){
+},{"../ApiClient":9}],139:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)

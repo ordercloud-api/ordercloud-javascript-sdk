@@ -46,6 +46,15 @@
     var _this = this;
 
 
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -62,6 +71,33 @@
       if (data.hasOwnProperty('OptionCount')) {
         obj['OptionCount'] = ApiClient.convertToType(data['OptionCount'], 'Number');
       }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('ListOrder')) {
+        obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('DefaultValue')) {
+        obj['DefaultValue'] = ApiClient.convertToType(data['DefaultValue'], 'String');
+      }
+      if (data.hasOwnProperty('Required')) {
+        obj['Required'] = ApiClient.convertToType(data['Required'], 'Boolean');
+      }
+      if (data.hasOwnProperty('AllowOpenText')) {
+        obj['AllowOpenText'] = ApiClient.convertToType(data['AllowOpenText'], 'Boolean');
+      }
+      if (data.hasOwnProperty('DefaultOptionID')) {
+        obj['DefaultOptionID'] = ApiClient.convertToType(data['DefaultOptionID'], 'String');
+      }
+      if (data.hasOwnProperty('DefinesVariant')) {
+        obj['DefinesVariant'] = ApiClient.convertToType(data['DefinesVariant'], 'Boolean');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -70,6 +106,42 @@
    * @member {Number} OptionCount
    */
   exports.prototype['OptionCount'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {Number} ListOrder
+   */
+  exports.prototype['ListOrder'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} DefaultValue
+   */
+  exports.prototype['DefaultValue'] = undefined;
+  /**
+   * @member {Boolean} Required
+   */
+  exports.prototype['Required'] = undefined;
+  /**
+   * @member {Boolean} AllowOpenText
+   */
+  exports.prototype['AllowOpenText'] = undefined;
+  /**
+   * @member {String} DefaultOptionID
+   */
+  exports.prototype['DefaultOptionID'] = undefined;
+  /**
+   * @member {Boolean} DefinesVariant
+   */
+  exports.prototype['DefinesVariant'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 

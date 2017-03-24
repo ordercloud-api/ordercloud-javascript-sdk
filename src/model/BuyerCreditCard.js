@@ -47,6 +47,13 @@
 
 
 
+
+
+
+
+
+
+
   };
 
   /**
@@ -66,6 +73,27 @@
       if (data.hasOwnProperty('Editable')) {
         obj['Editable'] = ApiClient.convertToType(data['Editable'], 'Boolean');
       }
+      if (data.hasOwnProperty('Token')) {
+        obj['Token'] = ApiClient.convertToType(data['Token'], 'String');
+      }
+      if (data.hasOwnProperty('DateCreated')) {
+        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
+      }
+      if (data.hasOwnProperty('CardType')) {
+        obj['CardType'] = ApiClient.convertToType(data['CardType'], 'String');
+      }
+      if (data.hasOwnProperty('PartialAccountNumber')) {
+        obj['PartialAccountNumber'] = ApiClient.convertToType(data['PartialAccountNumber'], 'String');
+      }
+      if (data.hasOwnProperty('CardholderName')) {
+        obj['CardholderName'] = ApiClient.convertToType(data['CardholderName'], 'String');
+      }
+      if (data.hasOwnProperty('ExpirationDate')) {
+        obj['ExpirationDate'] = ApiClient.convertToType(data['ExpirationDate'], 'String');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -78,6 +106,34 @@
    * @member {Boolean} Editable
    */
   exports.prototype['Editable'] = undefined;
+  /**
+   * @member {String} Token
+   */
+  exports.prototype['Token'] = undefined;
+  /**
+   * @member {String} DateCreated
+   */
+  exports.prototype['DateCreated'] = undefined;
+  /**
+   * @member {String} CardType
+   */
+  exports.prototype['CardType'] = undefined;
+  /**
+   * @member {String} PartialAccountNumber
+   */
+  exports.prototype['PartialAccountNumber'] = undefined;
+  /**
+   * @member {String} CardholderName
+   */
+  exports.prototype['CardholderName'] = undefined;
+  /**
+   * @member {String} ExpirationDate
+   */
+  exports.prototype['ExpirationDate'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 

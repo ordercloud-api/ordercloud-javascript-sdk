@@ -51,9 +51,9 @@
     /**
     * The base URL against Auth calls are resolved.
     * @type {String}
-    * @default https://auth.ordercloud.io/v1
+    * @default https://auth.ordercloud.io
     */
-    this.baseAuthPath = 'https://auth.ordercloud.io/v1'.replace(/\/+$/, '');
+    this.baseAuthPath = 'https://auth.ordercloud.io'.replace(/\/+$/, '');
 
     /**
      * The authentication methods to be included for all API calls.

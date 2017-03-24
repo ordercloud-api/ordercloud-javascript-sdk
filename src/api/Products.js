@@ -118,31 +118,31 @@
 
 
     /**
-     * @param {String} productID ID of the product.
      * @param {String} buyerID ID of the buyer.
+     * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(productID, buyerID, opts) {
+    this.DeleteAssignment = function(buyerID, productID, opts) {
       opts = opts || {};
       var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling DeleteAssignment");
-      }
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
         throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
       }
 
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling DeleteAssignment");
+      }
+
 
       var pathParams = {
-        'productID': productID,
-        'buyerID': buyerID
+        'buyerID': buyerID,
+        'productID': productID
       };
       var queryParams = {
         'userID': opts['userID'],
@@ -371,7 +371,7 @@
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
     this.List = function(opts) {
@@ -461,7 +461,7 @@
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
      */
     this.ListInventory = function(opts) {
@@ -505,7 +505,7 @@
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
      */
     this.ListVariantInventory = function(productID, opts) {
@@ -555,7 +555,7 @@
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListVariant}
      */
     this.ListVariants = function(productID, opts) {

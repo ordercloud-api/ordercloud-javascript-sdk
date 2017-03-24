@@ -68,7 +68,7 @@
         obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('MessageTypes')) {
-        obj['MessageTypes'] = ApiClient.convertToType(data['MessageTypes'], 'String');
+        obj['MessageTypes'] = ApiClient.convertToType(data['MessageTypes'], ['String']);
       }
     }
     return obj;
@@ -83,7 +83,7 @@
    */
   exports.prototype['Name'] = undefined;
   /**
-   * @member {String} MessageTypes
+   * @member {Array.<String>} MessageTypes
    */
   exports.prototype['MessageTypes'] = undefined;
 

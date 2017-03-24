@@ -267,7 +267,7 @@ Name | Type | Description  | Notes
 
 <a name="ListAssignments"></a>
 # **ListAssignments**
-> ListPromotionAssignment ListAssignments(buyerID, opts)
+> ListPromotionAssignment ListAssignments(opts)
 
 
 
@@ -282,9 +282,8 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Promotions();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
 var opts = { 
+  'buyerID': "buyerID_example", // String | ID of the buyer.
   'promotionID': "promotionID_example", // String | ID of the promotion.
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example", // String | ID of the user group.
@@ -292,7 +291,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.ListAssignments(buyerID, opts).then(function(data) {
+apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -304,7 +303,7 @@ apiInstance.ListAssignments(buyerID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **buyerID** | **String**| ID of the buyer. | [optional] 
  **promotionID** | **String**| ID of the promotion. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 

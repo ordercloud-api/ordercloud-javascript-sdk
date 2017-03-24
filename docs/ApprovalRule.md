@@ -8,13 +8,6 @@ Name | Type | Description | Notes
 **description** | **String** |  | [optional] 
 **approvingGroupID** | **String** |  | [optional] 
 **ruleExpression** | **String** |  | [optional] 
-**scope** | **String** |  | [optional] 
-**scopeTimeUnit** | **String** |  | [optional] 
-**scopeTimeNumber** | **Number** |  | [optional] 
-**scopeStartDate** | **String** |  | [optional] 
-**expireAfterTimeUnit** | **String** |  | [optional] 
-**expireAfterNumber** | **Number** |  | [optional] 
-**approveOnExpire** | **Boolean** |  | [optional] 
 **xp** | **Object** |  | [optional] 
 
 

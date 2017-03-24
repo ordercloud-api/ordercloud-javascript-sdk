@@ -66,6 +66,120 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property ID (base name: "ID")', function() {
+      // uncomment below and update the code to test the property ID
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property name (base name: "Name")', function() {
+      // uncomment below and update the code to test the property name
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property description (base name: "Description")', function() {
+      // uncomment below and update the code to test the property description
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property quantityMultiplier (base name: "QuantityMultiplier")', function() {
+      // uncomment below and update the code to test the property quantityMultiplier
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shipWeight (base name: "ShipWeight")', function() {
+      // uncomment below and update the code to test the property shipWeight
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shipHeight (base name: "ShipHeight")', function() {
+      // uncomment below and update the code to test the property shipHeight
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shipWidth (base name: "ShipWidth")', function() {
+      // uncomment below and update the code to test the property shipWidth
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shipLength (base name: "ShipLength")', function() {
+      // uncomment below and update the code to test the property shipLength
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property active (base name: "Active")', function() {
+      // uncomment below and update the code to test the property active
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property type (base name: "Type")', function() {
+      // uncomment below and update the code to test the property type
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property inventoryEnabled (base name: "InventoryEnabled")', function() {
+      // uncomment below and update the code to test the property inventoryEnabled
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property inventoryNotificationPoint (base name: "InventoryNotificationPoint")', function() {
+      // uncomment below and update the code to test the property inventoryNotificationPoint
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property variantLevelInventory (base name: "VariantLevelInventory")', function() {
+      // uncomment below and update the code to test the property variantLevelInventory
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property specCount (base name: "SpecCount")', function() {
+      // uncomment below and update the code to test the property specCount
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property xp (base name: "xp")', function() {
+      // uncomment below and update the code to test the property xp
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property allowOrderExceedInventory (base name: "AllowOrderExceedInventory")', function() {
+      // uncomment below and update the code to test the property allowOrderExceedInventory
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property inventoryVisible (base name: "InventoryVisible")', function() {
+      // uncomment below and update the code to test the property inventoryVisible
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property variantCount (base name: "VariantCount")', function() {
+      // uncomment below and update the code to test the property variantCount
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property shipFromAddressID (base name: "ShipFromAddressID")', function() {
+      // uncomment below and update the code to test the property shipFromAddressID
+      //var instane = new OrderCloud.BuyerProduct();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

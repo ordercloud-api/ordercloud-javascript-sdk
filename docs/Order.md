@@ -5,6 +5,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ID** | **String** |  | [optional] 
 **type** | **String** |  | [optional] 
+**fromCompanyID** | **String** |  | [optional] 
 **fromUserID** | **String** |  | [optional] 
 **fromUserFirstName** | **String** |  | [optional] 
 **fromUserLastName** | **String** |  | [optional] 

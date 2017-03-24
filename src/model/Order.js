@@ -69,6 +69,7 @@
 
 
 
+
   };
 
   /**
@@ -87,6 +88,9 @@
       }
       if (data.hasOwnProperty('Type')) {
         obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
+      }
+      if (data.hasOwnProperty('FromCompanyID')) {
+        obj['FromCompanyID'] = ApiClient.convertToType(data['FromCompanyID'], 'String');
       }
       if (data.hasOwnProperty('FromUserID')) {
         obj['FromUserID'] = ApiClient.convertToType(data['FromUserID'], 'String');
@@ -166,6 +170,10 @@
    * @member {String} Type
    */
   exports.prototype['Type'] = undefined;
+  /**
+   * @member {String} FromCompanyID
+   */
+  exports.prototype['FromCompanyID'] = undefined;
   /**
    * @member {String} FromUserID
    */

@@ -84,48 +84,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property scope (base name: "Scope")', function() {
-      // uncomment below and update the code to test the property scope
-      //var instane = new OrderCloud.ApprovalRule();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property scopeTimeUnit (base name: "ScopeTimeUnit")', function() {
-      // uncomment below and update the code to test the property scopeTimeUnit
-      //var instane = new OrderCloud.ApprovalRule();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property scopeTimeNumber (base name: "ScopeTimeNumber")', function() {
-      // uncomment below and update the code to test the property scopeTimeNumber
-      //var instane = new OrderCloud.ApprovalRule();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property scopeStartDate (base name: "ScopeStartDate")', function() {
-      // uncomment below and update the code to test the property scopeStartDate
-      //var instane = new OrderCloud.ApprovalRule();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property expireAfterTimeUnit (base name: "ExpireAfterTimeUnit")', function() {
-      // uncomment below and update the code to test the property expireAfterTimeUnit
-      //var instane = new OrderCloud.ApprovalRule();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property expireAfterNumber (base name: "ExpireAfterNumber")', function() {
-      // uncomment below and update the code to test the property expireAfterNumber
-      //var instane = new OrderCloud.ApprovalRule();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property approveOnExpire (base name: "ApproveOnExpire")', function() {
-      // uncomment below and update the code to test the property approveOnExpire
-      //var instane = new OrderCloud.ApprovalRule();
-      //expect(instance).to.be();
-    });
-
     it('should have the property xp (base name: "xp")', function() {
       // uncomment below and update the code to test the property xp
       //var instane = new OrderCloud.ApprovalRule();

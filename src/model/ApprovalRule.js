@@ -51,13 +51,6 @@
 
 
 
-
-
-
-
-
-
-
   };
 
   /**
@@ -86,27 +79,6 @@
       if (data.hasOwnProperty('RuleExpression')) {
         obj['RuleExpression'] = ApiClient.convertToType(data['RuleExpression'], 'String');
       }
-      if (data.hasOwnProperty('Scope')) {
-        obj['Scope'] = ApiClient.convertToType(data['Scope'], 'String');
-      }
-      if (data.hasOwnProperty('ScopeTimeUnit')) {
-        obj['ScopeTimeUnit'] = ApiClient.convertToType(data['ScopeTimeUnit'], 'String');
-      }
-      if (data.hasOwnProperty('ScopeTimeNumber')) {
-        obj['ScopeTimeNumber'] = ApiClient.convertToType(data['ScopeTimeNumber'], 'Number');
-      }
-      if (data.hasOwnProperty('ScopeStartDate')) {
-        obj['ScopeStartDate'] = ApiClient.convertToType(data['ScopeStartDate'], 'String');
-      }
-      if (data.hasOwnProperty('ExpireAfterTimeUnit')) {
-        obj['ExpireAfterTimeUnit'] = ApiClient.convertToType(data['ExpireAfterTimeUnit'], 'String');
-      }
-      if (data.hasOwnProperty('ExpireAfterNumber')) {
-        obj['ExpireAfterNumber'] = ApiClient.convertToType(data['ExpireAfterNumber'], 'Number');
-      }
-      if (data.hasOwnProperty('ApproveOnExpire')) {
-        obj['ApproveOnExpire'] = ApiClient.convertToType(data['ApproveOnExpire'], 'Boolean');
-      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
       }
@@ -134,34 +106,6 @@
    * @member {String} RuleExpression
    */
   exports.prototype['RuleExpression'] = undefined;
-  /**
-   * @member {String} Scope
-   */
-  exports.prototype['Scope'] = undefined;
-  /**
-   * @member {String} ScopeTimeUnit
-   */
-  exports.prototype['ScopeTimeUnit'] = undefined;
-  /**
-   * @member {Number} ScopeTimeNumber
-   */
-  exports.prototype['ScopeTimeNumber'] = undefined;
-  /**
-   * @member {String} ScopeStartDate
-   */
-  exports.prototype['ScopeStartDate'] = undefined;
-  /**
-   * @member {String} ExpireAfterTimeUnit
-   */
-  exports.prototype['ExpireAfterTimeUnit'] = undefined;
-  /**
-   * @member {Number} ExpireAfterNumber
-   */
-  exports.prototype['ExpireAfterNumber'] = undefined;
-  /**
-   * @member {Boolean} ApproveOnExpire
-   */
-  exports.prototype['ApproveOnExpire'] = undefined;
   /**
    * @member {Object} xp
    */

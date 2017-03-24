@@ -78,6 +78,78 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property companyName (base name: "CompanyName")', function() {
+      // uncomment below and update the code to test the property companyName
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property firstName (base name: "FirstName")', function() {
+      // uncomment below and update the code to test the property firstName
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property lastName (base name: "LastName")', function() {
+      // uncomment below and update the code to test the property lastName
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property street1 (base name: "Street1")', function() {
+      // uncomment below and update the code to test the property street1
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property street2 (base name: "Street2")', function() {
+      // uncomment below and update the code to test the property street2
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property city (base name: "City")', function() {
+      // uncomment below and update the code to test the property city
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property state (base name: "State")', function() {
+      // uncomment below and update the code to test the property state
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property zip (base name: "Zip")', function() {
+      // uncomment below and update the code to test the property zip
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property country (base name: "Country")', function() {
+      // uncomment below and update the code to test the property country
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property phone (base name: "Phone")', function() {
+      // uncomment below and update the code to test the property phone
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property addressName (base name: "AddressName")', function() {
+      // uncomment below and update the code to test the property addressName
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property xp (base name: "xp")', function() {
+      // uncomment below and update the code to test the property xp
+      //var instane = new OrderCloud.BuyerAddress();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));
