@@ -66,6 +66,48 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property token (base name: "Token")', function() {
+      // uncomment below and update the code to test the property token
+      //var instane = new OrderCloud.BuyerCreditCard();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property dateCreated (base name: "DateCreated")', function() {
+      // uncomment below and update the code to test the property dateCreated
+      //var instane = new OrderCloud.BuyerCreditCard();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property cardType (base name: "CardType")', function() {
+      // uncomment below and update the code to test the property cardType
+      //var instane = new OrderCloud.BuyerCreditCard();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property partialAccountNumber (base name: "PartialAccountNumber")', function() {
+      // uncomment below and update the code to test the property partialAccountNumber
+      //var instane = new OrderCloud.BuyerCreditCard();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property cardholderName (base name: "CardholderName")', function() {
+      // uncomment below and update the code to test the property cardholderName
+      //var instane = new OrderCloud.BuyerCreditCard();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property expirationDate (base name: "ExpirationDate")', function() {
+      // uncomment below and update the code to test the property expirationDate
+      //var instane = new OrderCloud.BuyerCreditCard();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property xp (base name: "xp")', function() {
+      // uncomment below and update the code to test the property xp
+      //var instane = new OrderCloud.BuyerCreditCard();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

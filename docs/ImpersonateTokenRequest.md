@@ -4,6 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **clientID** | **String** |  | [optional] 
-**claims** | **String** |  | [optional] 
+**claims** | **[String]** |  | [optional] 
 
 

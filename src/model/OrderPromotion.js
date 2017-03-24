@@ -46,6 +46,20 @@
     var _this = this;
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   };
 
   /**
@@ -62,6 +76,48 @@
       if (data.hasOwnProperty('Amount')) {
         obj['Amount'] = ApiClient.convertToType(data['Amount'], 'Number');
       }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('Code')) {
+        obj['Code'] = ApiClient.convertToType(data['Code'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('RedemptionLimit')) {
+        obj['RedemptionLimit'] = ApiClient.convertToType(data['RedemptionLimit'], 'Number');
+      }
+      if (data.hasOwnProperty('RedemptionLimitPerUser')) {
+        obj['RedemptionLimitPerUser'] = ApiClient.convertToType(data['RedemptionLimitPerUser'], 'Number');
+      }
+      if (data.hasOwnProperty('RedemptionCount')) {
+        obj['RedemptionCount'] = ApiClient.convertToType(data['RedemptionCount'], 'Number');
+      }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      }
+      if (data.hasOwnProperty('FinePrint')) {
+        obj['FinePrint'] = ApiClient.convertToType(data['FinePrint'], 'String');
+      }
+      if (data.hasOwnProperty('StartDate')) {
+        obj['StartDate'] = ApiClient.convertToType(data['StartDate'], 'String');
+      }
+      if (data.hasOwnProperty('ExpirationDate')) {
+        obj['ExpirationDate'] = ApiClient.convertToType(data['ExpirationDate'], 'String');
+      }
+      if (data.hasOwnProperty('EligibleExpression')) {
+        obj['EligibleExpression'] = ApiClient.convertToType(data['EligibleExpression'], 'String');
+      }
+      if (data.hasOwnProperty('ValueExpression')) {
+        obj['ValueExpression'] = ApiClient.convertToType(data['ValueExpression'], 'String');
+      }
+      if (data.hasOwnProperty('CanCombine')) {
+        obj['CanCombine'] = ApiClient.convertToType(data['CanCombine'], 'Boolean');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -70,6 +126,62 @@
    * @member {Number} Amount
    */
   exports.prototype['Amount'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} Code
+   */
+  exports.prototype['Code'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {Number} RedemptionLimit
+   */
+  exports.prototype['RedemptionLimit'] = undefined;
+  /**
+   * @member {Number} RedemptionLimitPerUser
+   */
+  exports.prototype['RedemptionLimitPerUser'] = undefined;
+  /**
+   * @member {Number} RedemptionCount
+   */
+  exports.prototype['RedemptionCount'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
+   * @member {String} FinePrint
+   */
+  exports.prototype['FinePrint'] = undefined;
+  /**
+   * @member {String} StartDate
+   */
+  exports.prototype['StartDate'] = undefined;
+  /**
+   * @member {String} ExpirationDate
+   */
+  exports.prototype['ExpirationDate'] = undefined;
+  /**
+   * @member {String} EligibleExpression
+   */
+  exports.prototype['EligibleExpression'] = undefined;
+  /**
+   * @member {String} ValueExpression
+   */
+  exports.prototype['ValueExpression'] = undefined;
+  /**
+   * @member {Boolean} CanCombine
+   */
+  exports.prototype['CanCombine'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 

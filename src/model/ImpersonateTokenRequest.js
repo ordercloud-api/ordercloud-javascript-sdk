@@ -64,7 +64,7 @@
         obj['ClientID'] = ApiClient.convertToType(data['ClientID'], 'String');
       }
       if (data.hasOwnProperty('Claims')) {
-        obj['Claims'] = ApiClient.convertToType(data['Claims'], 'String');
+        obj['Claims'] = ApiClient.convertToType(data['Claims'], ['String']);
       }
     }
     return obj;
@@ -75,7 +75,7 @@
    */
   exports.prototype['ClientID'] = undefined;
   /**
-   * @member {String} Claims
+   * @member {Array.<String>} Claims
    */
   exports.prototype['Claims'] = undefined;
 

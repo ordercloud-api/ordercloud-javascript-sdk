@@ -66,6 +66,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property fromCompanyID (base name: "FromCompanyID")', function() {
+      // uncomment below and update the code to test the property fromCompanyID
+      //var instane = new OrderCloud.Order();
+      //expect(instance).to.be();
+    });
+
     it('should have the property fromUserID (base name: "FromUserID")', function() {
       // uncomment below and update the code to test the property fromUserID
       //var instane = new OrderCloud.Order();

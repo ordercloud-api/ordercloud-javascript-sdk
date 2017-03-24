@@ -68,16 +68,6 @@
         done();
       });
     });
-    describe('CreateFromTempUser', function() {
-      it('should call CreateFromTempUser successfully', function(done) {
-        //uncomment below and update the code to test CreateFromTempUser
-        //instance.CreateFromTempUser(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('DeleteAddress', function() {
       it('should call DeleteAddress successfully', function(done) {
         //uncomment below and update the code to test DeleteAddress

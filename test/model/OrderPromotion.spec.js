@@ -60,6 +60,90 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property ID (base name: "ID")', function() {
+      // uncomment below and update the code to test the property ID
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property code (base name: "Code")', function() {
+      // uncomment below and update the code to test the property code
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property name (base name: "Name")', function() {
+      // uncomment below and update the code to test the property name
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property redemptionLimit (base name: "RedemptionLimit")', function() {
+      // uncomment below and update the code to test the property redemptionLimit
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property redemptionLimitPerUser (base name: "RedemptionLimitPerUser")', function() {
+      // uncomment below and update the code to test the property redemptionLimitPerUser
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property redemptionCount (base name: "RedemptionCount")', function() {
+      // uncomment below and update the code to test the property redemptionCount
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property description (base name: "Description")', function() {
+      // uncomment below and update the code to test the property description
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property finePrint (base name: "FinePrint")', function() {
+      // uncomment below and update the code to test the property finePrint
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property startDate (base name: "StartDate")', function() {
+      // uncomment below and update the code to test the property startDate
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property expirationDate (base name: "ExpirationDate")', function() {
+      // uncomment below and update the code to test the property expirationDate
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property eligibleExpression (base name: "EligibleExpression")', function() {
+      // uncomment below and update the code to test the property eligibleExpression
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property valueExpression (base name: "ValueExpression")', function() {
+      // uncomment below and update the code to test the property valueExpression
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property canCombine (base name: "CanCombine")', function() {
+      // uncomment below and update the code to test the property canCombine
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property xp (base name: "xp")', function() {
+      // uncomment below and update the code to test the property xp
+      //var instane = new OrderCloud.OrderPromotion();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

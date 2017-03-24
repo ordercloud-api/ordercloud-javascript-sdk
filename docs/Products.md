@@ -120,7 +120,7 @@ null (empty response body)
 
 <a name="DeleteAssignment"></a>
 # **DeleteAssignment**
-> DeleteAssignment(productID, buyerID, opts)
+> DeleteAssignment(buyerID, productID, opts)
 
 
 
@@ -135,15 +135,15 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Products();
 
-var productID = "productID_example"; // String | ID of the product.
-
 var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var productID = "productID_example"; // String | ID of the product.
 
 var opts = { 
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.DeleteAssignment(productID, buyerID, opts).then(function() {
+apiInstance.DeleteAssignment(buyerID, productID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -155,8 +155,8 @@ apiInstance.DeleteAssignment(productID, buyerID, opts).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **productID** | **String**| ID of the product. | 
  **buyerID** | **String**| ID of the buyer. | 
+ **productID** | **String**| ID of the product. | 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
 

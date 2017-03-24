@@ -60,6 +60,60 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property ID (base name: "ID")', function() {
+      // uncomment below and update the code to test the property ID
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property listOrder (base name: "ListOrder")', function() {
+      // uncomment below and update the code to test the property listOrder
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property name (base name: "Name")', function() {
+      // uncomment below and update the code to test the property name
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property defaultValue (base name: "DefaultValue")', function() {
+      // uncomment below and update the code to test the property defaultValue
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property required (base name: "Required")', function() {
+      // uncomment below and update the code to test the property required
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property allowOpenText (base name: "AllowOpenText")', function() {
+      // uncomment below and update the code to test the property allowOpenText
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property defaultOptionID (base name: "DefaultOptionID")', function() {
+      // uncomment below and update the code to test the property defaultOptionID
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property definesVariant (base name: "DefinesVariant")', function() {
+      // uncomment below and update the code to test the property definesVariant
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property xp (base name: "xp")', function() {
+      // uncomment below and update the code to test the property xp
+      //var instane = new OrderCloud.Spec();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));
