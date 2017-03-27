@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **maxQuantity** | **Number** |  | [optional] 
 **useCumulativeQuantity** | **Boolean** |  | [optional] 
 **restrictedQuantity** | **Boolean** |  | [optional] 
-**orderType** | **String** |  | [optional] 
 **priceBreaks** | [**[PriceBreak]**](PriceBreak.md) |  | [optional] 
 **xp** | **Object** |  | [optional] 
 

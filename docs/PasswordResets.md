@@ -4,13 +4,13 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ResetPassword**](PasswordResets.md#ResetPassword) | **PUT** /password/reset/{verificationCode} | 
+[**ResetPasswordByVerificationCode**](PasswordResets.md#ResetPasswordByVerificationCode) | **PUT** /password/reset/{verificationCode} | 
 [**SendVerificationCode**](PasswordResets.md#SendVerificationCode) | **POST** /password/reset | 
 
 
-<a name="ResetPassword"></a>
-# **ResetPassword**
-> ResetPassword(verificationCode, passwordReset)
+<a name="ResetPasswordByVerificationCode"></a>
+# **ResetPasswordByVerificationCode**
+> ResetPasswordByVerificationCode(verificationCode, passwordReset)
 
 
 
@@ -29,7 +29,7 @@ var verificationCode = "verificationCode_example"; // String | Verification code
 
 var passwordReset = new OrderCloud.PasswordReset(); // PasswordReset | 
 
-apiInstance.ResetPassword(verificationCode, passwordReset).then(function() {
+apiInstance.ResetPasswordByVerificationCode(verificationCode, passwordReset).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

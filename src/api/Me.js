@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/Order', 'model/Promotion', 'model/SpendingAccount', 'model/User'], factory);
+    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/Order', 'model/Promotion', 'model/SpendingAccount', 'model/TokenPasswordReset', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerSpec'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerSpec'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/Order'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/User'));
+    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerShipment'), require('../model/BuyerSpec'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerShipment'), require('../model/ListBuyerSpec'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/Order'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerSpec, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.Order, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.User);
+    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerShipment, root.OrderCloud.BuyerSpec, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerShipment, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.Order, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListSpendingAccount, ListUserGroup, Order, Promotion, SpendingAccount, User) {
+}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListSpendingAccount, ListUserGroup, Order, Promotion, SpendingAccount, TokenPasswordReset, User) {
   'use strict';
 
   /**
@@ -110,6 +110,48 @@
 
       return this.apiClient.callApi(
         '/me/creditcards', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} tempUserToken Temp user token of the me.
+     * @param {module:model/User} user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    this.CreateFromTempUser = function(tempUserToken, user) {
+      var postBody = user;
+
+      // verify the required parameter 'tempUserToken' is set
+      if (tempUserToken == undefined || tempUserToken == null) {
+        throw new Error("Missing the required parameter 'tempUserToken' when calling CreateFromTempUser");
+      }
+
+      // verify the required parameter 'user' is set
+      if (user == undefined || user == null) {
+        throw new Error("Missing the required parameter 'user' when calling CreateFromTempUser");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'tempUserToken': tempUserToken
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Object;
+
+      return this.apiClient.callApi(
+        '/me/register', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -326,11 +368,17 @@
 
 
     /**
+     * @param {String} catalogID ID of the catalog.
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerProduct}
      */
-    this.GetProduct = function(productID) {
+    this.GetProduct = function(catalogID, productID) {
       var postBody = null;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling GetProduct");
+      }
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
@@ -339,6 +387,7 @@
 
 
       var pathParams = {
+        'catalogID': catalogID,
         'productID': productID
       };
       var queryParams = {
@@ -354,7 +403,7 @@
       var returnType = BuyerProduct;
 
       return this.apiClient.callApi(
-        '/me/products/{productID}', 'GET',
+        '/me/catalogs/{catalogID}/products/{productID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -398,12 +447,54 @@
 
 
     /**
+     * @param {String} shipmentID ID of the shipment.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerShipment}
+     */
+    this.GetShipment = function(shipmentID) {
+      var postBody = null;
+
+      // verify the required parameter 'shipmentID' is set
+      if (shipmentID == undefined || shipmentID == null) {
+        throw new Error("Missing the required parameter 'shipmentID' when calling GetShipment");
+      }
+
+
+      var pathParams = {
+        'shipmentID': shipmentID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = BuyerShipment;
+
+      return this.apiClient.callApi(
+        '/me/shipments/{shipmentID}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} catalogID ID of the catalog.
      * @param {String} productID ID of the product.
      * @param {String} specID ID of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerSpec}
      */
-    this.GetSpec = function(productID, specID) {
+    this.GetSpec = function(catalogID, productID, specID) {
       var postBody = null;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling GetSpec");
+      }
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
@@ -417,6 +508,7 @@
 
 
       var pathParams = {
+        'catalogID': catalogID,
         'productID': productID,
         'specID': specID
       };
@@ -433,7 +525,7 @@
       var returnType = BuyerSpec;
 
       return this.apiClient.callApi(
-        '/me/products/{productID}/specs/{specID}', 'GET',
+        '/me/catalogs/{catalogID}/products/{productID}/specs/{specID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -748,8 +840,9 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.categoryID ID of the category.
      * @param {String} opts.catalogID ID of the catalog.
+     * @param {String} opts.categoryID ID of the category.
+     * @param {String} opts.depth Depth of the product.
      * @param {String} opts.search Word or phrase to search for.
      * @param {String} opts.searchOn Comma-delimited list of fields to search on.
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
@@ -766,8 +859,9 @@
       var pathParams = {
       };
       var queryParams = {
-        'categoryID': opts['categoryID'],
         'catalogID': opts['catalogID'],
+        'categoryID': opts['categoryID'],
+        'depth': opts['depth'],
         'search': opts['search'],
         'searchOn': opts['searchOn'],
         'sortBy': opts['sortBy'],
@@ -837,6 +931,52 @@
 
 
     /**
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.orderID ID of the order.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerShipment}
+     */
+    this.ListShipments = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'orderID': opts['orderID'],
+        'search': opts['search'],
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListBuyerShipment;
+
+      return this.apiClient.callApi(
+        '/me/shipments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} catalogID ID of the catalog.
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
      * @param {String} opts.search Word or phrase to search for.
@@ -847,9 +987,14 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
      */
-    this.ListSpecs = function(productID, opts) {
+    this.ListSpecs = function(catalogID, productID, opts) {
       opts = opts || {};
       var postBody = null;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling ListSpecs");
+      }
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
@@ -858,6 +1003,7 @@
 
 
       var pathParams = {
+        'catalogID': catalogID,
         'productID': productID
       };
       var queryParams = {
@@ -879,7 +1025,7 @@
       var returnType = ListBuyerSpec;
 
       return this.apiClient.callApi(
-        '/me/products/{productID}/specs', 'GET',
+        '/me/catalogs/{catalogID}/products/{productID}/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -1085,6 +1231,41 @@
 
       return this.apiClient.callApi(
         '/me/creditcards/{creditcardID}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {module:model/TokenPasswordReset} reset 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.ResetPasswordByToken = function(reset) {
+      var postBody = reset;
+
+      // verify the required parameter 'reset' is set
+      if (reset == undefined || reset == null) {
+        throw new Error("Missing the required parameter 'reset' when calling ResetPasswordByToken");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/me/password', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

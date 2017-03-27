@@ -102,12 +102,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property orderType (base name: "OrderType")', function() {
-      // uncomment below and update the code to test the property orderType
-      //var instane = new OrderCloud.PriceSchedule();
-      //expect(instance).to.be();
-    });
-
     it('should have the property priceBreaks (base name: "PriceBreaks")', function() {
       // uncomment below and update the code to test the property priceBreaks
       //var instane = new OrderCloud.PriceSchedule();

@@ -6,15 +6,17 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAddress**](Me.md#CreateAddress) | **POST** /me/addresses | 
 [**CreateCreditCard**](Me.md#CreateCreditCard) | **POST** /me/creditcards | 
+[**CreateFromTempUser**](Me.md#CreateFromTempUser) | **PUT** /me/register | 
 [**DeleteAddress**](Me.md#DeleteAddress) | **DELETE** /me/addresses/{addressID} | 
 [**DeleteCreditCard**](Me.md#DeleteCreditCard) | **DELETE** /me/creditcards/{creditcardID} | 
 [**Get**](Me.md#Get) | **GET** /me | 
 [**GetAddress**](Me.md#GetAddress) | **GET** /me/addresses/{addressID} | 
 [**GetCreditCard**](Me.md#GetCreditCard) | **GET** /me/creditcards/{creditcardID} | 
 [**GetOrder**](Me.md#GetOrder) | **GET** /me/orders/{orderID} | 
-[**GetProduct**](Me.md#GetProduct) | **GET** /me/products/{productID} | 
+[**GetProduct**](Me.md#GetProduct) | **GET** /me/catalogs/{catalogID}/products/{productID} | 
 [**GetPromotion**](Me.md#GetPromotion) | **GET** /me/promotions/{promotionID} | 
-[**GetSpec**](Me.md#GetSpec) | **GET** /me/products/{productID}/specs/{specID} | 
+[**GetShipment**](Me.md#GetShipment) | **GET** /me/shipments/{shipmentID} | 
+[**GetSpec**](Me.md#GetSpec) | **GET** /me/catalogs/{catalogID}/products/{productID}/specs/{specID} | 
 [**GetSpendingAccount**](Me.md#GetSpendingAccount) | **GET** /me/spendingaccounts/{spendingAccountID} | 
 [**ListAddresses**](Me.md#ListAddresses) | **GET** /me/addresses | 
 [**ListCategories**](Me.md#ListCategories) | **GET** /me/categories | 
@@ -24,12 +26,14 @@ Method | HTTP request | Description
 [**ListOutgoingOrders**](Me.md#ListOutgoingOrders) | **GET** /me/orders/outgoing | 
 [**ListProducts**](Me.md#ListProducts) | **GET** /me/products | 
 [**ListPromotions**](Me.md#ListPromotions) | **GET** /me/promotions | 
-[**ListSpecs**](Me.md#ListSpecs) | **GET** /me/products/{productID}/specs | 
+[**ListShipments**](Me.md#ListShipments) | **GET** /me/shipments | 
+[**ListSpecs**](Me.md#ListSpecs) | **GET** /me/catalogs/{catalogID}/products/{productID}/specs | 
 [**ListSpendingAccounts**](Me.md#ListSpendingAccounts) | **GET** /me/spendingAccounts | 
 [**ListUserGroups**](Me.md#ListUserGroups) | **GET** /me/usergroups | 
 [**Patch**](Me.md#Patch) | **PATCH** /me | 
 [**PatchAddress**](Me.md#PatchAddress) | **PATCH** /me/addresses/{addressID} | 
 [**PatchCreditCard**](Me.md#PatchCreditCard) | **PATCH** /me/creditcards/{creditcardID} | 
+[**ResetPasswordByToken**](Me.md#ResetPasswordByToken) | **POST** /me/password | 
 [**Update**](Me.md#Update) | **PUT** /me | 
 [**UpdateAddress**](Me.md#UpdateAddress) | **PUT** /me/addresses/{addressID} | 
 [**UpdateCreditCard**](Me.md#UpdateCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
@@ -117,6 +121,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**BuyerCreditCard**](BuyerCreditCard.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="CreateFromTempUser"></a>
+# **CreateFromTempUser**
+> Object CreateFromTempUser(tempUserToken, user)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var tempUserToken = "tempUserToken_example"; // String | Temp user token of the me.
+
+var user = new OrderCloud.User(); // User | 
+
+apiInstance.CreateFromTempUser(tempUserToken, user).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tempUserToken** | **String**| Temp user token of the me. | 
+ **user** | [**User**](User.md)|  | 
+
+### Return type
+
+**Object**
 
 ### Authorization
 
@@ -399,7 +452,7 @@ Name | Type | Description  | Notes
 
 <a name="GetProduct"></a>
 # **GetProduct**
-> BuyerProduct GetProduct(productID)
+> BuyerProduct GetProduct(catalogID, productID)
 
 
 
@@ -414,9 +467,11 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
+var catalogID = "catalogID_example"; // String | ID of the catalog.
+
 var productID = "productID_example"; // String | ID of the product.
 
-apiInstance.GetProduct(productID).then(function(data) {
+apiInstance.GetProduct(catalogID, productID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -428,6 +483,7 @@ apiInstance.GetProduct(productID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **catalogID** | **String**| ID of the catalog. | 
  **productID** | **String**| ID of the product. | 
 
 ### Return type
@@ -489,9 +545,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetSpec"></a>
-# **GetSpec**
-> BuyerSpec GetSpec(productID, specID)
+<a name="GetShipment"></a>
+# **GetShipment**
+> BuyerShipment GetShipment(shipmentID)
 
 
 
@@ -506,11 +562,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
-var productID = "productID_example"; // String | ID of the product.
+var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
-var specID = "specID_example"; // String | ID of the spec.
-
-apiInstance.GetSpec(productID, specID).then(function(data) {
+apiInstance.GetShipment(shipmentID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -522,6 +576,57 @@ apiInstance.GetSpec(productID, specID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **shipmentID** | **String**| ID of the shipment. | 
+
+### Return type
+
+[**BuyerShipment**](BuyerShipment.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="GetSpec"></a>
+# **GetSpec**
+> BuyerSpec GetSpec(catalogID, productID, specID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var catalogID = "catalogID_example"; // String | ID of the catalog.
+
+var productID = "productID_example"; // String | ID of the product.
+
+var specID = "specID_example"; // String | ID of the spec.
+
+apiInstance.GetSpec(catalogID, productID, specID).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalogID** | **String**| ID of the catalog. | 
  **productID** | **String**| ID of the product. | 
  **specID** | **String**| ID of the spec. | 
 
@@ -956,8 +1061,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'categoryID': "categoryID_example", // String | ID of the category.
   'catalogID': "catalogID_example", // String | ID of the catalog.
+  'categoryID': "categoryID_example", // String | ID of the category.
+  'depth': "depth_example", // String | Depth of the product.
   'search': "search_example", // String | Word or phrase to search for.
   'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
   'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
@@ -977,8 +1083,9 @@ apiInstance.ListProducts(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **categoryID** | **String**| ID of the category. | [optional] 
  **catalogID** | **String**| ID of the catalog. | [optional] 
+ **categoryID** | **String**| ID of the category. | [optional] 
+ **depth** | **String**| Depth of the product. | [optional] 
  **search** | **String**| Word or phrase to search for. | [optional] 
  **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
  **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
@@ -1056,9 +1163,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListSpecs"></a>
-# **ListSpecs**
-> ListBuyerSpec ListSpecs(productID, opts)
+<a name="ListShipments"></a>
+# **ListShipments**
+> ListBuyerShipment ListShipments(opts)
 
 
 
@@ -1073,9 +1180,8 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
-var productID = "productID_example"; // String | ID of the product.
-
 var opts = { 
+  'orderID': "orderID_example", // String | ID of the order.
   'search': "search_example", // String | Word or phrase to search for.
   'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
   'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
@@ -1083,7 +1189,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListSpecs(productID, opts).then(function(data) {
+apiInstance.ListShipments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1095,6 +1201,69 @@ apiInstance.ListSpecs(productID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **orderID** | **String**| ID of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+
+### Return type
+
+[**ListBuyerShipment**](ListBuyerShipment.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="ListSpecs"></a>
+# **ListSpecs**
+> ListBuyerSpec ListSpecs(catalogID, productID, opts)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var catalogID = "catalogID_example"; // String | ID of the catalog.
+
+var productID = "productID_example"; // String | ID of the product.
+
+var opts = { 
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+};
+apiInstance.ListSpecs(catalogID, productID, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalogID** | **String**| ID of the catalog. | 
  **productID** | **String**| ID of the product. | 
  **search** | **String**| Word or phrase to search for. | [optional] 
  **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
@@ -1360,6 +1529,52 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **creditcardID** | **String**| ID of the creditcard. | 
  **creditCard** | [**CreditCard**](CreditCard.md)|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="ResetPasswordByToken"></a>
+# **ResetPasswordByToken**
+> ResetPasswordByToken(reset)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var reset = new OrderCloud.TokenPasswordReset(); // TokenPasswordReset | 
+
+apiInstance.ResetPasswordByToken(reset).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reset** | [**TokenPasswordReset**](TokenPasswordReset.md)|  | 
 
 ### Return type
 

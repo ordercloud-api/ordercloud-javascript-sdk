@@ -68,6 +68,16 @@
         done();
       });
     });
+    describe('CreateFromTempUser', function() {
+      it('should call CreateFromTempUser successfully', function(done) {
+        //uncomment below and update the code to test CreateFromTempUser
+        //instance.CreateFromTempUser(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('DeleteAddress', function() {
       it('should call DeleteAddress successfully', function(done) {
         //uncomment below and update the code to test DeleteAddress
@@ -142,6 +152,16 @@
       it('should call GetPromotion successfully', function(done) {
         //uncomment below and update the code to test GetPromotion
         //instance.GetPromotion(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('GetShipment', function() {
+      it('should call GetShipment successfully', function(done) {
+        //uncomment below and update the code to test GetShipment
+        //instance.GetShipment(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -248,6 +268,16 @@
         done();
       });
     });
+    describe('ListShipments', function() {
+      it('should call ListShipments successfully', function(done) {
+        //uncomment below and update the code to test ListShipments
+        //instance.ListShipments(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('ListSpecs', function() {
       it('should call ListSpecs successfully', function(done) {
         //uncomment below and update the code to test ListSpecs
@@ -302,6 +332,16 @@
       it('should call PatchCreditCard successfully', function(done) {
         //uncomment below and update the code to test PatchCreditCard
         //instance.PatchCreditCard(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('ResetPasswordByToken', function() {
+      it('should call ResetPasswordByToken successfully', function(done) {
+        //uncomment below and update the code to test ResetPasswordByToken
+        //instance.ResetPasswordByToken(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

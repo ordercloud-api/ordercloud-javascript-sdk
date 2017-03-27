@@ -60,18 +60,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property priceScheduleID (base name: "PriceScheduleID")', function() {
-      // uncomment below and update the code to test the property priceScheduleID
-      //var instane = new OrderCloud.ProductAssignment();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property standardPriceScheduleID (base name: "StandardPriceScheduleID")', function() {
-      // uncomment below and update the code to test the property standardPriceScheduleID
-      //var instane = new OrderCloud.ProductAssignment();
-      //expect(instance).to.be();
-    });
-
     it('should have the property buyerID (base name: "BuyerID")', function() {
       // uncomment below and update the code to test the property buyerID
       //var instane = new OrderCloud.ProductAssignment();
@@ -86,6 +74,18 @@
 
     it('should have the property userGroupID (base name: "UserGroupID")', function() {
       // uncomment below and update the code to test the property userGroupID
+      //var instane = new OrderCloud.ProductAssignment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property priceScheduleID (base name: "PriceScheduleID")', function() {
+      // uncomment below and update the code to test the property priceScheduleID
+      //var instane = new OrderCloud.ProductAssignment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property standardPriceScheduleID (base name: "StandardPriceScheduleID")', function() {
+      // uncomment below and update the code to test the property standardPriceScheduleID
       //var instane = new OrderCloud.ProductAssignment();
       //expect(instance).to.be();
     });

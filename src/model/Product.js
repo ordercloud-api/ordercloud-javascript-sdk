@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/Inventory'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./Inventory'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Product = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.Product = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, Inventory) {
   'use strict';
 
 
@@ -61,9 +61,6 @@
 
 
 
-
-
-
   };
 
   /**
@@ -77,6 +74,9 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('DefaultPriceScheduleID')) {
+        obj['DefaultPriceScheduleID'] = ApiClient.convertToType(data['DefaultPriceScheduleID'], 'String');
+      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
@@ -104,29 +104,11 @@
       if (data.hasOwnProperty('Active')) {
         obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
       }
-      if (data.hasOwnProperty('Type')) {
-        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
-      }
-      if (data.hasOwnProperty('InventoryEnabled')) {
-        obj['InventoryEnabled'] = ApiClient.convertToType(data['InventoryEnabled'], 'Boolean');
-      }
-      if (data.hasOwnProperty('InventoryNotificationPoint')) {
-        obj['InventoryNotificationPoint'] = ApiClient.convertToType(data['InventoryNotificationPoint'], 'Number');
-      }
-      if (data.hasOwnProperty('VariantLevelInventory')) {
-        obj['VariantLevelInventory'] = ApiClient.convertToType(data['VariantLevelInventory'], 'Boolean');
-      }
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = ApiClient.convertToType(data['SpecCount'], 'Number');
       }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
-      }
-      if (data.hasOwnProperty('AllowOrderExceedInventory')) {
-        obj['AllowOrderExceedInventory'] = ApiClient.convertToType(data['AllowOrderExceedInventory'], 'Boolean');
-      }
-      if (data.hasOwnProperty('InventoryVisible')) {
-        obj['InventoryVisible'] = ApiClient.convertToType(data['InventoryVisible'], 'Boolean');
       }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = ApiClient.convertToType(data['VariantCount'], 'Number');
@@ -134,10 +116,20 @@
       if (data.hasOwnProperty('ShipFromAddressID')) {
         obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
       }
+      if (data.hasOwnProperty('Inventory')) {
+        obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
+      }
+      if (data.hasOwnProperty('AutoForwardSupplierID')) {
+        obj['AutoForwardSupplierID'] = ApiClient.convertToType(data['AutoForwardSupplierID'], 'String');
+      }
     }
     return obj;
   }
 
+  /**
+   * @member {String} DefaultPriceScheduleID
+   */
+  exports.prototype['DefaultPriceScheduleID'] = undefined;
   /**
    * @member {String} ID
    */
@@ -175,22 +167,6 @@
    */
   exports.prototype['Active'] = undefined;
   /**
-   * @member {String} Type
-   */
-  exports.prototype['Type'] = undefined;
-  /**
-   * @member {Boolean} InventoryEnabled
-   */
-  exports.prototype['InventoryEnabled'] = undefined;
-  /**
-   * @member {Number} InventoryNotificationPoint
-   */
-  exports.prototype['InventoryNotificationPoint'] = undefined;
-  /**
-   * @member {Boolean} VariantLevelInventory
-   */
-  exports.prototype['VariantLevelInventory'] = undefined;
-  /**
    * @member {Number} SpecCount
    */
   exports.prototype['SpecCount'] = undefined;
@@ -199,14 +175,6 @@
    */
   exports.prototype['xp'] = undefined;
   /**
-   * @member {Boolean} AllowOrderExceedInventory
-   */
-  exports.prototype['AllowOrderExceedInventory'] = undefined;
-  /**
-   * @member {Boolean} InventoryVisible
-   */
-  exports.prototype['InventoryVisible'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -214,6 +182,14 @@
    * @member {String} ShipFromAddressID
    */
   exports.prototype['ShipFromAddressID'] = undefined;
+  /**
+   * @member {module:model/Inventory} Inventory
+   */
+  exports.prototype['Inventory'] = undefined;
+  /**
+   * @member {String} AutoForwardSupplierID
+   */
+  exports.prototype['AutoForwardSupplierID'] = undefined;
 
 
 

@@ -8,9 +8,7 @@ Name | Type | Description | Notes
 **status** | **String** |  | [optional] 
 **dateCreated** | **String** |  | [optional] 
 **dateCompleted** | **String** |  | [optional] 
-**approverID** | **String** |  | [optional] 
-**approverUserName** | **String** |  | [optional] 
-**approverEmail** | **String** |  | [optional] 
+**approver** | [**User**](User.md) |  | [optional] 
 **comments** | **String** |  | [optional] 
 
 

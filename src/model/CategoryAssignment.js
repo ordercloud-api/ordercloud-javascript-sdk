@@ -49,6 +49,8 @@
 
 
 
+
+
   };
 
   /**
@@ -74,6 +76,12 @@
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
       }
+      if (data.hasOwnProperty('Visible')) {
+        obj['Visible'] = ApiClient.convertToType(data['Visible'], 'Boolean');
+      }
+      if (data.hasOwnProperty('ViewAllProducts')) {
+        obj['ViewAllProducts'] = ApiClient.convertToType(data['ViewAllProducts'], 'Boolean');
+      }
     }
     return obj;
   }
@@ -94,6 +102,14 @@
    * @member {String} UserGroupID
    */
   exports.prototype['UserGroupID'] = undefined;
+  /**
+   * @member {Boolean} Visible
+   */
+  exports.prototype['Visible'] = undefined;
+  /**
+   * @member {Boolean} ViewAllProducts
+   */
+  exports.prototype['ViewAllProducts'] = undefined;
 
 
 

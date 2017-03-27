@@ -66,12 +66,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property password (base name: "Password")', function() {
-      // uncomment below and update the code to test the property password
-      //var instane = new OrderCloud.User();
-      //expect(instance).to.be();
-    });
-
     it('should have the property firstName (base name: "FirstName")', function() {
       // uncomment below and update the code to test the property firstName
       //var instane = new OrderCloud.User();

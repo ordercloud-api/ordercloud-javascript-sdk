@@ -47,17 +47,17 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Payment} payment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Create = function(buyerID, orderID, payment) {
+    this.Create = function(direction, orderID, payment) {
       var postBody = payment;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Create");
       }
 
       // verify the required parameter 'orderID' is set
@@ -72,7 +72,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -88,7 +88,7 @@
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments', 'POST',
+        '/orders/{direction}/{orderID}/payments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -96,18 +96,18 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @param {module:model/PaymentTransaction} transaction 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.CreateTransaction = function(buyerID, orderID, paymentID, transaction) {
+    this.CreateTransaction = function(direction, orderID, paymentID, transaction) {
       var postBody = transaction;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling CreateTransaction");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling CreateTransaction");
       }
 
       // verify the required parameter 'orderID' is set
@@ -127,7 +127,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -144,7 +144,7 @@
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions', 'POST',
+        '/orders/{direction}/{orderID}/payments/{paymentID}/transactions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -152,17 +152,17 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, orderID, paymentID) {
+    this.Delete = function(direction, orderID, paymentID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Delete");
       }
 
       // verify the required parameter 'orderID' is set
@@ -177,7 +177,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -194,7 +194,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'DELETE',
+        '/orders/{direction}/{orderID}/payments/{paymentID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -202,18 +202,18 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @param {String} transactionID ID of the transaction.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteTransaction = function(buyerID, orderID, paymentID, transactionID) {
+    this.DeleteTransaction = function(direction, orderID, paymentID, transactionID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteTransaction");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling DeleteTransaction");
       }
 
       // verify the required parameter 'orderID' is set
@@ -233,7 +233,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID,
         'transactionID': transactionID
@@ -251,7 +251,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'DELETE',
+        '/orders/{direction}/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -259,17 +259,17 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Get = function(buyerID, orderID, paymentID) {
+    this.Get = function(direction, orderID, paymentID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Get");
       }
 
       // verify the required parameter 'orderID' is set
@@ -284,7 +284,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -301,7 +301,7 @@
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'GET',
+        '/orders/{direction}/{orderID}/payments/{paymentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -309,7 +309,7 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
      * @param {String} opts.search Word or phrase to search for.
@@ -320,13 +320,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPayment}
      */
-    this.List = function(buyerID, orderID, opts) {
+    this.List = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling List");
       }
 
       // verify the required parameter 'orderID' is set
@@ -336,7 +336,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -358,7 +358,7 @@
       var returnType = ListPayment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments', 'GET',
+        '/orders/{direction}/{orderID}/payments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -366,18 +366,18 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @param {module:model/Payment} partialPayment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Patch = function(buyerID, orderID, paymentID, partialPayment) {
+    this.Patch = function(direction, orderID, paymentID, partialPayment) {
       var postBody = partialPayment;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Patch");
       }
 
       // verify the required parameter 'orderID' is set
@@ -397,7 +397,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -414,189 +414,7 @@
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} orderID ID of the order.
-     * @param {String} paymentID ID of the payment.
-     * @param {String} transactionID ID of the transaction.
-     * @param {module:model/PaymentTransaction} partialTransaction 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
-     */
-    this.PatchTransaction = function(buyerID, orderID, paymentID, transactionID, partialTransaction) {
-      var postBody = partialTransaction;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'paymentID' is set
-      if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'transactionID' is set
-      if (transactionID == undefined || transactionID == null) {
-        throw new Error("Missing the required parameter 'transactionID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'partialTransaction' is set
-      if (partialTransaction == undefined || partialTransaction == null) {
-        throw new Error("Missing the required parameter 'partialTransaction' when calling PatchTransaction");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'orderID': orderID,
-        'paymentID': paymentID,
-        'transactionID': transactionID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Payment;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} orderID ID of the order.
-     * @param {String} paymentID ID of the payment.
-     * @param {module:model/Payment} payment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
-     */
-    this.Update = function(buyerID, orderID, paymentID, payment) {
-      var postBody = payment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Update");
-      }
-
-      // verify the required parameter 'paymentID' is set
-      if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling Update");
-      }
-
-      // verify the required parameter 'payment' is set
-      if (payment == undefined || payment == null) {
-        throw new Error("Missing the required parameter 'payment' when calling Update");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'orderID': orderID,
-        'paymentID': paymentID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Payment;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} orderID ID of the order.
-     * @param {String} paymentID ID of the payment.
-     * @param {String} transactionID ID of the transaction.
-     * @param {module:model/PaymentTransaction} transaction 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
-     */
-    this.UpdateTransaction = function(buyerID, orderID, paymentID, transactionID, transaction) {
-      var postBody = transaction;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'paymentID' is set
-      if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'transactionID' is set
-      if (transactionID == undefined || transactionID == null) {
-        throw new Error("Missing the required parameter 'transactionID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'transaction' is set
-      if (transaction == undefined || transaction == null) {
-        throw new Error("Missing the required parameter 'transaction' when calling UpdateTransaction");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'orderID': orderID,
-        'paymentID': paymentID,
-        'transactionID': transactionID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Payment;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'PUT',
+        '/orders/{direction}/{orderID}/payments/{paymentID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

@@ -72,6 +72,42 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property unitPrice (base name: "UnitPrice")', function() {
+      // uncomment below and update the code to test the property unitPrice
+      //var instane = new OrderCloud.ShipmentItem();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property costCenter (base name: "CostCenter")', function() {
+      // uncomment below and update the code to test the property costCenter
+      //var instane = new OrderCloud.ShipmentItem();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property dateNeeded (base name: "DateNeeded")', function() {
+      // uncomment below and update the code to test the property dateNeeded
+      //var instane = new OrderCloud.ShipmentItem();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property product (base name: "Product")', function() {
+      // uncomment below and update the code to test the property product
+      //var instane = new OrderCloud.ShipmentItem();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property specs (base name: "Specs")', function() {
+      // uncomment below and update the code to test the property specs
+      //var instane = new OrderCloud.ShipmentItem();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property xp (base name: "xp")', function() {
+      // uncomment below and update the code to test the property xp
+      //var instane = new OrderCloud.ShipmentItem();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

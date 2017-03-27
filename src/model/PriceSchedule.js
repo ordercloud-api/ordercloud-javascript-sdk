@@ -55,7 +55,6 @@
 
 
 
-
   };
 
   /**
@@ -92,9 +91,6 @@
       }
       if (data.hasOwnProperty('RestrictedQuantity')) {
         obj['RestrictedQuantity'] = ApiClient.convertToType(data['RestrictedQuantity'], 'Boolean');
-      }
-      if (data.hasOwnProperty('OrderType')) {
-        obj['OrderType'] = ApiClient.convertToType(data['OrderType'], 'String');
       }
       if (data.hasOwnProperty('PriceBreaks')) {
         obj['PriceBreaks'] = ApiClient.convertToType(data['PriceBreaks'], [PriceBreak]);
@@ -138,10 +134,6 @@
    * @member {Boolean} RestrictedQuantity
    */
   exports.prototype['RestrictedQuantity'] = undefined;
-  /**
-   * @member {String} OrderType
-   */
-  exports.prototype['OrderType'] = undefined;
   /**
    * @member {Array.<module:model/PriceBreak>} PriceBreaks
    */

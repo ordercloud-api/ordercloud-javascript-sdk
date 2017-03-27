@@ -54,26 +54,32 @@
       //expect(instance).to.be.a(OrderCloud.Inventory);
     });
 
-    it('should have the property ID (base name: "ID")', function() {
-      // uncomment below and update the code to test the property ID
+    it('should have the property enabled (base name: "Enabled")', function() {
+      // uncomment below and update the code to test the property enabled
       //var instane = new OrderCloud.Inventory();
       //expect(instance).to.be();
     });
 
-    it('should have the property name (base name: "Name")', function() {
-      // uncomment below and update the code to test the property name
+    it('should have the property notificationPoint (base name: "NotificationPoint")', function() {
+      // uncomment below and update the code to test the property notificationPoint
       //var instane = new OrderCloud.Inventory();
       //expect(instance).to.be();
     });
 
-    it('should have the property available (base name: "Available")', function() {
-      // uncomment below and update the code to test the property available
+    it('should have the property variantLevelTracking (base name: "VariantLevelTracking")', function() {
+      // uncomment below and update the code to test the property variantLevelTracking
       //var instane = new OrderCloud.Inventory();
       //expect(instance).to.be();
     });
 
-    it('should have the property reserved (base name: "Reserved")', function() {
-      // uncomment below and update the code to test the property reserved
+    it('should have the property orderCanExceed (base name: "OrderCanExceed")', function() {
+      // uncomment below and update the code to test the property orderCanExceed
+      //var instane = new OrderCloud.Inventory();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property quantityAvailable (base name: "QuantityAvailable")', function() {
+      // uncomment below and update the code to test the property quantityAvailable
       //var instane = new OrderCloud.Inventory();
       //expect(instance).to.be();
     });

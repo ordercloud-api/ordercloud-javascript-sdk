@@ -118,6 +118,16 @@
         done();
       });
     });
+    describe('List', function() {
+      it('should call List successfully', function(done) {
+        //uncomment below and update the code to test List
+        //instance.List(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('ListApprovals', function() {
       it('should call ListApprovals successfully', function(done) {
         //uncomment below and update the code to test ListApprovals
@@ -132,26 +142,6 @@
       it('should call ListEligibleApprovers successfully', function(done) {
         //uncomment below and update the code to test ListEligibleApprovers
         //instance.ListEligibleApprovers(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('ListIncoming', function() {
-      it('should call ListIncoming successfully', function(done) {
-        //uncomment below and update the code to test ListIncoming
-        //instance.ListIncoming(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('ListOutgoing', function() {
-      it('should call ListOutgoing successfully', function(done) {
-        //uncomment below and update the code to test ListOutgoing
-        //instance.ListOutgoing(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

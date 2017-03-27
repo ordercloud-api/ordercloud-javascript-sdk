@@ -66,6 +66,18 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property viewAllCategories (base name: "ViewAllCategories")', function() {
+      // uncomment below and update the code to test the property viewAllCategories
+      //var instane = new OrderCloud.CatalogAssignment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property viewAllProducts (base name: "ViewAllProducts")', function() {
+      // uncomment below and update the code to test the property viewAllProducts
+      //var instane = new OrderCloud.CatalogAssignment();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

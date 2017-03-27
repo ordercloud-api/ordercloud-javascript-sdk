@@ -7,5 +7,7 @@ Name | Type | Description | Notes
 **buyerID** | **String** |  | [optional] 
 **userID** | **String** |  | [optional] 
 **userGroupID** | **String** |  | [optional] 
+**visible** | **Boolean** |  | [optional] 
+**viewAllProducts** | **Boolean** |  | [optional] 
 
 

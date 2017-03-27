@@ -54,6 +54,7 @@
 
 
 
+
   };
 
   /**
@@ -87,6 +88,9 @@
       }
       if (data.hasOwnProperty('Amount')) {
         obj['Amount'] = ApiClient.convertToType(data['Amount'], 'Number');
+      }
+      if (data.hasOwnProperty('Accepted')) {
+        obj['Accepted'] = ApiClient.convertToType(data['Accepted'], 'Boolean');
       }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
@@ -126,6 +130,10 @@
    * @member {Number} Amount
    */
   exports.prototype['Amount'] = undefined;
+  /**
+   * @member {Boolean} Accepted
+   */
+  exports.prototype['Accepted'] = undefined;
   /**
    * @member {Object} xp
    */

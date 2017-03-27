@@ -72,6 +72,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property autoForwardingUserID (base name: "AutoForwardingUserID")', function() {
+      // uncomment below and update the code to test the property autoForwardingUserID
+      //var instane = new OrderCloud.AdminCompany();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

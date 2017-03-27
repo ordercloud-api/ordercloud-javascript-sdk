@@ -72,6 +72,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property active (base name: "Active")', function() {
+      // uncomment below and update the code to test the property active
+      //var instane = new OrderCloud.Catalog();
+      //expect(instance).to.be();
+    });
+
     it('should have the property categoryCount (base name: "CategoryCount")', function() {
       // uncomment below and update the code to test the property categoryCount
       //var instane = new OrderCloud.Catalog();

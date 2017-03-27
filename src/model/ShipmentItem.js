@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./LineItemProduct'), require('./LineItemSpec'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.ApiClient, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, LineItemProduct, LineItemSpec) {
   'use strict';
 
 
@@ -44,6 +44,12 @@
    */
   var exports = function() {
     var _this = this;
+
+
+
+
+
+
 
 
 
@@ -70,6 +76,24 @@
       if (data.hasOwnProperty('QuantityShipped')) {
         obj['QuantityShipped'] = ApiClient.convertToType(data['QuantityShipped'], 'Number');
       }
+      if (data.hasOwnProperty('UnitPrice')) {
+        obj['UnitPrice'] = ApiClient.convertToType(data['UnitPrice'], 'Number');
+      }
+      if (data.hasOwnProperty('CostCenter')) {
+        obj['CostCenter'] = ApiClient.convertToType(data['CostCenter'], 'String');
+      }
+      if (data.hasOwnProperty('DateNeeded')) {
+        obj['DateNeeded'] = ApiClient.convertToType(data['DateNeeded'], 'String');
+      }
+      if (data.hasOwnProperty('Product')) {
+        obj['Product'] = LineItemProduct.constructFromObject(data['Product']);
+      }
+      if (data.hasOwnProperty('Specs')) {
+        obj['Specs'] = ApiClient.convertToType(data['Specs'], [LineItemSpec]);
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -86,6 +110,30 @@
    * @member {Number} QuantityShipped
    */
   exports.prototype['QuantityShipped'] = undefined;
+  /**
+   * @member {Number} UnitPrice
+   */
+  exports.prototype['UnitPrice'] = undefined;
+  /**
+   * @member {String} CostCenter
+   */
+  exports.prototype['CostCenter'] = undefined;
+  /**
+   * @member {String} DateNeeded
+   */
+  exports.prototype['DateNeeded'] = undefined;
+  /**
+   * @member {module:model/LineItemProduct} Product
+   */
+  exports.prototype['Product'] = undefined;
+  /**
+   * @member {Array.<module:model/LineItemSpec>} Specs
+   */
+  exports.prototype['Specs'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 

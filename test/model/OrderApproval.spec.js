@@ -84,20 +84,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property approverID (base name: "ApproverID")', function() {
-      // uncomment below and update the code to test the property approverID
-      //var instane = new OrderCloud.OrderApproval();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property approverUserName (base name: "ApproverUserName")', function() {
-      // uncomment below and update the code to test the property approverUserName
-      //var instane = new OrderCloud.OrderApproval();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property approverEmail (base name: "ApproverEmail")', function() {
-      // uncomment below and update the code to test the property approverEmail
+    it('should have the property approver (base name: "Approver")', function() {
+      // uncomment below and update the code to test the property approver
       //var instane = new OrderCloud.OrderApproval();
       //expect(instance).to.be();
     });

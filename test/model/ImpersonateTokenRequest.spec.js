@@ -60,8 +60,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property claims (base name: "Claims")', function() {
-      // uncomment below and update the code to test the property claims
+    it('should have the property roles (base name: "Roles")', function() {
+      // uncomment below and update the code to test the property roles
       //var instane = new OrderCloud.ImpersonateTokenRequest();
       //expect(instance).to.be();
     });

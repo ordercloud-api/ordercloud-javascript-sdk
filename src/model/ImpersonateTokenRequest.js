@@ -63,8 +63,8 @@
       if (data.hasOwnProperty('ClientID')) {
         obj['ClientID'] = ApiClient.convertToType(data['ClientID'], 'String');
       }
-      if (data.hasOwnProperty('Claims')) {
-        obj['Claims'] = ApiClient.convertToType(data['Claims'], ['String']);
+      if (data.hasOwnProperty('Roles')) {
+        obj['Roles'] = ApiClient.convertToType(data['Roles'], ['String']);
       }
     }
     return obj;
@@ -75,9 +75,9 @@
    */
   exports.prototype['ClientID'] = undefined;
   /**
-   * @member {Array.<String>} Claims
+   * @member {Array.<String>} Roles
    */
-  exports.prototype['Claims'] = undefined;
+  exports.prototype['Roles'] = undefined;
 
 
 

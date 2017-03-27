@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ShipmentItem'], factory);
+    define(['ApiClient', 'model/Address'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./ShipmentItem'));
+    module.exports = factory(require('../ApiClient'), require('./Address'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Shipment = factory(root.OrderCloud.ApiClient, root.OrderCloud.ShipmentItem);
+    root.OrderCloud.Shipment = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address);
   }
-}(this, function(ApiClient, ShipmentItem) {
+}(this, function(ApiClient, Address) {
   'use strict';
 
 
@@ -53,6 +53,11 @@
 
 
 
+
+
+
+
+
   };
 
   /**
@@ -66,6 +71,9 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('BuyerID')) {
+        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
+      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
@@ -84,16 +92,32 @@
       if (data.hasOwnProperty('Cost')) {
         obj['Cost'] = ApiClient.convertToType(data['Cost'], 'Number');
       }
-      if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [ShipmentItem]);
-      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
+      if (data.hasOwnProperty('Account')) {
+        obj['Account'] = ApiClient.convertToType(data['Account'], 'String');
+      }
+      if (data.hasOwnProperty('FromAddressID')) {
+        obj['FromAddressID'] = ApiClient.convertToType(data['FromAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('ToAddressID')) {
+        obj['ToAddressID'] = ApiClient.convertToType(data['ToAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('FromAddress')) {
+        obj['FromAddress'] = Address.constructFromObject(data['FromAddress']);
+      }
+      if (data.hasOwnProperty('ToAddress')) {
+        obj['ToAddress'] = Address.constructFromObject(data['ToAddress']);
       }
     }
     return obj;
   }
 
+  /**
+   * @member {String} BuyerID
+   */
+  exports.prototype['BuyerID'] = undefined;
   /**
    * @member {String} ID
    */
@@ -119,13 +143,29 @@
    */
   exports.prototype['Cost'] = undefined;
   /**
-   * @member {Array.<module:model/ShipmentItem>} Items
-   */
-  exports.prototype['Items'] = undefined;
-  /**
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
+  /**
+   * @member {String} Account
+   */
+  exports.prototype['Account'] = undefined;
+  /**
+   * @member {String} FromAddressID
+   */
+  exports.prototype['FromAddressID'] = undefined;
+  /**
+   * @member {String} ToAddressID
+   */
+  exports.prototype['ToAddressID'] = undefined;
+  /**
+   * @member {module:model/Address} FromAddress
+   */
+  exports.prototype['FromAddress'] = undefined;
+  /**
+   * @member {module:model/Address} ToAddress
+   */
+  exports.prototype['ToAddress'] = undefined;
 
 
 

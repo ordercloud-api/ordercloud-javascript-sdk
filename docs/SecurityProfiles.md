@@ -187,9 +187,11 @@ var apiInstance = new OrderCloud.SecurityProfiles();
 
 var opts = { 
   'buyerID': "buyerID_example", // String | ID of the buyer.
+  'supplierID': "supplierID_example", // String | ID of the supplier.
   'securityProfileID': "securityProfileID_example", // String | ID of the security profile.
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example", // String | ID of the user group.
+  'commerceRole': "commerceRole_example", // String | Commerce role of the security profile.
   'level': "level_example", // String | Level of the security profile.
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
@@ -207,9 +209,11 @@ apiInstance.ListAssignments(opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | [optional] 
+ **supplierID** | **String**| ID of the supplier. | [optional] 
  **securityProfileID** | **String**| ID of the security profile. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
+ **commerceRole** | **String**| Commerce role of the security profile. | [optional] 
  **level** | **String**| Level of the security profile. | [optional] 
  **page** | **Number**| Page of results to return. Default: 1 | [optional] 
  **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 

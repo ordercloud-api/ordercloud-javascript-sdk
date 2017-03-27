@@ -66,6 +66,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property supplierID (base name: "SupplierID")', function() {
+      // uncomment below and update the code to test the property supplierID
+      //var instane = new OrderCloud.SecurityProfileAssignment();
+      //expect(instance).to.be();
+    });
+
     it('should have the property userID (base name: "UserID")', function() {
       // uncomment below and update the code to test the property userID
       //var instane = new OrderCloud.SecurityProfileAssignment();

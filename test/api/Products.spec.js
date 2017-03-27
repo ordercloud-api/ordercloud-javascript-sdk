@@ -98,30 +98,10 @@
         done();
       });
     });
-    describe('GetInventory', function() {
-      it('should call GetInventory successfully', function(done) {
-        //uncomment below and update the code to test GetInventory
-        //instance.GetInventory(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('GetVariant', function() {
       it('should call GetVariant successfully', function(done) {
         //uncomment below and update the code to test GetVariant
         //instance.GetVariant(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('GetVariantInventory', function() {
-      it('should call GetVariantInventory successfully', function(done) {
-        //uncomment below and update the code to test GetVariantInventory
-        //instance.GetVariantInventory(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -148,20 +128,10 @@
         done();
       });
     });
-    describe('ListInventory', function() {
-      it('should call ListInventory successfully', function(done) {
-        //uncomment below and update the code to test ListInventory
-        //instance.ListInventory(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('ListVariantInventory', function() {
-      it('should call ListVariantInventory successfully', function(done) {
-        //uncomment below and update the code to test ListVariantInventory
-        //instance.ListVariantInventory(pet, function(error) {
+    describe('ListSuppliers', function() {
+      it('should call ListSuppliers successfully', function(done) {
+        //uncomment below and update the code to test ListSuppliers
+        //instance.ListSuppliers(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -198,10 +168,30 @@
         done();
       });
     });
+    describe('RemoveSupplier', function() {
+      it('should call RemoveSupplier successfully', function(done) {
+        //uncomment below and update the code to test RemoveSupplier
+        //instance.RemoveSupplier(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('SaveAssignment', function() {
       it('should call SaveAssignment successfully', function(done) {
         //uncomment below and update the code to test SaveAssignment
         //instance.SaveAssignment(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('SaveSupplier', function() {
+      it('should call SaveSupplier successfully', function(done) {
+        //uncomment below and update the code to test SaveSupplier
+        //instance.SaveSupplier(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -218,30 +208,10 @@
         done();
       });
     });
-    describe('UpdateInventory', function() {
-      it('should call UpdateInventory successfully', function(done) {
-        //uncomment below and update the code to test UpdateInventory
-        //instance.UpdateInventory(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('UpdateVariant', function() {
       it('should call UpdateVariant successfully', function(done) {
         //uncomment below and update the code to test UpdateVariant
         //instance.UpdateVariant(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('UpdateVariantInventory', function() {
-      it('should call UpdateVariantInventory successfully', function(done) {
-        //uncomment below and update the code to test UpdateVariantInventory
-        //instance.UpdateVariantInventory(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

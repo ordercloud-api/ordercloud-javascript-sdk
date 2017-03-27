@@ -50,6 +50,7 @@
 
 
 
+
   };
 
   /**
@@ -71,6 +72,9 @@
       }
       if (data.hasOwnProperty('Description')) {
         obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      }
+      if (data.hasOwnProperty('Active')) {
+        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
       }
       if (data.hasOwnProperty('CategoryCount')) {
         obj['CategoryCount'] = ApiClient.convertToType(data['CategoryCount'], 'Number');
@@ -94,6 +98,10 @@
    * @member {String} Description
    */
   exports.prototype['Description'] = undefined;
+  /**
+   * @member {Boolean} Active
+   */
+  exports.prototype['Active'] = undefined;
   /**
    * @member {Number} CategoryCount
    */

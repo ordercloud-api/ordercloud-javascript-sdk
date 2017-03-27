@@ -48,6 +48,7 @@
 
 
 
+
   };
 
   /**
@@ -70,6 +71,9 @@
       if (data.hasOwnProperty('OwnerDevID')) {
         obj['OwnerDevID'] = ApiClient.convertToType(data['OwnerDevID'], 'Number');
       }
+      if (data.hasOwnProperty('AutoForwardingUserID')) {
+        obj['AutoForwardingUserID'] = ApiClient.convertToType(data['AutoForwardingUserID'], 'String');
+      }
     }
     return obj;
   }
@@ -86,6 +90,10 @@
    * @member {Number} OwnerDevID
    */
   exports.prototype['OwnerDevID'] = undefined;
+  /**
+   * @member {String} AutoForwardingUserID
+   */
+  exports.prototype['AutoForwardingUserID'] = undefined;
 
 
 

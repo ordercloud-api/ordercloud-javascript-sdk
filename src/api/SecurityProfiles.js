@@ -172,9 +172,11 @@
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.buyerID ID of the buyer.
+     * @param {String} opts.supplierID ID of the supplier.
      * @param {String} opts.securityProfileID ID of the security profile.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
+     * @param {String} opts.commerceRole Commerce role of the security profile.
      * @param {String} opts.level Level of the security profile.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
@@ -189,9 +191,11 @@
       };
       var queryParams = {
         'buyerID': opts['buyerID'],
+        'supplierID': opts['supplierID'],
         'securityProfileID': opts['securityProfileID'],
         'userID': opts['userID'],
         'userGroupID': opts['userGroupID'],
+        'commerceRole': opts['commerceRole'],
         'level': opts['level'],
         'page': opts['page'],
         'pageSize': opts['pageSize']

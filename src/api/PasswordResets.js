@@ -51,17 +51,17 @@
      * @param {module:model/PasswordReset} passwordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPassword = function(verificationCode, passwordReset) {
+    this.ResetPasswordByVerificationCode = function(verificationCode, passwordReset) {
       var postBody = passwordReset;
 
       // verify the required parameter 'verificationCode' is set
       if (verificationCode == undefined || verificationCode == null) {
-        throw new Error("Missing the required parameter 'verificationCode' when calling ResetPassword");
+        throw new Error("Missing the required parameter 'verificationCode' when calling ResetPasswordByVerificationCode");
       }
 
       // verify the required parameter 'passwordReset' is set
       if (passwordReset == undefined || passwordReset == null) {
-        throw new Error("Missing the required parameter 'passwordReset' when calling ResetPassword");
+        throw new Error("Missing the required parameter 'passwordReset' when calling ResetPasswordByVerificationCode");
       }
 
 

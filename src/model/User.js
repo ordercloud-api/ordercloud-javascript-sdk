@@ -55,7 +55,6 @@
 
 
 
-
   };
 
   /**
@@ -74,9 +73,6 @@
       }
       if (data.hasOwnProperty('Username')) {
         obj['Username'] = ApiClient.convertToType(data['Username'], 'String');
-      }
-      if (data.hasOwnProperty('Password')) {
-        obj['Password'] = ApiClient.convertToType(data['Password'], 'String');
       }
       if (data.hasOwnProperty('FirstName')) {
         obj['FirstName'] = ApiClient.convertToType(data['FirstName'], 'String');
@@ -114,10 +110,6 @@
    * @member {String} Username
    */
   exports.prototype['Username'] = undefined;
-  /**
-   * @member {String} Password
-   */
-  exports.prototype['Password'] = undefined;
   /**
    * @member {String} FirstName
    */

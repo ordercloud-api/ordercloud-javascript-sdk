@@ -4,11 +4,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ID** | **String** |  | [optional] 
-**type** | **String** |  | [optional] 
+**fromUser** | [**User**](User.md) |  | [optional] 
 **fromCompanyID** | **String** |  | [optional] 
 **fromUserID** | **String** |  | [optional] 
-**fromUserFirstName** | **String** |  | [optional] 
-**fromUserLastName** | **String** |  | [optional] 
 **billingAddressID** | **String** |  | [optional] 
 **billingAddress** | [**Address**](Address.md) |  | [optional] 
 **shippingAddressID** | **String** |  | [optional] 

@@ -54,6 +54,12 @@
       //expect(instance).to.be.a(OrderCloud.Product);
     });
 
+    it('should have the property defaultPriceScheduleID (base name: "DefaultPriceScheduleID")', function() {
+      // uncomment below and update the code to test the property defaultPriceScheduleID
+      //var instane = new OrderCloud.Product();
+      //expect(instance).to.be();
+    });
+
     it('should have the property ID (base name: "ID")', function() {
       // uncomment below and update the code to test the property ID
       //var instane = new OrderCloud.Product();
@@ -108,30 +114,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property type (base name: "Type")', function() {
-      // uncomment below and update the code to test the property type
-      //var instane = new OrderCloud.Product();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property inventoryEnabled (base name: "InventoryEnabled")', function() {
-      // uncomment below and update the code to test the property inventoryEnabled
-      //var instane = new OrderCloud.Product();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property inventoryNotificationPoint (base name: "InventoryNotificationPoint")', function() {
-      // uncomment below and update the code to test the property inventoryNotificationPoint
-      //var instane = new OrderCloud.Product();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property variantLevelInventory (base name: "VariantLevelInventory")', function() {
-      // uncomment below and update the code to test the property variantLevelInventory
-      //var instane = new OrderCloud.Product();
-      //expect(instance).to.be();
-    });
-
     it('should have the property specCount (base name: "SpecCount")', function() {
       // uncomment below and update the code to test the property specCount
       //var instane = new OrderCloud.Product();
@@ -144,18 +126,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property allowOrderExceedInventory (base name: "AllowOrderExceedInventory")', function() {
-      // uncomment below and update the code to test the property allowOrderExceedInventory
-      //var instane = new OrderCloud.Product();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property inventoryVisible (base name: "InventoryVisible")', function() {
-      // uncomment below and update the code to test the property inventoryVisible
-      //var instane = new OrderCloud.Product();
-      //expect(instance).to.be();
-    });
-
     it('should have the property variantCount (base name: "VariantCount")', function() {
       // uncomment below and update the code to test the property variantCount
       //var instane = new OrderCloud.Product();
@@ -164,6 +134,18 @@
 
     it('should have the property shipFromAddressID (base name: "ShipFromAddressID")', function() {
       // uncomment below and update the code to test the property shipFromAddressID
+      //var instane = new OrderCloud.Product();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property inventory (base name: "Inventory")', function() {
+      // uncomment below and update the code to test the property inventory
+      //var instane = new OrderCloud.Product();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property autoForwardSupplierID (base name: "AutoForwardSupplierID")', function() {
+      // uncomment below and update the code to test the property autoForwardSupplierID
       //var instane = new OrderCloud.Product();
       //expect(instance).to.be();
     });

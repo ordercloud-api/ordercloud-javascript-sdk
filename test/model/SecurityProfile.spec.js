@@ -60,12 +60,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property isDevProfile (base name: "IsDevProfile")', function() {
-      // uncomment below and update the code to test the property isDevProfile
-      //var instane = new OrderCloud.SecurityProfile();
-      //expect(instance).to.be();
-    });
-
     it('should have the property name (base name: "Name")', function() {
       // uncomment below and update the code to test the property name
       //var instane = new OrderCloud.SecurityProfile();

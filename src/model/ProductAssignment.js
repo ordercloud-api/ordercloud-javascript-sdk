@@ -67,12 +67,6 @@
       if (data.hasOwnProperty('ProductID')) {
         obj['ProductID'] = ApiClient.convertToType(data['ProductID'], 'String');
       }
-      if (data.hasOwnProperty('PriceScheduleID')) {
-        obj['PriceScheduleID'] = ApiClient.convertToType(data['PriceScheduleID'], 'String');
-      }
-      if (data.hasOwnProperty('StandardPriceScheduleID')) {
-        obj['StandardPriceScheduleID'] = ApiClient.convertToType(data['StandardPriceScheduleID'], 'String');
-      }
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
@@ -82,6 +76,12 @@
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
       }
+      if (data.hasOwnProperty('PriceScheduleID')) {
+        obj['PriceScheduleID'] = ApiClient.convertToType(data['PriceScheduleID'], 'String');
+      }
+      if (data.hasOwnProperty('StandardPriceScheduleID')) {
+        obj['StandardPriceScheduleID'] = ApiClient.convertToType(data['StandardPriceScheduleID'], 'String');
+      }
     }
     return obj;
   }
@@ -90,14 +90,6 @@
    * @member {String} ProductID
    */
   exports.prototype['ProductID'] = undefined;
-  /**
-   * @member {String} PriceScheduleID
-   */
-  exports.prototype['PriceScheduleID'] = undefined;
-  /**
-   * @member {String} StandardPriceScheduleID
-   */
-  exports.prototype['StandardPriceScheduleID'] = undefined;
   /**
    * @member {String} BuyerID
    */
@@ -110,6 +102,14 @@
    * @member {String} UserGroupID
    */
   exports.prototype['UserGroupID'] = undefined;
+  /**
+   * @member {String} PriceScheduleID
+   */
+  exports.prototype['PriceScheduleID'] = undefined;
+  /**
+   * @member {String} StandardPriceScheduleID
+   */
+  exports.prototype['StandardPriceScheduleID'] = undefined;
 
 
 

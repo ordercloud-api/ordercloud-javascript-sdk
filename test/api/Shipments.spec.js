@@ -88,10 +88,30 @@
         done();
       });
     });
+    describe('GetItem', function() {
+      it('should call GetItem successfully', function(done) {
+        //uncomment below and update the code to test GetItem
+        //instance.GetItem(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('List', function() {
       it('should call List successfully', function(done) {
         //uncomment below and update the code to test List
         //instance.List(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('ListItems', function() {
+      it('should call ListItems successfully', function(done) {
+        //uncomment below and update the code to test ListItems
+        //instance.ListItems(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

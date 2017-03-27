@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Inventory', 'model/ListInventory', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
+    define(['ApiClient', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Inventory'), require('../model/ListInventory'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
+    module.exports = factory(require('../ApiClient'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Products = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory, root.OrderCloud.ListInventory, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
+    root.OrderCloud.Products = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
   }
-}(this, function(ApiClient, Inventory, ListInventory, ListProduct, ListProductAssignment, ListVariant, Product, ProductAssignment, Variant) {
+}(this, function(ApiClient, ListProduct, ListProductAssignment, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
   'use strict';
 
   /**
@@ -118,31 +118,31 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} productID ID of the product.
+     * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, productID, opts) {
+    this.DeleteAssignment = function(productID, buyerID, opts) {
       opts = opts || {};
       var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
-      }
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
         throw new Error("Missing the required parameter 'productID' when calling DeleteAssignment");
       }
 
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
+      }
+
 
       var pathParams = {
-        'buyerID': buyerID,
-        'productID': productID
+        'productID': productID,
+        'buyerID': buyerID
       };
       var queryParams = {
         'userID': opts['userID'],
@@ -244,42 +244,6 @@
 
     /**
      * @param {String} productID ID of the product.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.GetInventory = function(productID) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling GetInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/inventory', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} productID ID of the product.
      * @param {String} variantID ID of the variant.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
@@ -322,50 +286,10 @@
 
 
     /**
-     * @param {String} productID ID of the product.
-     * @param {String} variantID ID of the variant.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.GetVariantInventory = function(productID, variantID) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling GetVariantInventory");
-      }
-
-      // verify the required parameter 'variantID' is set
-      if (variantID == undefined || variantID == null) {
-        throw new Error("Missing the required parameter 'variantID' when calling GetVariantInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID,
-        'variantID': variantID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/variants/inventory/{variantID}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {Object} opts Optional parameters
+     * @param {String} opts.catalogID ID of the catalog.
+     * @param {String} opts.categoryID ID of the category.
+     * @param {String} opts.supplierID ID of the supplier.
      * @param {String} opts.search Word or phrase to search for.
      * @param {String} opts.searchOn Comma-delimited list of fields to search on.
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
@@ -382,6 +306,9 @@
       var pathParams = {
       };
       var queryParams = {
+        'catalogID': opts['catalogID'],
+        'categoryID': opts['categoryID'],
+        'supplierID': opts['supplierID'],
         'search': opts['search'],
         'searchOn': opts['searchOn'],
         'sortBy': opts['sortBy'],
@@ -410,11 +337,11 @@
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.productID ID of the product.
+     * @param {String} opts.priceScheduleID ID of the price schedule.
      * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the product.
-     * @param {String} opts.priceScheduleID ID of the price schedule.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductAssignment}
@@ -428,11 +355,11 @@
       };
       var queryParams = {
         'productID': opts['productID'],
+        'priceScheduleID': opts['priceScheduleID'],
         'buyerID': opts['buyerID'],
         'userID': opts['userID'],
         'userGroupID': opts['userGroupID'],
         'level': opts['level'],
-        'priceScheduleID': opts['priceScheduleID'],
         'page': opts['page'],
         'pageSize': opts['pageSize']
       };
@@ -455,49 +382,6 @@
 
 
     /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
-     */
-    this.ListInventory = function(opts) {
-      opts = opts || {};
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
-        'page': opts['page'],
-        'pageSize': opts['pageSize'],
-        'filters': opts['filters']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ListInventory;
-
-      return this.apiClient.callApi(
-        '/products/inventory', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
      * @param {String} opts.search Word or phrase to search for.
@@ -506,15 +390,15 @@
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
-    this.ListVariantInventory = function(productID, opts) {
+    this.ListSuppliers = function(productID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling ListVariantInventory");
+        throw new Error("Missing the required parameter 'productID' when calling ListSuppliers");
       }
 
 
@@ -537,10 +421,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = ListInventory;
+      var returnType = ListSupplier;
 
       return this.apiClient.callApi(
-        '/products/{productID}/variants/inventory', 'GET',
+        '/products/{productID}/suppliers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -689,6 +573,49 @@
 
 
     /**
+     * @param {String} productID ID of the product.
+     * @param {String} supplierID ID of the supplier.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.RemoveSupplier = function(productID, supplierID) {
+      var postBody = null;
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling RemoveSupplier");
+      }
+
+      // verify the required parameter 'supplierID' is set
+      if (supplierID == undefined || supplierID == null) {
+        throw new Error("Missing the required parameter 'supplierID' when calling RemoveSupplier");
+      }
+
+
+      var pathParams = {
+        'productID': productID,
+        'supplierID': supplierID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/products/{productID}/suppliers/{supplierID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {module:model/ProductAssignment} productAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -717,6 +644,49 @@
 
       return this.apiClient.callApi(
         '/products/assignments', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} productID ID of the product.
+     * @param {String} supplierID ID of the supplier.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.SaveSupplier = function(productID, supplierID) {
+      var postBody = null;
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling SaveSupplier");
+      }
+
+      // verify the required parameter 'supplierID' is set
+      if (supplierID == undefined || supplierID == null) {
+        throw new Error("Missing the required parameter 'supplierID' when calling SaveSupplier");
+      }
+
+
+      var pathParams = {
+        'productID': productID,
+        'supplierID': supplierID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/products/{productID}/suppliers/{supplierID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -767,49 +737,6 @@
 
     /**
      * @param {String} productID ID of the product.
-     * @param {Number} inventory Inventory of the product.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.UpdateInventory = function(productID, inventory) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling UpdateInventory");
-      }
-
-      // verify the required parameter 'inventory' is set
-      if (inventory == undefined || inventory == null) {
-        throw new Error("Missing the required parameter 'inventory' when calling UpdateInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID,
-        'inventory': inventory
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/inventory/{inventory}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} productID ID of the product.
      * @param {String} variantID ID of the variant.
      * @param {module:model/Variant} variant 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
@@ -851,56 +778,6 @@
 
       return this.apiClient.callApi(
         '/products/{productID}/variants/{variantID}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} productID ID of the product.
-     * @param {String} variantID ID of the variant.
-     * @param {Number} inventory Inventory of the product.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.UpdateVariantInventory = function(productID, variantID, inventory) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling UpdateVariantInventory");
-      }
-
-      // verify the required parameter 'variantID' is set
-      if (variantID == undefined || variantID == null) {
-        throw new Error("Missing the required parameter 'variantID' when calling UpdateVariantInventory");
-      }
-
-      // verify the required parameter 'inventory' is set
-      if (inventory == undefined || inventory == null) {
-        throw new Error("Missing the required parameter 'inventory' when calling UpdateVariantInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID,
-        'variantID': variantID,
-        'inventory': inventory
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/variants/inventory/{variantID}/{inventory}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

@@ -47,6 +47,8 @@
 
 
 
+
+
   };
 
   /**
@@ -66,6 +68,12 @@
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
+      if (data.hasOwnProperty('ViewAllCategories')) {
+        obj['ViewAllCategories'] = ApiClient.convertToType(data['ViewAllCategories'], 'Boolean');
+      }
+      if (data.hasOwnProperty('ViewAllProducts')) {
+        obj['ViewAllProducts'] = ApiClient.convertToType(data['ViewAllProducts'], 'Boolean');
+      }
     }
     return obj;
   }
@@ -78,6 +86,14 @@
    * @member {String} BuyerID
    */
   exports.prototype['BuyerID'] = undefined;
+  /**
+   * @member {Boolean} ViewAllCategories
+   */
+  exports.prototype['ViewAllCategories'] = undefined;
+  /**
+   * @member {Boolean} ViewAllProducts
+   */
+  exports.prototype['ViewAllProducts'] = undefined;
 
 
 
