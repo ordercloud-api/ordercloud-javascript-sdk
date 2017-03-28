@@ -517,7 +517,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         }
         else return null;
       case 'Date':
-        return this.parseDate(String(data));
+        if (data !== null) {
+          return this.parseDate(String(data));
+        }
+        else return null;
       default:
         if (type === Object) {
           // generic object, return directly
