@@ -34,7 +34,7 @@
   /**
    * The DevTokenRequest model module.
    * @module model/DevTokenRequest
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

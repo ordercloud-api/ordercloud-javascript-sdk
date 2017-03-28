@@ -34,7 +34,7 @@
   /**
    * The Product model module.
    * @module model/Product
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

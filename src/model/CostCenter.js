@@ -34,7 +34,7 @@
   /**
    * The CostCenter model module.
    * @module model/CostCenter
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

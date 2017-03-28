@@ -34,7 +34,7 @@
   /**
    * The XpIndex model module.
    * @module model/XpIndex
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

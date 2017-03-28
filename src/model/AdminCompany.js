@@ -34,7 +34,7 @@
   /**
    * The AdminCompany model module.
    * @module model/AdminCompany
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

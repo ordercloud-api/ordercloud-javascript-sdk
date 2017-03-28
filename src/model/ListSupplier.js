@@ -34,7 +34,7 @@
   /**
    * The ListSupplier model module.
    * @module model/ListSupplier
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

@@ -34,7 +34,7 @@
   /**
    * The ListShipmentItem model module.
    * @module model/ListShipmentItem
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

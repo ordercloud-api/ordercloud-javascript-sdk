@@ -34,7 +34,7 @@
   /**
    * The ListSpecProductAssignment model module.
    * @module model/ListSpecProductAssignment
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**

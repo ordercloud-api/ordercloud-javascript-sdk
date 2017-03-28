@@ -30,7 +30,7 @@
 
   /**
    * @module ApiClient
-   * @version 1.0.0
+   * @version v1.0.43-staging-prerelease
    */
 
   /**
@@ -512,7 +512,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       case 'Number':
         return parseFloat(data);
       case 'String':
-        return String(data);
+        if (data !== null) {
+          return String(data);
+        }
+        else return null;
       case 'Date':
         return this.parseDate(String(data));
       default:
