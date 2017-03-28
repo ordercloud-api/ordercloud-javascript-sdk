@@ -34,7 +34,7 @@
   /**
    * The AddressAssignment model module.
    * @module model/AddressAssignment
-   * @version 1.0.0
+   * @version v1.0.42-preview
    */
 
   /**

@@ -34,7 +34,7 @@
   /**
    * The LineItemProduct model module.
    * @module model/LineItemProduct
-   * @version 1.0.0
+   * @version v1.0.42-preview
    */
 
   /**

@@ -30,7 +30,7 @@
 
   /**
    * @module ApiClient
-   * @version 1.0.0
+   * @version v1.0.42-preview
    */
 
   /**
@@ -512,9 +512,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       case 'Number':
         return parseFloat(data);
       case 'String':
-        return String(data);
+        if (data !== null) {
+          return String(data);
+        }
+        else return null;
       case 'Date':
-        return this.parseDate(String(data));
+        if (data !== null) {
+          return this.parseDate(String(data));
+        }
+        else return null;
       default:
         if (type === Object) {
           // generic object, return directly

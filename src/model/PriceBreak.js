@@ -34,7 +34,7 @@
   /**
    * The PriceBreak model module.
    * @module model/PriceBreak
-   * @version 1.0.0
+   * @version v1.0.42-preview
    */
 
   /**

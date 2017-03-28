@@ -31,7 +31,7 @@
   /**
    * MessageSenders service.
    * @module api/MessageSenders
-   * @version 1.0.0
+   * @version v1.0.42-preview
    */
 
   /**

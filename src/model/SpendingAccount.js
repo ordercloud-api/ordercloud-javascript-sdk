@@ -34,7 +34,7 @@
   /**
    * The SpendingAccount model module.
    * @module model/SpendingAccount
-   * @version 1.0.0
+   * @version v1.0.42-preview
    */
 
   /**

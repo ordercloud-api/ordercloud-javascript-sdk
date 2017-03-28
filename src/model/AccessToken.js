@@ -34,7 +34,7 @@
   /**
    * The AccessToken model module.
    * @module model/AccessToken
-   * @version 1.0.0
+   * @version v1.0.42-preview
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -70,6 +71,9 @@
       if (data.hasOwnProperty('token_type')) {
         obj['token_type'] = ApiClient.convertToType(data['token_type'], 'String');
       }
+      if (data.hasOwnProperty('refresh_token')) {
+        obj['refresh_token'] = ApiClient.convertToType(data['refresh_token'], 'String');
+      }
     }
     return obj;
   }
@@ -86,6 +90,10 @@
    * @member {String} token_type
    */
   exports.prototype['token_type'] = undefined;
+  /**
+   * @member {String} refresh_token
+   */
+  exports.prototype['refresh_token'] = undefined;
 
 
 
