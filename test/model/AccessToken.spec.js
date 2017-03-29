@@ -72,6 +72,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property refreshToken (base name: "refresh_token")', function() {
+      // uncomment below and update the code to test the property refreshToken
+      //var instane = new OrderCloud.AccessToken();
+      //expect(instance).to.be();
+    });
+
   });
 
 }));

@@ -504,6 +504,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @returns An instance of the specified type.
    */
   exports.convertToType = function(data, type) {
+    if (data === null)
+      return null;
     switch (type) {
       case 'Boolean':
         return Boolean(data);
@@ -512,15 +514,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       case 'Number':
         return parseFloat(data);
       case 'String':
-        if (data !== null) {
-          return String(data);
-        }
-        else return null;
+        return String(data);
       case 'Date':
-        if (data !== null) {
-          return this.parseDate(String(data));
-        }
-        else return null;
+        return this.parseDate(String(data));
       default:
         if (type === Object) {
           // generic object, return directly
