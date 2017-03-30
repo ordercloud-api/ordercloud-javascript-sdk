@@ -128,16 +128,6 @@
         done();
       });
     });
-    describe('GetOrder', function() {
-      it('should call GetOrder successfully', function(done) {
-        //uncomment below and update the code to test GetOrder
-        //instance.GetOrder(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('GetProduct', function() {
       it('should call GetProduct successfully', function(done) {
         //uncomment below and update the code to test GetProduct
@@ -198,6 +188,16 @@
         done();
       });
     });
+    describe('ListApprovableOrders', function() {
+      it('should call ListApprovableOrders successfully', function(done) {
+        //uncomment below and update the code to test ListApprovableOrders
+        //instance.ListApprovableOrders(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('ListCategories', function() {
       it('should call ListCategories successfully', function(done) {
         //uncomment below and update the code to test ListCategories
@@ -228,20 +228,10 @@
         done();
       });
     });
-    describe('ListIncomingOrders', function() {
-      it('should call ListIncomingOrders successfully', function(done) {
-        //uncomment below and update the code to test ListIncomingOrders
-        //instance.ListIncomingOrders(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('ListOutgoingOrders', function() {
-      it('should call ListOutgoingOrders successfully', function(done) {
-        //uncomment below and update the code to test ListOutgoingOrders
-        //instance.ListOutgoingOrders(pet, function(error) {
+    describe('ListOrders', function() {
+      it('should call ListOrders successfully', function(done) {
+        //uncomment below and update the code to test ListOrders
+        //instance.ListOrders(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

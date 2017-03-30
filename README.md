@@ -134,18 +134,18 @@ Class | Method | HTTP request | Description
 *OrderCloud.Catalogs* | [**SaveAssignment**](docs/Catalogs.md#SaveAssignment) | **POST** /catalogs/assignments | 
 *OrderCloud.Catalogs* | [**SaveProductAssignment**](docs/Catalogs.md#SaveProductAssignment) | **POST** /catalogs/productassignments | 
 *OrderCloud.Catalogs* | [**Update**](docs/Catalogs.md#Update) | **PUT** /catalogs/{catalogID} | 
-*OrderCloud.Categorys* | [**Create**](docs/Categorys.md#Create) | **POST** /catalogs/{catalogID}/categories | 
-*OrderCloud.Categorys* | [**Delete**](docs/Categorys.md#Delete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
-*OrderCloud.Categorys* | [**DeleteAssignment**](docs/Categorys.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
-*OrderCloud.Categorys* | [**DeleteProductAssignment**](docs/Categorys.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
-*OrderCloud.Categorys* | [**Get**](docs/Categorys.md#Get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
-*OrderCloud.Categorys* | [**List**](docs/Categorys.md#List) | **GET** /catalogs/{catalogID}/categories | 
-*OrderCloud.Categorys* | [**ListAssignments**](docs/Categorys.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
-*OrderCloud.Categorys* | [**ListProductAssignments**](docs/Categorys.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
-*OrderCloud.Categorys* | [**Patch**](docs/Categorys.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
-*OrderCloud.Categorys* | [**SaveAssignment**](docs/Categorys.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
-*OrderCloud.Categorys* | [**SaveProductAssignment**](docs/Categorys.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
-*OrderCloud.Categorys* | [**Update**](docs/Categorys.md#Update) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.Categories* | [**Create**](docs/Categories.md#Create) | **POST** /catalogs/{catalogID}/categories | 
+*OrderCloud.Categories* | [**Delete**](docs/Categories.md#Delete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.Categories* | [**DeleteAssignment**](docs/Categories.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
+*OrderCloud.Categories* | [**DeleteProductAssignment**](docs/Categories.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
+*OrderCloud.Categories* | [**Get**](docs/Categories.md#Get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.Categories* | [**List**](docs/Categories.md#List) | **GET** /catalogs/{catalogID}/categories | 
+*OrderCloud.Categories* | [**ListAssignments**](docs/Categories.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
+*OrderCloud.Categories* | [**ListProductAssignments**](docs/Categories.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
+*OrderCloud.Categories* | [**Patch**](docs/Categories.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
+*OrderCloud.Categories* | [**SaveAssignment**](docs/Categories.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
+*OrderCloud.Categories* | [**SaveProductAssignment**](docs/Categories.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
+*OrderCloud.Categories* | [**Update**](docs/Categories.md#Update) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
 *OrderCloud.CostCenters* | [**Create**](docs/CostCenters.md#Create) | **POST** /buyers/{buyerID}/costcenters | 
 *OrderCloud.CostCenters* | [**Delete**](docs/CostCenters.md#Delete) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID} | 
 *OrderCloud.CostCenters* | [**DeleteAssignment**](docs/CostCenters.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID}/assignments | 
@@ -180,18 +180,17 @@ Class | Method | HTTP request | Description
 *OrderCloud.Me* | [**Get**](docs/Me.md#Get) | **GET** /me | 
 *OrderCloud.Me* | [**GetAddress**](docs/Me.md#GetAddress) | **GET** /me/addresses/{addressID} | 
 *OrderCloud.Me* | [**GetCreditCard**](docs/Me.md#GetCreditCard) | **GET** /me/creditcards/{creditcardID} | 
-*OrderCloud.Me* | [**GetOrder**](docs/Me.md#GetOrder) | **GET** /me/orders/{orderID} | 
 *OrderCloud.Me* | [**GetProduct**](docs/Me.md#GetProduct) | **GET** /me/catalogs/{catalogID}/products/{productID} | 
 *OrderCloud.Me* | [**GetPromotion**](docs/Me.md#GetPromotion) | **GET** /me/promotions/{promotionID} | 
 *OrderCloud.Me* | [**GetShipment**](docs/Me.md#GetShipment) | **GET** /me/shipments/{shipmentID} | 
 *OrderCloud.Me* | [**GetSpec**](docs/Me.md#GetSpec) | **GET** /me/catalogs/{catalogID}/products/{productID}/specs/{specID} | 
 *OrderCloud.Me* | [**GetSpendingAccount**](docs/Me.md#GetSpendingAccount) | **GET** /me/spendingaccounts/{spendingAccountID} | 
 *OrderCloud.Me* | [**ListAddresses**](docs/Me.md#ListAddresses) | **GET** /me/addresses | 
+*OrderCloud.Me* | [**ListApprovableOrders**](docs/Me.md#ListApprovableOrders) | **GET** /me/orders/approvable | 
 *OrderCloud.Me* | [**ListCategories**](docs/Me.md#ListCategories) | **GET** /me/categories | 
 *OrderCloud.Me* | [**ListCostCenters**](docs/Me.md#ListCostCenters) | **GET** /me/costcenters | 
 *OrderCloud.Me* | [**ListCreditCards**](docs/Me.md#ListCreditCards) | **GET** /me/creditcards | 
-*OrderCloud.Me* | [**ListIncomingOrders**](docs/Me.md#ListIncomingOrders) | **GET** /me/orders/incoming | 
-*OrderCloud.Me* | [**ListOutgoingOrders**](docs/Me.md#ListOutgoingOrders) | **GET** /me/orders/outgoing | 
+*OrderCloud.Me* | [**ListOrders**](docs/Me.md#ListOrders) | **GET** /me/orders | 
 *OrderCloud.Me* | [**ListProducts**](docs/Me.md#ListProducts) | **GET** /me/products | 
 *OrderCloud.Me* | [**ListPromotions**](docs/Me.md#ListPromotions) | **GET** /me/promotions | 
 *OrderCloud.Me* | [**ListShipments**](docs/Me.md#ListShipments) | **GET** /me/shipments | 
@@ -231,7 +230,7 @@ Class | Method | HTTP request | Description
 *OrderCloud.Orders* | [**SetShippingAddress**](docs/Orders.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
 *OrderCloud.Orders* | [**Ship**](docs/Orders.md#Ship) | **POST** /orders/{direction}/{orderID}/ship | 
 *OrderCloud.Orders* | [**Submit**](docs/Orders.md#Submit) | **POST** /orders/{direction}/{orderID}/submit | 
-*OrderCloud.Orders* | [**TransferTempUserOrder**](docs/Orders.md#TransferTempUserOrder) | **PUT** /orders/{direction} | 
+*OrderCloud.Orders* | [**TransferTempUserOrder**](docs/Orders.md#TransferTempUserOrder) | **PUT** /orders | 
 *OrderCloud.Orders* | [**Update**](docs/Orders.md#Update) | **PUT** /orders/{direction}/{orderID} | 
 *OrderCloud.PasswordResets* | [**ResetPasswordByVerificationCode**](docs/PasswordResets.md#ResetPasswordByVerificationCode) | **PUT** /password/reset/{verificationCode} | 
 *OrderCloud.PasswordResets* | [**SendVerificationCode**](docs/PasswordResets.md#SendVerificationCode) | **POST** /password/reset | 
@@ -474,7 +473,6 @@ Class | Method | HTTP request | Description
   - BuyerReader: 
   - BuyerUserAdmin: 
   - BuyerUserReader: 
-  - Cart: 
   - CatalogAdmin: 
   - CatalogReader: 
   - CategoryAdmin: 
@@ -510,6 +508,7 @@ Class | Method | HTTP request | Description
   - PromotionReader: 
   - ShipmentAdmin: 
   - ShipmentReader: 
+  - Shopper: 
   - SpendingAccountAdmin: 
   - SpendingAccountReader: 
   - SupplierAdmin: 

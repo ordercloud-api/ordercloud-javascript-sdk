@@ -12,18 +12,17 @@ Method | HTTP request | Description
 [**Get**](Me.md#Get) | **GET** /me | 
 [**GetAddress**](Me.md#GetAddress) | **GET** /me/addresses/{addressID} | 
 [**GetCreditCard**](Me.md#GetCreditCard) | **GET** /me/creditcards/{creditcardID} | 
-[**GetOrder**](Me.md#GetOrder) | **GET** /me/orders/{orderID} | 
 [**GetProduct**](Me.md#GetProduct) | **GET** /me/catalogs/{catalogID}/products/{productID} | 
 [**GetPromotion**](Me.md#GetPromotion) | **GET** /me/promotions/{promotionID} | 
 [**GetShipment**](Me.md#GetShipment) | **GET** /me/shipments/{shipmentID} | 
 [**GetSpec**](Me.md#GetSpec) | **GET** /me/catalogs/{catalogID}/products/{productID}/specs/{specID} | 
 [**GetSpendingAccount**](Me.md#GetSpendingAccount) | **GET** /me/spendingaccounts/{spendingAccountID} | 
 [**ListAddresses**](Me.md#ListAddresses) | **GET** /me/addresses | 
+[**ListApprovableOrders**](Me.md#ListApprovableOrders) | **GET** /me/orders/approvable | 
 [**ListCategories**](Me.md#ListCategories) | **GET** /me/categories | 
 [**ListCostCenters**](Me.md#ListCostCenters) | **GET** /me/costcenters | 
 [**ListCreditCards**](Me.md#ListCreditCards) | **GET** /me/creditcards | 
-[**ListIncomingOrders**](Me.md#ListIncomingOrders) | **GET** /me/orders/incoming | 
-[**ListOutgoingOrders**](Me.md#ListOutgoingOrders) | **GET** /me/orders/outgoing | 
+[**ListOrders**](Me.md#ListOrders) | **GET** /me/orders | 
 [**ListProducts**](Me.md#ListProducts) | **GET** /me/products | 
 [**ListPromotions**](Me.md#ListPromotions) | **GET** /me/promotions | 
 [**ListShipments**](Me.md#ListShipments) | **GET** /me/shipments | 
@@ -404,52 +403,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetOrder"></a>
-# **GetOrder**
-> Order GetOrder(orderID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Me();
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-apiInstance.GetOrder(orderID).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **orderID** | **String**| ID of the order. | 
-
-### Return type
-
-[**Order**](Order.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
 <a name="GetProduct"></a>
 # **GetProduct**
 > BuyerProduct GetProduct(catalogID, productID)
@@ -746,6 +699,67 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
+<a name="ListApprovableOrders"></a>
+# **ListApprovableOrders**
+> ListOrder ListApprovableOrders(opts)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var opts = { 
+  'from': "from_example", // String | Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
+  'to': "to_example", // String | Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+};
+apiInstance.ListApprovableOrders(opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **from** | **String**| Lower bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
+ **to** | **String**| Upper bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+
+### Return type
+
+[**ListOrder**](ListOrder.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
 <a name="ListCategories"></a>
 # **ListCategories**
 > ListCategory ListCategories(opts)
@@ -921,9 +935,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListIncomingOrders"></a>
-# **ListIncomingOrders**
-> ListOrder ListIncomingOrders(opts)
+<a name="ListOrders"></a>
+# **ListOrders**
+> ListOrder ListOrders(opts)
 
 
 
@@ -948,68 +962,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListIncomingOrders(opts).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **from** | **String**| Lower bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
- **to** | **String**| Upper bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
-
-### Return type
-
-[**ListOrder**](ListOrder.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="ListOutgoingOrders"></a>
-# **ListOutgoingOrders**
-> ListOrder ListOutgoingOrders(opts)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Me();
-
-var opts = { 
-  'from': "from_example", // String | Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
-  'to': "to_example", // String | Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
-};
-apiInstance.ListOutgoingOrders(opts).then(function(data) {
+apiInstance.ListOrders(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

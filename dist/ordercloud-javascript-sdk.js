@@ -6828,20 +6828,20 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Categorys = factory(root.OrderCloud.ApiClient, root.OrderCloud.Category, root.OrderCloud.CategoryAssignment, root.OrderCloud.CategoryProductAssignment, root.OrderCloud.ListCategory, root.OrderCloud.ListCategoryAssignment, root.OrderCloud.ListCategoryProductAssignment);
+    root.OrderCloud.Categories = factory(root.OrderCloud.ApiClient, root.OrderCloud.Category, root.OrderCloud.CategoryAssignment, root.OrderCloud.CategoryProductAssignment, root.OrderCloud.ListCategory, root.OrderCloud.ListCategoryAssignment, root.OrderCloud.ListCategoryProductAssignment);
   }
 }(this, function(ApiClient, Category, CategoryAssignment, CategoryProductAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment) {
   'use strict';
 
   /**
    * Category service.
-   * @module api/Categorys
+   * @module api/Categories
    * @version v1.0.43-staging-prerelease
    */
 
   /**
-   * Constructs a new Categorys. 
-   * @alias module:api/Categorys
+   * Constructs a new Categories. 
+   * @alias module:api/Categories
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
@@ -8857,18 +8857,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/Order', 'model/Promotion', 'model/SpendingAccount', 'model/TokenPasswordReset', 'model/User'], factory);
+    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/Promotion', 'model/SpendingAccount', 'model/TokenPasswordReset', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerShipment'), require('../model/BuyerSpec'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerShipment'), require('../model/ListBuyerSpec'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/Order'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'), require('../model/User'));
+    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerShipment'), require('../model/BuyerSpec'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerShipment'), require('../model/ListBuyerSpec'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerShipment, root.OrderCloud.BuyerSpec, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerShipment, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.Order, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset, root.OrderCloud.User);
+    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerShipment, root.OrderCloud.BuyerSpec, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerShipment, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListSpendingAccount, ListUserGroup, Order, Promotion, SpendingAccount, TokenPasswordReset, User) {
+}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListSpendingAccount, ListUserGroup, Promotion, SpendingAccount, TokenPasswordReset, User) {
   'use strict';
 
   /**
@@ -9175,42 +9175,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} orderID ID of the order.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
-     */
-    this.GetOrder = function(orderID) {
-      var postBody = null;
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling GetOrder");
-      }
-
-
-      var pathParams = {
-        'orderID': orderID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Order;
-
-      return this.apiClient.callApi(
-        '/me/orders/{orderID}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} catalogID ID of the catalog.
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerProduct}
@@ -9456,6 +9420,53 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
+     * @param {String} opts.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
+     * @param {String} opts.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
+     */
+    this.ListApprovableOrders = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'from': opts['from'],
+        'to': opts['to'],
+        'search': opts['search'],
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListOrder;
+
+      return this.apiClient.callApi(
+        '/me/orders/approvable', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
      * @param {String} opts.depth Depth of the category.
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.search Word or phrase to search for.
@@ -9599,7 +9610,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.ListIncomingOrders = function(opts) {
+    this.ListOrders = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -9627,54 +9638,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListOrder;
 
       return this.apiClient.callApi(
-        '/me/orders/incoming', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
-     * @param {String} opts.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
-     */
-    this.ListOutgoingOrders = function(opts) {
-      opts = opts || {};
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'from': opts['from'],
-        'to': opts['to'],
-        'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
-        'page': opts['page'],
-        'pageSize': opts['pageSize'],
-        'filters': opts['filters']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ListOrder;
-
-      return this.apiClient.callApi(
-        '/me/orders/outgoing', 'GET',
+        '/me/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10237,7 +10201,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/BuyerAddress":44,"../model/BuyerCreditCard":45,"../model/BuyerProduct":46,"../model/BuyerShipment":47,"../model/BuyerSpec":48,"../model/CreditCard":56,"../model/ListBuyerAddress":70,"../model/ListBuyerCreditCard":71,"../model/ListBuyerProduct":72,"../model/ListBuyerShipment":73,"../model/ListBuyerSpec":74,"../model/ListCategory":77,"../model/ListCostCenter":80,"../model/ListOrder":89,"../model/ListPromotion":97,"../model/ListSpendingAccount":106,"../model/ListUserGroup":110,"../model/Order":118,"../model/Promotion":133,"../model/SpendingAccount":142,"../model/TokenPasswordReset":146,"../model/User":147}],23:[function(require,module,exports){
+},{"../ApiClient":9,"../model/Address":38,"../model/BuyerAddress":44,"../model/BuyerCreditCard":45,"../model/BuyerProduct":46,"../model/BuyerShipment":47,"../model/BuyerSpec":48,"../model/CreditCard":56,"../model/ListBuyerAddress":70,"../model/ListBuyerCreditCard":71,"../model/ListBuyerProduct":72,"../model/ListBuyerShipment":73,"../model/ListBuyerSpec":74,"../model/ListCategory":77,"../model/ListCostCenter":80,"../model/ListOrder":89,"../model/ListPromotion":97,"../model/ListSpendingAccount":106,"../model/ListUserGroup":110,"../model/Promotion":133,"../model/SpendingAccount":142,"../model/TokenPasswordReset":146,"../model/User":147}],23:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -11548,17 +11512,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} tempUserToken Temp user token of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.TransferTempUserOrder = function(direction, tempUserToken) {
+    this.TransferTempUserOrder = function(tempUserToken) {
       var postBody = null;
-
-      // verify the required parameter 'direction' is set
-      if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling TransferTempUserOrder");
-      }
 
       // verify the required parameter 'tempUserToken' is set
       if (tempUserToken == undefined || tempUserToken == null) {
@@ -11567,7 +11525,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'direction': direction
       };
       var queryParams = {
         'tempUserToken': tempUserToken
@@ -11583,7 +11540,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/orders/{direction}', 'PUT',
+        '/orders', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -16527,12 +16484,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/AdminCompany', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/DevTokenRequest', 'model/ImpersonateTokenRequest', 'model/ImpersonationConfig', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListAdminCompany', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListImpersonationConfig', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListProductCatalogAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListSupplier', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListXpIndex', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PingResponse', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/ProductBase', 'model/ProductCatalogAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/StripeCreditCard', 'model/Supplier', 'model/TokenPasswordReset', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categorys', 'api/CostCenters', 'api/CreditCards', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
+    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/AdminCompany', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/DevTokenRequest', 'model/ImpersonateTokenRequest', 'model/ImpersonationConfig', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListAdminCompany', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListImpersonationConfig', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListProductCatalogAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListSupplier', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListXpIndex', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PingResponse', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/ProductBase', 'model/ProductCatalogAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/StripeCreditCard', 'model/Supplier', 'model/TokenPasswordReset', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categories', 'api/CostCenters', 'api/CreditCards', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/AdminCompany'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerShipment'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/DevTokenRequest'), require('./model/ImpersonateTokenRequest'), require('./model/ImpersonationConfig'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListAdminCompany'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerShipment'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListImpersonationConfig'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListProductCatalogAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListShipmentItem'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListSupplier'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListXpIndex'), require('./model/MessageCCListenerAssignment'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderApprovalInfo'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PingResponse'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/ProductBase'), require('./model/ProductCatalogAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/StripeCreditCard'), require('./model/Supplier'), require('./model/TokenPasswordReset'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categorys'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/AdminCompany'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerShipment'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/DevTokenRequest'), require('./model/ImpersonateTokenRequest'), require('./model/ImpersonationConfig'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListAdminCompany'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerShipment'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListImpersonationConfig'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListProductCatalogAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListShipmentItem'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListSupplier'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListXpIndex'), require('./model/MessageCCListenerAssignment'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderApprovalInfo'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PingResponse'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/ProductBase'), require('./model/ProductCatalogAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/StripeCreditCard'), require('./model/Supplier'), require('./model/TokenPasswordReset'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categories'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
   }
-}(function(ApiClient, AccessToken, Address, AddressAssignment, AdminCompany, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, DevTokenRequest, ImpersonateTokenRequest, ImpersonationConfig, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListAdminCompany, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListImpersonationConfig, ListLineItem, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListProductCatalogAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListShipmentItem, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListSupplier, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListXpIndex, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderApprovalInfo, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PingResponse, PriceBreak, PriceSchedule, Product, ProductAssignment, ProductBase, ProductCatalogAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, StripeCreditCard, Supplier, TokenPasswordReset, User, UserGroup, UserGroupAssignment, Variant, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categorys, CostCenters, CreditCards, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Users, UserGroups, Auth) {
+}(function(ApiClient, AccessToken, Address, AddressAssignment, AdminCompany, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, DevTokenRequest, ImpersonateTokenRequest, ImpersonationConfig, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListAdminCompany, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListImpersonationConfig, ListLineItem, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListProductCatalogAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListShipmentItem, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListSupplier, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListXpIndex, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderApprovalInfo, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PingResponse, PriceBreak, PriceSchedule, Product, ProductAssignment, ProductBase, ProductCatalogAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, StripeCreditCard, Supplier, TokenPasswordReset, User, UserGroup, UserGroupAssignment, Variant, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categories, CostCenters, CreditCards, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Users, UserGroups, Auth) {
   'use strict';
 
   /**
@@ -17196,10 +17153,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     Catalogs: new Catalogs(),
     /**
-     * The Categorys service.
-     * @property {module:api/Categorys}
+     * The Categories service.
+     * @property {module:api/Categories}
      */
-    Categorys: new Categorys(),
+    Categories: new Categories(),
     /**
      * The CostCenters service.
      * @property {module:api/CostCenters}
@@ -17290,7 +17247,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"./ApiClient":9,"./api/Addresses":10,"./api/AdminAddresses":11,"./api/AdminUserGroups":12,"./api/AdminUsers":13,"./api/ApprovalRules":14,"./api/Auth":15,"./api/Buyers":16,"./api/Catalogs":17,"./api/Categorys":18,"./api/CostCenters":19,"./api/CreditCards":20,"./api/LineItems":21,"./api/Me":22,"./api/MessageSenders":23,"./api/Orders":24,"./api/PasswordResets":25,"./api/Payments":26,"./api/PriceSchedules":27,"./api/Products":28,"./api/Promotions":29,"./api/SecurityProfiles":30,"./api/Shipments":31,"./api/Specs":32,"./api/SpendingAccounts":33,"./api/UserGroups":34,"./api/Users":35,"./model/AccessToken":37,"./model/Address":38,"./model/AddressAssignment":39,"./model/AdminCompany":40,"./model/ApprovalRule":41,"./model/BaseSpec":42,"./model/Buyer":43,"./model/BuyerAddress":44,"./model/BuyerCreditCard":45,"./model/BuyerProduct":46,"./model/BuyerShipment":47,"./model/BuyerSpec":48,"./model/Catalog":49,"./model/CatalogAssignment":50,"./model/Category":51,"./model/CategoryAssignment":52,"./model/CategoryProductAssignment":53,"./model/CostCenter":54,"./model/CostCenterAssignment":55,"./model/CreditCard":56,"./model/CreditCardAssignment":57,"./model/DevTokenRequest":58,"./model/ImpersonateTokenRequest":59,"./model/ImpersonationConfig":60,"./model/Inventory":61,"./model/LineItem":62,"./model/LineItemProduct":63,"./model/LineItemSpec":64,"./model/ListAddress":65,"./model/ListAddressAssignment":66,"./model/ListAdminCompany":67,"./model/ListApprovalRule":68,"./model/ListBuyer":69,"./model/ListBuyerAddress":70,"./model/ListBuyerCreditCard":71,"./model/ListBuyerProduct":72,"./model/ListBuyerShipment":73,"./model/ListBuyerSpec":74,"./model/ListCatalog":75,"./model/ListCatalogAssignment":76,"./model/ListCategory":77,"./model/ListCategoryAssignment":78,"./model/ListCategoryProductAssignment":79,"./model/ListCostCenter":80,"./model/ListCostCenterAssignment":81,"./model/ListCreditCard":82,"./model/ListCreditCardAssignment":83,"./model/ListImpersonationConfig":84,"./model/ListLineItem":85,"./model/ListMessageCCListenerAssignment":86,"./model/ListMessageSender":87,"./model/ListMessageSenderAssignment":88,"./model/ListOrder":89,"./model/ListOrderApproval":90,"./model/ListOrderPromotion":91,"./model/ListPayment":92,"./model/ListPriceSchedule":93,"./model/ListProduct":94,"./model/ListProductAssignment":95,"./model/ListProductCatalogAssignment":96,"./model/ListPromotion":97,"./model/ListPromotionAssignment":98,"./model/ListSecurityProfile":99,"./model/ListSecurityProfileAssignment":100,"./model/ListShipment":101,"./model/ListShipmentItem":102,"./model/ListSpec":103,"./model/ListSpecOption":104,"./model/ListSpecProductAssignment":105,"./model/ListSpendingAccount":106,"./model/ListSpendingAccountAssignment":107,"./model/ListSupplier":108,"./model/ListUser":109,"./model/ListUserGroup":110,"./model/ListUserGroupAssignment":111,"./model/ListVariant":112,"./model/ListXpIndex":113,"./model/MessageCCListenerAssignment":114,"./model/MessageSender":115,"./model/MessageSenderAssignment":116,"./model/Meta":117,"./model/Order":118,"./model/OrderApproval":119,"./model/OrderApprovalInfo":120,"./model/OrderPromotion":121,"./model/PasswordReset":122,"./model/PasswordResetRequest":123,"./model/Payment":124,"./model/PaymentTransaction":125,"./model/PingResponse":126,"./model/PriceBreak":127,"./model/PriceSchedule":128,"./model/Product":129,"./model/ProductAssignment":130,"./model/ProductBase":131,"./model/ProductCatalogAssignment":132,"./model/Promotion":133,"./model/PromotionAssignment":134,"./model/SecurityProfile":135,"./model/SecurityProfileAssignment":136,"./model/Shipment":137,"./model/ShipmentItem":138,"./model/Spec":139,"./model/SpecOption":140,"./model/SpecProductAssignment":141,"./model/SpendingAccount":142,"./model/SpendingAccountAssignment":143,"./model/StripeCreditCard":144,"./model/Supplier":145,"./model/TokenPasswordReset":146,"./model/User":147,"./model/UserGroup":148,"./model/UserGroupAssignment":149,"./model/Variant":150,"./model/XpIndex":151}],37:[function(require,module,exports){
+},{"./ApiClient":9,"./api/Addresses":10,"./api/AdminAddresses":11,"./api/AdminUserGroups":12,"./api/AdminUsers":13,"./api/ApprovalRules":14,"./api/Auth":15,"./api/Buyers":16,"./api/Catalogs":17,"./api/Categories":18,"./api/CostCenters":19,"./api/CreditCards":20,"./api/LineItems":21,"./api/Me":22,"./api/MessageSenders":23,"./api/Orders":24,"./api/PasswordResets":25,"./api/Payments":26,"./api/PriceSchedules":27,"./api/Products":28,"./api/Promotions":29,"./api/SecurityProfiles":30,"./api/Shipments":31,"./api/Specs":32,"./api/SpendingAccounts":33,"./api/UserGroups":34,"./api/Users":35,"./model/AccessToken":37,"./model/Address":38,"./model/AddressAssignment":39,"./model/AdminCompany":40,"./model/ApprovalRule":41,"./model/BaseSpec":42,"./model/Buyer":43,"./model/BuyerAddress":44,"./model/BuyerCreditCard":45,"./model/BuyerProduct":46,"./model/BuyerShipment":47,"./model/BuyerSpec":48,"./model/Catalog":49,"./model/CatalogAssignment":50,"./model/Category":51,"./model/CategoryAssignment":52,"./model/CategoryProductAssignment":53,"./model/CostCenter":54,"./model/CostCenterAssignment":55,"./model/CreditCard":56,"./model/CreditCardAssignment":57,"./model/DevTokenRequest":58,"./model/ImpersonateTokenRequest":59,"./model/ImpersonationConfig":60,"./model/Inventory":61,"./model/LineItem":62,"./model/LineItemProduct":63,"./model/LineItemSpec":64,"./model/ListAddress":65,"./model/ListAddressAssignment":66,"./model/ListAdminCompany":67,"./model/ListApprovalRule":68,"./model/ListBuyer":69,"./model/ListBuyerAddress":70,"./model/ListBuyerCreditCard":71,"./model/ListBuyerProduct":72,"./model/ListBuyerShipment":73,"./model/ListBuyerSpec":74,"./model/ListCatalog":75,"./model/ListCatalogAssignment":76,"./model/ListCategory":77,"./model/ListCategoryAssignment":78,"./model/ListCategoryProductAssignment":79,"./model/ListCostCenter":80,"./model/ListCostCenterAssignment":81,"./model/ListCreditCard":82,"./model/ListCreditCardAssignment":83,"./model/ListImpersonationConfig":84,"./model/ListLineItem":85,"./model/ListMessageCCListenerAssignment":86,"./model/ListMessageSender":87,"./model/ListMessageSenderAssignment":88,"./model/ListOrder":89,"./model/ListOrderApproval":90,"./model/ListOrderPromotion":91,"./model/ListPayment":92,"./model/ListPriceSchedule":93,"./model/ListProduct":94,"./model/ListProductAssignment":95,"./model/ListProductCatalogAssignment":96,"./model/ListPromotion":97,"./model/ListPromotionAssignment":98,"./model/ListSecurityProfile":99,"./model/ListSecurityProfileAssignment":100,"./model/ListShipment":101,"./model/ListShipmentItem":102,"./model/ListSpec":103,"./model/ListSpecOption":104,"./model/ListSpecProductAssignment":105,"./model/ListSpendingAccount":106,"./model/ListSpendingAccountAssignment":107,"./model/ListSupplier":108,"./model/ListUser":109,"./model/ListUserGroup":110,"./model/ListUserGroupAssignment":111,"./model/ListVariant":112,"./model/ListXpIndex":113,"./model/MessageCCListenerAssignment":114,"./model/MessageSender":115,"./model/MessageSenderAssignment":116,"./model/Meta":117,"./model/Order":118,"./model/OrderApproval":119,"./model/OrderApprovalInfo":120,"./model/OrderPromotion":121,"./model/PasswordReset":122,"./model/PasswordResetRequest":123,"./model/Payment":124,"./model/PaymentTransaction":125,"./model/PingResponse":126,"./model/PriceBreak":127,"./model/PriceSchedule":128,"./model/Product":129,"./model/ProductAssignment":130,"./model/ProductBase":131,"./model/ProductCatalogAssignment":132,"./model/Promotion":133,"./model/PromotionAssignment":134,"./model/SecurityProfile":135,"./model/SecurityProfileAssignment":136,"./model/Shipment":137,"./model/ShipmentItem":138,"./model/Spec":139,"./model/SpecOption":140,"./model/SpecProductAssignment":141,"./model/SpendingAccount":142,"./model/SpendingAccountAssignment":143,"./model/StripeCreditCard":144,"./model/Supplier":145,"./model/TokenPasswordReset":146,"./model/User":147,"./model/UserGroup":148,"./model/UserGroupAssignment":149,"./model/Variant":150,"./model/XpIndex":151}],37:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)

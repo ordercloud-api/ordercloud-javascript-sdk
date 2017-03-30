@@ -975,17 +975,11 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} tempUserToken Temp user token of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.TransferTempUserOrder = function(direction, tempUserToken) {
+    this.TransferTempUserOrder = function(tempUserToken) {
       var postBody = null;
-
-      // verify the required parameter 'direction' is set
-      if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling TransferTempUserOrder");
-      }
 
       // verify the required parameter 'tempUserToken' is set
       if (tempUserToken == undefined || tempUserToken == null) {
@@ -994,7 +988,6 @@
 
 
       var pathParams = {
-        'direction': direction
       };
       var queryParams = {
         'tempUserToken': tempUserToken
@@ -1010,7 +1003,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/orders/{direction}', 'PUT',
+        '/orders', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

@@ -23,7 +23,7 @@ Method | HTTP request | Description
 [**SetShippingAddress**](Orders.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
 [**Ship**](Orders.md#Ship) | **POST** /orders/{direction}/{orderID}/ship | 
 [**Submit**](Orders.md#Submit) | **POST** /orders/{direction}/{orderID}/submit | 
-[**TransferTempUserOrder**](Orders.md#TransferTempUserOrder) | **PUT** /orders/{direction} | 
+[**TransferTempUserOrder**](Orders.md#TransferTempUserOrder) | **PUT** /orders | 
 [**Update**](Orders.md#Update) | **PUT** /orders/{direction}/{orderID} | 
 
 
@@ -1048,7 +1048,7 @@ Name | Type | Description  | Notes
 
 <a name="TransferTempUserOrder"></a>
 # **TransferTempUserOrder**
-> TransferTempUserOrder(direction, tempUserToken)
+> TransferTempUserOrder(tempUserToken)
 
 
 
@@ -1063,11 +1063,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
-
 var tempUserToken = "tempUserToken_example"; // String | Temp user token of the order.
 
-apiInstance.TransferTempUserOrder(direction, tempUserToken).then(function() {
+apiInstance.TransferTempUserOrder(tempUserToken).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -1079,7 +1077,6 @@ apiInstance.TransferTempUserOrder(direction, tempUserToken).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
  **tempUserToken** | **String**| Temp user token of the order. | 
 
 ### Return type
