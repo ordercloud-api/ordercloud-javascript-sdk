@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.Categorys();
+    instance = new OrderCloud.Categories();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,7 +47,7 @@
       object[property] = value;
   }
 
-  describe('Categorys', function() {
+  describe('Categories', function() {
     describe('Create', function() {
       it('should call Create successfully', function(done) {
         //uncomment below and update the code to test Create

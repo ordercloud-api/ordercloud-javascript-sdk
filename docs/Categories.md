@@ -1,21 +1,21 @@
-# OrderCloud.Categorys
+# OrderCloud.Categories
 
 All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](Categorys.md#Create) | **POST** /catalogs/{catalogID}/categories | 
-[**Delete**](Categorys.md#Delete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
-[**DeleteAssignment**](Categorys.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
-[**DeleteProductAssignment**](Categorys.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
-[**Get**](Categorys.md#Get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
-[**List**](Categorys.md#List) | **GET** /catalogs/{catalogID}/categories | 
-[**ListAssignments**](Categorys.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
-[**ListProductAssignments**](Categorys.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
-[**Patch**](Categorys.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
-[**SaveAssignment**](Categorys.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
-[**SaveProductAssignment**](Categorys.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
-[**Update**](Categorys.md#Update) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
+[**Create**](Categories.md#Create) | **POST** /catalogs/{catalogID}/categories | 
+[**Delete**](Categories.md#Delete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
+[**DeleteAssignment**](Categories.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
+[**DeleteProductAssignment**](Categories.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
+[**Get**](Categories.md#Get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
+[**List**](Categories.md#List) | **GET** /catalogs/{catalogID}/categories | 
+[**ListAssignments**](Categories.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
+[**ListProductAssignments**](Categories.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
+[**Patch**](Categories.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
+[**SaveAssignment**](Categories.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
+[**SaveProductAssignment**](Categories.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
+[**Update**](Categories.md#Update) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
 
 
 <a name="Create"></a>
@@ -33,7 +33,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -82,7 +82,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -131,7 +131,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -189,7 +189,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -241,7 +241,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -290,7 +290,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -352,7 +352,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -414,7 +414,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -470,7 +470,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -522,7 +522,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -571,7 +571,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
@@ -620,7 +620,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Categorys();
+var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
