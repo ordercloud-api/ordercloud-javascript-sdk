@@ -214,7 +214,7 @@ Class | Method | HTTP request | Description
 *OrderCloud.Orders* | [**AddPromotion**](docs/Orders.md#AddPromotion) | **POST** /orders/{direction}/{orderID}/promotions/{promoCode} | 
 *OrderCloud.Orders* | [**Approve**](docs/Orders.md#Approve) | **POST** /orders/{direction}/{orderID}/approve | 
 *OrderCloud.Orders* | [**Cancel**](docs/Orders.md#Cancel) | **POST** /orders/{direction}/{orderID}/cancel | 
-*OrderCloud.Orders* | [**Create**](docs/Orders.md#Create) | **POST** /orders | 
+*OrderCloud.Orders* | [**Create**](docs/Orders.md#Create) | **POST** /orders/{direction} | 
 *OrderCloud.Orders* | [**Decline**](docs/Orders.md#Decline) | **POST** /orders/{direction}/{orderID}/decline | 
 *OrderCloud.Orders* | [**Delete**](docs/Orders.md#Delete) | **DELETE** /orders/{direction}/{orderID} | 
 *OrderCloud.Orders* | [**Get**](docs/Orders.md#Get) | **GET** /orders/{direction}/{orderID} | 

@@ -8,6 +8,5 @@ Name | Type | Description | Notes
 **userID** | **String** |  | [optional] 
 **userGroupID** | **String** |  | [optional] 
 **priceScheduleID** | **String** |  | [optional] 
-**standardPriceScheduleID** | **String** |  | [optional] 
 
 

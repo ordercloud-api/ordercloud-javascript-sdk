@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**AddPromotion**](Orders.md#AddPromotion) | **POST** /orders/{direction}/{orderID}/promotions/{promoCode} | 
 [**Approve**](Orders.md#Approve) | **POST** /orders/{direction}/{orderID}/approve | 
 [**Cancel**](Orders.md#Cancel) | **POST** /orders/{direction}/{orderID}/cancel | 
-[**Create**](Orders.md#Create) | **POST** /orders | 
+[**Create**](Orders.md#Create) | **POST** /orders/{direction} | 
 [**Decline**](Orders.md#Decline) | **POST** /orders/{direction}/{orderID}/decline | 
 [**Delete**](Orders.md#Delete) | **DELETE** /orders/{direction}/{orderID} | 
 [**Get**](Orders.md#Get) | **GET** /orders/{direction}/{orderID} | 
@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 
 <a name="Create"></a>
 # **Create**
-> Order Create(order)
+> Order Create(direction, order)
 
 
 
@@ -197,9 +197,11 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
+var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+
 var order = new OrderCloud.Order(); // Order | 
 
-apiInstance.Create(order).then(function(data) {
+apiInstance.Create(direction, order).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -211,6 +213,7 @@ apiInstance.Create(order).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
  **order** | [**Order**](Order.md)|  | 
 
 ### Return type

@@ -10726,11 +10726,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Create = function(order) {
+    this.Create = function(direction, order) {
       var postBody = order;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Create");
+      }
 
       // verify the required parameter 'order' is set
       if (order == undefined || order == null) {
@@ -10739,6 +10745,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
+        'direction': direction
       };
       var queryParams = {
       };
@@ -10753,7 +10760,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/orders', 'POST',
+        '/orders/{direction}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -27473,7 +27480,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-
   };
 
   /**
@@ -27502,9 +27508,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('PriceScheduleID')) {
         obj['PriceScheduleID'] = ApiClient.convertToType(data['PriceScheduleID'], 'String');
       }
-      if (data.hasOwnProperty('StandardPriceScheduleID')) {
-        obj['StandardPriceScheduleID'] = ApiClient.convertToType(data['StandardPriceScheduleID'], 'String');
-      }
     }
     return obj;
   }
@@ -27529,10 +27532,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} PriceScheduleID
    */
   exports.prototype['PriceScheduleID'] = undefined;
-  /**
-   * @member {String} StandardPriceScheduleID
-   */
-  exports.prototype['StandardPriceScheduleID'] = undefined;
 
 
 

@@ -189,11 +189,17 @@
 
 
     /**
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Create = function(order) {
+    this.Create = function(direction, order) {
       var postBody = order;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Create");
+      }
 
       // verify the required parameter 'order' is set
       if (order == undefined || order == null) {
@@ -202,6 +208,7 @@
 
 
       var pathParams = {
+        'direction': direction
       };
       var queryParams = {
       };
@@ -216,7 +223,7 @@
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/orders', 'POST',
+        '/orders/{direction}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
