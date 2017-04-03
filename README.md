@@ -174,7 +174,6 @@ Class | Method | HTTP request | Description
 *OrderCloud.LineItems* | [**Update**](docs/LineItems.md#Update) | **PUT** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
 *OrderCloud.Me* | [**CreateAddress**](docs/Me.md#CreateAddress) | **POST** /me/addresses | 
 *OrderCloud.Me* | [**CreateCreditCard**](docs/Me.md#CreateCreditCard) | **POST** /me/creditcards | 
-*OrderCloud.Me* | [**CreateFromTempUser**](docs/Me.md#CreateFromTempUser) | **PUT** /me/register | 
 *OrderCloud.Me* | [**DeleteAddress**](docs/Me.md#DeleteAddress) | **DELETE** /me/addresses/{addressID} | 
 *OrderCloud.Me* | [**DeleteCreditCard**](docs/Me.md#DeleteCreditCard) | **DELETE** /me/creditcards/{creditcardID} | 
 *OrderCloud.Me* | [**Get**](docs/Me.md#Get) | **GET** /me | 
@@ -200,7 +199,9 @@ Class | Method | HTTP request | Description
 *OrderCloud.Me* | [**Patch**](docs/Me.md#Patch) | **PATCH** /me | 
 *OrderCloud.Me* | [**PatchAddress**](docs/Me.md#PatchAddress) | **PATCH** /me/addresses/{addressID} | 
 *OrderCloud.Me* | [**PatchCreditCard**](docs/Me.md#PatchCreditCard) | **PATCH** /me/creditcards/{creditcardID} | 
+*OrderCloud.Me* | [**Register**](docs/Me.md#Register) | **PUT** /me/register | 
 *OrderCloud.Me* | [**ResetPasswordByToken**](docs/Me.md#ResetPasswordByToken) | **POST** /me/password | 
+*OrderCloud.Me* | [**TransferAnonUserOrder**](docs/Me.md#TransferAnonUserOrder) | **PUT** /me/orders | 
 *OrderCloud.Me* | [**Update**](docs/Me.md#Update) | **PUT** /me | 
 *OrderCloud.Me* | [**UpdateAddress**](docs/Me.md#UpdateAddress) | **PUT** /me/addresses/{addressID} | 
 *OrderCloud.Me* | [**UpdateCreditCard**](docs/Me.md#UpdateCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
@@ -230,7 +231,6 @@ Class | Method | HTTP request | Description
 *OrderCloud.Orders* | [**SetShippingAddress**](docs/Orders.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
 *OrderCloud.Orders* | [**Ship**](docs/Orders.md#Ship) | **POST** /orders/{direction}/{orderID}/ship | 
 *OrderCloud.Orders* | [**Submit**](docs/Orders.md#Submit) | **POST** /orders/{direction}/{orderID}/submit | 
-*OrderCloud.Orders* | [**TransferTempUserOrder**](docs/Orders.md#TransferTempUserOrder) | **PUT** /orders | 
 *OrderCloud.Orders* | [**Update**](docs/Orders.md#Update) | **PUT** /orders/{direction}/{orderID} | 
 *OrderCloud.PasswordResets* | [**ResetPasswordByVerificationCode**](docs/PasswordResets.md#ResetPasswordByVerificationCode) | **PUT** /password/reset/{verificationCode} | 
 *OrderCloud.PasswordResets* | [**SendVerificationCode**](docs/PasswordResets.md#SendVerificationCode) | **POST** /password/reset | 
@@ -481,10 +481,6 @@ Class | Method | HTTP request | Description
   - CostCenterReader: 
   - CreditCardAdmin: 
   - CreditCardReader: 
-  - DevCenter: 
-  - DevCenterImpersonate: 
-  - DevCenterPasswordReset: 
-  - DevCenterValidateEmail: 
   - FullAccess: 
   - GrantForAnyRole: 
   - InventoryAdmin: 

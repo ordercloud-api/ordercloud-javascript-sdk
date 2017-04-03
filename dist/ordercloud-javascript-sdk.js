@@ -8960,48 +8960,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} tempUserToken Temp user token of the me.
-     * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
-     */
-    this.CreateFromTempUser = function(tempUserToken, user) {
-      var postBody = user;
-
-      // verify the required parameter 'tempUserToken' is set
-      if (tempUserToken == undefined || tempUserToken == null) {
-        throw new Error("Missing the required parameter 'tempUserToken' when calling CreateFromTempUser");
-      }
-
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling CreateFromTempUser");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'tempUserToken': tempUserToken
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Object;
-
-      return this.apiClient.callApi(
-        '/me/register', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -10045,6 +10003,48 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {String} anonUserToken Anon user token of the me.
+     * @param {module:model/User} user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    this.Register = function(anonUserToken, user) {
+      var postBody = user;
+
+      // verify the required parameter 'anonUserToken' is set
+      if (anonUserToken == undefined || anonUserToken == null) {
+        throw new Error("Missing the required parameter 'anonUserToken' when calling Register");
+      }
+
+      // verify the required parameter 'user' is set
+      if (user == undefined || user == null) {
+        throw new Error("Missing the required parameter 'user' when calling Register");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'anonUserToken': anonUserToken
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Object;
+
+      return this.apiClient.callApi(
+        '/me/register', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {module:model/TokenPasswordReset} reset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -10073,6 +10073,42 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.apiClient.callApi(
         '/me/password', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} anonUserToken Anon user token of the me.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.TransferAnonUserOrder = function(anonUserToken) {
+      var postBody = null;
+
+      // verify the required parameter 'anonUserToken' is set
+      if (anonUserToken == undefined || anonUserToken == null) {
+        throw new Error("Missing the required parameter 'anonUserToken' when calling TransferAnonUserOrder");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'anonUserToken': anonUserToken
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/me/orders', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11512,42 +11548,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.apiClient.callApi(
         '/orders/{direction}/{orderID}/submit', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} tempUserToken Temp user token of the order.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.TransferTempUserOrder = function(tempUserToken) {
-      var postBody = null;
-
-      // verify the required parameter 'tempUserToken' is set
-      if (tempUserToken == undefined || tempUserToken == null) {
-        throw new Error("Missing the required parameter 'tempUserToken' when calling TransferTempUserOrder");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'tempUserToken': tempUserToken
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/orders', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

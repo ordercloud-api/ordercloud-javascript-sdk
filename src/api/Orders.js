@@ -982,42 +982,6 @@
 
 
     /**
-     * @param {String} tempUserToken Temp user token of the order.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.TransferTempUserOrder = function(tempUserToken) {
-      var postBody = null;
-
-      // verify the required parameter 'tempUserToken' is set
-      if (tempUserToken == undefined || tempUserToken == null) {
-        throw new Error("Missing the required parameter 'tempUserToken' when calling TransferTempUserOrder");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'tempUserToken': tempUserToken
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/orders', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Order} order 

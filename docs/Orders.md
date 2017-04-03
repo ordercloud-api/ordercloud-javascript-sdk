@@ -23,7 +23,6 @@ Method | HTTP request | Description
 [**SetShippingAddress**](Orders.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
 [**Ship**](Orders.md#Ship) | **POST** /orders/{direction}/{orderID}/ship | 
 [**Submit**](Orders.md#Submit) | **POST** /orders/{direction}/{orderID}/submit | 
-[**TransferTempUserOrder**](Orders.md#TransferTempUserOrder) | **PUT** /orders | 
 [**Update**](Orders.md#Update) | **PUT** /orders/{direction}/{orderID} | 
 
 
@@ -1039,52 +1038,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Order**](Order.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="TransferTempUserOrder"></a>
-# **TransferTempUserOrder**
-> TransferTempUserOrder(tempUserToken)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Orders();
-
-var tempUserToken = "tempUserToken_example"; // String | Temp user token of the order.
-
-apiInstance.TransferTempUserOrder(tempUserToken).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **tempUserToken** | **String**| Temp user token of the order. | 
-
-### Return type
-
-null (empty response body)
 
 ### Authorization
 
