@@ -34,7 +34,7 @@
   /**
    * The ListUser model module.
    * @module model/ListUser
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

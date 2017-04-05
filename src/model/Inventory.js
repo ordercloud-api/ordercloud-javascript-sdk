@@ -34,7 +34,7 @@
   /**
    * The Inventory model module.
    * @module model/Inventory
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

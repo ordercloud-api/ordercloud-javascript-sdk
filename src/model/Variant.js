@@ -34,7 +34,7 @@
   /**
    * The Variant model module.
    * @module model/Variant
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

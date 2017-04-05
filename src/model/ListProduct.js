@@ -34,7 +34,7 @@
   /**
    * The ListProduct model module.
    * @module model/ListProduct
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

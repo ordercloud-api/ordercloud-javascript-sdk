@@ -34,7 +34,7 @@
   /**
    * The Payment model module.
    * @module model/Payment
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

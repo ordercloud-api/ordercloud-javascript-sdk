@@ -34,7 +34,7 @@
   /**
    * The ListCostCenterAssignment model module.
    * @module model/ListCostCenterAssignment
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

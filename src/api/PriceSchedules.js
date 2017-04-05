@@ -31,7 +31,7 @@
   /**
    * PriceSchedule service.
    * @module api/PriceSchedules
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

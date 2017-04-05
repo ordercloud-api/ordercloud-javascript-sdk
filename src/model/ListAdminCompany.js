@@ -34,7 +34,7 @@
   /**
    * The ListAdminCompany model module.
    * @module model/ListAdminCompany
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

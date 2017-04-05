@@ -31,7 +31,7 @@
   /**
    * Product service.
    * @module api/Products
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

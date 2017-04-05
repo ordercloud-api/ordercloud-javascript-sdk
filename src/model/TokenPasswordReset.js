@@ -34,7 +34,7 @@
   /**
    * The TokenPasswordReset model module.
    * @module model/TokenPasswordReset
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

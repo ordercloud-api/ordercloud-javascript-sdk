@@ -34,7 +34,7 @@
   /**
    * The ListProductCatalogAssignment model module.
    * @module model/ListProductCatalogAssignment
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

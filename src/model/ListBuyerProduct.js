@@ -34,7 +34,7 @@
   /**
    * The ListBuyerProduct model module.
    * @module model/ListBuyerProduct
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**

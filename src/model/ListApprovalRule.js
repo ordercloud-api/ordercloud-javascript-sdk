@@ -34,7 +34,7 @@
   /**
    * The ListApprovalRule model module.
    * @module model/ListApprovalRule
-   * @version 1.0.1-staging
+   * @version 1.0.44
    */
 
   /**
