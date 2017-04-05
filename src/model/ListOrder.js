@@ -34,7 +34,7 @@
   /**
    * The ListOrder model module.
    * @module model/ListOrder
-   * @version v1.0.43-staging-prerelease
+   * @version 1.0.1-staging
    */
 
   /**

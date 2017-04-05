@@ -31,7 +31,7 @@
   /**
    * Buyer service.
    * @module api/Buyers
-   * @version v1.0.43-staging-prerelease
+   * @version 1.0.1-staging
    */
 
   /**

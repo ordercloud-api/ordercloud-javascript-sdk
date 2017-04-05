@@ -34,7 +34,7 @@
   /**
    * The CategoryAssignment model module.
    * @module model/CategoryAssignment
-   * @version v1.0.43-staging-prerelease
+   * @version 1.0.1-staging
    */
 
   /**

@@ -34,7 +34,7 @@
   /**
    * The Spec model module.
    * @module model/Spec
-   * @version v1.0.43-staging-prerelease
+   * @version 1.0.1-staging
    */
 
   /**

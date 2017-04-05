@@ -34,7 +34,7 @@
   /**
    * The CreditCard model module.
    * @module model/CreditCard
-   * @version v1.0.43-staging-prerelease
+   * @version 1.0.1-staging
    */
 
   /**
