@@ -34,7 +34,7 @@
   /**
    * The ListSecurityProfile model module.
    * @module model/ListSecurityProfile
-   * @version 1.0.0
+   * @version 1.0.43
    */
 
   /**
