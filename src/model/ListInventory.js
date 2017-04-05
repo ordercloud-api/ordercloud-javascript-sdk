@@ -34,7 +34,7 @@
   /**
    * The ListInventory model module.
    * @module model/ListInventory
-   * @version v1.0.42-preview
+   * @version 1.0.0
    */
 
   /**

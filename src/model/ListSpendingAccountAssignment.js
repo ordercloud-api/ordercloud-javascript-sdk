@@ -34,7 +34,7 @@
   /**
    * The ListSpendingAccountAssignment model module.
    * @module model/ListSpendingAccountAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.0
    */
 
   /**

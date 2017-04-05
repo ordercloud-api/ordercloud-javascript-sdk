@@ -34,7 +34,7 @@
   /**
    * The ApprovalRule model module.
    * @module model/ApprovalRule
-   * @version v1.0.42-preview
+   * @version 1.0.0
    */
 
   /**

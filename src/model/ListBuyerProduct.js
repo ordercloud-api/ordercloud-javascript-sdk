@@ -34,7 +34,7 @@
   /**
    * The ListBuyerProduct model module.
    * @module model/ListBuyerProduct
-   * @version v1.0.42-preview
+   * @version 1.0.0
    */
 
   /**
