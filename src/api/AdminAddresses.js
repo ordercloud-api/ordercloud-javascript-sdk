@@ -31,7 +31,7 @@
   /**
    * AdminAddress service.
    * @module api/AdminAddresses
-   * @version 1.0.44
+   * @version 1.0.45
    */
 
   /**

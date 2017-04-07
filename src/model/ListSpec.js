@@ -34,7 +34,7 @@
   /**
    * The ListSpec model module.
    * @module model/ListSpec
-   * @version 1.0.44
+   * @version 1.0.45
    */
 
   /**

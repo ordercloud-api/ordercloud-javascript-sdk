@@ -34,7 +34,7 @@
   /**
    * The AdminCompany model module.
    * @module model/AdminCompany
-   * @version 1.0.44
+   * @version 1.0.45
    */
 
   /**

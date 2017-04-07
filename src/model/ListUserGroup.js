@@ -34,7 +34,7 @@
   /**
    * The ListUserGroup model module.
    * @module model/ListUserGroup
-   * @version 1.0.44
+   * @version 1.0.45
    */
 
   /**

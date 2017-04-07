@@ -14,29 +14,29 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListUser', 'model/User'], factory);
+    define(['ApiClient', 'model/ImpersonationConfig', 'model/ListImpersonationConfig'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListUser'), require('../model/User'));
+    module.exports = factory(require('../ApiClient'), require('../model/ImpersonationConfig'), require('../model/ListImpersonationConfig'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.AdminUsers = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListUser, root.OrderCloud.User);
+    root.OrderCloud.ImpersonationConfigs = factory(root.OrderCloud.ApiClient, root.OrderCloud.ImpersonationConfig, root.OrderCloud.ListImpersonationConfig);
   }
-}(this, function(ApiClient, ListUser, User) {
+}(this, function(ApiClient, ImpersonationConfig, ListImpersonationConfig) {
   'use strict';
 
   /**
-   * AdminUser service.
-   * @module api/AdminUsers
+   * ImpersonationConfig service.
+   * @module api/ImpersonationConfigs
    * @version 1.0.45
    */
 
   /**
-   * Constructs a new AdminUsers. 
-   * @alias module:api/AdminUsers
+   * Constructs a new ImpersonationConfigs. 
+   * @alias module:api/ImpersonationConfigs
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
@@ -47,15 +47,15 @@
 
 
     /**
-     * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @param {module:model/ImpersonationConfig} impersonationConfig 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Create = function(user) {
-      var postBody = user;
+    this.Create = function(impersonationConfig) {
+      var postBody = impersonationConfig;
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Create");
+      // verify the required parameter 'impersonationConfig' is set
+      if (impersonationConfig == undefined || impersonationConfig == null) {
+        throw new Error("Missing the required parameter 'impersonationConfig' when calling Create");
       }
 
 
@@ -71,10 +71,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = User;
+      var returnType = ImpersonationConfig;
 
       return this.apiClient.callApi(
-        '/adminusers', 'POST',
+        '/impersonationconfig', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -82,20 +82,20 @@
 
 
     /**
-     * @param {String} userID ID of the user.
+     * @param {String} impersonationConfigID ID of the impersonation config.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(userID) {
+    this.Delete = function(impersonationConfigID) {
       var postBody = null;
 
-      // verify the required parameter 'userID' is set
-      if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Delete");
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Delete");
       }
 
 
       var pathParams = {
-        'userID': userID
+        'impersonationConfigID': impersonationConfigID
       };
       var queryParams = {
       };
@@ -110,7 +110,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/adminusers/{userID}', 'DELETE',
+        '/impersonationconfig/{impersonationConfigID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -118,20 +118,20 @@
 
 
     /**
-     * @param {String} userID ID of the user.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @param {String} impersonationConfigID ID of the impersonation config.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Get = function(userID) {
+    this.Get = function(impersonationConfigID) {
       var postBody = null;
 
-      // verify the required parameter 'userID' is set
-      if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Get");
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Get");
       }
 
 
       var pathParams = {
-        'userID': userID
+        'impersonationConfigID': impersonationConfigID
       };
       var queryParams = {
       };
@@ -143,10 +143,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = User;
+      var returnType = ImpersonationConfig;
 
       return this.apiClient.callApi(
-        '/adminusers/{userID}', 'GET',
+        '/impersonationconfig/{impersonationConfigID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -161,7 +161,7 @@
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListImpersonationConfig}
      */
     this.List = function(opts) {
       opts = opts || {};
@@ -186,10 +186,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = ListUser;
+      var returnType = ListImpersonationConfig;
 
       return this.apiClient.callApi(
-        '/adminusers', 'GET',
+        '/impersonationconfig', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -197,26 +197,26 @@
 
 
     /**
-     * @param {String} userID ID of the user.
-     * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @param {String} impersonationConfigID ID of the impersonation config.
+     * @param {module:model/ImpersonationConfig} impersonationConfig 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Patch = function(userID, user) {
-      var postBody = user;
+    this.Patch = function(impersonationConfigID, impersonationConfig) {
+      var postBody = impersonationConfig;
 
-      // verify the required parameter 'userID' is set
-      if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Patch");
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Patch");
       }
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Patch");
+      // verify the required parameter 'impersonationConfig' is set
+      if (impersonationConfig == undefined || impersonationConfig == null) {
+        throw new Error("Missing the required parameter 'impersonationConfig' when calling Patch");
       }
 
 
       var pathParams = {
-        'userID': userID
+        'impersonationConfigID': impersonationConfigID
       };
       var queryParams = {
       };
@@ -228,10 +228,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = User;
+      var returnType = ImpersonationConfig;
 
       return this.apiClient.callApi(
-        '/adminusers/{userID}', 'PATCH',
+        '/impersonationconfig/{impersonationConfigID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -239,26 +239,26 @@
 
 
     /**
-     * @param {String} userID ID of the user.
-     * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @param {String} impersonationConfigID ID of the impersonation config.
+     * @param {module:model/ImpersonationConfig} impersonationConfig 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Update = function(userID, user) {
-      var postBody = user;
+    this.Update = function(impersonationConfigID, impersonationConfig) {
+      var postBody = impersonationConfig;
 
-      // verify the required parameter 'userID' is set
-      if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Update");
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Update");
       }
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Update");
+      // verify the required parameter 'impersonationConfig' is set
+      if (impersonationConfig == undefined || impersonationConfig == null) {
+        throw new Error("Missing the required parameter 'impersonationConfig' when calling Update");
       }
 
 
       var pathParams = {
-        'userID': userID
+        'impersonationConfigID': impersonationConfigID
       };
       var queryParams = {
       };
@@ -270,10 +270,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = User;
+      var returnType = ImpersonationConfig;
 
       return this.apiClient.callApi(
-        '/adminusers/{userID}', 'PUT',
+        '/impersonationconfig/{impersonationConfigID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

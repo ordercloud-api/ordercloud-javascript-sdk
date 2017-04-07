@@ -34,7 +34,7 @@
   /**
    * The ListPayment model module.
    * @module model/ListPayment
-   * @version 1.0.44
+   * @version 1.0.45
    */
 
   /**

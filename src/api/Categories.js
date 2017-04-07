@@ -31,7 +31,7 @@
   /**
    * Category service.
    * @module api/Categories
-   * @version 1.0.44
+   * @version 1.0.45
    */
 
   /**
