@@ -34,7 +34,7 @@
   /**
    * The ListXpIndex model module.
    * @module model/ListXpIndex
-   * @version 1.0.45
+   * @version 1.0.46
    */
 
   /**

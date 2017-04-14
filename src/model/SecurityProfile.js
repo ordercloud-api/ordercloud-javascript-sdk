@@ -34,7 +34,7 @@
   /**
    * The SecurityProfile model module.
    * @module model/SecurityProfile
-   * @version 1.0.45
+   * @version 1.0.46
    */
 
   /**

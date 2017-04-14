@@ -31,7 +31,7 @@
   /**
    * SecurityProfile service.
    * @module api/SecurityProfiles
-   * @version 1.0.45
+   * @version 1.0.46
    */
 
   /**

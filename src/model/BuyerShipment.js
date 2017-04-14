@@ -34,7 +34,7 @@
   /**
    * The BuyerShipment model module.
    * @module model/BuyerShipment
-   * @version 1.0.45
+   * @version 1.0.46
    */
 
   /**

@@ -34,7 +34,7 @@
   /**
    * The ListBuyerCreditCard model module.
    * @module model/ListBuyerCreditCard
-   * @version 1.0.45
+   * @version 1.0.46
    */
 
   /**

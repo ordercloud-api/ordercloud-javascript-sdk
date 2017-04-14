@@ -24,6 +24,7 @@ Method | HTTP request | Description
 [**ListOrders**](Me.md#ListOrders) | **GET** /me/orders | 
 [**ListProducts**](Me.md#ListProducts) | **GET** /me/products | 
 [**ListPromotions**](Me.md#ListPromotions) | **GET** /me/promotions | 
+[**ListShipmentItems**](Me.md#ListShipmentItems) | **GET** /me/shipments/{shipmentID}/shipmentitems | 
 [**ListShipments**](Me.md#ListShipments) | **GET** /me/shipments | 
 [**ListSpecs**](Me.md#ListSpecs) | **GET** /me/catalogs/{catalogID}/products/{productID}/specs | 
 [**ListSpendingAccounts**](Me.md#ListSpendingAccounts) | **GET** /me/spendingAccounts | 
@@ -1058,6 +1059,68 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListPromotion**](ListPromotion.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="ListShipmentItems"></a>
+# **ListShipmentItems**
+> ListShipmentItem ListShipmentItems(shipmentID, opts)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var shipmentID = "shipmentID_example"; // String | ID of the shipment.
+
+var opts = { 
+  'orderID': "orderID_example", // String | ID of the order.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+};
+apiInstance.ListShipmentItems(shipmentID, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **shipmentID** | **String**| ID of the shipment. | 
+ **orderID** | **String**| ID of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+
+### Return type
+
+[**ListShipmentItem**](ListShipmentItem.md)
 
 ### Authorization
 
