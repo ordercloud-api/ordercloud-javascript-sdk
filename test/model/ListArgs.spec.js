@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.DevTokenRequest();
+    instance = new OrderCloud.ListArgs();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,34 +47,46 @@
       object[property] = value;
   }
 
-  describe('DevTokenRequest', function() {
-    it('should create an instance of DevTokenRequest', function() {
-      // uncomment below and update the code to test DevTokenRequest
-      //var instane = new OrderCloud.DevTokenRequest();
-      //expect(instance).to.be.a(OrderCloud.DevTokenRequest);
+  describe('ListArgs', function() {
+    it('should create an instance of ListArgs', function() {
+      // uncomment below and update the code to test ListArgs
+      //var instane = new OrderCloud.ListArgs();
+      //expect(instance).to.be.a(OrderCloud.ListArgs);
     });
 
-    it('should have the property clientID (base name: "ClientID")', function() {
-      // uncomment below and update the code to test the property clientID
-      //var instane = new OrderCloud.DevTokenRequest();
+    it('should have the property search (base name: "Search")', function() {
+      // uncomment below and update the code to test the property search
+      //var instane = new OrderCloud.ListArgs();
       //expect(instance).to.be();
     });
 
-    it('should have the property buyerID (base name: "BuyerID")', function() {
-      // uncomment below and update the code to test the property buyerID
-      //var instane = new OrderCloud.DevTokenRequest();
+    it('should have the property searchOn (base name: "SearchOn")', function() {
+      // uncomment below and update the code to test the property searchOn
+      //var instane = new OrderCloud.ListArgs();
       //expect(instance).to.be();
     });
 
-    it('should have the property buyerUsername (base name: "BuyerUsername")', function() {
-      // uncomment below and update the code to test the property buyerUsername
-      //var instane = new OrderCloud.DevTokenRequest();
+    it('should have the property sortBy (base name: "SortBy")', function() {
+      // uncomment below and update the code to test the property sortBy
+      //var instane = new OrderCloud.ListArgs();
       //expect(instance).to.be();
     });
 
-    it('should have the property claims (base name: "Claims")', function() {
-      // uncomment below and update the code to test the property claims
-      //var instane = new OrderCloud.DevTokenRequest();
+    it('should have the property page (base name: "Page")', function() {
+      // uncomment below and update the code to test the property page
+      //var instane = new OrderCloud.ListArgs();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property pageSize (base name: "PageSize")', function() {
+      // uncomment below and update the code to test the property pageSize
+      //var instane = new OrderCloud.ListArgs();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property filters (base name: "Filters")', function() {
+      // uncomment below and update the code to test the property filters
+      //var instane = new OrderCloud.ListArgs();
       //expect(instance).to.be();
     });
 

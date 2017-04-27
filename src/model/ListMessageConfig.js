@@ -14,32 +14,32 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AdminCompany', 'model/Meta'], factory);
+    define(['ApiClient', 'model/MessageConfig', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./AdminCompany'), require('./Meta'));
+    module.exports = factory(require('../ApiClient'), require('./MessageConfig'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListAdminCompany = factory(root.OrderCloud.ApiClient, root.OrderCloud.AdminCompany, root.OrderCloud.Meta);
+    root.OrderCloud.ListMessageConfig = factory(root.OrderCloud.ApiClient, root.OrderCloud.MessageConfig, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, AdminCompany, Meta) {
+}(this, function(ApiClient, MessageConfig, Meta) {
   'use strict';
 
 
 
 
   /**
-   * The ListAdminCompany model module.
-   * @module model/ListAdminCompany
-   * @version 1.0.46
+   * The ListMessageConfig model module.
+   * @module model/ListMessageConfig
+   * @version 1.0.47
    */
 
   /**
-   * Constructs a new <code>ListAdminCompany</code>.
-   * @alias module:model/ListAdminCompany
+   * Constructs a new <code>ListMessageConfig</code>.
+   * @alias module:model/ListMessageConfig
    * @class
    */
   var exports = function() {
@@ -50,18 +50,18 @@
   };
 
   /**
-   * Constructs a <code>ListAdminCompany</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ListMessageConfig</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ListAdminCompany} obj Optional instance to populate.
-   * @return {module:model/ListAdminCompany} The populated <code>ListAdminCompany</code> instance.
+   * @param {module:model/ListMessageConfig} obj Optional instance to populate.
+   * @return {module:model/ListMessageConfig} The populated <code>ListMessageConfig</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [AdminCompany]);
+        obj['Items'] = ApiClient.convertToType(data['Items'], [MessageConfig]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);
@@ -71,7 +71,7 @@
   }
 
   /**
-   * @member {Array.<module:model/AdminCompany>} Items
+   * @member {Array.<module:model/MessageConfig>} Items
    */
   exports.prototype['Items'] = undefined;
   /**

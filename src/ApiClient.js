@@ -30,7 +30,7 @@
 
   /**
    * @module ApiClient
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**
@@ -412,9 +412,9 @@
     return new Promise(function(resolve, reject) {
       request.end(function(error, response) {
         if (error) {
-          reject(error);
           // reset impersonation boolean
           _this.impersonation = false;
+          reject(error);
         } else {
           var data = _this.deserialize(response, returnType);
           // reset impersonation boolean

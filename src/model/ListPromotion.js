@@ -34,7 +34,7 @@
   /**
    * The ListPromotion model module.
    * @module model/ListPromotion
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**

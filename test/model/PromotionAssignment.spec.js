@@ -66,12 +66,6 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property userID (base name: "UserID")', function() {
-      // uncomment below and update the code to test the property userID
-      //var instane = new OrderCloud.PromotionAssignment();
-      //expect(instance).to.be();
-    });
-
     it('should have the property userGroupID (base name: "UserGroupID")', function() {
       // uncomment below and update the code to test the property userGroupID
       //var instane = new OrderCloud.PromotionAssignment();

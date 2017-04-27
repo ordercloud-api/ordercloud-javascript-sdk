@@ -34,7 +34,7 @@
   /**
    * The ListCreditCardAssignment model module.
    * @module model/ListCreditCardAssignment
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**

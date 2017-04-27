@@ -68,16 +68,6 @@
         done();
       });
     });
-    describe('CreateFromTempUser', function() {
-      it('should call CreateFromTempUser successfully', function(done) {
-        //uncomment below and update the code to test CreateFromTempUser
-        //instance.CreateFromTempUser(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('DeleteAddress', function() {
       it('should call DeleteAddress successfully', function(done) {
         //uncomment below and update the code to test DeleteAddress
@@ -112,6 +102,16 @@
       it('should call GetAddress successfully', function(done) {
         //uncomment below and update the code to test GetAddress
         //instance.GetAddress(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('GetCatalog', function() {
+      it('should call GetCatalog successfully', function(done) {
+        //uncomment below and update the code to test GetCatalog
+        //instance.GetCatalog(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -198,6 +198,16 @@
         done();
       });
     });
+    describe('ListCatalogs', function() {
+      it('should call ListCatalogs successfully', function(done) {
+        //uncomment below and update the code to test ListCatalogs
+        //instance.ListCatalogs(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('ListCategories', function() {
       it('should call ListCategories successfully', function(done) {
         //uncomment below and update the code to test ListCategories
@@ -252,6 +262,16 @@
       it('should call ListPromotions successfully', function(done) {
         //uncomment below and update the code to test ListPromotions
         //instance.ListPromotions(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('ListShipmentItems', function() {
+      it('should call ListShipmentItems successfully', function(done) {
+        //uncomment below and update the code to test ListShipmentItems
+        //instance.ListShipmentItems(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -328,10 +348,30 @@
         done();
       });
     });
+    describe('Register', function() {
+      it('should call Register successfully', function(done) {
+        //uncomment below and update the code to test Register
+        //instance.Register(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('ResetPasswordByToken', function() {
       it('should call ResetPasswordByToken successfully', function(done) {
         //uncomment below and update the code to test ResetPasswordByToken
         //instance.ResetPasswordByToken(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('TransferAnonUserOrder', function() {
+      it('should call TransferAnonUserOrder successfully', function(done) {
+        //uncomment below and update the code to test TransferAnonUserOrder
+        //instance.TransferAnonUserOrder(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

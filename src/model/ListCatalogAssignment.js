@@ -34,7 +34,7 @@
   /**
    * The ListCatalogAssignment model module.
    * @module model/ListCatalogAssignment
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**

@@ -34,7 +34,7 @@
   /**
    * The ListCatalog model module.
    * @module model/ListCatalog
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**

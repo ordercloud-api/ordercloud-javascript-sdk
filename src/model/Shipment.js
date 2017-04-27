@@ -34,7 +34,7 @@
   /**
    * The Shipment model module.
    * @module model/Shipment
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**

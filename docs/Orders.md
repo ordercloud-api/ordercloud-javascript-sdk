@@ -402,12 +402,12 @@ var opts = {
   'supplierID': "supplierID_example", // String | ID of the supplier.
   'from': "from_example", // String | Lower bound of date range that the order was created.
   'to': "to_example", // String | Upper bound of date range that the order was created.
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the order.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
+  'page': 56, // Number | Page of the order.
+  'pageSize': 56, // Number | Page size of the order.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
 };
 apiInstance.List(direction, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -426,12 +426,12 @@ Name | Type | Description  | Notes
  **supplierID** | **String**| ID of the supplier. | [optional] 
  **from** | **String**| Lower bound of date range that the order was created. | [optional] 
  **to** | **String**| Upper bound of date range that the order was created. | [optional] 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the order. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
+ **page** | **Number**| Page of the order. | [optional] 
+ **pageSize** | **Number**| Page size of the order. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
 
 ### Return type
 
@@ -468,12 +468,12 @@ var direction = "direction_example"; // String | Direction of the order. Possibl
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the order.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
+  'page': 56, // Number | Page of the order.
+  'pageSize': 56, // Number | Page size of the order.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
 };
 apiInstance.ListApprovals(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -489,12 +489,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the order. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
+ **page** | **Number**| Page of the order. | [optional] 
+ **pageSize** | **Number**| Page size of the order. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
 
 ### Return type
 
@@ -531,12 +531,12 @@ var direction = "direction_example"; // String | Direction of the order. Possibl
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the order.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
+  'page': 56, // Number | Page of the order.
+  'pageSize': 56, // Number | Page size of the order.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
 };
 apiInstance.ListEligibleApprovers(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -552,12 +552,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the order. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
+ **page** | **Number**| Page of the order. | [optional] 
+ **pageSize** | **Number**| Page size of the order. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
 
 ### Return type
 
@@ -594,12 +594,12 @@ var direction = "direction_example"; // String | Direction of the order. Possibl
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the order.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
+  'page': 56, // Number | Page of the order.
+  'pageSize': 56, // Number | Page size of the order.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
 };
 apiInstance.ListPromotions(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -615,12 +615,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the order. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
+ **page** | **Number**| Page of the order. | [optional] 
+ **pageSize** | **Number**| Page size of the order. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
 
 ### Return type
 

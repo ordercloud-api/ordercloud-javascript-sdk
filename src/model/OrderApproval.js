@@ -34,7 +34,7 @@
   /**
    * The OrderApproval model module.
    * @module model/OrderApproval
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**

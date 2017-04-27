@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.AdminCompany();
+    instance = new OrderCloud.ListMessageConfig();
   });
 
   var getProperty = function(object, getter, property) {
@@ -47,34 +47,22 @@
       object[property] = value;
   }
 
-  describe('AdminCompany', function() {
-    it('should create an instance of AdminCompany', function() {
-      // uncomment below and update the code to test AdminCompany
-      //var instane = new OrderCloud.AdminCompany();
-      //expect(instance).to.be.a(OrderCloud.AdminCompany);
+  describe('ListMessageConfig', function() {
+    it('should create an instance of ListMessageConfig', function() {
+      // uncomment below and update the code to test ListMessageConfig
+      //var instane = new OrderCloud.ListMessageConfig();
+      //expect(instance).to.be.a(OrderCloud.ListMessageConfig);
     });
 
-    it('should have the property name (base name: "Name")', function() {
-      // uncomment below and update the code to test the property name
-      //var instane = new OrderCloud.AdminCompany();
+    it('should have the property items (base name: "Items")', function() {
+      // uncomment below and update the code to test the property items
+      //var instane = new OrderCloud.ListMessageConfig();
       //expect(instance).to.be();
     });
 
-    it('should have the property ID (base name: "ID")', function() {
-      // uncomment below and update the code to test the property ID
-      //var instane = new OrderCloud.AdminCompany();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property ownerDevID (base name: "OwnerDevID")', function() {
-      // uncomment below and update the code to test the property ownerDevID
-      //var instane = new OrderCloud.AdminCompany();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property autoForwardingUserID (base name: "AutoForwardingUserID")', function() {
-      // uncomment below and update the code to test the property autoForwardingUserID
-      //var instane = new OrderCloud.AdminCompany();
+    it('should have the property meta (base name: "Meta")', function() {
+      // uncomment below and update the code to test the property meta
+      //var instane = new OrderCloud.ListMessageConfig();
       //expect(instance).to.be();
     });
 

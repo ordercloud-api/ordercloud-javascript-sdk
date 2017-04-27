@@ -238,16 +238,6 @@
         done();
       });
     });
-    describe('TransferTempUserOrder', function() {
-      it('should call TransferTempUserOrder successfully', function(done) {
-        //uncomment below and update the code to test TransferTempUserOrder
-        //instance.TransferTempUserOrder(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
     describe('Update', function() {
       it('should call Update successfully', function(done) {
         //uncomment below and update the code to test Update

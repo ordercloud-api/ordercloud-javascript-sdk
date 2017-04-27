@@ -373,12 +373,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Specs();
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the spec.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the spec.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the spec.
+  'page': 56, // Number | Page of the spec.
+  'pageSize': 56, // Number | Page size of the spec.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the spec.
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -392,12 +392,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the spec. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the spec. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the spec. | [optional] 
+ **page** | **Number**| Page of the spec. | [optional] 
+ **pageSize** | **Number**| Page size of the spec. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the spec. | [optional] 
 
 ### Return type
 
@@ -432,12 +432,12 @@ var apiInstance = new OrderCloud.Specs();
 var specID = "specID_example"; // String | ID of the spec.
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the spec.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the spec.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the spec.
+  'page': 56, // Number | Page of the spec.
+  'pageSize': 56, // Number | Page size of the spec.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the spec.
 };
 apiInstance.ListOptions(specID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -452,12 +452,12 @@ apiInstance.ListOptions(specID, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **specID** | **String**| ID of the spec. | 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the spec. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the spec. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the spec. | [optional] 
+ **page** | **Number**| Page of the spec. | [optional] 
+ **pageSize** | **Number**| Page size of the spec. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the spec. | [optional] 
 
 ### Return type
 
@@ -490,12 +490,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Specs();
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the spec.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the spec.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the spec.
+  'page': 56, // Number | Page of the spec.
+  'pageSize': 56, // Number | Page size of the spec.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the spec.
 };
 apiInstance.ListProductAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -509,12 +509,12 @@ apiInstance.ListProductAssignments(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the spec. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the spec. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the spec. | [optional] 
+ **page** | **Number**| Page of the spec. | [optional] 
+ **pageSize** | **Number**| Page size of the spec. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the spec. | [optional] 
 
 ### Return type
 

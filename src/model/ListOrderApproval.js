@@ -34,7 +34,7 @@
   /**
    * The ListOrderApproval model module.
    * @module model/ListOrderApproval
-   * @version 1.0.46
+   * @version 1.0.47
    */
 
   /**
