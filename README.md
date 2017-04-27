@@ -419,6 +419,7 @@ Class | Method | HTTP request | Description
  - [OrderCloud.ListUserGroupAssignment](docs/ListUserGroupAssignment.md)
  - [OrderCloud.ListVariant](docs/ListVariant.md)
  - [OrderCloud.MessageCCListenerAssignment](docs/MessageCCListenerAssignment.md)
+ - [OrderCloud.MessageConfig](docs/MessageConfig.md)
  - [OrderCloud.MessageSender](docs/MessageSender.md)
  - [OrderCloud.MessageSenderAssignment](docs/MessageSenderAssignment.md)
  - [OrderCloud.Meta](docs/Meta.md)
