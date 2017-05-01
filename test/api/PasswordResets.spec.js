@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.PasswordResets();
+    instance = OrderCloud.PasswordResets;
   });
 
   var getProperty = function(object, getter, property) {

@@ -34,7 +34,7 @@
   /**
    * The ListCreditCard model module.
    * @module model/ListCreditCard
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

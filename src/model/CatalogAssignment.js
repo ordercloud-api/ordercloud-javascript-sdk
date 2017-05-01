@@ -34,7 +34,7 @@
   /**
    * The CatalogAssignment model module.
    * @module model/CatalogAssignment
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

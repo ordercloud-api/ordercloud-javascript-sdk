@@ -34,7 +34,7 @@
   /**
    * The BuyerCreditCard model module.
    * @module model/BuyerCreditCard
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.ImpersonationConfigs();
+    instance = OrderCloud.ImpersonationConfigs;
   });
 
   var getProperty = function(object, getter, property) {

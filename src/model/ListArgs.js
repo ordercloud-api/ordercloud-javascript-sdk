@@ -34,7 +34,7 @@
   /**
    * The ListArgs model module.
    * @module model/ListArgs
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

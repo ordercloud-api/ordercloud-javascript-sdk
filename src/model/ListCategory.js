@@ -34,7 +34,7 @@
   /**
    * The ListCategory model module.
    * @module model/ListCategory
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

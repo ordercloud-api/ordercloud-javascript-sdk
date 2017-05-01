@@ -34,7 +34,7 @@
   /**
    * The OrderApprovalInfo model module.
    * @module model/OrderApprovalInfo
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

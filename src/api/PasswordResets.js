@@ -31,7 +31,7 @@
   /**
    * PasswordReset service.
    * @module api/PasswordResets
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

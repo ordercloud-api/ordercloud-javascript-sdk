@@ -30,7 +30,7 @@
 
   /**
    * @module ApiClient
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**
@@ -255,6 +255,9 @@
     if (param == null) {
       return null;
     }
+    if (typeof(param) == "string") {
+      return param
+    }
     switch (collectionFormat) {
       case 'csv':
         return param.map(this.paramToString).join(',');
@@ -262,6 +265,8 @@
         return param.map(this.paramToString).join(' ');
       case 'tsv':
         return param.map(this.paramToString).join('\t');
+      case 'plus':
+        return param.map(this.paramToString).join('+');
       case 'pipes':
         return param.map(this.paramToString).join('|');
       case 'multi':

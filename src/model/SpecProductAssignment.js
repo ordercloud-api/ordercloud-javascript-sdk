@@ -34,7 +34,7 @@
   /**
    * The SpecProductAssignment model module.
    * @module model/SpecProductAssignment
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

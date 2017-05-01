@@ -31,7 +31,7 @@
   /**
    * Catalog service.
    * @module api/Catalogs
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

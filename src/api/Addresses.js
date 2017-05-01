@@ -31,7 +31,7 @@
   /**
    * Address service.
    * @module api/Addresses
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

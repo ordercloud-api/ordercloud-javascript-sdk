@@ -34,7 +34,7 @@
   /**
    * The SecurityProfileAssignment model module.
    * @module model/SecurityProfileAssignment
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

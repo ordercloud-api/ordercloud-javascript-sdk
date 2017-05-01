@@ -34,7 +34,7 @@
   /**
    * The ListShipment model module.
    * @module model/ListShipment
-   * @version 1.0.47
+   * @version 1.0.48
    */
 
   /**

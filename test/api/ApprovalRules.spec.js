@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.ApprovalRules();
+    instance = OrderCloud.ApprovalRules;
   });
 
   var getProperty = function(object, getter, property) {
