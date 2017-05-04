@@ -31,7 +31,7 @@
   /**
    * Me service.
    * @module api/Me
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**
@@ -327,12 +327,9 @@
 
     /**
      * @param {String} productID ID of the product.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerProduct}
      */
-    this.GetProduct = function(productID, opts) {
-      opts = opts || {};
+    this.GetProduct = function(productID) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -345,7 +342,6 @@
         'productID': productID
       };
       var queryParams = {
-        'catalogID': opts['catalogID']
       };
       var headerParams = {
       };

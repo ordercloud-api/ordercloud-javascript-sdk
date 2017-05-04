@@ -34,7 +34,7 @@
   /**
    * The Inventory model module.
    * @module model/Inventory
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**

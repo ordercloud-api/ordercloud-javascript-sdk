@@ -58,6 +58,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -103,6 +105,8 @@ Name | Type | Description  | Notes
 [**SecurityProfile**](SecurityProfile.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -160,6 +164,8 @@ Name | Type | Description  | Notes
 [**ListSecurityProfile**](ListSecurityProfile.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -224,6 +230,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -269,6 +277,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 

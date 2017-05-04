@@ -31,7 +31,7 @@
   /**
    * Buyer service.
    * @module api/Buyers
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**

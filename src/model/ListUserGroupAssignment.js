@@ -34,7 +34,7 @@
   /**
    * The ListUserGroupAssignment model module.
    * @module model/ListUserGroupAssignment
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**

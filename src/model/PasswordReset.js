@@ -34,7 +34,7 @@
   /**
    * The PasswordReset model module.
    * @module model/PasswordReset
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**

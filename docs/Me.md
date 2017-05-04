@@ -81,6 +81,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -126,6 +128,8 @@ Name | Type | Description  | Notes
 [**BuyerCreditCard**](BuyerCreditCard.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -173,6 +177,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -219,6 +225,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -258,6 +266,8 @@ This endpoint does not need any parameter.
 [**User**](User.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -305,6 +315,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -350,6 +362,8 @@ Name | Type | Description  | Notes
 [**Catalog**](Catalog.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -397,6 +411,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -406,7 +422,7 @@ Name | Type | Description  | Notes
 
 <a name="GetProduct"></a>
 # **GetProduct**
-> BuyerProduct GetProduct(productID, opts)
+> BuyerProduct GetProduct(productID)
 
 
 
@@ -423,10 +439,7 @@ var apiInstance = new OrderCloud.Me();
 
 var productID = "productID_example"; // String | ID of the product.
 
-var opts = { 
-  'catalogID': "catalogID_example" // String | ID of the catalog.
-};
-apiInstance.GetProduct(productID, opts).then(function(data) {
+apiInstance.GetProduct(productID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -439,13 +452,14 @@ apiInstance.GetProduct(productID, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **productID** | **String**| ID of the product. | 
- **catalogID** | **String**| ID of the catalog. | [optional] 
 
 ### Return type
 
 [**BuyerProduct**](BuyerProduct.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -493,6 +507,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -538,6 +554,8 @@ Name | Type | Description  | Notes
 [**BuyerShipment**](BuyerShipment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -592,6 +610,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -637,6 +657,8 @@ Name | Type | Description  | Notes
 [**SpendingAccount**](SpendingAccount.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -694,6 +716,8 @@ Name | Type | Description  | Notes
 [**ListBuyerAddress**](ListBuyerAddress.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -756,6 +780,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -812,6 +838,8 @@ Name | Type | Description  | Notes
 [**ListCatalog**](ListCatalog.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -874,6 +902,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -931,6 +961,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -987,6 +1019,8 @@ Name | Type | Description  | Notes
 [**ListBuyerCreditCard**](ListBuyerCreditCard.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1048,6 +1082,8 @@ Name | Type | Description  | Notes
 [**ListOrder**](ListOrder.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1112,6 +1148,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1168,6 +1206,8 @@ Name | Type | Description  | Notes
 [**ListPromotion**](ListPromotion.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1231,6 +1271,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1289,6 +1331,8 @@ Name | Type | Description  | Notes
 [**ListBuyerShipment**](ListBuyerShipment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1352,6 +1396,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1408,6 +1454,8 @@ Name | Type | Description  | Notes
 [**ListSpendingAccount**](ListSpendingAccount.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1466,6 +1514,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1511,6 +1561,8 @@ Name | Type | Description  | Notes
 [**User**](User.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1561,6 +1613,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1609,6 +1663,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1659,6 +1715,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1704,6 +1762,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1751,6 +1811,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1796,6 +1858,8 @@ Name | Type | Description  | Notes
 [**User**](User.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -1846,6 +1910,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -1894,6 +1960,8 @@ Name | Type | Description  | Notes
 [**BuyerCreditCard**](BuyerCreditCard.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 

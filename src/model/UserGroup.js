@@ -34,7 +34,7 @@
   /**
    * The UserGroup model module.
    * @module model/UserGroup
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**

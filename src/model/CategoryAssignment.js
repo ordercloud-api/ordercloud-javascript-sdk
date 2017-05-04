@@ -34,7 +34,7 @@
   /**
    * The CategoryAssignment model module.
    * @module model/CategoryAssignment
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**

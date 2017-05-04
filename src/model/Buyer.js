@@ -34,7 +34,7 @@
   /**
    * The Buyer model module.
    * @module model/Buyer
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**

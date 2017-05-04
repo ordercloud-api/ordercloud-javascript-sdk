@@ -54,6 +54,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -99,6 +101,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -149,6 +153,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -194,6 +200,8 @@ Name | Type | Description  | Notes
 [**UserGroup**](UserGroup.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -252,6 +260,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -305,6 +315,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -354,6 +366,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -399,6 +413,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -448,6 +464,8 @@ Name | Type | Description  | Notes
 [**UserGroup**](UserGroup.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 

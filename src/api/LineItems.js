@@ -31,7 +31,7 @@
   /**
    * LineItem service.
    * @module api/LineItems
-   * @version 1.0.48
+   * @version 1.0.50
    */
 
   /**
