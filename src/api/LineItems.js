@@ -31,7 +31,7 @@
   /**
    * LineItem service.
    * @module api/LineItems
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -47,17 +47,17 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Create = function(buyerID, orderID, lineItem) {
+    this.Create = function(direction, orderID, lineItem) {
       var postBody = lineItem;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Create");
       }
 
       // verify the required parameter 'orderID' is set
@@ -72,7 +72,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -88,7 +88,7 @@
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems', 'POST',
+        '/orders/{direction}/{orderID}/lineitems', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -96,17 +96,17 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, orderID, lineItemID) {
+    this.Delete = function(direction, orderID, lineItemID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Delete");
       }
 
       // verify the required parameter 'orderID' is set
@@ -121,7 +121,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -138,7 +138,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'DELETE',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -146,17 +146,17 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Get = function(buyerID, orderID, lineItemID) {
+    this.Get = function(direction, orderID, lineItemID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Get");
       }
 
       // verify the required parameter 'orderID' is set
@@ -171,7 +171,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -188,7 +188,7 @@
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'GET',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -196,24 +196,24 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the line item.
+     * @param {Array.<String>} opts.searchOn Search on of the line item.
+     * @param {Array.<String>} opts.sortBy Sort by of the line item.
+     * @param {Number} opts.page Page of the line item.
+     * @param {Number} opts.pageSize Page size of the line item.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListLineItem}
      */
-    this.List = function(buyerID, orderID, opts) {
+    this.List = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling List");
       }
 
       // verify the required parameter 'orderID' is set
@@ -223,13 +223,13 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -245,7 +245,7 @@
       var returnType = ListLineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems', 'GET',
+        '/orders/{direction}/{orderID}/lineitems', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -253,18 +253,18 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/LineItem} partialLineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Patch = function(buyerID, orderID, lineItemID, partialLineItem) {
+    this.Patch = function(direction, orderID, lineItemID, partialLineItem) {
       var postBody = partialLineItem;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Patch");
       }
 
       // verify the required parameter 'orderID' is set
@@ -284,7 +284,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -301,7 +301,7 @@
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'PATCH',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -309,18 +309,18 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.PatchShippingAddress = function(buyerID, orderID, lineItemID, partialAddress) {
+    this.PatchShippingAddress = function(direction, orderID, lineItemID, partialAddress) {
       var postBody = partialAddress;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling PatchShippingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling PatchShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -340,7 +340,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -357,7 +357,7 @@
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto', 'PATCH',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -365,18 +365,18 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.SetShippingAddress = function(buyerID, orderID, lineItemID, address) {
+    this.SetShippingAddress = function(direction, orderID, lineItemID, address) {
       var postBody = address;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SetShippingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling SetShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -396,7 +396,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -413,7 +413,7 @@
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto', 'PUT',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -421,18 +421,18 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Update = function(buyerID, orderID, lineItemID, lineItem) {
+    this.Update = function(direction, orderID, lineItemID, lineItem) {
       var postBody = lineItem;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Update");
       }
 
       // verify the required parameter 'orderID' is set
@@ -452,7 +452,7 @@
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -469,7 +469,7 @@
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'PUT',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

@@ -54,6 +54,12 @@
       //expect(instance).to.be.a(OrderCloud.Shipment);
     });
 
+    it('should have the property buyerID (base name: "BuyerID")', function() {
+      // uncomment below and update the code to test the property buyerID
+      //var instane = new OrderCloud.Shipment();
+      //expect(instance).to.be();
+    });
+
     it('should have the property ID (base name: "ID")', function() {
       // uncomment below and update the code to test the property ID
       //var instane = new OrderCloud.Shipment();
@@ -90,14 +96,38 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property items (base name: "Items")', function() {
-      // uncomment below and update the code to test the property items
+    it('should have the property xp (base name: "xp")', function() {
+      // uncomment below and update the code to test the property xp
       //var instane = new OrderCloud.Shipment();
       //expect(instance).to.be();
     });
 
-    it('should have the property xp (base name: "xp")', function() {
-      // uncomment below and update the code to test the property xp
+    it('should have the property account (base name: "Account")', function() {
+      // uncomment below and update the code to test the property account
+      //var instane = new OrderCloud.Shipment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fromAddressID (base name: "FromAddressID")', function() {
+      // uncomment below and update the code to test the property fromAddressID
+      //var instane = new OrderCloud.Shipment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property toAddressID (base name: "ToAddressID")', function() {
+      // uncomment below and update the code to test the property toAddressID
+      //var instane = new OrderCloud.Shipment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property fromAddress (base name: "FromAddress")', function() {
+      // uncomment below and update the code to test the property fromAddress
+      //var instane = new OrderCloud.Shipment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property toAddress (base name: "ToAddress")', function() {
+      // uncomment below and update the code to test the property toAddress
       //var instane = new OrderCloud.Shipment();
       //expect(instance).to.be();
     });

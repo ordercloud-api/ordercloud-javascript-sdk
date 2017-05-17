@@ -34,7 +34,7 @@
   /**
    * The SpecOption model module.
    * @module model/SpecOption
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**

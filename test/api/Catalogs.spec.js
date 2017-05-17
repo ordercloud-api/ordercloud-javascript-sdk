@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.Catalogs();
+    instance = OrderCloud.Catalogs;
   });
 
   var getProperty = function(object, getter, property) {
@@ -78,6 +78,16 @@
         done();
       });
     });
+    describe('DeleteProductAssignment', function() {
+      it('should call DeleteProductAssignment successfully', function(done) {
+        //uncomment below and update the code to test DeleteProductAssignment
+        //instance.DeleteProductAssignment(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('Get', function() {
       it('should call Get successfully', function(done) {
         //uncomment below and update the code to test Get
@@ -108,6 +118,16 @@
         done();
       });
     });
+    describe('ListProductAssignments', function() {
+      it('should call ListProductAssignments successfully', function(done) {
+        //uncomment below and update the code to test ListProductAssignments
+        //instance.ListProductAssignments(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('Patch', function() {
       it('should call Patch successfully', function(done) {
         //uncomment below and update the code to test Patch
@@ -122,6 +142,16 @@
       it('should call SaveAssignment successfully', function(done) {
         //uncomment below and update the code to test SaveAssignment
         //instance.SaveAssignment(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('SaveProductAssignment', function() {
+      it('should call SaveProductAssignment successfully', function(done) {
+        //uncomment below and update the code to test SaveProductAssignment
+        //instance.SaveProductAssignment(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

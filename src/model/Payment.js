@@ -34,7 +34,7 @@
   /**
    * The Payment model module.
    * @module model/Payment
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -88,6 +89,9 @@
       if (data.hasOwnProperty('Amount')) {
         obj['Amount'] = ApiClient.convertToType(data['Amount'], 'Number');
       }
+      if (data.hasOwnProperty('Accepted')) {
+        obj['Accepted'] = ApiClient.convertToType(data['Accepted'], 'Boolean');
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
       }
@@ -126,6 +130,10 @@
    * @member {Number} Amount
    */
   exports.prototype['Amount'] = undefined;
+  /**
+   * @member {Boolean} Accepted
+   */
+  exports.prototype['Accepted'] = undefined;
   /**
    * @member {Object} xp
    */

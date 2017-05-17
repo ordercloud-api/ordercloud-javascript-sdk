@@ -34,7 +34,7 @@
   /**
    * The PromotionAssignment model module.
    * @module model/PromotionAssignment
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,7 +44,6 @@
    */
   var exports = function() {
     var _this = this;
-
 
 
 
@@ -68,9 +67,6 @@
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
-      if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
-      }
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
       }
@@ -86,10 +82,6 @@
    * @member {String} BuyerID
    */
   exports.prototype['BuyerID'] = undefined;
-  /**
-   * @member {String} UserID
-   */
-  exports.prototype['UserID'] = undefined;
   /**
    * @member {String} UserGroupID
    */

@@ -30,7 +30,7 @@
 
   /**
    * @module ApiClient
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -255,6 +255,9 @@
     if (param == null) {
       return null;
     }
+    if (typeof(param) == "string") {
+      return param
+    }
     switch (collectionFormat) {
       case 'csv':
         return param.map(this.paramToString).join(',');
@@ -262,6 +265,8 @@
         return param.map(this.paramToString).join(' ');
       case 'tsv':
         return param.map(this.paramToString).join('\t');
+      case 'plus':
+        return param.map(this.paramToString).join('+');
       case 'pipes':
         return param.map(this.paramToString).join('|');
       case 'multi':
@@ -412,9 +417,9 @@
     return new Promise(function(resolve, reject) {
       request.end(function(error, response) {
         if (error) {
-          reject(error);
           // reset impersonation boolean
           _this.impersonation = false;
+          reject(error);
         } else {
           var data = _this.deserialize(response, returnType);
           // reset impersonation boolean

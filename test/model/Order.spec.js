@@ -60,8 +60,8 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property type (base name: "Type")', function() {
-      // uncomment below and update the code to test the property type
+    it('should have the property fromUser (base name: "FromUser")', function() {
+      // uncomment below and update the code to test the property fromUser
       //var instane = new OrderCloud.Order();
       //expect(instance).to.be();
     });
@@ -74,18 +74,6 @@
 
     it('should have the property fromUserID (base name: "FromUserID")', function() {
       // uncomment below and update the code to test the property fromUserID
-      //var instane = new OrderCloud.Order();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property fromUserFirstName (base name: "FromUserFirstName")', function() {
-      // uncomment below and update the code to test the property fromUserFirstName
-      //var instane = new OrderCloud.Order();
-      //expect(instance).to.be();
-    });
-
-    it('should have the property fromUserLastName (base name: "FromUserLastName")', function() {
-      // uncomment below and update the code to test the property fromUserLastName
       //var instane = new OrderCloud.Order();
       //expect(instance).to.be();
     });

@@ -31,7 +31,7 @@
   /**
    * Buyer service.
    * @module api/Buyers
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -155,12 +155,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the buyer.
+     * @param {Array.<String>} opts.searchOn Search on of the buyer.
+     * @param {Array.<String>} opts.sortBy Sort by of the buyer.
+     * @param {Number} opts.page Page of the buyer.
+     * @param {Number} opts.pageSize Page size of the buyer.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyer}
      */
     this.List = function(opts) {
@@ -172,8 +172,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']

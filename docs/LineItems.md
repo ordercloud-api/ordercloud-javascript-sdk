@@ -4,19 +4,19 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](LineItems.md#Create) | **POST** /buyers/{buyerID}/orders/{orderID}/lineitems | 
-[**Delete**](LineItems.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
-[**Get**](LineItems.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
-[**List**](LineItems.md#List) | **GET** /buyers/{buyerID}/orders/{orderID}/lineitems | 
-[**Patch**](LineItems.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
-[**PatchShippingAddress**](LineItems.md#PatchShippingAddress) | **PATCH** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto | 
-[**SetShippingAddress**](LineItems.md#SetShippingAddress) | **PUT** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto | 
-[**Update**](LineItems.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID} | 
+[**Create**](LineItems.md#Create) | **POST** /orders/{direction}/{orderID}/lineitems | 
+[**Delete**](LineItems.md#Delete) | **DELETE** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
+[**Get**](LineItems.md#Get) | **GET** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
+[**List**](LineItems.md#List) | **GET** /orders/{direction}/{orderID}/lineitems | 
+[**Patch**](LineItems.md#Patch) | **PATCH** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
+[**PatchShippingAddress**](LineItems.md#PatchShippingAddress) | **PATCH** /orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto | 
+[**SetShippingAddress**](LineItems.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto | 
+[**Update**](LineItems.md#Update) | **PUT** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
 
 
 <a name="Create"></a>
 # **Create**
-> LineItem Create(buyerID, orderID, lineItem)
+> LineItem Create(direction, orderID, lineItem)
 
 
 
@@ -31,13 +31,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var lineItem = new OrderCloud.LineItem(); // LineItem | 
 
-apiInstance.Create(buyerID, orderID, lineItem).then(function(data) {
+apiInstance.Create(direction, orderID, lineItem).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -49,7 +49,7 @@ apiInstance.Create(buyerID, orderID, lineItem).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItem** | [**LineItem**](LineItem.md)|  | 
 
@@ -58,6 +58,8 @@ Name | Type | Description  | Notes
 [**LineItem**](LineItem.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -68,7 +70,7 @@ Name | Type | Description  | Notes
 
 <a name="Delete"></a>
 # **Delete**
-> Delete(buyerID, orderID, lineItemID)
+> Delete(direction, orderID, lineItemID)
 
 
 
@@ -83,13 +85,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
-apiInstance.Delete(buyerID, orderID, lineItemID).then(function() {
+apiInstance.Delete(direction, orderID, lineItemID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -101,7 +103,7 @@ apiInstance.Delete(buyerID, orderID, lineItemID).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
 
@@ -110,6 +112,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -120,7 +124,7 @@ null (empty response body)
 
 <a name="Get"></a>
 # **Get**
-> LineItem Get(buyerID, orderID, lineItemID)
+> LineItem Get(direction, orderID, lineItemID)
 
 
 
@@ -135,13 +139,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
-apiInstance.Get(buyerID, orderID, lineItemID).then(function(data) {
+apiInstance.Get(direction, orderID, lineItemID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -153,7 +157,7 @@ apiInstance.Get(buyerID, orderID, lineItemID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
 
@@ -162,6 +166,8 @@ Name | Type | Description  | Notes
 [**LineItem**](LineItem.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -172,7 +178,7 @@ Name | Type | Description  | Notes
 
 <a name="List"></a>
 # **List**
-> ListLineItem List(buyerID, orderID, opts)
+> ListLineItem List(direction, orderID, opts)
 
 
 
@@ -187,19 +193,19 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the line item.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the line item.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the line item.
+  'page': 56, // Number | Page of the line item.
+  'pageSize': 56, // Number | Page size of the line item.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the line item.
 };
-apiInstance.List(buyerID, orderID, opts).then(function(data) {
+apiInstance.List(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -211,20 +217,22 @@ apiInstance.List(buyerID, orderID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the line item. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the line item. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the line item. | [optional] 
+ **page** | **Number**| Page of the line item. | [optional] 
+ **pageSize** | **Number**| Page size of the line item. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the line item. | [optional] 
 
 ### Return type
 
 [**ListLineItem**](ListLineItem.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -235,7 +243,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> LineItem Patch(buyerID, orderID, lineItemID, partialLineItem)
+> LineItem Patch(direction, orderID, lineItemID, partialLineItem)
 
 
 
@@ -250,7 +258,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -258,7 +266,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var partialLineItem = new OrderCloud.LineItem(); // LineItem | 
 
-apiInstance.Patch(buyerID, orderID, lineItemID, partialLineItem).then(function(data) {
+apiInstance.Patch(direction, orderID, lineItemID, partialLineItem).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -270,7 +278,7 @@ apiInstance.Patch(buyerID, orderID, lineItemID, partialLineItem).then(function(d
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **partialLineItem** | [**LineItem**](LineItem.md)|  | 
@@ -281,6 +289,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -290,7 +300,7 @@ Name | Type | Description  | Notes
 
 <a name="PatchShippingAddress"></a>
 # **PatchShippingAddress**
-> LineItem PatchShippingAddress(buyerID, orderID, lineItemID, partialAddress)
+> LineItem PatchShippingAddress(direction, orderID, lineItemID, partialAddress)
 
 
 
@@ -305,7 +315,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -313,7 +323,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.PatchShippingAddress(buyerID, orderID, lineItemID, partialAddress).then(function(data) {
+apiInstance.PatchShippingAddress(direction, orderID, lineItemID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -325,7 +335,7 @@ apiInstance.PatchShippingAddress(buyerID, orderID, lineItemID, partialAddress).t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **partialAddress** | [**Address**](Address.md)|  | 
@@ -336,6 +346,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -345,7 +357,7 @@ Name | Type | Description  | Notes
 
 <a name="SetShippingAddress"></a>
 # **SetShippingAddress**
-> LineItem SetShippingAddress(buyerID, orderID, lineItemID, address)
+> LineItem SetShippingAddress(direction, orderID, lineItemID, address)
 
 
 
@@ -360,7 +372,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -368,7 +380,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.SetShippingAddress(buyerID, orderID, lineItemID, address).then(function(data) {
+apiInstance.SetShippingAddress(direction, orderID, lineItemID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -380,7 +392,7 @@ apiInstance.SetShippingAddress(buyerID, orderID, lineItemID, address).then(funct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **address** | [**Address**](Address.md)|  | 
@@ -391,6 +403,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -400,7 +414,7 @@ Name | Type | Description  | Notes
 
 <a name="Update"></a>
 # **Update**
-> LineItem Update(buyerID, orderID, lineItemID, lineItem)
+> LineItem Update(direction, orderID, lineItemID, lineItem)
 
 
 
@@ -415,7 +429,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -423,7 +437,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var lineItem = new OrderCloud.LineItem(); // LineItem | 
 
-apiInstance.Update(buyerID, orderID, lineItemID, lineItem).then(function(data) {
+apiInstance.Update(direction, orderID, lineItemID, lineItem).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -435,7 +449,7 @@ apiInstance.Update(buyerID, orderID, lineItemID, lineItem).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **lineItem** | [**LineItem**](LineItem.md)|  | 
@@ -445,6 +459,8 @@ Name | Type | Description  | Notes
 [**LineItem**](LineItem.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 

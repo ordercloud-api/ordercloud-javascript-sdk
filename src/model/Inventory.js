@@ -34,7 +34,7 @@
   /**
    * The Inventory model module.
    * @module model/Inventory
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -63,17 +64,20 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      if (data.hasOwnProperty('Enabled')) {
+        obj['Enabled'] = ApiClient.convertToType(data['Enabled'], 'Boolean');
       }
-      if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      if (data.hasOwnProperty('NotificationPoint')) {
+        obj['NotificationPoint'] = ApiClient.convertToType(data['NotificationPoint'], 'Number');
       }
-      if (data.hasOwnProperty('Available')) {
-        obj['Available'] = ApiClient.convertToType(data['Available'], 'Number');
+      if (data.hasOwnProperty('VariantLevelTracking')) {
+        obj['VariantLevelTracking'] = ApiClient.convertToType(data['VariantLevelTracking'], 'Boolean');
       }
-      if (data.hasOwnProperty('Reserved')) {
-        obj['Reserved'] = ApiClient.convertToType(data['Reserved'], 'Number');
+      if (data.hasOwnProperty('OrderCanExceed')) {
+        obj['OrderCanExceed'] = ApiClient.convertToType(data['OrderCanExceed'], 'Boolean');
+      }
+      if (data.hasOwnProperty('QuantityAvailable')) {
+        obj['QuantityAvailable'] = ApiClient.convertToType(data['QuantityAvailable'], 'Number');
       }
       if (data.hasOwnProperty('LastUpdated')) {
         obj['LastUpdated'] = ApiClient.convertToType(data['LastUpdated'], 'String');
@@ -83,21 +87,25 @@
   }
 
   /**
-   * @member {String} ID
+   * @member {Boolean} Enabled
    */
-  exports.prototype['ID'] = undefined;
+  exports.prototype['Enabled'] = undefined;
   /**
-   * @member {String} Name
+   * @member {Number} NotificationPoint
    */
-  exports.prototype['Name'] = undefined;
+  exports.prototype['NotificationPoint'] = undefined;
   /**
-   * @member {Number} Available
+   * @member {Boolean} VariantLevelTracking
    */
-  exports.prototype['Available'] = undefined;
+  exports.prototype['VariantLevelTracking'] = undefined;
   /**
-   * @member {Number} Reserved
+   * @member {Boolean} OrderCanExceed
    */
-  exports.prototype['Reserved'] = undefined;
+  exports.prototype['OrderCanExceed'] = undefined;
+  /**
+   * @member {Number} QuantityAvailable
+   */
+  exports.prototype['QuantityAvailable'] = undefined;
   /**
    * @member {String} LastUpdated
    */

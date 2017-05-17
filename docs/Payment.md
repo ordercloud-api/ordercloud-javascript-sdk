@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **spendingAccountID** | **String** |  | [optional] 
 **description** | **String** |  | [optional] 
 **amount** | **Number** |  | [optional] 
+**accepted** | **Boolean** |  | [optional] 
 **xp** | **Object** |  | [optional] 
 **transactions** | [**[PaymentTransaction]**](PaymentTransaction.md) |  | [optional] 
 

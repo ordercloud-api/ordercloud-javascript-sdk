@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.Buyers();
+    instance = OrderCloud.Buyers;
   });
 
   var getProperty = function(object, getter, property) {

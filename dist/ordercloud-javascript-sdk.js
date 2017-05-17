@@ -117,7 +117,6 @@ function fromByteArray (uint8) {
 }
 
 },{}],3:[function(require,module,exports){
-(function (global){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -130,80 +129,57 @@ function fromByteArray (uint8) {
 
 var base64 = require('base64-js')
 var ieee754 = require('ieee754')
-var isArray = require('isarray')
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
 exports.INSPECT_MAX_BYTES = 50
 
+var K_MAX_LENGTH = 0x7fffffff
+exports.kMaxLength = K_MAX_LENGTH
+
 /**
  * If `Buffer.TYPED_ARRAY_SUPPORT`:
  *   === true    Use Uint8Array implementation (fastest)
- *   === false   Use Object implementation (most compatible, even IE6)
+ *   === false   Print warning and recommend using `buffer` v4.x which has an Object
+ *               implementation (most compatible, even IE6)
  *
  * Browsers that support typed arrays are IE 10+, Firefox 4+, Chrome 7+, Safari 5.1+,
  * Opera 11.6+, iOS 4.2+.
  *
- * Due to various browser bugs, sometimes the Object implementation will be used even
- * when the browser supports typed arrays.
- *
- * Note:
- *
- *   - Firefox 4-29 lacks support for adding new properties to `Uint8Array` instances,
- *     See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438.
- *
- *   - Chrome 9-10 is missing the `TypedArray.prototype.subarray` function.
- *
- *   - IE10 has a broken `TypedArray.prototype.subarray` function which returns arrays of
- *     incorrect length in some situations.
-
- * We detect these buggy browsers and set `Buffer.TYPED_ARRAY_SUPPORT` to `false` so they
- * get the Object implementation, which is slower but behaves correctly.
+ * We report that the browser does not support typed arrays if the are not subclassable
+ * using __proto__. Firefox 4-29 lacks support for adding new properties to `Uint8Array`
+ * (See: https://bugzilla.mozilla.org/show_bug.cgi?id=695438). IE 10 lacks support
+ * for __proto__ and has a buggy typed array implementation.
  */
-Buffer.TYPED_ARRAY_SUPPORT = global.TYPED_ARRAY_SUPPORT !== undefined
-  ? global.TYPED_ARRAY_SUPPORT
-  : typedArraySupport()
+Buffer.TYPED_ARRAY_SUPPORT = typedArraySupport()
 
-/*
- * Export kMaxLength after typed array support is determined.
- */
-exports.kMaxLength = kMaxLength()
+if (!Buffer.TYPED_ARRAY_SUPPORT && typeof console !== 'undefined' &&
+    typeof console.error === 'function') {
+  console.error(
+    'This browser lacks typed array (Uint8Array) support which is required by ' +
+    '`buffer` v5.x. Use `buffer` v4.x if you require old browser support.'
+  )
+}
 
 function typedArraySupport () {
+  // Can typed array instances can be augmented?
   try {
     var arr = new Uint8Array(1)
     arr.__proto__ = {__proto__: Uint8Array.prototype, foo: function () { return 42 }}
-    return arr.foo() === 42 && // typed array instances can be augmented
-        typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
-        arr.subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
+    return arr.foo() === 42
   } catch (e) {
     return false
   }
 }
 
-function kMaxLength () {
-  return Buffer.TYPED_ARRAY_SUPPORT
-    ? 0x7fffffff
-    : 0x3fffffff
-}
-
-function createBuffer (that, length) {
-  if (kMaxLength() < length) {
+function createBuffer (length) {
+  if (length > K_MAX_LENGTH) {
     throw new RangeError('Invalid typed array length')
   }
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    // Return an augmented `Uint8Array` instance, for best performance
-    that = new Uint8Array(length)
-    that.__proto__ = Buffer.prototype
-  } else {
-    // Fallback: Return an object instance of the Buffer class
-    if (that === null) {
-      that = new Buffer(length)
-    }
-    that.length = length
-  }
-
-  return that
+  // Return an augmented `Uint8Array` instance
+  var buf = new Uint8Array(length)
+  buf.__proto__ = Buffer.prototype
+  return buf
 }
 
 /**
@@ -217,10 +193,6 @@ function createBuffer (that, length) {
  */
 
 function Buffer (arg, encodingOrOffset, length) {
-  if (!Buffer.TYPED_ARRAY_SUPPORT && !(this instanceof Buffer)) {
-    return new Buffer(arg, encodingOrOffset, length)
-  }
-
   // Common case.
   if (typeof arg === 'number') {
     if (typeof encodingOrOffset === 'string') {
@@ -228,33 +200,38 @@ function Buffer (arg, encodingOrOffset, length) {
         'If encoding is specified then the first argument must be a string'
       )
     }
-    return allocUnsafe(this, arg)
+    return allocUnsafe(arg)
   }
-  return from(this, arg, encodingOrOffset, length)
+  return from(arg, encodingOrOffset, length)
+}
+
+// Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
+if (typeof Symbol !== 'undefined' && Symbol.species &&
+    Buffer[Symbol.species] === Buffer) {
+  Object.defineProperty(Buffer, Symbol.species, {
+    value: null,
+    configurable: true,
+    enumerable: false,
+    writable: false
+  })
 }
 
 Buffer.poolSize = 8192 // not used by this implementation
 
-// TODO: Legacy, not needed anymore. Remove in next major version.
-Buffer._augment = function (arr) {
-  arr.__proto__ = Buffer.prototype
-  return arr
-}
-
-function from (that, value, encodingOrOffset, length) {
+function from (value, encodingOrOffset, length) {
   if (typeof value === 'number') {
     throw new TypeError('"value" argument must not be a number')
   }
 
-  if (typeof ArrayBuffer !== 'undefined' && value instanceof ArrayBuffer) {
-    return fromArrayBuffer(that, value, encodingOrOffset, length)
+  if (value instanceof ArrayBuffer) {
+    return fromArrayBuffer(value, encodingOrOffset, length)
   }
 
   if (typeof value === 'string') {
-    return fromString(that, value, encodingOrOffset)
+    return fromString(value, encodingOrOffset)
   }
 
-  return fromObject(that, value)
+  return fromObject(value)
 }
 
 /**
@@ -266,21 +243,13 @@ function from (that, value, encodingOrOffset, length) {
  * Buffer.from(arrayBuffer[, byteOffset[, length]])
  **/
 Buffer.from = function (value, encodingOrOffset, length) {
-  return from(null, value, encodingOrOffset, length)
+  return from(value, encodingOrOffset, length)
 }
 
-if (Buffer.TYPED_ARRAY_SUPPORT) {
-  Buffer.prototype.__proto__ = Uint8Array.prototype
-  Buffer.__proto__ = Uint8Array
-  if (typeof Symbol !== 'undefined' && Symbol.species &&
-      Buffer[Symbol.species] === Buffer) {
-    // Fix subarray() in ES2016. See: https://github.com/feross/buffer/pull/97
-    Object.defineProperty(Buffer, Symbol.species, {
-      value: null,
-      configurable: true
-    })
-  }
-}
+// Note: Change prototype *after* Buffer.from is defined to workaround Chrome bug:
+// https://github.com/feross/buffer/pull/148
+Buffer.prototype.__proto__ = Uint8Array.prototype
+Buffer.__proto__ = Uint8Array
 
 function assertSize (size) {
   if (typeof size !== 'number') {
@@ -290,20 +259,20 @@ function assertSize (size) {
   }
 }
 
-function alloc (that, size, fill, encoding) {
+function alloc (size, fill, encoding) {
   assertSize(size)
   if (size <= 0) {
-    return createBuffer(that, size)
+    return createBuffer(size)
   }
   if (fill !== undefined) {
     // Only pay attention to encoding if it's a string. This
     // prevents accidentally sending in a number that would
     // be interpretted as a start offset.
     return typeof encoding === 'string'
-      ? createBuffer(that, size).fill(fill, encoding)
-      : createBuffer(that, size).fill(fill)
+      ? createBuffer(size).fill(fill, encoding)
+      : createBuffer(size).fill(fill)
   }
-  return createBuffer(that, size)
+  return createBuffer(size)
 }
 
 /**
@@ -311,34 +280,28 @@ function alloc (that, size, fill, encoding) {
  * alloc(size[, fill[, encoding]])
  **/
 Buffer.alloc = function (size, fill, encoding) {
-  return alloc(null, size, fill, encoding)
+  return alloc(size, fill, encoding)
 }
 
-function allocUnsafe (that, size) {
+function allocUnsafe (size) {
   assertSize(size)
-  that = createBuffer(that, size < 0 ? 0 : checked(size) | 0)
-  if (!Buffer.TYPED_ARRAY_SUPPORT) {
-    for (var i = 0; i < size; ++i) {
-      that[i] = 0
-    }
-  }
-  return that
+  return createBuffer(size < 0 ? 0 : checked(size) | 0)
 }
 
 /**
  * Equivalent to Buffer(num), by default creates a non-zero-filled Buffer instance.
  * */
 Buffer.allocUnsafe = function (size) {
-  return allocUnsafe(null, size)
+  return allocUnsafe(size)
 }
 /**
  * Equivalent to SlowBuffer(num), by default creates a non-zero-filled Buffer instance.
  */
 Buffer.allocUnsafeSlow = function (size) {
-  return allocUnsafe(null, size)
+  return allocUnsafe(size)
 }
 
-function fromString (that, string, encoding) {
+function fromString (string, encoding) {
   if (typeof encoding !== 'string' || encoding === '') {
     encoding = 'utf8'
   }
@@ -348,32 +311,30 @@ function fromString (that, string, encoding) {
   }
 
   var length = byteLength(string, encoding) | 0
-  that = createBuffer(that, length)
+  var buf = createBuffer(length)
 
-  var actual = that.write(string, encoding)
+  var actual = buf.write(string, encoding)
 
   if (actual !== length) {
     // Writing a hex string, for example, that contains invalid characters will
     // cause everything after the first invalid character to be ignored. (e.g.
     // 'abxxcd' will be treated as 'ab')
-    that = that.slice(0, actual)
+    buf = buf.slice(0, actual)
   }
 
-  return that
+  return buf
 }
 
-function fromArrayLike (that, array) {
+function fromArrayLike (array) {
   var length = array.length < 0 ? 0 : checked(array.length) | 0
-  that = createBuffer(that, length)
+  var buf = createBuffer(length)
   for (var i = 0; i < length; i += 1) {
-    that[i] = array[i] & 255
+    buf[i] = array[i] & 255
   }
-  return that
+  return buf
 }
 
-function fromArrayBuffer (that, array, byteOffset, length) {
-  array.byteLength // this throws if `array` is not a valid ArrayBuffer
-
+function fromArrayBuffer (array, byteOffset, length) {
   if (byteOffset < 0 || array.byteLength < byteOffset) {
     throw new RangeError('\'offset\' is out of bounds')
   }
@@ -382,49 +343,43 @@ function fromArrayBuffer (that, array, byteOffset, length) {
     throw new RangeError('\'length\' is out of bounds')
   }
 
+  var buf
   if (byteOffset === undefined && length === undefined) {
-    array = new Uint8Array(array)
+    buf = new Uint8Array(array)
   } else if (length === undefined) {
-    array = new Uint8Array(array, byteOffset)
+    buf = new Uint8Array(array, byteOffset)
   } else {
-    array = new Uint8Array(array, byteOffset, length)
+    buf = new Uint8Array(array, byteOffset, length)
   }
 
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    // Return an augmented `Uint8Array` instance, for best performance
-    that = array
-    that.__proto__ = Buffer.prototype
-  } else {
-    // Fallback: Return an object instance of the Buffer class
-    that = fromArrayLike(that, array)
-  }
-  return that
+  // Return an augmented `Uint8Array` instance
+  buf.__proto__ = Buffer.prototype
+  return buf
 }
 
-function fromObject (that, obj) {
+function fromObject (obj) {
   if (Buffer.isBuffer(obj)) {
     var len = checked(obj.length) | 0
-    that = createBuffer(that, len)
+    var buf = createBuffer(len)
 
-    if (that.length === 0) {
-      return that
+    if (buf.length === 0) {
+      return buf
     }
 
-    obj.copy(that, 0, 0, len)
-    return that
+    obj.copy(buf, 0, 0, len)
+    return buf
   }
 
   if (obj) {
-    if ((typeof ArrayBuffer !== 'undefined' &&
-        obj.buffer instanceof ArrayBuffer) || 'length' in obj) {
-      if (typeof obj.length !== 'number' || isnan(obj.length)) {
-        return createBuffer(that, 0)
+    if (isArrayBufferView(obj) || 'length' in obj) {
+      if (typeof obj.length !== 'number' || numberIsNaN(obj.length)) {
+        return createBuffer(0)
       }
-      return fromArrayLike(that, obj)
+      return fromArrayLike(obj)
     }
 
-    if (obj.type === 'Buffer' && isArray(obj.data)) {
-      return fromArrayLike(that, obj.data)
+    if (obj.type === 'Buffer' && Array.isArray(obj.data)) {
+      return fromArrayLike(obj.data)
     }
   }
 
@@ -432,11 +387,11 @@ function fromObject (that, obj) {
 }
 
 function checked (length) {
-  // Note: cannot use `length < kMaxLength()` here because that fails when
+  // Note: cannot use `length < K_MAX_LENGTH` here because that fails when
   // length is NaN (which is otherwise coerced to zero.)
-  if (length >= kMaxLength()) {
+  if (length >= K_MAX_LENGTH) {
     throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
-                         'size: 0x' + kMaxLength().toString(16) + ' bytes')
+                         'size: 0x' + K_MAX_LENGTH.toString(16) + ' bytes')
   }
   return length | 0
 }
@@ -449,7 +404,7 @@ function SlowBuffer (length) {
 }
 
 Buffer.isBuffer = function isBuffer (b) {
-  return !!(b != null && b._isBuffer)
+  return b != null && b._isBuffer === true
 }
 
 Buffer.compare = function compare (a, b) {
@@ -495,7 +450,7 @@ Buffer.isEncoding = function isEncoding (encoding) {
 }
 
 Buffer.concat = function concat (list, length) {
-  if (!isArray(list)) {
+  if (!Array.isArray(list)) {
     throw new TypeError('"list" argument must be an Array of Buffers')
   }
 
@@ -528,8 +483,7 @@ function byteLength (string, encoding) {
   if (Buffer.isBuffer(string)) {
     return string.length
   }
-  if (typeof ArrayBuffer !== 'undefined' && typeof ArrayBuffer.isView === 'function' &&
-      (ArrayBuffer.isView(string) || string instanceof ArrayBuffer)) {
+  if (isArrayBufferView(string) || string instanceof ArrayBuffer) {
     return string.byteLength
   }
   if (typeof string !== 'string') {
@@ -639,8 +593,12 @@ function slowToString (encoding, start, end) {
   }
 }
 
-// The property is used by `Buffer.isBuffer` and `is-buffer` (in Safari 5-7) to detect
-// Buffer instances.
+// This property is used by `Buffer.isBuffer` (and the `is-buffer` npm package)
+// to detect a Buffer instance. It's not possible to use `instanceof Buffer`
+// reliably in a browserify context because there could be multiple different
+// copies of the 'buffer' package in use. This method works even for Buffer
+// instances that were created from another copy of the `buffer` package.
+// See: https://github.com/feross/buffer/issues/154
 Buffer.prototype._isBuffer = true
 
 function swap (b, n, m) {
@@ -687,7 +645,7 @@ Buffer.prototype.swap64 = function swap64 () {
 }
 
 Buffer.prototype.toString = function toString () {
-  var length = this.length | 0
+  var length = this.length
   if (length === 0) return ''
   if (arguments.length === 0) return utf8Slice(this, 0, length)
   return slowToString.apply(this, arguments)
@@ -791,7 +749,7 @@ function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
     byteOffset = -0x80000000
   }
   byteOffset = +byteOffset  // Coerce to Number.
-  if (isNaN(byteOffset)) {
+  if (numberIsNaN(byteOffset)) {
     // byteOffset: it it's undefined, null, NaN, "foo", etc, search whole buffer
     byteOffset = dir ? 0 : (buffer.length - 1)
   }
@@ -820,8 +778,7 @@ function bidirectionalIndexOf (buffer, val, byteOffset, encoding, dir) {
     return arrayIndexOf(buffer, val, byteOffset, encoding, dir)
   } else if (typeof val === 'number') {
     val = val & 0xFF // Search for a byte value [0-255]
-    if (Buffer.TYPED_ARRAY_SUPPORT &&
-        typeof Uint8Array.prototype.indexOf === 'function') {
+    if (typeof Uint8Array.prototype.indexOf === 'function') {
       if (dir) {
         return Uint8Array.prototype.indexOf.call(buffer, val, byteOffset)
       } else {
@@ -923,7 +880,7 @@ function hexWrite (buf, string, offset, length) {
   }
   for (var i = 0; i < length; ++i) {
     var parsed = parseInt(string.substr(i * 2, 2), 16)
-    if (isNaN(parsed)) return i
+    if (numberIsNaN(parsed)) return i
     buf[offset + i] = parsed
   }
   return i
@@ -962,15 +919,14 @@ Buffer.prototype.write = function write (string, offset, length, encoding) {
     offset = 0
   // Buffer#write(string, offset[, length][, encoding])
   } else if (isFinite(offset)) {
-    offset = offset | 0
+    offset = offset >>> 0
     if (isFinite(length)) {
-      length = length | 0
+      length = length >>> 0
       if (encoding === undefined) encoding = 'utf8'
     } else {
       encoding = length
       length = undefined
     }
-  // legacy write(string, encoding, offset, length) - remove in v0.13
   } else {
     throw new Error(
       'Buffer.write(string, encoding, offset[, length]) is no longer supported'
@@ -1169,7 +1125,7 @@ function utf16leSlice (buf, start, end) {
   var bytes = buf.slice(start, end)
   var res = ''
   for (var i = 0; i < bytes.length; i += 2) {
-    res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256)
+    res += String.fromCharCode(bytes[i] + (bytes[i + 1] * 256))
   }
   return res
 }
@@ -1195,18 +1151,9 @@ Buffer.prototype.slice = function slice (start, end) {
 
   if (end < start) end = start
 
-  var newBuf
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    newBuf = this.subarray(start, end)
-    newBuf.__proto__ = Buffer.prototype
-  } else {
-    var sliceLen = end - start
-    newBuf = new Buffer(sliceLen, undefined)
-    for (var i = 0; i < sliceLen; ++i) {
-      newBuf[i] = this[i + start]
-    }
-  }
-
+  var newBuf = this.subarray(start, end)
+  // Return an augmented `Uint8Array` instance
+  newBuf.__proto__ = Buffer.prototype
   return newBuf
 }
 
@@ -1219,8 +1166,8 @@ function checkOffset (offset, ext, length) {
 }
 
 Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert) {
-  offset = offset | 0
-  byteLength = byteLength | 0
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
   if (!noAssert) checkOffset(offset, byteLength, this.length)
 
   var val = this[offset]
@@ -1234,8 +1181,8 @@ Buffer.prototype.readUIntLE = function readUIntLE (offset, byteLength, noAssert)
 }
 
 Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert) {
-  offset = offset | 0
-  byteLength = byteLength | 0
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
   if (!noAssert) {
     checkOffset(offset, byteLength, this.length)
   }
@@ -1250,21 +1197,25 @@ Buffer.prototype.readUIntBE = function readUIntBE (offset, byteLength, noAssert)
 }
 
 Buffer.prototype.readUInt8 = function readUInt8 (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 1, this.length)
   return this[offset]
 }
 
 Buffer.prototype.readUInt16LE = function readUInt16LE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 2, this.length)
   return this[offset] | (this[offset + 1] << 8)
 }
 
 Buffer.prototype.readUInt16BE = function readUInt16BE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 2, this.length)
   return (this[offset] << 8) | this[offset + 1]
 }
 
 Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return ((this[offset]) |
@@ -1274,6 +1225,7 @@ Buffer.prototype.readUInt32LE = function readUInt32LE (offset, noAssert) {
 }
 
 Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return (this[offset] * 0x1000000) +
@@ -1283,8 +1235,8 @@ Buffer.prototype.readUInt32BE = function readUInt32BE (offset, noAssert) {
 }
 
 Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
-  offset = offset | 0
-  byteLength = byteLength | 0
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
   if (!noAssert) checkOffset(offset, byteLength, this.length)
 
   var val = this[offset]
@@ -1301,8 +1253,8 @@ Buffer.prototype.readIntLE = function readIntLE (offset, byteLength, noAssert) {
 }
 
 Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
-  offset = offset | 0
-  byteLength = byteLength | 0
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
   if (!noAssert) checkOffset(offset, byteLength, this.length)
 
   var i = byteLength
@@ -1319,24 +1271,28 @@ Buffer.prototype.readIntBE = function readIntBE (offset, byteLength, noAssert) {
 }
 
 Buffer.prototype.readInt8 = function readInt8 (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 1, this.length)
   if (!(this[offset] & 0x80)) return (this[offset])
   return ((0xff - this[offset] + 1) * -1)
 }
 
 Buffer.prototype.readInt16LE = function readInt16LE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 2, this.length)
   var val = this[offset] | (this[offset + 1] << 8)
   return (val & 0x8000) ? val | 0xFFFF0000 : val
 }
 
 Buffer.prototype.readInt16BE = function readInt16BE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 2, this.length)
   var val = this[offset + 1] | (this[offset] << 8)
   return (val & 0x8000) ? val | 0xFFFF0000 : val
 }
 
 Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return (this[offset]) |
@@ -1346,6 +1302,7 @@ Buffer.prototype.readInt32LE = function readInt32LE (offset, noAssert) {
 }
 
 Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 4, this.length)
 
   return (this[offset] << 24) |
@@ -1355,21 +1312,25 @@ Buffer.prototype.readInt32BE = function readInt32BE (offset, noAssert) {
 }
 
 Buffer.prototype.readFloatLE = function readFloatLE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 4, this.length)
   return ieee754.read(this, offset, true, 23, 4)
 }
 
 Buffer.prototype.readFloatBE = function readFloatBE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 4, this.length)
   return ieee754.read(this, offset, false, 23, 4)
 }
 
 Buffer.prototype.readDoubleLE = function readDoubleLE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 8, this.length)
   return ieee754.read(this, offset, true, 52, 8)
 }
 
 Buffer.prototype.readDoubleBE = function readDoubleBE (offset, noAssert) {
+  offset = offset >>> 0
   if (!noAssert) checkOffset(offset, 8, this.length)
   return ieee754.read(this, offset, false, 52, 8)
 }
@@ -1382,8 +1343,8 @@ function checkInt (buf, value, offset, ext, max, min) {
 
 Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, noAssert) {
   value = +value
-  offset = offset | 0
-  byteLength = byteLength | 0
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
   if (!noAssert) {
     var maxBytes = Math.pow(2, 8 * byteLength) - 1
     checkInt(this, value, offset, byteLength, maxBytes, 0)
@@ -1401,8 +1362,8 @@ Buffer.prototype.writeUIntLE = function writeUIntLE (value, offset, byteLength, 
 
 Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, noAssert) {
   value = +value
-  offset = offset | 0
-  byteLength = byteLength | 0
+  offset = offset >>> 0
+  byteLength = byteLength >>> 0
   if (!noAssert) {
     var maxBytes = Math.pow(2, 8 * byteLength) - 1
     checkInt(this, value, offset, byteLength, maxBytes, 0)
@@ -1420,89 +1381,57 @@ Buffer.prototype.writeUIntBE = function writeUIntBE (value, offset, byteLength, 
 
 Buffer.prototype.writeUInt8 = function writeUInt8 (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 1, 0xff, 0)
-  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
   this[offset] = (value & 0xff)
   return offset + 1
 }
 
-function objectWriteUInt16 (buf, value, offset, littleEndian) {
-  if (value < 0) value = 0xffff + value + 1
-  for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
-    buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
-      (littleEndian ? i : 1 - i) * 8
-  }
-}
-
 Buffer.prototype.writeUInt16LE = function writeUInt16LE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff)
-    this[offset + 1] = (value >>> 8)
-  } else {
-    objectWriteUInt16(this, value, offset, true)
-  }
+  this[offset] = (value & 0xff)
+  this[offset + 1] = (value >>> 8)
   return offset + 2
 }
 
 Buffer.prototype.writeUInt16BE = function writeUInt16BE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 2, 0xffff, 0)
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 8)
-    this[offset + 1] = (value & 0xff)
-  } else {
-    objectWriteUInt16(this, value, offset, false)
-  }
+  this[offset] = (value >>> 8)
+  this[offset + 1] = (value & 0xff)
   return offset + 2
-}
-
-function objectWriteUInt32 (buf, value, offset, littleEndian) {
-  if (value < 0) value = 0xffffffff + value + 1
-  for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
-    buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
-  }
 }
 
 Buffer.prototype.writeUInt32LE = function writeUInt32LE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset + 3] = (value >>> 24)
-    this[offset + 2] = (value >>> 16)
-    this[offset + 1] = (value >>> 8)
-    this[offset] = (value & 0xff)
-  } else {
-    objectWriteUInt32(this, value, offset, true)
-  }
+  this[offset + 3] = (value >>> 24)
+  this[offset + 2] = (value >>> 16)
+  this[offset + 1] = (value >>> 8)
+  this[offset] = (value & 0xff)
   return offset + 4
 }
 
 Buffer.prototype.writeUInt32BE = function writeUInt32BE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 4, 0xffffffff, 0)
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 24)
-    this[offset + 1] = (value >>> 16)
-    this[offset + 2] = (value >>> 8)
-    this[offset + 3] = (value & 0xff)
-  } else {
-    objectWriteUInt32(this, value, offset, false)
-  }
+  this[offset] = (value >>> 24)
+  this[offset + 1] = (value >>> 16)
+  this[offset + 2] = (value >>> 8)
+  this[offset + 3] = (value & 0xff)
   return offset + 4
 }
 
 Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) {
-    var limit = Math.pow(2, 8 * byteLength - 1)
+    var limit = Math.pow(2, (8 * byteLength) - 1)
 
     checkInt(this, value, offset, byteLength, limit - 1, -limit)
   }
@@ -1523,9 +1452,9 @@ Buffer.prototype.writeIntLE = function writeIntLE (value, offset, byteLength, no
 
 Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) {
-    var limit = Math.pow(2, 8 * byteLength - 1)
+    var limit = Math.pow(2, (8 * byteLength) - 1)
 
     checkInt(this, value, offset, byteLength, limit - 1, -limit)
   }
@@ -1546,9 +1475,8 @@ Buffer.prototype.writeIntBE = function writeIntBE (value, offset, byteLength, no
 
 Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80)
-  if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
   if (value < 0) value = 0xff + value + 1
   this[offset] = (value & 0xff)
   return offset + 1
@@ -1556,58 +1484,42 @@ Buffer.prototype.writeInt8 = function writeInt8 (value, offset, noAssert) {
 
 Buffer.prototype.writeInt16LE = function writeInt16LE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff)
-    this[offset + 1] = (value >>> 8)
-  } else {
-    objectWriteUInt16(this, value, offset, true)
-  }
+  this[offset] = (value & 0xff)
+  this[offset + 1] = (value >>> 8)
   return offset + 2
 }
 
 Buffer.prototype.writeInt16BE = function writeInt16BE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 2, 0x7fff, -0x8000)
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 8)
-    this[offset + 1] = (value & 0xff)
-  } else {
-    objectWriteUInt16(this, value, offset, false)
-  }
+  this[offset] = (value >>> 8)
+  this[offset + 1] = (value & 0xff)
   return offset + 2
 }
 
 Buffer.prototype.writeInt32LE = function writeInt32LE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value & 0xff)
-    this[offset + 1] = (value >>> 8)
-    this[offset + 2] = (value >>> 16)
-    this[offset + 3] = (value >>> 24)
-  } else {
-    objectWriteUInt32(this, value, offset, true)
-  }
+  this[offset] = (value & 0xff)
+  this[offset + 1] = (value >>> 8)
+  this[offset + 2] = (value >>> 16)
+  this[offset + 3] = (value >>> 24)
   return offset + 4
 }
 
 Buffer.prototype.writeInt32BE = function writeInt32BE (value, offset, noAssert) {
   value = +value
-  offset = offset | 0
+  offset = offset >>> 0
   if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
   if (value < 0) value = 0xffffffff + value + 1
-  if (Buffer.TYPED_ARRAY_SUPPORT) {
-    this[offset] = (value >>> 24)
-    this[offset + 1] = (value >>> 16)
-    this[offset + 2] = (value >>> 8)
-    this[offset + 3] = (value & 0xff)
-  } else {
-    objectWriteUInt32(this, value, offset, false)
-  }
+  this[offset] = (value >>> 24)
+  this[offset + 1] = (value >>> 16)
+  this[offset + 2] = (value >>> 8)
+  this[offset + 3] = (value & 0xff)
   return offset + 4
 }
 
@@ -1617,6 +1529,8 @@ function checkIEEE754 (buf, value, offset, ext, max, min) {
 }
 
 function writeFloat (buf, value, offset, littleEndian, noAssert) {
+  value = +value
+  offset = offset >>> 0
   if (!noAssert) {
     checkIEEE754(buf, value, offset, 4, 3.4028234663852886e+38, -3.4028234663852886e+38)
   }
@@ -1633,6 +1547,8 @@ Buffer.prototype.writeFloatBE = function writeFloatBE (value, offset, noAssert) 
 }
 
 function writeDouble (buf, value, offset, littleEndian, noAssert) {
+  value = +value
+  offset = offset >>> 0
   if (!noAssert) {
     checkIEEE754(buf, value, offset, 8, 1.7976931348623157E+308, -1.7976931348623157E+308)
   }
@@ -1681,7 +1597,7 @@ Buffer.prototype.copy = function copy (target, targetStart, start, end) {
     for (i = len - 1; i >= 0; --i) {
       target[i + targetStart] = this[i + start]
     }
-  } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+  } else if (len < 1000) {
     // ascending copy from start
     for (i = 0; i < len; ++i) {
       target[i + targetStart] = this[i + start]
@@ -1750,7 +1666,7 @@ Buffer.prototype.fill = function fill (val, start, end, encoding) {
   } else {
     var bytes = Buffer.isBuffer(val)
       ? val
-      : utf8ToBytes(new Buffer(val, encoding).toString())
+      : new Buffer(val, encoding)
     var len = bytes.length
     for (i = 0; i < end - start; ++i) {
       this[i + start] = bytes[i % len]
@@ -1763,11 +1679,11 @@ Buffer.prototype.fill = function fill (val, start, end, encoding) {
 // HELPER FUNCTIONS
 // ================
 
-var INVALID_BASE64_RE = /[^+\/0-9A-Za-z-_]/g
+var INVALID_BASE64_RE = /[^+/0-9A-Za-z-_]/g
 
 function base64clean (str) {
   // Node strips out invalid characters like \n and \t from the string, base64-js does not
-  str = stringtrim(str).replace(INVALID_BASE64_RE, '')
+  str = str.trim().replace(INVALID_BASE64_RE, '')
   // Node converts strings with length < 2 to ''
   if (str.length < 2) return ''
   // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
@@ -1775,11 +1691,6 @@ function base64clean (str) {
     str = str + '='
   }
   return str
-}
-
-function stringtrim (str) {
-  if (str.trim) return str.trim()
-  return str.replace(/^\s+|\s+$/g, '')
 }
 
 function toHex (n) {
@@ -1904,12 +1815,16 @@ function blitBuffer (src, dst, offset, length) {
   return i
 }
 
-function isnan (val) {
-  return val !== val // eslint-disable-line no-self-compare
+// Node 0.10 supports `ArrayBuffer` but lacks `ArrayBuffer.isView`
+function isArrayBufferView (obj) {
+  return (typeof ArrayBuffer.isView === 'function') && ArrayBuffer.isView(obj)
 }
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"base64-js":2,"ieee754":4,"isarray":5}],4:[function(require,module,exports){
+function numberIsNaN (obj) {
+  return obj !== obj // eslint-disable-line no-self-compare
+}
+
+},{"base64-js":2,"ieee754":4}],4:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = nBytes * 8 - mLen - 1
@@ -1996,13 +1911,6 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 }
 
 },{}],5:[function(require,module,exports){
-var toString = {}.toString;
-
-module.exports = Array.isArray || function (arr) {
-  return toString.call(arr) == '[object Array]';
-};
-
-},{}],6:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -2167,7 +2075,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 
 /**
  * Reduce `arr` with `fn`.
@@ -2192,7 +2100,7 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -3385,7 +3293,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-},{"emitter":6,"reduce":7}],9:[function(require,module,exports){
+},{"emitter":5,"reduce":6}],8:[function(require,module,exports){
 (function (Buffer){
 /**
  * OrderCloud
@@ -3419,7 +3327,7 @@ module.exports = request;
 
   /**
    * @module ApiClient
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -3644,6 +3552,9 @@ module.exports = request;
     if (param == null) {
       return null;
     }
+    if (typeof(param) == "string") {
+      return param
+    }
     switch (collectionFormat) {
       case 'csv':
         return param.map(this.paramToString).join(',');
@@ -3651,6 +3562,8 @@ module.exports = request;
         return param.map(this.paramToString).join(' ');
       case 'tsv':
         return param.map(this.paramToString).join('\t');
+      case 'plus':
+        return param.map(this.paramToString).join('+');
       case 'pipes':
         return param.map(this.paramToString).join('|');
       case 'multi':
@@ -3801,9 +3714,9 @@ module.exports = request;
     return new Promise(function(resolve, reject) {
       request.end(function(error, response) {
         if (error) {
-          reject(error);
           // reset impersonation boolean
           _this.impersonation = false;
+          reject(error);
         } else {
           var data = _this.deserialize(response, returnType);
           // reset impersonation boolean
@@ -3974,7 +3887,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 }));
 
 }).call(this,require("buffer").Buffer)
-},{"buffer":3,"fs":1,"superagent":8}],10:[function(require,module,exports){
+},{"buffer":3,"fs":1,"superagent":7}],9:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -4008,7 +3921,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * Address service.
    * @module api/Addresses
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -4203,12 +4116,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the address.
+     * @param {Array.<String>} opts.searchOn Search on of the address.
+     * @param {Array.<String>} opts.sortBy Sort by of the address.
+     * @param {Number} opts.page Page of the address.
+     * @param {Number} opts.pageSize Page size of the address.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
     this.List = function(buyerID, opts) {
@@ -4226,8 +4139,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -4259,8 +4172,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.level Level of the address.
      * @param {Boolean} opts.isShipping Is shipping of the address.
      * @param {Boolean} opts.isBilling Is billing of the address.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the address.
+     * @param {Number} opts.pageSize Page size of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddressAssignment}
      */
     this.ListAssignments = function(buyerID, opts) {
@@ -4447,7 +4360,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/AddressAssignment":39,"../model/ListAddress":62,"../model/ListAddressAssignment":63}],11:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Address":38,"../model/AddressAssignment":39,"../model/ListAddress":63,"../model/ListAddressAssignment":64}],10:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -4481,7 +4394,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * AdminAddress service.
    * @module api/AdminAddresses
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -4605,12 +4518,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the admin address.
+     * @param {Array.<String>} opts.searchOn Search on of the admin address.
+     * @param {Array.<String>} opts.sortBy Sort by of the admin address.
+     * @param {Number} opts.page Page of the admin address.
+     * @param {Number} opts.pageSize Page size of the admin address.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the admin address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
     this.List = function(opts) {
@@ -4622,8 +4535,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -4733,7 +4646,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/ListAddress":62}],12:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Address":38,"../model/ListAddress":63}],11:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -4767,7 +4680,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * AdminUserGroup service.
    * @module api/AdminUserGroups
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -4934,12 +4847,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the admin user group.
+     * @param {Array.<String>} opts.searchOn Search on of the admin user group.
+     * @param {Array.<String>} opts.sortBy Sort by of the admin user group.
+     * @param {Number} opts.page Page of the admin user group.
+     * @param {Number} opts.pageSize Page size of the admin user group.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the admin user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.List = function(opts) {
@@ -4951,8 +4864,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -4979,8 +4892,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.userID ID of the user.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the admin user group.
+     * @param {Number} opts.pageSize Page size of the admin user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
     this.ListUserAssignments = function(opts) {
@@ -5136,7 +5049,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListUserGroup":103,"../model/ListUserGroupAssignment":104,"../model/UserGroup":136,"../model/UserGroupAssignment":137}],13:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListUserGroup":109,"../model/ListUserGroupAssignment":110,"../model/UserGroup":145,"../model/UserGroupAssignment":146}],12:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5170,7 +5083,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * AdminUser service.
    * @module api/AdminUsers
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -5294,12 +5207,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the admin user.
+     * @param {Array.<String>} opts.searchOn Search on of the admin user.
+     * @param {Array.<String>} opts.sortBy Sort by of the admin user.
+     * @param {Number} opts.page Page of the admin user.
+     * @param {Number} opts.pageSize Page size of the admin user.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the admin user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.List = function(opts) {
@@ -5311,8 +5224,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -5422,7 +5335,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListUser":102,"../model/User":135}],14:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListUser":108,"../model/User":144}],13:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5456,7 +5369,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * ApprovalRule service.
    * @module api/ApprovalRules
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -5602,12 +5515,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the approval rule.
+     * @param {Array.<String>} opts.searchOn Search on of the approval rule.
+     * @param {Array.<String>} opts.sortBy Sort by of the approval rule.
+     * @param {Number} opts.page Page of the approval rule.
+     * @param {Number} opts.pageSize Page size of the approval rule.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the approval rule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApprovalRule}
      */
     this.List = function(buyerID, opts) {
@@ -5625,8 +5538,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -5750,7 +5663,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ApprovalRule":41,"../model/ListApprovalRule":65}],15:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ApprovalRule":40,"../model/ListApprovalRule":65}],14:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5821,7 +5734,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
                 throw new Error("Missing the required parameter 'scope' when calling Login");
             }
 
-            var postBody = 'grant_type=password&scope=' + scope.join("+") + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
 
             var pathParams = {};
             var queryParams = {};
@@ -5868,7 +5781,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
                 throw new Error("Missing the required parameter 'scope' when calling ElevatedLogin");
             }
 
-            var postBody = 'grant_type=password&scope=' + scope.join("+") + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
 
             var pathParams = {};
             var queryParams = {};
@@ -5905,7 +5818,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
                 throw new Error("Missing the required parameter 'scope' when calling ElevatedLogin");
             }
 
-            var postBody = 'grant_type=client_credentials&scope=' + scope.join("+") + '&client_secret=' + clientSecret + '&client_id=' + clientID;
+            var postBody = 'grant_type=client_credentials&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -5942,7 +5855,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
                 throw new Error("Missing the required parameter 'scope' when calling RefreshToken");
             }
 
-            var postBody = 'grant_type=refresh_token&scope=' + scope.join("+") + '&refresh_token=' + refreshToken + '&client_id=' + clientID;
+            var postBody = 'grant_type=refresh_token&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&refresh_token=' + refreshToken + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -5974,7 +5887,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
                 throw new Error("Missing the required parameter 'scope' when calling RefreshToken");
             }
 
-            var postBody = 'grant_type=client_credentials&scope=' + scope.join("+") + '&client_id=' + clientID;
+            var postBody = 'grant_type=client_credentials&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -5996,7 +5909,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     return exports;
 }));
-},{"../ApiClient":9,"../model/AccessToken":37}],16:[function(require,module,exports){
+},{"../ApiClient":8,"../model/AccessToken":37}],15:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6030,7 +5943,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * Buyer service.
    * @module api/Buyers
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -6154,12 +6067,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the buyer.
+     * @param {Array.<String>} opts.searchOn Search on of the buyer.
+     * @param {Array.<String>} opts.sortBy Sort by of the buyer.
+     * @param {Number} opts.page Page of the buyer.
+     * @param {Number} opts.pageSize Page size of the buyer.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyer}
      */
     this.List = function(opts) {
@@ -6171,8 +6084,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -6282,7 +6195,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Buyer":43,"../model/ListBuyer":66}],17:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Buyer":42,"../model/ListBuyer":67}],16:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6299,24 +6212,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Catalog', 'model/CatalogAssignment', 'model/ListCatalog', 'model/ListCatalogAssignment'], factory);
+    define(['ApiClient', 'model/Catalog', 'model/CatalogAssignment', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListProductCatalogAssignment', 'model/ProductCatalogAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Catalog'), require('../model/CatalogAssignment'), require('../model/ListCatalog'), require('../model/ListCatalogAssignment'));
+    module.exports = factory(require('../ApiClient'), require('../model/Catalog'), require('../model/CatalogAssignment'), require('../model/ListCatalog'), require('../model/ListCatalogAssignment'), require('../model/ListProductCatalogAssignment'), require('../model/ProductCatalogAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Catalogs = factory(root.OrderCloud.ApiClient, root.OrderCloud.Catalog, root.OrderCloud.CatalogAssignment, root.OrderCloud.ListCatalog, root.OrderCloud.ListCatalogAssignment);
+    root.OrderCloud.Catalogs = factory(root.OrderCloud.ApiClient, root.OrderCloud.Catalog, root.OrderCloud.CatalogAssignment, root.OrderCloud.ListCatalog, root.OrderCloud.ListCatalogAssignment, root.OrderCloud.ListProductCatalogAssignment, root.OrderCloud.ProductCatalogAssignment);
   }
-}(this, function(ApiClient, Catalog, CatalogAssignment, ListCatalog, ListCatalogAssignment) {
+}(this, function(ApiClient, Catalog, CatalogAssignment, ListCatalog, ListCatalogAssignment, ListProductCatalogAssignment, ProductCatalogAssignment) {
   'use strict';
 
   /**
    * Catalog service.
    * @module api/Catalogs
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -6447,6 +6360,49 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {String} catalogID ID of the catalog.
+     * @param {String} productID ID of the product.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.DeleteProductAssignment = function(catalogID, productID) {
+      var postBody = null;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling DeleteProductAssignment");
+      }
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling DeleteProductAssignment");
+      }
+
+
+      var pathParams = {
+        'catalogID': catalogID,
+        'productID': productID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/catalogs/{catalogID}/productassignments/{productID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
     this.Get = function(catalogID) {
@@ -6483,12 +6439,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the catalog.
+     * @param {Array.<String>} opts.searchOn Search on of the catalog.
+     * @param {Array.<String>} opts.sortBy Sort by of the catalog.
+     * @param {Number} opts.page Page of the catalog.
+     * @param {Number} opts.pageSize Page size of the catalog.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
     this.List = function(opts) {
@@ -6500,8 +6456,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -6528,8 +6484,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.buyerID ID of the buyer.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the catalog.
+     * @param {Number} opts.pageSize Page size of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalogAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -6557,6 +6513,45 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.apiClient.callApi(
         '/catalogs/assignments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.catalogID ID of the catalog.
+     * @param {String} opts.productID ID of the product.
+     * @param {Number} opts.page Page of the catalog.
+     * @param {Number} opts.pageSize Page size of the catalog.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductCatalogAssignment}
+     */
+    this.ListProductAssignments = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'catalogID': opts['catalogID'],
+        'productID': opts['productID'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListProductCatalogAssignment;
+
+      return this.apiClient.callApi(
+        '/catalogs/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -6641,6 +6636,41 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {module:model/ProductCatalogAssignment} productAssignment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.SaveProductAssignment = function(productAssignment) {
+      var postBody = productAssignment;
+
+      // verify the required parameter 'productAssignment' is set
+      if (productAssignment == undefined || productAssignment == null) {
+        throw new Error("Missing the required parameter 'productAssignment' when calling SaveProductAssignment");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/catalogs/productassignments', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} catalogID ID of the catalog.
      * @param {module:model/Catalog} catalog 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
@@ -6685,7 +6715,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Catalog":48,"../model/CatalogAssignment":49,"../model/ListCatalog":71,"../model/ListCatalogAssignment":72}],18:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Catalog":48,"../model/CatalogAssignment":49,"../model/ListCatalog":73,"../model/ListCatalogAssignment":74,"../model/ListProductCatalogAssignment":95,"../model/ProductCatalogAssignment":130}],17:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6719,7 +6749,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * Category service.
    * @module api/Categories
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -6972,12 +7002,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} catalogID ID of the catalog.
      * @param {Object} opts Optional parameters
      * @param {String} opts.depth Depth of the category.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the category.
+     * @param {Array.<String>} opts.searchOn Search on of the category.
+     * @param {Array.<String>} opts.sortBy Sort by of the category.
+     * @param {Number} opts.page Page of the category.
+     * @param {Number} opts.pageSize Page size of the category.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
     this.List = function(catalogID, opts) {
@@ -6996,8 +7026,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var queryParams = {
         'depth': opts['depth'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -7028,8 +7058,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the category.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the category.
+     * @param {Number} opts.pageSize Page size of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryAssignment}
      */
     this.ListAssignments = function(catalogID, opts) {
@@ -7077,8 +7107,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object} opts Optional parameters
      * @param {String} opts.categoryID ID of the category.
      * @param {String} opts.productID ID of the product.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the category.
+     * @param {Number} opts.pageSize Page size of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryProductAssignment}
      */
     this.ListProductAssignments = function(catalogID, opts) {
@@ -7303,7 +7333,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Category":50,"../model/CategoryAssignment":51,"../model/CategoryProductAssignment":52,"../model/ListCategory":73,"../model/ListCategoryAssignment":74,"../model/ListCategoryProductAssignment":75}],19:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Category":50,"../model/CategoryAssignment":51,"../model/CategoryProductAssignment":52,"../model/ListCategory":75,"../model/ListCategoryAssignment":76,"../model/ListCategoryProductAssignment":77}],18:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -7337,7 +7367,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * CostCenter service.
    * @module api/CostCenters
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -7532,12 +7562,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the cost center.
+     * @param {Array.<String>} opts.searchOn Search on of the cost center.
+     * @param {Array.<String>} opts.sortBy Sort by of the cost center.
+     * @param {Number} opts.page Page of the cost center.
+     * @param {Number} opts.pageSize Page size of the cost center.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
     this.List = function(buyerID, opts) {
@@ -7555,8 +7585,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -7586,8 +7616,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the cost center.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the cost center.
+     * @param {Number} opts.pageSize Page size of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenterAssignment}
      */
     this.ListAssignments = function(buyerID, opts) {
@@ -7772,7 +7802,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/CostCenter":53,"../model/CostCenterAssignment":54,"../model/ListCostCenter":76,"../model/ListCostCenterAssignment":77}],20:[function(require,module,exports){
+},{"../ApiClient":8,"../model/CostCenter":53,"../model/CostCenterAssignment":54,"../model/ListCostCenter":78,"../model/ListCostCenterAssignment":79}],19:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -7806,7 +7836,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * CreditCard service.
    * @module api/CreditCards
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -8001,12 +8031,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the credit card.
+     * @param {Array.<String>} opts.searchOn Search on of the credit card.
+     * @param {Array.<String>} opts.sortBy Sort by of the credit card.
+     * @param {Number} opts.page Page of the credit card.
+     * @param {Number} opts.pageSize Page size of the credit card.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCard}
      */
     this.List = function(buyerID, opts) {
@@ -8024,8 +8054,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -8055,8 +8085,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the credit card.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the credit card.
+     * @param {Number} opts.pageSize Page size of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCardAssignment}
      */
     this.ListAssignments = function(buyerID, opts) {
@@ -8241,7 +8271,293 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/CreditCard":55,"../model/CreditCardAssignment":56,"../model/ListCreditCard":78,"../model/ListCreditCardAssignment":79}],21:[function(require,module,exports){
+},{"../ApiClient":8,"../model/CreditCard":55,"../model/CreditCardAssignment":56,"../model/ListCreditCard":80,"../model/ListCreditCardAssignment":81}],20:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/ImpersonationConfig', 'model/ListImpersonationConfig'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('../model/ImpersonationConfig'), require('../model/ListImpersonationConfig'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ImpersonationConfigs = factory(root.OrderCloud.ApiClient, root.OrderCloud.ImpersonationConfig, root.OrderCloud.ListImpersonationConfig);
+  }
+}(this, function(ApiClient, ImpersonationConfig, ListImpersonationConfig) {
+  'use strict';
+
+  /**
+   * ImpersonationConfig service.
+   * @module api/ImpersonationConfigs
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new ImpersonationConfigs. 
+   * @alias module:api/ImpersonationConfigs
+   * @class
+   * @param {module:ApiClient} apiClient Optional API client implementation to use,
+   * default to {@link module:ApiClient#instance} if unspecified.
+   */
+  var exports = function(apiClient) {
+    this.apiClient = apiClient || ApiClient.instance;
+
+
+
+    /**
+     * @param {module:model/ImpersonationConfig} impersonationConfig 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
+     */
+    this.Create = function(impersonationConfig) {
+      var postBody = impersonationConfig;
+
+      // verify the required parameter 'impersonationConfig' is set
+      if (impersonationConfig == undefined || impersonationConfig == null) {
+        throw new Error("Missing the required parameter 'impersonationConfig' when calling Create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ImpersonationConfig;
+
+      return this.apiClient.callApi(
+        '/impersonationconfig', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} impersonationConfigID ID of the impersonation config.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(impersonationConfigID) {
+      var postBody = null;
+
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'impersonationConfigID': impersonationConfigID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/impersonationconfig/{impersonationConfigID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} impersonationConfigID ID of the impersonation config.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
+     */
+    this.Get = function(impersonationConfigID) {
+      var postBody = null;
+
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Get");
+      }
+
+
+      var pathParams = {
+        'impersonationConfigID': impersonationConfigID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ImpersonationConfig;
+
+      return this.apiClient.callApi(
+        '/impersonationconfig/{impersonationConfigID}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Search of the impersonation config.
+     * @param {Array.<String>} opts.searchOn Search on of the impersonation config.
+     * @param {Array.<String>} opts.sortBy Sort by of the impersonation config.
+     * @param {Number} opts.page Page of the impersonation config.
+     * @param {Number} opts.pageSize Page size of the impersonation config.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the impersonation config.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListImpersonationConfig}
+     */
+    this.List = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListImpersonationConfig;
+
+      return this.apiClient.callApi(
+        '/impersonationconfig', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} impersonationConfigID ID of the impersonation config.
+     * @param {module:model/ImpersonationConfig} impersonationConfig 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
+     */
+    this.Patch = function(impersonationConfigID, impersonationConfig) {
+      var postBody = impersonationConfig;
+
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Patch");
+      }
+
+      // verify the required parameter 'impersonationConfig' is set
+      if (impersonationConfig == undefined || impersonationConfig == null) {
+        throw new Error("Missing the required parameter 'impersonationConfig' when calling Patch");
+      }
+
+
+      var pathParams = {
+        'impersonationConfigID': impersonationConfigID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ImpersonationConfig;
+
+      return this.apiClient.callApi(
+        '/impersonationconfig/{impersonationConfigID}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} impersonationConfigID ID of the impersonation config.
+     * @param {module:model/ImpersonationConfig} impersonationConfig 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
+     */
+    this.Update = function(impersonationConfigID, impersonationConfig) {
+      var postBody = impersonationConfig;
+
+      // verify the required parameter 'impersonationConfigID' is set
+      if (impersonationConfigID == undefined || impersonationConfigID == null) {
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Update");
+      }
+
+      // verify the required parameter 'impersonationConfig' is set
+      if (impersonationConfig == undefined || impersonationConfig == null) {
+        throw new Error("Missing the required parameter 'impersonationConfig' when calling Update");
+      }
+
+
+      var pathParams = {
+        'impersonationConfigID': impersonationConfigID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ImpersonationConfig;
+
+      return this.apiClient.callApi(
+        '/impersonationconfig/{impersonationConfigID}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+  };
+
+  return exports;
+}));
+
+},{"../ApiClient":8,"../model/ImpersonationConfig":58,"../model/ListImpersonationConfig":82}],21:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -8275,7 +8591,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * LineItem service.
    * @module api/LineItems
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -8291,17 +8607,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Create = function(buyerID, orderID, lineItem) {
+    this.Create = function(direction, orderID, lineItem) {
       var postBody = lineItem;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Create");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8316,7 +8632,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -8332,7 +8648,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems', 'POST',
+        '/orders/{direction}/{orderID}/lineitems', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8340,17 +8656,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, orderID, lineItemID) {
+    this.Delete = function(direction, orderID, lineItemID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Delete");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8365,7 +8681,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -8382,7 +8698,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'DELETE',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8390,17 +8706,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Get = function(buyerID, orderID, lineItemID) {
+    this.Get = function(direction, orderID, lineItemID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Get");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8415,7 +8731,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -8432,7 +8748,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'GET',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8440,24 +8756,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the line item.
+     * @param {Array.<String>} opts.searchOn Search on of the line item.
+     * @param {Array.<String>} opts.sortBy Sort by of the line item.
+     * @param {Number} opts.page Page of the line item.
+     * @param {Number} opts.pageSize Page size of the line item.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListLineItem}
      */
-    this.List = function(buyerID, orderID, opts) {
+    this.List = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling List");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8467,13 +8783,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -8489,7 +8805,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListLineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems', 'GET',
+        '/orders/{direction}/{orderID}/lineitems', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8497,18 +8813,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/LineItem} partialLineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Patch = function(buyerID, orderID, lineItemID, partialLineItem) {
+    this.Patch = function(direction, orderID, lineItemID, partialLineItem) {
       var postBody = partialLineItem;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Patch");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8528,7 +8844,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -8545,7 +8861,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'PATCH',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8553,18 +8869,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.PatchShippingAddress = function(buyerID, orderID, lineItemID, partialAddress) {
+    this.PatchShippingAddress = function(direction, orderID, lineItemID, partialAddress) {
       var postBody = partialAddress;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling PatchShippingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling PatchShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8584,7 +8900,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -8601,7 +8917,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto', 'PATCH',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8609,18 +8925,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.SetShippingAddress = function(buyerID, orderID, lineItemID, address) {
+    this.SetShippingAddress = function(direction, orderID, lineItemID, address) {
       var postBody = address;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SetShippingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling SetShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8640,7 +8956,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -8657,7 +8973,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}/shipto', 'PUT',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8665,18 +8981,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Update = function(buyerID, orderID, lineItemID, lineItem) {
+    this.Update = function(direction, orderID, lineItemID, lineItem) {
       var postBody = lineItem;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Update");
       }
 
       // verify the required parameter 'orderID' is set
@@ -8696,7 +9012,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'lineItemID': lineItemID
       };
@@ -8713,7 +9029,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = LineItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/lineitems/{lineItemID}', 'PUT',
+        '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -8723,7 +9039,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/LineItem":59,"../model/ListLineItem":81}],22:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Address":38,"../model/LineItem":60,"../model/ListLineItem":83}],22:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -8740,24 +9056,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/Order', 'model/Promotion', 'model/SpendingAccount', 'model/User'], factory);
+    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/Promotion', 'model/SpendingAccount', 'model/TokenPasswordReset', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerSpec'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerSpec'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/Order'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/User'));
+    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerShipment'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerShipment'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerSpec, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.Order, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.User);
+    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerShipment, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerShipment, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListSpendingAccount, ListUserGroup, Order, Promotion, SpendingAccount, User) {
+}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipmentItem, ListSpendingAccount, ListUserGroup, Promotion, SpendingAccount, TokenPasswordReset, User) {
   'use strict';
 
   /**
    * Me service.
    * @module api/Me
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -8980,6 +9296,42 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {String} catalogID ID of the catalog.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
+     */
+    this.GetCatalog = function(catalogID) {
+      var postBody = null;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling GetCatalog");
+      }
+
+
+      var pathParams = {
+        'catalogID': catalogID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Catalog;
+
+      return this.apiClient.callApi(
+        '/me/catalogs/{catalogID}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
@@ -9009,42 +9361,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.apiClient.callApi(
         '/me/creditcards/{creditcardID}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} orderID ID of the order.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
-     */
-    this.GetOrder = function(orderID) {
-      var postBody = null;
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling GetOrder");
-      }
-
-
-      var pathParams = {
-        'orderID': orderID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Order;
-
-      return this.apiClient.callApi(
-        '/me/orders/{orderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -9124,11 +9440,50 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {String} shipmentID ID of the shipment.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerShipment}
+     */
+    this.GetShipment = function(shipmentID) {
+      var postBody = null;
+
+      // verify the required parameter 'shipmentID' is set
+      if (shipmentID == undefined || shipmentID == null) {
+        throw new Error("Missing the required parameter 'shipmentID' when calling GetShipment");
+      }
+
+
+      var pathParams = {
+        'shipmentID': shipmentID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = BuyerShipment;
+
+      return this.apiClient.callApi(
+        '/me/shipments/{shipmentID}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} productID ID of the product.
      * @param {String} specID ID of the spec.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerSpec}
      */
-    this.GetSpec = function(productID, specID) {
+    this.GetSpec = function(productID, specID, opts) {
+      opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -9147,6 +9502,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         'specID': specID
       };
       var queryParams = {
+        'catalogID': opts['catalogID']
       };
       var headerParams = {
       };
@@ -9204,12 +9560,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the address.
+     * @param {Array.<String>} opts.searchOn Search on of the address.
+     * @param {Array.<String>} opts.sortBy Sort by of the address.
+     * @param {Number} opts.page Page of the address.
+     * @param {Number} opts.pageSize Page size of the address.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerAddress}
      */
     this.ListAddresses = function(opts) {
@@ -9221,8 +9577,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9247,14 +9603,104 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
+     * @param {String} opts.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
+     * @param {String} opts.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
+     * @param {String} opts.search Search of the order.
+     * @param {Array.<String>} opts.searchOn Search on of the order.
+     * @param {Array.<String>} opts.sortBy Sort by of the order.
+     * @param {Number} opts.page Page of the order.
+     * @param {Number} opts.pageSize Page size of the order.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
+     */
+    this.ListApprovableOrders = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'from': opts['from'],
+        'to': opts['to'],
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListOrder;
+
+      return this.apiClient.callApi(
+        '/me/orders/approvable', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Search of the catalog.
+     * @param {Array.<String>} opts.searchOn Search on of the catalog.
+     * @param {Array.<String>} opts.sortBy Sort by of the catalog.
+     * @param {Number} opts.page Page of the catalog.
+     * @param {Number} opts.pageSize Page size of the catalog.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the catalog.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
+     */
+    this.ListCatalogs = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListCatalog;
+
+      return this.apiClient.callApi(
+        '/me/catalogs', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
      * @param {String} opts.depth Depth of the category.
      * @param {String} opts.catalogID ID of the catalog.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the category.
+     * @param {Array.<String>} opts.searchOn Search on of the category.
+     * @param {Array.<String>} opts.sortBy Sort by of the category.
+     * @param {Number} opts.page Page of the category.
+     * @param {Number} opts.pageSize Page size of the category.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
     this.ListCategories = function(opts) {
@@ -9268,8 +9714,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         'depth': opts['depth'],
         'catalogID': opts['catalogID'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9294,12 +9740,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the cost center.
+     * @param {Array.<String>} opts.searchOn Search on of the cost center.
+     * @param {Array.<String>} opts.sortBy Sort by of the cost center.
+     * @param {Number} opts.page Page of the cost center.
+     * @param {Number} opts.pageSize Page size of the cost center.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
     this.ListCostCenters = function(opts) {
@@ -9311,8 +9757,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9337,12 +9783,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the credit card.
+     * @param {Array.<String>} opts.searchOn Search on of the credit card.
+     * @param {Array.<String>} opts.sortBy Sort by of the credit card.
+     * @param {Number} opts.page Page of the credit card.
+     * @param {Number} opts.pageSize Page size of the credit card.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerCreditCard}
      */
     this.ListCreditCards = function(opts) {
@@ -9354,8 +9800,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9382,15 +9828,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object} opts Optional parameters
      * @param {String} opts.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
      * @param {String} opts.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the order.
+     * @param {Array.<String>} opts.searchOn Search on of the order.
+     * @param {Array.<String>} opts.sortBy Sort by of the order.
+     * @param {Number} opts.page Page of the order.
+     * @param {Number} opts.pageSize Page size of the order.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.ListIncomingOrders = function(opts) {
+    this.ListOrders = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -9401,8 +9847,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         'from': opts['from'],
         'to': opts['to'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9418,7 +9864,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListOrder;
 
       return this.apiClient.callApi(
-        '/me/orders/incoming', 'GET',
+        '/me/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -9427,61 +9873,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
-     * @param {String} opts.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
-     */
-    this.ListOutgoingOrders = function(opts) {
-      opts = opts || {};
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'from': opts['from'],
-        'to': opts['to'],
-        'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
-        'page': opts['page'],
-        'pageSize': opts['pageSize'],
-        'filters': opts['filters']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ListOrder;
-
-      return this.apiClient.callApi(
-        '/me/orders/outgoing', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.categoryID ID of the category.
      * @param {String} opts.catalogID ID of the catalog.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.categoryID ID of the category.
+     * @param {String} opts.depth Depth of the product.
+     * @param {String} opts.search Search of the product.
+     * @param {Array.<String>} opts.searchOn Search on of the product.
+     * @param {Array.<String>} opts.sortBy Sort by of the product.
+     * @param {Number} opts.page Page of the product.
+     * @param {Number} opts.pageSize Page size of the product.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerProduct}
      */
     this.ListProducts = function(opts) {
@@ -9492,11 +9892,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var pathParams = {
       };
       var queryParams = {
-        'categoryID': opts['categoryID'],
         'catalogID': opts['catalogID'],
+        'categoryID': opts['categoryID'],
+        'depth': opts['depth'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9521,12 +9922,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the promotion.
+     * @param {Array.<String>} opts.searchOn Search on of the promotion.
+     * @param {Array.<String>} opts.sortBy Sort by of the promotion.
+     * @param {Number} opts.page Page of the promotion.
+     * @param {Number} opts.pageSize Page size of the promotion.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
     this.ListPromotions = function(opts) {
@@ -9538,8 +9939,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9563,14 +9964,112 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {String} shipmentID ID of the shipment.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.orderID ID of the order.
+     * @param {String} opts.search Search of the shipment.
+     * @param {Array.<String>} opts.searchOn Search on of the shipment.
+     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
+     * @param {Number} opts.page Page of the shipment.
+     * @param {Number} opts.pageSize Page size of the shipment.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
+     */
+    this.ListShipmentItems = function(shipmentID, opts) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'shipmentID' is set
+      if (shipmentID == undefined || shipmentID == null) {
+        throw new Error("Missing the required parameter 'shipmentID' when calling ListShipmentItems");
+      }
+
+
+      var pathParams = {
+        'shipmentID': shipmentID
+      };
+      var queryParams = {
+        'orderID': opts['orderID'],
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListShipmentItem;
+
+      return this.apiClient.callApi(
+        '/me/shipments/{shipmentID}/items', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.orderID ID of the order.
+     * @param {String} opts.search Search of the shipment.
+     * @param {Array.<String>} opts.searchOn Search on of the shipment.
+     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
+     * @param {Number} opts.page Page of the shipment.
+     * @param {Number} opts.pageSize Page size of the shipment.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerShipment}
+     */
+    this.ListShipments = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'orderID': opts['orderID'],
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListBuyerShipment;
+
+      return this.apiClient.callApi(
+        '/me/shipments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.catalogID ID of the catalog.
+     * @param {String} opts.search Search of the product.
+     * @param {Array.<String>} opts.searchOn Search on of the product.
+     * @param {Array.<String>} opts.sortBy Sort by of the product.
+     * @param {Number} opts.page Page of the product.
+     * @param {Number} opts.pageSize Page size of the product.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
      */
     this.ListSpecs = function(productID, opts) {
@@ -9587,9 +10086,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         'productID': productID
       };
       var queryParams = {
+        'catalogID': opts['catalogID'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9614,12 +10114,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the spending account.
+     * @param {Array.<String>} opts.searchOn Search on of the spending account.
+     * @param {Array.<String>} opts.sortBy Sort by of the spending account.
+     * @param {Number} opts.page Page of the spending account.
+     * @param {Number} opts.pageSize Page size of the spending account.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
     this.ListSpendingAccounts = function(opts) {
@@ -9631,8 +10131,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9657,12 +10157,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the user group.
+     * @param {Array.<String>} opts.searchOn Search on of the user group.
+     * @param {Array.<String>} opts.sortBy Sort by of the user group.
+     * @param {Number} opts.page Page of the user group.
+     * @param {Number} opts.pageSize Page size of the user group.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.ListUserGroups = function(opts) {
@@ -9674,8 +10174,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -9818,6 +10318,119 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {String} anonUserToken Anon user token of the me.
+     * @param {module:model/User} user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
+     */
+    this.Register = function(anonUserToken, user) {
+      var postBody = user;
+
+      // verify the required parameter 'anonUserToken' is set
+      if (anonUserToken == undefined || anonUserToken == null) {
+        throw new Error("Missing the required parameter 'anonUserToken' when calling Register");
+      }
+
+      // verify the required parameter 'user' is set
+      if (user == undefined || user == null) {
+        throw new Error("Missing the required parameter 'user' when calling Register");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'anonUserToken': anonUserToken
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Object;
+
+      return this.apiClient.callApi(
+        '/me/register', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {module:model/TokenPasswordReset} reset 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.ResetPasswordByToken = function(reset) {
+      var postBody = reset;
+
+      // verify the required parameter 'reset' is set
+      if (reset == undefined || reset == null) {
+        throw new Error("Missing the required parameter 'reset' when calling ResetPasswordByToken");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/me/password', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} anonUserToken Anon user token of the me.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.TransferAnonUserOrder = function(anonUserToken) {
+      var postBody = null;
+
+      // verify the required parameter 'anonUserToken' is set
+      if (anonUserToken == undefined || anonUserToken == null) {
+        throw new Error("Missing the required parameter 'anonUserToken' when calling TransferAnonUserOrder");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'anonUserToken': anonUserToken
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/me/orders', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
@@ -9939,7 +10552,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/BuyerAddress":44,"../model/BuyerCreditCard":45,"../model/BuyerProduct":46,"../model/BuyerSpec":47,"../model/CreditCard":55,"../model/ListBuyerAddress":67,"../model/ListBuyerCreditCard":68,"../model/ListBuyerProduct":69,"../model/ListBuyerSpec":70,"../model/ListCategory":73,"../model/ListCostCenter":76,"../model/ListOrder":85,"../model/ListPromotion":92,"../model/ListSpendingAccount":100,"../model/ListUserGroup":103,"../model/Order":111,"../model/Promotion":123,"../model/SpendingAccount":132,"../model/User":135}],23:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Address":38,"../model/BuyerAddress":43,"../model/BuyerCreditCard":44,"../model/BuyerProduct":45,"../model/BuyerShipment":46,"../model/BuyerSpec":47,"../model/Catalog":48,"../model/CreditCard":55,"../model/ListBuyerAddress":68,"../model/ListBuyerCreditCard":69,"../model/ListBuyerProduct":70,"../model/ListBuyerShipment":71,"../model/ListBuyerSpec":72,"../model/ListCatalog":73,"../model/ListCategory":75,"../model/ListCostCenter":78,"../model/ListOrder":88,"../model/ListPromotion":96,"../model/ListShipmentItem":101,"../model/ListSpendingAccount":105,"../model/ListUserGroup":109,"../model/Promotion":131,"../model/SpendingAccount":140,"../model/TokenPasswordReset":143,"../model/User":144}],23:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -9973,7 +10586,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * MessageSenders service.
    * @module api/MessageSenders
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -10070,12 +10683,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the message sender.
+     * @param {Array.<String>} opts.searchOn Search on of the message sender.
+     * @param {Array.<String>} opts.sortBy Sort by of the message sender.
+     * @param {Number} opts.page Page of the message sender.
+     * @param {Number} opts.pageSize Page size of the message sender.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSender}
      */
     this.List = function(opts) {
@@ -10087,8 +10700,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -10118,8 +10731,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the message sender.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the message sender.
+     * @param {Number} opts.pageSize Page size of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSenderAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -10158,12 +10771,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the message sender.
+     * @param {Array.<String>} opts.searchOn Search on of the message sender.
+     * @param {Array.<String>} opts.sortBy Sort by of the message sender.
+     * @param {Number} opts.page Page of the message sender.
+     * @param {Number} opts.pageSize Page size of the message sender.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageCCListenerAssignment}
      */
     this.ListCCListenerAssignments = function(opts) {
@@ -10175,8 +10788,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -10272,7 +10885,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListMessageCCListenerAssignment":82,"../model/ListMessageSender":83,"../model/ListMessageSenderAssignment":84,"../model/MessageCCListenerAssignment":107,"../model/MessageSender":108,"../model/MessageSenderAssignment":109}],24:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListMessageCCListenerAssignment":84,"../model/ListMessageSender":86,"../model/ListMessageSenderAssignment":87,"../model/MessageCCListenerAssignment":112,"../model/MessageSender":114,"../model/MessageSenderAssignment":115}],24:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10289,24 +10902,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/Promotion', 'model/Shipment'], factory);
+    define(['ApiClient', 'model/Address', 'model/BuyerShipment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/Promotion'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/Promotion'), require('../model/Shipment'));
+    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerShipment'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/Promotion'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Orders = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.Promotion, root.OrderCloud.Shipment);
+    root.OrderCloud.Orders = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerShipment, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.Promotion);
   }
-}(this, function(ApiClient, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, Promotion, Shipment) {
+}(this, function(ApiClient, Address, BuyerShipment, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, Promotion) {
   'use strict';
 
   /**
    * Order service.
    * @module api/Orders
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -10322,17 +10935,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} promoCode Promo code of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.AddPromotion = function(buyerID, orderID, promoCode) {
+    this.AddPromotion = function(direction, orderID, promoCode) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling AddPromotion");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling AddPromotion");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10347,7 +10960,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'promoCode': promoCode
       };
@@ -10364,7 +10977,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Promotion;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/promotions/{promoCode}', 'POST',
+        '/orders/{direction}/{orderID}/promotions/{promoCode}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10372,19 +10985,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.comments Comments to be saved with the order approval.
+     * @param {module:model/OrderApprovalInfo} info 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Approve = function(buyerID, orderID, opts) {
-      opts = opts || {};
-      var postBody = null;
+    this.Approve = function(direction, orderID, info) {
+      var postBody = info;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Approve");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Approve");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10392,13 +11003,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         throw new Error("Missing the required parameter 'orderID' when calling Approve");
       }
 
+      // verify the required parameter 'info' is set
+      if (info == undefined || info == null) {
+        throw new Error("Missing the required parameter 'info' when calling Approve");
+      }
+
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
-        'comments': opts['comments']
       };
       var headerParams = {
       };
@@ -10411,7 +11026,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/approve', 'POST',
+        '/orders/{direction}/{orderID}/approve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10419,16 +11034,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Cancel = function(buyerID, orderID) {
+    this.Cancel = function(direction, orderID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Cancel");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Cancel");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10438,7 +11053,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -10454,7 +11069,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/cancel', 'POST',
+        '/orders/{direction}/{orderID}/cancel', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10462,16 +11077,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Create = function(buyerID, order) {
+    this.Create = function(direction, order) {
       var postBody = order;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Create");
       }
 
       // verify the required parameter 'order' is set
@@ -10481,7 +11096,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID
+        'direction': direction
       };
       var queryParams = {
       };
@@ -10496,7 +11111,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders', 'POST',
+        '/orders/{direction}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10504,19 +11119,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.comments Comments to be saved with the order denial.
+     * @param {module:model/OrderApprovalInfo} info 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Decline = function(buyerID, orderID, opts) {
-      opts = opts || {};
-      var postBody = null;
+    this.Decline = function(direction, orderID, info) {
+      var postBody = info;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Decline");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Decline");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10524,13 +11137,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         throw new Error("Missing the required parameter 'orderID' when calling Decline");
       }
 
+      // verify the required parameter 'info' is set
+      if (info == undefined || info == null) {
+        throw new Error("Missing the required parameter 'info' when calling Decline");
+      }
+
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
-        'comments': opts['comments']
       };
       var headerParams = {
       };
@@ -10543,7 +11160,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/decline', 'POST',
+        '/orders/{direction}/{orderID}/decline', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10551,16 +11168,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, orderID) {
+    this.Delete = function(direction, orderID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Delete");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10570,7 +11187,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -10586,7 +11203,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}', 'DELETE',
+        '/orders/{direction}/{orderID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10594,16 +11211,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Get = function(buyerID, orderID) {
+    this.Get = function(direction, orderID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Get");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10613,7 +11230,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -10629,7 +11246,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}', 'GET',
+        '/orders/{direction}/{orderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10637,24 +11254,82 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} orderID ID of the order.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderApproval}
+     * @param {String} opts.buyerID ID of the buyer.
+     * @param {String} opts.supplierID ID of the supplier.
+     * @param {String} opts.from Lower bound of date range that the order was created.
+     * @param {String} opts.to Upper bound of date range that the order was created.
+     * @param {String} opts.search Search of the order.
+     * @param {Array.<String>} opts.searchOn Search on of the order.
+     * @param {Array.<String>} opts.sortBy Sort by of the order.
+     * @param {Number} opts.page Page of the order.
+     * @param {Number} opts.pageSize Page size of the order.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.ListApprovals = function(buyerID, orderID, opts) {
+    this.List = function(direction, opts) {
       opts = opts || {};
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling ListApprovals");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling List");
+      }
+
+
+      var pathParams = {
+        'direction': direction
+      };
+      var queryParams = {
+        'buyerID': opts['buyerID'],
+        'supplierID': opts['supplierID'],
+        'from': opts['from'],
+        'to': opts['to'],
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListOrder;
+
+      return this.apiClient.callApi(
+        '/orders/{direction}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} orderID ID of the order.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Search of the order.
+     * @param {Array.<String>} opts.searchOn Search on of the order.
+     * @param {Array.<String>} opts.sortBy Sort by of the order.
+     * @param {Number} opts.page Page of the order.
+     * @param {Number} opts.pageSize Page size of the order.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderApproval}
+     */
+    this.ListApprovals = function(direction, orderID, opts) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling ListApprovals");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10664,13 +11339,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -10686,7 +11361,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListOrderApproval;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/approvals', 'GET',
+        '/orders/{direction}/{orderID}/approvals', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10694,24 +11369,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the order.
+     * @param {Array.<String>} opts.searchOn Search on of the order.
+     * @param {Array.<String>} opts.sortBy Sort by of the order.
+     * @param {Number} opts.page Page of the order.
+     * @param {Number} opts.pageSize Page size of the order.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.ListEligibleApprovers = function(buyerID, orderID, opts) {
+    this.ListEligibleApprovers = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling ListEligibleApprovers");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling ListEligibleApprovers");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10721,13 +11396,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -10743,7 +11418,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListUser;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/eligibleapprovers', 'GET',
+        '/orders/{direction}/{orderID}/eligibleapprovers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10751,122 +11426,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.buyerID ID of the buyer.
-     * @param {String} opts.from Lower bound of date range that the order was submitted.
-     * @param {String} opts.to Upper bound of date range that the order was submitted.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
-     */
-    this.ListIncoming = function(opts) {
-      opts = opts || {};
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'buyerID': opts['buyerID'],
-        'from': opts['from'],
-        'to': opts['to'],
-        'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
-        'page': opts['page'],
-        'pageSize': opts['pageSize'],
-        'filters': opts['filters']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ListOrder;
-
-      return this.apiClient.callApi(
-        '/orders/incoming', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.buyerID ID of the buyer.
-     * @param {String} opts.from Lower bound of date range that the order was created.
-     * @param {String} opts.to Upper bound of date range that the order was created.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
-     */
-    this.ListOutgoing = function(opts) {
-      opts = opts || {};
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'buyerID': opts['buyerID'],
-        'from': opts['from'],
-        'to': opts['to'],
-        'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
-        'page': opts['page'],
-        'pageSize': opts['pageSize'],
-        'filters': opts['filters']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ListOrder;
-
-      return this.apiClient.callApi(
-        '/orders/outgoing', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the order.
+     * @param {Array.<String>} opts.searchOn Search on of the order.
+     * @param {Array.<String>} opts.sortBy Sort by of the order.
+     * @param {Number} opts.page Page of the order.
+     * @param {Number} opts.pageSize Page size of the order.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderPromotion}
      */
-    this.ListPromotions = function(buyerID, orderID, opts) {
+    this.ListPromotions = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling ListPromotions");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling ListPromotions");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10876,13 +11453,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -10898,7 +11475,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListOrderPromotion;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/promotions', 'GET',
+        '/orders/{direction}/{orderID}/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10906,17 +11483,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Order} partialOrder 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Patch = function(buyerID, orderID, partialOrder) {
+    this.Patch = function(direction, orderID, partialOrder) {
       var postBody = partialOrder;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Patch");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10931,7 +11508,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -10947,7 +11524,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}', 'PATCH',
+        '/orders/{direction}/{orderID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -10955,17 +11532,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchBillingAddress = function(buyerID, orderID, address) {
+    this.PatchBillingAddress = function(direction, orderID, address) {
       var postBody = address;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling PatchBillingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling PatchBillingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -10980,7 +11557,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -10996,7 +11573,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/billto', 'PATCH',
+        '/orders/{direction}/{orderID}/billto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11004,17 +11581,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchShippingAddress = function(buyerID, orderID, address) {
+    this.PatchShippingAddress = function(direction, orderID, address) {
       var postBody = address;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling PatchShippingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling PatchShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11029,7 +11606,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -11045,7 +11622,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/shipto', 'PATCH',
+        '/orders/{direction}/{orderID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11053,17 +11630,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} promoCode Promo code of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.RemovePromotion = function(buyerID, orderID, promoCode) {
+    this.RemovePromotion = function(direction, orderID, promoCode) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling RemovePromotion");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling RemovePromotion");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11078,7 +11655,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'promoCode': promoCode
       };
@@ -11095,7 +11672,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/promotions/{promoCode}', 'DELETE',
+        '/orders/{direction}/{orderID}/promotions/{promoCode}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11103,17 +11680,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetBillingAddress = function(buyerID, orderID, address) {
+    this.SetBillingAddress = function(direction, orderID, address) {
       var postBody = address;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SetBillingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling SetBillingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11128,7 +11705,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -11144,7 +11721,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/billto', 'PUT',
+        '/orders/{direction}/{orderID}/billto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11152,17 +11729,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetShippingAddress = function(buyerID, orderID, address) {
+    this.SetShippingAddress = function(direction, orderID, address) {
       var postBody = address;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SetShippingAddress");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling SetShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11177,7 +11754,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -11193,7 +11770,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/shipto', 'PUT',
+        '/orders/{direction}/{orderID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11201,17 +11778,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
-     * @param {module:model/Shipment} shipment 
+     * @param {module:model/BuyerShipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Ship = function(buyerID, orderID, shipment) {
+    this.Ship = function(direction, orderID, shipment) {
       var postBody = shipment;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Ship");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Ship");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11226,7 +11803,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -11242,7 +11819,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/ship', 'POST',
+        '/orders/{direction}/{orderID}/ship', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11250,16 +11827,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Submit = function(buyerID, orderID) {
+    this.Submit = function(direction, orderID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Submit");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Submit");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11269,7 +11846,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -11285,7 +11862,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/submit', 'POST',
+        '/orders/{direction}/{orderID}/submit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11293,60 +11870,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} tempUserToken Temp user token of the order.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.TransferTempUserOrder = function(buyerID, tempUserToken) {
-      var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling TransferTempUserOrder");
-      }
-
-      // verify the required parameter 'tempUserToken' is set
-      if (tempUserToken == undefined || tempUserToken == null) {
-        throw new Error("Missing the required parameter 'tempUserToken' when calling TransferTempUserOrder");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-        'tempUserToken': tempUserToken
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Update = function(buyerID, orderID, order) {
+    this.Update = function(direction, orderID, order) {
       var postBody = order;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Update");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11361,7 +11895,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -11377,7 +11911,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Order;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}', 'PUT',
+        '/orders/{direction}/{orderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11387,7 +11921,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Address":38,"../model/ListOrder":85,"../model/ListOrderApproval":86,"../model/ListOrderPromotion":87,"../model/ListUser":102,"../model/Order":111,"../model/Promotion":123,"../model/Shipment":127}],25:[function(require,module,exports){
+},{"../ApiClient":8,"../model/Address":38,"../model/BuyerShipment":46,"../model/ListOrder":88,"../model/ListOrderApproval":89,"../model/ListOrderPromotion":90,"../model/ListUser":108,"../model/Order":117,"../model/OrderApprovalInfo":119,"../model/Promotion":131}],25:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -11421,7 +11955,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * PasswordReset service.
    * @module api/PasswordResets
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -11441,17 +11975,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PasswordReset} passwordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPassword = function(verificationCode, passwordReset) {
+    this.ResetPasswordByVerificationCode = function(verificationCode, passwordReset) {
       var postBody = passwordReset;
 
       // verify the required parameter 'verificationCode' is set
       if (verificationCode == undefined || verificationCode == null) {
-        throw new Error("Missing the required parameter 'verificationCode' when calling ResetPassword");
+        throw new Error("Missing the required parameter 'verificationCode' when calling ResetPasswordByVerificationCode");
       }
 
       // verify the required parameter 'passwordReset' is set
       if (passwordReset == undefined || passwordReset == null) {
-        throw new Error("Missing the required parameter 'passwordReset' when calling ResetPassword");
+        throw new Error("Missing the required parameter 'passwordReset' when calling ResetPasswordByVerificationCode");
       }
 
 
@@ -11516,7 +12050,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/PasswordReset":114,"../model/PasswordResetRequest":115}],26:[function(require,module,exports){
+},{"../ApiClient":8,"../model/PasswordReset":121,"../model/PasswordResetRequest":122}],26:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -11550,7 +12084,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * Payment service.
    * @module api/Payments
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -11566,17 +12100,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Payment} payment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Create = function(buyerID, orderID, payment) {
+    this.Create = function(direction, orderID, payment) {
       var postBody = payment;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Create");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11591,7 +12125,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
@@ -11607,7 +12141,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments', 'POST',
+        '/orders/{direction}/{orderID}/payments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11615,18 +12149,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @param {module:model/PaymentTransaction} transaction 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.CreateTransaction = function(buyerID, orderID, paymentID, transaction) {
+    this.CreateTransaction = function(direction, orderID, paymentID, transaction) {
       var postBody = transaction;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling CreateTransaction");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling CreateTransaction");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11646,7 +12180,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -11663,7 +12197,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions', 'POST',
+        '/orders/{direction}/{orderID}/payments/{paymentID}/transactions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11671,17 +12205,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, orderID, paymentID) {
+    this.Delete = function(direction, orderID, paymentID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Delete");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11696,7 +12230,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -11713,7 +12247,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'DELETE',
+        '/orders/{direction}/{orderID}/payments/{paymentID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11721,18 +12255,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @param {String} transactionID ID of the transaction.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteTransaction = function(buyerID, orderID, paymentID, transactionID) {
+    this.DeleteTransaction = function(direction, orderID, paymentID, transactionID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteTransaction");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling DeleteTransaction");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11752,7 +12286,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID,
         'transactionID': transactionID
@@ -11770,7 +12304,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'DELETE',
+        '/orders/{direction}/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11778,17 +12312,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Get = function(buyerID, orderID, paymentID) {
+    this.Get = function(direction, orderID, paymentID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Get");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11803,7 +12337,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -11820,7 +12354,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'GET',
+        '/orders/{direction}/{orderID}/payments/{paymentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11828,24 +12362,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the payment.
+     * @param {Array.<String>} opts.searchOn Search on of the payment.
+     * @param {Array.<String>} opts.sortBy Sort by of the payment.
+     * @param {Number} opts.page Page of the payment.
+     * @param {Number} opts.pageSize Page size of the payment.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPayment}
      */
-    this.List = function(buyerID, orderID, opts) {
+    this.List = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling List");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11855,13 +12389,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -11877,7 +12411,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListPayment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments', 'GET',
+        '/orders/{direction}/{orderID}/payments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -11885,18 +12419,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} direction Direction of the payment. Possible values: Incoming, Outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
      * @param {module:model/Payment} partialPayment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Patch = function(buyerID, orderID, paymentID, partialPayment) {
+    this.Patch = function(direction, orderID, paymentID, partialPayment) {
       var postBody = partialPayment;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Patch");
       }
 
       // verify the required parameter 'orderID' is set
@@ -11916,7 +12450,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
+        'direction': direction,
         'orderID': orderID,
         'paymentID': paymentID
       };
@@ -11933,189 +12467,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Payment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} orderID ID of the order.
-     * @param {String} paymentID ID of the payment.
-     * @param {String} transactionID ID of the transaction.
-     * @param {module:model/PaymentTransaction} partialTransaction 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
-     */
-    this.PatchTransaction = function(buyerID, orderID, paymentID, transactionID, partialTransaction) {
-      var postBody = partialTransaction;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'paymentID' is set
-      if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'transactionID' is set
-      if (transactionID == undefined || transactionID == null) {
-        throw new Error("Missing the required parameter 'transactionID' when calling PatchTransaction");
-      }
-
-      // verify the required parameter 'partialTransaction' is set
-      if (partialTransaction == undefined || partialTransaction == null) {
-        throw new Error("Missing the required parameter 'partialTransaction' when calling PatchTransaction");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'orderID': orderID,
-        'paymentID': paymentID,
-        'transactionID': transactionID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Payment;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'PATCH',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} orderID ID of the order.
-     * @param {String} paymentID ID of the payment.
-     * @param {module:model/Payment} payment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
-     */
-    this.Update = function(buyerID, orderID, paymentID, payment) {
-      var postBody = payment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Update");
-      }
-
-      // verify the required parameter 'paymentID' is set
-      if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling Update");
-      }
-
-      // verify the required parameter 'payment' is set
-      if (payment == undefined || payment == null) {
-        throw new Error("Missing the required parameter 'payment' when calling Update");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'orderID': orderID,
-        'paymentID': paymentID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Payment;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {String} orderID ID of the order.
-     * @param {String} paymentID ID of the payment.
-     * @param {String} transactionID ID of the transaction.
-     * @param {module:model/PaymentTransaction} transaction 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
-     */
-    this.UpdateTransaction = function(buyerID, orderID, paymentID, transactionID, transaction) {
-      var postBody = transaction;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'paymentID' is set
-      if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'transactionID' is set
-      if (transactionID == undefined || transactionID == null) {
-        throw new Error("Missing the required parameter 'transactionID' when calling UpdateTransaction");
-      }
-
-      // verify the required parameter 'transaction' is set
-      if (transaction == undefined || transaction == null) {
-        throw new Error("Missing the required parameter 'transaction' when calling UpdateTransaction");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'orderID': orderID,
-        'paymentID': paymentID,
-        'transactionID': transactionID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Payment;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'PUT',
+        '/orders/{direction}/{orderID}/payments/{paymentID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -12125,7 +12477,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListPayment":88,"../model/Payment":116,"../model/PaymentTransaction":117}],27:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListPayment":91,"../model/Payment":123,"../model/PaymentTransaction":124}],27:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12159,7 +12511,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * PriceSchedule service.
    * @module api/PriceSchedules
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -12326,12 +12678,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the price schedule.
+     * @param {Array.<String>} opts.searchOn Search on of the price schedule.
+     * @param {Array.<String>} opts.sortBy Sort by of the price schedule.
+     * @param {Number} opts.page Page of the price schedule.
+     * @param {Number} opts.pageSize Page size of the price schedule.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPriceSchedule}
      */
     this.List = function(opts) {
@@ -12343,8 +12695,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -12496,7 +12848,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListPriceSchedule":89,"../model/PriceBreak":119,"../model/PriceSchedule":120}],28:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListPriceSchedule":92,"../model/PriceBreak":125,"../model/PriceSchedule":126}],28:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12513,24 +12865,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Inventory', 'model/ListInventory', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
+    define(['ApiClient', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Inventory'), require('../model/ListInventory'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
+    module.exports = factory(require('../ApiClient'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Products = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory, root.OrderCloud.ListInventory, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
+    root.OrderCloud.Products = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
   }
-}(this, function(ApiClient, Inventory, ListInventory, ListProduct, ListProductAssignment, ListVariant, Product, ProductAssignment, Variant) {
+}(this, function(ApiClient, ListProduct, ListProductAssignment, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
   'use strict';
 
   /**
    * Product service.
    * @module api/Products
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -12617,31 +12969,31 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} productID ID of the product.
+     * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, productID, opts) {
+    this.DeleteAssignment = function(productID, buyerID, opts) {
       opts = opts || {};
       var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
-      }
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
         throw new Error("Missing the required parameter 'productID' when calling DeleteAssignment");
       }
 
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
+      }
+
 
       var pathParams = {
-        'buyerID': buyerID,
-        'productID': productID
+        'productID': productID,
+        'buyerID': buyerID
       };
       var queryParams = {
         'userID': opts['userID'],
@@ -12743,42 +13095,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {String} productID ID of the product.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.GetInventory = function(productID) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling GetInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/inventory', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} productID ID of the product.
      * @param {String} variantID ID of the variant.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
@@ -12821,56 +13137,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} productID ID of the product.
-     * @param {String} variantID ID of the variant.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.GetVariantInventory = function(productID, variantID) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling GetVariantInventory");
-      }
-
-      // verify the required parameter 'variantID' is set
-      if (variantID == undefined || variantID == null) {
-        throw new Error("Missing the required parameter 'variantID' when calling GetVariantInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID,
-        'variantID': variantID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/variants/inventory/{variantID}', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.catalogID ID of the catalog.
+     * @param {String} opts.categoryID ID of the category.
+     * @param {String} opts.supplierID ID of the supplier.
+     * @param {String} opts.search Search of the product.
+     * @param {Array.<String>} opts.searchOn Search on of the product.
+     * @param {Array.<String>} opts.sortBy Sort by of the product.
+     * @param {Number} opts.page Page of the product.
+     * @param {Number} opts.pageSize Page size of the product.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
     this.List = function(opts) {
@@ -12881,9 +13157,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var pathParams = {
       };
       var queryParams = {
+        'catalogID': opts['catalogID'],
+        'categoryID': opts['categoryID'],
+        'supplierID': opts['supplierID'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -12909,13 +13188,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.productID ID of the product.
+     * @param {String} opts.priceScheduleID ID of the price schedule.
      * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the product.
-     * @param {String} opts.priceScheduleID ID of the price schedule.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the product.
+     * @param {Number} opts.pageSize Page size of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -12927,11 +13206,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'productID': opts['productID'],
+        'priceScheduleID': opts['priceScheduleID'],
         'buyerID': opts['buyerID'],
         'userID': opts['userID'],
         'userGroupID': opts['userGroupID'],
         'level': opts['level'],
-        'priceScheduleID': opts['priceScheduleID'],
         'page': opts['page'],
         'pageSize': opts['pageSize']
       };
@@ -12954,66 +13233,23 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
-     */
-    this.ListInventory = function(opts) {
-      opts = opts || {};
-      var postBody = null;
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-        'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
-        'page': opts['page'],
-        'pageSize': opts['pageSize'],
-        'filters': opts['filters']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ListInventory;
-
-      return this.apiClient.callApi(
-        '/products/inventory', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListInventory}
+     * @param {String} opts.search Search of the product.
+     * @param {Array.<String>} opts.searchOn Search on of the product.
+     * @param {Array.<String>} opts.sortBy Sort by of the product.
+     * @param {Number} opts.page Page of the product.
+     * @param {Number} opts.pageSize Page size of the product.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
-    this.ListVariantInventory = function(productID, opts) {
+    this.ListSuppliers = function(productID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling ListVariantInventory");
+        throw new Error("Missing the required parameter 'productID' when calling ListSuppliers");
       }
 
 
@@ -13022,8 +13258,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -13036,10 +13272,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = ListInventory;
+      var returnType = ListSupplier;
 
       return this.apiClient.callApi(
-        '/products/{productID}/variants/inventory', 'GET',
+        '/products/{productID}/suppliers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -13049,12 +13285,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the product.
+     * @param {Array.<String>} opts.searchOn Search on of the product.
+     * @param {Array.<String>} opts.sortBy Sort by of the product.
+     * @param {Number} opts.page Page of the product.
+     * @param {Number} opts.pageSize Page size of the product.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListVariant}
      */
     this.ListVariants = function(productID, opts) {
@@ -13072,8 +13308,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -13188,6 +13424,49 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
+     * @param {String} productID ID of the product.
+     * @param {String} supplierID ID of the supplier.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.RemoveSupplier = function(productID, supplierID) {
+      var postBody = null;
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling RemoveSupplier");
+      }
+
+      // verify the required parameter 'supplierID' is set
+      if (supplierID == undefined || supplierID == null) {
+        throw new Error("Missing the required parameter 'supplierID' when calling RemoveSupplier");
+      }
+
+
+      var pathParams = {
+        'productID': productID,
+        'supplierID': supplierID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/products/{productID}/suppliers/{supplierID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {module:model/ProductAssignment} productAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -13216,6 +13495,49 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.apiClient.callApi(
         '/products/assignments', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} productID ID of the product.
+     * @param {String} supplierID ID of the supplier.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.SaveSupplier = function(productID, supplierID) {
+      var postBody = null;
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling SaveSupplier");
+      }
+
+      // verify the required parameter 'supplierID' is set
+      if (supplierID == undefined || supplierID == null) {
+        throw new Error("Missing the required parameter 'supplierID' when calling SaveSupplier");
+      }
+
+
+      var pathParams = {
+        'productID': productID,
+        'supplierID': supplierID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/products/{productID}/suppliers/{supplierID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -13258,49 +13580,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.apiClient.callApi(
         '/products/{productID}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} productID ID of the product.
-     * @param {Number} inventory Inventory of the product.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.UpdateInventory = function(productID, inventory) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling UpdateInventory");
-      }
-
-      // verify the required parameter 'inventory' is set
-      if (inventory == undefined || inventory == null) {
-        throw new Error("Missing the required parameter 'inventory' when calling UpdateInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID,
-        'inventory': inventory
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/inventory/{inventory}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -13354,62 +13633,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         authNames, contentTypes, accepts, returnType
       );
     }
-
-
-    /**
-     * @param {String} productID ID of the product.
-     * @param {String} variantID ID of the variant.
-     * @param {Number} inventory Inventory of the product.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Inventory}
-     */
-    this.UpdateVariantInventory = function(productID, variantID, inventory) {
-      var postBody = null;
-
-      // verify the required parameter 'productID' is set
-      if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling UpdateVariantInventory");
-      }
-
-      // verify the required parameter 'variantID' is set
-      if (variantID == undefined || variantID == null) {
-        throw new Error("Missing the required parameter 'variantID' when calling UpdateVariantInventory");
-      }
-
-      // verify the required parameter 'inventory' is set
-      if (inventory == undefined || inventory == null) {
-        throw new Error("Missing the required parameter 'inventory' when calling UpdateVariantInventory");
-      }
-
-
-      var pathParams = {
-        'productID': productID,
-        'variantID': variantID,
-        'inventory': inventory
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Inventory;
-
-      return this.apiClient.callApi(
-        '/products/{productID}/variants/inventory/{variantID}/{inventory}', 'PUT',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
   };
 
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/Inventory":58,"../model/ListInventory":80,"../model/ListProduct":90,"../model/ListProductAssignment":91,"../model/ListVariant":105,"../model/Product":121,"../model/ProductAssignment":122,"../model/Variant":138}],29:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListProduct":93,"../model/ListProductAssignment":94,"../model/ListSupplier":107,"../model/ListVariant":111,"../model/Product":127,"../model/ProductAssignment":128,"../model/Variant":147}],29:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -13443,7 +13672,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * Promotion service.
    * @module api/Promotions
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -13616,12 +13845,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the promotion.
+     * @param {Array.<String>} opts.searchOn Search on of the promotion.
+     * @param {Array.<String>} opts.sortBy Sort by of the promotion.
+     * @param {Number} opts.page Page of the promotion.
+     * @param {Number} opts.pageSize Page size of the promotion.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
     this.List = function(opts) {
@@ -13633,8 +13862,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -13664,8 +13893,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the promotion.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the promotion.
+     * @param {Number} opts.pageSize Page size of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotionAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -13824,7 +14053,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListPromotion":92,"../model/ListPromotionAssignment":93,"../model/Promotion":123,"../model/PromotionAssignment":124}],30:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListPromotion":96,"../model/ListPromotionAssignment":97,"../model/Promotion":131,"../model/PromotionAssignment":132}],30:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -13858,7 +14087,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * SecurityProfile service.
    * @module api/SecurityProfiles
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -13955,12 +14184,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the security profile.
+     * @param {Array.<String>} opts.searchOn Search on of the security profile.
+     * @param {Array.<String>} opts.sortBy Sort by of the security profile.
+     * @param {Number} opts.page Page of the security profile.
+     * @param {Number} opts.pageSize Page size of the security profile.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the security profile.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfile}
      */
     this.List = function(opts) {
@@ -13972,8 +14201,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -13999,12 +14228,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.buyerID ID of the buyer.
+     * @param {String} opts.supplierID ID of the supplier.
      * @param {String} opts.securityProfileID ID of the security profile.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
+     * @param {String} opts.commerceRole Commerce role of the security profile.
      * @param {String} opts.level Level of the security profile.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the security profile.
+     * @param {Number} opts.pageSize Page size of the security profile.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfileAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -14016,9 +14247,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'buyerID': opts['buyerID'],
+        'supplierID': opts['supplierID'],
         'securityProfileID': opts['securityProfileID'],
         'userID': opts['userID'],
         'userGroupID': opts['userGroupID'],
+        'commerceRole': opts['commerceRole'],
         'level': opts['level'],
         'page': opts['page'],
         'pageSize': opts['pageSize']
@@ -14079,7 +14312,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListSecurityProfile":94,"../model/ListSecurityProfileAssignment":95,"../model/SecurityProfile":125,"../model/SecurityProfileAssignment":126}],31:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListSecurityProfile":98,"../model/ListSecurityProfileAssignment":99,"../model/SecurityProfile":133,"../model/SecurityProfileAssignment":134}],31:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14096,24 +14329,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListShipment', 'model/Shipment', 'model/ShipmentItem'], factory);
+    define(['ApiClient', 'model/ListShipment', 'model/ListShipmentItem', 'model/Shipment', 'model/ShipmentItem'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListShipment'), require('../model/Shipment'), require('../model/ShipmentItem'));
+    module.exports = factory(require('../ApiClient'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/Shipment'), require('../model/ShipmentItem'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Shipments = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListShipment, root.OrderCloud.Shipment, root.OrderCloud.ShipmentItem);
+    root.OrderCloud.Shipments = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.Shipment, root.OrderCloud.ShipmentItem);
   }
-}(this, function(ApiClient, ListShipment, Shipment, ShipmentItem) {
+}(this, function(ApiClient, ListShipment, ListShipmentItem, Shipment, ShipmentItem) {
   'use strict';
 
   /**
    * Shipment service.
    * @module api/Shipments
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -14129,17 +14362,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Create = function(buyerID, shipment) {
+    this.Create = function(shipment) {
       var postBody = shipment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
-      }
 
       // verify the required parameter 'shipment' is set
       if (shipment == undefined || shipment == null) {
@@ -14148,7 +14375,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID
       };
       var queryParams = {
       };
@@ -14163,7 +14389,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Shipment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments', 'POST',
+        '/shipments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14171,17 +14397,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, shipmentID) {
+    this.Delete = function(shipmentID) {
       var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
-      }
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
@@ -14190,7 +14410,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
         'shipmentID': shipmentID
       };
       var queryParams = {
@@ -14206,7 +14425,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments/{shipmentID}', 'DELETE',
+        '/shipments/{shipmentID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14214,19 +14433,13 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} shipmentID ID of the shipment.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteItem = function(buyerID, shipmentID, orderID, lineItemID) {
+    this.DeleteItem = function(shipmentID, orderID, lineItemID) {
       var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteItem");
-      }
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
@@ -14245,7 +14458,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
         'shipmentID': shipmentID,
         'orderID': orderID,
         'lineItemID': lineItemID
@@ -14260,10 +14472,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = Shipment;
+      var returnType = null;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'DELETE',
+        '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14271,17 +14483,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Get = function(buyerID, shipmentID) {
+    this.Get = function(shipmentID) {
       var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
-      }
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
@@ -14290,7 +14496,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
         'shipmentID': shipmentID
       };
       var queryParams = {
@@ -14306,7 +14511,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Shipment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments/{shipmentID}', 'GET',
+        '/shipments/{shipmentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14314,35 +14519,78 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.orderID ID of the order.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
+     * @param {String} shipmentID ID of the shipment.
+     * @param {String} orderID ID of the order.
+     * @param {String} lineItemID ID of the line item.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.List = function(buyerID, opts) {
-      opts = opts || {};
+    this.GetItem = function(shipmentID, orderID, lineItemID) {
       var postBody = null;
 
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+      // verify the required parameter 'shipmentID' is set
+      if (shipmentID == undefined || shipmentID == null) {
+        throw new Error("Missing the required parameter 'shipmentID' when calling GetItem");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling GetItem");
+      }
+
+      // verify the required parameter 'lineItemID' is set
+      if (lineItemID == undefined || lineItemID == null) {
+        throw new Error("Missing the required parameter 'lineItemID' when calling GetItem");
       }
 
 
       var pathParams = {
-        'buyerID': buyerID
+        'shipmentID': shipmentID,
+        'orderID': orderID,
+        'lineItemID': lineItemID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ShipmentItem;
+
+      return this.apiClient.callApi(
+        '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.orderID ID of the order.
+     * @param {String} opts.search Search of the shipment.
+     * @param {Array.<String>} opts.searchOn Search on of the shipment.
+     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
+     * @param {Number} opts.page Page of the shipment.
+     * @param {Number} opts.pageSize Page size of the shipment.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
+     */
+    this.List = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
       };
       var queryParams = {
         'orderID': opts['orderID'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -14358,7 +14606,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = ListShipment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments', 'GET',
+        '/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14366,18 +14614,62 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
+     * @param {String} shipmentID ID of the shipment.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Search of the shipment.
+     * @param {Array.<String>} opts.searchOn Search on of the shipment.
+     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
+     * @param {Number} opts.page Page of the shipment.
+     * @param {Number} opts.pageSize Page size of the shipment.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
+     */
+    this.ListItems = function(shipmentID, opts) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'shipmentID' is set
+      if (shipmentID == undefined || shipmentID == null) {
+        throw new Error("Missing the required parameter 'shipmentID' when calling ListItems");
+      }
+
+
+      var pathParams = {
+        'shipmentID': shipmentID
+      };
+      var queryParams = {
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListShipmentItem;
+
+      return this.apiClient.callApi(
+        '/shipments/{shipmentID}/items', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} shipmentID ID of the shipment.
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Patch = function(buyerID, shipmentID, shipment) {
+    this.Patch = function(shipmentID, shipment) {
       var postBody = shipment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
-      }
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
@@ -14391,7 +14683,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
         'shipmentID': shipmentID
       };
       var queryParams = {
@@ -14407,7 +14698,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Shipment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments/{shipmentID}', 'PATCH',
+        '/shipments/{shipmentID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14415,18 +14706,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} shipmentID ID of the shipment.
      * @param {module:model/ShipmentItem} item 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.SaveItem = function(buyerID, shipmentID, item) {
+    this.SaveItem = function(shipmentID, item) {
       var postBody = item;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SaveItem");
-      }
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
@@ -14440,7 +14725,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
         'shipmentID': shipmentID
       };
       var queryParams = {
@@ -14453,10 +14737,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = Shipment;
+      var returnType = ShipmentItem;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments/{shipmentID}/items', 'POST',
+        '/shipments/{shipmentID}/items', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14464,18 +14748,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} shipmentID ID of the shipment.
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Update = function(buyerID, shipmentID, shipment) {
+    this.Update = function(shipmentID, shipment) {
       var postBody = shipment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
-      }
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
@@ -14489,7 +14767,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
       var pathParams = {
-        'buyerID': buyerID,
         'shipmentID': shipmentID
       };
       var queryParams = {
@@ -14505,7 +14782,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var returnType = Shipment;
 
       return this.apiClient.callApi(
-        '/buyers/{buyerID}/shipments/{shipmentID}', 'PUT',
+        '/shipments/{shipmentID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -14515,7 +14792,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListShipment":96,"../model/Shipment":127,"../model/ShipmentItem":128}],32:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListShipment":100,"../model/ListShipmentItem":101,"../model/Shipment":135,"../model/ShipmentItem":136}],32:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14549,7 +14826,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * Spec service.
    * @module api/Specs
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -14844,12 +15121,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the spec.
+     * @param {Array.<String>} opts.searchOn Search on of the spec.
+     * @param {Array.<String>} opts.sortBy Sort by of the spec.
+     * @param {Number} opts.page Page of the spec.
+     * @param {Number} opts.pageSize Page size of the spec.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
     this.List = function(opts) {
@@ -14861,8 +15138,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -14888,12 +15165,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} specID ID of the spec.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the spec.
+     * @param {Array.<String>} opts.searchOn Search on of the spec.
+     * @param {Array.<String>} opts.sortBy Sort by of the spec.
+     * @param {Number} opts.page Page of the spec.
+     * @param {Number} opts.pageSize Page size of the spec.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecOption}
      */
     this.ListOptions = function(specID, opts) {
@@ -14911,8 +15188,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -14937,10 +15214,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.specID ID of the spec.
-     * @param {String} opts.productID ID of the product.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {String} opts.search Search of the spec.
+     * @param {Array.<String>} opts.searchOn Search on of the spec.
+     * @param {Array.<String>} opts.sortBy Sort by of the spec.
+     * @param {Number} opts.page Page of the spec.
+     * @param {Number} opts.pageSize Page size of the spec.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecProductAssignment}
      */
     this.ListProductAssignments = function(opts) {
@@ -14951,10 +15230,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var pathParams = {
       };
       var queryParams = {
-        'specID': opts['specID'],
-        'productID': opts['productID'],
+        'search': opts['search'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
-        'pageSize': opts['pageSize']
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
       };
       var headerParams = {
       };
@@ -15194,7 +15475,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListSpec":97,"../model/ListSpecOption":98,"../model/ListSpecProductAssignment":99,"../model/Spec":129,"../model/SpecOption":130,"../model/SpecProductAssignment":131}],33:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListSpec":102,"../model/ListSpecOption":103,"../model/ListSpecProductAssignment":104,"../model/Spec":137,"../model/SpecOption":138,"../model/SpecProductAssignment":139}],33:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15228,7 +15509,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * SpendingAccount service.
    * @module api/SpendingAccounts
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -15423,12 +15704,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the spending account.
+     * @param {Array.<String>} opts.searchOn Search on of the spending account.
+     * @param {Array.<String>} opts.sortBy Sort by of the spending account.
+     * @param {Number} opts.page Page of the spending account.
+     * @param {Number} opts.pageSize Page size of the spending account.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
     this.List = function(buyerID, opts) {
@@ -15446,8 +15727,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -15477,8 +15758,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the spending account.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the spending account.
+     * @param {Number} opts.pageSize Page size of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccountAssignment}
      */
     this.ListAssignments = function(buyerID, opts) {
@@ -15663,7 +15944,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListSpendingAccount":100,"../model/ListSpendingAccountAssignment":101,"../model/SpendingAccount":132,"../model/SpendingAccountAssignment":133}],34:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListSpendingAccount":105,"../model/ListSpendingAccountAssignment":106,"../model/SpendingAccount":140,"../model/SpendingAccountAssignment":141}],34:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15697,7 +15978,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * UserGroup service.
    * @module api/UserGroups
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -15893,12 +16174,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the user group.
+     * @param {Array.<String>} opts.searchOn Search on of the user group.
+     * @param {Array.<String>} opts.sortBy Sort by of the user group.
+     * @param {Number} opts.page Page of the user group.
+     * @param {Number} opts.pageSize Page size of the user group.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.List = function(buyerID, opts) {
@@ -15916,8 +16197,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -15945,8 +16226,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.userID ID of the user.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the user group.
+     * @param {Number} opts.pageSize Page size of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
     this.ListUserAssignments = function(buyerID, opts) {
@@ -16129,7 +16410,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/ListUserGroup":103,"../model/ListUserGroupAssignment":104,"../model/UserGroup":136,"../model/UserGroupAssignment":137}],35:[function(require,module,exports){
+},{"../ApiClient":8,"../model/ListUserGroup":109,"../model/ListUserGroupAssignment":110,"../model/UserGroup":145,"../model/UserGroupAssignment":146}],35:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16163,7 +16444,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * User service.
    * @module api/Users
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -16359,12 +16640,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the user.
+     * @param {Array.<String>} opts.searchOn Search on of the user.
+     * @param {Array.<String>} opts.sortBy Sort by of the user.
+     * @param {Number} opts.page Page of the user.
+     * @param {Number} opts.pageSize Page size of the user.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.List = function(buyerID, opts) {
@@ -16383,8 +16664,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var queryParams = {
         'userGroupID': opts['userGroupID'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -16508,7 +16789,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../ApiClient":9,"../model/AccessToken":37,"../model/ImpersonateTokenRequest":57,"../model/ListUser":102,"../model/User":135}],36:[function(require,module,exports){
+},{"../ApiClient":8,"../model/AccessToken":37,"../model/ImpersonateTokenRequest":57,"../model/ListUser":108,"../model/User":144}],36:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16525,12 +16806,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/AdminCompany', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListAdminCompany', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListInventory', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListXpIndex', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PingResponse', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/StripeCreditCard', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categories', 'api/CostCenters', 'api/CreditCards', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
+    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/ImpersonationConfig', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListApprovalRule', 'model/ListArgs', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListImpersonationConfig', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageConfig', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListProductCatalogAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListSupplier', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/MessageCCListenerAssignment', 'model/MessageConfig', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/ProductBase', 'model/ProductCatalogAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/Supplier', 'model/TokenPasswordReset', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categories', 'api/CostCenters', 'api/CreditCards', 'api/ImpersonationConfigs', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/AdminCompany'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListAdminCompany'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListInventory'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListXpIndex'), require('./model/MessageCCListenerAssignment'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PingResponse'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/StripeCreditCard'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categories'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerShipment'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/ImpersonationConfig'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListApprovalRule'), require('./model/ListArgs'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerShipment'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListImpersonationConfig'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageConfig'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListProductCatalogAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListShipmentItem'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListSupplier'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/MessageCCListenerAssignment'), require('./model/MessageConfig'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderApprovalInfo'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/ProductBase'), require('./model/ProductCatalogAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/Supplier'), require('./model/TokenPasswordReset'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categories'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/ImpersonationConfigs'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
   }
-}(function(ApiClient, AccessToken, Address, AddressAssignment, AdminCompany, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListAdminCompany, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListInventory, ListLineItem, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListXpIndex, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PingResponse, PriceBreak, PriceSchedule, Product, ProductAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, StripeCreditCard, User, UserGroup, UserGroupAssignment, Variant, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categories, CostCenters, CreditCards, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Users, UserGroups, Auth) {
+}(function(ApiClient, AccessToken, Address, AddressAssignment, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, ImpersonationConfig, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListApprovalRule, ListArgs, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListImpersonationConfig, ListLineItem, ListMessageCCListenerAssignment, ListMessageConfig, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListProductCatalogAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListShipmentItem, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListSupplier, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, MessageCCListenerAssignment, MessageConfig, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderApprovalInfo, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PriceBreak, PriceSchedule, Product, ProductAssignment, ProductBase, ProductCatalogAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, Supplier, TokenPasswordReset, User, UserGroup, UserGroupAssignment, Variant, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categories, CostCenters, CreditCards, ImpersonationConfigs, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Users, UserGroups, Auth) {
   'use strict';
 
   /**
@@ -16562,7 +16843,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * </pre>
    * </p>
    * @module index
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
   var exports = {
     /**
@@ -16599,11 +16880,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     AddressAssignment: AddressAssignment,
     /**
-     * The AdminCompany model constructor.
-     * @property {module:model/AdminCompany}
-     */
-    AdminCompany: AdminCompany,
-    /**
      * The ApprovalRule model constructor.
      * @property {module:model/ApprovalRule}
      */
@@ -16633,6 +16909,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/BuyerProduct}
      */
     BuyerProduct: BuyerProduct,
+    /**
+     * The BuyerShipment model constructor.
+     * @property {module:model/BuyerShipment}
+     */
+    BuyerShipment: BuyerShipment,
     /**
      * The BuyerSpec model constructor.
      * @property {module:model/BuyerSpec}
@@ -16689,6 +16970,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     ImpersonateTokenRequest: ImpersonateTokenRequest,
     /**
+     * The ImpersonationConfig model constructor.
+     * @property {module:model/ImpersonationConfig}
+     */
+    ImpersonationConfig: ImpersonationConfig,
+    /**
      * The Inventory model constructor.
      * @property {module:model/Inventory}
      */
@@ -16719,15 +17005,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     ListAddressAssignment: ListAddressAssignment,
     /**
-     * The ListAdminCompany model constructor.
-     * @property {module:model/ListAdminCompany}
-     */
-    ListAdminCompany: ListAdminCompany,
-    /**
      * The ListApprovalRule model constructor.
      * @property {module:model/ListApprovalRule}
      */
     ListApprovalRule: ListApprovalRule,
+    /**
+     * The ListArgs model constructor.
+     * @property {module:model/ListArgs}
+     */
+    ListArgs: ListArgs,
     /**
      * The ListBuyer model constructor.
      * @property {module:model/ListBuyer}
@@ -16748,6 +17034,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/ListBuyerProduct}
      */
     ListBuyerProduct: ListBuyerProduct,
+    /**
+     * The ListBuyerShipment model constructor.
+     * @property {module:model/ListBuyerShipment}
+     */
+    ListBuyerShipment: ListBuyerShipment,
     /**
      * The ListBuyerSpec model constructor.
      * @property {module:model/ListBuyerSpec}
@@ -16799,10 +17090,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     ListCreditCardAssignment: ListCreditCardAssignment,
     /**
-     * The ListInventory model constructor.
-     * @property {module:model/ListInventory}
+     * The ListImpersonationConfig model constructor.
+     * @property {module:model/ListImpersonationConfig}
      */
-    ListInventory: ListInventory,
+    ListImpersonationConfig: ListImpersonationConfig,
     /**
      * The ListLineItem model constructor.
      * @property {module:model/ListLineItem}
@@ -16813,6 +17104,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/ListMessageCCListenerAssignment}
      */
     ListMessageCCListenerAssignment: ListMessageCCListenerAssignment,
+    /**
+     * The ListMessageConfig model constructor.
+     * @property {module:model/ListMessageConfig}
+     */
+    ListMessageConfig: ListMessageConfig,
     /**
      * The ListMessageSender model constructor.
      * @property {module:model/ListMessageSender}
@@ -16859,6 +17155,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     ListProductAssignment: ListProductAssignment,
     /**
+     * The ListProductCatalogAssignment model constructor.
+     * @property {module:model/ListProductCatalogAssignment}
+     */
+    ListProductCatalogAssignment: ListProductCatalogAssignment,
+    /**
      * The ListPromotion model constructor.
      * @property {module:model/ListPromotion}
      */
@@ -16883,6 +17184,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/ListShipment}
      */
     ListShipment: ListShipment,
+    /**
+     * The ListShipmentItem model constructor.
+     * @property {module:model/ListShipmentItem}
+     */
+    ListShipmentItem: ListShipmentItem,
     /**
      * The ListSpec model constructor.
      * @property {module:model/ListSpec}
@@ -16909,6 +17215,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     ListSpendingAccountAssignment: ListSpendingAccountAssignment,
     /**
+     * The ListSupplier model constructor.
+     * @property {module:model/ListSupplier}
+     */
+    ListSupplier: ListSupplier,
+    /**
      * The ListUser model constructor.
      * @property {module:model/ListUser}
      */
@@ -16929,15 +17240,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     ListVariant: ListVariant,
     /**
-     * The ListXpIndex model constructor.
-     * @property {module:model/ListXpIndex}
-     */
-    ListXpIndex: ListXpIndex,
-    /**
      * The MessageCCListenerAssignment model constructor.
      * @property {module:model/MessageCCListenerAssignment}
      */
     MessageCCListenerAssignment: MessageCCListenerAssignment,
+    /**
+     * The MessageConfig model constructor.
+     * @property {module:model/MessageConfig}
+     */
+    MessageConfig: MessageConfig,
     /**
      * The MessageSender model constructor.
      * @property {module:model/MessageSender}
@@ -16964,6 +17275,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     OrderApproval: OrderApproval,
     /**
+     * The OrderApprovalInfo model constructor.
+     * @property {module:model/OrderApprovalInfo}
+     */
+    OrderApprovalInfo: OrderApprovalInfo,
+    /**
      * The OrderPromotion model constructor.
      * @property {module:model/OrderPromotion}
      */
@@ -16989,11 +17305,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     PaymentTransaction: PaymentTransaction,
     /**
-     * The PingResponse model constructor.
-     * @property {module:model/PingResponse}
-     */
-    PingResponse: PingResponse,
-    /**
      * The PriceBreak model constructor.
      * @property {module:model/PriceBreak}
      */
@@ -17013,6 +17324,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/ProductAssignment}
      */
     ProductAssignment: ProductAssignment,
+    /**
+     * The ProductBase model constructor.
+     * @property {module:model/ProductBase}
+     */
+    ProductBase: ProductBase,
+    /**
+     * The ProductCatalogAssignment model constructor.
+     * @property {module:model/ProductCatalogAssignment}
+     */
+    ProductCatalogAssignment: ProductCatalogAssignment,
     /**
      * The Promotion model constructor.
      * @property {module:model/Promotion}
@@ -17069,10 +17390,15 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     SpendingAccountAssignment: SpendingAccountAssignment,
     /**
-     * The StripeCreditCard model constructor.
-     * @property {module:model/StripeCreditCard}
+     * The Supplier model constructor.
+     * @property {module:model/Supplier}
      */
-    StripeCreditCard: StripeCreditCard,
+    Supplier: Supplier,
+    /**
+     * The TokenPasswordReset model constructor.
+     * @property {module:model/TokenPasswordReset}
+     */
+    TokenPasswordReset: TokenPasswordReset,
     /**
      * The User model constructor.
      * @property {module:model/User}
@@ -17093,11 +17419,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/Variant}
      */
     Variant: Variant,
-    /**
-     * The XpIndex model constructor.
-     * @property {module:model/XpIndex}
-     */
-    XpIndex: XpIndex,
     /**
      * The Addresses service.
      * @property {module:api/Addresses}
@@ -17148,6 +17469,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:api/CreditCards}
      */
     CreditCards: new CreditCards(),
+    /**
+     * The ImpersonationConfigs service.
+     * @property {module:api/ImpersonationConfigs}
+     */
+    ImpersonationConfigs: new ImpersonationConfigs(),
     /**
      * The LineItems service.
      * @property {module:api/LineItems}
@@ -17228,7 +17554,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"./ApiClient":9,"./api/Addresses":10,"./api/AdminAddresses":11,"./api/AdminUserGroups":12,"./api/AdminUsers":13,"./api/ApprovalRules":14,"./api/Auth":15,"./api/Buyers":16,"./api/Catalogs":17,"./api/Categories":18,"./api/CostCenters":19,"./api/CreditCards":20,"./api/LineItems":21,"./api/Me":22,"./api/MessageSenders":23,"./api/Orders":24,"./api/PasswordResets":25,"./api/Payments":26,"./api/PriceSchedules":27,"./api/Products":28,"./api/Promotions":29,"./api/SecurityProfiles":30,"./api/Shipments":31,"./api/Specs":32,"./api/SpendingAccounts":33,"./api/UserGroups":34,"./api/Users":35,"./model/AccessToken":37,"./model/Address":38,"./model/AddressAssignment":39,"./model/AdminCompany":40,"./model/ApprovalRule":41,"./model/BaseSpec":42,"./model/Buyer":43,"./model/BuyerAddress":44,"./model/BuyerCreditCard":45,"./model/BuyerProduct":46,"./model/BuyerSpec":47,"./model/Catalog":48,"./model/CatalogAssignment":49,"./model/Category":50,"./model/CategoryAssignment":51,"./model/CategoryProductAssignment":52,"./model/CostCenter":53,"./model/CostCenterAssignment":54,"./model/CreditCard":55,"./model/CreditCardAssignment":56,"./model/ImpersonateTokenRequest":57,"./model/Inventory":58,"./model/LineItem":59,"./model/LineItemProduct":60,"./model/LineItemSpec":61,"./model/ListAddress":62,"./model/ListAddressAssignment":63,"./model/ListAdminCompany":64,"./model/ListApprovalRule":65,"./model/ListBuyer":66,"./model/ListBuyerAddress":67,"./model/ListBuyerCreditCard":68,"./model/ListBuyerProduct":69,"./model/ListBuyerSpec":70,"./model/ListCatalog":71,"./model/ListCatalogAssignment":72,"./model/ListCategory":73,"./model/ListCategoryAssignment":74,"./model/ListCategoryProductAssignment":75,"./model/ListCostCenter":76,"./model/ListCostCenterAssignment":77,"./model/ListCreditCard":78,"./model/ListCreditCardAssignment":79,"./model/ListInventory":80,"./model/ListLineItem":81,"./model/ListMessageCCListenerAssignment":82,"./model/ListMessageSender":83,"./model/ListMessageSenderAssignment":84,"./model/ListOrder":85,"./model/ListOrderApproval":86,"./model/ListOrderPromotion":87,"./model/ListPayment":88,"./model/ListPriceSchedule":89,"./model/ListProduct":90,"./model/ListProductAssignment":91,"./model/ListPromotion":92,"./model/ListPromotionAssignment":93,"./model/ListSecurityProfile":94,"./model/ListSecurityProfileAssignment":95,"./model/ListShipment":96,"./model/ListSpec":97,"./model/ListSpecOption":98,"./model/ListSpecProductAssignment":99,"./model/ListSpendingAccount":100,"./model/ListSpendingAccountAssignment":101,"./model/ListUser":102,"./model/ListUserGroup":103,"./model/ListUserGroupAssignment":104,"./model/ListVariant":105,"./model/ListXpIndex":106,"./model/MessageCCListenerAssignment":107,"./model/MessageSender":108,"./model/MessageSenderAssignment":109,"./model/Meta":110,"./model/Order":111,"./model/OrderApproval":112,"./model/OrderPromotion":113,"./model/PasswordReset":114,"./model/PasswordResetRequest":115,"./model/Payment":116,"./model/PaymentTransaction":117,"./model/PingResponse":118,"./model/PriceBreak":119,"./model/PriceSchedule":120,"./model/Product":121,"./model/ProductAssignment":122,"./model/Promotion":123,"./model/PromotionAssignment":124,"./model/SecurityProfile":125,"./model/SecurityProfileAssignment":126,"./model/Shipment":127,"./model/ShipmentItem":128,"./model/Spec":129,"./model/SpecOption":130,"./model/SpecProductAssignment":131,"./model/SpendingAccount":132,"./model/SpendingAccountAssignment":133,"./model/StripeCreditCard":134,"./model/User":135,"./model/UserGroup":136,"./model/UserGroupAssignment":137,"./model/Variant":138,"./model/XpIndex":139}],37:[function(require,module,exports){
+},{"./ApiClient":8,"./api/Addresses":9,"./api/AdminAddresses":10,"./api/AdminUserGroups":11,"./api/AdminUsers":12,"./api/ApprovalRules":13,"./api/Auth":14,"./api/Buyers":15,"./api/Catalogs":16,"./api/Categories":17,"./api/CostCenters":18,"./api/CreditCards":19,"./api/ImpersonationConfigs":20,"./api/LineItems":21,"./api/Me":22,"./api/MessageSenders":23,"./api/Orders":24,"./api/PasswordResets":25,"./api/Payments":26,"./api/PriceSchedules":27,"./api/Products":28,"./api/Promotions":29,"./api/SecurityProfiles":30,"./api/Shipments":31,"./api/Specs":32,"./api/SpendingAccounts":33,"./api/UserGroups":34,"./api/Users":35,"./model/AccessToken":37,"./model/Address":38,"./model/AddressAssignment":39,"./model/ApprovalRule":40,"./model/BaseSpec":41,"./model/Buyer":42,"./model/BuyerAddress":43,"./model/BuyerCreditCard":44,"./model/BuyerProduct":45,"./model/BuyerShipment":46,"./model/BuyerSpec":47,"./model/Catalog":48,"./model/CatalogAssignment":49,"./model/Category":50,"./model/CategoryAssignment":51,"./model/CategoryProductAssignment":52,"./model/CostCenter":53,"./model/CostCenterAssignment":54,"./model/CreditCard":55,"./model/CreditCardAssignment":56,"./model/ImpersonateTokenRequest":57,"./model/ImpersonationConfig":58,"./model/Inventory":59,"./model/LineItem":60,"./model/LineItemProduct":61,"./model/LineItemSpec":62,"./model/ListAddress":63,"./model/ListAddressAssignment":64,"./model/ListApprovalRule":65,"./model/ListArgs":66,"./model/ListBuyer":67,"./model/ListBuyerAddress":68,"./model/ListBuyerCreditCard":69,"./model/ListBuyerProduct":70,"./model/ListBuyerShipment":71,"./model/ListBuyerSpec":72,"./model/ListCatalog":73,"./model/ListCatalogAssignment":74,"./model/ListCategory":75,"./model/ListCategoryAssignment":76,"./model/ListCategoryProductAssignment":77,"./model/ListCostCenter":78,"./model/ListCostCenterAssignment":79,"./model/ListCreditCard":80,"./model/ListCreditCardAssignment":81,"./model/ListImpersonationConfig":82,"./model/ListLineItem":83,"./model/ListMessageCCListenerAssignment":84,"./model/ListMessageConfig":85,"./model/ListMessageSender":86,"./model/ListMessageSenderAssignment":87,"./model/ListOrder":88,"./model/ListOrderApproval":89,"./model/ListOrderPromotion":90,"./model/ListPayment":91,"./model/ListPriceSchedule":92,"./model/ListProduct":93,"./model/ListProductAssignment":94,"./model/ListProductCatalogAssignment":95,"./model/ListPromotion":96,"./model/ListPromotionAssignment":97,"./model/ListSecurityProfile":98,"./model/ListSecurityProfileAssignment":99,"./model/ListShipment":100,"./model/ListShipmentItem":101,"./model/ListSpec":102,"./model/ListSpecOption":103,"./model/ListSpecProductAssignment":104,"./model/ListSpendingAccount":105,"./model/ListSpendingAccountAssignment":106,"./model/ListSupplier":107,"./model/ListUser":108,"./model/ListUserGroup":109,"./model/ListUserGroupAssignment":110,"./model/ListVariant":111,"./model/MessageCCListenerAssignment":112,"./model/MessageConfig":113,"./model/MessageSender":114,"./model/MessageSenderAssignment":115,"./model/Meta":116,"./model/Order":117,"./model/OrderApproval":118,"./model/OrderApprovalInfo":119,"./model/OrderPromotion":120,"./model/PasswordReset":121,"./model/PasswordResetRequest":122,"./model/Payment":123,"./model/PaymentTransaction":124,"./model/PriceBreak":125,"./model/PriceSchedule":126,"./model/Product":127,"./model/ProductAssignment":128,"./model/ProductBase":129,"./model/ProductCatalogAssignment":130,"./model/Promotion":131,"./model/PromotionAssignment":132,"./model/SecurityProfile":133,"./model/SecurityProfileAssignment":134,"./model/Shipment":135,"./model/ShipmentItem":136,"./model/Spec":137,"./model/SpecOption":138,"./model/SpecProductAssignment":139,"./model/SpendingAccount":140,"./model/SpendingAccountAssignment":141,"./model/Supplier":142,"./model/TokenPasswordReset":143,"./model/User":144,"./model/UserGroup":145,"./model/UserGroupAssignment":146,"./model/Variant":147}],37:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17265,7 +17591,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The AccessToken model module.
    * @module model/AccessToken
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -17333,7 +17659,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],38:[function(require,module,exports){
+},{"../ApiClient":8}],38:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17370,7 +17696,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Address model module.
    * @module model/Address
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -17510,7 +17836,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],39:[function(require,module,exports){
+},{"../ApiClient":8}],39:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17547,7 +17873,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The AddressAssignment model module.
    * @module model/AddressAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -17623,104 +17949,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],40:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.AdminCompany = factory(root.OrderCloud.ApiClient);
-  }
-}(this, function(ApiClient) {
-  'use strict';
-
-
-
-
-  /**
-   * The AdminCompany model module.
-   * @module model/AdminCompany
-   * @version v1.0.42-preview
-   */
-
-  /**
-   * Constructs a new <code>AdminCompany</code>.
-   * @alias module:model/AdminCompany
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-
-  };
-
-  /**
-   * Constructs a <code>AdminCompany</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/AdminCompany} obj Optional instance to populate.
-   * @return {module:model/AdminCompany} The populated <code>AdminCompany</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
-      }
-      if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
-      }
-      if (data.hasOwnProperty('OwnerDevID')) {
-        obj['OwnerDevID'] = ApiClient.convertToType(data['OwnerDevID'], 'Number');
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {String} Name
-   */
-  exports.prototype['Name'] = undefined;
-  /**
-   * @member {String} ID
-   */
-  exports.prototype['ID'] = undefined;
-  /**
-   * @member {Number} OwnerDevID
-   */
-  exports.prototype['OwnerDevID'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../ApiClient":9}],41:[function(require,module,exports){
+},{"../ApiClient":8}],40:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17757,7 +17986,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ApprovalRule model module.
    * @module model/ApprovalRule
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -17841,7 +18070,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],42:[function(require,module,exports){
+},{"../ApiClient":8}],41:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17878,7 +18107,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The BaseSpec model module.
    * @module model/BaseSpec
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -17986,7 +18215,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],43:[function(require,module,exports){
+},{"../ApiClient":8}],42:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18023,7 +18252,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Buyer model module.
    * @module model/Buyer
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -18099,7 +18328,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],44:[function(require,module,exports){
+},{"../ApiClient":8}],43:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18136,7 +18365,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The BuyerAddress model module.
    * @module model/BuyerAddress
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -18300,7 +18529,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],45:[function(require,module,exports){
+},{"../ApiClient":8}],44:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18337,7 +18566,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The BuyerCreditCard model module.
    * @module model/BuyerCreditCard
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -18445,7 +18674,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],46:[function(require,module,exports){
+},{"../ApiClient":8}],45:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18462,18 +18691,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/PriceSchedule'], factory);
+    define(['ApiClient', 'model/Inventory', 'model/PriceSchedule'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./PriceSchedule'));
+    module.exports = factory(require('../ApiClient'), require('./Inventory'), require('./PriceSchedule'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.BuyerProduct = factory(root.OrderCloud.ApiClient, root.OrderCloud.PriceSchedule);
+    root.OrderCloud.BuyerProduct = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory, root.OrderCloud.PriceSchedule);
   }
-}(this, function(ApiClient, PriceSchedule) {
+}(this, function(ApiClient, Inventory, PriceSchedule) {
   'use strict';
 
 
@@ -18482,7 +18711,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The BuyerProduct model module.
    * @module model/BuyerProduct
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -18492,11 +18721,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
-
-
-
-
 
 
 
@@ -18527,11 +18751,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('ReplenishmentPriceSchedule')) {
-        obj['ReplenishmentPriceSchedule'] = PriceSchedule.constructFromObject(data['ReplenishmentPriceSchedule']);
-      }
-      if (data.hasOwnProperty('StandardPriceSchedule')) {
-        obj['StandardPriceSchedule'] = PriceSchedule.constructFromObject(data['StandardPriceSchedule']);
+      if (data.hasOwnProperty('PriceSchedule')) {
+        obj['PriceSchedule'] = PriceSchedule.constructFromObject(data['PriceSchedule']);
       }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
@@ -18560,29 +18781,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Active')) {
         obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
       }
-      if (data.hasOwnProperty('Type')) {
-        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
-      }
-      if (data.hasOwnProperty('InventoryEnabled')) {
-        obj['InventoryEnabled'] = ApiClient.convertToType(data['InventoryEnabled'], 'Boolean');
-      }
-      if (data.hasOwnProperty('InventoryNotificationPoint')) {
-        obj['InventoryNotificationPoint'] = ApiClient.convertToType(data['InventoryNotificationPoint'], 'Number');
-      }
-      if (data.hasOwnProperty('VariantLevelInventory')) {
-        obj['VariantLevelInventory'] = ApiClient.convertToType(data['VariantLevelInventory'], 'Boolean');
-      }
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = ApiClient.convertToType(data['SpecCount'], 'Number');
       }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
-      }
-      if (data.hasOwnProperty('AllowOrderExceedInventory')) {
-        obj['AllowOrderExceedInventory'] = ApiClient.convertToType(data['AllowOrderExceedInventory'], 'Boolean');
-      }
-      if (data.hasOwnProperty('InventoryVisible')) {
-        obj['InventoryVisible'] = ApiClient.convertToType(data['InventoryVisible'], 'Boolean');
       }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = ApiClient.convertToType(data['VariantCount'], 'Number');
@@ -18590,18 +18793,20 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('ShipFromAddressID')) {
         obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
       }
+      if (data.hasOwnProperty('Inventory')) {
+        obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
+      }
+      if (data.hasOwnProperty('AutoForwardSupplierID')) {
+        obj['AutoForwardSupplierID'] = ApiClient.convertToType(data['AutoForwardSupplierID'], 'String');
+      }
     }
     return obj;
   }
 
   /**
-   * @member {module:model/PriceSchedule} ReplenishmentPriceSchedule
+   * @member {module:model/PriceSchedule} PriceSchedule
    */
-  exports.prototype['ReplenishmentPriceSchedule'] = undefined;
-  /**
-   * @member {module:model/PriceSchedule} StandardPriceSchedule
-   */
-  exports.prototype['StandardPriceSchedule'] = undefined;
+  exports.prototype['PriceSchedule'] = undefined;
   /**
    * @member {String} ID
    */
@@ -18639,22 +18844,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Active'] = undefined;
   /**
-   * @member {String} Type
-   */
-  exports.prototype['Type'] = undefined;
-  /**
-   * @member {Boolean} InventoryEnabled
-   */
-  exports.prototype['InventoryEnabled'] = undefined;
-  /**
-   * @member {Number} InventoryNotificationPoint
-   */
-  exports.prototype['InventoryNotificationPoint'] = undefined;
-  /**
-   * @member {Boolean} VariantLevelInventory
-   */
-  exports.prototype['VariantLevelInventory'] = undefined;
-  /**
    * @member {Number} SpecCount
    */
   exports.prototype['SpecCount'] = undefined;
@@ -18663,14 +18852,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['xp'] = undefined;
   /**
-   * @member {Boolean} AllowOrderExceedInventory
-   */
-  exports.prototype['AllowOrderExceedInventory'] = undefined;
-  /**
-   * @member {Boolean} InventoryVisible
-   */
-  exports.prototype['InventoryVisible'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -18678,6 +18859,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} ShipFromAddressID
    */
   exports.prototype['ShipFromAddressID'] = undefined;
+  /**
+   * @member {module:model/Inventory} Inventory
+   */
+  exports.prototype['Inventory'] = undefined;
+  /**
+   * @member {String} AutoForwardSupplierID
+   */
+  exports.prototype['AutoForwardSupplierID'] = undefined;
 
 
 
@@ -18686,7 +18875,176 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./PriceSchedule":120}],47:[function(require,module,exports){
+},{"../ApiClient":8,"./Inventory":59,"./PriceSchedule":126}],46:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/Address'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('./Address'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.BuyerShipment = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address);
+  }
+}(this, function(ApiClient, Address) {
+  'use strict';
+
+
+
+
+  /**
+   * The BuyerShipment model module.
+   * @module model/BuyerShipment
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>BuyerShipment</code>.
+   * @alias module:model/BuyerShipment
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+
+
+
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>BuyerShipment</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/BuyerShipment} obj Optional instance to populate.
+   * @return {module:model/BuyerShipment} The populated <code>BuyerShipment</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('Shipper')) {
+        obj['Shipper'] = ApiClient.convertToType(data['Shipper'], 'String');
+      }
+      if (data.hasOwnProperty('DateShipped')) {
+        obj['DateShipped'] = ApiClient.convertToType(data['DateShipped'], 'String');
+      }
+      if (data.hasOwnProperty('DateDelivered')) {
+        obj['DateDelivered'] = ApiClient.convertToType(data['DateDelivered'], 'String');
+      }
+      if (data.hasOwnProperty('TrackingNumber')) {
+        obj['TrackingNumber'] = ApiClient.convertToType(data['TrackingNumber'], 'String');
+      }
+      if (data.hasOwnProperty('Cost')) {
+        obj['Cost'] = ApiClient.convertToType(data['Cost'], 'Number');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
+      if (data.hasOwnProperty('Account')) {
+        obj['Account'] = ApiClient.convertToType(data['Account'], 'String');
+      }
+      if (data.hasOwnProperty('FromAddressID')) {
+        obj['FromAddressID'] = ApiClient.convertToType(data['FromAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('ToAddressID')) {
+        obj['ToAddressID'] = ApiClient.convertToType(data['ToAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('FromAddress')) {
+        obj['FromAddress'] = Address.constructFromObject(data['FromAddress']);
+      }
+      if (data.hasOwnProperty('ToAddress')) {
+        obj['ToAddress'] = Address.constructFromObject(data['ToAddress']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} Shipper
+   */
+  exports.prototype['Shipper'] = undefined;
+  /**
+   * @member {String} DateShipped
+   */
+  exports.prototype['DateShipped'] = undefined;
+  /**
+   * @member {String} DateDelivered
+   */
+  exports.prototype['DateDelivered'] = undefined;
+  /**
+   * @member {String} TrackingNumber
+   */
+  exports.prototype['TrackingNumber'] = undefined;
+  /**
+   * @member {Number} Cost
+   */
+  exports.prototype['Cost'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
+  /**
+   * @member {String} Account
+   */
+  exports.prototype['Account'] = undefined;
+  /**
+   * @member {String} FromAddressID
+   */
+  exports.prototype['FromAddressID'] = undefined;
+  /**
+   * @member {String} ToAddressID
+   */
+  exports.prototype['ToAddressID'] = undefined;
+  /**
+   * @member {module:model/Address} FromAddress
+   */
+  exports.prototype['FromAddress'] = undefined;
+  /**
+   * @member {module:model/Address} ToAddress
+   */
+  exports.prototype['ToAddress'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8,"./Address":38}],47:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18723,7 +19081,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The BuyerSpec model module.
    * @module model/BuyerSpec
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -18839,7 +19197,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./SpecOption":130}],48:[function(require,module,exports){
+},{"../ApiClient":8,"./SpecOption":138}],48:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18876,7 +19234,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Catalog model module.
    * @module model/Catalog
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -18886,6 +19244,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -18914,6 +19273,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Description')) {
         obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
       }
+      if (data.hasOwnProperty('Active')) {
+        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+      }
       if (data.hasOwnProperty('CategoryCount')) {
         obj['CategoryCount'] = ApiClient.convertToType(data['CategoryCount'], 'Number');
       }
@@ -18937,6 +19299,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Description'] = undefined;
   /**
+   * @member {Boolean} Active
+   */
+  exports.prototype['Active'] = undefined;
+  /**
    * @member {Number} CategoryCount
    */
   exports.prototype['CategoryCount'] = undefined;
@@ -18952,7 +19318,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],49:[function(require,module,exports){
+},{"../ApiClient":8}],49:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18989,7 +19355,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The CatalogAssignment model module.
    * @module model/CatalogAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -18999,6 +19365,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
+
 
 
 
@@ -19021,6 +19389,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
+      if (data.hasOwnProperty('ViewAllCategories')) {
+        obj['ViewAllCategories'] = ApiClient.convertToType(data['ViewAllCategories'], 'Boolean');
+      }
+      if (data.hasOwnProperty('ViewAllProducts')) {
+        obj['ViewAllProducts'] = ApiClient.convertToType(data['ViewAllProducts'], 'Boolean');
+      }
     }
     return obj;
   }
@@ -19033,6 +19407,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} BuyerID
    */
   exports.prototype['BuyerID'] = undefined;
+  /**
+   * @member {Boolean} ViewAllCategories
+   */
+  exports.prototype['ViewAllCategories'] = undefined;
+  /**
+   * @member {Boolean} ViewAllProducts
+   */
+  exports.prototype['ViewAllProducts'] = undefined;
 
 
 
@@ -19041,7 +19423,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],50:[function(require,module,exports){
+},{"../ApiClient":8}],50:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19078,7 +19460,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Category model module.
    * @module model/Category
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19178,7 +19560,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],51:[function(require,module,exports){
+},{"../ApiClient":8}],51:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19215,7 +19597,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The CategoryAssignment model module.
    * @module model/CategoryAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19225,6 +19607,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -19249,11 +19632,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
-      if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
-      }
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
+      }
+      if (data.hasOwnProperty('Visible')) {
+        obj['Visible'] = ApiClient.convertToType(data['Visible'], 'Boolean');
+      }
+      if (data.hasOwnProperty('ViewAllProducts')) {
+        obj['ViewAllProducts'] = ApiClient.convertToType(data['ViewAllProducts'], 'Boolean');
       }
     }
     return obj;
@@ -19268,13 +19654,17 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['BuyerID'] = undefined;
   /**
-   * @member {String} UserID
-   */
-  exports.prototype['UserID'] = undefined;
-  /**
    * @member {String} UserGroupID
    */
   exports.prototype['UserGroupID'] = undefined;
+  /**
+   * @member {Boolean} Visible
+   */
+  exports.prototype['Visible'] = undefined;
+  /**
+   * @member {Boolean} ViewAllProducts
+   */
+  exports.prototype['ViewAllProducts'] = undefined;
 
 
 
@@ -19283,7 +19673,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],52:[function(require,module,exports){
+},{"../ApiClient":8}],52:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19320,7 +19710,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The CategoryProductAssignment model module.
    * @module model/CategoryProductAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19380,7 +19770,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],53:[function(require,module,exports){
+},{"../ApiClient":8}],53:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19417,7 +19807,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The CostCenter model module.
    * @module model/CostCenter
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19485,7 +19875,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],54:[function(require,module,exports){
+},{"../ApiClient":8}],54:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19522,7 +19912,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The CostCenterAssignment model module.
    * @module model/CostCenterAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19532,7 +19922,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
 
 
 
@@ -19552,9 +19941,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('CostCenterID')) {
         obj['CostCenterID'] = ApiClient.convertToType(data['CostCenterID'], 'String');
       }
-      if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
-      }
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
       }
@@ -19567,10 +19953,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['CostCenterID'] = undefined;
   /**
-   * @member {String} UserID
-   */
-  exports.prototype['UserID'] = undefined;
-  /**
    * @member {String} UserGroupID
    */
   exports.prototype['UserGroupID'] = undefined;
@@ -19582,7 +19964,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],55:[function(require,module,exports){
+},{"../ApiClient":8}],55:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19619,7 +20001,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The CreditCard model module.
    * @module model/CreditCard
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19719,7 +20101,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],56:[function(require,module,exports){
+},{"../ApiClient":8}],56:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19756,7 +20138,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The CreditCardAssignment model module.
    * @module model/CreditCardAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19816,7 +20198,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],57:[function(require,module,exports){
+},{"../ApiClient":8}],57:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19853,7 +20235,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ImpersonateTokenRequest model module.
    * @module model/ImpersonateTokenRequest
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19882,8 +20264,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('ClientID')) {
         obj['ClientID'] = ApiClient.convertToType(data['ClientID'], 'String');
       }
-      if (data.hasOwnProperty('Claims')) {
-        obj['Claims'] = ApiClient.convertToType(data['Claims'], ['String']);
+      if (data.hasOwnProperty('Roles')) {
+        obj['Roles'] = ApiClient.convertToType(data['Roles'], ['String']);
       }
     }
     return obj;
@@ -19894,9 +20276,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['ClientID'] = undefined;
   /**
-   * @member {Array.<String>} Claims
+   * @member {Array.<String>} Roles
    */
-  exports.prototype['Claims'] = undefined;
+  exports.prototype['Roles'] = undefined;
 
 
 
@@ -19905,7 +20287,152 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],58:[function(require,module,exports){
+},{"../ApiClient":8}],58:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ImpersonationConfig = factory(root.OrderCloud.ApiClient);
+  }
+}(this, function(ApiClient) {
+  'use strict';
+
+
+
+
+  /**
+   * The ImpersonationConfig model module.
+   * @module model/ImpersonationConfig
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ImpersonationConfig</code>.
+   * @alias module:model/ImpersonationConfig
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ImpersonationConfig</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ImpersonationConfig} obj Optional instance to populate.
+   * @return {module:model/ImpersonationConfig} The populated <code>ImpersonationConfig</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('ImpersonationBuyerID')) {
+        obj['ImpersonationBuyerID'] = ApiClient.convertToType(data['ImpersonationBuyerID'], 'String');
+      }
+      if (data.hasOwnProperty('ImpersonationGroupID')) {
+        obj['ImpersonationGroupID'] = ApiClient.convertToType(data['ImpersonationGroupID'], 'String');
+      }
+      if (data.hasOwnProperty('ImpersonationUserID')) {
+        obj['ImpersonationUserID'] = ApiClient.convertToType(data['ImpersonationUserID'], 'String');
+      }
+      if (data.hasOwnProperty('BuyerID')) {
+        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
+      }
+      if (data.hasOwnProperty('GroupID')) {
+        obj['GroupID'] = ApiClient.convertToType(data['GroupID'], 'String');
+      }
+      if (data.hasOwnProperty('UserID')) {
+        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
+      }
+      if (data.hasOwnProperty('SecurityProfileID')) {
+        obj['SecurityProfileID'] = ApiClient.convertToType(data['SecurityProfileID'], 'String');
+      }
+      if (data.hasOwnProperty('ClientID')) {
+        obj['ClientID'] = ApiClient.convertToType(data['ClientID'], 'String');
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} ImpersonationBuyerID
+   */
+  exports.prototype['ImpersonationBuyerID'] = undefined;
+  /**
+   * @member {String} ImpersonationGroupID
+   */
+  exports.prototype['ImpersonationGroupID'] = undefined;
+  /**
+   * @member {String} ImpersonationUserID
+   */
+  exports.prototype['ImpersonationUserID'] = undefined;
+  /**
+   * @member {String} BuyerID
+   */
+  exports.prototype['BuyerID'] = undefined;
+  /**
+   * @member {String} GroupID
+   */
+  exports.prototype['GroupID'] = undefined;
+  /**
+   * @member {String} UserID
+   */
+  exports.prototype['UserID'] = undefined;
+  /**
+   * @member {String} SecurityProfileID
+   */
+  exports.prototype['SecurityProfileID'] = undefined;
+  /**
+   * @member {String} ClientID
+   */
+  exports.prototype['ClientID'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8}],59:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19942,7 +20469,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Inventory model module.
    * @module model/Inventory
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -19952,6 +20479,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -19971,17 +20499,20 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      if (data.hasOwnProperty('Enabled')) {
+        obj['Enabled'] = ApiClient.convertToType(data['Enabled'], 'Boolean');
       }
-      if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      if (data.hasOwnProperty('NotificationPoint')) {
+        obj['NotificationPoint'] = ApiClient.convertToType(data['NotificationPoint'], 'Number');
       }
-      if (data.hasOwnProperty('Available')) {
-        obj['Available'] = ApiClient.convertToType(data['Available'], 'Number');
+      if (data.hasOwnProperty('VariantLevelTracking')) {
+        obj['VariantLevelTracking'] = ApiClient.convertToType(data['VariantLevelTracking'], 'Boolean');
       }
-      if (data.hasOwnProperty('Reserved')) {
-        obj['Reserved'] = ApiClient.convertToType(data['Reserved'], 'Number');
+      if (data.hasOwnProperty('OrderCanExceed')) {
+        obj['OrderCanExceed'] = ApiClient.convertToType(data['OrderCanExceed'], 'Boolean');
+      }
+      if (data.hasOwnProperty('QuantityAvailable')) {
+        obj['QuantityAvailable'] = ApiClient.convertToType(data['QuantityAvailable'], 'Number');
       }
       if (data.hasOwnProperty('LastUpdated')) {
         obj['LastUpdated'] = ApiClient.convertToType(data['LastUpdated'], 'String');
@@ -19991,21 +20522,25 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   }
 
   /**
-   * @member {String} ID
+   * @member {Boolean} Enabled
    */
-  exports.prototype['ID'] = undefined;
+  exports.prototype['Enabled'] = undefined;
   /**
-   * @member {String} Name
+   * @member {Number} NotificationPoint
    */
-  exports.prototype['Name'] = undefined;
+  exports.prototype['NotificationPoint'] = undefined;
   /**
-   * @member {Number} Available
+   * @member {Boolean} VariantLevelTracking
    */
-  exports.prototype['Available'] = undefined;
+  exports.prototype['VariantLevelTracking'] = undefined;
   /**
-   * @member {Number} Reserved
+   * @member {Boolean} OrderCanExceed
    */
-  exports.prototype['Reserved'] = undefined;
+  exports.prototype['OrderCanExceed'] = undefined;
+  /**
+   * @member {Number} QuantityAvailable
+   */
+  exports.prototype['QuantityAvailable'] = undefined;
   /**
    * @member {String} LastUpdated
    */
@@ -20018,7 +20553,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],59:[function(require,module,exports){
+},{"../ApiClient":8}],60:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20055,7 +20590,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The LineItem model module.
    * @module model/LineItem
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -20227,7 +20762,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Address":38,"./LineItemProduct":60,"./LineItemSpec":61}],60:[function(require,module,exports){
+},{"../ApiClient":8,"./Address":38,"./LineItemProduct":61,"./LineItemSpec":62}],61:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20264,7 +20799,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The LineItemProduct model module.
    * @module model/LineItemProduct
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -20372,7 +20907,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],61:[function(require,module,exports){
+},{"../ApiClient":8}],62:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20409,7 +20944,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The LineItemSpec model module.
    * @module model/LineItemSpec
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -20477,7 +21012,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],62:[function(require,module,exports){
+},{"../ApiClient":8}],63:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20514,7 +21049,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListAddress model module.
    * @module model/ListAddress
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -20566,7 +21101,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Address":38,"./Meta":110}],63:[function(require,module,exports){
+},{"../ApiClient":8,"./Address":38,"./Meta":116}],64:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20603,7 +21138,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListAddressAssignment model module.
    * @module model/ListAddressAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -20655,96 +21190,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./AddressAssignment":39,"./Meta":110}],64:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AdminCompany', 'model/Meta'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./AdminCompany'), require('./Meta'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.ListAdminCompany = factory(root.OrderCloud.ApiClient, root.OrderCloud.AdminCompany, root.OrderCloud.Meta);
-  }
-}(this, function(ApiClient, AdminCompany, Meta) {
-  'use strict';
-
-
-
-
-  /**
-   * The ListAdminCompany model module.
-   * @module model/ListAdminCompany
-   * @version v1.0.42-preview
-   */
-
-  /**
-   * Constructs a new <code>ListAdminCompany</code>.
-   * @alias module:model/ListAdminCompany
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-  };
-
-  /**
-   * Constructs a <code>ListAdminCompany</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ListAdminCompany} obj Optional instance to populate.
-   * @return {module:model/ListAdminCompany} The populated <code>ListAdminCompany</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [AdminCompany]);
-      }
-      if (data.hasOwnProperty('Meta')) {
-        obj['Meta'] = Meta.constructFromObject(data['Meta']);
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {Array.<module:model/AdminCompany>} Items
-   */
-  exports.prototype['Items'] = undefined;
-  /**
-   * @member {module:model/Meta} Meta
-   */
-  exports.prototype['Meta'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../ApiClient":9,"./AdminCompany":40,"./Meta":110}],65:[function(require,module,exports){
+},{"../ApiClient":8,"./AddressAssignment":39,"./Meta":116}],65:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20781,7 +21227,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListApprovalRule model module.
    * @module model/ListApprovalRule
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -20833,7 +21279,128 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./ApprovalRule":41,"./Meta":110}],66:[function(require,module,exports){
+},{"../ApiClient":8,"./ApprovalRule":40,"./Meta":116}],66:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ListArgs = factory(root.OrderCloud.ApiClient);
+  }
+}(this, function(ApiClient) {
+  'use strict';
+
+
+
+
+  /**
+   * The ListArgs model module.
+   * @module model/ListArgs
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ListArgs</code>.
+   * @alias module:model/ListArgs
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ListArgs</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ListArgs} obj Optional instance to populate.
+   * @return {module:model/ListArgs} The populated <code>ListArgs</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('Search')) {
+        obj['Search'] = ApiClient.convertToType(data['Search'], 'String');
+      }
+      if (data.hasOwnProperty('SearchOn')) {
+        obj['SearchOn'] = ApiClient.convertToType(data['SearchOn'], ['String']);
+      }
+      if (data.hasOwnProperty('SortBy')) {
+        obj['SortBy'] = ApiClient.convertToType(data['SortBy'], ['String']);
+      }
+      if (data.hasOwnProperty('Page')) {
+        obj['Page'] = ApiClient.convertToType(data['Page'], 'Number');
+      }
+      if (data.hasOwnProperty('PageSize')) {
+        obj['PageSize'] = ApiClient.convertToType(data['PageSize'], 'Number');
+      }
+      if (data.hasOwnProperty('Filters')) {
+        obj['Filters'] = ApiClient.convertToType(data['Filters'], Object);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} Search
+   */
+  exports.prototype['Search'] = undefined;
+  /**
+   * @member {Array.<String>} SearchOn
+   */
+  exports.prototype['SearchOn'] = undefined;
+  /**
+   * @member {Array.<String>} SortBy
+   */
+  exports.prototype['SortBy'] = undefined;
+  /**
+   * @member {Number} Page
+   */
+  exports.prototype['Page'] = undefined;
+  /**
+   * @member {Number} PageSize
+   */
+  exports.prototype['PageSize'] = undefined;
+  /**
+   * @member {Object} Filters
+   */
+  exports.prototype['Filters'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8}],67:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20870,7 +21437,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListBuyer model module.
    * @module model/ListBuyer
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -20922,7 +21489,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Buyer":43,"./Meta":110}],67:[function(require,module,exports){
+},{"../ApiClient":8,"./Buyer":42,"./Meta":116}],68:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20959,7 +21526,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListBuyerAddress model module.
    * @module model/ListBuyerAddress
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21011,7 +21578,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerAddress":44,"./Meta":110}],68:[function(require,module,exports){
+},{"../ApiClient":8,"./BuyerAddress":43,"./Meta":116}],69:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21048,7 +21615,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListBuyerCreditCard model module.
    * @module model/ListBuyerCreditCard
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21100,7 +21667,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerCreditCard":45,"./Meta":110}],69:[function(require,module,exports){
+},{"../ApiClient":8,"./BuyerCreditCard":44,"./Meta":116}],70:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21137,7 +21704,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListBuyerProduct model module.
    * @module model/ListBuyerProduct
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21189,7 +21756,96 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerProduct":46,"./Meta":110}],70:[function(require,module,exports){
+},{"../ApiClient":8,"./BuyerProduct":45,"./Meta":116}],71:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/BuyerShipment', 'model/Meta'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('./BuyerShipment'), require('./Meta'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ListBuyerShipment = factory(root.OrderCloud.ApiClient, root.OrderCloud.BuyerShipment, root.OrderCloud.Meta);
+  }
+}(this, function(ApiClient, BuyerShipment, Meta) {
+  'use strict';
+
+
+
+
+  /**
+   * The ListBuyerShipment model module.
+   * @module model/ListBuyerShipment
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ListBuyerShipment</code>.
+   * @alias module:model/ListBuyerShipment
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ListBuyerShipment</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ListBuyerShipment} obj Optional instance to populate.
+   * @return {module:model/ListBuyerShipment} The populated <code>ListBuyerShipment</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('Items')) {
+        obj['Items'] = ApiClient.convertToType(data['Items'], [BuyerShipment]);
+      }
+      if (data.hasOwnProperty('Meta')) {
+        obj['Meta'] = Meta.constructFromObject(data['Meta']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {Array.<module:model/BuyerShipment>} Items
+   */
+  exports.prototype['Items'] = undefined;
+  /**
+   * @member {module:model/Meta} Meta
+   */
+  exports.prototype['Meta'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8,"./BuyerShipment":46,"./Meta":116}],72:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21226,7 +21882,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListBuyerSpec model module.
    * @module model/ListBuyerSpec
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21278,7 +21934,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./BuyerSpec":47,"./Meta":110}],71:[function(require,module,exports){
+},{"../ApiClient":8,"./BuyerSpec":47,"./Meta":116}],73:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21315,7 +21971,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCatalog model module.
    * @module model/ListCatalog
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21367,7 +22023,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Catalog":48,"./Meta":110}],72:[function(require,module,exports){
+},{"../ApiClient":8,"./Catalog":48,"./Meta":116}],74:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21404,7 +22060,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCatalogAssignment model module.
    * @module model/ListCatalogAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21456,7 +22112,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CatalogAssignment":49,"./Meta":110}],73:[function(require,module,exports){
+},{"../ApiClient":8,"./CatalogAssignment":49,"./Meta":116}],75:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21493,7 +22149,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCategory model module.
    * @module model/ListCategory
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21545,7 +22201,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Category":50,"./Meta":110}],74:[function(require,module,exports){
+},{"../ApiClient":8,"./Category":50,"./Meta":116}],76:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21582,7 +22238,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCategoryAssignment model module.
    * @module model/ListCategoryAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21634,7 +22290,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CategoryAssignment":51,"./Meta":110}],75:[function(require,module,exports){
+},{"../ApiClient":8,"./CategoryAssignment":51,"./Meta":116}],77:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21671,7 +22327,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCategoryProductAssignment model module.
    * @module model/ListCategoryProductAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21723,7 +22379,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CategoryProductAssignment":52,"./Meta":110}],76:[function(require,module,exports){
+},{"../ApiClient":8,"./CategoryProductAssignment":52,"./Meta":116}],78:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21760,7 +22416,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCostCenter model module.
    * @module model/ListCostCenter
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21812,7 +22468,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CostCenter":53,"./Meta":110}],77:[function(require,module,exports){
+},{"../ApiClient":8,"./CostCenter":53,"./Meta":116}],79:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21849,7 +22505,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCostCenterAssignment model module.
    * @module model/ListCostCenterAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21901,7 +22557,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CostCenterAssignment":54,"./Meta":110}],78:[function(require,module,exports){
+},{"../ApiClient":8,"./CostCenterAssignment":54,"./Meta":116}],80:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21938,7 +22594,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCreditCard model module.
    * @module model/ListCreditCard
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -21990,7 +22646,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CreditCard":55,"./Meta":110}],79:[function(require,module,exports){
+},{"../ApiClient":8,"./CreditCard":55,"./Meta":116}],81:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22027,7 +22683,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListCreditCardAssignment model module.
    * @module model/ListCreditCardAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22079,7 +22735,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./CreditCardAssignment":56,"./Meta":110}],80:[function(require,module,exports){
+},{"../ApiClient":8,"./CreditCardAssignment":56,"./Meta":116}],82:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22096,32 +22752,32 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Inventory', 'model/Meta'], factory);
+    define(['ApiClient', 'model/ImpersonationConfig', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Inventory'), require('./Meta'));
+    module.exports = factory(require('../ApiClient'), require('./ImpersonationConfig'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListInventory = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory, root.OrderCloud.Meta);
+    root.OrderCloud.ListImpersonationConfig = factory(root.OrderCloud.ApiClient, root.OrderCloud.ImpersonationConfig, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, Inventory, Meta) {
+}(this, function(ApiClient, ImpersonationConfig, Meta) {
   'use strict';
 
 
 
 
   /**
-   * The ListInventory model module.
-   * @module model/ListInventory
-   * @version v1.0.42-preview
+   * The ListImpersonationConfig model module.
+   * @module model/ListImpersonationConfig
+   * @version 1.0.50
    */
 
   /**
-   * Constructs a new <code>ListInventory</code>.
-   * @alias module:model/ListInventory
+   * Constructs a new <code>ListImpersonationConfig</code>.
+   * @alias module:model/ListImpersonationConfig
    * @class
    */
   var exports = function() {
@@ -22132,18 +22788,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   };
 
   /**
-   * Constructs a <code>ListInventory</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ListImpersonationConfig</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ListInventory} obj Optional instance to populate.
-   * @return {module:model/ListInventory} The populated <code>ListInventory</code> instance.
+   * @param {module:model/ListImpersonationConfig} obj Optional instance to populate.
+   * @return {module:model/ListImpersonationConfig} The populated <code>ListImpersonationConfig</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [Inventory]);
+        obj['Items'] = ApiClient.convertToType(data['Items'], [ImpersonationConfig]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);
@@ -22153,7 +22809,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   }
 
   /**
-   * @member {Array.<module:model/Inventory>} Items
+   * @member {Array.<module:model/ImpersonationConfig>} Items
    */
   exports.prototype['Items'] = undefined;
   /**
@@ -22168,7 +22824,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Inventory":58,"./Meta":110}],81:[function(require,module,exports){
+},{"../ApiClient":8,"./ImpersonationConfig":58,"./Meta":116}],83:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22205,7 +22861,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListLineItem model module.
    * @module model/ListLineItem
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22257,7 +22913,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./LineItem":59,"./Meta":110}],82:[function(require,module,exports){
+},{"../ApiClient":8,"./LineItem":60,"./Meta":116}],84:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22294,7 +22950,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListMessageCCListenerAssignment model module.
    * @module model/ListMessageCCListenerAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22346,7 +23002,96 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageCCListenerAssignment":107,"./Meta":110}],83:[function(require,module,exports){
+},{"../ApiClient":8,"./MessageCCListenerAssignment":112,"./Meta":116}],85:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/MessageConfig', 'model/Meta'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('./MessageConfig'), require('./Meta'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ListMessageConfig = factory(root.OrderCloud.ApiClient, root.OrderCloud.MessageConfig, root.OrderCloud.Meta);
+  }
+}(this, function(ApiClient, MessageConfig, Meta) {
+  'use strict';
+
+
+
+
+  /**
+   * The ListMessageConfig model module.
+   * @module model/ListMessageConfig
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ListMessageConfig</code>.
+   * @alias module:model/ListMessageConfig
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ListMessageConfig</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ListMessageConfig} obj Optional instance to populate.
+   * @return {module:model/ListMessageConfig} The populated <code>ListMessageConfig</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('Items')) {
+        obj['Items'] = ApiClient.convertToType(data['Items'], [MessageConfig]);
+      }
+      if (data.hasOwnProperty('Meta')) {
+        obj['Meta'] = Meta.constructFromObject(data['Meta']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {Array.<module:model/MessageConfig>} Items
+   */
+  exports.prototype['Items'] = undefined;
+  /**
+   * @member {module:model/Meta} Meta
+   */
+  exports.prototype['Meta'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8,"./MessageConfig":113,"./Meta":116}],86:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22383,7 +23128,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListMessageSender model module.
    * @module model/ListMessageSender
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22435,7 +23180,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageSender":108,"./Meta":110}],84:[function(require,module,exports){
+},{"../ApiClient":8,"./MessageSender":114,"./Meta":116}],87:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22472,7 +23217,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListMessageSenderAssignment model module.
    * @module model/ListMessageSenderAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22524,7 +23269,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageSenderAssignment":109,"./Meta":110}],85:[function(require,module,exports){
+},{"../ApiClient":8,"./MessageSenderAssignment":115,"./Meta":116}],88:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22561,7 +23306,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListOrder model module.
    * @module model/ListOrder
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22613,7 +23358,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./Order":111}],86:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./Order":117}],89:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22650,7 +23395,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListOrderApproval model module.
    * @module model/ListOrderApproval
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22702,7 +23447,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./OrderApproval":112}],87:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./OrderApproval":118}],90:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22739,7 +23484,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListOrderPromotion model module.
    * @module model/ListOrderPromotion
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22791,7 +23536,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./OrderPromotion":113}],88:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./OrderPromotion":120}],91:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22828,7 +23573,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListPayment model module.
    * @module model/ListPayment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22880,7 +23625,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./Payment":116}],89:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./Payment":123}],92:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22917,7 +23662,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListPriceSchedule model module.
    * @module model/ListPriceSchedule
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -22969,7 +23714,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./PriceSchedule":120}],90:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./PriceSchedule":126}],93:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23006,7 +23751,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListProduct model module.
    * @module model/ListProduct
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23058,7 +23803,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./Product":121}],91:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./Product":127}],94:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23095,7 +23840,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListProductAssignment model module.
    * @module model/ListProductAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23147,7 +23892,96 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./ProductAssignment":122}],92:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./ProductAssignment":128}],95:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/Meta', 'model/ProductCatalogAssignment'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./ProductCatalogAssignment'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ListProductCatalogAssignment = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.ProductCatalogAssignment);
+  }
+}(this, function(ApiClient, Meta, ProductCatalogAssignment) {
+  'use strict';
+
+
+
+
+  /**
+   * The ListProductCatalogAssignment model module.
+   * @module model/ListProductCatalogAssignment
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ListProductCatalogAssignment</code>.
+   * @alias module:model/ListProductCatalogAssignment
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ListProductCatalogAssignment</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ListProductCatalogAssignment} obj Optional instance to populate.
+   * @return {module:model/ListProductCatalogAssignment} The populated <code>ListProductCatalogAssignment</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('Items')) {
+        obj['Items'] = ApiClient.convertToType(data['Items'], [ProductCatalogAssignment]);
+      }
+      if (data.hasOwnProperty('Meta')) {
+        obj['Meta'] = Meta.constructFromObject(data['Meta']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {Array.<module:model/ProductCatalogAssignment>} Items
+   */
+  exports.prototype['Items'] = undefined;
+  /**
+   * @member {module:model/Meta} Meta
+   */
+  exports.prototype['Meta'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8,"./Meta":116,"./ProductCatalogAssignment":130}],96:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23184,7 +24018,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListPromotion model module.
    * @module model/ListPromotion
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23236,7 +24070,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./Promotion":123}],93:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./Promotion":131}],97:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23273,7 +24107,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListPromotionAssignment model module.
    * @module model/ListPromotionAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23325,7 +24159,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./PromotionAssignment":124}],94:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./PromotionAssignment":132}],98:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23362,7 +24196,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListSecurityProfile model module.
    * @module model/ListSecurityProfile
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23414,7 +24248,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./SecurityProfile":125}],95:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./SecurityProfile":133}],99:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23451,7 +24285,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListSecurityProfileAssignment model module.
    * @module model/ListSecurityProfileAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23503,7 +24337,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./SecurityProfileAssignment":126}],96:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./SecurityProfileAssignment":134}],100:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23540,7 +24374,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListShipment model module.
    * @module model/ListShipment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23592,7 +24426,96 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./Shipment":127}],97:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./Shipment":135}],101:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/Meta', 'model/ShipmentItem'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./ShipmentItem'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ListShipmentItem = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.ShipmentItem);
+  }
+}(this, function(ApiClient, Meta, ShipmentItem) {
+  'use strict';
+
+
+
+
+  /**
+   * The ListShipmentItem model module.
+   * @module model/ListShipmentItem
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ListShipmentItem</code>.
+   * @alias module:model/ListShipmentItem
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ListShipmentItem</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ListShipmentItem} obj Optional instance to populate.
+   * @return {module:model/ListShipmentItem} The populated <code>ListShipmentItem</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('Items')) {
+        obj['Items'] = ApiClient.convertToType(data['Items'], [ShipmentItem]);
+      }
+      if (data.hasOwnProperty('Meta')) {
+        obj['Meta'] = Meta.constructFromObject(data['Meta']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {Array.<module:model/ShipmentItem>} Items
+   */
+  exports.prototype['Items'] = undefined;
+  /**
+   * @member {module:model/Meta} Meta
+   */
+  exports.prototype['Meta'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8,"./Meta":116,"./ShipmentItem":136}],102:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23629,7 +24552,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListSpec model module.
    * @module model/ListSpec
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23681,7 +24604,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./Spec":129}],98:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./Spec":137}],103:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23718,7 +24641,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListSpecOption model module.
    * @module model/ListSpecOption
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23770,7 +24693,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./SpecOption":130}],99:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./SpecOption":138}],104:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23807,7 +24730,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListSpecProductAssignment model module.
    * @module model/ListSpecProductAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23859,7 +24782,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./SpecProductAssignment":131}],100:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./SpecProductAssignment":139}],105:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23896,7 +24819,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListSpendingAccount model module.
    * @module model/ListSpendingAccount
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -23948,7 +24871,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./SpendingAccount":132}],101:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./SpendingAccount":140}],106:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23985,7 +24908,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListSpendingAccountAssignment model module.
    * @module model/ListSpendingAccountAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24037,7 +24960,96 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./SpendingAccountAssignment":133}],102:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./SpendingAccountAssignment":141}],107:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/Meta', 'model/Supplier'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./Supplier'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ListSupplier = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.Supplier);
+  }
+}(this, function(ApiClient, Meta, Supplier) {
+  'use strict';
+
+
+
+
+  /**
+   * The ListSupplier model module.
+   * @module model/ListSupplier
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ListSupplier</code>.
+   * @alias module:model/ListSupplier
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ListSupplier</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ListSupplier} obj Optional instance to populate.
+   * @return {module:model/ListSupplier} The populated <code>ListSupplier</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('Items')) {
+        obj['Items'] = ApiClient.convertToType(data['Items'], [Supplier]);
+      }
+      if (data.hasOwnProperty('Meta')) {
+        obj['Meta'] = Meta.constructFromObject(data['Meta']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {Array.<module:model/Supplier>} Items
+   */
+  exports.prototype['Items'] = undefined;
+  /**
+   * @member {module:model/Meta} Meta
+   */
+  exports.prototype['Meta'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8,"./Meta":116,"./Supplier":142}],108:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24074,7 +25086,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListUser model module.
    * @module model/ListUser
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24126,7 +25138,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./User":135}],103:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./User":144}],109:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24163,7 +25175,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListUserGroup model module.
    * @module model/ListUserGroup
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24215,7 +25227,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./UserGroup":136}],104:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./UserGroup":145}],110:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24252,7 +25264,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListUserGroupAssignment model module.
    * @module model/ListUserGroupAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24304,7 +25316,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./UserGroupAssignment":137}],105:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./UserGroupAssignment":146}],111:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24341,7 +25353,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ListVariant model module.
    * @module model/ListVariant
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24393,96 +25405,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Meta":110,"./Variant":138}],106:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Meta', 'model/XpIndex'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./XpIndex'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.ListXpIndex = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.XpIndex);
-  }
-}(this, function(ApiClient, Meta, XpIndex) {
-  'use strict';
-
-
-
-
-  /**
-   * The ListXpIndex model module.
-   * @module model/ListXpIndex
-   * @version v1.0.42-preview
-   */
-
-  /**
-   * Constructs a new <code>ListXpIndex</code>.
-   * @alias module:model/ListXpIndex
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-  };
-
-  /**
-   * Constructs a <code>ListXpIndex</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ListXpIndex} obj Optional instance to populate.
-   * @return {module:model/ListXpIndex} The populated <code>ListXpIndex</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [XpIndex]);
-      }
-      if (data.hasOwnProperty('Meta')) {
-        obj['Meta'] = Meta.constructFromObject(data['Meta']);
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {Array.<module:model/XpIndex>} Items
-   */
-  exports.prototype['Items'] = undefined;
-  /**
-   * @member {module:model/Meta} Meta
-   */
-  exports.prototype['Meta'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../ApiClient":9,"./Meta":110,"./XpIndex":139}],107:[function(require,module,exports){
+},{"../ApiClient":8,"./Meta":116,"./Variant":147}],112:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24519,7 +25442,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The MessageCCListenerAssignment model module.
    * @module model/MessageCCListenerAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24603,7 +25526,136 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./MessageSenderAssignment":109}],108:[function(require,module,exports){
+},{"../ApiClient":8,"./MessageSenderAssignment":115}],113:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.MessageConfig = factory(root.OrderCloud.ApiClient);
+  }
+}(this, function(ApiClient) {
+  'use strict';
+
+
+
+
+  /**
+   * The MessageConfig model module.
+   * @module model/MessageConfig
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>MessageConfig</code>.
+   * @alias module:model/MessageConfig
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>MessageConfig</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/MessageConfig} obj Optional instance to populate.
+   * @return {module:model/MessageConfig} The populated <code>MessageConfig</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('URL')) {
+        obj['URL'] = ApiClient.convertToType(data['URL'], 'String');
+      }
+      if (data.hasOwnProperty('ElevatedClaimsList')) {
+        obj['ElevatedClaimsList'] = ApiClient.convertToType(data['ElevatedClaimsList'], 'String');
+      }
+      if (data.hasOwnProperty('SharedKey')) {
+        obj['SharedKey'] = ApiClient.convertToType(data['SharedKey'], 'String');
+      }
+      if (data.hasOwnProperty('ConfigData')) {
+        obj['ConfigData'] = ApiClient.convertToType(data['ConfigData'], Object);
+      }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('MessageTypes')) {
+        obj['MessageTypes'] = ApiClient.convertToType(data['MessageTypes'], ['String']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} URL
+   */
+  exports.prototype['URL'] = undefined;
+  /**
+   * @member {String} ElevatedClaimsList
+   */
+  exports.prototype['ElevatedClaimsList'] = undefined;
+  /**
+   * @member {String} SharedKey
+   */
+  exports.prototype['SharedKey'] = undefined;
+  /**
+   * @member {Object} ConfigData
+   */
+  exports.prototype['ConfigData'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {Array.<String>} MessageTypes
+   */
+  exports.prototype['MessageTypes'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8}],114:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24640,7 +25692,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The MessageSender model module.
    * @module model/MessageSender
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24700,7 +25752,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],109:[function(require,module,exports){
+},{"../ApiClient":8}],115:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24737,7 +25789,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The MessageSenderAssignment model module.
    * @module model/MessageSenderAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24747,7 +25799,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
 
 
 
@@ -24772,9 +25823,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
-      if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
-      }
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
       }
@@ -24794,10 +25842,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['BuyerID'] = undefined;
   /**
-   * @member {String} UserID
-   */
-  exports.prototype['UserID'] = undefined;
-  /**
    * @member {String} UserGroupID
    */
   exports.prototype['UserGroupID'] = undefined;
@@ -24813,7 +25857,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],110:[function(require,module,exports){
+},{"../ApiClient":8}],116:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24850,7 +25894,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Meta model module.
    * @module model/Meta
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24926,7 +25970,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],111:[function(require,module,exports){
+},{"../ApiClient":8}],117:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24943,18 +25987,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address'], factory);
+    define(['ApiClient', 'model/Address', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Address'));
+    module.exports = factory(require('../ApiClient'), require('./Address'), require('./User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Order = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address);
+    root.OrderCloud.Order = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address) {
+}(this, function(ApiClient, Address, User) {
   'use strict';
 
 
@@ -24963,7 +26007,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Order model module.
    * @module model/Order
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -24973,8 +26017,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
-
 
 
 
@@ -25015,20 +26057,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
-      if (data.hasOwnProperty('Type')) {
-        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
+      if (data.hasOwnProperty('FromUser')) {
+        obj['FromUser'] = User.constructFromObject(data['FromUser']);
       }
       if (data.hasOwnProperty('FromCompanyID')) {
         obj['FromCompanyID'] = ApiClient.convertToType(data['FromCompanyID'], 'String');
       }
       if (data.hasOwnProperty('FromUserID')) {
         obj['FromUserID'] = ApiClient.convertToType(data['FromUserID'], 'String');
-      }
-      if (data.hasOwnProperty('FromUserFirstName')) {
-        obj['FromUserFirstName'] = ApiClient.convertToType(data['FromUserFirstName'], 'String');
-      }
-      if (data.hasOwnProperty('FromUserLastName')) {
-        obj['FromUserLastName'] = ApiClient.convertToType(data['FromUserLastName'], 'String');
       }
       if (data.hasOwnProperty('BillingAddressID')) {
         obj['BillingAddressID'] = ApiClient.convertToType(data['BillingAddressID'], 'String');
@@ -25096,9 +26132,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['ID'] = undefined;
   /**
-   * @member {String} Type
+   * @member {module:model/User} FromUser
    */
-  exports.prototype['Type'] = undefined;
+  exports.prototype['FromUser'] = undefined;
   /**
    * @member {String} FromCompanyID
    */
@@ -25107,14 +26143,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} FromUserID
    */
   exports.prototype['FromUserID'] = undefined;
-  /**
-   * @member {String} FromUserFirstName
-   */
-  exports.prototype['FromUserFirstName'] = undefined;
-  /**
-   * @member {String} FromUserLastName
-   */
-  exports.prototype['FromUserLastName'] = undefined;
   /**
    * @member {String} BillingAddressID
    */
@@ -25199,7 +26227,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./Address":38}],112:[function(require,module,exports){
+},{"../ApiClient":8,"./Address":38,"./User":144}],118:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25216,18 +26244,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.OrderApproval = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.OrderApproval = factory(root.OrderCloud.ApiClient, root.OrderCloud.User);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, User) {
   'use strict';
 
 
@@ -25236,7 +26264,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The OrderApproval model module.
    * @module model/OrderApproval
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -25246,8 +26274,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
-
 
 
 
@@ -25284,14 +26310,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('DateCompleted')) {
         obj['DateCompleted'] = ApiClient.convertToType(data['DateCompleted'], 'String');
       }
-      if (data.hasOwnProperty('ApproverID')) {
-        obj['ApproverID'] = ApiClient.convertToType(data['ApproverID'], 'String');
-      }
-      if (data.hasOwnProperty('ApproverUserName')) {
-        obj['ApproverUserName'] = ApiClient.convertToType(data['ApproverUserName'], 'String');
-      }
-      if (data.hasOwnProperty('ApproverEmail')) {
-        obj['ApproverEmail'] = ApiClient.convertToType(data['ApproverEmail'], 'String');
+      if (data.hasOwnProperty('Approver')) {
+        obj['Approver'] = User.constructFromObject(data['Approver']);
       }
       if (data.hasOwnProperty('Comments')) {
         obj['Comments'] = ApiClient.convertToType(data['Comments'], 'String');
@@ -25321,17 +26341,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['DateCompleted'] = undefined;
   /**
-   * @member {String} ApproverID
+   * @member {module:model/User} Approver
    */
-  exports.prototype['ApproverID'] = undefined;
-  /**
-   * @member {String} ApproverUserName
-   */
-  exports.prototype['ApproverUserName'] = undefined;
-  /**
-   * @member {String} ApproverEmail
-   */
-  exports.prototype['ApproverEmail'] = undefined;
+  exports.prototype['Approver'] = undefined;
   /**
    * @member {String} Comments
    */
@@ -25344,7 +26356,96 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],113:[function(require,module,exports){
+},{"../ApiClient":8,"./User":144}],119:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.OrderApprovalInfo = factory(root.OrderCloud.ApiClient);
+  }
+}(this, function(ApiClient) {
+  'use strict';
+
+
+
+
+  /**
+   * The OrderApprovalInfo model module.
+   * @module model/OrderApprovalInfo
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>OrderApprovalInfo</code>.
+   * @alias module:model/OrderApprovalInfo
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+  };
+
+  /**
+   * Constructs a <code>OrderApprovalInfo</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/OrderApprovalInfo} obj Optional instance to populate.
+   * @return {module:model/OrderApprovalInfo} The populated <code>OrderApprovalInfo</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('Comments')) {
+        obj['Comments'] = ApiClient.convertToType(data['Comments'], 'String');
+      }
+      if (data.hasOwnProperty('AllowResubmit')) {
+        obj['AllowResubmit'] = ApiClient.convertToType(data['AllowResubmit'], 'Boolean');
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} Comments
+   */
+  exports.prototype['Comments'] = undefined;
+  /**
+   * @member {Boolean} AllowResubmit
+   */
+  exports.prototype['AllowResubmit'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8}],120:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25381,7 +26482,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The OrderPromotion model module.
    * @module model/OrderPromotion
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -25537,7 +26638,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],114:[function(require,module,exports){
+},{"../ApiClient":8}],121:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25574,7 +26675,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The PasswordReset model module.
    * @module model/PasswordReset
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -25634,7 +26735,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],115:[function(require,module,exports){
+},{"../ApiClient":8}],122:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25671,7 +26772,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The PasswordResetRequest model module.
    * @module model/PasswordResetRequest
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -25739,7 +26840,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],116:[function(require,module,exports){
+},{"../ApiClient":8}],123:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25776,7 +26877,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Payment model module.
    * @module model/Payment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -25786,6 +26887,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -25830,6 +26932,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Amount')) {
         obj['Amount'] = ApiClient.convertToType(data['Amount'], 'Number');
       }
+      if (data.hasOwnProperty('Accepted')) {
+        obj['Accepted'] = ApiClient.convertToType(data['Accepted'], 'Boolean');
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
       }
@@ -25869,6 +26974,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Amount'] = undefined;
   /**
+   * @member {Boolean} Accepted
+   */
+  exports.prototype['Accepted'] = undefined;
+  /**
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
@@ -25884,7 +26993,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./PaymentTransaction":117}],117:[function(require,module,exports){
+},{"../ApiClient":8,"./PaymentTransaction":124}],124:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25921,7 +27030,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The PaymentTransaction model module.
    * @module model/PaymentTransaction
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -26021,88 +27130,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],118:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.PingResponse = factory(root.OrderCloud.ApiClient);
-  }
-}(this, function(ApiClient) {
-  'use strict';
-
-
-
-
-  /**
-   * The PingResponse model module.
-   * @module model/PingResponse
-   * @version v1.0.42-preview
-   */
-
-  /**
-   * Constructs a new <code>PingResponse</code>.
-   * @alias module:model/PingResponse
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-  };
-
-  /**
-   * Constructs a <code>PingResponse</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/PingResponse} obj Optional instance to populate.
-   * @return {module:model/PingResponse} The populated <code>PingResponse</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('Message')) {
-        obj['Message'] = ApiClient.convertToType(data['Message'], 'String');
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {String} Message
-   */
-  exports.prototype['Message'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../ApiClient":9}],119:[function(require,module,exports){
+},{"../ApiClient":8}],125:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26139,7 +27167,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The PriceBreak model module.
    * @module model/PriceBreak
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -26191,7 +27219,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],120:[function(require,module,exports){
+},{"../ApiClient":8}],126:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26228,7 +27256,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The PriceSchedule model module.
    * @module model/PriceSchedule
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -26238,7 +27266,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
 
 
 
@@ -26287,9 +27314,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('RestrictedQuantity')) {
         obj['RestrictedQuantity'] = ApiClient.convertToType(data['RestrictedQuantity'], 'Boolean');
       }
-      if (data.hasOwnProperty('OrderType')) {
-        obj['OrderType'] = ApiClient.convertToType(data['OrderType'], 'String');
-      }
       if (data.hasOwnProperty('PriceBreaks')) {
         obj['PriceBreaks'] = ApiClient.convertToType(data['PriceBreaks'], [PriceBreak]);
       }
@@ -26333,10 +27357,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['RestrictedQuantity'] = undefined;
   /**
-   * @member {String} OrderType
-   */
-  exports.prototype['OrderType'] = undefined;
-  /**
    * @member {Array.<module:model/PriceBreak>} PriceBreaks
    */
   exports.prototype['PriceBreaks'] = undefined;
@@ -26352,7 +27372,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./PriceBreak":119}],121:[function(require,module,exports){
+},{"../ApiClient":8,"./PriceBreak":125}],127:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26369,18 +27389,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/Inventory'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./Inventory'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Product = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.Product = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, Inventory) {
   'use strict';
 
 
@@ -26389,7 +27409,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Product model module.
    * @module model/Product
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -26416,9 +27436,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-
-
-
   };
 
   /**
@@ -26427,6 +27444,311 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @param {Object} data The plain JavaScript object bearing properties of interest.
    * @param {module:model/Product} obj Optional instance to populate.
    * @return {module:model/Product} The populated <code>Product</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('DefaultPriceScheduleID')) {
+        obj['DefaultPriceScheduleID'] = ApiClient.convertToType(data['DefaultPriceScheduleID'], 'String');
+      }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      }
+      if (data.hasOwnProperty('QuantityMultiplier')) {
+        obj['QuantityMultiplier'] = ApiClient.convertToType(data['QuantityMultiplier'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipWeight')) {
+        obj['ShipWeight'] = ApiClient.convertToType(data['ShipWeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipHeight')) {
+        obj['ShipHeight'] = ApiClient.convertToType(data['ShipHeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipWidth')) {
+        obj['ShipWidth'] = ApiClient.convertToType(data['ShipWidth'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipLength')) {
+        obj['ShipLength'] = ApiClient.convertToType(data['ShipLength'], 'Number');
+      }
+      if (data.hasOwnProperty('Active')) {
+        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+      }
+      if (data.hasOwnProperty('SpecCount')) {
+        obj['SpecCount'] = ApiClient.convertToType(data['SpecCount'], 'Number');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
+      if (data.hasOwnProperty('VariantCount')) {
+        obj['VariantCount'] = ApiClient.convertToType(data['VariantCount'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipFromAddressID')) {
+        obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('Inventory')) {
+        obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
+      }
+      if (data.hasOwnProperty('AutoForwardSupplierID')) {
+        obj['AutoForwardSupplierID'] = ApiClient.convertToType(data['AutoForwardSupplierID'], 'String');
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} DefaultPriceScheduleID
+   */
+  exports.prototype['DefaultPriceScheduleID'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
+   * @member {Number} QuantityMultiplier
+   */
+  exports.prototype['QuantityMultiplier'] = undefined;
+  /**
+   * @member {Number} ShipWeight
+   */
+  exports.prototype['ShipWeight'] = undefined;
+  /**
+   * @member {Number} ShipHeight
+   */
+  exports.prototype['ShipHeight'] = undefined;
+  /**
+   * @member {Number} ShipWidth
+   */
+  exports.prototype['ShipWidth'] = undefined;
+  /**
+   * @member {Number} ShipLength
+   */
+  exports.prototype['ShipLength'] = undefined;
+  /**
+   * @member {Boolean} Active
+   */
+  exports.prototype['Active'] = undefined;
+  /**
+   * @member {Number} SpecCount
+   */
+  exports.prototype['SpecCount'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
+  /**
+   * @member {Number} VariantCount
+   */
+  exports.prototype['VariantCount'] = undefined;
+  /**
+   * @member {String} ShipFromAddressID
+   */
+  exports.prototype['ShipFromAddressID'] = undefined;
+  /**
+   * @member {module:model/Inventory} Inventory
+   */
+  exports.prototype['Inventory'] = undefined;
+  /**
+   * @member {String} AutoForwardSupplierID
+   */
+  exports.prototype['AutoForwardSupplierID'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8,"./Inventory":59}],128:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ProductAssignment = factory(root.OrderCloud.ApiClient);
+  }
+}(this, function(ApiClient) {
+  'use strict';
+
+
+
+
+  /**
+   * The ProductAssignment model module.
+   * @module model/ProductAssignment
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ProductAssignment</code>.
+   * @alias module:model/ProductAssignment
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ProductAssignment</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ProductAssignment} obj Optional instance to populate.
+   * @return {module:model/ProductAssignment} The populated <code>ProductAssignment</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('ProductID')) {
+        obj['ProductID'] = ApiClient.convertToType(data['ProductID'], 'String');
+      }
+      if (data.hasOwnProperty('BuyerID')) {
+        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
+      }
+      if (data.hasOwnProperty('UserGroupID')) {
+        obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
+      }
+      if (data.hasOwnProperty('PriceScheduleID')) {
+        obj['PriceScheduleID'] = ApiClient.convertToType(data['PriceScheduleID'], 'String');
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} ProductID
+   */
+  exports.prototype['ProductID'] = undefined;
+  /**
+   * @member {String} BuyerID
+   */
+  exports.prototype['BuyerID'] = undefined;
+  /**
+   * @member {String} UserGroupID
+   */
+  exports.prototype['UserGroupID'] = undefined;
+  /**
+   * @member {String} PriceScheduleID
+   */
+  exports.prototype['PriceScheduleID'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8}],129:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient', 'model/Inventory'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'), require('./Inventory'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.ProductBase = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory);
+  }
+}(this, function(ApiClient, Inventory) {
+  'use strict';
+
+
+
+
+  /**
+   * The ProductBase model module.
+   * @module model/ProductBase
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>ProductBase</code>.
+   * @alias module:model/ProductBase
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>ProductBase</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/ProductBase} obj Optional instance to populate.
+   * @return {module:model/ProductBase} The populated <code>ProductBase</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -26459,35 +27781,23 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Active')) {
         obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
       }
-      if (data.hasOwnProperty('Type')) {
-        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
-      }
-      if (data.hasOwnProperty('InventoryEnabled')) {
-        obj['InventoryEnabled'] = ApiClient.convertToType(data['InventoryEnabled'], 'Boolean');
-      }
-      if (data.hasOwnProperty('InventoryNotificationPoint')) {
-        obj['InventoryNotificationPoint'] = ApiClient.convertToType(data['InventoryNotificationPoint'], 'Number');
-      }
-      if (data.hasOwnProperty('VariantLevelInventory')) {
-        obj['VariantLevelInventory'] = ApiClient.convertToType(data['VariantLevelInventory'], 'Boolean');
-      }
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = ApiClient.convertToType(data['SpecCount'], 'Number');
       }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
       }
-      if (data.hasOwnProperty('AllowOrderExceedInventory')) {
-        obj['AllowOrderExceedInventory'] = ApiClient.convertToType(data['AllowOrderExceedInventory'], 'Boolean');
-      }
-      if (data.hasOwnProperty('InventoryVisible')) {
-        obj['InventoryVisible'] = ApiClient.convertToType(data['InventoryVisible'], 'Boolean');
-      }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = ApiClient.convertToType(data['VariantCount'], 'Number');
       }
       if (data.hasOwnProperty('ShipFromAddressID')) {
         obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('Inventory')) {
+        obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
+      }
+      if (data.hasOwnProperty('AutoForwardSupplierID')) {
+        obj['AutoForwardSupplierID'] = ApiClient.convertToType(data['AutoForwardSupplierID'], 'String');
       }
     }
     return obj;
@@ -26530,22 +27840,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Active'] = undefined;
   /**
-   * @member {String} Type
-   */
-  exports.prototype['Type'] = undefined;
-  /**
-   * @member {Boolean} InventoryEnabled
-   */
-  exports.prototype['InventoryEnabled'] = undefined;
-  /**
-   * @member {Number} InventoryNotificationPoint
-   */
-  exports.prototype['InventoryNotificationPoint'] = undefined;
-  /**
-   * @member {Boolean} VariantLevelInventory
-   */
-  exports.prototype['VariantLevelInventory'] = undefined;
-  /**
    * @member {Number} SpecCount
    */
   exports.prototype['SpecCount'] = undefined;
@@ -26554,14 +27848,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['xp'] = undefined;
   /**
-   * @member {Boolean} AllowOrderExceedInventory
-   */
-  exports.prototype['AllowOrderExceedInventory'] = undefined;
-  /**
-   * @member {Boolean} InventoryVisible
-   */
-  exports.prototype['InventoryVisible'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -26569,6 +27855,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} ShipFromAddressID
    */
   exports.prototype['ShipFromAddressID'] = undefined;
+  /**
+   * @member {module:model/Inventory} Inventory
+   */
+  exports.prototype['Inventory'] = undefined;
+  /**
+   * @member {String} AutoForwardSupplierID
+   */
+  exports.prototype['AutoForwardSupplierID'] = undefined;
 
 
 
@@ -26577,7 +27871,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],122:[function(require,module,exports){
+},{"../ApiClient":8,"./Inventory":59}],130:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26603,7 +27897,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ProductAssignment = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.ProductCatalogAssignment = factory(root.OrderCloud.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -26612,14 +27906,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
   /**
-   * The ProductAssignment model module.
-   * @module model/ProductAssignment
-   * @version v1.0.42-preview
+   * The ProductCatalogAssignment model module.
+   * @module model/ProductCatalogAssignment
+   * @version 1.0.50
    */
 
   /**
-   * Constructs a new <code>ProductAssignment</code>.
-   * @alias module:model/ProductAssignment
+   * Constructs a new <code>ProductCatalogAssignment</code>.
+   * @alias module:model/ProductCatalogAssignment
    * @class
    */
   var exports = function() {
@@ -26627,69 +27921,37 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-
-
-
-
   };
 
   /**
-   * Constructs a <code>ProductAssignment</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ProductCatalogAssignment</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ProductAssignment} obj Optional instance to populate.
-   * @return {module:model/ProductAssignment} The populated <code>ProductAssignment</code> instance.
+   * @param {module:model/ProductCatalogAssignment} obj Optional instance to populate.
+   * @return {module:model/ProductCatalogAssignment} The populated <code>ProductCatalogAssignment</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('CatalogID')) {
+        obj['CatalogID'] = ApiClient.convertToType(data['CatalogID'], 'String');
+      }
       if (data.hasOwnProperty('ProductID')) {
         obj['ProductID'] = ApiClient.convertToType(data['ProductID'], 'String');
-      }
-      if (data.hasOwnProperty('PriceScheduleID')) {
-        obj['PriceScheduleID'] = ApiClient.convertToType(data['PriceScheduleID'], 'String');
-      }
-      if (data.hasOwnProperty('StandardPriceScheduleID')) {
-        obj['StandardPriceScheduleID'] = ApiClient.convertToType(data['StandardPriceScheduleID'], 'String');
-      }
-      if (data.hasOwnProperty('BuyerID')) {
-        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
-      }
-      if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
-      }
-      if (data.hasOwnProperty('UserGroupID')) {
-        obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
       }
     }
     return obj;
   }
 
   /**
+   * @member {String} CatalogID
+   */
+  exports.prototype['CatalogID'] = undefined;
+  /**
    * @member {String} ProductID
    */
   exports.prototype['ProductID'] = undefined;
-  /**
-   * @member {String} PriceScheduleID
-   */
-  exports.prototype['PriceScheduleID'] = undefined;
-  /**
-   * @member {String} StandardPriceScheduleID
-   */
-  exports.prototype['StandardPriceScheduleID'] = undefined;
-  /**
-   * @member {String} BuyerID
-   */
-  exports.prototype['BuyerID'] = undefined;
-  /**
-   * @member {String} UserID
-   */
-  exports.prototype['UserID'] = undefined;
-  /**
-   * @member {String} UserGroupID
-   */
-  exports.prototype['UserGroupID'] = undefined;
 
 
 
@@ -26698,7 +27960,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],123:[function(require,module,exports){
+},{"../ApiClient":8}],131:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26735,7 +27997,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Promotion model module.
    * @module model/Promotion
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -26883,7 +28145,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],124:[function(require,module,exports){
+},{"../ApiClient":8}],132:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26920,7 +28182,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The PromotionAssignment model module.
    * @module model/PromotionAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -26930,7 +28192,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
 
 
 
@@ -26954,9 +28215,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
-      if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
-      }
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
       }
@@ -26973,10 +28231,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['BuyerID'] = undefined;
   /**
-   * @member {String} UserID
-   */
-  exports.prototype['UserID'] = undefined;
-  /**
    * @member {String} UserGroupID
    */
   exports.prototype['UserGroupID'] = undefined;
@@ -26988,7 +28242,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],125:[function(require,module,exports){
+},{"../ApiClient":8}],133:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27025,7 +28279,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The SecurityProfile model module.
    * @module model/SecurityProfile
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27035,7 +28289,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
-
 
 
 
@@ -27056,9 +28309,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
-      if (data.hasOwnProperty('IsDevProfile')) {
-        obj['IsDevProfile'] = ApiClient.convertToType(data['IsDevProfile'], 'Boolean');
-      }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
       }
@@ -27073,10 +28323,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
-  /**
-   * @member {Boolean} IsDevProfile
-   */
-  exports.prototype['IsDevProfile'] = undefined;
   /**
    * @member {String} Name
    */
@@ -27093,7 +28339,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],126:[function(require,module,exports){
+},{"../ApiClient":8}],134:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27130,7 +28376,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The SecurityProfileAssignment model module.
    * @module model/SecurityProfileAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27140,6 +28386,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -27164,6 +28411,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
+      if (data.hasOwnProperty('SupplierID')) {
+        obj['SupplierID'] = ApiClient.convertToType(data['SupplierID'], 'String');
+      }
       if (data.hasOwnProperty('UserID')) {
         obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
       }
@@ -27183,6 +28433,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['BuyerID'] = undefined;
   /**
+   * @member {String} SupplierID
+   */
+  exports.prototype['SupplierID'] = undefined;
+  /**
    * @member {String} UserID
    */
   exports.prototype['UserID'] = undefined;
@@ -27198,7 +28452,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],127:[function(require,module,exports){
+},{"../ApiClient":8}],135:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27215,18 +28469,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ShipmentItem'], factory);
+    define(['ApiClient', 'model/Address'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./ShipmentItem'));
+    module.exports = factory(require('../ApiClient'), require('./Address'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Shipment = factory(root.OrderCloud.ApiClient, root.OrderCloud.ShipmentItem);
+    root.OrderCloud.Shipment = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address);
   }
-}(this, function(ApiClient, ShipmentItem) {
+}(this, function(ApiClient, Address) {
   'use strict';
 
 
@@ -27235,7 +28489,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Shipment model module.
    * @module model/Shipment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27245,6 +28499,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
+
+
+
+
 
 
 
@@ -27267,6 +28526,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('BuyerID')) {
+        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
+      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
@@ -27285,16 +28547,32 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Cost')) {
         obj['Cost'] = ApiClient.convertToType(data['Cost'], 'Number');
       }
-      if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [ShipmentItem]);
-      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
+      if (data.hasOwnProperty('Account')) {
+        obj['Account'] = ApiClient.convertToType(data['Account'], 'String');
+      }
+      if (data.hasOwnProperty('FromAddressID')) {
+        obj['FromAddressID'] = ApiClient.convertToType(data['FromAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('ToAddressID')) {
+        obj['ToAddressID'] = ApiClient.convertToType(data['ToAddressID'], 'String');
+      }
+      if (data.hasOwnProperty('FromAddress')) {
+        obj['FromAddress'] = Address.constructFromObject(data['FromAddress']);
+      }
+      if (data.hasOwnProperty('ToAddress')) {
+        obj['ToAddress'] = Address.constructFromObject(data['ToAddress']);
       }
     }
     return obj;
   }
 
+  /**
+   * @member {String} BuyerID
+   */
+  exports.prototype['BuyerID'] = undefined;
   /**
    * @member {String} ID
    */
@@ -27320,13 +28598,29 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Cost'] = undefined;
   /**
-   * @member {Array.<module:model/ShipmentItem>} Items
-   */
-  exports.prototype['Items'] = undefined;
-  /**
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
+  /**
+   * @member {String} Account
+   */
+  exports.prototype['Account'] = undefined;
+  /**
+   * @member {String} FromAddressID
+   */
+  exports.prototype['FromAddressID'] = undefined;
+  /**
+   * @member {String} ToAddressID
+   */
+  exports.prototype['ToAddressID'] = undefined;
+  /**
+   * @member {module:model/Address} FromAddress
+   */
+  exports.prototype['FromAddress'] = undefined;
+  /**
+   * @member {module:model/Address} ToAddress
+   */
+  exports.prototype['ToAddress'] = undefined;
 
 
 
@@ -27335,7 +28629,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9,"./ShipmentItem":128}],128:[function(require,module,exports){
+},{"../ApiClient":8,"./Address":38}],136:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27352,18 +28646,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./LineItemProduct'), require('./LineItemSpec'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.ApiClient, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, LineItemProduct, LineItemSpec) {
   'use strict';
 
 
@@ -27372,7 +28666,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The ShipmentItem model module.
    * @module model/ShipmentItem
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27382,6 +28676,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
+
+
+
+
+
 
 
 
@@ -27408,6 +28708,24 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('QuantityShipped')) {
         obj['QuantityShipped'] = ApiClient.convertToType(data['QuantityShipped'], 'Number');
       }
+      if (data.hasOwnProperty('UnitPrice')) {
+        obj['UnitPrice'] = ApiClient.convertToType(data['UnitPrice'], 'Number');
+      }
+      if (data.hasOwnProperty('CostCenter')) {
+        obj['CostCenter'] = ApiClient.convertToType(data['CostCenter'], 'String');
+      }
+      if (data.hasOwnProperty('DateNeeded')) {
+        obj['DateNeeded'] = ApiClient.convertToType(data['DateNeeded'], 'String');
+      }
+      if (data.hasOwnProperty('Product')) {
+        obj['Product'] = LineItemProduct.constructFromObject(data['Product']);
+      }
+      if (data.hasOwnProperty('Specs')) {
+        obj['Specs'] = ApiClient.convertToType(data['Specs'], [LineItemSpec]);
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
@@ -27424,6 +28742,30 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Number} QuantityShipped
    */
   exports.prototype['QuantityShipped'] = undefined;
+  /**
+   * @member {Number} UnitPrice
+   */
+  exports.prototype['UnitPrice'] = undefined;
+  /**
+   * @member {String} CostCenter
+   */
+  exports.prototype['CostCenter'] = undefined;
+  /**
+   * @member {String} DateNeeded
+   */
+  exports.prototype['DateNeeded'] = undefined;
+  /**
+   * @member {module:model/LineItemProduct} Product
+   */
+  exports.prototype['Product'] = undefined;
+  /**
+   * @member {Array.<module:model/LineItemSpec>} Specs
+   */
+  exports.prototype['Specs'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -27432,7 +28774,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],129:[function(require,module,exports){
+},{"../ApiClient":8,"./LineItemProduct":61,"./LineItemSpec":62}],137:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27469,7 +28811,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Spec model module.
    * @module model/Spec
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27585,7 +28927,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],130:[function(require,module,exports){
+},{"../ApiClient":8}],138:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27622,7 +28964,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The SpecOption model module.
    * @module model/SpecOption
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27714,7 +29056,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],131:[function(require,module,exports){
+},{"../ApiClient":8}],139:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27751,7 +29093,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The SpecProductAssignment model module.
    * @module model/SpecProductAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27819,7 +29161,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],132:[function(require,module,exports){
+},{"../ApiClient":8}],140:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27856,7 +29198,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The SpendingAccount model module.
    * @module model/SpendingAccount
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -27956,7 +29298,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],133:[function(require,module,exports){
+},{"../ApiClient":8}],141:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27993,7 +29335,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The SpendingAccountAssignment model module.
    * @module model/SpendingAccountAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -28061,7 +29403,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],134:[function(require,module,exports){
+},{"../ApiClient":8}],142:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28087,7 +29429,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.StripeCreditCard = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.Supplier = factory(root.OrderCloud.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -28096,14 +29438,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
   /**
-   * The StripeCreditCard model module.
-   * @module model/StripeCreditCard
-   * @version v1.0.42-preview
+   * The Supplier model module.
+   * @module model/Supplier
+   * @version 1.0.50
    */
 
   /**
-   * Constructs a new <code>StripeCreditCard</code>.
-   * @alias module:model/StripeCreditCard
+   * Constructs a new <code>Supplier</code>.
+   * @alias module:model/Supplier
    * @class
    */
   var exports = function() {
@@ -28113,107 +29455,51 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-
-
-
-
-
-
-
   };
 
   /**
-   * Constructs a <code>StripeCreditCard</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>Supplier</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/StripeCreditCard} obj Optional instance to populate.
-   * @return {module:model/StripeCreditCard} The populated <code>StripeCreditCard</code> instance.
+   * @param {module:model/Supplier} obj Optional instance to populate.
+   * @return {module:model/Supplier} The populated <code>Supplier</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
       }
-      if (data.hasOwnProperty('Number')) {
-        obj['Number'] = ApiClient.convertToType(data['Number'], 'String');
+      if (data.hasOwnProperty('Active')) {
+        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
       }
-      if (data.hasOwnProperty('ExpirationMonth')) {
-        obj['ExpirationMonth'] = ApiClient.convertToType(data['ExpirationMonth'], 'String');
-      }
-      if (data.hasOwnProperty('ExpirationYear')) {
-        obj['ExpirationYear'] = ApiClient.convertToType(data['ExpirationYear'], 'String');
-      }
-      if (data.hasOwnProperty('Cvc')) {
-        obj['Cvc'] = ApiClient.convertToType(data['Cvc'], 'String');
-      }
-      if (data.hasOwnProperty('AddressLine1')) {
-        obj['AddressLine1'] = ApiClient.convertToType(data['AddressLine1'], 'String');
-      }
-      if (data.hasOwnProperty('AddressLine2')) {
-        obj['AddressLine2'] = ApiClient.convertToType(data['AddressLine2'], 'String');
-      }
-      if (data.hasOwnProperty('AddressCity')) {
-        obj['AddressCity'] = ApiClient.convertToType(data['AddressCity'], 'String');
-      }
-      if (data.hasOwnProperty('AddressState')) {
-        obj['AddressState'] = ApiClient.convertToType(data['AddressState'], 'String');
-      }
-      if (data.hasOwnProperty('AddressZip')) {
-        obj['AddressZip'] = ApiClient.convertToType(data['AddressZip'], 'String');
-      }
-      if (data.hasOwnProperty('AddressCountry')) {
-        obj['AddressCountry'] = ApiClient.convertToType(data['AddressCountry'], 'String');
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
       }
     }
     return obj;
   }
 
   /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
+  /**
    * @member {String} Name
    */
   exports.prototype['Name'] = undefined;
   /**
-   * @member {String} Number
+   * @member {Boolean} Active
    */
-  exports.prototype['Number'] = undefined;
+  exports.prototype['Active'] = undefined;
   /**
-   * @member {String} ExpirationMonth
+   * @member {Object} xp
    */
-  exports.prototype['ExpirationMonth'] = undefined;
-  /**
-   * @member {String} ExpirationYear
-   */
-  exports.prototype['ExpirationYear'] = undefined;
-  /**
-   * @member {String} Cvc
-   */
-  exports.prototype['Cvc'] = undefined;
-  /**
-   * @member {String} AddressLine1
-   */
-  exports.prototype['AddressLine1'] = undefined;
-  /**
-   * @member {String} AddressLine2
-   */
-  exports.prototype['AddressLine2'] = undefined;
-  /**
-   * @member {String} AddressCity
-   */
-  exports.prototype['AddressCity'] = undefined;
-  /**
-   * @member {String} AddressState
-   */
-  exports.prototype['AddressState'] = undefined;
-  /**
-   * @member {String} AddressZip
-   */
-  exports.prototype['AddressZip'] = undefined;
-  /**
-   * @member {String} AddressCountry
-   */
-  exports.prototype['AddressCountry'] = undefined;
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -28222,7 +29508,88 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],135:[function(require,module,exports){
+},{"../ApiClient":8}],143:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['ApiClient'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../ApiClient'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.TokenPasswordReset = factory(root.OrderCloud.ApiClient);
+  }
+}(this, function(ApiClient) {
+  'use strict';
+
+
+
+
+  /**
+   * The TokenPasswordReset model module.
+   * @module model/TokenPasswordReset
+   * @version 1.0.50
+   */
+
+  /**
+   * Constructs a new <code>TokenPasswordReset</code>.
+   * @alias module:model/TokenPasswordReset
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+  };
+
+  /**
+   * Constructs a <code>TokenPasswordReset</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/TokenPasswordReset} obj Optional instance to populate.
+   * @return {module:model/TokenPasswordReset} The populated <code>TokenPasswordReset</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('NewPassword')) {
+        obj['NewPassword'] = ApiClient.convertToType(data['NewPassword'], 'String');
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} NewPassword
+   */
+  exports.prototype['NewPassword'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../ApiClient":8}],144:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28259,7 +29626,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The User model module.
    * @module model/User
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -28383,7 +29750,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],136:[function(require,module,exports){
+},{"../ApiClient":8}],145:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28420,7 +29787,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The UserGroup model module.
    * @module model/UserGroup
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -28488,7 +29855,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],137:[function(require,module,exports){
+},{"../ApiClient":8}],146:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28525,7 +29892,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The UserGroupAssignment model module.
    * @module model/UserGroupAssignment
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -28577,7 +29944,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],138:[function(require,module,exports){
+},{"../ApiClient":8}],147:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28614,7 +29981,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   /**
    * The Variant model module.
    * @module model/Variant
-   * @version v1.0.42-preview
+   * @version 1.0.50
    */
 
   /**
@@ -28690,94 +30057,5 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../ApiClient":9}],139:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.XpIndex = factory(root.OrderCloud.ApiClient);
-  }
-}(this, function(ApiClient) {
-  'use strict';
-
-
-
-
-  /**
-   * The XpIndex model module.
-   * @module model/XpIndex
-   * @version v1.0.42-preview
-   */
-
-  /**
-   * Constructs a new <code>XpIndex</code>.
-   * @alias module:model/XpIndex
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-  };
-
-  /**
-   * Constructs a <code>XpIndex</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/XpIndex} obj Optional instance to populate.
-   * @return {module:model/XpIndex} The populated <code>XpIndex</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('ThingType')) {
-        obj['ThingType'] = ApiClient.convertToType(data['ThingType'], 'String');
-      }
-      if (data.hasOwnProperty('Key')) {
-        obj['Key'] = ApiClient.convertToType(data['Key'], 'String');
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {String} ThingType
-   */
-  exports.prototype['ThingType'] = undefined;
-  /**
-   * @member {String} Key
-   */
-  exports.prototype['Key'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../ApiClient":9}]},{},[36])(36)
+},{"../ApiClient":8}]},{},[36])(36)
 });

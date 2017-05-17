@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.Payments();
+    instance = OrderCloud.Payments;
   });
 
   var getProperty = function(object, getter, property) {
@@ -112,36 +112,6 @@
       it('should call Patch successfully', function(done) {
         //uncomment below and update the code to test Patch
         //instance.Patch(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('PatchTransaction', function() {
-      it('should call PatchTransaction successfully', function(done) {
-        //uncomment below and update the code to test PatchTransaction
-        //instance.PatchTransaction(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('Update', function() {
-      it('should call Update successfully', function(done) {
-        //uncomment below and update the code to test Update
-        //instance.Update(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('UpdateTransaction', function() {
-      it('should call UpdateTransaction successfully', function(done) {
-        //uncomment below and update the code to test UpdateTransaction
-        //instance.UpdateTransaction(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

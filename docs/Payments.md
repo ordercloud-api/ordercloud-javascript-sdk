@@ -4,21 +4,18 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](Payments.md#Create) | **POST** /buyers/{buyerID}/orders/{orderID}/payments | 
-[**CreateTransaction**](Payments.md#CreateTransaction) | **POST** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions | 
-[**Delete**](Payments.md#Delete) | **DELETE** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-[**DeleteTransaction**](Payments.md#DeleteTransaction) | **DELETE** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
-[**Get**](Payments.md#Get) | **GET** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-[**List**](Payments.md#List) | **GET** /buyers/{buyerID}/orders/{orderID}/payments | 
-[**Patch**](Payments.md#Patch) | **PATCH** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-[**PatchTransaction**](Payments.md#PatchTransaction) | **PATCH** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
-[**Update**](Payments.md#Update) | **PUT** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID} | 
-[**UpdateTransaction**](Payments.md#UpdateTransaction) | **PUT** /buyers/{buyerID}/orders/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
+[**Create**](Payments.md#Create) | **POST** /orders/{direction}/{orderID}/payments | 
+[**CreateTransaction**](Payments.md#CreateTransaction) | **POST** /orders/{direction}/{orderID}/payments/{paymentID}/transactions | 
+[**Delete**](Payments.md#Delete) | **DELETE** /orders/{direction}/{orderID}/payments/{paymentID} | 
+[**DeleteTransaction**](Payments.md#DeleteTransaction) | **DELETE** /orders/{direction}/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
+[**Get**](Payments.md#Get) | **GET** /orders/{direction}/{orderID}/payments/{paymentID} | 
+[**List**](Payments.md#List) | **GET** /orders/{direction}/{orderID}/payments | 
+[**Patch**](Payments.md#Patch) | **PATCH** /orders/{direction}/{orderID}/payments/{paymentID} | 
 
 
 <a name="Create"></a>
 # **Create**
-> Payment Create(buyerID, orderID, payment)
+> Payment Create(direction, orderID, payment)
 
 
 
@@ -33,13 +30,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var payment = new OrderCloud.Payment(); // Payment | 
 
-apiInstance.Create(buyerID, orderID, payment).then(function(data) {
+apiInstance.Create(direction, orderID, payment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -51,7 +48,7 @@ apiInstance.Create(buyerID, orderID, payment).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **payment** | [**Payment**](Payment.md)|  | 
 
@@ -60,6 +57,8 @@ Name | Type | Description  | Notes
 [**Payment**](Payment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -70,7 +69,7 @@ Name | Type | Description  | Notes
 
 <a name="CreateTransaction"></a>
 # **CreateTransaction**
-> Payment CreateTransaction(buyerID, orderID, paymentID, transaction)
+> Payment CreateTransaction(direction, orderID, paymentID, transaction)
 
 
 
@@ -85,7 +84,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -93,7 +92,7 @@ var paymentID = "paymentID_example"; // String | ID of the payment.
 
 var transaction = new OrderCloud.PaymentTransaction(); // PaymentTransaction | 
 
-apiInstance.CreateTransaction(buyerID, orderID, paymentID, transaction).then(function(data) {
+apiInstance.CreateTransaction(direction, orderID, paymentID, transaction).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -105,7 +104,7 @@ apiInstance.CreateTransaction(buyerID, orderID, paymentID, transaction).then(fun
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
  **transaction** | [**PaymentTransaction**](PaymentTransaction.md)|  | 
@@ -115,6 +114,8 @@ Name | Type | Description  | Notes
 [**Payment**](Payment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -125,7 +126,7 @@ Name | Type | Description  | Notes
 
 <a name="Delete"></a>
 # **Delete**
-> Delete(buyerID, orderID, paymentID)
+> Delete(direction, orderID, paymentID)
 
 
 
@@ -140,13 +141,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var paymentID = "paymentID_example"; // String | ID of the payment.
 
-apiInstance.Delete(buyerID, orderID, paymentID).then(function() {
+apiInstance.Delete(direction, orderID, paymentID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -158,7 +159,7 @@ apiInstance.Delete(buyerID, orderID, paymentID).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
 
@@ -167,6 +168,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -177,7 +180,7 @@ null (empty response body)
 
 <a name="DeleteTransaction"></a>
 # **DeleteTransaction**
-> DeleteTransaction(buyerID, orderID, paymentID, transactionID)
+> DeleteTransaction(direction, orderID, paymentID, transactionID)
 
 
 
@@ -192,7 +195,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -200,7 +203,7 @@ var paymentID = "paymentID_example"; // String | ID of the payment.
 
 var transactionID = "transactionID_example"; // String | ID of the transaction.
 
-apiInstance.DeleteTransaction(buyerID, orderID, paymentID, transactionID).then(function() {
+apiInstance.DeleteTransaction(direction, orderID, paymentID, transactionID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -212,7 +215,7 @@ apiInstance.DeleteTransaction(buyerID, orderID, paymentID, transactionID).then(f
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
  **transactionID** | **String**| ID of the transaction. | 
@@ -223,6 +226,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -232,7 +237,7 @@ null (empty response body)
 
 <a name="Get"></a>
 # **Get**
-> Payment Get(buyerID, orderID, paymentID)
+> Payment Get(direction, orderID, paymentID)
 
 
 
@@ -247,13 +252,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var paymentID = "paymentID_example"; // String | ID of the payment.
 
-apiInstance.Get(buyerID, orderID, paymentID).then(function(data) {
+apiInstance.Get(direction, orderID, paymentID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -265,7 +270,7 @@ apiInstance.Get(buyerID, orderID, paymentID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
 
@@ -274,6 +279,8 @@ Name | Type | Description  | Notes
 [**Payment**](Payment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -284,7 +291,7 @@ Name | Type | Description  | Notes
 
 <a name="List"></a>
 # **List**
-> ListPayment List(buyerID, orderID, opts)
+> ListPayment List(direction, orderID, opts)
 
 
 
@@ -299,19 +306,19 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the payment.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the payment.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the payment.
+  'page': 56, // Number | Page of the payment.
+  'pageSize': 56, // Number | Page size of the payment.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the payment.
 };
-apiInstance.List(buyerID, orderID, opts).then(function(data) {
+apiInstance.List(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -323,20 +330,22 @@ apiInstance.List(buyerID, orderID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the payment. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the payment. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the payment. | [optional] 
+ **page** | **Number**| Page of the payment. | [optional] 
+ **pageSize** | **Number**| Page size of the payment. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the payment. | [optional] 
 
 ### Return type
 
 [**ListPayment**](ListPayment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -347,7 +356,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> Payment Patch(buyerID, orderID, paymentID, partialPayment)
+> Payment Patch(direction, orderID, paymentID, partialPayment)
 
 
 
@@ -362,7 +371,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var buyerID = "buyerID_example"; // String | ID of the buyer.
+var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -370,7 +379,7 @@ var paymentID = "paymentID_example"; // String | ID of the payment.
 
 var partialPayment = new OrderCloud.Payment(); // Payment | 
 
-apiInstance.Patch(buyerID, orderID, paymentID, partialPayment).then(function(data) {
+apiInstance.Patch(direction, orderID, paymentID, partialPayment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -382,7 +391,7 @@ apiInstance.Patch(buyerID, orderID, paymentID, partialPayment).then(function(dat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
+ **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
  **partialPayment** | [**Payment**](Payment.md)|  | 
@@ -393,176 +402,7 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
-[oauth2](../README.md#oauth2)
 
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="PatchTransaction"></a>
-# **PatchTransaction**
-> Payment PatchTransaction(buyerID, orderID, paymentID, transactionID, partialTransaction)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Payments();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-var paymentID = "paymentID_example"; // String | ID of the payment.
-
-var transactionID = "transactionID_example"; // String | ID of the transaction.
-
-var partialTransaction = new OrderCloud.PaymentTransaction(); // PaymentTransaction | 
-
-apiInstance.PatchTransaction(buyerID, orderID, paymentID, transactionID, partialTransaction).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **orderID** | **String**| ID of the order. | 
- **paymentID** | **String**| ID of the payment. | 
- **transactionID** | **String**| ID of the transaction. | 
- **partialTransaction** | [**PaymentTransaction**](PaymentTransaction.md)|  | 
-
-### Return type
-
-[**Payment**](Payment.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Update"></a>
-# **Update**
-> Payment Update(buyerID, orderID, paymentID, payment)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Payments();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-var paymentID = "paymentID_example"; // String | ID of the payment.
-
-var payment = new OrderCloud.Payment(); // Payment | 
-
-apiInstance.Update(buyerID, orderID, paymentID, payment).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **orderID** | **String**| ID of the order. | 
- **paymentID** | **String**| ID of the payment. | 
- **payment** | [**Payment**](Payment.md)|  | 
-
-### Return type
-
-[**Payment**](Payment.md)
-
-### Authorization
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="UpdateTransaction"></a>
-# **UpdateTransaction**
-> Payment UpdateTransaction(buyerID, orderID, paymentID, transactionID, transaction)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Payments();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-var paymentID = "paymentID_example"; // String | ID of the payment.
-
-var transactionID = "transactionID_example"; // String | ID of the transaction.
-
-var transaction = new OrderCloud.PaymentTransaction(); // PaymentTransaction | 
-
-apiInstance.UpdateTransaction(buyerID, orderID, paymentID, transactionID, transaction).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **orderID** | **String**| ID of the order. | 
- **paymentID** | **String**| ID of the payment. | 
- **transactionID** | **String**| ID of the transaction. | 
- **transaction** | [**PaymentTransaction**](PaymentTransaction.md)|  | 
-
-### Return type
-
-[**Payment**](Payment.md)
-
-### Authorization
 
 [oauth2](../README.md#oauth2)
 

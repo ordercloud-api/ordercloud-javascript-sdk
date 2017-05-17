@@ -68,7 +68,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling Login");
             }
 
-            var postBody = 'grant_type=password&scope=' + scope.join("+") + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
 
             var pathParams = {};
             var queryParams = {};
@@ -115,7 +115,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling ElevatedLogin");
             }
 
-            var postBody = 'grant_type=password&scope=' + scope.join("+") + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
 
             var pathParams = {};
             var queryParams = {};
@@ -152,7 +152,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling ElevatedLogin");
             }
 
-            var postBody = 'grant_type=client_credentials&scope=' + scope.join("+") + '&client_secret=' + clientSecret + '&client_id=' + clientID;
+            var postBody = 'grant_type=client_credentials&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -189,7 +189,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling RefreshToken");
             }
 
-            var postBody = 'grant_type=refresh_token&scope=' + scope.join("+") + '&refresh_token=' + refreshToken + '&client_id=' + clientID;
+            var postBody = 'grant_type=refresh_token&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&refresh_token=' + refreshToken + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -221,7 +221,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling RefreshToken");
             }
 
-            var postBody = 'grant_type=client_credentials&scope=' + scope.join("+") + '&client_id=' + clientID;
+            var postBody = 'grant_type=client_credentials&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};

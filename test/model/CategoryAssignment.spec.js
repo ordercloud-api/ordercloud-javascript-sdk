@@ -66,14 +66,20 @@
       //expect(instance).to.be();
     });
 
-    it('should have the property userID (base name: "UserID")', function() {
-      // uncomment below and update the code to test the property userID
+    it('should have the property userGroupID (base name: "UserGroupID")', function() {
+      // uncomment below and update the code to test the property userGroupID
       //var instane = new OrderCloud.CategoryAssignment();
       //expect(instance).to.be();
     });
 
-    it('should have the property userGroupID (base name: "UserGroupID")', function() {
-      // uncomment below and update the code to test the property userGroupID
+    it('should have the property visible (base name: "Visible")', function() {
+      // uncomment below and update the code to test the property visible
+      //var instane = new OrderCloud.CategoryAssignment();
+      //expect(instance).to.be();
+    });
+
+    it('should have the property viewAllProducts (base name: "ViewAllProducts")', function() {
+      // uncomment below and update the code to test the property viewAllProducts
       //var instane = new OrderCloud.CategoryAssignment();
       //expect(instance).to.be();
     });

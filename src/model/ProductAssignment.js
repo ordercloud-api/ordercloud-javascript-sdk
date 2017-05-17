@@ -34,7 +34,7 @@
   /**
    * The ProductAssignment model module.
    * @module model/ProductAssignment
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,8 +44,6 @@
    */
   var exports = function() {
     var _this = this;
-
-
 
 
 
@@ -67,20 +65,14 @@
       if (data.hasOwnProperty('ProductID')) {
         obj['ProductID'] = ApiClient.convertToType(data['ProductID'], 'String');
       }
-      if (data.hasOwnProperty('PriceScheduleID')) {
-        obj['PriceScheduleID'] = ApiClient.convertToType(data['PriceScheduleID'], 'String');
-      }
-      if (data.hasOwnProperty('StandardPriceScheduleID')) {
-        obj['StandardPriceScheduleID'] = ApiClient.convertToType(data['StandardPriceScheduleID'], 'String');
-      }
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
-      if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
-      }
       if (data.hasOwnProperty('UserGroupID')) {
         obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
+      }
+      if (data.hasOwnProperty('PriceScheduleID')) {
+        obj['PriceScheduleID'] = ApiClient.convertToType(data['PriceScheduleID'], 'String');
       }
     }
     return obj;
@@ -91,25 +83,17 @@
    */
   exports.prototype['ProductID'] = undefined;
   /**
-   * @member {String} PriceScheduleID
-   */
-  exports.prototype['PriceScheduleID'] = undefined;
-  /**
-   * @member {String} StandardPriceScheduleID
-   */
-  exports.prototype['StandardPriceScheduleID'] = undefined;
-  /**
    * @member {String} BuyerID
    */
   exports.prototype['BuyerID'] = undefined;
   /**
-   * @member {String} UserID
-   */
-  exports.prototype['UserID'] = undefined;
-  /**
    * @member {String} UserGroupID
    */
   exports.prototype['UserGroupID'] = undefined;
+  /**
+   * @member {String} PriceScheduleID
+   */
+  exports.prototype['PriceScheduleID'] = undefined;
 
 
 

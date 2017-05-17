@@ -96,6 +96,12 @@
       //expect(instance).to.be();
     });
 
+    it('should have the property accepted (base name: "Accepted")', function() {
+      // uncomment below and update the code to test the property accepted
+      //var instane = new OrderCloud.Payment();
+      //expect(instance).to.be();
+    });
+
     it('should have the property xp (base name: "xp")', function() {
       // uncomment below and update the code to test the property xp
       //var instane = new OrderCloud.Payment();

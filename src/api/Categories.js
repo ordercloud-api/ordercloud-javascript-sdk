@@ -31,7 +31,7 @@
   /**
    * Category service.
    * @module api/Categories
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -284,12 +284,12 @@
      * @param {String} catalogID ID of the catalog.
      * @param {Object} opts Optional parameters
      * @param {String} opts.depth Depth of the category.
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the category.
+     * @param {Array.<String>} opts.searchOn Search on of the category.
+     * @param {Array.<String>} opts.sortBy Sort by of the category.
+     * @param {Number} opts.page Page of the category.
+     * @param {Number} opts.pageSize Page size of the category.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
     this.List = function(catalogID, opts) {
@@ -308,8 +308,8 @@
       var queryParams = {
         'depth': opts['depth'],
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -340,8 +340,8 @@
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.level Level of the category.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the category.
+     * @param {Number} opts.pageSize Page size of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryAssignment}
      */
     this.ListAssignments = function(catalogID, opts) {
@@ -389,8 +389,8 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.categoryID ID of the category.
      * @param {String} opts.productID ID of the product.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the category.
+     * @param {Number} opts.pageSize Page size of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryProductAssignment}
      */
     this.ListProductAssignments = function(catalogID, opts) {

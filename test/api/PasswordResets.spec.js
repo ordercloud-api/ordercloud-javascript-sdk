@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.PasswordResets();
+    instance = OrderCloud.PasswordResets;
   });
 
   var getProperty = function(object, getter, property) {
@@ -48,10 +48,10 @@
   }
 
   describe('PasswordResets', function() {
-    describe('ResetPassword', function() {
-      it('should call ResetPassword successfully', function(done) {
-        //uncomment below and update the code to test ResetPassword
-        //instance.ResetPassword(pet, function(error) {
+    describe('ResetPasswordByVerificationCode', function() {
+      it('should call ResetPasswordByVerificationCode successfully', function(done) {
+        //uncomment below and update the code to test ResetPasswordByVerificationCode
+        //instance.ResetPasswordByVerificationCode(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

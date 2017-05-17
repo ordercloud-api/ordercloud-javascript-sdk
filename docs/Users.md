@@ -55,6 +55,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -104,6 +106,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -152,6 +156,8 @@ Name | Type | Description  | Notes
 [**User**](User.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -205,6 +211,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -233,12 +241,12 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var opts = { 
   'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the user.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the user.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the user.
+  'page': 56, // Number | Page of the user.
+  'pageSize': 56, // Number | Page size of the user.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the user.
 };
 apiInstance.List(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -254,18 +262,20 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the user. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the user. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the user. | [optional] 
+ **page** | **Number**| Page of the user. | [optional] 
+ **pageSize** | **Number**| Page size of the user. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the user. | [optional] 
 
 ### Return type
 
 [**ListUser**](ListUser.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -319,6 +329,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -370,6 +382,8 @@ Name | Type | Description  | Notes
 [**User**](User.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 

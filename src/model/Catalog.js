@@ -34,7 +34,7 @@
   /**
    * The Catalog model module.
    * @module model/Catalog
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -72,6 +73,9 @@
       if (data.hasOwnProperty('Description')) {
         obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
       }
+      if (data.hasOwnProperty('Active')) {
+        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+      }
       if (data.hasOwnProperty('CategoryCount')) {
         obj['CategoryCount'] = ApiClient.convertToType(data['CategoryCount'], 'Number');
       }
@@ -94,6 +98,10 @@
    * @member {String} Description
    */
   exports.prototype['Description'] = undefined;
+  /**
+   * @member {Boolean} Active
+   */
+  exports.prototype['Active'] = undefined;
   /**
    * @member {Number} CategoryCount
    */

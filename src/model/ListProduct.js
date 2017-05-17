@@ -34,7 +34,7 @@
   /**
    * The ListProduct model module.
    * @module model/ListProduct
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**

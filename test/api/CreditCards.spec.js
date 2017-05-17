@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.CreditCards();
+    instance = OrderCloud.CreditCards;
   });
 
   var getProperty = function(object, getter, property) {

@@ -31,7 +31,7 @@
   /**
    * SecurityProfile service.
    * @module api/SecurityProfiles
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -128,12 +128,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the security profile.
+     * @param {Array.<String>} opts.searchOn Search on of the security profile.
+     * @param {Array.<String>} opts.sortBy Sort by of the security profile.
+     * @param {Number} opts.page Page of the security profile.
+     * @param {Number} opts.pageSize Page size of the security profile.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the security profile.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfile}
      */
     this.List = function(opts) {
@@ -145,8 +145,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -172,12 +172,14 @@
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.buyerID ID of the buyer.
+     * @param {String} opts.supplierID ID of the supplier.
      * @param {String} opts.securityProfileID ID of the security profile.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
+     * @param {String} opts.commerceRole Commerce role of the security profile.
      * @param {String} opts.level Level of the security profile.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the security profile.
+     * @param {Number} opts.pageSize Page size of the security profile.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfileAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -189,9 +191,11 @@
       };
       var queryParams = {
         'buyerID': opts['buyerID'],
+        'supplierID': opts['supplierID'],
         'securityProfileID': opts['securityProfileID'],
         'userID': opts['userID'],
         'userGroupID': opts['userGroupID'],
+        'commerceRole': opts['commerceRole'],
         'level': opts['level'],
         'page': opts['page'],
         'pageSize': opts['pageSize']

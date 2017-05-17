@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.Me();
+    instance = OrderCloud.Me;
   });
 
   var getProperty = function(object, getter, property) {
@@ -108,20 +108,20 @@
         done();
       });
     });
-    describe('GetCreditCard', function() {
-      it('should call GetCreditCard successfully', function(done) {
-        //uncomment below and update the code to test GetCreditCard
-        //instance.GetCreditCard(pet, function(error) {
+    describe('GetCatalog', function() {
+      it('should call GetCatalog successfully', function(done) {
+        //uncomment below and update the code to test GetCatalog
+        //instance.GetCatalog(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('GetOrder', function() {
-      it('should call GetOrder successfully', function(done) {
-        //uncomment below and update the code to test GetOrder
-        //instance.GetOrder(pet, function(error) {
+    describe('GetCreditCard', function() {
+      it('should call GetCreditCard successfully', function(done) {
+        //uncomment below and update the code to test GetCreditCard
+        //instance.GetCreditCard(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -142,6 +142,16 @@
       it('should call GetPromotion successfully', function(done) {
         //uncomment below and update the code to test GetPromotion
         //instance.GetPromotion(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('GetShipment', function() {
+      it('should call GetShipment successfully', function(done) {
+        //uncomment below and update the code to test GetShipment
+        //instance.GetShipment(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -178,6 +188,26 @@
         done();
       });
     });
+    describe('ListApprovableOrders', function() {
+      it('should call ListApprovableOrders successfully', function(done) {
+        //uncomment below and update the code to test ListApprovableOrders
+        //instance.ListApprovableOrders(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('ListCatalogs', function() {
+      it('should call ListCatalogs successfully', function(done) {
+        //uncomment below and update the code to test ListCatalogs
+        //instance.ListCatalogs(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
     describe('ListCategories', function() {
       it('should call ListCategories successfully', function(done) {
         //uncomment below and update the code to test ListCategories
@@ -208,20 +238,10 @@
         done();
       });
     });
-    describe('ListIncomingOrders', function() {
-      it('should call ListIncomingOrders successfully', function(done) {
-        //uncomment below and update the code to test ListIncomingOrders
-        //instance.ListIncomingOrders(pet, function(error) {
-        //  if (error) throw error;
-        //expect().to.be();
-        //});
-        done();
-      });
-    });
-    describe('ListOutgoingOrders', function() {
-      it('should call ListOutgoingOrders successfully', function(done) {
-        //uncomment below and update the code to test ListOutgoingOrders
-        //instance.ListOutgoingOrders(pet, function(error) {
+    describe('ListOrders', function() {
+      it('should call ListOrders successfully', function(done) {
+        //uncomment below and update the code to test ListOrders
+        //instance.ListOrders(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -242,6 +262,26 @@
       it('should call ListPromotions successfully', function(done) {
         //uncomment below and update the code to test ListPromotions
         //instance.ListPromotions(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('ListShipmentItems', function() {
+      it('should call ListShipmentItems successfully', function(done) {
+        //uncomment below and update the code to test ListShipmentItems
+        //instance.ListShipmentItems(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('ListShipments', function() {
+      it('should call ListShipments successfully', function(done) {
+        //uncomment below and update the code to test ListShipments
+        //instance.ListShipments(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
@@ -302,6 +342,36 @@
       it('should call PatchCreditCard successfully', function(done) {
         //uncomment below and update the code to test PatchCreditCard
         //instance.PatchCreditCard(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('Register', function() {
+      it('should call Register successfully', function(done) {
+        //uncomment below and update the code to test Register
+        //instance.Register(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('ResetPasswordByToken', function() {
+      it('should call ResetPasswordByToken successfully', function(done) {
+        //uncomment below and update the code to test ResetPasswordByToken
+        //instance.ResetPasswordByToken(pet, function(error) {
+        //  if (error) throw error;
+        //expect().to.be();
+        //});
+        done();
+      });
+    });
+    describe('TransferAnonUserOrder', function() {
+      it('should call TransferAnonUserOrder successfully', function(done) {
+        //uncomment below and update the code to test TransferAnonUserOrder
+        //instance.TransferAnonUserOrder(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

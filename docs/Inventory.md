@@ -3,10 +3,11 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ID** | **String** |  | [optional] 
-**name** | **String** |  | [optional] 
-**available** | **Number** |  | [optional] 
-**reserved** | **Number** |  | [optional] 
+**enabled** | **Boolean** |  | [optional] 
+**notificationPoint** | **Number** |  | [optional] 
+**variantLevelTracking** | **Boolean** |  | [optional] 
+**orderCanExceed** | **Boolean** |  | [optional] 
+**quantityAvailable** | **Number** |  | [optional] 
 **lastUpdated** | **String** |  | [optional] 
 
 

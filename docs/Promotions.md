@@ -54,6 +54,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -99,6 +101,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -155,6 +159,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -201,6 +207,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -226,12 +234,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Promotions();
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the promotion.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the promotion.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the promotion.
+  'page': 56, // Number | Page of the promotion.
+  'pageSize': 56, // Number | Page size of the promotion.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the promotion.
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -245,18 +253,20 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the promotion. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the promotion. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the promotion. | [optional] 
+ **page** | **Number**| Page of the promotion. | [optional] 
+ **pageSize** | **Number**| Page size of the promotion. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the promotion. | [optional] 
 
 ### Return type
 
 [**ListPromotion**](ListPromotion.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -288,8 +298,8 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example", // String | ID of the user group.
   'level': "level_example", // String | Level of the promotion.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
+  'page': 56, // Number | Page of the promotion.
+  'pageSize': 56 // Number | Page size of the promotion.
 };
 apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -308,14 +318,16 @@ Name | Type | Description  | Notes
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
  **level** | **String**| Level of the promotion. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **page** | **Number**| Page of the promotion. | [optional] 
+ **pageSize** | **Number**| Page size of the promotion. | [optional] 
 
 ### Return type
 
 [**ListPromotionAssignment**](ListPromotionAssignment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -366,6 +378,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -411,6 +425,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -460,6 +476,8 @@ Name | Type | Description  | Notes
 [**Promotion**](Promotion.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 

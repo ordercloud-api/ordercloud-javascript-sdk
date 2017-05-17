@@ -28,7 +28,7 @@
   var instance;
 
   beforeEach(function() {
-    instance = new OrderCloud.SecurityProfiles();
+    instance = OrderCloud.SecurityProfiles;
   });
 
   var getProperty = function(object, getter, property) {

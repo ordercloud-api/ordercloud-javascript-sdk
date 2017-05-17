@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address'], factory);
+    define(['ApiClient', 'model/Address', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Address'));
+    module.exports = factory(require('../ApiClient'), require('./Address'), require('./User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Order = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address);
+    root.OrderCloud.Order = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address) {
+}(this, function(ApiClient, Address, User) {
   'use strict';
 
 
@@ -34,7 +34,7 @@
   /**
    * The Order model module.
    * @module model/Order
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,8 +44,6 @@
    */
   var exports = function() {
     var _this = this;
-
-
 
 
 
@@ -86,20 +84,14 @@
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
-      if (data.hasOwnProperty('Type')) {
-        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
+      if (data.hasOwnProperty('FromUser')) {
+        obj['FromUser'] = User.constructFromObject(data['FromUser']);
       }
       if (data.hasOwnProperty('FromCompanyID')) {
         obj['FromCompanyID'] = ApiClient.convertToType(data['FromCompanyID'], 'String');
       }
       if (data.hasOwnProperty('FromUserID')) {
         obj['FromUserID'] = ApiClient.convertToType(data['FromUserID'], 'String');
-      }
-      if (data.hasOwnProperty('FromUserFirstName')) {
-        obj['FromUserFirstName'] = ApiClient.convertToType(data['FromUserFirstName'], 'String');
-      }
-      if (data.hasOwnProperty('FromUserLastName')) {
-        obj['FromUserLastName'] = ApiClient.convertToType(data['FromUserLastName'], 'String');
       }
       if (data.hasOwnProperty('BillingAddressID')) {
         obj['BillingAddressID'] = ApiClient.convertToType(data['BillingAddressID'], 'String');
@@ -167,9 +159,9 @@
    */
   exports.prototype['ID'] = undefined;
   /**
-   * @member {String} Type
+   * @member {module:model/User} FromUser
    */
-  exports.prototype['Type'] = undefined;
+  exports.prototype['FromUser'] = undefined;
   /**
    * @member {String} FromCompanyID
    */
@@ -178,14 +170,6 @@
    * @member {String} FromUserID
    */
   exports.prototype['FromUserID'] = undefined;
-  /**
-   * @member {String} FromUserFirstName
-   */
-  exports.prototype['FromUserFirstName'] = undefined;
-  /**
-   * @member {String} FromUserLastName
-   */
-  exports.prototype['FromUserLastName'] = undefined;
   /**
    * @member {String} BillingAddressID
    */

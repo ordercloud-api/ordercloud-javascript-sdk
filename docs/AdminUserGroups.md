@@ -54,6 +54,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -99,6 +101,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -149,6 +153,8 @@ null (empty response body)
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -195,6 +201,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -220,12 +228,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.AdminUserGroups();
 
 var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'search': "search_example", // String | Search of the admin user group.
+  'searchOn': ["searchOn_example"], // [String] | Search on of the admin user group.
+  'sortBy': ["sortBy_example"], // [String] | Sort by of the admin user group.
+  'page': 56, // Number | Page of the admin user group.
+  'pageSize': 56, // Number | Page size of the admin user group.
+  'filters': {key: "filters_example"} // {String: String} | Filters of the admin user group.
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -239,18 +247,20 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **search** | **String**| Search of the admin user group. | [optional] 
+ **searchOn** | [**[String]**](String.md)| Search on of the admin user group. | [optional] 
+ **sortBy** | [**[String]**](String.md)| Sort by of the admin user group. | [optional] 
+ **page** | **Number**| Page of the admin user group. | [optional] 
+ **pageSize** | **Number**| Page size of the admin user group. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Filters of the admin user group. | [optional] 
 
 ### Return type
 
 [**ListUserGroup**](ListUserGroup.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -279,8 +289,8 @@ var apiInstance = new OrderCloud.AdminUserGroups();
 var opts = { 
   'userGroupID': "userGroupID_example", // String | ID of the user group.
   'userID': "userID_example", // String | ID of the user.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
+  'page': 56, // Number | Page of the admin user group.
+  'pageSize': 56 // Number | Page size of the admin user group.
 };
 apiInstance.ListUserAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -296,14 +306,16 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userGroupID** | **String**| ID of the user group. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **page** | **Number**| Page of the admin user group. | [optional] 
+ **pageSize** | **Number**| Page size of the admin user group. | [optional] 
 
 ### Return type
 
 [**ListUserGroupAssignment**](ListUserGroupAssignment.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -354,6 +366,8 @@ Name | Type | Description  | Notes
 
 ### Authorization
 
+
+
 [oauth2](../README.md#oauth2)
 
 ### HTTP request headers
@@ -399,6 +413,8 @@ Name | Type | Description  | Notes
 null (empty response body)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 
@@ -448,6 +464,8 @@ Name | Type | Description  | Notes
 [**UserGroup**](UserGroup.md)
 
 ### Authorization
+
+
 
 [oauth2](../README.md#oauth2)
 

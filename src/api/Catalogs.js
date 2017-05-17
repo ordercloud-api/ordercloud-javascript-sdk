@@ -14,24 +14,24 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Catalog', 'model/CatalogAssignment', 'model/ListCatalog', 'model/ListCatalogAssignment'], factory);
+    define(['ApiClient', 'model/Catalog', 'model/CatalogAssignment', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListProductCatalogAssignment', 'model/ProductCatalogAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Catalog'), require('../model/CatalogAssignment'), require('../model/ListCatalog'), require('../model/ListCatalogAssignment'));
+    module.exports = factory(require('../ApiClient'), require('../model/Catalog'), require('../model/CatalogAssignment'), require('../model/ListCatalog'), require('../model/ListCatalogAssignment'), require('../model/ListProductCatalogAssignment'), require('../model/ProductCatalogAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Catalogs = factory(root.OrderCloud.ApiClient, root.OrderCloud.Catalog, root.OrderCloud.CatalogAssignment, root.OrderCloud.ListCatalog, root.OrderCloud.ListCatalogAssignment);
+    root.OrderCloud.Catalogs = factory(root.OrderCloud.ApiClient, root.OrderCloud.Catalog, root.OrderCloud.CatalogAssignment, root.OrderCloud.ListCatalog, root.OrderCloud.ListCatalogAssignment, root.OrderCloud.ListProductCatalogAssignment, root.OrderCloud.ProductCatalogAssignment);
   }
-}(this, function(ApiClient, Catalog, CatalogAssignment, ListCatalog, ListCatalogAssignment) {
+}(this, function(ApiClient, Catalog, CatalogAssignment, ListCatalog, ListCatalogAssignment, ListProductCatalogAssignment, ProductCatalogAssignment) {
   'use strict';
 
   /**
    * Catalog service.
    * @module api/Catalogs
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -162,6 +162,49 @@
 
     /**
      * @param {String} catalogID ID of the catalog.
+     * @param {String} productID ID of the product.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.DeleteProductAssignment = function(catalogID, productID) {
+      var postBody = null;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling DeleteProductAssignment");
+      }
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling DeleteProductAssignment");
+      }
+
+
+      var pathParams = {
+        'catalogID': catalogID,
+        'productID': productID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/catalogs/{catalogID}/productassignments/{productID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
     this.Get = function(catalogID) {
@@ -198,12 +241,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Word or phrase to search for.
-     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
-     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.search Search of the catalog.
+     * @param {Array.<String>} opts.searchOn Search on of the catalog.
+     * @param {Array.<String>} opts.sortBy Sort by of the catalog.
+     * @param {Number} opts.page Page of the catalog.
+     * @param {Number} opts.pageSize Page size of the catalog.
+     * @param {Object.<String, {String: String}>} opts.filters Filters of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
     this.List = function(opts) {
@@ -215,8 +258,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': opts['searchOn'],
-        'sortBy': opts['sortBy'],
+        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
+        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -243,8 +286,8 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.buyerID ID of the buyer.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Number} opts.page Page of the catalog.
+     * @param {Number} opts.pageSize Page size of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalogAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -272,6 +315,45 @@
 
       return this.apiClient.callApi(
         '/catalogs/assignments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.catalogID ID of the catalog.
+     * @param {String} opts.productID ID of the product.
+     * @param {Number} opts.page Page of the catalog.
+     * @param {Number} opts.pageSize Page size of the catalog.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductCatalogAssignment}
+     */
+    this.ListProductAssignments = function(opts) {
+      opts = opts || {};
+      var postBody = null;
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+        'catalogID': opts['catalogID'],
+        'productID': opts['productID'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListProductCatalogAssignment;
+
+      return this.apiClient.callApi(
+        '/catalogs/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -349,6 +431,41 @@
 
       return this.apiClient.callApi(
         '/catalogs/assignments', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {module:model/ProductCatalogAssignment} productAssignment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.SaveProductAssignment = function(productAssignment) {
+      var postBody = productAssignment;
+
+      // verify the required parameter 'productAssignment' is set
+      if (productAssignment == undefined || productAssignment == null) {
+        throw new Error("Missing the required parameter 'productAssignment' when calling SaveProductAssignment");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/catalogs/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

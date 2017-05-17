@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['ApiClient', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../ApiClient'), require('./User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.OrderApproval = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.OrderApproval = factory(root.OrderCloud.ApiClient, root.OrderCloud.User);
   }
-}(this, function(ApiClient) {
+}(this, function(ApiClient, User) {
   'use strict';
 
 
@@ -34,7 +34,7 @@
   /**
    * The OrderApproval model module.
    * @module model/OrderApproval
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,8 +44,6 @@
    */
   var exports = function() {
     var _this = this;
-
-
 
 
 
@@ -82,14 +80,8 @@
       if (data.hasOwnProperty('DateCompleted')) {
         obj['DateCompleted'] = ApiClient.convertToType(data['DateCompleted'], 'String');
       }
-      if (data.hasOwnProperty('ApproverID')) {
-        obj['ApproverID'] = ApiClient.convertToType(data['ApproverID'], 'String');
-      }
-      if (data.hasOwnProperty('ApproverUserName')) {
-        obj['ApproverUserName'] = ApiClient.convertToType(data['ApproverUserName'], 'String');
-      }
-      if (data.hasOwnProperty('ApproverEmail')) {
-        obj['ApproverEmail'] = ApiClient.convertToType(data['ApproverEmail'], 'String');
+      if (data.hasOwnProperty('Approver')) {
+        obj['Approver'] = User.constructFromObject(data['Approver']);
       }
       if (data.hasOwnProperty('Comments')) {
         obj['Comments'] = ApiClient.convertToType(data['Comments'], 'String');
@@ -119,17 +111,9 @@
    */
   exports.prototype['DateCompleted'] = undefined;
   /**
-   * @member {String} ApproverID
+   * @member {module:model/User} Approver
    */
-  exports.prototype['ApproverID'] = undefined;
-  /**
-   * @member {String} ApproverUserName
-   */
-  exports.prototype['ApproverUserName'] = undefined;
-  /**
-   * @member {String} ApproverEmail
-   */
-  exports.prototype['ApproverEmail'] = undefined;
+  exports.prototype['Approver'] = undefined;
   /**
    * @member {String} Comments
    */

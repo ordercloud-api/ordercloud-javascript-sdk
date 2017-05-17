@@ -34,7 +34,7 @@
   /**
    * The SecurityProfile model module.
    * @module model/SecurityProfile
-   * @version 1.0.43
+   * @version 1.0.50
    */
 
   /**
@@ -44,7 +44,6 @@
    */
   var exports = function() {
     var _this = this;
-
 
 
 
@@ -65,9 +64,6 @@
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
-      if (data.hasOwnProperty('IsDevProfile')) {
-        obj['IsDevProfile'] = ApiClient.convertToType(data['IsDevProfile'], 'Boolean');
-      }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
       }
@@ -82,10 +78,6 @@
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
-  /**
-   * @member {Boolean} IsDevProfile
-   */
-  exports.prototype['IsDevProfile'] = undefined;
   /**
    * @member {String} Name
    */
