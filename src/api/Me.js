@@ -14,24 +14,24 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/Promotion', 'model/SpendingAccount', 'model/TokenPasswordReset', 'model/User'], factory);
+    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/SpendingAccount', 'model/TokenPasswordReset', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerShipment'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerShipment'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'), require('../model/User'));
+    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerShipment'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerShipment'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerShipment, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerShipment, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset, root.OrderCloud.User);
+    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerShipment, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerShipment, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipmentItem, ListSpendingAccount, ListUserGroup, Promotion, SpendingAccount, TokenPasswordReset, User) {
+}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipmentItem, ListSpendingAccount, ListUserGroup, MeUser, Promotion, SpendingAccount, TokenPasswordReset, User) {
   'use strict';
 
   /**
    * Me service.
    * @module api/Me
-   * @version 1.0.50
+   * @version 1.0.51
    */
 
   /**
@@ -189,7 +189,7 @@
 
 
     /**
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
     this.Get = function() {
       var postBody = null;
@@ -207,7 +207,7 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = User;
+      var returnType = MeUser;
 
       return this.apiClient.callApi(
         '/me', 'GET',
@@ -1158,7 +1158,7 @@
 
     /**
      * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
     this.Patch = function(user) {
       var postBody = user;
@@ -1181,7 +1181,7 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = User;
+      var returnType = MeUser;
 
       return this.apiClient.callApi(
         '/me', 'PATCH',
@@ -1390,7 +1390,7 @@
 
     /**
      * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
     this.Update = function(user) {
       var postBody = user;
@@ -1413,7 +1413,7 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = User;
+      var returnType = MeUser;
 
       return this.apiClient.callApi(
         '/me', 'PUT',

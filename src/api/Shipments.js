@@ -31,7 +31,7 @@
   /**
    * Shipment service.
    * @module api/Shipments
-   * @version 1.0.50
+   * @version 1.0.51
    */
 
   /**

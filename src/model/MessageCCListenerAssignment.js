@@ -34,7 +34,7 @@
   /**
    * The MessageCCListenerAssignment model module.
    * @module model/MessageCCListenerAssignment
-   * @version 1.0.50
+   * @version 1.0.51
    */
 
   /**

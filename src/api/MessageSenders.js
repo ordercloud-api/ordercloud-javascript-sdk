@@ -31,7 +31,7 @@
   /**
    * MessageSenders service.
    * @module api/MessageSenders
-   * @version 1.0.50
+   * @version 1.0.51
    */
 
   /**
@@ -83,7 +83,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/MessageSenders/{messageSenderID}/assignments', 'DELETE',
+        '/messagesenders/{messageSenderID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -119,7 +119,7 @@
       var returnType = MessageSender;
 
       return this.apiClient.callApi(
-        '/MessageSenders/{messageSenderID}', 'GET',
+        '/messagesenders/{messageSenderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -162,7 +162,7 @@
       var returnType = ListMessageSender;
 
       return this.apiClient.callApi(
-        '/MessageSenders', 'GET',
+        '/messagesenders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -207,7 +207,7 @@
       var returnType = ListMessageSenderAssignment;
 
       return this.apiClient.callApi(
-        '/MessageSenders/assignments', 'GET',
+        '/messagesenders/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -250,7 +250,7 @@
       var returnType = ListMessageCCListenerAssignment;
 
       return this.apiClient.callApi(
-        '/MessageSenders/CCListenerAssignments', 'GET',
+        '/messagesenders/CCListenerAssignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -285,7 +285,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/MessageSenders/assignments', 'POST',
+        '/messagesenders/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -320,7 +320,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/MessageSenders/CCListenerAssignments', 'POST',
+        '/messagesenders/CCListenerAssignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

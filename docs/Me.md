@@ -236,7 +236,7 @@ null (empty response body)
 
 <a name="Get"></a>
 # **Get**
-> User Get()
+> MeUser Get()
 
 
 
@@ -263,7 +263,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**User**](User.md)
+[**MeUser**](MeUser.md)
 
 ### Authorization
 
@@ -1525,7 +1525,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> User Patch(user)
+> MeUser Patch(user)
 
 
 
@@ -1558,7 +1558,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**MeUser**](MeUser.md)
 
 ### Authorization
 
@@ -1822,7 +1822,7 @@ null (empty response body)
 
 <a name="Update"></a>
 # **Update**
-> User Update(user)
+> MeUser Update(user)
 
 
 
@@ -1855,7 +1855,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**MeUser**](MeUser.md)
 
 ### Authorization
 

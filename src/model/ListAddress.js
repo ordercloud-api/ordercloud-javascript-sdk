@@ -34,7 +34,7 @@
   /**
    * The ListAddress model module.
    * @module model/ListAddress
-   * @version 1.0.50
+   * @version 1.0.51
    */
 
   /**

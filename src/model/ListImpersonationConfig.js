@@ -34,7 +34,7 @@
   /**
    * The ListImpersonationConfig model module.
    * @module model/ListImpersonationConfig
-   * @version 1.0.50
+   * @version 1.0.51
    */
 
   /**

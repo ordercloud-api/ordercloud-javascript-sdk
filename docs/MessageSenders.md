@@ -4,13 +4,13 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAssignment**](MessageSenders.md#DeleteAssignment) | **DELETE** /MessageSenders/{messageSenderID}/assignments | 
-[**Get**](MessageSenders.md#Get) | **GET** /MessageSenders/{messageSenderID} | 
-[**List**](MessageSenders.md#List) | **GET** /MessageSenders | 
-[**ListAssignments**](MessageSenders.md#ListAssignments) | **GET** /MessageSenders/assignments | 
-[**ListCCListenerAssignments**](MessageSenders.md#ListCCListenerAssignments) | **GET** /MessageSenders/CCListenerAssignments | 
-[**SaveAssignment**](MessageSenders.md#SaveAssignment) | **POST** /MessageSenders/assignments | 
-[**SaveCCListenerAssignment**](MessageSenders.md#SaveCCListenerAssignment) | **POST** /MessageSenders/CCListenerAssignments | 
+[**DeleteAssignment**](MessageSenders.md#DeleteAssignment) | **DELETE** /messagesenders/{messageSenderID}/assignments | 
+[**Get**](MessageSenders.md#Get) | **GET** /messagesenders/{messageSenderID} | 
+[**List**](MessageSenders.md#List) | **GET** /messagesenders | 
+[**ListAssignments**](MessageSenders.md#ListAssignments) | **GET** /messagesenders/assignments | 
+[**ListCCListenerAssignments**](MessageSenders.md#ListCCListenerAssignments) | **GET** /messagesenders/CCListenerAssignments | 
+[**SaveAssignment**](MessageSenders.md#SaveAssignment) | **POST** /messagesenders/assignments | 
+[**SaveCCListenerAssignment**](MessageSenders.md#SaveCCListenerAssignment) | **POST** /messagesenders/CCListenerAssignments | 
 
 
 <a name="DeleteAssignment"></a>
