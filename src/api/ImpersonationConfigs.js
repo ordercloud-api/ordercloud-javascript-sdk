@@ -31,7 +31,7 @@
   /**
    * ImpersonationConfig service.
    * @module api/ImpersonationConfigs
-   * @version 1.0.51
+   * @version 1.0.56
    */
 
   /**

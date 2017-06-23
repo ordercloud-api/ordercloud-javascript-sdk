@@ -34,7 +34,7 @@
   /**
    * The SpendingAccountAssignment model module.
    * @module model/SpendingAccountAssignment
-   * @version 1.0.51
+   * @version 1.0.56
    */
 
   /**

@@ -31,7 +31,7 @@
   /**
    * UserGroup service.
    * @module api/UserGroups
-   * @version 1.0.51
+   * @version 1.0.56
    */
 
   /**
