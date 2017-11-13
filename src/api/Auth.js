@@ -163,9 +163,9 @@
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
-
+            
             return this.apiClient.callAuth(
-                'POST',
+                '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 authNames, contentTypes, accepts, returnType
             ); 
