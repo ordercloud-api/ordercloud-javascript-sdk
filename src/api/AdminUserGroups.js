@@ -47,15 +47,15 @@
 
 
     /**
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Create = function(group) {
-      var postBody = group;
+    this.Create = function(userGroup) {
+      var postBody = userGroup;
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Create");
+      // verify the required parameter 'userGroup' is set
+      if (userGroup == undefined || userGroup == null) {
+        throw new Error("Missing the required parameter 'userGroup' when calling Create");
       }
 
 
@@ -198,12 +198,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the admin user group.
-     * @param {Array.<String>} opts.searchOn Search on of the admin user group.
-     * @param {Array.<String>} opts.sortBy Sort by of the admin user group.
-     * @param {Number} opts.page Page of the admin user group.
-     * @param {Number} opts.pageSize Page size of the admin user group.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the admin user group.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.List = function(opts) {
@@ -215,8 +215,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -243,8 +243,8 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.userID ID of the user.
-     * @param {Number} opts.page Page of the admin user group.
-     * @param {Number} opts.pageSize Page size of the admin user group.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
     this.ListUserAssignments = function(opts) {
@@ -280,20 +280,20 @@
 
     /**
      * @param {String} userGroupID ID of the user group.
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Patch = function(userGroupID, group) {
-      var postBody = group;
+    this.Patch = function(userGroupID, partialUserGroup) {
+      var postBody = partialUserGroup;
 
       // verify the required parameter 'userGroupID' is set
       if (userGroupID == undefined || userGroupID == null) {
         throw new Error("Missing the required parameter 'userGroupID' when calling Patch");
       }
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Patch");
+      // verify the required parameter 'partialUserGroup' is set
+      if (partialUserGroup == undefined || partialUserGroup == null) {
+        throw new Error("Missing the required parameter 'partialUserGroup' when calling Patch");
       }
 
 
@@ -357,20 +357,20 @@
 
     /**
      * @param {String} userGroupID ID of the user group.
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Update = function(userGroupID, group) {
-      var postBody = group;
+    this.Update = function(userGroupID, userGroup) {
+      var postBody = userGroup;
 
       // verify the required parameter 'userGroupID' is set
       if (userGroupID == undefined || userGroupID == null) {
         throw new Error("Missing the required parameter 'userGroupID' when calling Update");
       }
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Update");
+      // verify the required parameter 'userGroup' is set
+      if (userGroup == undefined || userGroup == null) {
+        throw new Error("Missing the required parameter 'userGroup' when calling Update");
       }
 
 

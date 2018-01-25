@@ -245,12 +245,12 @@ var apiInstance = new OrderCloud.SpendingAccounts();
 var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var opts = { 
-  'search': "search_example", // String | Search of the spending account.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the spending account.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the spending account.
-  'page': 56, // Number | Page of the spending account.
-  'pageSize': 56, // Number | Page size of the spending account.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the spending account.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -265,12 +265,12 @@ apiInstance.List(buyerID, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
- **search** | **String**| Search of the spending account. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the spending account. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the spending account. | [optional] 
- **page** | **Number**| Page of the spending account. | [optional] 
- **pageSize** | **Number**| Page size of the spending account. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the spending account. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -310,9 +310,9 @@ var opts = {
   'spendingAccountID': "spendingAccountID_example", // String | ID of the spending account.
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'level': "level_example", // String | Level of the spending account.
-  'page': 56, // Number | Page of the spending account.
-  'pageSize': 56 // Number | Page size of the spending account.
+  'level': "level_example", // String | Level of the spending account assignment. Possible values: User, Group, Company.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListAssignments(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -330,9 +330,9 @@ Name | Type | Description  | Notes
  **spendingAccountID** | **String**| ID of the spending account. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **level** | **String**| Level of the spending account. | [optional] 
- **page** | **Number**| Page of the spending account. | [optional] 
- **pageSize** | **Number**| Page size of the spending account. | [optional] 
+ **level** | **String**| Level of the spending account assignment. Possible values: User, Group, Company. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> SpendingAccount Patch(buyerID, spendingAccountID, spendingAccount)
+> SpendingAccount Patch(buyerID, spendingAccountID, partialSpendingAccount)
 
 
 
@@ -370,9 +370,9 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var spendingAccountID = "spendingAccountID_example"; // String | ID of the spending account.
 
-var spendingAccount = new OrderCloud.SpendingAccount(); // SpendingAccount | 
+var partialSpendingAccount = new OrderCloud.SpendingAccount(); // SpendingAccount | 
 
-apiInstance.Patch(buyerID, spendingAccountID, spendingAccount).then(function(data) {
+apiInstance.Patch(buyerID, spendingAccountID, partialSpendingAccount).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
  **spendingAccountID** | **String**| ID of the spending account. | 
- **spendingAccount** | [**SpendingAccount**](SpendingAccount.md)|  | 
+ **partialSpendingAccount** | [**SpendingAccount**](SpendingAccount.md)|  | 
 
 ### Return type
 
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 
 <a name="SaveAssignment"></a>
 # **SaveAssignment**
-> SaveAssignment(buyerID, assignment)
+> SaveAssignment(buyerID, spendingAccountAssignment)
 
 
 
@@ -422,9 +422,9 @@ var apiInstance = new OrderCloud.SpendingAccounts();
 
 var buyerID = "buyerID_example"; // String | ID of the buyer.
 
-var assignment = new OrderCloud.SpendingAccountAssignment(); // SpendingAccountAssignment | 
+var spendingAccountAssignment = new OrderCloud.SpendingAccountAssignment(); // SpendingAccountAssignment | 
 
-apiInstance.SaveAssignment(buyerID, assignment).then(function() {
+apiInstance.SaveAssignment(buyerID, spendingAccountAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -437,7 +437,7 @@ apiInstance.SaveAssignment(buyerID, assignment).then(function() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
- **assignment** | [**SpendingAccountAssignment**](SpendingAccountAssignment.md)|  | 
+ **spendingAccountAssignment** | [**SpendingAccountAssignment**](SpendingAccountAssignment.md)|  | 
 
 ### Return type
 

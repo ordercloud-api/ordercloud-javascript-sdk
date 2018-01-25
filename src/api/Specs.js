@@ -83,20 +83,20 @@
 
     /**
      * @param {String} specID ID of the spec.
-     * @param {module:model/SpecOption} option 
+     * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.CreateOption = function(specID, option) {
-      var postBody = option;
+    this.CreateOption = function(specID, specOption) {
+      var postBody = specOption;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
         throw new Error("Missing the required parameter 'specID' when calling CreateOption");
       }
 
-      // verify the required parameter 'option' is set
-      if (option == undefined || option == null) {
-        throw new Error("Missing the required parameter 'option' when calling CreateOption");
+      // verify the required parameter 'specOption' is set
+      if (specOption == undefined || specOption == null) {
+        throw new Error("Missing the required parameter 'specOption' when calling CreateOption");
       }
 
 
@@ -326,12 +326,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the spec.
-     * @param {Array.<String>} opts.searchOn Search on of the spec.
-     * @param {Array.<String>} opts.sortBy Sort by of the spec.
-     * @param {Number} opts.page Page of the spec.
-     * @param {Number} opts.pageSize Page size of the spec.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the spec.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
     this.List = function(opts) {
@@ -343,8 +343,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -370,12 +370,12 @@
     /**
      * @param {String} specID ID of the spec.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the spec.
-     * @param {Array.<String>} opts.searchOn Search on of the spec.
-     * @param {Array.<String>} opts.sortBy Sort by of the spec.
-     * @param {Number} opts.page Page of the spec.
-     * @param {Number} opts.pageSize Page size of the spec.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the spec.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecOption}
      */
     this.ListOptions = function(specID, opts) {
@@ -393,8 +393,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -419,12 +419,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the spec.
-     * @param {Array.<String>} opts.searchOn Search on of the spec.
-     * @param {Array.<String>} opts.sortBy Sort by of the spec.
-     * @param {Number} opts.page Page of the spec.
-     * @param {Number} opts.pageSize Page size of the spec.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the spec.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecProductAssignment}
      */
     this.ListProductAssignments = function(opts) {
@@ -436,8 +436,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -462,20 +462,20 @@
 
     /**
      * @param {String} specID ID of the spec.
-     * @param {module:model/Spec} spec 
+     * @param {module:model/Spec} partialSpec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Patch = function(specID, spec) {
-      var postBody = spec;
+    this.Patch = function(specID, partialSpec) {
+      var postBody = partialSpec;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
         throw new Error("Missing the required parameter 'specID' when calling Patch");
       }
 
-      // verify the required parameter 'spec' is set
-      if (spec == undefined || spec == null) {
-        throw new Error("Missing the required parameter 'spec' when calling Patch");
+      // verify the required parameter 'partialSpec' is set
+      if (partialSpec == undefined || partialSpec == null) {
+        throw new Error("Missing the required parameter 'partialSpec' when calling Patch");
       }
 
 
@@ -505,11 +505,11 @@
     /**
      * @param {String} specID ID of the spec.
      * @param {String} optionID ID of the option.
-     * @param {module:model/SpecOption} option 
+     * @param {module:model/SpecOption} partialSpecOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.PatchOption = function(specID, optionID, option) {
-      var postBody = option;
+    this.PatchOption = function(specID, optionID, partialSpecOption) {
+      var postBody = partialSpecOption;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
@@ -521,9 +521,9 @@
         throw new Error("Missing the required parameter 'optionID' when calling PatchOption");
       }
 
-      // verify the required parameter 'option' is set
-      if (option == undefined || option == null) {
-        throw new Error("Missing the required parameter 'option' when calling PatchOption");
+      // verify the required parameter 'partialSpecOption' is set
+      if (partialSpecOption == undefined || partialSpecOption == null) {
+        throw new Error("Missing the required parameter 'partialSpecOption' when calling PatchOption");
       }
 
 
@@ -552,15 +552,15 @@
 
 
     /**
-     * @param {module:model/SpecProductAssignment} productAssignment 
+     * @param {module:model/SpecProductAssignment} specProductAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(productAssignment) {
-      var postBody = productAssignment;
+    this.SaveProductAssignment = function(specProductAssignment) {
+      var postBody = specProductAssignment;
 
-      // verify the required parameter 'productAssignment' is set
-      if (productAssignment == undefined || productAssignment == null) {
-        throw new Error("Missing the required parameter 'productAssignment' when calling SaveProductAssignment");
+      // verify the required parameter 'specProductAssignment' is set
+      if (specProductAssignment == undefined || specProductAssignment == null) {
+        throw new Error("Missing the required parameter 'specProductAssignment' when calling SaveProductAssignment");
       }
 
 
@@ -631,11 +631,11 @@
     /**
      * @param {String} specID ID of the spec.
      * @param {String} optionID ID of the option.
-     * @param {module:model/SpecOption} option 
+     * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.UpdateOption = function(specID, optionID, option) {
-      var postBody = option;
+    this.UpdateOption = function(specID, optionID, specOption) {
+      var postBody = specOption;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
@@ -647,9 +647,9 @@
         throw new Error("Missing the required parameter 'optionID' when calling UpdateOption");
       }
 
-      // verify the required parameter 'option' is set
-      if (option == undefined || option == null) {
-        throw new Error("Missing the required parameter 'option' when calling UpdateOption");
+      // verify the required parameter 'specOption' is set
+      if (specOption == undefined || specOption == null) {
+        throw new Error("Missing the required parameter 'specOption' when calling UpdateOption");
       }
 
 

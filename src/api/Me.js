@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CreditCard', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/SpendingAccount', 'model/TokenPasswordReset', 'model/User'], factory);
+    define(['ApiClient', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/Category', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/Shipment', 'model/SpendingAccount', 'model/TokenPasswordReset'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerShipment'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/CreditCard'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerShipment'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'), require('../model/User'));
+    module.exports = factory(require('../ApiClient'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/Category'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/Shipment'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerShipment, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.CreditCard, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerShipment, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset, root.OrderCloud.User);
+    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.Category, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset);
   }
-}(this, function(ApiClient, Address, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CreditCard, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipmentItem, ListSpendingAccount, ListUserGroup, MeUser, Promotion, SpendingAccount, TokenPasswordReset, User) {
+}(this, function(ApiClient, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, Category, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipment, ListShipmentItem, ListSpendingAccount, ListUserGroup, MeUser, Promotion, Shipment, SpendingAccount, TokenPasswordReset) {
   'use strict';
 
   /**
@@ -47,15 +47,15 @@
 
 
     /**
-     * @param {module:model/BuyerAddress} address 
+     * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.CreateAddress = function(address) {
-      var postBody = address;
+    this.CreateAddress = function(buyerAddress) {
+      var postBody = buyerAddress;
 
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling CreateAddress");
+      // verify the required parameter 'buyerAddress' is set
+      if (buyerAddress == undefined || buyerAddress == null) {
+        throw new Error("Missing the required parameter 'buyerAddress' when calling CreateAddress");
       }
 
 
@@ -82,15 +82,15 @@
 
 
     /**
-     * @param {module:model/BuyerCreditCard} creditCard 
+     * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.CreateCreditCard = function(creditCard) {
-      var postBody = creditCard;
+    this.CreateCreditCard = function(buyerCreditCard) {
+      var postBody = buyerCreditCard;
 
-      // verify the required parameter 'creditCard' is set
-      if (creditCard == undefined || creditCard == null) {
-        throw new Error("Missing the required parameter 'creditCard' when calling CreateCreditCard");
+      // verify the required parameter 'buyerCreditCard' is set
+      if (buyerCreditCard == undefined || buyerCreditCard == null) {
+        throw new Error("Missing the required parameter 'buyerCreditCard' when calling CreateCreditCard");
       }
 
 
@@ -290,6 +290,49 @@
 
 
     /**
+     * @param {String} categoryID ID of the category.
+     * @param {String} catalogID ID of the catalog.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
+     */
+    this.GetCategory = function(categoryID, catalogID) {
+      var postBody = null;
+
+      // verify the required parameter 'categoryID' is set
+      if (categoryID == undefined || categoryID == null) {
+        throw new Error("Missing the required parameter 'categoryID' when calling GetCategory");
+      }
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling GetCategory");
+      }
+
+
+      var pathParams = {
+        'categoryID': categoryID
+      };
+      var queryParams = {
+        'catalogID': catalogID
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Category;
+
+      return this.apiClient.callApi(
+        '/me/categories/{categoryID}', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
@@ -399,7 +442,7 @@
 
     /**
      * @param {String} shipmentID ID of the shipment.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerShipment}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
     this.GetShipment = function(shipmentID) {
       var postBody = null;
@@ -423,7 +466,7 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = BuyerShipment;
+      var returnType = Shipment;
 
       return this.apiClient.callApi(
         '/me/shipments/{shipmentID}', 'GET',
@@ -518,12 +561,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the address.
-     * @param {Array.<String>} opts.searchOn Search on of the address.
-     * @param {Array.<String>} opts.sortBy Sort by of the address.
-     * @param {Number} opts.page Page of the address.
-     * @param {Number} opts.pageSize Page size of the address.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the address.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerAddress}
      */
     this.ListAddresses = function(opts) {
@@ -535,8 +578,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -563,12 +606,12 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
      * @param {String} opts.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-     * @param {String} opts.search Search of the order.
-     * @param {Array.<String>} opts.searchOn Search on of the order.
-     * @param {Array.<String>} opts.sortBy Sort by of the order.
-     * @param {Number} opts.page Page of the order.
-     * @param {Number} opts.pageSize Page size of the order.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
     this.ListApprovableOrders = function(opts) {
@@ -582,8 +625,8 @@
         'from': opts['from'],
         'to': opts['to'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -608,12 +651,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the catalog.
-     * @param {Array.<String>} opts.searchOn Search on of the catalog.
-     * @param {Array.<String>} opts.sortBy Sort by of the catalog.
-     * @param {Number} opts.page Page of the catalog.
-     * @param {Number} opts.pageSize Page size of the catalog.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the catalog.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
     this.ListCatalogs = function(opts) {
@@ -625,8 +668,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -653,12 +696,13 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.depth Depth of the category.
      * @param {String} opts.catalogID ID of the catalog.
-     * @param {String} opts.search Search of the category.
-     * @param {Array.<String>} opts.searchOn Search on of the category.
-     * @param {Array.<String>} opts.sortBy Sort by of the category.
-     * @param {Number} opts.page Page of the category.
-     * @param {Number} opts.pageSize Page size of the category.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the category.
+     * @param {String} opts.productID ID of the product.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
     this.ListCategories = function(opts) {
@@ -671,9 +715,10 @@
       var queryParams = {
         'depth': opts['depth'],
         'catalogID': opts['catalogID'],
+        'productID': opts['productID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -698,12 +743,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the cost center.
-     * @param {Array.<String>} opts.searchOn Search on of the cost center.
-     * @param {Array.<String>} opts.sortBy Sort by of the cost center.
-     * @param {Number} opts.page Page of the cost center.
-     * @param {Number} opts.pageSize Page size of the cost center.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the cost center.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
     this.ListCostCenters = function(opts) {
@@ -715,8 +760,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -741,12 +786,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the credit card.
-     * @param {Array.<String>} opts.searchOn Search on of the credit card.
-     * @param {Array.<String>} opts.sortBy Sort by of the credit card.
-     * @param {Number} opts.page Page of the credit card.
-     * @param {Number} opts.pageSize Page size of the credit card.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the credit card.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerCreditCard}
      */
     this.ListCreditCards = function(opts) {
@@ -758,8 +803,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -786,12 +831,12 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
      * @param {String} opts.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-     * @param {String} opts.search Search of the order.
-     * @param {Array.<String>} opts.searchOn Search on of the order.
-     * @param {Array.<String>} opts.sortBy Sort by of the order.
-     * @param {Number} opts.page Page of the order.
-     * @param {Number} opts.pageSize Page size of the order.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
     this.ListOrders = function(opts) {
@@ -805,8 +850,8 @@
         'from': opts['from'],
         'to': opts['to'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -834,12 +879,12 @@
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.categoryID ID of the category.
      * @param {String} opts.depth Depth of the product.
-     * @param {String} opts.search Search of the product.
-     * @param {Array.<String>} opts.searchOn Search on of the product.
-     * @param {Array.<String>} opts.sortBy Sort by of the product.
-     * @param {Number} opts.page Page of the product.
-     * @param {Number} opts.pageSize Page size of the product.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerProduct}
      */
     this.ListProducts = function(opts) {
@@ -854,8 +899,8 @@
         'categoryID': opts['categoryID'],
         'depth': opts['depth'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -880,12 +925,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the promotion.
-     * @param {Array.<String>} opts.searchOn Search on of the promotion.
-     * @param {Array.<String>} opts.sortBy Sort by of the promotion.
-     * @param {Number} opts.page Page of the promotion.
-     * @param {Number} opts.pageSize Page size of the promotion.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the promotion.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
     this.ListPromotions = function(opts) {
@@ -897,8 +942,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -925,12 +970,12 @@
      * @param {String} shipmentID ID of the shipment.
      * @param {Object} opts Optional parameters
      * @param {String} opts.orderID ID of the order.
-     * @param {String} opts.search Search of the shipment.
-     * @param {Array.<String>} opts.searchOn Search on of the shipment.
-     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
-     * @param {Number} opts.page Page of the shipment.
-     * @param {Number} opts.pageSize Page size of the shipment.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
     this.ListShipmentItems = function(shipmentID, opts) {
@@ -949,8 +994,8 @@
       var queryParams = {
         'orderID': opts['orderID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -976,13 +1021,13 @@
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.orderID ID of the order.
-     * @param {String} opts.search Search of the shipment.
-     * @param {Array.<String>} opts.searchOn Search on of the shipment.
-     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
-     * @param {Number} opts.page Page of the shipment.
-     * @param {Number} opts.pageSize Page size of the shipment.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerShipment}
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
     this.ListShipments = function(opts) {
       opts = opts || {};
@@ -994,8 +1039,8 @@
       var queryParams = {
         'orderID': opts['orderID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -1008,7 +1053,7 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = ListBuyerShipment;
+      var returnType = ListShipment;
 
       return this.apiClient.callApi(
         '/me/shipments', 'GET',
@@ -1022,12 +1067,12 @@
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
-     * @param {String} opts.search Search of the product.
-     * @param {Array.<String>} opts.searchOn Search on of the product.
-     * @param {Array.<String>} opts.sortBy Sort by of the product.
-     * @param {Number} opts.page Page of the product.
-     * @param {Number} opts.pageSize Page size of the product.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
      */
     this.ListSpecs = function(productID, opts) {
@@ -1046,8 +1091,8 @@
       var queryParams = {
         'catalogID': opts['catalogID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -1072,12 +1117,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the spending account.
-     * @param {Array.<String>} opts.searchOn Search on of the spending account.
-     * @param {Array.<String>} opts.sortBy Sort by of the spending account.
-     * @param {Number} opts.page Page of the spending account.
-     * @param {Number} opts.pageSize Page size of the spending account.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the spending account.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
     this.ListSpendingAccounts = function(opts) {
@@ -1089,8 +1134,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -1115,12 +1160,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the user group.
-     * @param {Array.<String>} opts.searchOn Search on of the user group.
-     * @param {Array.<String>} opts.sortBy Sort by of the user group.
-     * @param {Number} opts.page Page of the user group.
-     * @param {Number} opts.pageSize Page size of the user group.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the user group.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.ListUserGroups = function(opts) {
@@ -1132,8 +1177,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -1157,15 +1202,15 @@
 
 
     /**
-     * @param {module:model/User} user 
+     * @param {module:model/MeUser} partialMeUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Patch = function(user) {
-      var postBody = user;
+    this.Patch = function(partialMeUser) {
+      var postBody = partialMeUser;
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Patch");
+      // verify the required parameter 'partialMeUser' is set
+      if (partialMeUser == undefined || partialMeUser == null) {
+        throw new Error("Missing the required parameter 'partialMeUser' when calling Patch");
       }
 
 
@@ -1193,20 +1238,20 @@
 
     /**
      * @param {String} addressID ID of the address.
-     * @param {module:model/Address} address 
+     * @param {module:model/BuyerAddress} partialBuyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.PatchAddress = function(addressID, address) {
-      var postBody = address;
+    this.PatchAddress = function(addressID, partialBuyerAddress) {
+      var postBody = partialBuyerAddress;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
         throw new Error("Missing the required parameter 'addressID' when calling PatchAddress");
       }
 
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling PatchAddress");
+      // verify the required parameter 'partialBuyerAddress' is set
+      if (partialBuyerAddress == undefined || partialBuyerAddress == null) {
+        throw new Error("Missing the required parameter 'partialBuyerAddress' when calling PatchAddress");
       }
 
 
@@ -1235,20 +1280,20 @@
 
     /**
      * @param {String} creditcardID ID of the creditcard.
-     * @param {module:model/CreditCard} creditCard 
+     * @param {module:model/BuyerCreditCard} partialBuyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.PatchCreditCard = function(creditcardID, creditCard) {
-      var postBody = creditCard;
+    this.PatchCreditCard = function(creditcardID, partialBuyerCreditCard) {
+      var postBody = partialBuyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
       if (creditcardID == undefined || creditcardID == null) {
         throw new Error("Missing the required parameter 'creditcardID' when calling PatchCreditCard");
       }
 
-      // verify the required parameter 'creditCard' is set
-      if (creditCard == undefined || creditCard == null) {
-        throw new Error("Missing the required parameter 'creditCard' when calling PatchCreditCard");
+      // verify the required parameter 'partialBuyerCreditCard' is set
+      if (partialBuyerCreditCard == undefined || partialBuyerCreditCard == null) {
+        throw new Error("Missing the required parameter 'partialBuyerCreditCard' when calling PatchCreditCard");
       }
 
 
@@ -1276,21 +1321,21 @@
 
 
     /**
-     * @param {String} anonUserToken Anon user token of the me.
-     * @param {module:model/User} user 
+     * @param {String} anonUserToken Anon user token of the user.
+     * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    this.Register = function(anonUserToken, user) {
-      var postBody = user;
+    this.Register = function(anonUserToken, meUser) {
+      var postBody = meUser;
 
       // verify the required parameter 'anonUserToken' is set
       if (anonUserToken == undefined || anonUserToken == null) {
         throw new Error("Missing the required parameter 'anonUserToken' when calling Register");
       }
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Register");
+      // verify the required parameter 'meUser' is set
+      if (meUser == undefined || meUser == null) {
+        throw new Error("Missing the required parameter 'meUser' when calling Register");
       }
 
 
@@ -1318,15 +1363,15 @@
 
 
     /**
-     * @param {module:model/TokenPasswordReset} reset 
+     * @param {module:model/TokenPasswordReset} tokenPasswordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPasswordByToken = function(reset) {
-      var postBody = reset;
+    this.ResetPasswordByToken = function(tokenPasswordReset) {
+      var postBody = tokenPasswordReset;
 
-      // verify the required parameter 'reset' is set
-      if (reset == undefined || reset == null) {
-        throw new Error("Missing the required parameter 'reset' when calling ResetPasswordByToken");
+      // verify the required parameter 'tokenPasswordReset' is set
+      if (tokenPasswordReset == undefined || tokenPasswordReset == null) {
+        throw new Error("Missing the required parameter 'tokenPasswordReset' when calling ResetPasswordByToken");
       }
 
 
@@ -1389,15 +1434,15 @@
 
 
     /**
-     * @param {module:model/User} user 
+     * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Update = function(user) {
-      var postBody = user;
+    this.Update = function(meUser) {
+      var postBody = meUser;
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Update");
+      // verify the required parameter 'meUser' is set
+      if (meUser == undefined || meUser == null) {
+        throw new Error("Missing the required parameter 'meUser' when calling Update");
       }
 
 
@@ -1425,20 +1470,20 @@
 
     /**
      * @param {String} addressID ID of the address.
-     * @param {module:model/BuyerAddress} address 
+     * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.UpdateAddress = function(addressID, address) {
-      var postBody = address;
+    this.UpdateAddress = function(addressID, buyerAddress) {
+      var postBody = buyerAddress;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
         throw new Error("Missing the required parameter 'addressID' when calling UpdateAddress");
       }
 
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling UpdateAddress");
+      // verify the required parameter 'buyerAddress' is set
+      if (buyerAddress == undefined || buyerAddress == null) {
+        throw new Error("Missing the required parameter 'buyerAddress' when calling UpdateAddress");
       }
 
 
@@ -1467,20 +1512,20 @@
 
     /**
      * @param {String} creditcardID ID of the creditcard.
-     * @param {module:model/BuyerCreditCard} creditCard 
+     * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.UpdateCreditCard = function(creditcardID, creditCard) {
-      var postBody = creditCard;
+    this.UpdateCreditCard = function(creditcardID, buyerCreditCard) {
+      var postBody = buyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
       if (creditcardID == undefined || creditcardID == null) {
         throw new Error("Missing the required parameter 'creditcardID' when calling UpdateCreditCard");
       }
 
-      // verify the required parameter 'creditCard' is set
-      if (creditCard == undefined || creditCard == null) {
-        throw new Error("Missing the required parameter 'creditCard' when calling UpdateCreditCard");
+      // verify the required parameter 'buyerCreditCard' is set
+      if (buyerCreditCard == undefined || buyerCreditCard == null) {
+        throw new Error("Missing the required parameter 'buyerCreditCard' when calling UpdateCreditCard");
       }
 
 

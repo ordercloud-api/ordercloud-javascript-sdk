@@ -14,29 +14,29 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment'], factory);
+    define(['ApiClient', 'model/Incrementor', 'model/ListIncrementor'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListSecurityProfile'), require('../model/ListSecurityProfileAssignment'), require('../model/SecurityProfile'), require('../model/SecurityProfileAssignment'));
+    module.exports = factory(require('../ApiClient'), require('../model/Incrementor'), require('../model/ListIncrementor'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.SecurityProfiles = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListSecurityProfile, root.OrderCloud.ListSecurityProfileAssignment, root.OrderCloud.SecurityProfile, root.OrderCloud.SecurityProfileAssignment);
+    root.OrderCloud.Incrementors = factory(root.OrderCloud.ApiClient, root.OrderCloud.Incrementor, root.OrderCloud.ListIncrementor);
   }
-}(this, function(ApiClient, ListSecurityProfile, ListSecurityProfileAssignment, SecurityProfile, SecurityProfileAssignment) {
+}(this, function(ApiClient, Incrementor, ListIncrementor) {
   'use strict';
 
   /**
-   * SecurityProfile service.
-   * @module api/SecurityProfiles
+   * Incrementor service.
+   * @module api/Incrementors
    * @version 1.0.56
    */
 
   /**
-   * Constructs a new SecurityProfiles. 
-   * @alias module:api/SecurityProfiles
+   * Constructs a new Incrementors. 
+   * @alias module:api/Incrementors
    * @class
    * @param {module:ApiClient} apiClient Optional API client implementation to use,
    * default to {@link module:ApiClient#instance} if unspecified.
@@ -47,30 +47,57 @@
 
 
     /**
-     * @param {String} securityProfileID ID of the security profile.
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.buyerID ID of the buyer.
-     * @param {String} opts.userID ID of the user.
-     * @param {String} opts.userGroupID ID of the user group.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     * @param {module:model/Incrementor} incrementor 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.DeleteAssignment = function(securityProfileID, opts) {
-      opts = opts || {};
-      var postBody = null;
+    this.Create = function(incrementor) {
+      var postBody = incrementor;
 
-      // verify the required parameter 'securityProfileID' is set
-      if (securityProfileID == undefined || securityProfileID == null) {
-        throw new Error("Missing the required parameter 'securityProfileID' when calling DeleteAssignment");
+      // verify the required parameter 'incrementor' is set
+      if (incrementor == undefined || incrementor == null) {
+        throw new Error("Missing the required parameter 'incrementor' when calling Create");
       }
 
 
       var pathParams = {
-        'securityProfileID': securityProfileID
       };
       var queryParams = {
-        'buyerID': opts['buyerID'],
-        'userID': opts['userID'],
-        'userGroupID': opts['userGroupID']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Incrementor;
+
+      return this.apiClient.callApi(
+        '/incrementors', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} incrementorID ID of the incrementor.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(incrementorID) {
+      var postBody = null;
+
+      // verify the required parameter 'incrementorID' is set
+      if (incrementorID == undefined || incrementorID == null) {
+        throw new Error("Missing the required parameter 'incrementorID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'incrementorID': incrementorID
+      };
+      var queryParams = {
       };
       var headerParams = {
       };
@@ -83,7 +110,7 @@
       var returnType = null;
 
       return this.apiClient.callApi(
-        '/securityprofiles/{securityProfileID}/assignments', 'DELETE',
+        '/incrementors/{incrementorID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -91,20 +118,20 @@
 
 
     /**
-     * @param {String} securityProfileID ID of the security profile.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SecurityProfile}
+     * @param {String} incrementorID ID of the incrementor.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Get = function(securityProfileID) {
+    this.Get = function(incrementorID) {
       var postBody = null;
 
-      // verify the required parameter 'securityProfileID' is set
-      if (securityProfileID == undefined || securityProfileID == null) {
-        throw new Error("Missing the required parameter 'securityProfileID' when calling Get");
+      // verify the required parameter 'incrementorID' is set
+      if (incrementorID == undefined || incrementorID == null) {
+        throw new Error("Missing the required parameter 'incrementorID' when calling Get");
       }
 
 
       var pathParams = {
-        'securityProfileID': securityProfileID
+        'incrementorID': incrementorID
       };
       var queryParams = {
       };
@@ -116,10 +143,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = SecurityProfile;
+      var returnType = Incrementor;
 
       return this.apiClient.callApi(
-        '/securityprofiles/{securityProfileID}', 'GET',
+        '/incrementors/{incrementorID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -134,7 +161,7 @@
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfile}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListIncrementor}
      */
     this.List = function(opts) {
       opts = opts || {};
@@ -159,10 +186,10 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = ListSecurityProfile;
+      var returnType = ListIncrementor;
 
       return this.apiClient.callApi(
-        '/securityprofiles', 'GET',
+        '/incrementors', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -170,68 +197,26 @@
 
 
     /**
-     * @param {Object} opts Optional parameters
-     * @param {String} opts.buyerID ID of the buyer.
-     * @param {String} opts.supplierID ID of the supplier.
-     * @param {String} opts.securityProfileID ID of the security profile.
-     * @param {String} opts.userID ID of the user.
-     * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.commerceRole Commerce role of the security profile assignment. Possible values: Buyer, Seller, Supplier.
-     * @param {String} opts.level Level of the security profile assignment. Possible values: User, Group, Company.
-     * @param {Number} opts.page Page of results to return. Default: 1
-     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfileAssignment}
+     * @param {String} incrementorID ID of the incrementor.
+     * @param {module:model/Incrementor} partialIncrementor 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.ListAssignments = function(opts) {
-      opts = opts || {};
-      var postBody = null;
+    this.Patch = function(incrementorID, partialIncrementor) {
+      var postBody = partialIncrementor;
 
+      // verify the required parameter 'incrementorID' is set
+      if (incrementorID == undefined || incrementorID == null) {
+        throw new Error("Missing the required parameter 'incrementorID' when calling Patch");
+      }
 
-      var pathParams = {
-      };
-      var queryParams = {
-        'buyerID': opts['buyerID'],
-        'supplierID': opts['supplierID'],
-        'securityProfileID': opts['securityProfileID'],
-        'userID': opts['userID'],
-        'userGroupID': opts['userGroupID'],
-        'commerceRole': opts['commerceRole'],
-        'level': opts['level'],
-        'page': opts['page'],
-        'pageSize': opts['pageSize']
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ListSecurityProfileAssignment;
-
-      return this.apiClient.callApi(
-        '/securityprofiles/assignments', 'GET',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {module:model/SecurityProfileAssignment} securityProfileAssignment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.SaveAssignment = function(securityProfileAssignment) {
-      var postBody = securityProfileAssignment;
-
-      // verify the required parameter 'securityProfileAssignment' is set
-      if (securityProfileAssignment == undefined || securityProfileAssignment == null) {
-        throw new Error("Missing the required parameter 'securityProfileAssignment' when calling SaveAssignment");
+      // verify the required parameter 'partialIncrementor' is set
+      if (partialIncrementor == undefined || partialIncrementor == null) {
+        throw new Error("Missing the required parameter 'partialIncrementor' when calling Patch");
       }
 
 
       var pathParams = {
+        'incrementorID': incrementorID
       };
       var queryParams = {
       };
@@ -243,10 +228,52 @@
       var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = null;
+      var returnType = Incrementor;
 
       return this.apiClient.callApi(
-        '/securityprofiles/assignments', 'POST',
+        '/incrementors/{incrementorID}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} incrementorID ID of the incrementor.
+     * @param {module:model/Incrementor} incrementor 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
+     */
+    this.Update = function(incrementorID, incrementor) {
+      var postBody = incrementor;
+
+      // verify the required parameter 'incrementorID' is set
+      if (incrementorID == undefined || incrementorID == null) {
+        throw new Error("Missing the required parameter 'incrementorID' when calling Update");
+      }
+
+      // verify the required parameter 'incrementor' is set
+      if (incrementor == undefined || incrementor == null) {
+        throw new Error("Missing the required parameter 'incrementor' when calling Update");
+      }
+
+
+      var pathParams = {
+        'incrementorID': incrementorID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Incrementor;
+
+      return this.apiClient.callApi(
+        '/incrementors/{incrementorID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

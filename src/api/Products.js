@@ -290,12 +290,12 @@
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.categoryID ID of the category.
      * @param {String} opts.supplierID ID of the supplier.
-     * @param {String} opts.search Search of the product.
-     * @param {Array.<String>} opts.searchOn Search on of the product.
-     * @param {Array.<String>} opts.sortBy Sort by of the product.
-     * @param {Number} opts.page Page of the product.
-     * @param {Number} opts.pageSize Page size of the product.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
     this.List = function(opts) {
@@ -310,8 +310,8 @@
         'categoryID': opts['categoryID'],
         'supplierID': opts['supplierID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -341,9 +341,9 @@
      * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.level Level of the product.
-     * @param {Number} opts.page Page of the product.
-     * @param {Number} opts.pageSize Page size of the product.
+     * @param {String} opts.level Level of the product assignment. Possible values: User, Group, Company.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -384,12 +384,12 @@
     /**
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the product.
-     * @param {Array.<String>} opts.searchOn Search on of the product.
-     * @param {Array.<String>} opts.sortBy Sort by of the product.
-     * @param {Number} opts.page Page of the product.
-     * @param {Number} opts.pageSize Page size of the product.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
     this.ListSuppliers = function(productID, opts) {
@@ -407,8 +407,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -434,12 +434,12 @@
     /**
      * @param {String} productID ID of the product.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the product.
-     * @param {Array.<String>} opts.searchOn Search on of the product.
-     * @param {Array.<String>} opts.sortBy Sort by of the product.
-     * @param {Number} opts.page Page of the product.
-     * @param {Number} opts.pageSize Page size of the product.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the product.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListVariant}
      */
     this.ListVariants = function(productID, opts) {
@@ -457,8 +457,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -483,20 +483,20 @@
 
     /**
      * @param {String} productID ID of the product.
-     * @param {module:model/Product} product 
+     * @param {module:model/Product} partialProduct 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Patch = function(productID, product) {
-      var postBody = product;
+    this.Patch = function(productID, partialProduct) {
+      var postBody = partialProduct;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
         throw new Error("Missing the required parameter 'productID' when calling Patch");
       }
 
-      // verify the required parameter 'product' is set
-      if (product == undefined || product == null) {
-        throw new Error("Missing the required parameter 'product' when calling Patch");
+      // verify the required parameter 'partialProduct' is set
+      if (partialProduct == undefined || partialProduct == null) {
+        throw new Error("Missing the required parameter 'partialProduct' when calling Patch");
       }
 
 
@@ -526,11 +526,11 @@
     /**
      * @param {String} productID ID of the product.
      * @param {String} variantID ID of the variant.
-     * @param {module:model/Variant} variant 
+     * @param {module:model/Variant} partialVariant 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
-    this.PatchVariant = function(productID, variantID, variant) {
-      var postBody = variant;
+    this.PatchVariant = function(productID, variantID, partialVariant) {
+      var postBody = partialVariant;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
@@ -542,9 +542,9 @@
         throw new Error("Missing the required parameter 'variantID' when calling PatchVariant");
       }
 
-      // verify the required parameter 'variant' is set
-      if (variant == undefined || variant == null) {
-        throw new Error("Missing the required parameter 'variant' when calling PatchVariant");
+      // verify the required parameter 'partialVariant' is set
+      if (partialVariant == undefined || partialVariant == null) {
+        throw new Error("Missing the required parameter 'partialVariant' when calling PatchVariant");
       }
 
 

@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 <a name="Create"></a>
 # **Create**
-> Promotion Create(promo)
+> Promotion Create(promotion)
 
 
 
@@ -32,9 +32,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Promotions();
 
-var promo = new OrderCloud.Promotion(); // Promotion | 
+var promotion = new OrderCloud.Promotion(); // Promotion | 
 
-apiInstance.Create(promo).then(function(data) {
+apiInstance.Create(promotion).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -46,7 +46,7 @@ apiInstance.Create(promo).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **promo** | [**Promotion**](Promotion.md)|  | 
+ **promotion** | [**Promotion**](Promotion.md)|  | 
 
 ### Return type
 
@@ -234,12 +234,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Promotions();
 
 var opts = { 
-  'search': "search_example", // String | Search of the promotion.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the promotion.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the promotion.
-  'page': 56, // Number | Page of the promotion.
-  'pageSize': 56, // Number | Page size of the promotion.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the promotion.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -253,12 +253,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the promotion. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the promotion. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the promotion. | [optional] 
- **page** | **Number**| Page of the promotion. | [optional] 
- **pageSize** | **Number**| Page size of the promotion. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the promotion. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -297,9 +297,9 @@ var opts = {
   'promotionID': "promotionID_example", // String | ID of the promotion.
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'level': "level_example", // String | Level of the promotion.
-  'page': 56, // Number | Page of the promotion.
-  'pageSize': 56 // Number | Page size of the promotion.
+  'level': "level_example", // String | Level of the promotion assignment. Possible values: User, Group, Company.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -317,9 +317,9 @@ Name | Type | Description  | Notes
  **promotionID** | **String**| ID of the promotion. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **level** | **String**| Level of the promotion. | [optional] 
- **page** | **Number**| Page of the promotion. | [optional] 
- **pageSize** | **Number**| Page size of the promotion. | [optional] 
+ **level** | **String**| Level of the promotion assignment. Possible values: User, Group, Company. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -389,7 +389,7 @@ Name | Type | Description  | Notes
 
 <a name="SaveAssignment"></a>
 # **SaveAssignment**
-> SaveAssignment(assignment)
+> SaveAssignment(promotionAssignment)
 
 
 
@@ -404,9 +404,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Promotions();
 
-var assignment = new OrderCloud.PromotionAssignment(); // PromotionAssignment | 
+var promotionAssignment = new OrderCloud.PromotionAssignment(); // PromotionAssignment | 
 
-apiInstance.SaveAssignment(assignment).then(function() {
+apiInstance.SaveAssignment(promotionAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -418,7 +418,7 @@ apiInstance.SaveAssignment(assignment).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assignment** | [**PromotionAssignment**](PromotionAssignment.md)|  | 
+ **promotionAssignment** | [**PromotionAssignment**](PromotionAssignment.md)|  | 
 
 ### Return type
 
@@ -437,7 +437,7 @@ null (empty response body)
 
 <a name="Update"></a>
 # **Update**
-> Promotion Update(promotionID, promo)
+> Promotion Update(promotionID, promotion)
 
 
 
@@ -454,9 +454,9 @@ var apiInstance = new OrderCloud.Promotions();
 
 var promotionID = "promotionID_example"; // String | ID of the promotion.
 
-var promo = new OrderCloud.Promotion(); // Promotion | 
+var promotion = new OrderCloud.Promotion(); // Promotion | 
 
-apiInstance.Update(promotionID, promo).then(function(data) {
+apiInstance.Update(promotionID, promotion).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -469,7 +469,7 @@ apiInstance.Update(promotionID, promo).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **promotionID** | **String**| ID of the promotion. | 
- **promo** | [**Promotion**](Promotion.md)|  | 
+ **promotion** | [**Promotion**](Promotion.md)|  | 
 
 ### Return type
 

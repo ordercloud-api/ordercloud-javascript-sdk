@@ -256,12 +256,12 @@
     /**
      * @param {Object} opts Optional parameters
      * @param {String} opts.orderID ID of the order.
-     * @param {String} opts.search Search of the shipment.
-     * @param {Array.<String>} opts.searchOn Search on of the shipment.
-     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
-     * @param {Number} opts.page Page of the shipment.
-     * @param {Number} opts.pageSize Page size of the shipment.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
     this.List = function(opts) {
@@ -274,8 +274,8 @@
       var queryParams = {
         'orderID': opts['orderID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -301,12 +301,12 @@
     /**
      * @param {String} shipmentID ID of the shipment.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the shipment.
-     * @param {Array.<String>} opts.searchOn Search on of the shipment.
-     * @param {Array.<String>} opts.sortBy Sort by of the shipment.
-     * @param {Number} opts.page Page of the shipment.
-     * @param {Number} opts.pageSize Page size of the shipment.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the shipment.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
     this.ListItems = function(shipmentID, opts) {
@@ -324,8 +324,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -350,20 +350,20 @@
 
     /**
      * @param {String} shipmentID ID of the shipment.
-     * @param {module:model/Shipment} shipment 
+     * @param {module:model/Shipment} partialShipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Patch = function(shipmentID, shipment) {
-      var postBody = shipment;
+    this.Patch = function(shipmentID, partialShipment) {
+      var postBody = partialShipment;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
         throw new Error("Missing the required parameter 'shipmentID' when calling Patch");
       }
 
-      // verify the required parameter 'shipment' is set
-      if (shipment == undefined || shipment == null) {
-        throw new Error("Missing the required parameter 'shipment' when calling Patch");
+      // verify the required parameter 'partialShipment' is set
+      if (partialShipment == undefined || partialShipment == null) {
+        throw new Error("Missing the required parameter 'partialShipment' when calling Patch");
       }
 
 
@@ -392,20 +392,20 @@
 
     /**
      * @param {String} shipmentID ID of the shipment.
-     * @param {module:model/ShipmentItem} item 
+     * @param {module:model/ShipmentItem} shipmentItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.SaveItem = function(shipmentID, item) {
-      var postBody = item;
+    this.SaveItem = function(shipmentID, shipmentItem) {
+      var postBody = shipmentItem;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
         throw new Error("Missing the required parameter 'shipmentID' when calling SaveItem");
       }
 
-      // verify the required parameter 'item' is set
-      if (item == undefined || item == null) {
-        throw new Error("Missing the required parameter 'item' when calling SaveItem");
+      // verify the required parameter 'shipmentItem' is set
+      if (shipmentItem == undefined || shipmentItem == null) {
+        throw new Error("Missing the required parameter 'shipmentItem' when calling SaveItem");
       }
 
 

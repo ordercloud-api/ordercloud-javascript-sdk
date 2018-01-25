@@ -31,7 +31,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -49,7 +49,7 @@ apiInstance.Create(direction, orderID, lineItem).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItem** | [**LineItem**](LineItem.md)|  | 
 
@@ -85,7 +85,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -103,7 +103,7 @@ apiInstance.Delete(direction, orderID, lineItemID).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
 
@@ -139,7 +139,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -157,7 +157,7 @@ apiInstance.Get(direction, orderID, lineItemID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
 
@@ -193,17 +193,17 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Search of the line item.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the line item.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the line item.
-  'page': 56, // Number | Page of the line item.
-  'pageSize': 56, // Number | Page size of the line item.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the line item.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -217,14 +217,14 @@ apiInstance.List(direction, orderID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Search of the line item. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the line item. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the line item. | [optional] 
- **page** | **Number**| Page of the line item. | [optional] 
- **pageSize** | **Number**| Page size of the line item. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the line item. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -258,7 +258,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -278,7 +278,7 @@ apiInstance.Patch(direction, orderID, lineItemID, partialLineItem).then(function
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **partialLineItem** | [**LineItem**](LineItem.md)|  | 
@@ -315,7 +315,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -335,7 +335,7 @@ apiInstance.PatchShippingAddress(direction, orderID, lineItemID, partialAddress)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **partialAddress** | [**Address**](Address.md)|  | 
@@ -372,7 +372,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -392,7 +392,7 @@ apiInstance.SetShippingAddress(direction, orderID, lineItemID, address).then(fun
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **address** | [**Address**](Address.md)|  | 
@@ -429,7 +429,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.LineItems();
 
-var direction = "direction_example"; // String | Direction of the line item. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -449,7 +449,7 @@ apiInstance.Update(direction, orderID, lineItemID, lineItem).then(function(data)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the line item. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **lineItemID** | **String**| ID of the line item. | 
  **lineItem** | [**LineItem**](LineItem.md)|  | 

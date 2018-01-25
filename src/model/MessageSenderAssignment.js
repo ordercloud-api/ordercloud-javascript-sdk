@@ -49,6 +49,7 @@
 
 
 
+
   };
 
   /**
@@ -74,6 +75,9 @@
       if (data.hasOwnProperty('MessageConfigName')) {
         obj['MessageConfigName'] = ApiClient.convertToType(data['MessageConfigName'], 'String');
       }
+      if (data.hasOwnProperty('MessageConfigDescription')) {
+        obj['MessageConfigDescription'] = ApiClient.convertToType(data['MessageConfigDescription'], 'String');
+      }
     }
     return obj;
   }
@@ -94,6 +98,10 @@
    * @member {String} MessageConfigName
    */
   exports.prototype['MessageConfigName'] = undefined;
+  /**
+   * @member {String} MessageConfigDescription
+   */
+  exports.prototype['MessageConfigDescription'] = undefined;
 
 
 

@@ -25,7 +25,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.PasswordResets();
 
-var verificationCode = "verificationCode_example"; // String | Verification code of the forgotten password.
+var verificationCode = "verificationCode_example"; // String | Verification code of the password reset.
 
 var passwordReset = new OrderCloud.PasswordReset(); // PasswordReset | 
 
@@ -41,7 +41,7 @@ apiInstance.ResetPasswordByVerificationCode(verificationCode, passwordReset).the
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **verificationCode** | **String**| Verification code of the forgotten password. | 
+ **verificationCode** | **String**| Verification code of the password reset. | 
  **passwordReset** | [**PasswordReset**](PasswordReset.md)|  | 
 
 ### Return type

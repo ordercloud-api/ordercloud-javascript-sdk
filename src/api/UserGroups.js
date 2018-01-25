@@ -48,20 +48,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Create = function(buyerID, group) {
-      var postBody = group;
+    this.Create = function(buyerID, userGroup) {
+      var postBody = userGroup;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
         throw new Error("Missing the required parameter 'buyerID' when calling Create");
       }
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Create");
+      // verify the required parameter 'userGroup' is set
+      if (userGroup == undefined || userGroup == null) {
+        throw new Error("Missing the required parameter 'userGroup' when calling Create");
       }
 
 
@@ -227,12 +227,12 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the user group.
-     * @param {Array.<String>} opts.searchOn Search on of the user group.
-     * @param {Array.<String>} opts.sortBy Sort by of the user group.
-     * @param {Number} opts.page Page of the user group.
-     * @param {Number} opts.pageSize Page size of the user group.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the user group.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.List = function(buyerID, opts) {
@@ -250,8 +250,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -279,8 +279,8 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.userID ID of the user.
-     * @param {Number} opts.page Page of the user group.
-     * @param {Number} opts.pageSize Page size of the user group.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
     this.ListUserAssignments = function(buyerID, opts) {
@@ -323,11 +323,11 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} userGroupID ID of the user group.
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Patch = function(buyerID, userGroupID, group) {
-      var postBody = group;
+    this.Patch = function(buyerID, userGroupID, partialUserGroup) {
+      var postBody = partialUserGroup;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
@@ -339,9 +339,9 @@
         throw new Error("Missing the required parameter 'userGroupID' when calling Patch");
       }
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Patch");
+      // verify the required parameter 'partialUserGroup' is set
+      if (partialUserGroup == undefined || partialUserGroup == null) {
+        throw new Error("Missing the required parameter 'partialUserGroup' when calling Patch");
       }
 
 
@@ -414,11 +414,11 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} userGroupID ID of the user group.
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Update = function(buyerID, userGroupID, group) {
-      var postBody = group;
+    this.Update = function(buyerID, userGroupID, userGroup) {
+      var postBody = userGroup;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
@@ -430,9 +430,9 @@
         throw new Error("Missing the required parameter 'userGroupID' when calling Update");
       }
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Update");
+      // verify the required parameter 'userGroup' is set
+      if (userGroup == undefined || userGroup == null) {
+        throw new Error("Missing the required parameter 'userGroup' when calling Update");
       }
 
 

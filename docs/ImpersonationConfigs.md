@@ -174,12 +174,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.ImpersonationConfigs();
 
 var opts = { 
-  'search': "search_example", // String | Search of the impersonation config.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the impersonation config.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the impersonation config.
-  'page': 56, // Number | Page of the impersonation config.
-  'pageSize': 56, // Number | Page size of the impersonation config.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the impersonation config.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -193,12 +193,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the impersonation config. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the impersonation config. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the impersonation config. | [optional] 
- **page** | **Number**| Page of the impersonation config. | [optional] 
- **pageSize** | **Number**| Page size of the impersonation config. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the impersonation config. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> ImpersonationConfig Patch(impersonationConfigID, impersonationConfig)
+> ImpersonationConfig Patch(impersonationConfigID, partialImpersonationConfig)
 
 
 
@@ -234,9 +234,9 @@ var apiInstance = new OrderCloud.ImpersonationConfigs();
 
 var impersonationConfigID = "impersonationConfigID_example"; // String | ID of the impersonation config.
 
-var impersonationConfig = new OrderCloud.ImpersonationConfig(); // ImpersonationConfig | 
+var partialImpersonationConfig = new OrderCloud.ImpersonationConfig(); // ImpersonationConfig | 
 
-apiInstance.Patch(impersonationConfigID, impersonationConfig).then(function(data) {
+apiInstance.Patch(impersonationConfigID, partialImpersonationConfig).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -249,7 +249,7 @@ apiInstance.Patch(impersonationConfigID, impersonationConfig).then(function(data
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **impersonationConfigID** | **String**| ID of the impersonation config. | 
- **impersonationConfig** | [**ImpersonationConfig**](ImpersonationConfig.md)|  | 
+ **partialImpersonationConfig** | [**ImpersonationConfig**](ImpersonationConfig.md)|  | 
 
 ### Return type
 

@@ -1,20 +1,20 @@
-# OrderCloud.Suppliers
+# OrderCloud.Incrementors
 
 All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](Suppliers.md#Create) | **POST** /suppliers | 
-[**Delete**](Suppliers.md#Delete) | **DELETE** /suppliers/{supplierID} | 
-[**Get**](Suppliers.md#Get) | **GET** /suppliers/{supplierID} | 
-[**List**](Suppliers.md#List) | **GET** /suppliers | 
-[**Patch**](Suppliers.md#Patch) | **PATCH** /suppliers/{supplierID} | 
-[**Update**](Suppliers.md#Update) | **PUT** /suppliers/{supplierID} | 
+[**Create**](Incrementors.md#Create) | **POST** /incrementors | 
+[**Delete**](Incrementors.md#Delete) | **DELETE** /incrementors/{incrementorID} | 
+[**Get**](Incrementors.md#Get) | **GET** /incrementors/{incrementorID} | 
+[**List**](Incrementors.md#List) | **GET** /incrementors | 
+[**Patch**](Incrementors.md#Patch) | **PATCH** /incrementors/{incrementorID} | 
+[**Update**](Incrementors.md#Update) | **PUT** /incrementors/{incrementorID} | 
 
 
 <a name="Create"></a>
 # **Create**
-> Supplier Create(supplier)
+> Incrementor Create(incrementor)
 
 
 
@@ -27,11 +27,11 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Suppliers();
+var apiInstance = new OrderCloud.Incrementors();
 
-var supplier = new OrderCloud.Supplier(); // Supplier | 
+var incrementor = new OrderCloud.Incrementor(); // Incrementor | 
 
-apiInstance.Create(supplier).then(function(data) {
+apiInstance.Create(incrementor).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -43,11 +43,11 @@ apiInstance.Create(supplier).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **supplier** | [**Supplier**](Supplier.md)|  | 
+ **incrementor** | [**Incrementor**](Incrementor.md)|  | 
 
 ### Return type
 
-[**Supplier**](Supplier.md)
+[**Incrementor**](Incrementor.md)
 
 ### Authorization
 
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 <a name="Delete"></a>
 # **Delete**
-> Delete(supplierID)
+> Delete(incrementorID)
 
 
 
@@ -75,11 +75,11 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Suppliers();
+var apiInstance = new OrderCloud.Incrementors();
 
-var supplierID = "supplierID_example"; // String | ID of the supplier.
+var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
-apiInstance.Delete(supplierID).then(function() {
+apiInstance.Delete(incrementorID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -91,7 +91,7 @@ apiInstance.Delete(supplierID).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **supplierID** | **String**| ID of the supplier. | 
+ **incrementorID** | **String**| ID of the incrementor. | 
 
 ### Return type
 
@@ -110,7 +110,7 @@ null (empty response body)
 
 <a name="Get"></a>
 # **Get**
-> Supplier Get(supplierID)
+> Incrementor Get(incrementorID)
 
 
 
@@ -123,11 +123,11 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Suppliers();
+var apiInstance = new OrderCloud.Incrementors();
 
-var supplierID = "supplierID_example"; // String | ID of the supplier.
+var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
-apiInstance.Get(supplierID).then(function(data) {
+apiInstance.Get(incrementorID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -139,11 +139,11 @@ apiInstance.Get(supplierID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **supplierID** | **String**| ID of the supplier. | 
+ **incrementorID** | **String**| ID of the incrementor. | 
 
 ### Return type
 
-[**Supplier**](Supplier.md)
+[**Incrementor**](Incrementor.md)
 
 ### Authorization
 
@@ -158,7 +158,7 @@ Name | Type | Description  | Notes
 
 <a name="List"></a>
 # **List**
-> ListSupplier List(opts)
+> ListIncrementor List(opts)
 
 
 
@@ -171,7 +171,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Suppliers();
+var apiInstance = new OrderCloud.Incrementors();
 
 var opts = { 
   'search': "search_example", // String | Word or phrase to search for.
@@ -202,7 +202,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListSupplier**](ListSupplier.md)
+[**ListIncrementor**](ListIncrementor.md)
 
 ### Authorization
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> Supplier Patch(supplierID, partialSupplier)
+> Incrementor Patch(incrementorID, partialIncrementor)
 
 
 
@@ -230,13 +230,13 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Suppliers();
+var apiInstance = new OrderCloud.Incrementors();
 
-var supplierID = "supplierID_example"; // String | ID of the supplier.
+var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
-var partialSupplier = new OrderCloud.Supplier(); // Supplier | 
+var partialIncrementor = new OrderCloud.Incrementor(); // Incrementor | 
 
-apiInstance.Patch(supplierID, partialSupplier).then(function(data) {
+apiInstance.Patch(incrementorID, partialIncrementor).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -248,12 +248,12 @@ apiInstance.Patch(supplierID, partialSupplier).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **supplierID** | **String**| ID of the supplier. | 
- **partialSupplier** | [**Supplier**](Supplier.md)|  | 
+ **incrementorID** | **String**| ID of the incrementor. | 
+ **partialIncrementor** | [**Incrementor**](Incrementor.md)|  | 
 
 ### Return type
 
-[**Supplier**](Supplier.md)
+[**Incrementor**](Incrementor.md)
 
 ### Authorization
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 <a name="Update"></a>
 # **Update**
-> Supplier Update(supplierID, supplier)
+> Incrementor Update(incrementorID, incrementor)
 
 
 
@@ -281,13 +281,13 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.Suppliers();
+var apiInstance = new OrderCloud.Incrementors();
 
-var supplierID = "supplierID_example"; // String | ID of the supplier.
+var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
-var supplier = new OrderCloud.Supplier(); // Supplier | 
+var incrementor = new OrderCloud.Incrementor(); // Incrementor | 
 
-apiInstance.Update(supplierID, supplier).then(function(data) {
+apiInstance.Update(incrementorID, incrementor).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -299,12 +299,12 @@ apiInstance.Update(supplierID, supplier).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **supplierID** | **String**| ID of the supplier. | 
- **supplier** | [**Supplier**](Supplier.md)|  | 
+ **incrementorID** | **String**| ID of the incrementor. | 
+ **incrementor** | [**Incrementor**](Incrementor.md)|  | 
 
 ### Return type
 
-[**Supplier**](Supplier.md)
+[**Incrementor**](Incrementor.md)
 
 ### Authorization
 

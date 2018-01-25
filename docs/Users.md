@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**Get**](Users.md#Get) | **GET** /buyers/{buyerID}/users/{userID} | 
 [**GetAccessToken**](Users.md#GetAccessToken) | **POST** /buyers/{buyerID}/users/{userID}/accesstoken | 
 [**List**](Users.md#List) | **GET** /buyers/{buyerID}/users | 
+[**Move**](Users.md#Move) | **POST** /buyers/{buyerID}/users/{userID}/moveto/{newBuyerID} | 
 [**Patch**](Users.md#Patch) | **PATCH** /buyers/{buyerID}/users/{userID} | 
 [**Update**](Users.md#Update) | **PUT** /buyers/{buyerID}/users/{userID} | 
 
@@ -168,7 +169,7 @@ Name | Type | Description  | Notes
 
 <a name="GetAccessToken"></a>
 # **GetAccessToken**
-> AccessToken GetAccessToken(buyerID, userID, tokenRequest)
+> AccessToken GetAccessToken(buyerID, userID, impersonateTokenRequest)
 
 
 
@@ -187,9 +188,9 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var userID = "userID_example"; // String | ID of the user.
 
-var tokenRequest = new OrderCloud.ImpersonateTokenRequest(); // ImpersonateTokenRequest | 
+var impersonateTokenRequest = new OrderCloud.ImpersonateTokenRequest(); // ImpersonateTokenRequest | 
 
-apiInstance.GetAccessToken(buyerID, userID, tokenRequest).then(function(data) {
+apiInstance.GetAccessToken(buyerID, userID, impersonateTokenRequest).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -203,7 +204,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
  **userID** | **String**| ID of the user. | 
- **tokenRequest** | [**ImpersonateTokenRequest**](ImpersonateTokenRequest.md)|  | 
+ **impersonateTokenRequest** | [**ImpersonateTokenRequest**](ImpersonateTokenRequest.md)|  | 
 
 ### Return type
 
@@ -241,12 +242,12 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var opts = { 
   'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'search': "search_example", // String | Search of the user.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the user.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the user.
-  'page': 56, // Number | Page of the user.
-  'pageSize': 56, // Number | Page size of the user.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the user.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -262,12 +263,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **search** | **String**| Search of the user. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the user. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the user. | [optional] 
- **page** | **Number**| Page of the user. | [optional] 
- **pageSize** | **Number**| Page size of the user. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the user. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -284,9 +285,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> User Patch(buyerID, userID, user)
+<a name="Move"></a>
+# **Move**
+> User Move(buyerID, userID, newBuyerID, orders)
 
 
 
@@ -305,9 +306,11 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var userID = "userID_example"; // String | ID of the user.
 
-var user = new OrderCloud.User(); // User | 
+var newBuyerID = "newBuyerID_example"; // String | ID of the new buyer.
 
-apiInstance.Patch(buyerID, userID, user).then(function(data) {
+var orders = "orders_example"; // String | Orders of the user. Possible values: None, Unsubmitted, All.
+
+apiInstance.Move(buyerID, userID, newBuyerID, orders).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -321,7 +324,62 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
  **userID** | **String**| ID of the user. | 
- **user** | [**User**](User.md)|  | 
+ **newBuyerID** | **String**| ID of the new buyer. | 
+ **orders** | **String**| Orders of the user. Possible values: None, Unsubmitted, All. | 
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Patch"></a>
+# **Patch**
+> User Patch(buyerID, userID, partialUser)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Users();
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var userID = "userID_example"; // String | ID of the user.
+
+var partialUser = new OrderCloud.User(); // User | 
+
+apiInstance.Patch(buyerID, userID, partialUser).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **buyerID** | **String**| ID of the buyer. | 
+ **userID** | **String**| ID of the user. | 
+ **partialUser** | [**User**](User.md)|  | 
 
 ### Return type
 

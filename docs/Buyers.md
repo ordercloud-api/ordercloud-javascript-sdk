@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="Create"></a>
 # **Create**
-> Buyer Create(company)
+> Buyer Create(buyer)
 
 
 
@@ -29,9 +29,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Buyers();
 
-var company = new OrderCloud.Buyer(); // Buyer | 
+var buyer = new OrderCloud.Buyer(); // Buyer | 
 
-apiInstance.Create(company).then(function(data) {
+apiInstance.Create(buyer).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -43,7 +43,7 @@ apiInstance.Create(company).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **company** | [**Buyer**](Buyer.md)|  | 
+ **buyer** | [**Buyer**](Buyer.md)|  | 
 
 ### Return type
 
@@ -174,12 +174,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Buyers();
 
 var opts = { 
-  'search': "search_example", // String | Search of the buyer.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the buyer.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the buyer.
-  'page': 56, // Number | Page of the buyer.
-  'pageSize': 56, // Number | Page size of the buyer.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the buyer.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -193,12 +193,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the buyer. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the buyer. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the buyer. | [optional] 
- **page** | **Number**| Page of the buyer. | [optional] 
- **pageSize** | **Number**| Page size of the buyer. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the buyer. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> Buyer Patch(buyerID, company)
+> Buyer Patch(buyerID, partialBuyer)
 
 
 
@@ -234,9 +234,9 @@ var apiInstance = new OrderCloud.Buyers();
 
 var buyerID = "buyerID_example"; // String | ID of the buyer.
 
-var company = new OrderCloud.Buyer(); // Buyer | 
+var partialBuyer = new OrderCloud.Buyer(); // Buyer | 
 
-apiInstance.Patch(buyerID, company).then(function(data) {
+apiInstance.Patch(buyerID, partialBuyer).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -249,7 +249,7 @@ apiInstance.Patch(buyerID, company).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
- **company** | [**Buyer**](Buyer.md)|  | 
+ **partialBuyer** | [**Buyer**](Buyer.md)|  | 
 
 ### Return type
 
@@ -268,7 +268,7 @@ Name | Type | Description  | Notes
 
 <a name="Update"></a>
 # **Update**
-> Buyer Update(buyerID, company)
+> Buyer Update(buyerID, buyer)
 
 
 
@@ -285,9 +285,9 @@ var apiInstance = new OrderCloud.Buyers();
 
 var buyerID = "buyerID_example"; // String | ID of the buyer.
 
-var company = new OrderCloud.Buyer(); // Buyer | 
+var buyer = new OrderCloud.Buyer(); // Buyer | 
 
-apiInstance.Update(buyerID, company).then(function(data) {
+apiInstance.Update(buyerID, buyer).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -300,7 +300,7 @@ apiInstance.Update(buyerID, company).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
- **company** | [**Buyer**](Buyer.md)|  | 
+ **buyer** | [**Buyer**](Buyer.md)|  | 
 
 ### Return type
 

@@ -47,15 +47,15 @@
 
 
     /**
-     * @param {module:model/Promotion} promo 
+     * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Create = function(promo) {
-      var postBody = promo;
+    this.Create = function(promotion) {
+      var postBody = promotion;
 
-      // verify the required parameter 'promo' is set
-      if (promo == undefined || promo == null) {
-        throw new Error("Missing the required parameter 'promo' when calling Create");
+      // verify the required parameter 'promotion' is set
+      if (promotion == undefined || promotion == null) {
+        throw new Error("Missing the required parameter 'promotion' when calling Create");
       }
 
 
@@ -204,12 +204,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the promotion.
-     * @param {Array.<String>} opts.searchOn Search on of the promotion.
-     * @param {Array.<String>} opts.sortBy Sort by of the promotion.
-     * @param {Number} opts.page Page of the promotion.
-     * @param {Number} opts.pageSize Page size of the promotion.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the promotion.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
     this.List = function(opts) {
@@ -221,8 +221,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -251,9 +251,9 @@
      * @param {String} opts.promotionID ID of the promotion.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.level Level of the promotion.
-     * @param {Number} opts.page Page of the promotion.
-     * @param {Number} opts.pageSize Page size of the promotion.
+     * @param {String} opts.level Level of the promotion assignment. Possible values: User, Group, Company.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotionAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -333,15 +333,15 @@
 
 
     /**
-     * @param {module:model/PromotionAssignment} assignment 
+     * @param {module:model/PromotionAssignment} promotionAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(assignment) {
-      var postBody = assignment;
+    this.SaveAssignment = function(promotionAssignment) {
+      var postBody = promotionAssignment;
 
-      // verify the required parameter 'assignment' is set
-      if (assignment == undefined || assignment == null) {
-        throw new Error("Missing the required parameter 'assignment' when calling SaveAssignment");
+      // verify the required parameter 'promotionAssignment' is set
+      if (promotionAssignment == undefined || promotionAssignment == null) {
+        throw new Error("Missing the required parameter 'promotionAssignment' when calling SaveAssignment");
       }
 
 
@@ -369,20 +369,20 @@
 
     /**
      * @param {String} promotionID ID of the promotion.
-     * @param {module:model/Promotion} promo 
+     * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Update = function(promotionID, promo) {
-      var postBody = promo;
+    this.Update = function(promotionID, promotion) {
+      var postBody = promotion;
 
       // verify the required parameter 'promotionID' is set
       if (promotionID == undefined || promotionID == null) {
         throw new Error("Missing the required parameter 'promotionID' when calling Update");
       }
 
-      // verify the required parameter 'promo' is set
-      if (promo == undefined || promo == null) {
-        throw new Error("Missing the required parameter 'promo' when calling Update");
+      // verify the required parameter 'promotion' is set
+      if (promotion == undefined || promotion == null) {
+        throw new Error("Missing the required parameter 'promotion' when calling Update");
       }
 
 
