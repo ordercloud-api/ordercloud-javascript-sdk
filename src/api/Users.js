@@ -177,11 +177,11 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} userID ID of the user.
-     * @param {module:model/ImpersonateTokenRequest} tokenRequest 
+     * @param {module:model/ImpersonateTokenRequest} impersonateTokenRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccessToken}
      */
-    this.GetAccessToken = function(buyerID, userID, tokenRequest) {
-      var postBody = tokenRequest;
+    this.GetAccessToken = function(buyerID, userID, impersonateTokenRequest) {
+      var postBody = impersonateTokenRequest;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
@@ -193,9 +193,9 @@
         throw new Error("Missing the required parameter 'userID' when calling GetAccessToken");
       }
 
-      // verify the required parameter 'tokenRequest' is set
-      if (tokenRequest == undefined || tokenRequest == null) {
-        throw new Error("Missing the required parameter 'tokenRequest' when calling GetAccessToken");
+      // verify the required parameter 'impersonateTokenRequest' is set
+      if (impersonateTokenRequest == undefined || impersonateTokenRequest == null) {
+        throw new Error("Missing the required parameter 'impersonateTokenRequest' when calling GetAccessToken");
       }
 
 
@@ -227,12 +227,12 @@
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.search Search of the user.
-     * @param {Array.<String>} opts.searchOn Search on of the user.
-     * @param {Array.<String>} opts.sortBy Sort by of the user.
-     * @param {Number} opts.page Page of the user.
-     * @param {Number} opts.pageSize Page size of the user.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the user.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.List = function(buyerID, opts) {
@@ -251,8 +251,8 @@
       var queryParams = {
         'userGroupID': opts['userGroupID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -278,11 +278,68 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} userID ID of the user.
-     * @param {module:model/User} user 
+     * @param {String} newBuyerID ID of the new buyer.
+     * @param {String} orders Orders of the user. Possible values: None, Unsubmitted, All.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(buyerID, userID, user) {
-      var postBody = user;
+    this.Move = function(buyerID, userID, newBuyerID, orders) {
+      var postBody = null;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling Move");
+      }
+
+      // verify the required parameter 'userID' is set
+      if (userID == undefined || userID == null) {
+        throw new Error("Missing the required parameter 'userID' when calling Move");
+      }
+
+      // verify the required parameter 'newBuyerID' is set
+      if (newBuyerID == undefined || newBuyerID == null) {
+        throw new Error("Missing the required parameter 'newBuyerID' when calling Move");
+      }
+
+      // verify the required parameter 'orders' is set
+      if (orders == undefined || orders == null) {
+        throw new Error("Missing the required parameter 'orders' when calling Move");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID,
+        'userID': userID,
+        'newBuyerID': newBuyerID
+      };
+      var queryParams = {
+        'orders': orders
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = User;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/users/{userID}/moveto/{newBuyerID}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
+     * @param {String} userID ID of the user.
+     * @param {module:model/User} partialUser 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     */
+    this.Patch = function(buyerID, userID, partialUser) {
+      var postBody = partialUser;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
@@ -294,9 +351,9 @@
         throw new Error("Missing the required parameter 'userID' when calling Patch");
       }
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Patch");
+      // verify the required parameter 'partialUser' is set
+      if (partialUser == undefined || partialUser == null) {
+        throw new Error("Missing the required parameter 'partialUser' when calling Patch");
       }
 
 

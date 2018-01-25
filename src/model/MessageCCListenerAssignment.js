@@ -51,6 +51,7 @@
 
 
 
+
   };
 
   /**
@@ -69,6 +70,9 @@
       }
       if (data.hasOwnProperty('MessageConfigName')) {
         obj['MessageConfigName'] = ApiClient.convertToType(data['MessageConfigName'], 'String');
+      }
+      if (data.hasOwnProperty('MessageConfigDescription')) {
+        obj['MessageConfigDescription'] = ApiClient.convertToType(data['MessageConfigDescription'], 'String');
       }
       if (data.hasOwnProperty('MessageType')) {
         obj['MessageType'] = ApiClient.convertToType(data['MessageType'], 'String');
@@ -94,6 +98,10 @@
    * @member {String} MessageConfigName
    */
   exports.prototype['MessageConfigName'] = undefined;
+  /**
+   * @member {String} MessageConfigDescription
+   */
+  exports.prototype['MessageConfigDescription'] = undefined;
   /**
    * @member {String} MessageType
    */

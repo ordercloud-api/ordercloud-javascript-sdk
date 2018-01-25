@@ -47,7 +47,7 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
@@ -96,7 +96,7 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
@@ -146,7 +146,7 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
@@ -196,15 +196,15 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the line item.
-     * @param {Array.<String>} opts.searchOn Search on of the line item.
-     * @param {Array.<String>} opts.sortBy Sort by of the line item.
-     * @param {Number} opts.page Page of the line item.
-     * @param {Number} opts.pageSize Page size of the line item.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the line item.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListLineItem}
      */
     this.List = function(direction, orderID, opts) {
@@ -228,8 +228,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -253,7 +253,7 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/LineItem} partialLineItem 
@@ -309,7 +309,7 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/Address} partialAddress 
@@ -365,7 +365,7 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/Address} address 
@@ -421,7 +421,7 @@
 
 
     /**
-     * @param {String} direction Direction of the line item. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @param {module:model/LineItem} lineItem 

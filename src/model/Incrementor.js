@@ -23,7 +23,7 @@
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.MessageSender = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.Incrementor = factory(root.OrderCloud.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -32,14 +32,14 @@
 
 
   /**
-   * The MessageSender model module.
-   * @module model/MessageSender
+   * The Incrementor model module.
+   * @module model/Incrementor
    * @version 1.0.56
    */
 
   /**
-   * Constructs a new <code>MessageSender</code>.
-   * @alias module:model/MessageSender
+   * Constructs a new <code>Incrementor</code>.
+   * @alias module:model/Incrementor
    * @class
    */
   var exports = function() {
@@ -52,11 +52,11 @@
   };
 
   /**
-   * Constructs a <code>MessageSender</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>Incrementor</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MessageSender} obj Optional instance to populate.
-   * @return {module:model/MessageSender} The populated <code>MessageSender</code> instance.
+   * @param {module:model/Incrementor} obj Optional instance to populate.
+   * @return {module:model/Incrementor} The populated <code>Incrementor</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -68,11 +68,11 @@
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
       }
-      if (data.hasOwnProperty('MessageTypes')) {
-        obj['MessageTypes'] = ApiClient.convertToType(data['MessageTypes'], ['String']);
+      if (data.hasOwnProperty('LastNumber')) {
+        obj['LastNumber'] = ApiClient.convertToType(data['LastNumber'], 'Number');
       }
-      if (data.hasOwnProperty('Description')) {
-        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      if (data.hasOwnProperty('LeftPaddingCount')) {
+        obj['LeftPaddingCount'] = ApiClient.convertToType(data['LeftPaddingCount'], 'Number');
       }
     }
     return obj;
@@ -87,13 +87,13 @@
    */
   exports.prototype['Name'] = undefined;
   /**
-   * @member {Array.<String>} MessageTypes
+   * @member {Number} LastNumber
    */
-  exports.prototype['MessageTypes'] = undefined;
+  exports.prototype['LastNumber'] = undefined;
   /**
-   * @member {String} Description
+   * @member {Number} LeftPaddingCount
    */
-  exports.prototype['Description'] = undefined;
+  exports.prototype['LeftPaddingCount'] = undefined;
 
 
 

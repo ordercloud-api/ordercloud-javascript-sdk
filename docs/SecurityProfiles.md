@@ -133,12 +133,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.SecurityProfiles();
 
 var opts = { 
-  'search': "search_example", // String | Search of the security profile.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the security profile.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the security profile.
-  'page': 56, // Number | Page of the security profile.
-  'pageSize': 56, // Number | Page size of the security profile.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the security profile.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -152,12 +152,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the security profile. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the security profile. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the security profile. | [optional] 
- **page** | **Number**| Page of the security profile. | [optional] 
- **pageSize** | **Number**| Page size of the security profile. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the security profile. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -197,10 +197,10 @@ var opts = {
   'securityProfileID': "securityProfileID_example", // String | ID of the security profile.
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'commerceRole': "commerceRole_example", // String | Commerce role of the security profile.
-  'level': "level_example", // String | Level of the security profile.
-  'page': 56, // Number | Page of the security profile.
-  'pageSize': 56 // Number | Page size of the security profile.
+  'commerceRole': "commerceRole_example", // String | Commerce role of the security profile assignment. Possible values: Buyer, Seller, Supplier.
+  'level': "level_example", // String | Level of the security profile assignment. Possible values: User, Group, Company.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -219,10 +219,10 @@ Name | Type | Description  | Notes
  **securityProfileID** | **String**| ID of the security profile. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **commerceRole** | **String**| Commerce role of the security profile. | [optional] 
- **level** | **String**| Level of the security profile. | [optional] 
- **page** | **Number**| Page of the security profile. | [optional] 
- **pageSize** | **Number**| Page size of the security profile. | [optional] 
+ **commerceRole** | **String**| Commerce role of the security profile assignment. Possible values: Buyer, Seller, Supplier. | [optional] 
+ **level** | **String**| Level of the security profile assignment. Possible values: User, Group, Company. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 
 <a name="SaveAssignment"></a>
 # **SaveAssignment**
-> SaveAssignment(assignment)
+> SaveAssignment(securityProfileAssignment)
 
 
 
@@ -256,9 +256,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.SecurityProfiles();
 
-var assignment = new OrderCloud.SecurityProfileAssignment(); // SecurityProfileAssignment | 
+var securityProfileAssignment = new OrderCloud.SecurityProfileAssignment(); // SecurityProfileAssignment | 
 
-apiInstance.SaveAssignment(assignment).then(function() {
+apiInstance.SaveAssignment(securityProfileAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -270,7 +270,7 @@ apiInstance.SaveAssignment(assignment).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **assignment** | [**SecurityProfileAssignment**](SecurityProfileAssignment.md)|  | 
+ **securityProfileAssignment** | [**SecurityProfileAssignment**](SecurityProfileAssignment.md)|  | 
 
 ### Return type
 

@@ -168,7 +168,7 @@ Name | Type | Description  | Notes
 
 <a name="GetAccessToken"></a>
 # **GetAccessToken**
-> AccessToken GetAccessToken(supplierID, userID, tokenRequest)
+> AccessToken GetAccessToken(supplierID, userID, impersonateTokenRequest)
 
 
 
@@ -187,9 +187,9 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var userID = "userID_example"; // String | ID of the user.
 
-var tokenRequest = new OrderCloud.ImpersonateTokenRequest(); // ImpersonateTokenRequest | 
+var impersonateTokenRequest = new OrderCloud.ImpersonateTokenRequest(); // ImpersonateTokenRequest | 
 
-apiInstance.GetAccessToken(supplierID, userID, tokenRequest).then(function(data) {
+apiInstance.GetAccessToken(supplierID, userID, impersonateTokenRequest).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supplierID** | **String**| ID of the supplier. | 
  **userID** | **String**| ID of the user. | 
- **tokenRequest** | [**ImpersonateTokenRequest**](ImpersonateTokenRequest.md)|  | 
+ **impersonateTokenRequest** | [**ImpersonateTokenRequest**](ImpersonateTokenRequest.md)|  | 
 
 ### Return type
 
@@ -241,12 +241,12 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var opts = { 
   'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'search': "search_example", // String | Search of the supplier user.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the supplier user.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the supplier user.
-  'page': 56, // Number | Page of the supplier user.
-  'pageSize': 56, // Number | Page size of the supplier user.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the supplier user.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(supplierID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -262,12 +262,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supplierID** | **String**| ID of the supplier. | 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **search** | **String**| Search of the supplier user. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the supplier user. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the supplier user. | [optional] 
- **page** | **Number**| Page of the supplier user. | [optional] 
- **pageSize** | **Number**| Page size of the supplier user. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the supplier user. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> User Patch(supplierID, userID, user)
+> User Patch(supplierID, userID, partialUser)
 
 
 
@@ -305,9 +305,9 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var userID = "userID_example"; // String | ID of the user.
 
-var user = new OrderCloud.User(); // User | 
+var partialUser = new OrderCloud.User(); // User | 
 
-apiInstance.Patch(supplierID, userID, user).then(function(data) {
+apiInstance.Patch(supplierID, userID, partialUser).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -321,7 +321,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supplierID** | **String**| ID of the supplier. | 
  **userID** | **String**| ID of the user. | 
- **user** | [**User**](User.md)|  | 
+ **partialUser** | [**User**](User.md)|  | 
 
 ### Return type
 

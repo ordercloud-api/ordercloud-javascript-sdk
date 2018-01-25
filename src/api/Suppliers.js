@@ -47,15 +47,15 @@
 
 
     /**
-     * @param {module:model/Supplier} company 
+     * @param {module:model/Supplier} supplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.Create = function(company) {
-      var postBody = company;
+    this.Create = function(supplier) {
+      var postBody = supplier;
 
-      // verify the required parameter 'company' is set
-      if (company == undefined || company == null) {
-        throw new Error("Missing the required parameter 'company' when calling Create");
+      // verify the required parameter 'supplier' is set
+      if (supplier == undefined || supplier == null) {
+        throw new Error("Missing the required parameter 'supplier' when calling Create");
       }
 
 
@@ -155,12 +155,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the supplier.
-     * @param {Array.<String>} opts.searchOn Search on of the supplier.
-     * @param {Array.<String>} opts.sortBy Sort by of the supplier.
-     * @param {Number} opts.page Page of the supplier.
-     * @param {Number} opts.pageSize Page size of the supplier.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the supplier.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
     this.List = function(opts) {
@@ -172,8 +172,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -198,20 +198,20 @@
 
     /**
      * @param {String} supplierID ID of the supplier.
-     * @param {module:model/Supplier} company 
+     * @param {module:model/Supplier} partialSupplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.Patch = function(supplierID, company) {
-      var postBody = company;
+    this.Patch = function(supplierID, partialSupplier) {
+      var postBody = partialSupplier;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
         throw new Error("Missing the required parameter 'supplierID' when calling Patch");
       }
 
-      // verify the required parameter 'company' is set
-      if (company == undefined || company == null) {
-        throw new Error("Missing the required parameter 'company' when calling Patch");
+      // verify the required parameter 'partialSupplier' is set
+      if (partialSupplier == undefined || partialSupplier == null) {
+        throw new Error("Missing the required parameter 'partialSupplier' when calling Patch");
       }
 
 
@@ -240,20 +240,20 @@
 
     /**
      * @param {String} supplierID ID of the supplier.
-     * @param {module:model/Supplier} company 
+     * @param {module:model/Supplier} supplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.Update = function(supplierID, company) {
-      var postBody = company;
+    this.Update = function(supplierID, supplier) {
+      var postBody = supplier;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
         throw new Error("Missing the required parameter 'supplierID' when calling Update");
       }
 
-      // verify the required parameter 'company' is set
-      if (company == undefined || company == null) {
-        throw new Error("Missing the required parameter 'company' when calling Update");
+      // verify the required parameter 'supplier' is set
+      if (supplier == undefined || supplier == null) {
+        throw new Error("Missing the required parameter 'supplier' when calling Update");
       }
 
 

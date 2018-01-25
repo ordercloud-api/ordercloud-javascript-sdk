@@ -71,11 +71,11 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('BuyerID')) {
-        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('BuyerID')) {
+        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
       }
       if (data.hasOwnProperty('Shipper')) {
         obj['Shipper'] = ApiClient.convertToType(data['Shipper'], 'String');
@@ -115,13 +115,13 @@
   }
 
   /**
-   * @member {String} BuyerID
-   */
-  exports.prototype['BuyerID'] = undefined;
-  /**
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} BuyerID
+   */
+  exports.prototype['BuyerID'] = undefined;
   /**
    * @member {String} Shipper
    */

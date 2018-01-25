@@ -155,12 +155,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the admin address.
-     * @param {Array.<String>} opts.searchOn Search on of the admin address.
-     * @param {Array.<String>} opts.sortBy Sort by of the admin address.
-     * @param {Number} opts.page Page of the admin address.
-     * @param {Number} opts.pageSize Page size of the admin address.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the admin address.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
     this.List = function(opts) {
@@ -172,8 +172,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -198,20 +198,20 @@
 
     /**
      * @param {String} addressID ID of the address.
-     * @param {module:model/Address} address 
+     * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(addressID, address) {
-      var postBody = address;
+    this.Patch = function(addressID, partialAddress) {
+      var postBody = partialAddress;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
         throw new Error("Missing the required parameter 'addressID' when calling Patch");
       }
 
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Patch");
+      // verify the required parameter 'partialAddress' is set
+      if (partialAddress == undefined || partialAddress == null) {
+        throw new Error("Missing the required parameter 'partialAddress' when calling Patch");
       }
 
 

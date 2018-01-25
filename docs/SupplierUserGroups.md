@@ -17,7 +17,7 @@ Method | HTTP request | Description
 
 <a name="Create"></a>
 # **Create**
-> UserGroup Create(supplierID, group)
+> UserGroup Create(supplierID, userGroup)
 
 
 
@@ -34,9 +34,9 @@ var apiInstance = new OrderCloud.SupplierUserGroups();
 
 var supplierID = "supplierID_example"; // String | ID of the supplier.
 
-var group = new OrderCloud.UserGroup(); // UserGroup | 
+var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
 
-apiInstance.Create(supplierID, group).then(function(data) {
+apiInstance.Create(supplierID, userGroup).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -49,7 +49,7 @@ apiInstance.Create(supplierID, group).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supplierID** | **String**| ID of the supplier. | 
- **group** | [**UserGroup**](UserGroup.md)|  | 
+ **userGroup** | [**UserGroup**](UserGroup.md)|  | 
 
 ### Return type
 
@@ -242,12 +242,12 @@ var apiInstance = new OrderCloud.SupplierUserGroups();
 var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var opts = { 
-  'search': "search_example", // String | Search of the supplier user group.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the supplier user group.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the supplier user group.
-  'page': 56, // Number | Page of the supplier user group.
-  'pageSize': 56, // Number | Page size of the supplier user group.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the supplier user group.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(supplierID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -262,12 +262,12 @@ apiInstance.List(supplierID, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supplierID** | **String**| ID of the supplier. | 
- **search** | **String**| Search of the supplier user group. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the supplier user group. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the supplier user group. | [optional] 
- **page** | **Number**| Page of the supplier user group. | [optional] 
- **pageSize** | **Number**| Page size of the supplier user group. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the supplier user group. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -306,8 +306,8 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 var opts = { 
   'userGroupID': "userGroupID_example", // String | ID of the user group.
   'userID': "userID_example", // String | ID of the user.
-  'page': 56, // Number | Page of the supplier user group.
-  'pageSize': 56 // Number | Page size of the supplier user group.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListUserAssignments(supplierID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -324,8 +324,8 @@ Name | Type | Description  | Notes
  **supplierID** | **String**| ID of the supplier. | 
  **userGroupID** | **String**| ID of the user group. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
- **page** | **Number**| Page of the supplier user group. | [optional] 
- **pageSize** | **Number**| Page size of the supplier user group. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -344,7 +344,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> UserGroup Patch(supplierID, userGroupID, group)
+> UserGroup Patch(supplierID, userGroupID, partialUserGroup)
 
 
 
@@ -363,9 +363,9 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
-var group = new OrderCloud.UserGroup(); // UserGroup | 
+var partialUserGroup = new OrderCloud.UserGroup(); // UserGroup | 
 
-apiInstance.Patch(supplierID, userGroupID, group).then(function(data) {
+apiInstance.Patch(supplierID, userGroupID, partialUserGroup).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -379,7 +379,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supplierID** | **String**| ID of the supplier. | 
  **userGroupID** | **String**| ID of the user group. | 
- **group** | [**UserGroup**](UserGroup.md)|  | 
+ **partialUserGroup** | [**UserGroup**](UserGroup.md)|  | 
 
 ### Return type
 
@@ -449,7 +449,7 @@ null (empty response body)
 
 <a name="Update"></a>
 # **Update**
-> UserGroup Update(supplierID, userGroupID, group)
+> UserGroup Update(supplierID, userGroupID, userGroup)
 
 
 
@@ -468,9 +468,9 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
-var group = new OrderCloud.UserGroup(); // UserGroup | 
+var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
 
-apiInstance.Update(supplierID, userGroupID, group).then(function(data) {
+apiInstance.Update(supplierID, userGroupID, userGroup).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -484,7 +484,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **supplierID** | **String**| ID of the supplier. | 
  **userGroupID** | **String**| ID of the user group. | 
- **group** | [**UserGroup**](UserGroup.md)|  | 
+ **userGroup** | [**UserGroup**](UserGroup.md)|  | 
 
 ### Return type
 
