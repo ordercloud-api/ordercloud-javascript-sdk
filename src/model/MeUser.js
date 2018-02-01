@@ -34,7 +34,7 @@
   /**
    * The MeUser model module.
    * @module model/MeUser
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**

@@ -34,7 +34,7 @@
   /**
    * The ImpersonateTokenRequest model module.
    * @module model/ImpersonateTokenRequest
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**
