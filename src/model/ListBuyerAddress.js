@@ -34,7 +34,7 @@
   /**
    * The ListBuyerAddress model module.
    * @module model/ListBuyerAddress
-   * @version 1.0.58
+   * @version 1.0.59
    */
 
   /**

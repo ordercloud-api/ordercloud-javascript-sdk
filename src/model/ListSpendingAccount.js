@@ -34,7 +34,7 @@
   /**
    * The ListSpendingAccount model module.
    * @module model/ListSpendingAccount
-   * @version 1.0.58
+   * @version 1.0.59
    */
 
   /**

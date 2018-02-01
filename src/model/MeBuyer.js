@@ -34,7 +34,7 @@
   /**
    * The MeBuyer model module.
    * @module model/MeBuyer
-   * @version 1.0.58
+   * @version 1.0.59
    */
 
   /**
