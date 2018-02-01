@@ -34,7 +34,7 @@
   /**
    * The ListMessageSenderAssignment model module.
    * @module model/ListMessageSenderAssignment
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**

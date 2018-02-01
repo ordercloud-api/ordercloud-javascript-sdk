@@ -34,7 +34,7 @@
   /**
    * The Catalog model module.
    * @module model/Catalog
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**
