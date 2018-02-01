@@ -31,7 +31,7 @@
   /**
    * Spec service.
    * @module api/Specs
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**
