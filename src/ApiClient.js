@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['superagent'], factory);
+    define(['superagent', 'superagent-no-cache'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('superagent'));
+    module.exports = factory(require('superagent'), require('superagent-no-cache'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ApiClient = factory(root.superagent);
+    root.OrderCloud.ApiClient = factory(root.superagent, root['superagent-no-cache']);
   }
-}(this, function(superagent) {
+}(this, function(superagent, nocache) {
   'use strict';
 
   /**
@@ -378,6 +378,9 @@
     // set header parameters
     request.set(this.defaultHeaders).set(this.normalizeParams(headerParams));
 
+    // dont cache response (guards against IE's aggressive caching)
+    request.use(nocache);
+
     // set request timeout
     request.timeout(this.timeout);
 
@@ -443,6 +446,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     // set header parameters
     request.set(this.defaultHeaders).set(this.normalizeParams(headerParams));
+
+    // dont cache response (guards against IE's aggressive caching)
+    request.use(nocache);
 
     // set request timeout
     request.timeout(this.timeout);
