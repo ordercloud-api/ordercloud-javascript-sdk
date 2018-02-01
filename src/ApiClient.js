@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['superagent', 'superagent-no-cache'], factory);
+    define(['superagent'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('superagent'), require('superagent-no-cache'));
+    module.exports = factory(require('superagent'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ApiClient = factory(root.superagent, root['superagent-no-cache']);
+    root.OrderCloud.ApiClient = factory(root.superagent);
   }
-}(this, function(superagent, nocache) {
+}(this, function(superagent) {
   'use strict';
 
   /**
@@ -379,7 +379,10 @@
     request.set(this.defaultHeaders).set(this.normalizeParams(headerParams));
 
     // dont cache response (guards against IE's aggressive caching)
-    request.use(nocache);
+    request.set('X-Requested-With', 'XMLHttpRequest')
+    request.set('Expires', '-1')
+    request.set('Cache-Control', 'no-cache,no-store,must-revalidate,max-age=-1,private')
+    request.set('Pragma', 'no-cache');
 
     // set request timeout
     request.timeout(this.timeout);
@@ -448,7 +451,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     request.set(this.defaultHeaders).set(this.normalizeParams(headerParams));
 
     // dont cache response (guards against IE's aggressive caching)
-    request.use(nocache);
+    request.set('X-Requested-With', 'XMLHttpRequest')
+    request.set('Expires', '-1')
+    request.set('Cache-Control', 'no-cache,no-store,must-revalidate,max-age=-1,private')
+    request.set('Pragma', 'no-cache');
 
     // set request timeout
     request.timeout(this.timeout);
