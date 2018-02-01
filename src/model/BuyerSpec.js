@@ -34,7 +34,7 @@
   /**
    * The BuyerSpec model module.
    * @module model/BuyerSpec
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**

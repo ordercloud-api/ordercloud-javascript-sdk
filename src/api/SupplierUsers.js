@@ -31,7 +31,7 @@
   /**
    * SupplierUser service.
    * @module api/SupplierUsers
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**

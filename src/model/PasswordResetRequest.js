@@ -34,7 +34,7 @@
   /**
    * The PasswordResetRequest model module.
    * @module model/PasswordResetRequest
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**

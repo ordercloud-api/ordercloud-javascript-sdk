@@ -34,7 +34,7 @@
   /**
    * The ProductAssignment model module.
    * @module model/ProductAssignment
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**

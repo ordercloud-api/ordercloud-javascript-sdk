@@ -34,7 +34,7 @@
   /**
    * The BaseSpec model module.
    * @module model/BaseSpec
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**

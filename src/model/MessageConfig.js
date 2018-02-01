@@ -34,7 +34,7 @@
   /**
    * The MessageConfig model module.
    * @module model/MessageConfig
-   * @version 1.0.56
+   * @version 1.0.58
    */
 
   /**
