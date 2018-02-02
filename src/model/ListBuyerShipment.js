@@ -34,7 +34,7 @@
   /**
    * The ListBuyerShipment model module.
    * @module model/ListBuyerShipment
-   * @version 1.0.58
+   * @version 1.0.59
    */
 
   /**

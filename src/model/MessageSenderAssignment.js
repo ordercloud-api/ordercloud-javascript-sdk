@@ -34,7 +34,7 @@
   /**
    * The MessageSenderAssignment model module.
    * @module model/MessageSenderAssignment
-   * @version 1.0.58
+   * @version 1.0.59
    */
 
   /**

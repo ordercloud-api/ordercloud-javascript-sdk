@@ -34,7 +34,7 @@
   /**
    * The ListOrder model module.
    * @module model/ListOrder
-   * @version 1.0.58
+   * @version 1.0.59
    */
 
   /**

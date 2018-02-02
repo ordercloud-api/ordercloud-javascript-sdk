@@ -34,7 +34,7 @@
   /**
    * The PriceSchedule model module.
    * @module model/PriceSchedule
-   * @version 1.0.58
+   * @version 1.0.59
    */
 
   /**
