@@ -31,7 +31,7 @@
   /**
    * CreditCard service.
    * @module api/CreditCards
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -48,20 +48,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/CreditCard} card 
+     * @param {module:model/CreditCard} creditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Create = function(buyerID, card) {
-      var postBody = card;
+    this.Create = function(buyerID, creditCard) {
+      var postBody = creditCard;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
         throw new Error("Missing the required parameter 'buyerID' when calling Create");
       }
 
-      // verify the required parameter 'card' is set
-      if (card == undefined || card == null) {
-        throw new Error("Missing the required parameter 'card' when calling Create");
+      // verify the required parameter 'creditCard' is set
+      if (creditCard == undefined || creditCard == null) {
+        throw new Error("Missing the required parameter 'creditCard' when calling Create");
       }
 
 
@@ -226,12 +226,12 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the credit card.
-     * @param {Array.<String>} opts.searchOn Search on of the credit card.
-     * @param {Array.<String>} opts.sortBy Sort by of the credit card.
-     * @param {Number} opts.page Page of the credit card.
-     * @param {Number} opts.pageSize Page size of the credit card.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the credit card.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCard}
      */
     this.List = function(buyerID, opts) {
@@ -249,8 +249,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -279,9 +279,9 @@
      * @param {String} opts.creditCardID ID of the credit card.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.level Level of the credit card.
-     * @param {Number} opts.page Page of the credit card.
-     * @param {Number} opts.pageSize Page size of the credit card.
+     * @param {String} opts.level Level of the credit card assignment. Possible values: User, Group, Company.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCardAssignment}
      */
     this.ListAssignments = function(buyerID, opts) {
@@ -326,11 +326,11 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} creditCardID ID of the credit card.
-     * @param {module:model/CreditCard} card 
+     * @param {module:model/CreditCard} partialCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Patch = function(buyerID, creditCardID, card) {
-      var postBody = card;
+    this.Patch = function(buyerID, creditCardID, partialCreditCard) {
+      var postBody = partialCreditCard;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
@@ -342,9 +342,9 @@
         throw new Error("Missing the required parameter 'creditCardID' when calling Patch");
       }
 
-      // verify the required parameter 'card' is set
-      if (card == undefined || card == null) {
-        throw new Error("Missing the required parameter 'card' when calling Patch");
+      // verify the required parameter 'partialCreditCard' is set
+      if (partialCreditCard == undefined || partialCreditCard == null) {
+        throw new Error("Missing the required parameter 'partialCreditCard' when calling Patch");
       }
 
 
@@ -374,68 +374,26 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/CreditCardAssignment} assignment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.SaveAssignment = function(buyerID, assignment) {
-      var postBody = assignment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
-      }
-
-      // verify the required parameter 'assignment' is set
-      if (assignment == undefined || assignment == null) {
-        throw new Error("Missing the required parameter 'assignment' when calling SaveAssignment");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/creditcards/assignments', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} creditCardID ID of the credit card.
-     * @param {module:model/CreditCard} card 
+     * @param {module:model/CreditCard} creditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Update = function(buyerID, creditCardID, card) {
-      var postBody = card;
+    this.Save = function(buyerID, creditCardID, creditCard) {
+      var postBody = creditCard;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
       // verify the required parameter 'creditCardID' is set
       if (creditCardID == undefined || creditCardID == null) {
-        throw new Error("Missing the required parameter 'creditCardID' when calling Update");
+        throw new Error("Missing the required parameter 'creditCardID' when calling Save");
       }
 
-      // verify the required parameter 'card' is set
-      if (card == undefined || card == null) {
-        throw new Error("Missing the required parameter 'card' when calling Update");
+      // verify the required parameter 'creditCard' is set
+      if (creditCard == undefined || creditCard == null) {
+        throw new Error("Missing the required parameter 'creditCard' when calling Save");
       }
 
 
@@ -457,6 +415,48 @@
 
       return this.apiClient.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
+     * @param {module:model/CreditCardAssignment} creditCardAssignment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.SaveAssignment = function(buyerID, creditCardAssignment) {
+      var postBody = creditCardAssignment;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
+      }
+
+      // verify the required parameter 'creditCardAssignment' is set
+      if (creditCardAssignment == undefined || creditCardAssignment == null) {
+        throw new Error("Missing the required parameter 'creditCardAssignment' when calling SaveAssignment");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/creditcards/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

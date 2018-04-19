@@ -34,7 +34,7 @@
   /**
    * The LineItemSpec model module.
    * @module model/LineItemSpec
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**

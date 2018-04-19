@@ -31,7 +31,7 @@
   /**
    * AdminUser service.
    * @module api/AdminUsers
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -155,12 +155,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the admin user.
-     * @param {Array.<String>} opts.searchOn Search on of the admin user.
-     * @param {Array.<String>} opts.sortBy Sort by of the admin user.
-     * @param {Number} opts.page Page of the admin user.
-     * @param {Number} opts.pageSize Page size of the admin user.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the admin user.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.List = function(opts) {
@@ -172,8 +172,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -198,20 +198,20 @@
 
     /**
      * @param {String} userID ID of the user.
-     * @param {module:model/User} user 
+     * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(userID, user) {
-      var postBody = user;
+    this.Patch = function(userID, partialUser) {
+      var postBody = partialUser;
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
         throw new Error("Missing the required parameter 'userID' when calling Patch");
       }
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Patch");
+      // verify the required parameter 'partialUser' is set
+      if (partialUser == undefined || partialUser == null) {
+        throw new Error("Missing the required parameter 'partialUser' when calling Patch");
       }
 
 
@@ -243,17 +243,17 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Update = function(userID, user) {
+    this.Save = function(userID, user) {
       var postBody = user;
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Update");
+        throw new Error("Missing the required parameter 'userID' when calling Save");
       }
 
       // verify the required parameter 'user' is set
       if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Update");
+        throw new Error("Missing the required parameter 'user' when calling Save");
       }
 
 

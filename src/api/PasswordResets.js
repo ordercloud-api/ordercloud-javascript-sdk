@@ -31,7 +31,7 @@
   /**
    * PasswordReset service.
    * @module api/PasswordResets
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -47,7 +47,7 @@
 
 
     /**
-     * @param {String} verificationCode Verification code of the forgotten password.
+     * @param {String} verificationCode Verification code of the password reset.
      * @param {module:model/PasswordReset} passwordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */

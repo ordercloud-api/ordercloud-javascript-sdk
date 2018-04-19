@@ -13,9 +13,9 @@ Method | HTTP request | Description
 [**ListAssignments**](Catalogs.md#ListAssignments) | **GET** /catalogs/assignments | 
 [**ListProductAssignments**](Catalogs.md#ListProductAssignments) | **GET** /catalogs/productassignments | 
 [**Patch**](Catalogs.md#Patch) | **PATCH** /catalogs/{catalogID} | 
+[**Save**](Catalogs.md#Save) | **PUT** /catalogs/{catalogID} | 
 [**SaveAssignment**](Catalogs.md#SaveAssignment) | **POST** /catalogs/assignments | 
 [**SaveProductAssignment**](Catalogs.md#SaveProductAssignment) | **POST** /catalogs/productassignments | 
-[**Update**](Catalogs.md#Update) | **PUT** /catalogs/{catalogID} | 
 
 
 <a name="Create"></a>
@@ -282,12 +282,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Catalogs();
 
 var opts = { 
-  'search': "search_example", // String | Search of the catalog.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the catalog.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the catalog.
-  'page': 56, // Number | Page of the catalog.
-  'pageSize': 56, // Number | Page size of the catalog.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the catalog.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -301,12 +301,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the catalog. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the catalog. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the catalog. | [optional] 
- **page** | **Number**| Page of the catalog. | [optional] 
- **pageSize** | **Number**| Page size of the catalog. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the catalog. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -343,8 +343,8 @@ var apiInstance = new OrderCloud.Catalogs();
 var opts = { 
   'catalogID': "catalogID_example", // String | ID of the catalog.
   'buyerID': "buyerID_example", // String | ID of the buyer.
-  'page': 56, // Number | Page of the catalog.
-  'pageSize': 56 // Number | Page size of the catalog.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -360,8 +360,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **catalogID** | **String**| ID of the catalog. | [optional] 
  **buyerID** | **String**| ID of the buyer. | [optional] 
- **page** | **Number**| Page of the catalog. | [optional] 
- **pageSize** | **Number**| Page size of the catalog. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -398,8 +398,8 @@ var apiInstance = new OrderCloud.Catalogs();
 var opts = { 
   'catalogID': "catalogID_example", // String | ID of the catalog.
   'productID': "productID_example", // String | ID of the product.
-  'page': 56, // Number | Page of the catalog.
-  'pageSize': 56 // Number | Page size of the catalog.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListProductAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -415,8 +415,8 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **catalogID** | **String**| ID of the catalog. | [optional] 
  **productID** | **String**| ID of the product. | [optional] 
- **page** | **Number**| Page of the catalog. | [optional] 
- **pageSize** | **Number**| Page size of the catalog. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -484,105 +484,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveAssignment"></a>
-# **SaveAssignment**
-> SaveAssignment(assignment)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Catalogs();
-
-var assignment = new OrderCloud.CatalogAssignment(); // CatalogAssignment | 
-
-apiInstance.SaveAssignment(assignment).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **assignment** | [**CatalogAssignment**](CatalogAssignment.md)|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="SaveProductAssignment"></a>
-# **SaveProductAssignment**
-> SaveProductAssignment(productAssignment)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Catalogs();
-
-var productAssignment = new OrderCloud.ProductCatalogAssignment(); // ProductCatalogAssignment | 
-
-apiInstance.SaveProductAssignment(productAssignment).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **productAssignment** | [**ProductCatalogAssignment**](ProductCatalogAssignment.md)|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Update"></a>
-# **Update**
-> Catalog Update(catalogID, catalog)
+<a name="Save"></a>
+# **Save**
+> Catalog Save(catalogID, catalog)
 
 
 
@@ -601,7 +505,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var catalog = new OrderCloud.Catalog(); // Catalog | 
 
-apiInstance.Update(catalogID, catalog).then(function(data) {
+apiInstance.Save(catalogID, catalog).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -619,6 +523,102 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Catalog**](Catalog.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(catalogAssignment)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Catalogs();
+
+var catalogAssignment = new OrderCloud.CatalogAssignment(); // CatalogAssignment | 
+
+apiInstance.SaveAssignment(catalogAssignment).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalogAssignment** | [**CatalogAssignment**](CatalogAssignment.md)|  | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="SaveProductAssignment"></a>
+# **SaveProductAssignment**
+> SaveProductAssignment(productCatalogAssignment)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Catalogs();
+
+var productCatalogAssignment = new OrderCloud.ProductCatalogAssignment(); // ProductCatalogAssignment | 
+
+apiInstance.SaveProductAssignment(productCatalogAssignment).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **productCatalogAssignment** | [**ProductCatalogAssignment**](ProductCatalogAssignment.md)|  | 
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 

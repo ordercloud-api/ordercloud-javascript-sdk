@@ -7,5 +7,6 @@ Name | Type | Description | Notes
 **buyerID** | **String** |  | [optional] 
 **userGroupID** | **String** |  | [optional] 
 **messageConfigName** | **String** |  | [optional] 
+**messageConfigDescription** | **String** |  | [optional] 
 
 

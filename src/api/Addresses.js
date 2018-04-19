@@ -31,7 +31,7 @@
   /**
    * Address service.
    * @module api/Addresses
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -226,12 +226,12 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the address.
-     * @param {Array.<String>} opts.searchOn Search on of the address.
-     * @param {Array.<String>} opts.sortBy Sort by of the address.
-     * @param {Number} opts.page Page of the address.
-     * @param {Number} opts.pageSize Page size of the address.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the address.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
     this.List = function(buyerID, opts) {
@@ -249,8 +249,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -279,11 +279,11 @@
      * @param {String} opts.addressID ID of the address.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.level Level of the address.
-     * @param {Boolean} opts.isShipping Is shipping of the address.
-     * @param {Boolean} opts.isBilling Is billing of the address.
-     * @param {Number} opts.page Page of the address.
-     * @param {Number} opts.pageSize Page size of the address.
+     * @param {String} opts.level Level of the address assignment. Possible values: User, Group, Company.
+     * @param {Boolean} opts.isShipping Is shipping of the address assignment.
+     * @param {Boolean} opts.isBilling Is billing of the address assignment.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddressAssignment}
      */
     this.ListAssignments = function(buyerID, opts) {
@@ -330,11 +330,11 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} addressID ID of the address.
-     * @param {module:model/Address} address 
+     * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(buyerID, addressID, address) {
-      var postBody = address;
+    this.Patch = function(buyerID, addressID, partialAddress) {
+      var postBody = partialAddress;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
@@ -346,9 +346,9 @@
         throw new Error("Missing the required parameter 'addressID' when calling Patch");
       }
 
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Patch");
+      // verify the required parameter 'partialAddress' is set
+      if (partialAddress == undefined || partialAddress == null) {
+        throw new Error("Missing the required parameter 'partialAddress' when calling Patch");
       }
 
 
@@ -378,68 +378,26 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/AddressAssignment} assignment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.SaveAssignment = function(buyerID, assignment) {
-      var postBody = assignment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
-      }
-
-      // verify the required parameter 'assignment' is set
-      if (assignment == undefined || assignment == null) {
-        throw new Error("Missing the required parameter 'assignment' when calling SaveAssignment");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/addresses/assignments', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} addressID ID of the address.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Update = function(buyerID, addressID, address) {
+    this.Save = function(buyerID, addressID, address) {
       var postBody = address;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Update");
+        throw new Error("Missing the required parameter 'addressID' when calling Save");
       }
 
       // verify the required parameter 'address' is set
       if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Update");
+        throw new Error("Missing the required parameter 'address' when calling Save");
       }
 
 
@@ -461,6 +419,48 @@
 
       return this.apiClient.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
+     * @param {module:model/AddressAssignment} addressAssignment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.SaveAssignment = function(buyerID, addressAssignment) {
+      var postBody = addressAssignment;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
+      }
+
+      // verify the required parameter 'addressAssignment' is set
+      if (addressAssignment == undefined || addressAssignment == null) {
+        throw new Error("Missing the required parameter 'addressAssignment' when calling SaveAssignment");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/addresses/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

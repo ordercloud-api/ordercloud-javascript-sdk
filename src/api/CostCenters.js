@@ -31,7 +31,7 @@
   /**
    * CostCenter service.
    * @module api/CostCenters
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -226,12 +226,12 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the cost center.
-     * @param {Array.<String>} opts.searchOn Search on of the cost center.
-     * @param {Array.<String>} opts.sortBy Sort by of the cost center.
-     * @param {Number} opts.page Page of the cost center.
-     * @param {Number} opts.pageSize Page size of the cost center.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the cost center.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
     this.List = function(buyerID, opts) {
@@ -249,8 +249,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -279,9 +279,9 @@
      * @param {String} opts.costCenterID ID of the cost center.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.level Level of the cost center.
-     * @param {Number} opts.page Page of the cost center.
-     * @param {Number} opts.pageSize Page size of the cost center.
+     * @param {String} opts.level Level of the cost center assignment. Possible values: User, Group, Company.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenterAssignment}
      */
     this.ListAssignments = function(buyerID, opts) {
@@ -326,11 +326,11 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} costCenterID ID of the cost center.
-     * @param {module:model/CostCenter} costCenter 
+     * @param {module:model/CostCenter} partialCostCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Patch = function(buyerID, costCenterID, costCenter) {
-      var postBody = costCenter;
+    this.Patch = function(buyerID, costCenterID, partialCostCenter) {
+      var postBody = partialCostCenter;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
@@ -342,9 +342,9 @@
         throw new Error("Missing the required parameter 'costCenterID' when calling Patch");
       }
 
-      // verify the required parameter 'costCenter' is set
-      if (costCenter == undefined || costCenter == null) {
-        throw new Error("Missing the required parameter 'costCenter' when calling Patch");
+      // verify the required parameter 'partialCostCenter' is set
+      if (partialCostCenter == undefined || partialCostCenter == null) {
+        throw new Error("Missing the required parameter 'partialCostCenter' when calling Patch");
       }
 
 
@@ -374,68 +374,26 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/CostCenterAssignment} assignment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.SaveAssignment = function(buyerID, assignment) {
-      var postBody = assignment;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
-      }
-
-      // verify the required parameter 'assignment' is set
-      if (assignment == undefined || assignment == null) {
-        throw new Error("Missing the required parameter 'assignment' when calling SaveAssignment");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/costcenters/assignments', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} costCenterID ID of the cost center.
      * @param {module:model/CostCenter} costCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Update = function(buyerID, costCenterID, costCenter) {
+    this.Save = function(buyerID, costCenterID, costCenter) {
       var postBody = costCenter;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
       // verify the required parameter 'costCenterID' is set
       if (costCenterID == undefined || costCenterID == null) {
-        throw new Error("Missing the required parameter 'costCenterID' when calling Update");
+        throw new Error("Missing the required parameter 'costCenterID' when calling Save");
       }
 
       // verify the required parameter 'costCenter' is set
       if (costCenter == undefined || costCenter == null) {
-        throw new Error("Missing the required parameter 'costCenter' when calling Update");
+        throw new Error("Missing the required parameter 'costCenter' when calling Save");
       }
 
 
@@ -457,6 +415,48 @@
 
       return this.apiClient.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
+     * @param {module:model/CostCenterAssignment} costCenterAssignment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.SaveAssignment = function(buyerID, costCenterAssignment) {
+      var postBody = costCenterAssignment;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
+      }
+
+      // verify the required parameter 'costCenterAssignment' is set
+      if (costCenterAssignment == undefined || costCenterAssignment == null) {
+        throw new Error("Missing the required parameter 'costCenterAssignment' when calling SaveAssignment");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/costcenters/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

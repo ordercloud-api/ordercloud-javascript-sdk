@@ -34,7 +34,7 @@
   /**
    * The ListMessageConfig model module.
    * @module model/ListMessageConfig
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**

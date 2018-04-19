@@ -17,13 +17,14 @@ Method | HTTP request | Description
 [**ListPromotions**](Orders.md#ListPromotions) | **GET** /orders/{direction}/{orderID}/promotions | 
 [**Patch**](Orders.md#Patch) | **PATCH** /orders/{direction}/{orderID} | 
 [**PatchBillingAddress**](Orders.md#PatchBillingAddress) | **PATCH** /orders/{direction}/{orderID}/billto | 
+[**PatchFromUser**](Orders.md#PatchFromUser) | **PATCH** /orders/{direction}/{orderID}/fromuser | 
 [**PatchShippingAddress**](Orders.md#PatchShippingAddress) | **PATCH** /orders/{direction}/{orderID}/shipto | 
 [**RemovePromotion**](Orders.md#RemovePromotion) | **DELETE** /orders/{direction}/{orderID}/promotions/{promoCode} | 
+[**Save**](Orders.md#Save) | **PUT** /orders/{direction}/{orderID} | 
 [**SetBillingAddress**](Orders.md#SetBillingAddress) | **PUT** /orders/{direction}/{orderID}/billto | 
 [**SetShippingAddress**](Orders.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
 [**Ship**](Orders.md#Ship) | **POST** /orders/{direction}/{orderID}/ship | 
 [**Submit**](Orders.md#Submit) | **POST** /orders/{direction}/{orderID}/submit | 
-[**Update**](Orders.md#Update) | **PUT** /orders/{direction}/{orderID} | 
 
 
 <a name="AddPromotion"></a>
@@ -43,11 +44,11 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-var promoCode = "promoCode_example"; // String | Promo code of the order.
+var promoCode = "promoCode_example"; // String | Promo code of the promotion.
 
 apiInstance.AddPromotion(direction, orderID, promoCode).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -61,9 +62,9 @@ apiInstance.AddPromotion(direction, orderID, promoCode).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **promoCode** | **String**| Promo code of the order. | 
+ **promoCode** | **String**| Promo code of the promotion. | 
 
 ### Return type
 
@@ -82,7 +83,7 @@ Name | Type | Description  | Notes
 
 <a name="Approve"></a>
 # **Approve**
-> Order Approve(direction, orderID, info)
+> Order Approve(direction, orderID, orderApprovalInfo)
 
 
 
@@ -97,13 +98,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-var info = new OrderCloud.OrderApprovalInfo(); // OrderApprovalInfo | 
+var orderApprovalInfo = new OrderCloud.OrderApprovalInfo(); // OrderApprovalInfo | 
 
-apiInstance.Approve(direction, orderID, info).then(function(data) {
+apiInstance.Approve(direction, orderID, orderApprovalInfo).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -115,9 +116,9 @@ apiInstance.Approve(direction, orderID, info).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **info** | [**OrderApprovalInfo**](OrderApprovalInfo.md)|  | 
+ **orderApprovalInfo** | [**OrderApprovalInfo**](OrderApprovalInfo.md)|  | 
 
 ### Return type
 
@@ -151,7 +152,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -167,7 +168,7 @@ apiInstance.Cancel(direction, orderID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
 
 ### Return type
@@ -202,7 +203,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var order = new OrderCloud.Order(); // Order | 
 
@@ -218,7 +219,7 @@ apiInstance.Create(direction, order).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **order** | [**Order**](Order.md)|  | 
 
 ### Return type
@@ -238,7 +239,7 @@ Name | Type | Description  | Notes
 
 <a name="Decline"></a>
 # **Decline**
-> Order Decline(direction, orderID, info)
+> Order Decline(direction, orderID, orderApprovalInfo)
 
 
 
@@ -253,13 +254,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-var info = new OrderCloud.OrderApprovalInfo(); // OrderApprovalInfo | 
+var orderApprovalInfo = new OrderCloud.OrderApprovalInfo(); // OrderApprovalInfo | 
 
-apiInstance.Decline(direction, orderID, info).then(function(data) {
+apiInstance.Decline(direction, orderID, orderApprovalInfo).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -271,9 +272,9 @@ apiInstance.Decline(direction, orderID, info).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **info** | [**OrderApprovalInfo**](OrderApprovalInfo.md)|  | 
+ **orderApprovalInfo** | [**OrderApprovalInfo**](OrderApprovalInfo.md)|  | 
 
 ### Return type
 
@@ -307,7 +308,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -323,7 +324,7 @@ apiInstance.Delete(direction, orderID).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
 
 ### Return type
@@ -358,7 +359,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -374,7 +375,7 @@ apiInstance.Get(direction, orderID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
 
 ### Return type
@@ -409,19 +410,19 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var opts = { 
   'buyerID': "buyerID_example", // String | ID of the buyer.
   'supplierID': "supplierID_example", // String | ID of the supplier.
   'from': "from_example", // String | Lower bound of date range that the order was created.
   'to': "to_example", // String | Upper bound of date range that the order was created.
-  'search': "search_example", // String | Search of the order.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
-  'page': 56, // Number | Page of the order.
-  'pageSize': 56, // Number | Page size of the order.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(direction, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -435,17 +436,17 @@ apiInstance.List(direction, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **buyerID** | **String**| ID of the buyer. | [optional] 
  **supplierID** | **String**| ID of the supplier. | [optional] 
  **from** | **String**| Lower bound of date range that the order was created. | [optional] 
  **to** | **String**| Upper bound of date range that the order was created. | [optional] 
- **search** | **String**| Search of the order. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
- **page** | **Number**| Page of the order. | [optional] 
- **pageSize** | **Number**| Page size of the order. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -479,17 +480,17 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Search of the order.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
-  'page': 56, // Number | Page of the order.
-  'pageSize': 56, // Number | Page size of the order.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListApprovals(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -503,14 +504,14 @@ apiInstance.ListApprovals(direction, orderID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Search of the order. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
- **page** | **Number**| Page of the order. | [optional] 
- **pageSize** | **Number**| Page size of the order. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -544,17 +545,17 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Search of the order.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
-  'page': 56, // Number | Page of the order.
-  'pageSize': 56, // Number | Page size of the order.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListEligibleApprovers(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -568,14 +569,14 @@ apiInstance.ListEligibleApprovers(direction, orderID, opts).then(function(data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Search of the order. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
- **page** | **Number**| Page of the order. | [optional] 
- **pageSize** | **Number**| Page size of the order. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -609,17 +610,17 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Search of the order.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
-  'page': 56, // Number | Page of the order.
-  'pageSize': 56, // Number | Page size of the order.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListPromotions(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -633,14 +634,14 @@ apiInstance.ListPromotions(direction, orderID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Search of the order. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
- **page** | **Number**| Page of the order. | [optional] 
- **pageSize** | **Number**| Page size of the order. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -674,7 +675,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -692,7 +693,7 @@ apiInstance.Patch(direction, orderID, partialOrder).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **partialOrder** | [**Order**](Order.md)|  | 
 
@@ -713,7 +714,7 @@ Name | Type | Description  | Notes
 
 <a name="PatchBillingAddress"></a>
 # **PatchBillingAddress**
-> Order PatchBillingAddress(direction, orderID, address)
+> Order PatchBillingAddress(direction, orderID, partialAddress)
 
 
 
@@ -728,13 +729,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-var address = new OrderCloud.Address(); // Address | 
+var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.PatchBillingAddress(direction, orderID, address).then(function(data) {
+apiInstance.PatchBillingAddress(direction, orderID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -746,9 +747,63 @@ apiInstance.PatchBillingAddress(direction, orderID, address).then(function(data)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **address** | [**Address**](Address.md)|  | 
+ **partialAddress** | [**Address**](Address.md)|  | 
+
+### Return type
+
+[**Order**](Order.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="PatchFromUser"></a>
+# **PatchFromUser**
+> Order PatchFromUser(direction, orderID, partialUser)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+var partialUser = new OrderCloud.User(); // User | 
+
+apiInstance.PatchFromUser(direction, orderID, partialUser).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+ **partialUser** | [**User**](User.md)|  | 
 
 ### Return type
 
@@ -767,7 +822,7 @@ Name | Type | Description  | Notes
 
 <a name="PatchShippingAddress"></a>
 # **PatchShippingAddress**
-> Order PatchShippingAddress(direction, orderID, address)
+> Order PatchShippingAddress(direction, orderID, partialAddress)
 
 
 
@@ -782,13 +837,13 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-var address = new OrderCloud.Address(); // Address | 
+var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.PatchShippingAddress(direction, orderID, address).then(function(data) {
+apiInstance.PatchShippingAddress(direction, orderID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -800,9 +855,9 @@ apiInstance.PatchShippingAddress(direction, orderID, address).then(function(data
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **address** | [**Address**](Address.md)|  | 
+ **partialAddress** | [**Address**](Address.md)|  | 
 
 ### Return type
 
@@ -836,7 +891,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -854,9 +909,63 @@ apiInstance.RemovePromotion(direction, orderID, promoCode).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **promoCode** | **String**| Promo code of the order. | 
+
+### Return type
+
+[**Order**](Order.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Save"></a>
+# **Save**
+> Order Save(direction, orderID, order)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+var order = new OrderCloud.Order(); // Order | 
+
+apiInstance.Save(direction, orderID, order).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+ **order** | [**Order**](Order.md)|  | 
 
 ### Return type
 
@@ -890,7 +999,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -908,7 +1017,7 @@ apiInstance.SetBillingAddress(direction, orderID, address).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **address** | [**Address**](Address.md)|  | 
 
@@ -944,7 +1053,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -962,7 +1071,7 @@ apiInstance.SetShippingAddress(direction, orderID, address).then(function(data) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **address** | [**Address**](Address.md)|  | 
 
@@ -998,11 +1107,11 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-var shipment = new OrderCloud.BuyerShipment(); // BuyerShipment | 
+var shipment = new OrderCloud.Shipment(); // Shipment | 
 
 apiInstance.Ship(direction, orderID, shipment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1016,9 +1125,9 @@ apiInstance.Ship(direction, orderID, shipment).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **shipment** | [**BuyerShipment**](BuyerShipment.md)|  | 
+ **shipment** | [**Shipment**](Shipment.md)|  | 
 
 ### Return type
 
@@ -1052,7 +1161,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Orders();
 
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -1068,62 +1177,8 @@ apiInstance.Submit(direction, orderID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
-
-### Return type
-
-[**Order**](Order.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Update"></a>
-# **Update**
-> Order Update(direction, orderID, order)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Orders();
-
-var direction = "direction_example"; // String | Direction of the order. Possible values: Incoming, Outgoing.
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-var order = new OrderCloud.Order(); // Order | 
-
-apiInstance.Update(direction, orderID, order).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order. Possible values: Incoming, Outgoing. | 
- **orderID** | **String**| ID of the order. | 
- **order** | [**Order**](Order.md)|  | 
 
 ### Return type
 

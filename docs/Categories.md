@@ -13,9 +13,9 @@ Method | HTTP request | Description
 [**ListAssignments**](Categories.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
 [**ListProductAssignments**](Categories.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
 [**Patch**](Categories.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
+[**Save**](Categories.md#Save) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
 [**SaveAssignment**](Categories.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
 [**SaveProductAssignment**](Categories.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
-[**Update**](Categories.md#Update) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
 
 
 <a name="Create"></a>
@@ -306,12 +306,12 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var opts = { 
   'depth': "depth_example", // String | Depth of the category.
-  'search': "search_example", // String | Search of the category.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the category.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the category.
-  'page': 56, // Number | Page of the category.
-  'pageSize': 56, // Number | Page size of the category.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the category.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(catalogID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -327,12 +327,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **catalogID** | **String**| ID of the catalog. | 
  **depth** | **String**| Depth of the category. | [optional] 
- **search** | **String**| Search of the category. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the category. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the category. | [optional] 
- **page** | **Number**| Page of the category. | [optional] 
- **pageSize** | **Number**| Page size of the category. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the category. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -373,9 +373,9 @@ var opts = {
   'buyerID': "buyerID_example", // String | ID of the buyer.
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'level': "level_example", // String | Level of the category.
-  'page': 56, // Number | Page of the category.
-  'pageSize': 56 // Number | Page size of the category.
+  'level': "level_example", // String | Level of the category assignment. Possible values: User, Group, Company.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListAssignments(catalogID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -394,9 +394,9 @@ Name | Type | Description  | Notes
  **buyerID** | **String**| ID of the buyer. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **level** | **String**| Level of the category. | [optional] 
- **page** | **Number**| Page of the category. | [optional] 
- **pageSize** | **Number**| Page size of the category. | [optional] 
+ **level** | **String**| Level of the category assignment. Possible values: User, Group, Company. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -435,8 +435,8 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 var opts = { 
   'categoryID': "categoryID_example", // String | ID of the category.
   'productID': "productID_example", // String | ID of the product.
-  'page': 56, // Number | Page of the category.
-  'pageSize': 56 // Number | Page size of the category.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListProductAssignments(catalogID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -453,8 +453,8 @@ Name | Type | Description  | Notes
  **catalogID** | **String**| ID of the catalog. | 
  **categoryID** | **String**| ID of the category. | [optional] 
  **productID** | **String**| ID of the product. | [optional] 
- **page** | **Number**| Page of the category. | [optional] 
- **pageSize** | **Number**| Page size of the category. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
 
 ### Return type
 
@@ -473,7 +473,61 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> Category Patch(catalogID, categoryID, category)
+> Category Patch(catalogID, categoryID, partialCategory)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Categories();
+
+var catalogID = "catalogID_example"; // String | ID of the catalog.
+
+var categoryID = "categoryID_example"; // String | ID of the category.
+
+var partialCategory = new OrderCloud.Category(); // Category | 
+
+apiInstance.Patch(catalogID, categoryID, partialCategory).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalogID** | **String**| ID of the catalog. | 
+ **categoryID** | **String**| ID of the category. | 
+ **partialCategory** | [**Category**](Category.md)|  | 
+
+### Return type
+
+[**Category**](Category.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Save"></a>
+# **Save**
+> Category Save(catalogID, categoryID, category)
 
 
 
@@ -494,7 +548,7 @@ var categoryID = "categoryID_example"; // String | ID of the category.
 
 var category = new OrderCloud.Category(); // Category | 
 
-apiInstance.Patch(catalogID, categoryID, category).then(function(data) {
+apiInstance.Save(catalogID, categoryID, category).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -578,7 +632,7 @@ null (empty response body)
 
 <a name="SaveProductAssignment"></a>
 # **SaveProductAssignment**
-> SaveProductAssignment(catalogID, productAssignment)
+> SaveProductAssignment(catalogID, categoryProductAssignment)
 
 
 
@@ -595,9 +649,9 @@ var apiInstance = new OrderCloud.Categories();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
-var productAssignment = new OrderCloud.CategoryProductAssignment(); // CategoryProductAssignment | 
+var categoryProductAssignment = new OrderCloud.CategoryProductAssignment(); // CategoryProductAssignment | 
 
-apiInstance.SaveProductAssignment(catalogID, productAssignment).then(function() {
+apiInstance.SaveProductAssignment(catalogID, categoryProductAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -610,65 +664,11 @@ apiInstance.SaveProductAssignment(catalogID, productAssignment).then(function() 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **catalogID** | **String**| ID of the catalog. | 
- **productAssignment** | [**CategoryProductAssignment**](CategoryProductAssignment.md)|  | 
+ **categoryProductAssignment** | [**CategoryProductAssignment**](CategoryProductAssignment.md)|  | 
 
 ### Return type
 
 null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Update"></a>
-# **Update**
-> Category Update(catalogID, categoryID, category)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Categories();
-
-var catalogID = "catalogID_example"; // String | ID of the catalog.
-
-var categoryID = "categoryID_example"; // String | ID of the category.
-
-var category = new OrderCloud.Category(); // Category | 
-
-apiInstance.Update(catalogID, categoryID, category).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **catalogID** | **String**| ID of the catalog. | 
- **categoryID** | **String**| ID of the category. | 
- **category** | [**Category**](Category.md)|  | 
-
-### Return type
-
-[**Category**](Category.md)
 
 ### Authorization
 

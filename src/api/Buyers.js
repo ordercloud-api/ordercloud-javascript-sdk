@@ -31,7 +31,7 @@
   /**
    * Buyer service.
    * @module api/Buyers
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -47,15 +47,15 @@
 
 
     /**
-     * @param {module:model/Buyer} company 
+     * @param {module:model/Buyer} buyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.Create = function(company) {
-      var postBody = company;
+    this.Create = function(buyer) {
+      var postBody = buyer;
 
-      // verify the required parameter 'company' is set
-      if (company == undefined || company == null) {
-        throw new Error("Missing the required parameter 'company' when calling Create");
+      // verify the required parameter 'buyer' is set
+      if (buyer == undefined || buyer == null) {
+        throw new Error("Missing the required parameter 'buyer' when calling Create");
       }
 
 
@@ -155,12 +155,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the buyer.
-     * @param {Array.<String>} opts.searchOn Search on of the buyer.
-     * @param {Array.<String>} opts.sortBy Sort by of the buyer.
-     * @param {Number} opts.page Page of the buyer.
-     * @param {Number} opts.pageSize Page size of the buyer.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the buyer.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyer}
      */
     this.List = function(opts) {
@@ -172,8 +172,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -198,20 +198,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/Buyer} company 
+     * @param {module:model/Buyer} partialBuyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.Patch = function(buyerID, company) {
-      var postBody = company;
+    this.Patch = function(buyerID, partialBuyer) {
+      var postBody = partialBuyer;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
         throw new Error("Missing the required parameter 'buyerID' when calling Patch");
       }
 
-      // verify the required parameter 'company' is set
-      if (company == undefined || company == null) {
-        throw new Error("Missing the required parameter 'company' when calling Patch");
+      // verify the required parameter 'partialBuyer' is set
+      if (partialBuyer == undefined || partialBuyer == null) {
+        throw new Error("Missing the required parameter 'partialBuyer' when calling Patch");
       }
 
 
@@ -240,20 +240,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/Buyer} company 
+     * @param {module:model/Buyer} buyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.Update = function(buyerID, company) {
-      var postBody = company;
+    this.Save = function(buyerID, buyer) {
+      var postBody = buyer;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
-      // verify the required parameter 'company' is set
-      if (company == undefined || company == null) {
-        throw new Error("Missing the required parameter 'company' when calling Update");
+      // verify the required parameter 'buyer' is set
+      if (buyer == undefined || buyer == null) {
+        throw new Error("Missing the required parameter 'buyer' when calling Save");
       }
 
 

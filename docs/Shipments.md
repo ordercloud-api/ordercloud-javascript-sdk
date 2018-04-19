@@ -12,8 +12,8 @@ Method | HTTP request | Description
 [**List**](Shipments.md#List) | **GET** /shipments | 
 [**ListItems**](Shipments.md#ListItems) | **GET** /shipments/{shipmentID}/items | 
 [**Patch**](Shipments.md#Patch) | **PATCH** /shipments/{shipmentID} | 
+[**Save**](Shipments.md#Save) | **PUT** /shipments/{shipmentID} | 
 [**SaveItem**](Shipments.md#SaveItem) | **POST** /shipments/{shipmentID}/items | 
-[**Update**](Shipments.md#Update) | **PUT** /shipments/{shipmentID} | 
 
 
 <a name="Create"></a>
@@ -287,12 +287,12 @@ var apiInstance = new OrderCloud.Shipments();
 
 var opts = { 
   'orderID': "orderID_example", // String | ID of the order.
-  'search': "search_example", // String | Search of the shipment.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the shipment.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the shipment.
-  'page': 56, // Number | Page of the shipment.
-  'pageSize': 56, // Number | Page size of the shipment.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the shipment.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -307,12 +307,12 @@ apiInstance.List(opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orderID** | **String**| ID of the order. | [optional] 
- **search** | **String**| Search of the shipment. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the shipment. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the shipment. | [optional] 
- **page** | **Number**| Page of the shipment. | [optional] 
- **pageSize** | **Number**| Page size of the shipment. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the shipment. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -349,12 +349,12 @@ var apiInstance = new OrderCloud.Shipments();
 var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
 var opts = { 
-  'search': "search_example", // String | Search of the shipment.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the shipment.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the shipment.
-  'page': 56, // Number | Page of the shipment.
-  'pageSize': 56, // Number | Page size of the shipment.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the shipment.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListItems(shipmentID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -369,12 +369,12 @@ apiInstance.ListItems(shipmentID, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **shipmentID** | **String**| ID of the shipment. | 
- **search** | **String**| Search of the shipment. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the shipment. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the shipment. | [optional] 
- **page** | **Number**| Page of the shipment. | [optional] 
- **pageSize** | **Number**| Page size of the shipment. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the shipment. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -393,7 +393,58 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> Shipment Patch(shipmentID, shipment)
+> Shipment Patch(shipmentID, partialShipment)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Shipments();
+
+var shipmentID = "shipmentID_example"; // String | ID of the shipment.
+
+var partialShipment = new OrderCloud.Shipment(); // Shipment | 
+
+apiInstance.Patch(shipmentID, partialShipment).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **shipmentID** | **String**| ID of the shipment. | 
+ **partialShipment** | [**Shipment**](Shipment.md)|  | 
+
+### Return type
+
+[**Shipment**](Shipment.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Save"></a>
+# **Save**
+> Shipment Save(shipmentID, shipment)
 
 
 
@@ -412,7 +463,7 @@ var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
 var shipment = new OrderCloud.Shipment(); // Shipment | 
 
-apiInstance.Patch(shipmentID, shipment).then(function(data) {
+apiInstance.Save(shipmentID, shipment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -444,7 +495,7 @@ Name | Type | Description  | Notes
 
 <a name="SaveItem"></a>
 # **SaveItem**
-> ShipmentItem SaveItem(shipmentID, item)
+> ShipmentItem SaveItem(shipmentID, shipmentItem)
 
 
 
@@ -461,9 +512,9 @@ var apiInstance = new OrderCloud.Shipments();
 
 var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
-var item = new OrderCloud.ShipmentItem(); // ShipmentItem | 
+var shipmentItem = new OrderCloud.ShipmentItem(); // ShipmentItem | 
 
-apiInstance.SaveItem(shipmentID, item).then(function(data) {
+apiInstance.SaveItem(shipmentID, shipmentItem).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -476,62 +527,11 @@ apiInstance.SaveItem(shipmentID, item).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **shipmentID** | **String**| ID of the shipment. | 
- **item** | [**ShipmentItem**](ShipmentItem.md)|  | 
+ **shipmentItem** | [**ShipmentItem**](ShipmentItem.md)|  | 
 
 ### Return type
 
 [**ShipmentItem**](ShipmentItem.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Update"></a>
-# **Update**
-> Shipment Update(shipmentID, shipment)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Shipments();
-
-var shipmentID = "shipmentID_example"; // String | ID of the shipment.
-
-var shipment = new OrderCloud.Shipment(); // Shipment | 
-
-apiInstance.Update(shipmentID, shipment).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **shipmentID** | **String**| ID of the shipment. | 
- **shipment** | [**Shipment**](Shipment.md)|  | 
-
-### Return type
-
-[**Shipment**](Shipment.md)
 
 ### Authorization
 

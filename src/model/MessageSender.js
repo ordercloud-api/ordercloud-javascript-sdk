@@ -34,7 +34,7 @@
   /**
    * The MessageSender model module.
    * @module model/MessageSender
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -70,6 +71,9 @@
       if (data.hasOwnProperty('MessageTypes')) {
         obj['MessageTypes'] = ApiClient.convertToType(data['MessageTypes'], ['String']);
       }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+      }
     }
     return obj;
   }
@@ -86,6 +90,10 @@
    * @member {Array.<String>} MessageTypes
    */
   exports.prototype['MessageTypes'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
 
 
 

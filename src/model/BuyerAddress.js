@@ -34,7 +34,7 @@
   /**
    * The BuyerAddress model module.
    * @module model/BuyerAddress
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -85,6 +86,9 @@
       }
       if (data.hasOwnProperty('Editable')) {
         obj['Editable'] = ApiClient.convertToType(data['Editable'], 'Boolean');
+      }
+      if (data.hasOwnProperty('DateCreated')) {
+        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
       }
       if (data.hasOwnProperty('CompanyName')) {
         obj['CompanyName'] = ApiClient.convertToType(data['CompanyName'], 'String');
@@ -142,6 +146,10 @@
    * @member {Boolean} Editable
    */
   exports.prototype['Editable'] = undefined;
+  /**
+   * @member {String} DateCreated
+   */
+  exports.prototype['DateCreated'] = undefined;
   /**
    * @member {String} CompanyName
    */

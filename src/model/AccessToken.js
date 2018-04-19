@@ -34,7 +34,7 @@
   /**
    * The AccessToken model module.
    * @module model/AccessToken
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**

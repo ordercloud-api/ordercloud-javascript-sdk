@@ -31,7 +31,7 @@
   /**
    * Catalog service.
    * @module api/Catalogs
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -241,12 +241,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the catalog.
-     * @param {Array.<String>} opts.searchOn Search on of the catalog.
-     * @param {Array.<String>} opts.sortBy Sort by of the catalog.
-     * @param {Number} opts.page Page of the catalog.
-     * @param {Number} opts.pageSize Page size of the catalog.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the catalog.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
     this.List = function(opts) {
@@ -258,8 +258,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -286,8 +286,8 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.buyerID ID of the buyer.
-     * @param {Number} opts.page Page of the catalog.
-     * @param {Number} opts.pageSize Page size of the catalog.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalogAssignment}
      */
     this.ListAssignments = function(opts) {
@@ -325,8 +325,8 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.productID ID of the product.
-     * @param {Number} opts.page Page of the catalog.
-     * @param {Number} opts.pageSize Page size of the catalog.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductCatalogAssignment}
      */
     this.ListProductAssignments = function(opts) {
@@ -403,15 +403,57 @@
 
 
     /**
-     * @param {module:model/CatalogAssignment} assignment 
+     * @param {String} catalogID ID of the catalog.
+     * @param {module:model/Catalog} catalog 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
+     */
+    this.Save = function(catalogID, catalog) {
+      var postBody = catalog;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling Save");
+      }
+
+      // verify the required parameter 'catalog' is set
+      if (catalog == undefined || catalog == null) {
+        throw new Error("Missing the required parameter 'catalog' when calling Save");
+      }
+
+
+      var pathParams = {
+        'catalogID': catalogID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Catalog;
+
+      return this.apiClient.callApi(
+        '/catalogs/{catalogID}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {module:model/CatalogAssignment} catalogAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(assignment) {
-      var postBody = assignment;
+    this.SaveAssignment = function(catalogAssignment) {
+      var postBody = catalogAssignment;
 
-      // verify the required parameter 'assignment' is set
-      if (assignment == undefined || assignment == null) {
-        throw new Error("Missing the required parameter 'assignment' when calling SaveAssignment");
+      // verify the required parameter 'catalogAssignment' is set
+      if (catalogAssignment == undefined || catalogAssignment == null) {
+        throw new Error("Missing the required parameter 'catalogAssignment' when calling SaveAssignment");
       }
 
 
@@ -438,15 +480,15 @@
 
 
     /**
-     * @param {module:model/ProductCatalogAssignment} productAssignment 
+     * @param {module:model/ProductCatalogAssignment} productCatalogAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(productAssignment) {
-      var postBody = productAssignment;
+    this.SaveProductAssignment = function(productCatalogAssignment) {
+      var postBody = productCatalogAssignment;
 
-      // verify the required parameter 'productAssignment' is set
-      if (productAssignment == undefined || productAssignment == null) {
-        throw new Error("Missing the required parameter 'productAssignment' when calling SaveProductAssignment");
+      // verify the required parameter 'productCatalogAssignment' is set
+      if (productCatalogAssignment == undefined || productCatalogAssignment == null) {
+        throw new Error("Missing the required parameter 'productCatalogAssignment' when calling SaveProductAssignment");
       }
 
 
@@ -466,48 +508,6 @@
 
       return this.apiClient.callApi(
         '/catalogs/productassignments', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} catalogID ID of the catalog.
-     * @param {module:model/Catalog} catalog 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
-     */
-    this.Update = function(catalogID, catalog) {
-      var postBody = catalog;
-
-      // verify the required parameter 'catalogID' is set
-      if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling Update");
-      }
-
-      // verify the required parameter 'catalog' is set
-      if (catalog == undefined || catalog == null) {
-        throw new Error("Missing the required parameter 'catalog' when calling Update");
-      }
-
-
-      var pathParams = {
-        'catalogID': catalogID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Catalog;
-
-      return this.apiClient.callApi(
-        '/catalogs/{catalogID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
