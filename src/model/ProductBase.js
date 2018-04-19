@@ -34,7 +34,7 @@
   /**
    * The ProductBase model module.
    * @module model/ProductBase
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**

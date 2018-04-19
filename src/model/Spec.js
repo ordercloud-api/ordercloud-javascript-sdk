@@ -34,7 +34,7 @@
   /**
    * The Spec model module.
    * @module model/Spec
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -68,11 +68,11 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('OptionCount')) {
-        obj['OptionCount'] = ApiClient.convertToType(data['OptionCount'], 'Number');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('OptionCount')) {
+        obj['OptionCount'] = ApiClient.convertToType(data['OptionCount'], 'Number');
       }
       if (data.hasOwnProperty('ListOrder')) {
         obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
@@ -103,13 +103,13 @@
   }
 
   /**
-   * @member {Number} OptionCount
-   */
-  exports.prototype['OptionCount'] = undefined;
-  /**
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
+  /**
+   * @member {Number} OptionCount
+   */
+  exports.prototype['OptionCount'] = undefined;
   /**
    * @member {Number} ListOrder
    */

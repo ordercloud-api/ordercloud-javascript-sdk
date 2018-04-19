@@ -31,7 +31,7 @@
   /**
    * SupplierUser service.
    * @module api/SupplierUsers
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -177,11 +177,11 @@
     /**
      * @param {String} supplierID ID of the supplier.
      * @param {String} userID ID of the user.
-     * @param {module:model/ImpersonateTokenRequest} tokenRequest 
+     * @param {module:model/ImpersonateTokenRequest} impersonateTokenRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccessToken}
      */
-    this.GetAccessToken = function(supplierID, userID, tokenRequest) {
-      var postBody = tokenRequest;
+    this.GetAccessToken = function(supplierID, userID, impersonateTokenRequest) {
+      var postBody = impersonateTokenRequest;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
@@ -193,9 +193,9 @@
         throw new Error("Missing the required parameter 'userID' when calling GetAccessToken");
       }
 
-      // verify the required parameter 'tokenRequest' is set
-      if (tokenRequest == undefined || tokenRequest == null) {
-        throw new Error("Missing the required parameter 'tokenRequest' when calling GetAccessToken");
+      // verify the required parameter 'impersonateTokenRequest' is set
+      if (impersonateTokenRequest == undefined || impersonateTokenRequest == null) {
+        throw new Error("Missing the required parameter 'impersonateTokenRequest' when calling GetAccessToken");
       }
 
 
@@ -227,12 +227,12 @@
      * @param {String} supplierID ID of the supplier.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
-     * @param {String} opts.search Search of the supplier user.
-     * @param {Array.<String>} opts.searchOn Search on of the supplier user.
-     * @param {Array.<String>} opts.sortBy Sort by of the supplier user.
-     * @param {Number} opts.page Page of the supplier user.
-     * @param {Number} opts.pageSize Page size of the supplier user.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the supplier user.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.List = function(supplierID, opts) {
@@ -251,8 +251,8 @@
       var queryParams = {
         'userGroupID': opts['userGroupID'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -278,11 +278,11 @@
     /**
      * @param {String} supplierID ID of the supplier.
      * @param {String} userID ID of the user.
-     * @param {module:model/User} user 
+     * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(supplierID, userID, user) {
-      var postBody = user;
+    this.Patch = function(supplierID, userID, partialUser) {
+      var postBody = partialUser;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
@@ -294,9 +294,9 @@
         throw new Error("Missing the required parameter 'userID' when calling Patch");
       }
 
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Patch");
+      // verify the required parameter 'partialUser' is set
+      if (partialUser == undefined || partialUser == null) {
+        throw new Error("Missing the required parameter 'partialUser' when calling Patch");
       }
 
 
@@ -330,22 +330,22 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Update = function(supplierID, userID, user) {
+    this.Save = function(supplierID, userID, user) {
       var postBody = user;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling Update");
+        throw new Error("Missing the required parameter 'supplierID' when calling Save");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Update");
+        throw new Error("Missing the required parameter 'userID' when calling Save");
       }
 
       // verify the required parameter 'user' is set
       if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Update");
+        throw new Error("Missing the required parameter 'user' when calling Save");
       }
 
 

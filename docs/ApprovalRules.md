@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**Get**](ApprovalRules.md#Get) | **GET** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
 [**List**](ApprovalRules.md#List) | **GET** /buyers/{buyerID}/approvalrules | 
 [**Patch**](ApprovalRules.md#Patch) | **PATCH** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-[**Update**](ApprovalRules.md#Update) | **PUT** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+[**Save**](ApprovalRules.md#Save) | **PUT** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
 
 
 <a name="Create"></a>
@@ -185,12 +185,12 @@ var apiInstance = new OrderCloud.ApprovalRules();
 var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var opts = { 
-  'search': "search_example", // String | Search of the approval rule.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the approval rule.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the approval rule.
-  'page': 56, // Number | Page of the approval rule.
-  'pageSize': 56, // Number | Page size of the approval rule.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the approval rule.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -205,12 +205,12 @@ apiInstance.List(buyerID, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **buyerID** | **String**| ID of the buyer. | 
- **search** | **String**| Search of the approval rule. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the approval rule. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the approval rule. | [optional] 
- **page** | **Number**| Page of the approval rule. | [optional] 
- **pageSize** | **Number**| Page size of the approval rule. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the approval rule. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -281,9 +281,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Update"></a>
-# **Update**
-> ApprovalRule Update(buyerID, approvalRuleID, approvalRule)
+<a name="Save"></a>
+# **Save**
+> ApprovalRule Save(buyerID, approvalRuleID, approvalRule)
 
 
 
@@ -304,7 +304,7 @@ var approvalRuleID = "approvalRuleID_example"; // String | ID of the approval ru
 
 var approvalRule = new OrderCloud.ApprovalRule(); // ApprovalRule | 
 
-apiInstance.Update(buyerID, approvalRuleID, approvalRule).then(function(data) {
+apiInstance.Save(buyerID, approvalRuleID, approvalRule).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

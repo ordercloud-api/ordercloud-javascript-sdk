@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**Get**](AdminAddresses.md#Get) | **GET** /addresses/{addressID} | 
 [**List**](AdminAddresses.md#List) | **GET** /addresses | 
 [**Patch**](AdminAddresses.md#Patch) | **PATCH** /addresses/{addressID} | 
-[**Update**](AdminAddresses.md#Update) | **PUT** /addresses/{addressID} | 
+[**Save**](AdminAddresses.md#Save) | **PUT** /addresses/{addressID} | 
 
 
 <a name="Create"></a>
@@ -174,12 +174,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.AdminAddresses();
 
 var opts = { 
-  'search': "search_example", // String | Search of the admin address.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the admin address.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the admin address.
-  'page': 56, // Number | Page of the admin address.
-  'pageSize': 56, // Number | Page size of the admin address.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the admin address.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -193,12 +193,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the admin address. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the admin address. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the admin address. | [optional] 
- **page** | **Number**| Page of the admin address. | [optional] 
- **pageSize** | **Number**| Page size of the admin address. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the admin address. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> Address Patch(addressID, address)
+> Address Patch(addressID, partialAddress)
 
 
 
@@ -234,9 +234,9 @@ var apiInstance = new OrderCloud.AdminAddresses();
 
 var addressID = "addressID_example"; // String | ID of the address.
 
-var address = new OrderCloud.Address(); // Address | 
+var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.Patch(addressID, address).then(function(data) {
+apiInstance.Patch(addressID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -249,7 +249,7 @@ apiInstance.Patch(addressID, address).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **addressID** | **String**| ID of the address. | 
- **address** | [**Address**](Address.md)|  | 
+ **partialAddress** | [**Address**](Address.md)|  | 
 
 ### Return type
 
@@ -266,9 +266,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Update"></a>
-# **Update**
-> Address Update(addressID, address)
+<a name="Save"></a>
+# **Save**
+> Address Save(addressID, address)
 
 
 
@@ -287,7 +287,7 @@ var addressID = "addressID_example"; // String | ID of the address.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.Update(addressID, address).then(function(data) {
+apiInstance.Save(addressID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

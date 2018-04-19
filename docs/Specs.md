@@ -16,9 +16,9 @@ Method | HTTP request | Description
 [**ListProductAssignments**](Specs.md#ListProductAssignments) | **GET** /specs/productassignments | 
 [**Patch**](Specs.md#Patch) | **PATCH** /specs/{specID} | 
 [**PatchOption**](Specs.md#PatchOption) | **PATCH** /specs/{specID}/options/{optionID} | 
+[**Save**](Specs.md#Save) | **PUT** /specs/{specID} | 
+[**SaveOption**](Specs.md#SaveOption) | **PUT** /specs/{specID}/options/{optionID} | 
 [**SaveProductAssignment**](Specs.md#SaveProductAssignment) | **POST** /specs/productassignments | 
-[**Update**](Specs.md#Update) | **PUT** /specs/{specID} | 
-[**UpdateOption**](Specs.md#UpdateOption) | **PUT** /specs/{specID}/options/{optionID} | 
 
 
 <a name="Create"></a>
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 <a name="CreateOption"></a>
 # **CreateOption**
-> SpecOption CreateOption(specID, option)
+> SpecOption CreateOption(specID, specOption)
 
 
 
@@ -88,9 +88,9 @@ var apiInstance = new OrderCloud.Specs();
 
 var specID = "specID_example"; // String | ID of the spec.
 
-var option = new OrderCloud.SpecOption(); // SpecOption | 
+var specOption = new OrderCloud.SpecOption(); // SpecOption | 
 
-apiInstance.CreateOption(specID, option).then(function(data) {
+apiInstance.CreateOption(specID, specOption).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -103,7 +103,7 @@ apiInstance.CreateOption(specID, option).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **specID** | **String**| ID of the spec. | 
- **option** | [**SpecOption**](SpecOption.md)|  | 
+ **specOption** | [**SpecOption**](SpecOption.md)|  | 
 
 ### Return type
 
@@ -387,12 +387,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Specs();
 
 var opts = { 
-  'search': "search_example", // String | Search of the spec.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the spec.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the spec.
-  'page': 56, // Number | Page of the spec.
-  'pageSize': 56, // Number | Page size of the spec.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the spec.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -406,12 +406,12 @@ apiInstance.List(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the spec. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the spec. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the spec. | [optional] 
- **page** | **Number**| Page of the spec. | [optional] 
- **pageSize** | **Number**| Page size of the spec. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the spec. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -448,12 +448,12 @@ var apiInstance = new OrderCloud.Specs();
 var specID = "specID_example"; // String | ID of the spec.
 
 var opts = { 
-  'search': "search_example", // String | Search of the spec.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the spec.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the spec.
-  'page': 56, // Number | Page of the spec.
-  'pageSize': 56, // Number | Page size of the spec.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the spec.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListOptions(specID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -468,12 +468,12 @@ apiInstance.ListOptions(specID, opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **specID** | **String**| ID of the spec. | 
- **search** | **String**| Search of the spec. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the spec. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the spec. | [optional] 
- **page** | **Number**| Page of the spec. | [optional] 
- **pageSize** | **Number**| Page size of the spec. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the spec. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -508,12 +508,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Specs();
 
 var opts = { 
-  'search': "search_example", // String | Search of the spec.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the spec.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the spec.
-  'page': 56, // Number | Page of the spec.
-  'pageSize': 56, // Number | Page size of the spec.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the spec.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListProductAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -527,12 +527,12 @@ apiInstance.ListProductAssignments(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the spec. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the spec. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the spec. | [optional] 
- **page** | **Number**| Page of the spec. | [optional] 
- **pageSize** | **Number**| Page size of the spec. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the spec. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -551,7 +551,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> Spec Patch(specID, spec)
+> Spec Patch(specID, partialSpec)
 
 
 
@@ -568,9 +568,9 @@ var apiInstance = new OrderCloud.Specs();
 
 var specID = "specID_example"; // String | ID of the spec.
 
-var spec = new OrderCloud.Spec(); // Spec | 
+var partialSpec = new OrderCloud.Spec(); // Spec | 
 
-apiInstance.Patch(specID, spec).then(function(data) {
+apiInstance.Patch(specID, partialSpec).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -583,7 +583,7 @@ apiInstance.Patch(specID, spec).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **specID** | **String**| ID of the spec. | 
- **spec** | [**Spec**](Spec.md)|  | 
+ **partialSpec** | [**Spec**](Spec.md)|  | 
 
 ### Return type
 
@@ -602,7 +602,7 @@ Name | Type | Description  | Notes
 
 <a name="PatchOption"></a>
 # **PatchOption**
-> SpecOption PatchOption(specID, optionID, option)
+> SpecOption PatchOption(specID, optionID, partialSpecOption)
 
 
 
@@ -621,9 +621,9 @@ var specID = "specID_example"; // String | ID of the spec.
 
 var optionID = "optionID_example"; // String | ID of the option.
 
-var option = new OrderCloud.SpecOption(); // SpecOption | 
+var partialSpecOption = new OrderCloud.SpecOption(); // SpecOption | 
 
-apiInstance.PatchOption(specID, optionID, option).then(function(data) {
+apiInstance.PatchOption(specID, optionID, partialSpecOption).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -637,7 +637,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **specID** | **String**| ID of the spec. | 
  **optionID** | **String**| ID of the option. | 
- **option** | [**SpecOption**](SpecOption.md)|  | 
+ **partialSpecOption** | [**SpecOption**](SpecOption.md)|  | 
 
 ### Return type
 
@@ -654,57 +654,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveProductAssignment"></a>
-# **SaveProductAssignment**
-> SaveProductAssignment(productAssignment)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Specs();
-
-var productAssignment = new OrderCloud.SpecProductAssignment(); // SpecProductAssignment | 
-
-apiInstance.SaveProductAssignment(productAssignment).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **productAssignment** | [**SpecProductAssignment**](SpecProductAssignment.md)|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Update"></a>
-# **Update**
-> Spec Update(specID, spec)
+<a name="Save"></a>
+# **Save**
+> Spec Save(specID, spec)
 
 
 
@@ -723,7 +675,7 @@ var specID = "specID_example"; // String | ID of the spec.
 
 var spec = new OrderCloud.Spec(); // Spec | 
 
-apiInstance.Update(specID, spec).then(function(data) {
+apiInstance.Save(specID, spec).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -753,9 +705,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="UpdateOption"></a>
-# **UpdateOption**
-> SpecOption UpdateOption(specID, optionID, option)
+<a name="SaveOption"></a>
+# **SaveOption**
+> SpecOption SaveOption(specID, optionID, specOption)
 
 
 
@@ -774,9 +726,9 @@ var specID = "specID_example"; // String | ID of the spec.
 
 var optionID = "optionID_example"; // String | ID of the option.
 
-var option = new OrderCloud.SpecOption(); // SpecOption | 
+var specOption = new OrderCloud.SpecOption(); // SpecOption | 
 
-apiInstance.UpdateOption(specID, optionID, option).then(function(data) {
+apiInstance.SaveOption(specID, optionID, specOption).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -790,11 +742,59 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **specID** | **String**| ID of the spec. | 
  **optionID** | **String**| ID of the option. | 
- **option** | [**SpecOption**](SpecOption.md)|  | 
+ **specOption** | [**SpecOption**](SpecOption.md)|  | 
 
 ### Return type
 
 [**SpecOption**](SpecOption.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="SaveProductAssignment"></a>
+# **SaveProductAssignment**
+> SaveProductAssignment(specProductAssignment)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Specs();
+
+var specProductAssignment = new OrderCloud.SpecProductAssignment(); // SpecProductAssignment | 
+
+apiInstance.SaveProductAssignment(specProductAssignment).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **specProductAssignment** | [**SpecProductAssignment**](SpecProductAssignment.md)|  | 
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **shipping** | **Boolean** |  | [optional] 
 **billing** | **Boolean** |  | [optional] 
 **editable** | **Boolean** |  | [optional] 
+**dateCreated** | **String** |  | [optional] 
 **companyName** | **String** |  | [optional] 
 **firstName** | **String** |  | [optional] 
 **lastName** | **String** |  | [optional] 

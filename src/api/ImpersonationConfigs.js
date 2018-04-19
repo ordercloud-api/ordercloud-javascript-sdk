@@ -31,7 +31,7 @@
   /**
    * ImpersonationConfig service.
    * @module api/ImpersonationConfigs
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -155,12 +155,12 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the impersonation config.
-     * @param {Array.<String>} opts.searchOn Search on of the impersonation config.
-     * @param {Array.<String>} opts.sortBy Sort by of the impersonation config.
-     * @param {Number} opts.page Page of the impersonation config.
-     * @param {Number} opts.pageSize Page size of the impersonation config.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the impersonation config.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListImpersonationConfig}
      */
     this.List = function(opts) {
@@ -172,8 +172,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -198,20 +198,20 @@
 
     /**
      * @param {String} impersonationConfigID ID of the impersonation config.
-     * @param {module:model/ImpersonationConfig} impersonationConfig 
+     * @param {module:model/ImpersonationConfig} partialImpersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Patch = function(impersonationConfigID, impersonationConfig) {
-      var postBody = impersonationConfig;
+    this.Patch = function(impersonationConfigID, partialImpersonationConfig) {
+      var postBody = partialImpersonationConfig;
 
       // verify the required parameter 'impersonationConfigID' is set
       if (impersonationConfigID == undefined || impersonationConfigID == null) {
         throw new Error("Missing the required parameter 'impersonationConfigID' when calling Patch");
       }
 
-      // verify the required parameter 'impersonationConfig' is set
-      if (impersonationConfig == undefined || impersonationConfig == null) {
-        throw new Error("Missing the required parameter 'impersonationConfig' when calling Patch");
+      // verify the required parameter 'partialImpersonationConfig' is set
+      if (partialImpersonationConfig == undefined || partialImpersonationConfig == null) {
+        throw new Error("Missing the required parameter 'partialImpersonationConfig' when calling Patch");
       }
 
 
@@ -243,17 +243,17 @@
      * @param {module:model/ImpersonationConfig} impersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Update = function(impersonationConfigID, impersonationConfig) {
+    this.Save = function(impersonationConfigID, impersonationConfig) {
       var postBody = impersonationConfig;
 
       // verify the required parameter 'impersonationConfigID' is set
       if (impersonationConfigID == undefined || impersonationConfigID == null) {
-        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Update");
+        throw new Error("Missing the required parameter 'impersonationConfigID' when calling Save");
       }
 
       // verify the required parameter 'impersonationConfig' is set
       if (impersonationConfig == undefined || impersonationConfig == null) {
-        throw new Error("Missing the required parameter 'impersonationConfig' when calling Update");
+        throw new Error("Missing the required parameter 'impersonationConfig' when calling Save");
       }
 
 

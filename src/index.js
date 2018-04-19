@@ -14,12 +14,12 @@
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/ApprovalRule', 'model/BaseSpec', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerShipment', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/ImpersonationConfig', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListApprovalRule', 'model/ListArgs', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerShipment', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListImpersonationConfig', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageConfig', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListProductCatalogAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListSupplier', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/MeBuyer', 'model/MeUser', 'model/MessageCCListenerAssignment', 'model/MessageConfig', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/ProductBase', 'model/ProductCatalogAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/Supplier', 'model/TokenPasswordReset', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categories', 'api/CostCenters', 'api/CreditCards', 'api/ImpersonationConfigs', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Suppliers', 'api/SupplierUsers', 'api/SupplierUserGroups', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
+    define(['ApiClient', 'model/AccessToken', 'model/Address', 'model/AddressAssignment', 'model/ApprovalRule', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/ImpersonationConfig', 'model/Incrementor', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListImpersonationConfig', 'model/ListIncrementor', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListProductCatalogAssignment', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListSupplier', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/MeBuyer', 'model/MeUser', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/Order', 'model/OrderApproval', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/PartialAddress', 'model/PartialApprovalRule', 'model/PartialBuyer', 'model/PartialBuyerAddress', 'model/PartialBuyerCreditCard', 'model/PartialCatalog', 'model/PartialCategory', 'model/PartialCostCenter', 'model/PartialCreditCard', 'model/PartialImpersonationConfig', 'model/PartialIncrementor', 'model/PartialInventory', 'model/PartialLineItem', 'model/PartialLineItemProduct', 'model/PartialLineItemSpec', 'model/PartialMeBuyer', 'model/PartialMeUser', 'model/PartialOrder', 'model/PartialPayment', 'model/PartialPaymentTransaction', 'model/PartialPriceBreak', 'model/PartialPriceSchedule', 'model/PartialProduct', 'model/PartialPromotion', 'model/PartialShipment', 'model/PartialSpec', 'model/PartialSpecOption', 'model/PartialSpendingAccount', 'model/PartialSupplier', 'model/PartialUser', 'model/PartialUserGroup', 'model/PartialVariant', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/ProductCatalogAssignment', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/Supplier', 'model/TokenPasswordReset', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categories', 'api/CostCenters', 'api/CreditCards', 'api/ImpersonationConfigs', 'api/Incrementors', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Suppliers', 'api/SupplierUsers', 'api/SupplierUserGroups', 'api/Users', 'api/UserGroups', 'api/Auth'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/ApprovalRule'), require('./model/BaseSpec'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerShipment'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/ImpersonationConfig'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListApprovalRule'), require('./model/ListArgs'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerShipment'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListImpersonationConfig'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageConfig'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListProductCatalogAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListShipmentItem'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListSupplier'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/MeBuyer'), require('./model/MeUser'), require('./model/MessageCCListenerAssignment'), require('./model/MessageConfig'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderApprovalInfo'), require('./model/OrderPromotion'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/ProductBase'), require('./model/ProductCatalogAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/Supplier'), require('./model/TokenPasswordReset'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categories'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/ImpersonationConfigs'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Suppliers'), require('./api/SupplierUsers'), require('./api/SupplierUserGroups'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
+    module.exports = factory(require('./ApiClient'), require('./model/AccessToken'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/ApprovalRule'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/ImpersonationConfig'), require('./model/Incrementor'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListImpersonationConfig'), require('./model/ListIncrementor'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListProductCatalogAssignment'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListShipmentItem'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListSupplier'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/MeBuyer'), require('./model/MeUser'), require('./model/MessageCCListenerAssignment'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderApprovalInfo'), require('./model/OrderPromotion'), require('./model/PartialAddress'), require('./model/PartialApprovalRule'), require('./model/PartialBuyer'), require('./model/PartialBuyerAddress'), require('./model/PartialBuyerCreditCard'), require('./model/PartialCatalog'), require('./model/PartialCategory'), require('./model/PartialCostCenter'), require('./model/PartialCreditCard'), require('./model/PartialImpersonationConfig'), require('./model/PartialIncrementor'), require('./model/PartialInventory'), require('./model/PartialLineItem'), require('./model/PartialLineItemProduct'), require('./model/PartialLineItemSpec'), require('./model/PartialMeBuyer'), require('./model/PartialMeUser'), require('./model/PartialOrder'), require('./model/PartialPayment'), require('./model/PartialPaymentTransaction'), require('./model/PartialPriceBreak'), require('./model/PartialPriceSchedule'), require('./model/PartialProduct'), require('./model/PartialPromotion'), require('./model/PartialShipment'), require('./model/PartialSpec'), require('./model/PartialSpecOption'), require('./model/PartialSpendingAccount'), require('./model/PartialSupplier'), require('./model/PartialUser'), require('./model/PartialUserGroup'), require('./model/PartialVariant'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/ProductCatalogAssignment'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/Supplier'), require('./model/TokenPasswordReset'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categories'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/ImpersonationConfigs'), require('./api/Incrementors'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Suppliers'), require('./api/SupplierUsers'), require('./api/SupplierUserGroups'), require('./api/Users'), require('./api/UserGroups'), require('./api/Auth'));
   }
-}(function(ApiClient, AccessToken, Address, AddressAssignment, ApprovalRule, BaseSpec, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerShipment, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, ImpersonationConfig, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListApprovalRule, ListArgs, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerShipment, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListImpersonationConfig, ListLineItem, ListMessageCCListenerAssignment, ListMessageConfig, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListProductCatalogAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListShipmentItem, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListSupplier, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, MeBuyer, MeUser, MessageCCListenerAssignment, MessageConfig, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderApprovalInfo, OrderPromotion, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PriceBreak, PriceSchedule, Product, ProductAssignment, ProductBase, ProductCatalogAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, Supplier, TokenPasswordReset, User, UserGroup, UserGroupAssignment, Variant, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categories, CostCenters, CreditCards, ImpersonationConfigs, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Suppliers, SupplierUsers, SupplierUserGroups, Users, UserGroups, Auth) {
+}(function(ApiClient, AccessToken, Address, AddressAssignment, ApprovalRule, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, ImpersonationConfig, Incrementor, Inventory, LineItem, LineItemProduct, LineItemSpec, ListAddress, ListAddressAssignment, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListImpersonationConfig, ListIncrementor, ListLineItem, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListProductCatalogAssignment, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListShipmentItem, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListSupplier, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, MeBuyer, MeUser, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment, Meta, Order, OrderApproval, OrderApprovalInfo, OrderPromotion, PartialAddress, PartialApprovalRule, PartialBuyer, PartialBuyerAddress, PartialBuyerCreditCard, PartialCatalog, PartialCategory, PartialCostCenter, PartialCreditCard, PartialImpersonationConfig, PartialIncrementor, PartialInventory, PartialLineItem, PartialLineItemProduct, PartialLineItemSpec, PartialMeBuyer, PartialMeUser, PartialOrder, PartialPayment, PartialPaymentTransaction, PartialPriceBreak, PartialPriceSchedule, PartialProduct, PartialPromotion, PartialShipment, PartialSpec, PartialSpecOption, PartialSpendingAccount, PartialSupplier, PartialUser, PartialUserGroup, PartialVariant, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PriceBreak, PriceSchedule, Product, ProductAssignment, ProductCatalogAssignment, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, Supplier, TokenPasswordReset, User, UserGroup, UserGroupAssignment, Variant, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApprovalRules, Buyers, Catalogs, Categories, CostCenters, CreditCards, ImpersonationConfigs, Incrementors, LineItems, Me, MessageSenders, Orders, PasswordResets, Payments, PriceSchedules, Products, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Suppliers, SupplierUsers, SupplierUserGroups, Users, UserGroups, Auth) {
   'use strict';
 
   /**
@@ -51,7 +51,7 @@
    * </pre>
    * </p>
    * @module index
-   * @version 1.0.59
+   * @version 2.0.0
    */
   var exports = {
     /**
@@ -93,11 +93,6 @@
      */
     ApprovalRule: ApprovalRule,
     /**
-     * The BaseSpec model constructor.
-     * @property {module:model/BaseSpec}
-     */
-    BaseSpec: BaseSpec,
-    /**
      * The Buyer model constructor.
      * @property {module:model/Buyer}
      */
@@ -117,11 +112,6 @@
      * @property {module:model/BuyerProduct}
      */
     BuyerProduct: BuyerProduct,
-    /**
-     * The BuyerShipment model constructor.
-     * @property {module:model/BuyerShipment}
-     */
-    BuyerShipment: BuyerShipment,
     /**
      * The BuyerSpec model constructor.
      * @property {module:model/BuyerSpec}
@@ -183,6 +173,11 @@
      */
     ImpersonationConfig: ImpersonationConfig,
     /**
+     * The Incrementor model constructor.
+     * @property {module:model/Incrementor}
+     */
+    Incrementor: Incrementor,
+    /**
      * The Inventory model constructor.
      * @property {module:model/Inventory}
      */
@@ -218,11 +213,6 @@
      */
     ListApprovalRule: ListApprovalRule,
     /**
-     * The ListArgs model constructor.
-     * @property {module:model/ListArgs}
-     */
-    ListArgs: ListArgs,
-    /**
      * The ListBuyer model constructor.
      * @property {module:model/ListBuyer}
      */
@@ -242,11 +232,6 @@
      * @property {module:model/ListBuyerProduct}
      */
     ListBuyerProduct: ListBuyerProduct,
-    /**
-     * The ListBuyerShipment model constructor.
-     * @property {module:model/ListBuyerShipment}
-     */
-    ListBuyerShipment: ListBuyerShipment,
     /**
      * The ListBuyerSpec model constructor.
      * @property {module:model/ListBuyerSpec}
@@ -303,6 +288,11 @@
      */
     ListImpersonationConfig: ListImpersonationConfig,
     /**
+     * The ListIncrementor model constructor.
+     * @property {module:model/ListIncrementor}
+     */
+    ListIncrementor: ListIncrementor,
+    /**
      * The ListLineItem model constructor.
      * @property {module:model/ListLineItem}
      */
@@ -312,11 +302,6 @@
      * @property {module:model/ListMessageCCListenerAssignment}
      */
     ListMessageCCListenerAssignment: ListMessageCCListenerAssignment,
-    /**
-     * The ListMessageConfig model constructor.
-     * @property {module:model/ListMessageConfig}
-     */
-    ListMessageConfig: ListMessageConfig,
     /**
      * The ListMessageSender model constructor.
      * @property {module:model/ListMessageSender}
@@ -463,11 +448,6 @@
      */
     MessageCCListenerAssignment: MessageCCListenerAssignment,
     /**
-     * The MessageConfig model constructor.
-     * @property {module:model/MessageConfig}
-     */
-    MessageConfig: MessageConfig,
-    /**
      * The MessageSender model constructor.
      * @property {module:model/MessageSender}
      */
@@ -502,6 +482,166 @@
      * @property {module:model/OrderPromotion}
      */
     OrderPromotion: OrderPromotion,
+    /**
+     * The PartialAddress model constructor.
+     * @property {module:model/PartialAddress}
+     */
+    PartialAddress: PartialAddress,
+    /**
+     * The PartialApprovalRule model constructor.
+     * @property {module:model/PartialApprovalRule}
+     */
+    PartialApprovalRule: PartialApprovalRule,
+    /**
+     * The PartialBuyer model constructor.
+     * @property {module:model/PartialBuyer}
+     */
+    PartialBuyer: PartialBuyer,
+    /**
+     * The PartialBuyerAddress model constructor.
+     * @property {module:model/PartialBuyerAddress}
+     */
+    PartialBuyerAddress: PartialBuyerAddress,
+    /**
+     * The PartialBuyerCreditCard model constructor.
+     * @property {module:model/PartialBuyerCreditCard}
+     */
+    PartialBuyerCreditCard: PartialBuyerCreditCard,
+    /**
+     * The PartialCatalog model constructor.
+     * @property {module:model/PartialCatalog}
+     */
+    PartialCatalog: PartialCatalog,
+    /**
+     * The PartialCategory model constructor.
+     * @property {module:model/PartialCategory}
+     */
+    PartialCategory: PartialCategory,
+    /**
+     * The PartialCostCenter model constructor.
+     * @property {module:model/PartialCostCenter}
+     */
+    PartialCostCenter: PartialCostCenter,
+    /**
+     * The PartialCreditCard model constructor.
+     * @property {module:model/PartialCreditCard}
+     */
+    PartialCreditCard: PartialCreditCard,
+    /**
+     * The PartialImpersonationConfig model constructor.
+     * @property {module:model/PartialImpersonationConfig}
+     */
+    PartialImpersonationConfig: PartialImpersonationConfig,
+    /**
+     * The PartialIncrementor model constructor.
+     * @property {module:model/PartialIncrementor}
+     */
+    PartialIncrementor: PartialIncrementor,
+    /**
+     * The PartialInventory model constructor.
+     * @property {module:model/PartialInventory}
+     */
+    PartialInventory: PartialInventory,
+    /**
+     * The PartialLineItem model constructor.
+     * @property {module:model/PartialLineItem}
+     */
+    PartialLineItem: PartialLineItem,
+    /**
+     * The PartialLineItemProduct model constructor.
+     * @property {module:model/PartialLineItemProduct}
+     */
+    PartialLineItemProduct: PartialLineItemProduct,
+    /**
+     * The PartialLineItemSpec model constructor.
+     * @property {module:model/PartialLineItemSpec}
+     */
+    PartialLineItemSpec: PartialLineItemSpec,
+    /**
+     * The PartialMeBuyer model constructor.
+     * @property {module:model/PartialMeBuyer}
+     */
+    PartialMeBuyer: PartialMeBuyer,
+    /**
+     * The PartialMeUser model constructor.
+     * @property {module:model/PartialMeUser}
+     */
+    PartialMeUser: PartialMeUser,
+    /**
+     * The PartialOrder model constructor.
+     * @property {module:model/PartialOrder}
+     */
+    PartialOrder: PartialOrder,
+    /**
+     * The PartialPayment model constructor.
+     * @property {module:model/PartialPayment}
+     */
+    PartialPayment: PartialPayment,
+    /**
+     * The PartialPaymentTransaction model constructor.
+     * @property {module:model/PartialPaymentTransaction}
+     */
+    PartialPaymentTransaction: PartialPaymentTransaction,
+    /**
+     * The PartialPriceBreak model constructor.
+     * @property {module:model/PartialPriceBreak}
+     */
+    PartialPriceBreak: PartialPriceBreak,
+    /**
+     * The PartialPriceSchedule model constructor.
+     * @property {module:model/PartialPriceSchedule}
+     */
+    PartialPriceSchedule: PartialPriceSchedule,
+    /**
+     * The PartialProduct model constructor.
+     * @property {module:model/PartialProduct}
+     */
+    PartialProduct: PartialProduct,
+    /**
+     * The PartialPromotion model constructor.
+     * @property {module:model/PartialPromotion}
+     */
+    PartialPromotion: PartialPromotion,
+    /**
+     * The PartialShipment model constructor.
+     * @property {module:model/PartialShipment}
+     */
+    PartialShipment: PartialShipment,
+    /**
+     * The PartialSpec model constructor.
+     * @property {module:model/PartialSpec}
+     */
+    PartialSpec: PartialSpec,
+    /**
+     * The PartialSpecOption model constructor.
+     * @property {module:model/PartialSpecOption}
+     */
+    PartialSpecOption: PartialSpecOption,
+    /**
+     * The PartialSpendingAccount model constructor.
+     * @property {module:model/PartialSpendingAccount}
+     */
+    PartialSpendingAccount: PartialSpendingAccount,
+    /**
+     * The PartialSupplier model constructor.
+     * @property {module:model/PartialSupplier}
+     */
+    PartialSupplier: PartialSupplier,
+    /**
+     * The PartialUser model constructor.
+     * @property {module:model/PartialUser}
+     */
+    PartialUser: PartialUser,
+    /**
+     * The PartialUserGroup model constructor.
+     * @property {module:model/PartialUserGroup}
+     */
+    PartialUserGroup: PartialUserGroup,
+    /**
+     * The PartialVariant model constructor.
+     * @property {module:model/PartialVariant}
+     */
+    PartialVariant: PartialVariant,
     /**
      * The PasswordReset model constructor.
      * @property {module:model/PasswordReset}
@@ -542,11 +682,6 @@
      * @property {module:model/ProductAssignment}
      */
     ProductAssignment: ProductAssignment,
-    /**
-     * The ProductBase model constructor.
-     * @property {module:model/ProductBase}
-     */
-    ProductBase: ProductBase,
     /**
      * The ProductCatalogAssignment model constructor.
      * @property {module:model/ProductCatalogAssignment}
@@ -692,6 +827,11 @@
      * @property {module:api/ImpersonationConfigs}
      */
     ImpersonationConfigs: new ImpersonationConfigs(),
+    /**
+     * The Incrementors service.
+     * @property {module:api/Incrementors}
+     */
+    Incrementors: new Incrementors(),
     /**
      * The LineItems service.
      * @property {module:api/LineItems}

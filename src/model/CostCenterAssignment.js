@@ -34,7 +34,7 @@
   /**
    * The CostCenterAssignment model module.
    * @module model/CostCenterAssignment
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**

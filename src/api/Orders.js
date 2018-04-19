@@ -14,24 +14,24 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/BuyerShipment', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/Promotion'], factory);
+    define(['ApiClient', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/Promotion', 'model/Shipment', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/BuyerShipment'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/Promotion'));
+    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/Promotion'), require('../model/Shipment'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Orders = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.BuyerShipment, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.Promotion);
+    root.OrderCloud.Orders = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address, BuyerShipment, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, Promotion) {
+}(this, function(ApiClient, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, Promotion, Shipment, User) {
   'use strict';
 
   /**
    * Order service.
    * @module api/Orders
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -47,9 +47,9 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @param {String} promoCode Promo code of the order.
+     * @param {String} promoCode Promo code of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
     this.AddPromotion = function(direction, orderID, promoCode) {
@@ -97,13 +97,13 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @param {module:model/OrderApprovalInfo} info 
+     * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Approve = function(direction, orderID, info) {
-      var postBody = info;
+    this.Approve = function(direction, orderID, orderApprovalInfo) {
+      var postBody = orderApprovalInfo;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
@@ -115,9 +115,9 @@
         throw new Error("Missing the required parameter 'orderID' when calling Approve");
       }
 
-      // verify the required parameter 'info' is set
-      if (info == undefined || info == null) {
-        throw new Error("Missing the required parameter 'info' when calling Approve");
+      // verify the required parameter 'orderApprovalInfo' is set
+      if (orderApprovalInfo == undefined || orderApprovalInfo == null) {
+        throw new Error("Missing the required parameter 'orderApprovalInfo' when calling Approve");
       }
 
 
@@ -146,7 +146,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
@@ -189,7 +189,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
@@ -231,13 +231,13 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @param {module:model/OrderApprovalInfo} info 
+     * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Decline = function(direction, orderID, info) {
-      var postBody = info;
+    this.Decline = function(direction, orderID, orderApprovalInfo) {
+      var postBody = orderApprovalInfo;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
@@ -249,9 +249,9 @@
         throw new Error("Missing the required parameter 'orderID' when calling Decline");
       }
 
-      // verify the required parameter 'info' is set
-      if (info == undefined || info == null) {
-        throw new Error("Missing the required parameter 'info' when calling Decline");
+      // verify the required parameter 'orderApprovalInfo' is set
+      if (orderApprovalInfo == undefined || orderApprovalInfo == null) {
+        throw new Error("Missing the required parameter 'orderApprovalInfo' when calling Decline");
       }
 
 
@@ -280,7 +280,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
@@ -323,7 +323,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
@@ -366,18 +366,18 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {Object} opts Optional parameters
      * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.supplierID ID of the supplier.
      * @param {String} opts.from Lower bound of date range that the order was created.
      * @param {String} opts.to Upper bound of date range that the order was created.
-     * @param {String} opts.search Search of the order.
-     * @param {Array.<String>} opts.searchOn Search on of the order.
-     * @param {Array.<String>} opts.sortBy Sort by of the order.
-     * @param {Number} opts.page Page of the order.
-     * @param {Number} opts.pageSize Page size of the order.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
     this.List = function(direction, opts) {
@@ -399,8 +399,8 @@
         'from': opts['from'],
         'to': opts['to'],
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -424,15 +424,15 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the order.
-     * @param {Array.<String>} opts.searchOn Search on of the order.
-     * @param {Array.<String>} opts.sortBy Sort by of the order.
-     * @param {Number} opts.page Page of the order.
-     * @param {Number} opts.pageSize Page size of the order.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderApproval}
      */
     this.ListApprovals = function(direction, orderID, opts) {
@@ -456,8 +456,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -481,15 +481,15 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the order.
-     * @param {Array.<String>} opts.searchOn Search on of the order.
-     * @param {Array.<String>} opts.sortBy Sort by of the order.
-     * @param {Number} opts.page Page of the order.
-     * @param {Number} opts.pageSize Page size of the order.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
     this.ListEligibleApprovers = function(direction, orderID, opts) {
@@ -513,8 +513,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -538,15 +538,15 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the order.
-     * @param {Array.<String>} opts.searchOn Search on of the order.
-     * @param {Array.<String>} opts.sortBy Sort by of the order.
-     * @param {Number} opts.page Page of the order.
-     * @param {Number} opts.pageSize Page size of the order.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the order.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderPromotion}
      */
     this.ListPromotions = function(direction, orderID, opts) {
@@ -570,8 +570,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -595,7 +595,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Order} partialOrder 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
@@ -644,13 +644,13 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @param {module:model/Address} address 
+     * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchBillingAddress = function(direction, orderID, address) {
-      var postBody = address;
+    this.PatchBillingAddress = function(direction, orderID, partialAddress) {
+      var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
@@ -662,9 +662,9 @@
         throw new Error("Missing the required parameter 'orderID' when calling PatchBillingAddress");
       }
 
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling PatchBillingAddress");
+      // verify the required parameter 'partialAddress' is set
+      if (partialAddress == undefined || partialAddress == null) {
+        throw new Error("Missing the required parameter 'partialAddress' when calling PatchBillingAddress");
       }
 
 
@@ -693,13 +693,62 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @param {module:model/Address} address 
+     * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchShippingAddress = function(direction, orderID, address) {
-      var postBody = address;
+    this.PatchFromUser = function(direction, orderID, partialUser) {
+      var postBody = partialUser;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling PatchFromUser");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling PatchFromUser");
+      }
+
+      // verify the required parameter 'partialUser' is set
+      if (partialUser == undefined || partialUser == null) {
+        throw new Error("Missing the required parameter 'partialUser' when calling PatchFromUser");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Order;
+
+      return this.apiClient.callApi(
+        '/orders/{direction}/{orderID}/fromuser', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @param {module:model/Address} partialAddress 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
+     */
+    this.PatchShippingAddress = function(direction, orderID, partialAddress) {
+      var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
@@ -711,9 +760,9 @@
         throw new Error("Missing the required parameter 'orderID' when calling PatchShippingAddress");
       }
 
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling PatchShippingAddress");
+      // verify the required parameter 'partialAddress' is set
+      if (partialAddress == undefined || partialAddress == null) {
+        throw new Error("Missing the required parameter 'partialAddress' when calling PatchShippingAddress");
       }
 
 
@@ -742,7 +791,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} promoCode Promo code of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
@@ -792,7 +841,56 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @param {module:model/Order} order 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
+     */
+    this.Save = function(direction, orderID, order) {
+      var postBody = order;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Save");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Save");
+      }
+
+      // verify the required parameter 'order' is set
+      if (order == undefined || order == null) {
+        throw new Error("Missing the required parameter 'order' when calling Save");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Order;
+
+      return this.apiClient.callApi(
+        '/orders/{direction}/{orderID}', 'PUT',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
@@ -841,7 +939,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
@@ -890,9 +988,9 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @param {module:model/BuyerShipment} shipment 
+     * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
     this.Ship = function(direction, orderID, shipment) {
@@ -939,7 +1037,7 @@
 
 
     /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
@@ -975,55 +1073,6 @@
 
       return this.apiClient.callApi(
         '/orders/{direction}/{orderID}/submit', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} direction Direction of the order. Possible values: Incoming, Outgoing.
-     * @param {String} orderID ID of the order.
-     * @param {module:model/Order} order 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
-     */
-    this.Update = function(direction, orderID, order) {
-      var postBody = order;
-
-      // verify the required parameter 'direction' is set
-      if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Update");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Update");
-      }
-
-      // verify the required parameter 'order' is set
-      if (order == undefined || order == null) {
-        throw new Error("Missing the required parameter 'order' when calling Update");
-      }
-
-
-      var pathParams = {
-        'direction': direction,
-        'orderID': orderID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Order;
-
-      return this.apiClient.callApi(
-        '/orders/{direction}/{orderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

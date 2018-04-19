@@ -31,7 +31,7 @@
   /**
    * ApprovalRule service.
    * @module api/ApprovalRules
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -177,12 +177,12 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the approval rule.
-     * @param {Array.<String>} opts.searchOn Search on of the approval rule.
-     * @param {Array.<String>} opts.sortBy Sort by of the approval rule.
-     * @param {Number} opts.page Page of the approval rule.
-     * @param {Number} opts.pageSize Page size of the approval rule.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the approval rule.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApprovalRule}
      */
     this.List = function(buyerID, opts) {
@@ -200,8 +200,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -279,22 +279,22 @@
      * @param {module:model/ApprovalRule} approvalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Update = function(buyerID, approvalRuleID, approvalRule) {
+    this.Save = function(buyerID, approvalRuleID, approvalRule) {
       var postBody = approvalRule;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Update");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
       // verify the required parameter 'approvalRuleID' is set
       if (approvalRuleID == undefined || approvalRuleID == null) {
-        throw new Error("Missing the required parameter 'approvalRuleID' when calling Update");
+        throw new Error("Missing the required parameter 'approvalRuleID' when calling Save");
       }
 
       // verify the required parameter 'approvalRule' is set
       if (approvalRule == undefined || approvalRule == null) {
-        throw new Error("Missing the required parameter 'approvalRule' when calling Update");
+        throw new Error("Missing the required parameter 'approvalRule' when calling Save");
       }
 
 

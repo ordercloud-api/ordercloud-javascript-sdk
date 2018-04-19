@@ -34,7 +34,7 @@
   /**
    * The Address model module.
    * @module model/Address
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -73,6 +74,9 @@
 
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('DateCreated')) {
+        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
       }
       if (data.hasOwnProperty('CompanyName')) {
         obj['CompanyName'] = ApiClient.convertToType(data['CompanyName'], 'String');
@@ -118,6 +122,10 @@
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} DateCreated
+   */
+  exports.prototype['DateCreated'] = undefined;
   /**
    * @member {String} CompanyName
    */

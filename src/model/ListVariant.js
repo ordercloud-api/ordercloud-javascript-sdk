@@ -34,7 +34,7 @@
   /**
    * The ListVariant model module.
    * @module model/ListVariant
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**

@@ -30,7 +30,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -48,7 +48,7 @@ apiInstance.Create(direction, orderID, payment).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **payment** | [**Payment**](Payment.md)|  | 
 
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 <a name="CreateTransaction"></a>
 # **CreateTransaction**
-> Payment CreateTransaction(direction, orderID, paymentID, transaction)
+> Payment CreateTransaction(direction, orderID, paymentID, paymentTransaction)
 
 
 
@@ -84,15 +84,15 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var paymentID = "paymentID_example"; // String | ID of the payment.
 
-var transaction = new OrderCloud.PaymentTransaction(); // PaymentTransaction | 
+var paymentTransaction = new OrderCloud.PaymentTransaction(); // PaymentTransaction | 
 
-apiInstance.CreateTransaction(direction, orderID, paymentID, transaction).then(function(data) {
+apiInstance.CreateTransaction(direction, orderID, paymentID, paymentTransaction).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -104,10 +104,10 @@ apiInstance.CreateTransaction(direction, orderID, paymentID, transaction).then(f
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
- **transaction** | [**PaymentTransaction**](PaymentTransaction.md)|  | 
+ **paymentTransaction** | [**PaymentTransaction**](PaymentTransaction.md)|  | 
 
 ### Return type
 
@@ -141,7 +141,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -159,7 +159,7 @@ apiInstance.Delete(direction, orderID, paymentID).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
 
@@ -195,7 +195,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -215,7 +215,7 @@ apiInstance.DeleteTransaction(direction, orderID, paymentID, transactionID).then
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
  **transactionID** | **String**| ID of the transaction. | 
@@ -252,7 +252,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -270,7 +270,7 @@ apiInstance.Get(direction, orderID, paymentID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
 
@@ -306,17 +306,17 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
 var opts = { 
-  'search': "search_example", // String | Search of the payment.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the payment.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the payment.
-  'page': 56, // Number | Page of the payment.
-  'pageSize': 56, // Number | Page size of the payment.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the payment.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.List(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -330,14 +330,14 @@ apiInstance.List(direction, orderID, opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **search** | **String**| Search of the payment. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the payment. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the payment. | [optional] 
- **page** | **Number**| Page of the payment. | [optional] 
- **pageSize** | **Number**| Page size of the payment. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the payment. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -371,7 +371,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Payments();
 
-var direction = "direction_example"; // String | Direction of the payment. Possible values: Incoming, Outgoing.
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
 
 var orderID = "orderID_example"; // String | ID of the order.
 
@@ -391,7 +391,7 @@ apiInstance.Patch(direction, orderID, paymentID, partialPayment).then(function(d
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the payment. Possible values: Incoming, Outgoing. | 
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
  **paymentID** | **String**| ID of the payment. | 
  **partialPayment** | [**Payment**](Payment.md)|  | 

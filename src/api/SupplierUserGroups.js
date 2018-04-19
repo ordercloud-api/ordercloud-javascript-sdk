@@ -31,7 +31,7 @@
   /**
    * SupplierUserGroup service.
    * @module api/SupplierUserGroups
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -48,20 +48,20 @@
 
     /**
      * @param {String} supplierID ID of the supplier.
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Create = function(supplierID, group) {
-      var postBody = group;
+    this.Create = function(supplierID, userGroup) {
+      var postBody = userGroup;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
         throw new Error("Missing the required parameter 'supplierID' when calling Create");
       }
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Create");
+      // verify the required parameter 'userGroup' is set
+      if (userGroup == undefined || userGroup == null) {
+        throw new Error("Missing the required parameter 'userGroup' when calling Create");
       }
 
 
@@ -227,12 +227,12 @@
     /**
      * @param {String} supplierID ID of the supplier.
      * @param {Object} opts Optional parameters
-     * @param {String} opts.search Search of the supplier user group.
-     * @param {Array.<String>} opts.searchOn Search on of the supplier user group.
-     * @param {Array.<String>} opts.sortBy Sort by of the supplier user group.
-     * @param {Number} opts.page Page of the supplier user group.
-     * @param {Number} opts.pageSize Page size of the supplier user group.
-     * @param {Object.<String, {String: String}>} opts.filters Filters of the supplier user group.
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
     this.List = function(supplierID, opts) {
@@ -250,8 +250,8 @@
       };
       var queryParams = {
         'search': opts['search'],
-        'searchOn': this.apiClient.buildCollectionParam(opts['searchOn'], 'csv'),
-        'sortBy': this.apiClient.buildCollectionParam(opts['sortBy'], 'csv'),
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
         'filters': opts['filters']
@@ -279,8 +279,8 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.userGroupID ID of the user group.
      * @param {String} opts.userID ID of the user.
-     * @param {Number} opts.page Page of the supplier user group.
-     * @param {Number} opts.pageSize Page size of the supplier user group.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
     this.ListUserAssignments = function(supplierID, opts) {
@@ -323,11 +323,11 @@
     /**
      * @param {String} supplierID ID of the supplier.
      * @param {String} userGroupID ID of the user group.
-     * @param {module:model/UserGroup} group 
+     * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Patch = function(supplierID, userGroupID, group) {
-      var postBody = group;
+    this.Patch = function(supplierID, userGroupID, partialUserGroup) {
+      var postBody = partialUserGroup;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
@@ -339,9 +339,9 @@
         throw new Error("Missing the required parameter 'userGroupID' when calling Patch");
       }
 
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Patch");
+      // verify the required parameter 'partialUserGroup' is set
+      if (partialUserGroup == undefined || partialUserGroup == null) {
+        throw new Error("Missing the required parameter 'partialUserGroup' when calling Patch");
       }
 
 
@@ -363,6 +363,55 @@
 
       return this.apiClient.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} supplierID ID of the supplier.
+     * @param {String} userGroupID ID of the user group.
+     * @param {module:model/UserGroup} userGroup 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
+     */
+    this.Save = function(supplierID, userGroupID, userGroup) {
+      var postBody = userGroup;
+
+      // verify the required parameter 'supplierID' is set
+      if (supplierID == undefined || supplierID == null) {
+        throw new Error("Missing the required parameter 'supplierID' when calling Save");
+      }
+
+      // verify the required parameter 'userGroupID' is set
+      if (userGroupID == undefined || userGroupID == null) {
+        throw new Error("Missing the required parameter 'userGroupID' when calling Save");
+      }
+
+      // verify the required parameter 'userGroup' is set
+      if (userGroup == undefined || userGroup == null) {
+        throw new Error("Missing the required parameter 'userGroup' when calling Save");
+      }
+
+
+      var pathParams = {
+        'supplierID': supplierID,
+        'userGroupID': userGroupID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = UserGroup;
+
+      return this.apiClient.callApi(
+        '/suppliers/{supplierID}/usergroups/{userGroupID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );
@@ -405,55 +454,6 @@
 
       return this.apiClient.callApi(
         '/suppliers/{supplierID}/usergroups/assignments', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} supplierID ID of the supplier.
-     * @param {String} userGroupID ID of the user group.
-     * @param {module:model/UserGroup} group 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
-     */
-    this.Update = function(supplierID, userGroupID, group) {
-      var postBody = group;
-
-      // verify the required parameter 'supplierID' is set
-      if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling Update");
-      }
-
-      // verify the required parameter 'userGroupID' is set
-      if (userGroupID == undefined || userGroupID == null) {
-        throw new Error("Missing the required parameter 'userGroupID' when calling Update");
-      }
-
-      // verify the required parameter 'group' is set
-      if (group == undefined || group == null) {
-        throw new Error("Missing the required parameter 'group' when calling Update");
-      }
-
-
-      var pathParams = {
-        'supplierID': supplierID,
-        'userGroupID': userGroupID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = UserGroup;
-
-      return this.apiClient.callApi(
-        '/suppliers/{supplierID}/usergroups/{userGroupID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

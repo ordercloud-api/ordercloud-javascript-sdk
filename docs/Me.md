@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**Get**](Me.md#Get) | **GET** /me | 
 [**GetAddress**](Me.md#GetAddress) | **GET** /me/addresses/{addressID} | 
 [**GetCatalog**](Me.md#GetCatalog) | **GET** /me/catalogs/{catalogID} | 
+[**GetCategory**](Me.md#GetCategory) | **GET** /me/categories/{categoryID} | 
 [**GetCreditCard**](Me.md#GetCreditCard) | **GET** /me/creditcards/{creditcardID} | 
 [**GetProduct**](Me.md#GetProduct) | **GET** /me/products/{productID} | 
 [**GetPromotion**](Me.md#GetPromotion) | **GET** /me/promotions/{promotionID} | 
@@ -36,15 +37,15 @@ Method | HTTP request | Description
 [**PatchCreditCard**](Me.md#PatchCreditCard) | **PATCH** /me/creditcards/{creditcardID} | 
 [**Register**](Me.md#Register) | **PUT** /me/register | 
 [**ResetPasswordByToken**](Me.md#ResetPasswordByToken) | **POST** /me/password | 
+[**Save**](Me.md#Save) | **PUT** /me | 
+[**SaveAddress**](Me.md#SaveAddress) | **PUT** /me/addresses/{addressID} | 
+[**SaveCreditCard**](Me.md#SaveCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
 [**TransferAnonUserOrder**](Me.md#TransferAnonUserOrder) | **PUT** /me/orders | 
-[**Update**](Me.md#Update) | **PUT** /me | 
-[**UpdateAddress**](Me.md#UpdateAddress) | **PUT** /me/addresses/{addressID} | 
-[**UpdateCreditCard**](Me.md#UpdateCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
 
 
 <a name="CreateAddress"></a>
 # **CreateAddress**
-> BuyerAddress CreateAddress(address)
+> BuyerAddress CreateAddress(buyerAddress)
 
 
 
@@ -59,9 +60,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
-var address = new OrderCloud.BuyerAddress(); // BuyerAddress | 
+var buyerAddress = new OrderCloud.BuyerAddress(); // BuyerAddress | 
 
-apiInstance.CreateAddress(address).then(function(data) {
+apiInstance.CreateAddress(buyerAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -73,7 +74,7 @@ apiInstance.CreateAddress(address).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **address** | [**BuyerAddress**](BuyerAddress.md)|  | 
+ **buyerAddress** | [**BuyerAddress**](BuyerAddress.md)|  | 
 
 ### Return type
 
@@ -92,7 +93,7 @@ Name | Type | Description  | Notes
 
 <a name="CreateCreditCard"></a>
 # **CreateCreditCard**
-> BuyerCreditCard CreateCreditCard(creditCard)
+> BuyerCreditCard CreateCreditCard(buyerCreditCard)
 
 
 
@@ -107,9 +108,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
-var creditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
+var buyerCreditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
 
-apiInstance.CreateCreditCard(creditCard).then(function(data) {
+apiInstance.CreateCreditCard(buyerCreditCard).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -121,7 +122,7 @@ apiInstance.CreateCreditCard(creditCard).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **creditCard** | [**BuyerCreditCard**](BuyerCreditCard.md)|  | 
+ **buyerCreditCard** | [**BuyerCreditCard**](BuyerCreditCard.md)|  | 
 
 ### Return type
 
@@ -372,6 +373,57 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
+<a name="GetCategory"></a>
+# **GetCategory**
+> Category GetCategory(categoryID, catalogID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var categoryID = "categoryID_example"; // String | ID of the category.
+
+var catalogID = "catalogID_example"; // String | ID of the catalog.
+
+apiInstance.GetCategory(categoryID, catalogID).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **categoryID** | **String**| ID of the category. | 
+ **catalogID** | **String**| ID of the catalog. | 
+
+### Return type
+
+[**Category**](Category.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
 <a name="GetCreditCard"></a>
 # **GetCreditCard**
 > BuyerCreditCard GetCreditCard(creditcardID)
@@ -518,7 +570,7 @@ Name | Type | Description  | Notes
 
 <a name="GetShipment"></a>
 # **GetShipment**
-> BuyerShipment GetShipment(shipmentID)
+> Shipment GetShipment(shipmentID)
 
 
 
@@ -551,7 +603,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuyerShipment**](BuyerShipment.md)
+[**Shipment**](Shipment.md)
 
 ### Authorization
 
@@ -685,12 +737,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'search': "search_example", // String | Search of the address.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the address.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the address.
-  'page': 56, // Number | Page of the address.
-  'pageSize': 56, // Number | Page size of the address.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the address.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListAddresses(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -704,12 +756,12 @@ apiInstance.ListAddresses(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the address. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the address. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the address. | [optional] 
- **page** | **Number**| Page of the address. | [optional] 
- **pageSize** | **Number**| Page size of the address. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the address. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -746,12 +798,12 @@ var apiInstance = new OrderCloud.Me();
 var opts = { 
   'from': "from_example", // String | Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
   'to': "to_example", // String | Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-  'search': "search_example", // String | Search of the order.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
-  'page': 56, // Number | Page of the order.
-  'pageSize': 56, // Number | Page size of the order.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListApprovableOrders(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -767,12 +819,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **String**| Lower bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
  **to** | **String**| Upper bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
- **search** | **String**| Search of the order. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
- **page** | **Number**| Page of the order. | [optional] 
- **pageSize** | **Number**| Page size of the order. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -807,12 +859,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'search': "search_example", // String | Search of the catalog.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the catalog.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the catalog.
-  'page': 56, // Number | Page of the catalog.
-  'pageSize': 56, // Number | Page size of the catalog.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the catalog.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListCatalogs(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -826,12 +878,12 @@ apiInstance.ListCatalogs(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the catalog. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the catalog. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the catalog. | [optional] 
- **page** | **Number**| Page of the catalog. | [optional] 
- **pageSize** | **Number**| Page size of the catalog. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the catalog. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -868,12 +920,13 @@ var apiInstance = new OrderCloud.Me();
 var opts = { 
   'depth': "depth_example", // String | Depth of the category.
   'catalogID': "catalogID_example", // String | ID of the catalog.
-  'search': "search_example", // String | Search of the category.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the category.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the category.
-  'page': 56, // Number | Page of the category.
-  'pageSize': 56, // Number | Page size of the category.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the category.
+  'productID': "productID_example", // String | ID of the product.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListCategories(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -889,12 +942,13 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **depth** | **String**| Depth of the category. | [optional] 
  **catalogID** | **String**| ID of the catalog. | [optional] 
- **search** | **String**| Search of the category. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the category. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the category. | [optional] 
- **page** | **Number**| Page of the category. | [optional] 
- **pageSize** | **Number**| Page size of the category. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the category. | [optional] 
+ **productID** | **String**| ID of the product. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -929,12 +983,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'search': "search_example", // String | Search of the cost center.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the cost center.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the cost center.
-  'page': 56, // Number | Page of the cost center.
-  'pageSize': 56, // Number | Page size of the cost center.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the cost center.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListCostCenters(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -948,12 +1002,12 @@ apiInstance.ListCostCenters(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the cost center. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the cost center. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the cost center. | [optional] 
- **page** | **Number**| Page of the cost center. | [optional] 
- **pageSize** | **Number**| Page size of the cost center. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the cost center. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -988,12 +1042,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'search': "search_example", // String | Search of the credit card.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the credit card.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the credit card.
-  'page': 56, // Number | Page of the credit card.
-  'pageSize': 56, // Number | Page size of the credit card.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the credit card.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListCreditCards(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1007,12 +1061,12 @@ apiInstance.ListCreditCards(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the credit card. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the credit card. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the credit card. | [optional] 
- **page** | **Number**| Page of the credit card. | [optional] 
- **pageSize** | **Number**| Page size of the credit card. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the credit card. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1049,12 +1103,12 @@ var apiInstance = new OrderCloud.Me();
 var opts = { 
   'from': "from_example", // String | Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
   'to': "to_example", // String | Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
-  'search': "search_example", // String | Search of the order.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the order.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the order.
-  'page': 56, // Number | Page of the order.
-  'pageSize': 56, // Number | Page size of the order.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the order.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListOrders(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1070,12 +1124,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **from** | **String**| Lower bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
  **to** | **String**| Upper bound of date range that the order was created (if outgoing) or submitted (if incoming). | [optional] 
- **search** | **String**| Search of the order. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the order. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the order. | [optional] 
- **page** | **Number**| Page of the order. | [optional] 
- **pageSize** | **Number**| Page size of the order. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the order. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1113,12 +1167,12 @@ var opts = {
   'catalogID': "catalogID_example", // String | ID of the catalog.
   'categoryID': "categoryID_example", // String | ID of the category.
   'depth': "depth_example", // String | Depth of the product.
-  'search': "search_example", // String | Search of the product.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the product.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the product.
-  'page': 56, // Number | Page of the product.
-  'pageSize': 56, // Number | Page size of the product.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the product.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListProducts(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1135,12 +1189,12 @@ Name | Type | Description  | Notes
  **catalogID** | **String**| ID of the catalog. | [optional] 
  **categoryID** | **String**| ID of the category. | [optional] 
  **depth** | **String**| Depth of the product. | [optional] 
- **search** | **String**| Search of the product. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the product. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the product. | [optional] 
- **page** | **Number**| Page of the product. | [optional] 
- **pageSize** | **Number**| Page size of the product. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the product. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1175,12 +1229,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'search': "search_example", // String | Search of the promotion.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the promotion.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the promotion.
-  'page': 56, // Number | Page of the promotion.
-  'pageSize': 56, // Number | Page size of the promotion.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the promotion.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListPromotions(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1194,12 +1248,12 @@ apiInstance.ListPromotions(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the promotion. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the promotion. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the promotion. | [optional] 
- **page** | **Number**| Page of the promotion. | [optional] 
- **pageSize** | **Number**| Page size of the promotion. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the promotion. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1237,12 +1291,12 @@ var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
 var opts = { 
   'orderID': "orderID_example", // String | ID of the order.
-  'search': "search_example", // String | Search of the shipment.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the shipment.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the shipment.
-  'page': 56, // Number | Page of the shipment.
-  'pageSize': 56, // Number | Page size of the shipment.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the shipment.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListShipmentItems(shipmentID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1258,12 +1312,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **shipmentID** | **String**| ID of the shipment. | 
  **orderID** | **String**| ID of the order. | [optional] 
- **search** | **String**| Search of the shipment. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the shipment. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the shipment. | [optional] 
- **page** | **Number**| Page of the shipment. | [optional] 
- **pageSize** | **Number**| Page size of the shipment. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the shipment. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1282,7 +1336,7 @@ Name | Type | Description  | Notes
 
 <a name="ListShipments"></a>
 # **ListShipments**
-> ListBuyerShipment ListShipments(opts)
+> ListShipment ListShipments(opts)
 
 
 
@@ -1299,12 +1353,12 @@ var apiInstance = new OrderCloud.Me();
 
 var opts = { 
   'orderID': "orderID_example", // String | ID of the order.
-  'search': "search_example", // String | Search of the shipment.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the shipment.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the shipment.
-  'page': 56, // Number | Page of the shipment.
-  'pageSize': 56, // Number | Page size of the shipment.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the shipment.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListShipments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1319,16 +1373,16 @@ apiInstance.ListShipments(opts).then(function(data) {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **orderID** | **String**| ID of the order. | [optional] 
- **search** | **String**| Search of the shipment. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the shipment. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the shipment. | [optional] 
- **page** | **Number**| Page of the shipment. | [optional] 
- **pageSize** | **Number**| Page size of the shipment. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the shipment. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
-[**ListBuyerShipment**](ListBuyerShipment.md)
+[**ListShipment**](ListShipment.md)
 
 ### Authorization
 
@@ -1362,12 +1416,12 @@ var productID = "productID_example"; // String | ID of the product.
 
 var opts = { 
   'catalogID': "catalogID_example", // String | ID of the catalog.
-  'search': "search_example", // String | Search of the product.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the product.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the product.
-  'page': 56, // Number | Page of the product.
-  'pageSize': 56, // Number | Page size of the product.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the product.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListSpecs(productID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1383,12 +1437,12 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **productID** | **String**| ID of the product. | 
  **catalogID** | **String**| ID of the catalog. | [optional] 
- **search** | **String**| Search of the product. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the product. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the product. | [optional] 
- **page** | **Number**| Page of the product. | [optional] 
- **pageSize** | **Number**| Page size of the product. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the product. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1423,12 +1477,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'search': "search_example", // String | Search of the spending account.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the spending account.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the spending account.
-  'page': 56, // Number | Page of the spending account.
-  'pageSize': 56, // Number | Page size of the spending account.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the spending account.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListSpendingAccounts(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1442,12 +1496,12 @@ apiInstance.ListSpendingAccounts(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the spending account. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the spending account. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the spending account. | [optional] 
- **page** | **Number**| Page of the spending account. | [optional] 
- **pageSize** | **Number**| Page size of the spending account. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the spending account. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1482,12 +1536,12 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'search': "search_example", // String | Search of the user group.
-  'searchOn': ["searchOn_example"], // [String] | Search on of the user group.
-  'sortBy': ["sortBy_example"], // [String] | Sort by of the user group.
-  'page': 56, // Number | Page of the user group.
-  'pageSize': 56, // Number | Page size of the user group.
-  'filters': {key: "filters_example"} // {String: String} | Filters of the user group.
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
 apiInstance.ListUserGroups(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -1501,12 +1555,12 @@ apiInstance.ListUserGroups(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Search of the user group. | [optional] 
- **searchOn** | [**[String]**](String.md)| Search on of the user group. | [optional] 
- **sortBy** | [**[String]**](String.md)| Sort by of the user group. | [optional] 
- **page** | **Number**| Page of the user group. | [optional] 
- **pageSize** | **Number**| Page size of the user group. | [optional] 
- **filters** | [**{String: String}**](String.md)| Filters of the user group. | [optional] 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
 
 ### Return type
 
@@ -1525,7 +1579,7 @@ Name | Type | Description  | Notes
 
 <a name="Patch"></a>
 # **Patch**
-> MeUser Patch(user)
+> MeUser Patch(partialMeUser)
 
 
 
@@ -1540,9 +1594,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
-var user = new OrderCloud.User(); // User | 
+var partialMeUser = new OrderCloud.MeUser(); // MeUser | 
 
-apiInstance.Patch(user).then(function(data) {
+apiInstance.Patch(partialMeUser).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1554,7 +1608,7 @@ apiInstance.Patch(user).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | [**User**](User.md)|  | 
+ **partialMeUser** | [**MeUser**](MeUser.md)|  | 
 
 ### Return type
 
@@ -1573,7 +1627,7 @@ Name | Type | Description  | Notes
 
 <a name="PatchAddress"></a>
 # **PatchAddress**
-> PatchAddress(addressID, address)
+> PatchAddress(addressID, partialBuyerAddress)
 
 
 
@@ -1590,9 +1644,9 @@ var apiInstance = new OrderCloud.Me();
 
 var addressID = "addressID_example"; // String | ID of the address.
 
-var address = new OrderCloud.Address(); // Address | 
+var partialBuyerAddress = new OrderCloud.BuyerAddress(); // BuyerAddress | 
 
-apiInstance.PatchAddress(addressID, address).then(function() {
+apiInstance.PatchAddress(addressID, partialBuyerAddress).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -1605,7 +1659,7 @@ apiInstance.PatchAddress(addressID, address).then(function() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **addressID** | **String**| ID of the address. | 
- **address** | [**Address**](Address.md)|  | 
+ **partialBuyerAddress** | [**BuyerAddress**](BuyerAddress.md)|  | 
 
 ### Return type
 
@@ -1624,7 +1678,7 @@ null (empty response body)
 
 <a name="PatchCreditCard"></a>
 # **PatchCreditCard**
-> PatchCreditCard(creditcardID, creditCard)
+> PatchCreditCard(creditcardID, partialBuyerCreditCard)
 
 
 
@@ -1641,9 +1695,9 @@ var apiInstance = new OrderCloud.Me();
 
 var creditcardID = "creditcardID_example"; // String | ID of the creditcard.
 
-var creditCard = new OrderCloud.CreditCard(); // CreditCard | 
+var partialBuyerCreditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
 
-apiInstance.PatchCreditCard(creditcardID, creditCard).then(function() {
+apiInstance.PatchCreditCard(creditcardID, partialBuyerCreditCard).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -1656,7 +1710,7 @@ apiInstance.PatchCreditCard(creditcardID, creditCard).then(function() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **creditcardID** | **String**| ID of the creditcard. | 
- **creditCard** | [**CreditCard**](CreditCard.md)|  | 
+ **partialBuyerCreditCard** | [**BuyerCreditCard**](BuyerCreditCard.md)|  | 
 
 ### Return type
 
@@ -1675,7 +1729,7 @@ null (empty response body)
 
 <a name="Register"></a>
 # **Register**
-> Object Register(anonUserToken, user)
+> Object Register(anonUserToken, meUser)
 
 
 
@@ -1690,11 +1744,11 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
-var anonUserToken = "anonUserToken_example"; // String | Anon user token of the me.
+var anonUserToken = "anonUserToken_example"; // String | Anon user token of the user.
 
-var user = new OrderCloud.User(); // User | 
+var meUser = new OrderCloud.MeUser(); // MeUser | 
 
-apiInstance.Register(anonUserToken, user).then(function(data) {
+apiInstance.Register(anonUserToken, meUser).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1706,8 +1760,8 @@ apiInstance.Register(anonUserToken, user).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **anonUserToken** | **String**| Anon user token of the me. | 
- **user** | [**User**](User.md)|  | 
+ **anonUserToken** | **String**| Anon user token of the user. | 
+ **meUser** | [**MeUser**](MeUser.md)|  | 
 
 ### Return type
 
@@ -1726,7 +1780,7 @@ Name | Type | Description  | Notes
 
 <a name="ResetPasswordByToken"></a>
 # **ResetPasswordByToken**
-> ResetPasswordByToken(reset)
+> ResetPasswordByToken(tokenPasswordReset)
 
 
 
@@ -1741,9 +1795,9 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
 
-var reset = new OrderCloud.TokenPasswordReset(); // TokenPasswordReset | 
+var tokenPasswordReset = new OrderCloud.TokenPasswordReset(); // TokenPasswordReset | 
 
-apiInstance.ResetPasswordByToken(reset).then(function() {
+apiInstance.ResetPasswordByToken(tokenPasswordReset).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -1755,11 +1809,161 @@ apiInstance.ResetPasswordByToken(reset).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **reset** | [**TokenPasswordReset**](TokenPasswordReset.md)|  | 
+ **tokenPasswordReset** | [**TokenPasswordReset**](TokenPasswordReset.md)|  | 
 
 ### Return type
 
 null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Save"></a>
+# **Save**
+> MeUser Save(meUser)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var meUser = new OrderCloud.MeUser(); // MeUser | 
+
+apiInstance.Save(meUser).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **meUser** | [**MeUser**](MeUser.md)|  | 
+
+### Return type
+
+[**MeUser**](MeUser.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="SaveAddress"></a>
+# **SaveAddress**
+> BuyerAddress SaveAddress(addressID, buyerAddress)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var addressID = "addressID_example"; // String | ID of the address.
+
+var buyerAddress = new OrderCloud.BuyerAddress(); // BuyerAddress | 
+
+apiInstance.SaveAddress(addressID, buyerAddress).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **addressID** | **String**| ID of the address. | 
+ **buyerAddress** | [**BuyerAddress**](BuyerAddress.md)|  | 
+
+### Return type
+
+[**BuyerAddress**](BuyerAddress.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="SaveCreditCard"></a>
+# **SaveCreditCard**
+> BuyerCreditCard SaveCreditCard(creditcardID, buyerCreditCard)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Me();
+
+var creditcardID = "creditcardID_example"; // String | ID of the creditcard.
+
+var buyerCreditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
+
+apiInstance.SaveCreditCard(creditcardID, buyerCreditCard).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **creditcardID** | **String**| ID of the creditcard. | 
+ **buyerCreditCard** | [**BuyerCreditCard**](BuyerCreditCard.md)|  | 
+
+### Return type
+
+[**BuyerCreditCard**](BuyerCreditCard.md)
 
 ### Authorization
 
@@ -1808,156 +2012,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Update"></a>
-# **Update**
-> MeUser Update(user)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Me();
-
-var user = new OrderCloud.User(); // User | 
-
-apiInstance.Update(user).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **user** | [**User**](User.md)|  | 
-
-### Return type
-
-[**MeUser**](MeUser.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="UpdateAddress"></a>
-# **UpdateAddress**
-> BuyerAddress UpdateAddress(addressID, address)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Me();
-
-var addressID = "addressID_example"; // String | ID of the address.
-
-var address = new OrderCloud.BuyerAddress(); // BuyerAddress | 
-
-apiInstance.UpdateAddress(addressID, address).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **addressID** | **String**| ID of the address. | 
- **address** | [**BuyerAddress**](BuyerAddress.md)|  | 
-
-### Return type
-
-[**BuyerAddress**](BuyerAddress.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="UpdateCreditCard"></a>
-# **UpdateCreditCard**
-> BuyerCreditCard UpdateCreditCard(creditcardID, creditCard)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Me();
-
-var creditcardID = "creditcardID_example"; // String | ID of the creditcard.
-
-var creditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
-
-apiInstance.UpdateCreditCard(creditcardID, creditCard).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **creditcardID** | **String**| ID of the creditcard. | 
- **creditCard** | [**BuyerCreditCard**](BuyerCreditCard.md)|  | 
-
-### Return type
-
-[**BuyerCreditCard**](BuyerCreditCard.md)
 
 ### Authorization
 

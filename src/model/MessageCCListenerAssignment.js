@@ -34,7 +34,7 @@
   /**
    * The MessageCCListenerAssignment model module.
    * @module model/MessageCCListenerAssignment
-   * @version 1.0.59
+   * @version 2.0.0
    */
 
   /**
@@ -44,6 +44,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -70,6 +71,9 @@
       if (data.hasOwnProperty('MessageConfigName')) {
         obj['MessageConfigName'] = ApiClient.convertToType(data['MessageConfigName'], 'String');
       }
+      if (data.hasOwnProperty('MessageConfigDescription')) {
+        obj['MessageConfigDescription'] = ApiClient.convertToType(data['MessageConfigDescription'], 'String');
+      }
       if (data.hasOwnProperty('MessageType')) {
         obj['MessageType'] = ApiClient.convertToType(data['MessageType'], 'String');
       }
@@ -94,6 +98,10 @@
    * @member {String} MessageConfigName
    */
   exports.prototype['MessageConfigName'] = undefined;
+  /**
+   * @member {String} MessageConfigDescription
+   */
+  exports.prototype['MessageConfigDescription'] = undefined;
   /**
    * @member {String} MessageType
    */
