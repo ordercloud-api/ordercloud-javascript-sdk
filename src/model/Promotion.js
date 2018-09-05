@@ -34,7 +34,7 @@
   /**
    * The Promotion model module.
    * @module model/Promotion
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

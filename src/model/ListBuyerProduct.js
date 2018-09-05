@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BuyerProduct', 'model/Meta'], factory);
+    define(['ApiClient', 'model/BuyerProduct', 'model/MetaWithFacets'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./BuyerProduct'), require('./Meta'));
+    module.exports = factory(require('../ApiClient'), require('./BuyerProduct'), require('./MetaWithFacets'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListBuyerProduct = factory(root.OrderCloud.ApiClient, root.OrderCloud.BuyerProduct, root.OrderCloud.Meta);
+    root.OrderCloud.ListBuyerProduct = factory(root.OrderCloud.ApiClient, root.OrderCloud.BuyerProduct, root.OrderCloud.MetaWithFacets);
   }
-}(this, function(ApiClient, BuyerProduct, Meta) {
+}(this, function(ApiClient, BuyerProduct, MetaWithFacets) {
   'use strict';
 
 
@@ -34,7 +34,7 @@
   /**
    * The ListBuyerProduct model module.
    * @module model/ListBuyerProduct
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**
@@ -64,7 +64,7 @@
         obj['Items'] = ApiClient.convertToType(data['Items'], [BuyerProduct]);
       }
       if (data.hasOwnProperty('Meta')) {
-        obj['Meta'] = Meta.constructFromObject(data['Meta']);
+        obj['Meta'] = MetaWithFacets.constructFromObject(data['Meta']);
       }
     }
     return obj;
@@ -75,7 +75,7 @@
    */
   exports.prototype['Items'] = undefined;
   /**
-   * @member {module:model/Meta} Meta
+   * @member {module:model/MetaWithFacets} Meta
    */
   exports.prototype['Meta'] = undefined;
 

@@ -34,7 +34,7 @@
   /**
    * The PartialCatalog model module.
    * @module model/PartialCatalog
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

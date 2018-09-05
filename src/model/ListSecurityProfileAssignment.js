@@ -34,7 +34,7 @@
   /**
    * The ListSecurityProfileAssignment model module.
    * @module model/ListSecurityProfileAssignment
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

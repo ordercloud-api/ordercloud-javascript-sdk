@@ -31,7 +31,7 @@
   /**
    * ApprovalRule service.
    * @module api/ApprovalRules
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

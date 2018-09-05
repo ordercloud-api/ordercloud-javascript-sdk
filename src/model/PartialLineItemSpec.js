@@ -34,7 +34,7 @@
   /**
    * The PartialLineItemSpec model module.
    * @module model/PartialLineItemSpec
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

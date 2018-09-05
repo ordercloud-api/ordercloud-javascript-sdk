@@ -33,7 +33,8 @@ var securityProfileID = "securityProfileID_example"; // String | ID of the secur
 var opts = { 
   'buyerID': "buyerID_example", // String | ID of the buyer.
   'userID': "userID_example", // String | ID of the user.
-  'userGroupID': "userGroupID_example" // String | ID of the user group.
+  'userGroupID': "userGroupID_example", // String | ID of the user group.
+  'supplierID': "supplierID_example" // String | ID of the supplier.
 };
 apiInstance.DeleteAssignment(securityProfileID, opts).then(function() {
   console.log('API called successfully.');
@@ -51,6 +52,7 @@ Name | Type | Description  | Notes
  **buyerID** | **String**| ID of the buyer. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
+ **supplierID** | **String**| ID of the supplier. | [optional] 
 
 ### Return type
 

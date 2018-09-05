@@ -34,7 +34,7 @@
   /**
    * The ListCategoryProductAssignment model module.
    * @module model/ListCategoryProductAssignment
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

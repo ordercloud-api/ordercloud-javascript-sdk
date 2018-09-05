@@ -29,7 +29,7 @@ Method | HTTP request | Description
 
 <a name="AddPromotion"></a>
 # **AddPromotion**
-> Promotion AddPromotion(direction, orderID, promoCode)
+> OrderPromotion AddPromotion(direction, orderID, promoCode)
 
 
 
@@ -48,7 +48,7 @@ var direction = "direction_example"; // String | Direction of the order, from th
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-var promoCode = "promoCode_example"; // String | Promo code of the promotion.
+var promoCode = "promoCode_example"; // String | Promo code of the order promotion.
 
 apiInstance.AddPromotion(direction, orderID, promoCode).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -64,11 +64,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
  **orderID** | **String**| ID of the order. | 
- **promoCode** | **String**| Promo code of the promotion. | 
+ **promoCode** | **String**| Promo code of the order promotion. | 
 
 ### Return type
 
-[**Promotion**](Promotion.md)
+[**OrderPromotion**](OrderPromotion.md)
 
 ### Authorization
 
