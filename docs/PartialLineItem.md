@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**xp** | **Object** |  | [optional] 
 **ID** | **String** |  | [optional] 
 **productID** | **String** |  | [optional] 
 **quantity** | **Number** |  | [optional] 
@@ -19,6 +20,5 @@ Name | Type | Description | Notes
 **shippingAddress** | [**Address**](Address.md) |  | [optional] 
 **shipFromAddress** | [**Address**](Address.md) |  | [optional] 
 **specs** | [**[LineItemSpec]**](LineItemSpec.md) |  | [optional] 
-**xp** | **Object** |  | [optional] 
 
 

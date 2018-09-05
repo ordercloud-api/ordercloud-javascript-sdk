@@ -34,7 +34,7 @@
   /**
    * The Variant model module.
    * @module model/Variant
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

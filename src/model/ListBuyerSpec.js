@@ -34,7 +34,7 @@
   /**
    * The ListBuyerSpec model module.
    * @module model/ListBuyerSpec
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

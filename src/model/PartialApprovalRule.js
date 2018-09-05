@@ -34,7 +34,7 @@
   /**
    * The PartialApprovalRule model module.
    * @module model/PartialApprovalRule
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

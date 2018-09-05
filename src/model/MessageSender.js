@@ -34,7 +34,7 @@
   /**
    * The MessageSender model module.
    * @module model/MessageSender
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**

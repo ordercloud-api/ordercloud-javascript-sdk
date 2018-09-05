@@ -31,7 +31,7 @@
   /**
    * SecurityProfile service.
    * @module api/SecurityProfiles
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**
@@ -52,6 +52,7 @@
      * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
+     * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
     this.DeleteAssignment = function(securityProfileID, opts) {
@@ -70,7 +71,8 @@
       var queryParams = {
         'buyerID': opts['buyerID'],
         'userID': opts['userID'],
-        'userGroupID': opts['userGroupID']
+        'userGroupID': opts['userGroupID'],
+        'supplierID': opts['supplierID']
       };
       var headerParams = {
       };

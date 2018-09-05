@@ -3,8 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ID** | **String** |  | [optional] 
 **optionCount** | **Number** |  | [optional] 
+**ID** | **String** |  | [optional] 
 **listOrder** | **Number** |  | [optional] 
 **name** | **String** |  | [optional] 
 **defaultValue** | **String** |  | [optional] 

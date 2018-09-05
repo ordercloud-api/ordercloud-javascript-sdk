@@ -34,7 +34,7 @@
   /**
    * The PartialSpec model module.
    * @module model/PartialSpec
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**
@@ -68,11 +68,11 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
-      }
       if (data.hasOwnProperty('OptionCount')) {
         obj['OptionCount'] = ApiClient.convertToType(data['OptionCount'], 'Number');
+      }
+      if (data.hasOwnProperty('ID')) {
+        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('ListOrder')) {
         obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
@@ -103,13 +103,13 @@
   }
 
   /**
-   * @member {String} ID
-   */
-  exports.prototype['ID'] = undefined;
-  /**
    * @member {Number} OptionCount
    */
   exports.prototype['OptionCount'] = undefined;
+  /**
+   * @member {String} ID
+   */
+  exports.prototype['ID'] = undefined;
   /**
    * @member {Number} ListOrder
    */

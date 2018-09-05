@@ -34,7 +34,7 @@
   /**
    * The PartialSpecOption model module.
    * @module model/PartialSpecOption
-   * @version 2.0.0
+   * @version 2.0.1
    */
 
   /**
