@@ -34,7 +34,6 @@
   /**
    * The BuyerProduct model module.
    * @module model/BuyerProduct
-   * @version 2.0.1
    */
 
   /**

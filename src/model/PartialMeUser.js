@@ -34,7 +34,6 @@
   /**
    * The PartialMeUser model module.
    * @module model/PartialMeUser
-   * @version 2.0.1
    */
 
   /**

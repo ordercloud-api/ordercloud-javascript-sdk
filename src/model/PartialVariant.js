@@ -34,7 +34,6 @@
   /**
    * The PartialVariant model module.
    * @module model/PartialVariant
-   * @version 2.0.1
    */
 
   /**

@@ -34,7 +34,6 @@
   /**
    * The PartialBuyer model module.
    * @module model/PartialBuyer
-   * @version 2.0.1
    */
 
   /**

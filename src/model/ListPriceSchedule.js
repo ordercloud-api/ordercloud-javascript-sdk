@@ -34,7 +34,6 @@
   /**
    * The ListPriceSchedule model module.
    * @module model/ListPriceSchedule
-   * @version 2.0.1
    */
 
   /**

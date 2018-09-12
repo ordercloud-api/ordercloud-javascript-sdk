@@ -34,7 +34,6 @@
   /**
    * The ListUser model module.
    * @module model/ListUser
-   * @version 2.0.1
    */
 
   /**

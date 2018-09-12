@@ -34,7 +34,6 @@
   /**
    * The ImpersonationConfig model module.
    * @module model/ImpersonationConfig
-   * @version 2.0.1
    */
 
   /**

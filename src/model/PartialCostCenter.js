@@ -34,7 +34,6 @@
   /**
    * The PartialCostCenter model module.
    * @module model/PartialCostCenter
-   * @version 2.0.1
    */
 
   /**

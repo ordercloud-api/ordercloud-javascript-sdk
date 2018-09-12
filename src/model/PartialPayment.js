@@ -34,7 +34,6 @@
   /**
    * The PartialPayment model module.
    * @module model/PartialPayment
-   * @version 2.0.1
    */
 
   /**

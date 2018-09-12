@@ -34,7 +34,6 @@
   /**
    * The ProductFacet model module.
    * @module model/ProductFacet
-   * @version 2.0.1
    */
 
   /**

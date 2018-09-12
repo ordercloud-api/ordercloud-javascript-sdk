@@ -34,7 +34,6 @@
   /**
    * The PartialShipment model module.
    * @module model/PartialShipment
-   * @version 2.0.1
    */
 
   /**

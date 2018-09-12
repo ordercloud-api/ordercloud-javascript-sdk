@@ -34,7 +34,6 @@
   /**
    * The PaymentTransaction model module.
    * @module model/PaymentTransaction
-   * @version 2.0.1
    */
 
   /**

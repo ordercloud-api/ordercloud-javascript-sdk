@@ -31,7 +31,6 @@
   /**
    * ProductFacet service.
    * @module api/ProductFacets
-   * @version 2.0.1
    */
 
   /**

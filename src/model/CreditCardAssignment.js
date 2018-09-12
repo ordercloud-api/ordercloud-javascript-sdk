@@ -34,7 +34,6 @@
   /**
    * The CreditCardAssignment model module.
    * @module model/CreditCardAssignment
-   * @version 2.0.1
    */
 
   /**

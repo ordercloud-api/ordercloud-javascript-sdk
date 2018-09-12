@@ -34,7 +34,6 @@
   /**
    * The PartialAddress model module.
    * @module model/PartialAddress
-   * @version 2.0.1
    */
 
   /**

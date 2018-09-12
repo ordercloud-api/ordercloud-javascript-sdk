@@ -34,7 +34,6 @@
   /**
    * The PartialBuyerAddress model module.
    * @module model/PartialBuyerAddress
-   * @version 2.0.1
    */
 
   /**

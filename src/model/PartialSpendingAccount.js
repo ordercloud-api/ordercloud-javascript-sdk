@@ -34,7 +34,6 @@
   /**
    * The PartialSpendingAccount model module.
    * @module model/PartialSpendingAccount
-   * @version 2.0.1
    */
 
   /**

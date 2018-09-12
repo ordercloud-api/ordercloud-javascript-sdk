@@ -34,7 +34,6 @@
   /**
    * The PartialIncrementor model module.
    * @module model/PartialIncrementor
-   * @version 2.0.1
    */
 
   /**

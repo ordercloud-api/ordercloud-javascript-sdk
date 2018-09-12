@@ -34,7 +34,6 @@
   /**
    * The PartialOrder model module.
    * @module model/PartialOrder
-   * @version 2.0.1
    */
 
   /**

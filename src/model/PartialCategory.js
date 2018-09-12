@@ -34,7 +34,6 @@
   /**
    * The PartialCategory model module.
    * @module model/PartialCategory
-   * @version 2.0.1
    */
 
   /**

@@ -34,7 +34,6 @@
   /**
    * The Order model module.
    * @module model/Order
-   * @version 2.0.1
    */
 
   /**

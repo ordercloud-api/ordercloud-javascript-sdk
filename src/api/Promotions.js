@@ -31,7 +31,6 @@
   /**
    * Promotion service.
    * @module api/Promotions
-   * @version 2.0.1
    */
 
   /**

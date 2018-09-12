@@ -34,7 +34,6 @@
   /**
    * The ListOrderPromotion model module.
    * @module model/ListOrderPromotion
-   * @version 2.0.1
    */
 
   /**

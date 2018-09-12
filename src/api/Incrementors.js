@@ -31,7 +31,6 @@
   /**
    * Incrementor service.
    * @module api/Incrementors
-   * @version 2.0.1
    */
 
   /**

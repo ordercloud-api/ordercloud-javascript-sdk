@@ -34,7 +34,6 @@
   /**
    * The ListLineItem model module.
    * @module model/ListLineItem
-   * @version 2.0.1
    */
 
   /**

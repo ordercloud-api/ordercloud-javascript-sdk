@@ -34,7 +34,6 @@
   /**
    * The ListFacetValue model module.
    * @module model/ListFacetValue
-   * @version 2.0.1
    */
 
   /**

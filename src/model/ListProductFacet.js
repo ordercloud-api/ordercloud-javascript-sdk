@@ -34,7 +34,6 @@
   /**
    * The ListProductFacet model module.
    * @module model/ListProductFacet
-   * @version 2.0.1
    */
 
   /**

@@ -34,7 +34,6 @@
   /**
    * The PartialBuyerCreditCard model module.
    * @module model/PartialBuyerCreditCard
-   * @version 2.0.1
    */
 
   /**
