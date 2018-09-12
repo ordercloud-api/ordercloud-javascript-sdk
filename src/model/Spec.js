@@ -34,7 +34,6 @@
   /**
    * The Spec model module.
    * @module model/Spec
-   * @version 2.0.1
    */
 
   /**

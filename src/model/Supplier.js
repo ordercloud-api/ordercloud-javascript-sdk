@@ -34,7 +34,6 @@
   /**
    * The Supplier model module.
    * @module model/Supplier
-   * @version 2.0.1
    */
 
   /**

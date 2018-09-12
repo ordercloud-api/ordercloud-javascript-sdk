@@ -34,7 +34,6 @@
   /**
    * The PartialProduct model module.
    * @module model/PartialProduct
-   * @version 2.0.1
    */
 
   /**

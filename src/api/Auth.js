@@ -31,7 +31,6 @@
     /**
      * Auth service.
      * @module api/Auth
-     * @version <projectVersion>
      */
 
     /**

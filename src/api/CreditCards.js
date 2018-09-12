@@ -31,7 +31,6 @@
   /**
    * CreditCard service.
    * @module api/CreditCards
-   * @version 2.0.1
    */
 
   /**

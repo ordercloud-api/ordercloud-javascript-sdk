@@ -34,7 +34,6 @@
   /**
    * The ListCostCenter model module.
    * @module model/ListCostCenter
-   * @version 2.0.1
    */
 
   /**

@@ -31,7 +31,6 @@
   /**
    * AdminUserGroup service.
    * @module api/AdminUserGroups
-   * @version 2.0.1
    */
 
   /**

@@ -34,7 +34,6 @@
   /**
    * The ListMessageSender model module.
    * @module model/ListMessageSender
-   * @version 2.0.1
    */
 
   /**

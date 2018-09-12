@@ -34,7 +34,6 @@
   /**
    * The PartialInventory model module.
    * @module model/PartialInventory
-   * @version 2.0.1
    */
 
   /**

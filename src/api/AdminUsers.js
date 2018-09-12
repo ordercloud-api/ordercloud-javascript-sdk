@@ -31,7 +31,6 @@
   /**
    * AdminUser service.
    * @module api/AdminUsers
-   * @version 2.0.1
    */
 
   /**

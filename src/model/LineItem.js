@@ -34,7 +34,6 @@
   /**
    * The LineItem model module.
    * @module model/LineItem
-   * @version 2.0.1
    */
 
   /**
@@ -75,9 +74,6 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
@@ -126,14 +122,13 @@
       if (data.hasOwnProperty('Specs')) {
         obj['Specs'] = ApiClient.convertToType(data['Specs'], [LineItemSpec]);
       }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
 
-  /**
-   * @member {Object} xp
-   */
-  exports.prototype['xp'] = undefined;
   /**
    * @member {String} ID
    */
@@ -198,6 +193,10 @@
    * @member {Array.<module:model/LineItemSpec>} Specs
    */
   exports.prototype['Specs'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 

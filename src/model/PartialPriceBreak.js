@@ -34,7 +34,6 @@
   /**
    * The PartialPriceBreak model module.
    * @module model/PartialPriceBreak
-   * @version 2.0.1
    */
 
   /**

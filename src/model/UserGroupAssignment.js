@@ -34,7 +34,6 @@
   /**
    * The UserGroupAssignment model module.
    * @module model/UserGroupAssignment
-   * @version 2.0.1
    */
 
   /**

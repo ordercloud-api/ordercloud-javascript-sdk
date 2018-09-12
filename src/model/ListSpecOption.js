@@ -34,7 +34,6 @@
   /**
    * The ListSpecOption model module.
    * @module model/ListSpecOption
-   * @version 2.0.1
    */
 
   /**

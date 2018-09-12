@@ -34,7 +34,6 @@
   /**
    * The MetaWithFacets model module.
    * @module model/MetaWithFacets
-   * @version 2.0.1
    */
 
   /**

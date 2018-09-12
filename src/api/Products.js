@@ -31,7 +31,6 @@
   /**
    * Product service.
    * @module api/Products
-   * @version 2.0.1
    */
 
   /**

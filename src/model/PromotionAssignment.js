@@ -34,7 +34,6 @@
   /**
    * The PromotionAssignment model module.
    * @module model/PromotionAssignment
-   * @version 2.0.1
    */
 
   /**

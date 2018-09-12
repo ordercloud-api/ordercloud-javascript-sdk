@@ -34,7 +34,6 @@
   /**
    * The Payment model module.
    * @module model/Payment
-   * @version 2.0.1
    */
 
   /**

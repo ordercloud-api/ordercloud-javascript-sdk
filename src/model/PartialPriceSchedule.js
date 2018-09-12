@@ -34,7 +34,6 @@
   /**
    * The PartialPriceSchedule model module.
    * @module model/PartialPriceSchedule
-   * @version 2.0.1
    */
 
   /**

@@ -34,7 +34,6 @@
   /**
    * The PartialPromotion model module.
    * @module model/PartialPromotion
-   * @version 2.0.1
    */
 
   /**

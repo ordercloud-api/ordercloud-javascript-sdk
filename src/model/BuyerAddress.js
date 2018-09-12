@@ -34,7 +34,6 @@
   /**
    * The BuyerAddress model module.
    * @module model/BuyerAddress
-   * @version 2.0.1
    */
 
   /**

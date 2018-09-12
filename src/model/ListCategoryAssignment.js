@@ -34,7 +34,6 @@
   /**
    * The ListCategoryAssignment model module.
    * @module model/ListCategoryAssignment
-   * @version 2.0.1
    */
 
   /**

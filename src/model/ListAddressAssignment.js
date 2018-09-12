@@ -34,7 +34,6 @@
   /**
    * The ListAddressAssignment model module.
    * @module model/ListAddressAssignment
-   * @version 2.0.1
    */
 
   /**

@@ -31,7 +31,6 @@
   /**
    * Me service.
    * @module api/Me
-   * @version 2.0.1
    */
 
   /**

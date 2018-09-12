@@ -34,7 +34,6 @@
   /**
    * The OrderPromotion model module.
    * @module model/OrderPromotion
-   * @version 2.0.1
    */
 
   /**

@@ -31,7 +31,6 @@
   /**
    * SupplierUserGroup service.
    * @module api/SupplierUserGroups
-   * @version 2.0.1
    */
 
   /**

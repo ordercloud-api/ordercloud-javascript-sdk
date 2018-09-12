@@ -34,7 +34,6 @@
   /**
    * The Incrementor model module.
    * @module model/Incrementor
-   * @version 2.0.1
    */
 
   /**

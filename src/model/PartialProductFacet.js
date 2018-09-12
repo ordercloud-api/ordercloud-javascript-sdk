@@ -34,7 +34,6 @@
   /**
    * The PartialProductFacet model module.
    * @module model/PartialProductFacet
-   * @version 2.0.1
    */
 
   /**

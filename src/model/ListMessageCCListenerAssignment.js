@@ -34,7 +34,6 @@
   /**
    * The ListMessageCCListenerAssignment model module.
    * @module model/ListMessageCCListenerAssignment
-   * @version 2.0.1
    */
 
   /**

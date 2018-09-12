@@ -34,7 +34,6 @@
   /**
    * The PartialSpec model module.
    * @module model/PartialSpec
-   * @version 2.0.1
    */
 
   /**

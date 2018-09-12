@@ -34,7 +34,6 @@
   /**
    * The ListPromotionAssignment model module.
    * @module model/ListPromotionAssignment
-   * @version 2.0.1
    */
 
   /**

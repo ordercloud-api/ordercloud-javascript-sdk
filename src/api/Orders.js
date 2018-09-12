@@ -31,7 +31,6 @@
   /**
    * Order service.
    * @module api/Orders
-   * @version 2.0.1
    */
 
   /**

@@ -31,7 +31,6 @@
   /**
    * CostCenter service.
    * @module api/CostCenters
-   * @version 2.0.1
    */
 
   /**
