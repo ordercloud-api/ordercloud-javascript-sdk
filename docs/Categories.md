@@ -4,74 +4,23 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](Categories.md#callDelete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
-[**create**](Categories.md#create) | **POST** /catalogs/{catalogID}/categories | 
-[**deleteAssignment**](Categories.md#deleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
-[**deleteProductAssignment**](Categories.md#deleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
-[**get**](Categories.md#get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
-[**list**](Categories.md#list) | **GET** /catalogs/{catalogID}/categories | 
-[**listAssignments**](Categories.md#listAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
-[**listProductAssignments**](Categories.md#listProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
-[**patch**](Categories.md#patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
-[**save**](Categories.md#save) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
-[**saveAssignment**](Categories.md#saveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
-[**saveProductAssignment**](Categories.md#saveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
+[**Create**](Categories.md#Create) | **POST** /catalogs/{catalogID}/categories | 
+[**Delete**](Categories.md#Delete) | **DELETE** /catalogs/{catalogID}/categories/{categoryID} | 
+[**DeleteAssignment**](Categories.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/assignments | 
+[**DeleteProductAssignment**](Categories.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID} | 
+[**Get**](Categories.md#Get) | **GET** /catalogs/{catalogID}/categories/{categoryID} | 
+[**List**](Categories.md#List) | **GET** /catalogs/{catalogID}/categories | 
+[**ListAssignments**](Categories.md#ListAssignments) | **GET** /catalogs/{catalogID}/categories/assignments | 
+[**ListProductAssignments**](Categories.md#ListProductAssignments) | **GET** /catalogs/{catalogID}/categories/productassignments | 
+[**Patch**](Categories.md#Patch) | **PATCH** /catalogs/{catalogID}/categories/{categoryID} | 
+[**Save**](Categories.md#Save) | **PUT** /catalogs/{catalogID}/categories/{categoryID} | 
+[**SaveAssignment**](Categories.md#SaveAssignment) | **POST** /catalogs/{catalogID}/categories/assignments | 
+[**SaveProductAssignment**](Categories.md#SaveProductAssignment) | **POST** /catalogs/{catalogID}/categories/productassignments | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(catalogID, categoryID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Categories();
-
-var catalogID = "catalogID_example"; // String | ID of the catalog.
-
-var categoryID = "categoryID_example"; // String | ID of the category.
-
-apiInstance.callDelete(catalogID, categoryID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **catalogID** | **String**| ID of the catalog. | 
- **categoryID** | **String**| ID of the category. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> Category create(catalogID, category)
+<a name="Create"></a>
+# **Create**
+> Category Create(catalogID, category)
 
 
 
@@ -90,7 +39,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var category = new OrderCloud.Category(); // Category | 
 
-apiInstance.create(catalogID, category).then(function(data) {
+apiInstance.Create(catalogID, category).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -120,9 +69,60 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteAssignment"></a>
-# **deleteAssignment**
-> deleteAssignment(catalogID, categoryID, buyerID, opts)
+<a name="Delete"></a>
+# **Delete**
+> Delete(catalogID, categoryID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Categories();
+
+var catalogID = "catalogID_example"; // String | ID of the catalog.
+
+var categoryID = "categoryID_example"; // String | ID of the category.
+
+apiInstance.Delete(catalogID, categoryID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalogID** | **String**| ID of the catalog. | 
+ **categoryID** | **String**| ID of the category. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteAssignment"></a>
+# **DeleteAssignment**
+> DeleteAssignment(catalogID, categoryID, buyerID, opts)
 
 
 
@@ -147,7 +147,7 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.deleteAssignment(catalogID, categoryID, buyerID, opts).then(function() {
+apiInstance.DeleteAssignment(catalogID, categoryID, buyerID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -180,9 +180,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteProductAssignment"></a>
-# **deleteProductAssignment**
-> deleteProductAssignment(catalogID, categoryID, productID)
+<a name="DeleteProductAssignment"></a>
+# **DeleteProductAssignment**
+> DeleteProductAssignment(catalogID, categoryID, productID)
 
 
 
@@ -203,7 +203,7 @@ var categoryID = "categoryID_example"; // String | ID of the category.
 
 var productID = "productID_example"; // String | ID of the product.
 
-apiInstance.deleteProductAssignment(catalogID, categoryID, productID).then(function() {
+apiInstance.DeleteProductAssignment(catalogID, categoryID, productID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -234,9 +234,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Category get(catalogID, categoryID)
+<a name="Get"></a>
+# **Get**
+> Category Get(catalogID, categoryID)
 
 
 
@@ -255,7 +255,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var categoryID = "categoryID_example"; // String | ID of the category.
 
-apiInstance.get(catalogID, categoryID).then(function(data) {
+apiInstance.Get(catalogID, categoryID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -285,9 +285,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListCategory list(catalogID, opts)
+<a name="List"></a>
+# **List**
+> ListCategory List(catalogID, opts)
 
 
 
@@ -313,7 +313,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(catalogID, opts).then(function(data) {
+apiInstance.List(catalogID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -349,9 +349,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListCategoryAssignment listAssignments(catalogID, opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListCategoryAssignment ListAssignments(catalogID, opts)
 
 
 
@@ -377,7 +377,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(catalogID, opts).then(function(data) {
+apiInstance.ListAssignments(catalogID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -413,9 +413,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listProductAssignments"></a>
-# **listProductAssignments**
-> ListCategoryProductAssignment listProductAssignments(catalogID, opts)
+<a name="ListProductAssignments"></a>
+# **ListProductAssignments**
+> ListCategoryProductAssignment ListProductAssignments(catalogID, opts)
 
 
 
@@ -438,7 +438,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listProductAssignments(catalogID, opts).then(function(data) {
+apiInstance.ListProductAssignments(catalogID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -471,9 +471,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Category patch(catalogID, categoryID, partialCategory)
+<a name="Patch"></a>
+# **Patch**
+> Category Patch(catalogID, categoryID, partialCategory)
 
 
 
@@ -494,7 +494,7 @@ var categoryID = "categoryID_example"; // String | ID of the category.
 
 var partialCategory = new OrderCloud.Category(); // Category | 
 
-apiInstance.patch(catalogID, categoryID, partialCategory).then(function(data) {
+apiInstance.Patch(catalogID, categoryID, partialCategory).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -525,9 +525,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Category save(catalogID, categoryID, category)
+<a name="Save"></a>
+# **Save**
+> Category Save(catalogID, categoryID, category)
 
 
 
@@ -548,7 +548,7 @@ var categoryID = "categoryID_example"; // String | ID of the category.
 
 var category = new OrderCloud.Category(); // Category | 
 
-apiInstance.save(catalogID, categoryID, category).then(function(data) {
+apiInstance.Save(catalogID, categoryID, category).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -579,9 +579,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(catalogID, categoryAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(catalogID, categoryAssignment)
 
 
 
@@ -600,7 +600,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var categoryAssignment = new OrderCloud.CategoryAssignment(); // CategoryAssignment | 
 
-apiInstance.saveAssignment(catalogID, categoryAssignment).then(function() {
+apiInstance.SaveAssignment(catalogID, categoryAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -630,9 +630,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveProductAssignment"></a>
-# **saveProductAssignment**
-> saveProductAssignment(catalogID, categoryProductAssignment)
+<a name="SaveProductAssignment"></a>
+# **SaveProductAssignment**
+> SaveProductAssignment(catalogID, categoryProductAssignment)
 
 
 
@@ -651,7 +651,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var categoryProductAssignment = new OrderCloud.CategoryProductAssignment(); // CategoryProductAssignment | 
 
-apiInstance.saveProductAssignment(catalogID, categoryProductAssignment).then(function() {
+apiInstance.SaveProductAssignment(catalogID, categoryProductAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

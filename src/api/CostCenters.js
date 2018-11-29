@@ -47,63 +47,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {String} costCenterID ID of the cost center.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(buyerID, costCenterID) {
-      var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling callDelete");
-      }
-
-      // verify the required parameter 'costCenterID' is set
-      if (costCenterID == undefined || costCenterID == null) {
-        throw new Error("Missing the required parameter 'costCenterID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'costCenterID': costCenterID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/costcenters/{costCenterID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {module:model/CostCenter} costCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.create = function(buyerID, costCenter) {
+    this.Create = function(buyerID, costCenter) {
       var postBody = costCenter;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling create");
+        throw new Error("Missing the required parameter 'buyerID' when calling Create");
       }
 
       // verify the required parameter 'costCenter' is set
       if (costCenter == undefined || costCenter == null) {
-        throw new Error("Missing the required parameter 'costCenter' when calling create");
+        throw new Error("Missing the required parameter 'costCenter' when calling Create");
       }
 
 
@@ -133,23 +90,66 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} costCenterID ID of the cost center.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(buyerID, costCenterID) {
+      var postBody = null;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      }
+
+      // verify the required parameter 'costCenterID' is set
+      if (costCenterID == undefined || costCenterID == null) {
+        throw new Error("Missing the required parameter 'costCenterID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID,
+        'costCenterID': costCenterID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/costcenters/{costCenterID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
+     * @param {String} costCenterID ID of the cost center.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteAssignment = function(buyerID, costCenterID, opts) {
+    this.DeleteAssignment = function(buyerID, costCenterID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
       }
 
       // verify the required parameter 'costCenterID' is set
       if (costCenterID == undefined || costCenterID == null) {
-        throw new Error("Missing the required parameter 'costCenterID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'costCenterID' when calling DeleteAssignment");
       }
 
 
@@ -184,17 +184,17 @@
      * @param {String} costCenterID ID of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.get = function(buyerID, costCenterID) {
+    this.Get = function(buyerID, costCenterID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling get");
+        throw new Error("Missing the required parameter 'buyerID' when calling Get");
       }
 
       // verify the required parameter 'costCenterID' is set
       if (costCenterID == undefined || costCenterID == null) {
-        throw new Error("Missing the required parameter 'costCenterID' when calling get");
+        throw new Error("Missing the required parameter 'costCenterID' when calling Get");
       }
 
 
@@ -233,13 +233,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
-    this.list = function(buyerID, opts) {
+    this.List = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling list");
+        throw new Error("Missing the required parameter 'buyerID' when calling List");
       }
 
 
@@ -283,13 +283,13 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenterAssignment}
      */
-    this.listAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling listAssignments");
+        throw new Error("Missing the required parameter 'buyerID' when calling ListAssignments");
       }
 
 
@@ -328,22 +328,22 @@
      * @param {module:model/CostCenter} partialCostCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.patch = function(buyerID, costCenterID, partialCostCenter) {
+    this.Patch = function(buyerID, costCenterID, partialCostCenter) {
       var postBody = partialCostCenter;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling patch");
+        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
       }
 
       // verify the required parameter 'costCenterID' is set
       if (costCenterID == undefined || costCenterID == null) {
-        throw new Error("Missing the required parameter 'costCenterID' when calling patch");
+        throw new Error("Missing the required parameter 'costCenterID' when calling Patch");
       }
 
       // verify the required parameter 'partialCostCenter' is set
       if (partialCostCenter == undefined || partialCostCenter == null) {
-        throw new Error("Missing the required parameter 'partialCostCenter' when calling patch");
+        throw new Error("Missing the required parameter 'partialCostCenter' when calling Patch");
       }
 
 
@@ -377,22 +377,22 @@
      * @param {module:model/CostCenter} costCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.save = function(buyerID, costCenterID, costCenter) {
+    this.Save = function(buyerID, costCenterID, costCenter) {
       var postBody = costCenter;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling save");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
       // verify the required parameter 'costCenterID' is set
       if (costCenterID == undefined || costCenterID == null) {
-        throw new Error("Missing the required parameter 'costCenterID' when calling save");
+        throw new Error("Missing the required parameter 'costCenterID' when calling Save");
       }
 
       // verify the required parameter 'costCenter' is set
       if (costCenter == undefined || costCenter == null) {
-        throw new Error("Missing the required parameter 'costCenter' when calling save");
+        throw new Error("Missing the required parameter 'costCenter' when calling Save");
       }
 
 
@@ -425,17 +425,17 @@
      * @param {module:model/CostCenterAssignment} costCenterAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveAssignment = function(buyerID, costCenterAssignment) {
+    this.SaveAssignment = function(buyerID, costCenterAssignment) {
       var postBody = costCenterAssignment;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
       }
 
       // verify the required parameter 'costCenterAssignment' is set
       if (costCenterAssignment == undefined || costCenterAssignment == null) {
-        throw new Error("Missing the required parameter 'costCenterAssignment' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'costCenterAssignment' when calling SaveAssignment");
       }
 
 

@@ -4,69 +4,21 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](ApiClients.md#callDelete) | **DELETE** /apiclients/{apiClientID} | 
-[**create**](ApiClients.md#create) | **POST** /apiclients | 
-[**deleteBuyerAssignment**](ApiClients.md#deleteBuyerAssignment) | **DELETE** /buyers/{buyerID}/ApiClients/Assignments/{apiClientID} | 
-[**deleteSupplierAssignment**](ApiClients.md#deleteSupplierAssignment) | **DELETE** /suppliers/{supplierID}/ApiClients/Assignments/{apiClientID} | 
-[**get**](ApiClients.md#get) | **GET** /apiclients/{apiClientID} | 
-[**list**](ApiClients.md#list) | **GET** /apiclients | 
-[**listAssignments**](ApiClients.md#listAssignments) | **GET** /apiclients/assignments | 
-[**patch**](ApiClients.md#patch) | **PATCH** /apiclients/{apiClientID} | 
-[**save**](ApiClients.md#save) | **PUT** /apiclients/{apiClientID} | 
-[**saveAssignment**](ApiClients.md#saveAssignment) | **POST** /apiclients/assignments | 
+[**Create**](ApiClients.md#Create) | **POST** /apiclients | 
+[**Delete**](ApiClients.md#Delete) | **DELETE** /apiclients/{apiClientID} | 
+[**DeleteBuyerAssignment**](ApiClients.md#DeleteBuyerAssignment) | **DELETE** /buyers/{buyerID}/ApiClients/Assignments/{apiClientID} | 
+[**DeleteSupplierAssignment**](ApiClients.md#DeleteSupplierAssignment) | **DELETE** /suppliers/{supplierID}/ApiClients/Assignments/{apiClientID} | 
+[**Get**](ApiClients.md#Get) | **GET** /apiclients/{apiClientID} | 
+[**List**](ApiClients.md#List) | **GET** /apiclients | 
+[**ListAssignments**](ApiClients.md#ListAssignments) | **GET** /apiclients/assignments | 
+[**Patch**](ApiClients.md#Patch) | **PATCH** /apiclients/{apiClientID} | 
+[**Save**](ApiClients.md#Save) | **PUT** /apiclients/{apiClientID} | 
+[**SaveAssignment**](ApiClients.md#SaveAssignment) | **POST** /apiclients/assignments | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(apiClientID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.ApiClients();
-
-var apiClientID = "apiClientID_example"; // String | ID of the api client.
-
-apiInstance.callDelete(apiClientID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **apiClientID** | **String**| ID of the api client. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> ApiClient create(apiClient)
+<a name="Create"></a>
+# **Create**
+> ApiClient Create(apiClient)
 
 
 
@@ -83,7 +35,7 @@ var apiInstance = new OrderCloud.ApiClients();
 
 var apiClient = new OrderCloud.ApiClient(); // ApiClient | 
 
-apiInstance.create(apiClient).then(function(data) {
+apiInstance.Create(apiClient).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -112,9 +64,57 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteBuyerAssignment"></a>
-# **deleteBuyerAssignment**
-> deleteBuyerAssignment(apiClientID, buyerID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(apiClientID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ApiClients();
+
+var apiClientID = "apiClientID_example"; // String | ID of the api client.
+
+apiInstance.Delete(apiClientID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiClientID** | **String**| ID of the api client. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteBuyerAssignment"></a>
+# **DeleteBuyerAssignment**
+> DeleteBuyerAssignment(apiClientID, buyerID)
 
 
 
@@ -133,7 +133,7 @@ var apiClientID = "apiClientID_example"; // String | ID of the api client.
 
 var buyerID = "buyerID_example"; // String | ID of the buyer.
 
-apiInstance.deleteBuyerAssignment(apiClientID, buyerID).then(function() {
+apiInstance.DeleteBuyerAssignment(apiClientID, buyerID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -163,9 +163,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteSupplierAssignment"></a>
-# **deleteSupplierAssignment**
-> deleteSupplierAssignment(apiClientID, supplierID)
+<a name="DeleteSupplierAssignment"></a>
+# **DeleteSupplierAssignment**
+> DeleteSupplierAssignment(apiClientID, supplierID)
 
 
 
@@ -184,7 +184,7 @@ var apiClientID = "apiClientID_example"; // String | ID of the api client.
 
 var supplierID = "supplierID_example"; // String | ID of the supplier.
 
-apiInstance.deleteSupplierAssignment(apiClientID, supplierID).then(function() {
+apiInstance.DeleteSupplierAssignment(apiClientID, supplierID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -214,9 +214,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> ApiClient get(apiClientID)
+<a name="Get"></a>
+# **Get**
+> ApiClient Get(apiClientID)
 
 
 
@@ -233,7 +233,7 @@ var apiInstance = new OrderCloud.ApiClients();
 
 var apiClientID = "apiClientID_example"; // String | ID of the api client.
 
-apiInstance.get(apiClientID).then(function(data) {
+apiInstance.Get(apiClientID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -262,9 +262,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListApiClient list(opts)
+<a name="List"></a>
+# **List**
+> ListApiClient List(opts)
 
 
 
@@ -287,7 +287,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -321,9 +321,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListApiClientAssignment listAssignments(opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListApiClientAssignment ListAssignments(opts)
 
 
 
@@ -345,7 +345,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(opts).then(function(data) {
+apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -378,9 +378,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> ApiClient patch(apiClientID, partialApiClient)
+<a name="Patch"></a>
+# **Patch**
+> ApiClient Patch(apiClientID, partialApiClient)
 
 
 
@@ -399,7 +399,7 @@ var apiClientID = "apiClientID_example"; // String | ID of the api client.
 
 var partialApiClient = new OrderCloud.ApiClient(); // ApiClient | 
 
-apiInstance.patch(apiClientID, partialApiClient).then(function(data) {
+apiInstance.Patch(apiClientID, partialApiClient).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -429,9 +429,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> ApiClient save(apiClientID, apiClient)
+<a name="Save"></a>
+# **Save**
+> ApiClient Save(apiClientID, apiClient)
 
 
 
@@ -450,7 +450,7 @@ var apiClientID = "apiClientID_example"; // String | ID of the api client.
 
 var apiClient = new OrderCloud.ApiClient(); // ApiClient | 
 
-apiInstance.save(apiClientID, apiClient).then(function(data) {
+apiInstance.Save(apiClientID, apiClient).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -480,9 +480,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(apiClientAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(apiClientAssignment)
 
 
 
@@ -499,7 +499,7 @@ var apiInstance = new OrderCloud.ApiClients();
 
 var apiClientAssignment = new OrderCloud.ApiClientAssignment(); // ApiClientAssignment | 
 
-apiInstance.saveAssignment(apiClientAssignment).then(function() {
+apiInstance.SaveAssignment(apiClientAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

@@ -4,68 +4,20 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](Promotions.md#callDelete) | **DELETE** /promotions/{promotionID} | 
-[**create**](Promotions.md#create) | **POST** /promotions | 
-[**deleteAssignment**](Promotions.md#deleteAssignment) | **DELETE** /promotions/{promotionID}/assignments | 
-[**get**](Promotions.md#get) | **GET** /promotions/{promotionID} | 
-[**list**](Promotions.md#list) | **GET** /promotions | 
-[**listAssignments**](Promotions.md#listAssignments) | **GET** /promotions/assignments | 
-[**patch**](Promotions.md#patch) | **PATCH** /promotions/{promotionID} | 
-[**save**](Promotions.md#save) | **PUT** /promotions/{promotionID} | 
-[**saveAssignment**](Promotions.md#saveAssignment) | **POST** /promotions/assignments | 
+[**Create**](Promotions.md#Create) | **POST** /promotions | 
+[**Delete**](Promotions.md#Delete) | **DELETE** /promotions/{promotionID} | 
+[**DeleteAssignment**](Promotions.md#DeleteAssignment) | **DELETE** /promotions/{promotionID}/assignments | 
+[**Get**](Promotions.md#Get) | **GET** /promotions/{promotionID} | 
+[**List**](Promotions.md#List) | **GET** /promotions | 
+[**ListAssignments**](Promotions.md#ListAssignments) | **GET** /promotions/assignments | 
+[**Patch**](Promotions.md#Patch) | **PATCH** /promotions/{promotionID} | 
+[**Save**](Promotions.md#Save) | **PUT** /promotions/{promotionID} | 
+[**SaveAssignment**](Promotions.md#SaveAssignment) | **POST** /promotions/assignments | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(promotionID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Promotions();
-
-var promotionID = "promotionID_example"; // String | ID of the promotion.
-
-apiInstance.callDelete(promotionID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **promotionID** | **String**| ID of the promotion. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> Promotion create(promotion)
+<a name="Create"></a>
+# **Create**
+> Promotion Create(promotion)
 
 
 
@@ -82,7 +34,7 @@ var apiInstance = new OrderCloud.Promotions();
 
 var promotion = new OrderCloud.Promotion(); // Promotion | 
 
-apiInstance.create(promotion).then(function(data) {
+apiInstance.Create(promotion).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -111,9 +63,57 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteAssignment"></a>
-# **deleteAssignment**
-> deleteAssignment(promotionID, buyerID, opts)
+<a name="Delete"></a>
+# **Delete**
+> Delete(promotionID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Promotions();
+
+var promotionID = "promotionID_example"; // String | ID of the promotion.
+
+apiInstance.Delete(promotionID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **promotionID** | **String**| ID of the promotion. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteAssignment"></a>
+# **DeleteAssignment**
+> DeleteAssignment(promotionID, buyerID, opts)
 
 
 
@@ -136,7 +136,7 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.deleteAssignment(promotionID, buyerID, opts).then(function() {
+apiInstance.DeleteAssignment(promotionID, buyerID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -168,9 +168,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Promotion get(promotionID)
+<a name="Get"></a>
+# **Get**
+> Promotion Get(promotionID)
 
 
 
@@ -187,7 +187,7 @@ var apiInstance = new OrderCloud.Promotions();
 
 var promotionID = "promotionID_example"; // String | ID of the promotion.
 
-apiInstance.get(promotionID).then(function(data) {
+apiInstance.Get(promotionID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -216,9 +216,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListPromotion list(opts)
+<a name="List"></a>
+# **List**
+> ListPromotion List(opts)
 
 
 
@@ -241,7 +241,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -275,9 +275,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListPromotionAssignment listAssignments(opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListPromotionAssignment ListAssignments(opts)
 
 
 
@@ -301,7 +301,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(opts).then(function(data) {
+apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -336,9 +336,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Promotion patch(promotionID, partialPromotion)
+<a name="Patch"></a>
+# **Patch**
+> Promotion Patch(promotionID, partialPromotion)
 
 
 
@@ -357,7 +357,7 @@ var promotionID = "promotionID_example"; // String | ID of the promotion.
 
 var partialPromotion = new OrderCloud.Promotion(); // Promotion | 
 
-apiInstance.patch(promotionID, partialPromotion).then(function(data) {
+apiInstance.Patch(promotionID, partialPromotion).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -387,9 +387,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Promotion save(promotionID, promotion)
+<a name="Save"></a>
+# **Save**
+> Promotion Save(promotionID, promotion)
 
 
 
@@ -408,7 +408,7 @@ var promotionID = "promotionID_example"; // String | ID of the promotion.
 
 var promotion = new OrderCloud.Promotion(); // Promotion | 
 
-apiInstance.save(promotionID, promotion).then(function(data) {
+apiInstance.Save(promotionID, promotion).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -438,9 +438,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(promotionAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(promotionAssignment)
 
 
 
@@ -457,7 +457,7 @@ var apiInstance = new OrderCloud.Promotions();
 
 var promotionAssignment = new OrderCloud.PromotionAssignment(); // PromotionAssignment | 
 
-apiInstance.saveAssignment(promotionAssignment).then(function() {
+apiInstance.SaveAssignment(promotionAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

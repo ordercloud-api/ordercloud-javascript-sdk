@@ -46,51 +46,15 @@
 
 
     /**
-     * @param {String} apiClientID ID of the api client.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(apiClientID) {
-      var postBody = null;
-
-      // verify the required parameter 'apiClientID' is set
-      if (apiClientID == undefined || apiClientID == null) {
-        throw new Error("Missing the required parameter 'apiClientID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'apiClientID': apiClientID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/apiclients/{apiClientID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {module:model/ApiClient} apiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.create = function(apiClient) {
+    this.Create = function(apiClient) {
       var postBody = apiClient;
 
       // verify the required parameter 'apiClient' is set
       if (apiClient == undefined || apiClient == null) {
-        throw new Error("Missing the required parameter 'apiClient' when calling create");
+        throw new Error("Missing the required parameter 'apiClient' when calling Create");
       }
 
 
@@ -118,20 +82,56 @@
 
     /**
      * @param {String} apiClientID ID of the api client.
-     * @param {String} buyerID ID of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteBuyerAssignment = function(apiClientID, buyerID) {
+    this.Delete = function(apiClientID) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
       if (apiClientID == undefined || apiClientID == null) {
-        throw new Error("Missing the required parameter 'apiClientID' when calling deleteBuyerAssignment");
+        throw new Error("Missing the required parameter 'apiClientID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'apiClientID': apiClientID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/apiclients/{apiClientID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} apiClientID ID of the api client.
+     * @param {String} buyerID ID of the buyer.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.DeleteBuyerAssignment = function(apiClientID, buyerID) {
+      var postBody = null;
+
+      // verify the required parameter 'apiClientID' is set
+      if (apiClientID == undefined || apiClientID == null) {
+        throw new Error("Missing the required parameter 'apiClientID' when calling DeleteBuyerAssignment");
       }
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling deleteBuyerAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling DeleteBuyerAssignment");
       }
 
 
@@ -164,17 +164,17 @@
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteSupplierAssignment = function(apiClientID, supplierID) {
+    this.DeleteSupplierAssignment = function(apiClientID, supplierID) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
       if (apiClientID == undefined || apiClientID == null) {
-        throw new Error("Missing the required parameter 'apiClientID' when calling deleteSupplierAssignment");
+        throw new Error("Missing the required parameter 'apiClientID' when calling DeleteSupplierAssignment");
       }
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling deleteSupplierAssignment");
+        throw new Error("Missing the required parameter 'supplierID' when calling DeleteSupplierAssignment");
       }
 
 
@@ -206,12 +206,12 @@
      * @param {String} apiClientID ID of the api client.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.get = function(apiClientID) {
+    this.Get = function(apiClientID) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
       if (apiClientID == undefined || apiClientID == null) {
-        throw new Error("Missing the required parameter 'apiClientID' when calling get");
+        throw new Error("Missing the required parameter 'apiClientID' when calling Get");
       }
 
 
@@ -248,7 +248,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApiClient}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -290,7 +290,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApiClientAssignment}
      */
-    this.listAssignments = function(opts) {
+    this.ListAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -327,17 +327,17 @@
      * @param {module:model/ApiClient} partialApiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.patch = function(apiClientID, partialApiClient) {
+    this.Patch = function(apiClientID, partialApiClient) {
       var postBody = partialApiClient;
 
       // verify the required parameter 'apiClientID' is set
       if (apiClientID == undefined || apiClientID == null) {
-        throw new Error("Missing the required parameter 'apiClientID' when calling patch");
+        throw new Error("Missing the required parameter 'apiClientID' when calling Patch");
       }
 
       // verify the required parameter 'partialApiClient' is set
       if (partialApiClient == undefined || partialApiClient == null) {
-        throw new Error("Missing the required parameter 'partialApiClient' when calling patch");
+        throw new Error("Missing the required parameter 'partialApiClient' when calling Patch");
       }
 
 
@@ -369,17 +369,17 @@
      * @param {module:model/ApiClient} apiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.save = function(apiClientID, apiClient) {
+    this.Save = function(apiClientID, apiClient) {
       var postBody = apiClient;
 
       // verify the required parameter 'apiClientID' is set
       if (apiClientID == undefined || apiClientID == null) {
-        throw new Error("Missing the required parameter 'apiClientID' when calling save");
+        throw new Error("Missing the required parameter 'apiClientID' when calling Save");
       }
 
       // verify the required parameter 'apiClient' is set
       if (apiClient == undefined || apiClient == null) {
-        throw new Error("Missing the required parameter 'apiClient' when calling save");
+        throw new Error("Missing the required parameter 'apiClient' when calling Save");
       }
 
 
@@ -410,12 +410,12 @@
      * @param {module:model/ApiClientAssignment} apiClientAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveAssignment = function(apiClientAssignment) {
+    this.SaveAssignment = function(apiClientAssignment) {
       var postBody = apiClientAssignment;
 
       // verify the required parameter 'apiClientAssignment' is set
       if (apiClientAssignment == undefined || apiClientAssignment == null) {
-        throw new Error("Missing the required parameter 'apiClientAssignment' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'apiClientAssignment' when calling SaveAssignment");
       }
 
 

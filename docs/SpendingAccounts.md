@@ -4,71 +4,20 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](SpendingAccounts.md#callDelete) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-[**create**](SpendingAccounts.md#create) | **POST** /buyers/{buyerID}/spendingaccounts | 
-[**deleteAssignment**](SpendingAccounts.md#deleteAssignment) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID}/assignments | 
-[**get**](SpendingAccounts.md#get) | **GET** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-[**list**](SpendingAccounts.md#list) | **GET** /buyers/{buyerID}/spendingaccounts | 
-[**listAssignments**](SpendingAccounts.md#listAssignments) | **GET** /buyers/{buyerID}/spendingaccounts/assignments | 
-[**patch**](SpendingAccounts.md#patch) | **PATCH** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-[**save**](SpendingAccounts.md#save) | **PUT** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
-[**saveAssignment**](SpendingAccounts.md#saveAssignment) | **POST** /buyers/{buyerID}/spendingaccounts/assignments | 
+[**Create**](SpendingAccounts.md#Create) | **POST** /buyers/{buyerID}/spendingaccounts | 
+[**Delete**](SpendingAccounts.md#Delete) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+[**DeleteAssignment**](SpendingAccounts.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/spendingaccounts/{spendingAccountID}/assignments | 
+[**Get**](SpendingAccounts.md#Get) | **GET** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+[**List**](SpendingAccounts.md#List) | **GET** /buyers/{buyerID}/spendingaccounts | 
+[**ListAssignments**](SpendingAccounts.md#ListAssignments) | **GET** /buyers/{buyerID}/spendingaccounts/assignments | 
+[**Patch**](SpendingAccounts.md#Patch) | **PATCH** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+[**Save**](SpendingAccounts.md#Save) | **PUT** /buyers/{buyerID}/spendingaccounts/{spendingAccountID} | 
+[**SaveAssignment**](SpendingAccounts.md#SaveAssignment) | **POST** /buyers/{buyerID}/spendingaccounts/assignments | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(buyerID, spendingAccountID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.SpendingAccounts();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var spendingAccountID = "spendingAccountID_example"; // String | ID of the spending account.
-
-apiInstance.callDelete(buyerID, spendingAccountID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **spendingAccountID** | **String**| ID of the spending account. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> SpendingAccount create(buyerID, spendingAccount)
+<a name="Create"></a>
+# **Create**
+> SpendingAccount Create(buyerID, spendingAccount)
 
 
 
@@ -87,7 +36,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var spendingAccount = new OrderCloud.SpendingAccount(); // SpendingAccount | 
 
-apiInstance.create(buyerID, spendingAccount).then(function(data) {
+apiInstance.Create(buyerID, spendingAccount).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -117,9 +66,60 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteAssignment"></a>
-# **deleteAssignment**
-> deleteAssignment(buyerID, spendingAccountID, opts)
+<a name="Delete"></a>
+# **Delete**
+> Delete(buyerID, spendingAccountID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.SpendingAccounts();
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var spendingAccountID = "spendingAccountID_example"; // String | ID of the spending account.
+
+apiInstance.Delete(buyerID, spendingAccountID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **buyerID** | **String**| ID of the buyer. | 
+ **spendingAccountID** | **String**| ID of the spending account. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteAssignment"></a>
+# **DeleteAssignment**
+> DeleteAssignment(buyerID, spendingAccountID, opts)
 
 
 
@@ -142,7 +142,7 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.deleteAssignment(buyerID, spendingAccountID, opts).then(function() {
+apiInstance.DeleteAssignment(buyerID, spendingAccountID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -174,9 +174,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> SpendingAccount get(buyerID, spendingAccountID)
+<a name="Get"></a>
+# **Get**
+> SpendingAccount Get(buyerID, spendingAccountID)
 
 
 
@@ -195,7 +195,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var spendingAccountID = "spendingAccountID_example"; // String | ID of the spending account.
 
-apiInstance.get(buyerID, spendingAccountID).then(function(data) {
+apiInstance.Get(buyerID, spendingAccountID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -225,9 +225,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListSpendingAccount list(buyerID, opts)
+<a name="List"></a>
+# **List**
+> ListSpendingAccount List(buyerID, opts)
 
 
 
@@ -252,7 +252,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(buyerID, opts).then(function(data) {
+apiInstance.List(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -287,9 +287,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListSpendingAccountAssignment listAssignments(buyerID, opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListSpendingAccountAssignment ListAssignments(buyerID, opts)
 
 
 
@@ -314,7 +314,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(buyerID, opts).then(function(data) {
+apiInstance.ListAssignments(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -349,9 +349,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> SpendingAccount patch(buyerID, spendingAccountID, partialSpendingAccount)
+<a name="Patch"></a>
+# **Patch**
+> SpendingAccount Patch(buyerID, spendingAccountID, partialSpendingAccount)
 
 
 
@@ -372,7 +372,7 @@ var spendingAccountID = "spendingAccountID_example"; // String | ID of the spend
 
 var partialSpendingAccount = new OrderCloud.SpendingAccount(); // SpendingAccount | 
 
-apiInstance.patch(buyerID, spendingAccountID, partialSpendingAccount).then(function(data) {
+apiInstance.Patch(buyerID, spendingAccountID, partialSpendingAccount).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -403,9 +403,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> SpendingAccount save(buyerID, spendingAccountID, spendingAccount)
+<a name="Save"></a>
+# **Save**
+> SpendingAccount Save(buyerID, spendingAccountID, spendingAccount)
 
 
 
@@ -426,7 +426,7 @@ var spendingAccountID = "spendingAccountID_example"; // String | ID of the spend
 
 var spendingAccount = new OrderCloud.SpendingAccount(); // SpendingAccount | 
 
-apiInstance.save(buyerID, spendingAccountID, spendingAccount).then(function(data) {
+apiInstance.Save(buyerID, spendingAccountID, spendingAccount).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -457,9 +457,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(buyerID, spendingAccountAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(buyerID, spendingAccountAssignment)
 
 
 
@@ -478,7 +478,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var spendingAccountAssignment = new OrderCloud.SpendingAccountAssignment(); // SpendingAccountAssignment | 
 
-apiInstance.saveAssignment(buyerID, spendingAccountAssignment).then(function() {
+apiInstance.SaveAssignment(buyerID, spendingAccountAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

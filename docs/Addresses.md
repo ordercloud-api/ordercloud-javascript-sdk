@@ -4,71 +4,20 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](Addresses.md#callDelete) | **DELETE** /buyers/{buyerID}/addresses/{addressID} | 
-[**create**](Addresses.md#create) | **POST** /buyers/{buyerID}/addresses | 
-[**deleteAssignment**](Addresses.md#deleteAssignment) | **DELETE** /buyers/{buyerID}/addresses/{addressID}/assignments | 
-[**get**](Addresses.md#get) | **GET** /buyers/{buyerID}/addresses/{addressID} | 
-[**list**](Addresses.md#list) | **GET** /buyers/{buyerID}/addresses | 
-[**listAssignments**](Addresses.md#listAssignments) | **GET** /buyers/{buyerID}/addresses/assignments | 
-[**patch**](Addresses.md#patch) | **PATCH** /buyers/{buyerID}/addresses/{addressID} | 
-[**save**](Addresses.md#save) | **PUT** /buyers/{buyerID}/addresses/{addressID} | 
-[**saveAssignment**](Addresses.md#saveAssignment) | **POST** /buyers/{buyerID}/addresses/assignments | 
+[**Create**](Addresses.md#Create) | **POST** /buyers/{buyerID}/addresses | 
+[**Delete**](Addresses.md#Delete) | **DELETE** /buyers/{buyerID}/addresses/{addressID} | 
+[**DeleteAssignment**](Addresses.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/addresses/{addressID}/assignments | 
+[**Get**](Addresses.md#Get) | **GET** /buyers/{buyerID}/addresses/{addressID} | 
+[**List**](Addresses.md#List) | **GET** /buyers/{buyerID}/addresses | 
+[**ListAssignments**](Addresses.md#ListAssignments) | **GET** /buyers/{buyerID}/addresses/assignments | 
+[**Patch**](Addresses.md#Patch) | **PATCH** /buyers/{buyerID}/addresses/{addressID} | 
+[**Save**](Addresses.md#Save) | **PUT** /buyers/{buyerID}/addresses/{addressID} | 
+[**SaveAssignment**](Addresses.md#SaveAssignment) | **POST** /buyers/{buyerID}/addresses/assignments | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(buyerID, addressID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Addresses();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var addressID = "addressID_example"; // String | ID of the address.
-
-apiInstance.callDelete(buyerID, addressID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **addressID** | **String**| ID of the address. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> Address create(buyerID, address)
+<a name="Create"></a>
+# **Create**
+> Address Create(buyerID, address)
 
 
 
@@ -87,7 +36,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.create(buyerID, address).then(function(data) {
+apiInstance.Create(buyerID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -117,9 +66,60 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteAssignment"></a>
-# **deleteAssignment**
-> deleteAssignment(buyerID, addressID, opts)
+<a name="Delete"></a>
+# **Delete**
+> Delete(buyerID, addressID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Addresses();
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var addressID = "addressID_example"; // String | ID of the address.
+
+apiInstance.Delete(buyerID, addressID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **buyerID** | **String**| ID of the buyer. | 
+ **addressID** | **String**| ID of the address. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteAssignment"></a>
+# **DeleteAssignment**
+> DeleteAssignment(buyerID, addressID, opts)
 
 
 
@@ -142,7 +142,7 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.deleteAssignment(buyerID, addressID, opts).then(function() {
+apiInstance.DeleteAssignment(buyerID, addressID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -174,9 +174,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Address get(buyerID, addressID)
+<a name="Get"></a>
+# **Get**
+> Address Get(buyerID, addressID)
 
 
 
@@ -195,7 +195,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var addressID = "addressID_example"; // String | ID of the address.
 
-apiInstance.get(buyerID, addressID).then(function(data) {
+apiInstance.Get(buyerID, addressID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -225,9 +225,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListAddress list(buyerID, opts)
+<a name="List"></a>
+# **List**
+> ListAddress List(buyerID, opts)
 
 
 
@@ -252,7 +252,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(buyerID, opts).then(function(data) {
+apiInstance.List(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -287,9 +287,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListAddressAssignment listAssignments(buyerID, opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListAddressAssignment ListAssignments(buyerID, opts)
 
 
 
@@ -316,7 +316,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(buyerID, opts).then(function(data) {
+apiInstance.ListAssignments(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -353,9 +353,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Address patch(buyerID, addressID, partialAddress)
+<a name="Patch"></a>
+# **Patch**
+> Address Patch(buyerID, addressID, partialAddress)
 
 
 
@@ -376,7 +376,7 @@ var addressID = "addressID_example"; // String | ID of the address.
 
 var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.patch(buyerID, addressID, partialAddress).then(function(data) {
+apiInstance.Patch(buyerID, addressID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -407,9 +407,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Address save(buyerID, addressID, address)
+<a name="Save"></a>
+# **Save**
+> Address Save(buyerID, addressID, address)
 
 
 
@@ -430,7 +430,7 @@ var addressID = "addressID_example"; // String | ID of the address.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.save(buyerID, addressID, address).then(function(data) {
+apiInstance.Save(buyerID, addressID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -461,9 +461,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(buyerID, addressAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(buyerID, addressAssignment)
 
 
 
@@ -482,7 +482,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var addressAssignment = new OrderCloud.AddressAssignment(); // AddressAssignment | 
 
-apiInstance.saveAssignment(buyerID, addressAssignment).then(function() {
+apiInstance.SaveAssignment(buyerID, addressAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

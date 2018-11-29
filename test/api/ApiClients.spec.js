@@ -48,20 +48,20 @@
   }
 
   describe('ApiClients', function() {
-    describe('callDelete', function() {
-      it('should call callDelete successfully', function(done) {
-        //uncomment below and update the code to test callDelete
-        //instance.callDelete(pet, function(error) {
+    describe('create', function() {
+      it('should call create successfully', function(done) {
+        //uncomment below and update the code to test create
+        //instance.create(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});
         done();
       });
     });
-    describe('create', function() {
-      it('should call create successfully', function(done) {
-        //uncomment below and update the code to test create
-        //instance.create(pet, function(error) {
+    describe('delete', function() {
+      it('should call delete successfully', function(done) {
+        //uncomment below and update the code to test delete
+        //instance.delete(pet, function(error) {
         //  if (error) throw error;
         //expect().to.be();
         //});

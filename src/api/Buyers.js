@@ -46,51 +46,15 @@
 
 
     /**
-     * @param {String} buyerID ID of the buyer.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(buyerID) {
-      var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {module:model/Buyer} buyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.create = function(buyer) {
+    this.Create = function(buyer) {
       var postBody = buyer;
 
       // verify the required parameter 'buyer' is set
       if (buyer == undefined || buyer == null) {
-        throw new Error("Missing the required parameter 'buyer' when calling create");
+        throw new Error("Missing the required parameter 'buyer' when calling Create");
       }
 
 
@@ -118,14 +82,50 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.get = function(buyerID) {
+    this.Delete = function(buyerID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling get");
+        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
+     */
+    this.Get = function(buyerID) {
+      var postBody = null;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling Get");
       }
 
 
@@ -162,7 +162,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyer}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -200,17 +200,17 @@
      * @param {module:model/Buyer} partialBuyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.patch = function(buyerID, partialBuyer) {
+    this.Patch = function(buyerID, partialBuyer) {
       var postBody = partialBuyer;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling patch");
+        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
       }
 
       // verify the required parameter 'partialBuyer' is set
       if (partialBuyer == undefined || partialBuyer == null) {
-        throw new Error("Missing the required parameter 'partialBuyer' when calling patch");
+        throw new Error("Missing the required parameter 'partialBuyer' when calling Patch");
       }
 
 
@@ -242,17 +242,17 @@
      * @param {module:model/Buyer} buyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.save = function(buyerID, buyer) {
+    this.Save = function(buyerID, buyer) {
       var postBody = buyer;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling save");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
       // verify the required parameter 'buyer' is set
       if (buyer == undefined || buyer == null) {
-        throw new Error("Missing the required parameter 'buyer' when calling save");
+        throw new Error("Missing the required parameter 'buyer' when calling Save");
       }
 
 

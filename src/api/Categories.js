@@ -47,63 +47,20 @@
 
     /**
      * @param {String} catalogID ID of the catalog.
-     * @param {String} categoryID ID of the category.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(catalogID, categoryID) {
-      var postBody = null;
-
-      // verify the required parameter 'catalogID' is set
-      if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling callDelete");
-      }
-
-      // verify the required parameter 'categoryID' is set
-      if (categoryID == undefined || categoryID == null) {
-        throw new Error("Missing the required parameter 'categoryID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'catalogID': catalogID,
-        'categoryID': categoryID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/catalogs/{catalogID}/categories/{categoryID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} catalogID ID of the catalog.
      * @param {module:model/Category} category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.create = function(catalogID, category) {
+    this.Create = function(catalogID, category) {
       var postBody = category;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling create");
+        throw new Error("Missing the required parameter 'catalogID' when calling Create");
       }
 
       // verify the required parameter 'category' is set
       if (category == undefined || category == null) {
-        throw new Error("Missing the required parameter 'category' when calling create");
+        throw new Error("Missing the required parameter 'category' when calling Create");
       }
 
 
@@ -133,29 +90,72 @@
     /**
      * @param {String} catalogID ID of the catalog.
      * @param {String} categoryID ID of the category.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(catalogID, categoryID) {
+      var postBody = null;
+
+      // verify the required parameter 'catalogID' is set
+      if (catalogID == undefined || catalogID == null) {
+        throw new Error("Missing the required parameter 'catalogID' when calling Delete");
+      }
+
+      // verify the required parameter 'categoryID' is set
+      if (categoryID == undefined || categoryID == null) {
+        throw new Error("Missing the required parameter 'categoryID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'catalogID': catalogID,
+        'categoryID': categoryID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/catalogs/{catalogID}/categories/{categoryID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} catalogID ID of the catalog.
+     * @param {String} categoryID ID of the category.
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteAssignment = function(catalogID, categoryID, buyerID, opts) {
+    this.DeleteAssignment = function(catalogID, categoryID, buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'catalogID' when calling DeleteAssignment");
       }
 
       // verify the required parameter 'categoryID' is set
       if (categoryID == undefined || categoryID == null) {
-        throw new Error("Missing the required parameter 'categoryID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'categoryID' when calling DeleteAssignment");
       }
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
       }
 
 
@@ -192,22 +192,22 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteProductAssignment = function(catalogID, categoryID, productID) {
+    this.DeleteProductAssignment = function(catalogID, categoryID, productID) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling deleteProductAssignment");
+        throw new Error("Missing the required parameter 'catalogID' when calling DeleteProductAssignment");
       }
 
       // verify the required parameter 'categoryID' is set
       if (categoryID == undefined || categoryID == null) {
-        throw new Error("Missing the required parameter 'categoryID' when calling deleteProductAssignment");
+        throw new Error("Missing the required parameter 'categoryID' when calling DeleteProductAssignment");
       }
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling deleteProductAssignment");
+        throw new Error("Missing the required parameter 'productID' when calling DeleteProductAssignment");
       }
 
 
@@ -241,17 +241,17 @@
      * @param {String} categoryID ID of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.get = function(catalogID, categoryID) {
+    this.Get = function(catalogID, categoryID) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling get");
+        throw new Error("Missing the required parameter 'catalogID' when calling Get");
       }
 
       // verify the required parameter 'categoryID' is set
       if (categoryID == undefined || categoryID == null) {
-        throw new Error("Missing the required parameter 'categoryID' when calling get");
+        throw new Error("Missing the required parameter 'categoryID' when calling Get");
       }
 
 
@@ -291,13 +291,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
-    this.list = function(catalogID, opts) {
+    this.List = function(catalogID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling list");
+        throw new Error("Missing the required parameter 'catalogID' when calling List");
       }
 
 
@@ -343,13 +343,13 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryAssignment}
      */
-    this.listAssignments = function(catalogID, opts) {
+    this.ListAssignments = function(catalogID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling listAssignments");
+        throw new Error("Missing the required parameter 'catalogID' when calling ListAssignments");
       }
 
 
@@ -392,13 +392,13 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryProductAssignment}
      */
-    this.listProductAssignments = function(catalogID, opts) {
+    this.ListProductAssignments = function(catalogID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling listProductAssignments");
+        throw new Error("Missing the required parameter 'catalogID' when calling ListProductAssignments");
       }
 
 
@@ -435,22 +435,22 @@
      * @param {module:model/Category} partialCategory 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.patch = function(catalogID, categoryID, partialCategory) {
+    this.Patch = function(catalogID, categoryID, partialCategory) {
       var postBody = partialCategory;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling patch");
+        throw new Error("Missing the required parameter 'catalogID' when calling Patch");
       }
 
       // verify the required parameter 'categoryID' is set
       if (categoryID == undefined || categoryID == null) {
-        throw new Error("Missing the required parameter 'categoryID' when calling patch");
+        throw new Error("Missing the required parameter 'categoryID' when calling Patch");
       }
 
       // verify the required parameter 'partialCategory' is set
       if (partialCategory == undefined || partialCategory == null) {
-        throw new Error("Missing the required parameter 'partialCategory' when calling patch");
+        throw new Error("Missing the required parameter 'partialCategory' when calling Patch");
       }
 
 
@@ -484,22 +484,22 @@
      * @param {module:model/Category} category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.save = function(catalogID, categoryID, category) {
+    this.Save = function(catalogID, categoryID, category) {
       var postBody = category;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling save");
+        throw new Error("Missing the required parameter 'catalogID' when calling Save");
       }
 
       // verify the required parameter 'categoryID' is set
       if (categoryID == undefined || categoryID == null) {
-        throw new Error("Missing the required parameter 'categoryID' when calling save");
+        throw new Error("Missing the required parameter 'categoryID' when calling Save");
       }
 
       // verify the required parameter 'category' is set
       if (category == undefined || category == null) {
-        throw new Error("Missing the required parameter 'category' when calling save");
+        throw new Error("Missing the required parameter 'category' when calling Save");
       }
 
 
@@ -532,17 +532,17 @@
      * @param {module:model/CategoryAssignment} categoryAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveAssignment = function(catalogID, categoryAssignment) {
+    this.SaveAssignment = function(catalogID, categoryAssignment) {
       var postBody = categoryAssignment;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'catalogID' when calling SaveAssignment");
       }
 
       // verify the required parameter 'categoryAssignment' is set
       if (categoryAssignment == undefined || categoryAssignment == null) {
-        throw new Error("Missing the required parameter 'categoryAssignment' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'categoryAssignment' when calling SaveAssignment");
       }
 
 
@@ -574,17 +574,17 @@
      * @param {module:model/CategoryProductAssignment} categoryProductAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveProductAssignment = function(catalogID, categoryProductAssignment) {
+    this.SaveProductAssignment = function(catalogID, categoryProductAssignment) {
       var postBody = categoryProductAssignment;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling saveProductAssignment");
+        throw new Error("Missing the required parameter 'catalogID' when calling SaveProductAssignment");
       }
 
       // verify the required parameter 'categoryProductAssignment' is set
       if (categoryProductAssignment == undefined || categoryProductAssignment == null) {
-        throw new Error("Missing the required parameter 'categoryProductAssignment' when calling saveProductAssignment");
+        throw new Error("Missing the required parameter 'categoryProductAssignment' when calling SaveProductAssignment");
       }
 
 

@@ -46,51 +46,15 @@
 
 
     /**
-     * @param {String} userGroupID ID of the user group.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(userGroupID) {
-      var postBody = null;
-
-      // verify the required parameter 'userGroupID' is set
-      if (userGroupID == undefined || userGroupID == null) {
-        throw new Error("Missing the required parameter 'userGroupID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'userGroupID': userGroupID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/usergroups/{userGroupID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.create = function(userGroup) {
+    this.Create = function(userGroup) {
       var postBody = userGroup;
 
       // verify the required parameter 'userGroup' is set
       if (userGroup == undefined || userGroup == null) {
-        throw new Error("Missing the required parameter 'userGroup' when calling create");
+        throw new Error("Missing the required parameter 'userGroup' when calling Create");
       }
 
 
@@ -118,20 +82,56 @@
 
     /**
      * @param {String} userGroupID ID of the user group.
-     * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteUserAssignment = function(userGroupID, userID) {
+    this.Delete = function(userGroupID) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
       if (userGroupID == undefined || userGroupID == null) {
-        throw new Error("Missing the required parameter 'userGroupID' when calling deleteUserAssignment");
+        throw new Error("Missing the required parameter 'userGroupID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'userGroupID': userGroupID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/usergroups/{userGroupID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} userGroupID ID of the user group.
+     * @param {String} userID ID of the user.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.DeleteUserAssignment = function(userGroupID, userID) {
+      var postBody = null;
+
+      // verify the required parameter 'userGroupID' is set
+      if (userGroupID == undefined || userGroupID == null) {
+        throw new Error("Missing the required parameter 'userGroupID' when calling DeleteUserAssignment");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling deleteUserAssignment");
+        throw new Error("Missing the required parameter 'userID' when calling DeleteUserAssignment");
       }
 
 
@@ -163,12 +163,12 @@
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.get = function(userGroupID) {
+    this.Get = function(userGroupID) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
       if (userGroupID == undefined || userGroupID == null) {
-        throw new Error("Missing the required parameter 'userGroupID' when calling get");
+        throw new Error("Missing the required parameter 'userGroupID' when calling Get");
       }
 
 
@@ -205,7 +205,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -246,7 +246,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
-    this.listUserAssignments = function(opts) {
+    this.ListUserAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -282,17 +282,17 @@
      * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.patch = function(userGroupID, partialUserGroup) {
+    this.Patch = function(userGroupID, partialUserGroup) {
       var postBody = partialUserGroup;
 
       // verify the required parameter 'userGroupID' is set
       if (userGroupID == undefined || userGroupID == null) {
-        throw new Error("Missing the required parameter 'userGroupID' when calling patch");
+        throw new Error("Missing the required parameter 'userGroupID' when calling Patch");
       }
 
       // verify the required parameter 'partialUserGroup' is set
       if (partialUserGroup == undefined || partialUserGroup == null) {
-        throw new Error("Missing the required parameter 'partialUserGroup' when calling patch");
+        throw new Error("Missing the required parameter 'partialUserGroup' when calling Patch");
       }
 
 
@@ -324,17 +324,17 @@
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.save = function(userGroupID, userGroup) {
+    this.Save = function(userGroupID, userGroup) {
       var postBody = userGroup;
 
       // verify the required parameter 'userGroupID' is set
       if (userGroupID == undefined || userGroupID == null) {
-        throw new Error("Missing the required parameter 'userGroupID' when calling save");
+        throw new Error("Missing the required parameter 'userGroupID' when calling Save");
       }
 
       // verify the required parameter 'userGroup' is set
       if (userGroup == undefined || userGroup == null) {
-        throw new Error("Missing the required parameter 'userGroup' when calling save");
+        throw new Error("Missing the required parameter 'userGroup' when calling Save");
       }
 
 
@@ -365,12 +365,12 @@
      * @param {module:model/UserGroupAssignment} userGroupAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveUserAssignment = function(userGroupAssignment) {
+    this.SaveUserAssignment = function(userGroupAssignment) {
       var postBody = userGroupAssignment;
 
       // verify the required parameter 'userGroupAssignment' is set
       if (userGroupAssignment == undefined || userGroupAssignment == null) {
-        throw new Error("Missing the required parameter 'userGroupAssignment' when calling saveUserAssignment");
+        throw new Error("Missing the required parameter 'userGroupAssignment' when calling SaveUserAssignment");
       }
 
 

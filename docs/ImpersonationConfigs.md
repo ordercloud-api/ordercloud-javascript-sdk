@@ -4,65 +4,17 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](ImpersonationConfigs.md#callDelete) | **DELETE** /impersonationconfig/{impersonationConfigID} | 
-[**create**](ImpersonationConfigs.md#create) | **POST** /impersonationconfig | 
-[**get**](ImpersonationConfigs.md#get) | **GET** /impersonationconfig/{impersonationConfigID} | 
-[**list**](ImpersonationConfigs.md#list) | **GET** /impersonationconfig | 
-[**patch**](ImpersonationConfigs.md#patch) | **PATCH** /impersonationconfig/{impersonationConfigID} | 
-[**save**](ImpersonationConfigs.md#save) | **PUT** /impersonationconfig/{impersonationConfigID} | 
+[**Create**](ImpersonationConfigs.md#Create) | **POST** /impersonationconfig | 
+[**Delete**](ImpersonationConfigs.md#Delete) | **DELETE** /impersonationconfig/{impersonationConfigID} | 
+[**Get**](ImpersonationConfigs.md#Get) | **GET** /impersonationconfig/{impersonationConfigID} | 
+[**List**](ImpersonationConfigs.md#List) | **GET** /impersonationconfig | 
+[**Patch**](ImpersonationConfigs.md#Patch) | **PATCH** /impersonationconfig/{impersonationConfigID} | 
+[**Save**](ImpersonationConfigs.md#Save) | **PUT** /impersonationconfig/{impersonationConfigID} | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(impersonationConfigID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.ImpersonationConfigs();
-
-var impersonationConfigID = "impersonationConfigID_example"; // String | ID of the impersonation config.
-
-apiInstance.callDelete(impersonationConfigID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **impersonationConfigID** | **String**| ID of the impersonation config. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> ImpersonationConfig create(impersonationConfig)
+<a name="Create"></a>
+# **Create**
+> ImpersonationConfig Create(impersonationConfig)
 
 
 
@@ -79,7 +31,7 @@ var apiInstance = new OrderCloud.ImpersonationConfigs();
 
 var impersonationConfig = new OrderCloud.ImpersonationConfig(); // ImpersonationConfig | 
 
-apiInstance.create(impersonationConfig).then(function(data) {
+apiInstance.Create(impersonationConfig).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -108,9 +60,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> ImpersonationConfig get(impersonationConfigID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(impersonationConfigID)
 
 
 
@@ -127,7 +79,55 @@ var apiInstance = new OrderCloud.ImpersonationConfigs();
 
 var impersonationConfigID = "impersonationConfigID_example"; // String | ID of the impersonation config.
 
-apiInstance.get(impersonationConfigID).then(function(data) {
+apiInstance.Delete(impersonationConfigID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **impersonationConfigID** | **String**| ID of the impersonation config. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Get"></a>
+# **Get**
+> ImpersonationConfig Get(impersonationConfigID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ImpersonationConfigs();
+
+var impersonationConfigID = "impersonationConfigID_example"; // String | ID of the impersonation config.
+
+apiInstance.Get(impersonationConfigID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -156,9 +156,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListImpersonationConfig list(opts)
+<a name="List"></a>
+# **List**
+> ListImpersonationConfig List(opts)
 
 
 
@@ -181,7 +181,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -215,9 +215,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> ImpersonationConfig patch(impersonationConfigID, partialImpersonationConfig)
+<a name="Patch"></a>
+# **Patch**
+> ImpersonationConfig Patch(impersonationConfigID, partialImpersonationConfig)
 
 
 
@@ -236,7 +236,7 @@ var impersonationConfigID = "impersonationConfigID_example"; // String | ID of t
 
 var partialImpersonationConfig = new OrderCloud.ImpersonationConfig(); // ImpersonationConfig | 
 
-apiInstance.patch(impersonationConfigID, partialImpersonationConfig).then(function(data) {
+apiInstance.Patch(impersonationConfigID, partialImpersonationConfig).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -266,9 +266,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> ImpersonationConfig save(impersonationConfigID, impersonationConfig)
+<a name="Save"></a>
+# **Save**
+> ImpersonationConfig Save(impersonationConfigID, impersonationConfig)
 
 
 
@@ -287,7 +287,7 @@ var impersonationConfigID = "impersonationConfigID_example"; // String | ID of t
 
 var impersonationConfig = new OrderCloud.ImpersonationConfig(); // ImpersonationConfig | 
 
-apiInstance.save(impersonationConfigID, impersonationConfig).then(function(data) {
+apiInstance.Save(impersonationConfigID, impersonationConfig).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

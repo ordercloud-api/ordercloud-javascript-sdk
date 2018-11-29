@@ -4,32 +4,32 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addPromotion**](Orders.md#addPromotion) | **POST** /orders/{direction}/{orderID}/promotions/{promoCode} | 
-[**approve**](Orders.md#approve) | **POST** /orders/{direction}/{orderID}/approve | 
-[**callDelete**](Orders.md#callDelete) | **DELETE** /orders/{direction}/{orderID} | 
-[**cancel**](Orders.md#cancel) | **POST** /orders/{direction}/{orderID}/cancel | 
-[**create**](Orders.md#create) | **POST** /orders/{direction} | 
-[**decline**](Orders.md#decline) | **POST** /orders/{direction}/{orderID}/decline | 
-[**get**](Orders.md#get) | **GET** /orders/{direction}/{orderID} | 
-[**list**](Orders.md#list) | **GET** /orders/{direction} | 
-[**listApprovals**](Orders.md#listApprovals) | **GET** /orders/{direction}/{orderID}/approvals | 
-[**listEligibleApprovers**](Orders.md#listEligibleApprovers) | **GET** /orders/{direction}/{orderID}/eligibleapprovers | 
-[**listPromotions**](Orders.md#listPromotions) | **GET** /orders/{direction}/{orderID}/promotions | 
-[**patch**](Orders.md#patch) | **PATCH** /orders/{direction}/{orderID} | 
-[**patchBillingAddress**](Orders.md#patchBillingAddress) | **PATCH** /orders/{direction}/{orderID}/billto | 
-[**patchFromUser**](Orders.md#patchFromUser) | **PATCH** /orders/{direction}/{orderID}/fromuser | 
-[**patchShippingAddress**](Orders.md#patchShippingAddress) | **PATCH** /orders/{direction}/{orderID}/shipto | 
-[**removePromotion**](Orders.md#removePromotion) | **DELETE** /orders/{direction}/{orderID}/promotions/{promoCode} | 
-[**save**](Orders.md#save) | **PUT** /orders/{direction}/{orderID} | 
-[**setBillingAddress**](Orders.md#setBillingAddress) | **PUT** /orders/{direction}/{orderID}/billto | 
-[**setShippingAddress**](Orders.md#setShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
-[**ship**](Orders.md#ship) | **POST** /orders/{direction}/{orderID}/ship | 
-[**submit**](Orders.md#submit) | **POST** /orders/{direction}/{orderID}/submit | 
+[**AddPromotion**](Orders.md#AddPromotion) | **POST** /orders/{direction}/{orderID}/promotions/{promoCode} | 
+[**Approve**](Orders.md#Approve) | **POST** /orders/{direction}/{orderID}/approve | 
+[**Cancel**](Orders.md#Cancel) | **POST** /orders/{direction}/{orderID}/cancel | 
+[**Create**](Orders.md#Create) | **POST** /orders/{direction} | 
+[**Decline**](Orders.md#Decline) | **POST** /orders/{direction}/{orderID}/decline | 
+[**Delete**](Orders.md#Delete) | **DELETE** /orders/{direction}/{orderID} | 
+[**Get**](Orders.md#Get) | **GET** /orders/{direction}/{orderID} | 
+[**List**](Orders.md#List) | **GET** /orders/{direction} | 
+[**ListApprovals**](Orders.md#ListApprovals) | **GET** /orders/{direction}/{orderID}/approvals | 
+[**ListEligibleApprovers**](Orders.md#ListEligibleApprovers) | **GET** /orders/{direction}/{orderID}/eligibleapprovers | 
+[**ListPromotions**](Orders.md#ListPromotions) | **GET** /orders/{direction}/{orderID}/promotions | 
+[**Patch**](Orders.md#Patch) | **PATCH** /orders/{direction}/{orderID} | 
+[**PatchBillingAddress**](Orders.md#PatchBillingAddress) | **PATCH** /orders/{direction}/{orderID}/billto | 
+[**PatchFromUser**](Orders.md#PatchFromUser) | **PATCH** /orders/{direction}/{orderID}/fromuser | 
+[**PatchShippingAddress**](Orders.md#PatchShippingAddress) | **PATCH** /orders/{direction}/{orderID}/shipto | 
+[**RemovePromotion**](Orders.md#RemovePromotion) | **DELETE** /orders/{direction}/{orderID}/promotions/{promoCode} | 
+[**Save**](Orders.md#Save) | **PUT** /orders/{direction}/{orderID} | 
+[**SetBillingAddress**](Orders.md#SetBillingAddress) | **PUT** /orders/{direction}/{orderID}/billto | 
+[**SetShippingAddress**](Orders.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
+[**Ship**](Orders.md#Ship) | **POST** /orders/{direction}/{orderID}/ship | 
+[**Submit**](Orders.md#Submit) | **POST** /orders/{direction}/{orderID}/submit | 
 
 
-<a name="addPromotion"></a>
-# **addPromotion**
-> OrderPromotion addPromotion(direction, orderID, promoCode)
+<a name="AddPromotion"></a>
+# **AddPromotion**
+> OrderPromotion AddPromotion(direction, orderID, promoCode)
 
 
 
@@ -50,7 +50,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var promoCode = "promoCode_example"; // String | Promo code of the order promotion.
 
-apiInstance.addPromotion(direction, orderID, promoCode).then(function(data) {
+apiInstance.AddPromotion(direction, orderID, promoCode).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -81,9 +81,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="approve"></a>
-# **approve**
-> Order approve(direction, orderID, orderApprovalInfo)
+<a name="Approve"></a>
+# **Approve**
+> Order Approve(direction, orderID, orderApprovalInfo)
 
 
 
@@ -104,7 +104,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var orderApprovalInfo = new OrderCloud.OrderApprovalInfo(); // OrderApprovalInfo | 
 
-apiInstance.approve(direction, orderID, orderApprovalInfo).then(function(data) {
+apiInstance.Approve(direction, orderID, orderApprovalInfo).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -135,9 +135,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(direction, orderID)
+<a name="Cancel"></a>
+# **Cancel**
+> Order Cancel(direction, orderID)
 
 
 
@@ -156,58 +156,7 @@ var direction = "direction_example"; // String | Direction of the order, from th
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-apiInstance.callDelete(direction, orderID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
- **orderID** | **String**| ID of the order. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="cancel"></a>
-# **cancel**
-> Order cancel(direction, orderID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Orders();
-
-var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-apiInstance.cancel(direction, orderID).then(function(data) {
+apiInstance.Cancel(direction, orderID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -237,9 +186,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="create"></a>
-# **create**
-> Order create(direction, order)
+<a name="Create"></a>
+# **Create**
+> Order Create(direction, order)
 
 
 
@@ -258,7 +207,7 @@ var direction = "direction_example"; // String | Direction of the order, from th
 
 var order = new OrderCloud.Order(); // Order | 
 
-apiInstance.create(direction, order).then(function(data) {
+apiInstance.Create(direction, order).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -288,9 +237,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="decline"></a>
-# **decline**
-> Order decline(direction, orderID, orderApprovalInfo)
+<a name="Decline"></a>
+# **Decline**
+> Order Decline(direction, orderID, orderApprovalInfo)
 
 
 
@@ -311,7 +260,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var orderApprovalInfo = new OrderCloud.OrderApprovalInfo(); // OrderApprovalInfo | 
 
-apiInstance.decline(direction, orderID, orderApprovalInfo).then(function(data) {
+apiInstance.Decline(direction, orderID, orderApprovalInfo).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -342,9 +291,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Order get(direction, orderID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(direction, orderID)
 
 
 
@@ -363,7 +312,58 @@ var direction = "direction_example"; // String | Direction of the order, from th
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-apiInstance.get(direction, orderID).then(function(data) {
+apiInstance.Delete(direction, orderID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Get"></a>
+# **Get**
+> Order Get(direction, orderID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+apiInstance.Get(direction, orderID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -393,9 +393,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListOrder list(direction, opts)
+<a name="List"></a>
+# **List**
+> ListOrder List(direction, opts)
 
 
 
@@ -424,7 +424,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(direction, opts).then(function(data) {
+apiInstance.List(direction, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -463,9 +463,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listApprovals"></a>
-# **listApprovals**
-> ListOrderApproval listApprovals(direction, orderID, opts)
+<a name="ListApprovals"></a>
+# **ListApprovals**
+> ListOrderApproval ListApprovals(direction, orderID, opts)
 
 
 
@@ -492,7 +492,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.listApprovals(direction, orderID, opts).then(function(data) {
+apiInstance.ListApprovals(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -528,9 +528,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listEligibleApprovers"></a>
-# **listEligibleApprovers**
-> ListUser listEligibleApprovers(direction, orderID, opts)
+<a name="ListEligibleApprovers"></a>
+# **ListEligibleApprovers**
+> ListUser ListEligibleApprovers(direction, orderID, opts)
 
 
 
@@ -557,7 +557,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.listEligibleApprovers(direction, orderID, opts).then(function(data) {
+apiInstance.ListEligibleApprovers(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -593,9 +593,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listPromotions"></a>
-# **listPromotions**
-> ListOrderPromotion listPromotions(direction, orderID, opts)
+<a name="ListPromotions"></a>
+# **ListPromotions**
+> ListOrderPromotion ListPromotions(direction, orderID, opts)
 
 
 
@@ -622,7 +622,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.listPromotions(direction, orderID, opts).then(function(data) {
+apiInstance.ListPromotions(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -658,9 +658,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Order patch(direction, orderID, partialOrder)
+<a name="Patch"></a>
+# **Patch**
+> Order Patch(direction, orderID, partialOrder)
 
 
 
@@ -681,7 +681,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var partialOrder = new OrderCloud.Order(); // Order | 
 
-apiInstance.patch(direction, orderID, partialOrder).then(function(data) {
+apiInstance.Patch(direction, orderID, partialOrder).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -712,9 +712,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patchBillingAddress"></a>
-# **patchBillingAddress**
-> Order patchBillingAddress(direction, orderID, partialAddress)
+<a name="PatchBillingAddress"></a>
+# **PatchBillingAddress**
+> Order PatchBillingAddress(direction, orderID, partialAddress)
 
 
 
@@ -735,7 +735,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.patchBillingAddress(direction, orderID, partialAddress).then(function(data) {
+apiInstance.PatchBillingAddress(direction, orderID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -766,9 +766,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patchFromUser"></a>
-# **patchFromUser**
-> Order patchFromUser(direction, orderID, partialUser)
+<a name="PatchFromUser"></a>
+# **PatchFromUser**
+> Order PatchFromUser(direction, orderID, partialUser)
 
 
 
@@ -789,7 +789,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var partialUser = new OrderCloud.User(); // User | 
 
-apiInstance.patchFromUser(direction, orderID, partialUser).then(function(data) {
+apiInstance.PatchFromUser(direction, orderID, partialUser).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -820,9 +820,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patchShippingAddress"></a>
-# **patchShippingAddress**
-> Order patchShippingAddress(direction, orderID, partialAddress)
+<a name="PatchShippingAddress"></a>
+# **PatchShippingAddress**
+> Order PatchShippingAddress(direction, orderID, partialAddress)
 
 
 
@@ -843,7 +843,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.patchShippingAddress(direction, orderID, partialAddress).then(function(data) {
+apiInstance.PatchShippingAddress(direction, orderID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -874,9 +874,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="removePromotion"></a>
-# **removePromotion**
-> Order removePromotion(direction, orderID, promoCode)
+<a name="RemovePromotion"></a>
+# **RemovePromotion**
+> Order RemovePromotion(direction, orderID, promoCode)
 
 
 
@@ -897,7 +897,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var promoCode = "promoCode_example"; // String | Promo code of the order.
 
-apiInstance.removePromotion(direction, orderID, promoCode).then(function(data) {
+apiInstance.RemovePromotion(direction, orderID, promoCode).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -928,9 +928,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Order save(direction, orderID, order)
+<a name="Save"></a>
+# **Save**
+> Order Save(direction, orderID, order)
 
 
 
@@ -951,7 +951,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var order = new OrderCloud.Order(); // Order | 
 
-apiInstance.save(direction, orderID, order).then(function(data) {
+apiInstance.Save(direction, orderID, order).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -982,9 +982,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="setBillingAddress"></a>
-# **setBillingAddress**
-> Order setBillingAddress(direction, orderID, address)
+<a name="SetBillingAddress"></a>
+# **SetBillingAddress**
+> Order SetBillingAddress(direction, orderID, address)
 
 
 
@@ -1005,7 +1005,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.setBillingAddress(direction, orderID, address).then(function(data) {
+apiInstance.SetBillingAddress(direction, orderID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1036,9 +1036,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="setShippingAddress"></a>
-# **setShippingAddress**
-> Order setShippingAddress(direction, orderID, address)
+<a name="SetShippingAddress"></a>
+# **SetShippingAddress**
+> Order SetShippingAddress(direction, orderID, address)
 
 
 
@@ -1059,7 +1059,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.setShippingAddress(direction, orderID, address).then(function(data) {
+apiInstance.SetShippingAddress(direction, orderID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1090,9 +1090,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ship"></a>
-# **ship**
-> Order ship(direction, orderID, shipment)
+<a name="Ship"></a>
+# **Ship**
+> Order Ship(direction, orderID, shipment)
 
 
 
@@ -1113,7 +1113,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var shipment = new OrderCloud.Shipment(); // Shipment | 
 
-apiInstance.ship(direction, orderID, shipment).then(function(data) {
+apiInstance.Ship(direction, orderID, shipment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1144,9 +1144,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="submit"></a>
-# **submit**
-> Order submit(direction, orderID)
+<a name="Submit"></a>
+# **Submit**
+> Order Submit(direction, orderID)
 
 
 
@@ -1165,7 +1165,7 @@ var direction = "direction_example"; // String | Direction of the order, from th
 
 var orderID = "orderID_example"; // String | ID of the order.
 
-apiInstance.submit(direction, orderID).then(function(data) {
+apiInstance.Submit(direction, orderID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

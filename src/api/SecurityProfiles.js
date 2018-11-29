@@ -54,13 +54,13 @@
      * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteAssignment = function(securityProfileID, opts) {
+    this.DeleteAssignment = function(securityProfileID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'securityProfileID' is set
       if (securityProfileID == undefined || securityProfileID == null) {
-        throw new Error("Missing the required parameter 'securityProfileID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'securityProfileID' when calling DeleteAssignment");
       }
 
 
@@ -95,12 +95,12 @@
      * @param {String} securityProfileID ID of the security profile.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SecurityProfile}
      */
-    this.get = function(securityProfileID) {
+    this.Get = function(securityProfileID) {
       var postBody = null;
 
       // verify the required parameter 'securityProfileID' is set
       if (securityProfileID == undefined || securityProfileID == null) {
-        throw new Error("Missing the required parameter 'securityProfileID' when calling get");
+        throw new Error("Missing the required parameter 'securityProfileID' when calling Get");
       }
 
 
@@ -137,7 +137,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfile}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -183,7 +183,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfileAssignment}
      */
-    this.listAssignments = function(opts) {
+    this.ListAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -223,12 +223,12 @@
      * @param {module:model/SecurityProfileAssignment} securityProfileAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveAssignment = function(securityProfileAssignment) {
+    this.SaveAssignment = function(securityProfileAssignment) {
       var postBody = securityProfileAssignment;
 
       // verify the required parameter 'securityProfileAssignment' is set
       if (securityProfileAssignment == undefined || securityProfileAssignment == null) {
-        throw new Error("Missing the required parameter 'securityProfileAssignment' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'securityProfileAssignment' when calling SaveAssignment");
       }
 
 

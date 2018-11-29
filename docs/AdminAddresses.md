@@ -4,65 +4,17 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](AdminAddresses.md#callDelete) | **DELETE** /addresses/{addressID} | 
-[**create**](AdminAddresses.md#create) | **POST** /addresses | 
-[**get**](AdminAddresses.md#get) | **GET** /addresses/{addressID} | 
-[**list**](AdminAddresses.md#list) | **GET** /addresses | 
-[**patch**](AdminAddresses.md#patch) | **PATCH** /addresses/{addressID} | 
-[**save**](AdminAddresses.md#save) | **PUT** /addresses/{addressID} | 
+[**Create**](AdminAddresses.md#Create) | **POST** /addresses | 
+[**Delete**](AdminAddresses.md#Delete) | **DELETE** /addresses/{addressID} | 
+[**Get**](AdminAddresses.md#Get) | **GET** /addresses/{addressID} | 
+[**List**](AdminAddresses.md#List) | **GET** /addresses | 
+[**Patch**](AdminAddresses.md#Patch) | **PATCH** /addresses/{addressID} | 
+[**Save**](AdminAddresses.md#Save) | **PUT** /addresses/{addressID} | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(addressID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.AdminAddresses();
-
-var addressID = "addressID_example"; // String | ID of the address.
-
-apiInstance.callDelete(addressID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **addressID** | **String**| ID of the address. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> Address create(address)
+<a name="Create"></a>
+# **Create**
+> Address Create(address)
 
 
 
@@ -79,7 +31,7 @@ var apiInstance = new OrderCloud.AdminAddresses();
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.create(address).then(function(data) {
+apiInstance.Create(address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -108,9 +60,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Address get(addressID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(addressID)
 
 
 
@@ -127,7 +79,55 @@ var apiInstance = new OrderCloud.AdminAddresses();
 
 var addressID = "addressID_example"; // String | ID of the address.
 
-apiInstance.get(addressID).then(function(data) {
+apiInstance.Delete(addressID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **addressID** | **String**| ID of the address. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Get"></a>
+# **Get**
+> Address Get(addressID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.AdminAddresses();
+
+var addressID = "addressID_example"; // String | ID of the address.
+
+apiInstance.Get(addressID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -156,9 +156,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListAddress list(opts)
+<a name="List"></a>
+# **List**
+> ListAddress List(opts)
 
 
 
@@ -181,7 +181,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -215,9 +215,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Address patch(addressID, partialAddress)
+<a name="Patch"></a>
+# **Patch**
+> Address Patch(addressID, partialAddress)
 
 
 
@@ -236,7 +236,7 @@ var addressID = "addressID_example"; // String | ID of the address.
 
 var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.patch(addressID, partialAddress).then(function(data) {
+apiInstance.Patch(addressID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -266,9 +266,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Address save(addressID, address)
+<a name="Save"></a>
+# **Save**
+> Address Save(addressID, address)
 
 
 
@@ -287,7 +287,7 @@ var addressID = "addressID_example"; // String | ID of the address.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.save(addressID, address).then(function(data) {
+apiInstance.Save(addressID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

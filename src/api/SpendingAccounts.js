@@ -47,63 +47,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {String} spendingAccountID ID of the spending account.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(buyerID, spendingAccountID) {
-      var postBody = null;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling callDelete");
-      }
-
-      // verify the required parameter 'spendingAccountID' is set
-      if (spendingAccountID == undefined || spendingAccountID == null) {
-        throw new Error("Missing the required parameter 'spendingAccountID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID,
-        'spendingAccountID': spendingAccountID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/spendingaccounts/{spendingAccountID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {module:model/SpendingAccount} spendingAccount 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.create = function(buyerID, spendingAccount) {
+    this.Create = function(buyerID, spendingAccount) {
       var postBody = spendingAccount;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling create");
+        throw new Error("Missing the required parameter 'buyerID' when calling Create");
       }
 
       // verify the required parameter 'spendingAccount' is set
       if (spendingAccount == undefined || spendingAccount == null) {
-        throw new Error("Missing the required parameter 'spendingAccount' when calling create");
+        throw new Error("Missing the required parameter 'spendingAccount' when calling Create");
       }
 
 
@@ -133,23 +90,66 @@
     /**
      * @param {String} buyerID ID of the buyer.
      * @param {String} spendingAccountID ID of the spending account.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(buyerID, spendingAccountID) {
+      var postBody = null;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+      }
+
+      // verify the required parameter 'spendingAccountID' is set
+      if (spendingAccountID == undefined || spendingAccountID == null) {
+        throw new Error("Missing the required parameter 'spendingAccountID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID,
+        'spendingAccountID': spendingAccountID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/spendingaccounts/{spendingAccountID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
+     * @param {String} spendingAccountID ID of the spending account.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteAssignment = function(buyerID, spendingAccountID, opts) {
+    this.DeleteAssignment = function(buyerID, spendingAccountID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
       }
 
       // verify the required parameter 'spendingAccountID' is set
       if (spendingAccountID == undefined || spendingAccountID == null) {
-        throw new Error("Missing the required parameter 'spendingAccountID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'spendingAccountID' when calling DeleteAssignment");
       }
 
 
@@ -184,17 +184,17 @@
      * @param {String} spendingAccountID ID of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.get = function(buyerID, spendingAccountID) {
+    this.Get = function(buyerID, spendingAccountID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling get");
+        throw new Error("Missing the required parameter 'buyerID' when calling Get");
       }
 
       // verify the required parameter 'spendingAccountID' is set
       if (spendingAccountID == undefined || spendingAccountID == null) {
-        throw new Error("Missing the required parameter 'spendingAccountID' when calling get");
+        throw new Error("Missing the required parameter 'spendingAccountID' when calling Get");
       }
 
 
@@ -233,13 +233,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
-    this.list = function(buyerID, opts) {
+    this.List = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling list");
+        throw new Error("Missing the required parameter 'buyerID' when calling List");
       }
 
 
@@ -283,13 +283,13 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccountAssignment}
      */
-    this.listAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling listAssignments");
+        throw new Error("Missing the required parameter 'buyerID' when calling ListAssignments");
       }
 
 
@@ -328,22 +328,22 @@
      * @param {module:model/SpendingAccount} partialSpendingAccount 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.patch = function(buyerID, spendingAccountID, partialSpendingAccount) {
+    this.Patch = function(buyerID, spendingAccountID, partialSpendingAccount) {
       var postBody = partialSpendingAccount;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling patch");
+        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
       }
 
       // verify the required parameter 'spendingAccountID' is set
       if (spendingAccountID == undefined || spendingAccountID == null) {
-        throw new Error("Missing the required parameter 'spendingAccountID' when calling patch");
+        throw new Error("Missing the required parameter 'spendingAccountID' when calling Patch");
       }
 
       // verify the required parameter 'partialSpendingAccount' is set
       if (partialSpendingAccount == undefined || partialSpendingAccount == null) {
-        throw new Error("Missing the required parameter 'partialSpendingAccount' when calling patch");
+        throw new Error("Missing the required parameter 'partialSpendingAccount' when calling Patch");
       }
 
 
@@ -377,22 +377,22 @@
      * @param {module:model/SpendingAccount} spendingAccount 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.save = function(buyerID, spendingAccountID, spendingAccount) {
+    this.Save = function(buyerID, spendingAccountID, spendingAccount) {
       var postBody = spendingAccount;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling save");
+        throw new Error("Missing the required parameter 'buyerID' when calling Save");
       }
 
       // verify the required parameter 'spendingAccountID' is set
       if (spendingAccountID == undefined || spendingAccountID == null) {
-        throw new Error("Missing the required parameter 'spendingAccountID' when calling save");
+        throw new Error("Missing the required parameter 'spendingAccountID' when calling Save");
       }
 
       // verify the required parameter 'spendingAccount' is set
       if (spendingAccount == undefined || spendingAccount == null) {
-        throw new Error("Missing the required parameter 'spendingAccount' when calling save");
+        throw new Error("Missing the required parameter 'spendingAccount' when calling Save");
       }
 
 
@@ -425,17 +425,17 @@
      * @param {module:model/SpendingAccountAssignment} spendingAccountAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveAssignment = function(buyerID, spendingAccountAssignment) {
+    this.SaveAssignment = function(buyerID, spendingAccountAssignment) {
       var postBody = spendingAccountAssignment;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
       }
 
       // verify the required parameter 'spendingAccountAssignment' is set
       if (spendingAccountAssignment == undefined || spendingAccountAssignment == null) {
-        throw new Error("Missing the required parameter 'spendingAccountAssignment' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'spendingAccountAssignment' when calling SaveAssignment");
       }
 
 
