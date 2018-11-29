@@ -4,76 +4,28 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](Products.md#callDelete) | **DELETE** /products/{productID} | 
-[**create**](Products.md#create) | **POST** /products | 
-[**deleteAssignment**](Products.md#deleteAssignment) | **DELETE** /products/{productID}/assignments/{buyerID} | 
-[**generateVariants**](Products.md#generateVariants) | **POST** /products/{productID}/variants/generate | 
-[**get**](Products.md#get) | **GET** /products/{productID} | 
-[**getVariant**](Products.md#getVariant) | **GET** /products/{productID}/variants/{variantID} | 
-[**list**](Products.md#list) | **GET** /products | 
-[**listAssignments**](Products.md#listAssignments) | **GET** /products/assignments | 
-[**listSuppliers**](Products.md#listSuppliers) | **GET** /products/{productID}/suppliers | 
-[**listVariants**](Products.md#listVariants) | **GET** /products/{productID}/variants | 
-[**patch**](Products.md#patch) | **PATCH** /products/{productID} | 
-[**patchVariant**](Products.md#patchVariant) | **PATCH** /products/{productID}/variants/{variantID} | 
-[**removeSupplier**](Products.md#removeSupplier) | **DELETE** /products/{productID}/suppliers/{supplierID} | 
-[**save**](Products.md#save) | **PUT** /products/{productID} | 
-[**saveAssignment**](Products.md#saveAssignment) | **POST** /products/assignments | 
-[**saveSupplier**](Products.md#saveSupplier) | **PUT** /products/{productID}/suppliers/{supplierID} | 
-[**saveVariant**](Products.md#saveVariant) | **PUT** /products/{productID}/variants/{variantID} | 
+[**Create**](Products.md#Create) | **POST** /products | 
+[**Delete**](Products.md#Delete) | **DELETE** /products/{productID} | 
+[**DeleteAssignment**](Products.md#DeleteAssignment) | **DELETE** /products/{productID}/assignments/{buyerID} | 
+[**GenerateVariants**](Products.md#GenerateVariants) | **POST** /products/{productID}/variants/generate | 
+[**Get**](Products.md#Get) | **GET** /products/{productID} | 
+[**GetVariant**](Products.md#GetVariant) | **GET** /products/{productID}/variants/{variantID} | 
+[**List**](Products.md#List) | **GET** /products | 
+[**ListAssignments**](Products.md#ListAssignments) | **GET** /products/assignments | 
+[**ListSuppliers**](Products.md#ListSuppliers) | **GET** /products/{productID}/suppliers | 
+[**ListVariants**](Products.md#ListVariants) | **GET** /products/{productID}/variants | 
+[**Patch**](Products.md#Patch) | **PATCH** /products/{productID} | 
+[**PatchVariant**](Products.md#PatchVariant) | **PATCH** /products/{productID}/variants/{variantID} | 
+[**RemoveSupplier**](Products.md#RemoveSupplier) | **DELETE** /products/{productID}/suppliers/{supplierID} | 
+[**Save**](Products.md#Save) | **PUT** /products/{productID} | 
+[**SaveAssignment**](Products.md#SaveAssignment) | **POST** /products/assignments | 
+[**SaveSupplier**](Products.md#SaveSupplier) | **PUT** /products/{productID}/suppliers/{supplierID} | 
+[**SaveVariant**](Products.md#SaveVariant) | **PUT** /products/{productID}/variants/{variantID} | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(productID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Products();
-
-var productID = "productID_example"; // String | ID of the product.
-
-apiInstance.callDelete(productID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **productID** | **String**| ID of the product. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> Product create(product)
+<a name="Create"></a>
+# **Create**
+> Product Create(product)
 
 
 
@@ -90,7 +42,7 @@ var apiInstance = new OrderCloud.Products();
 
 var product = new OrderCloud.Product(); // Product | 
 
-apiInstance.create(product).then(function(data) {
+apiInstance.Create(product).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -119,9 +71,57 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteAssignment"></a>
-# **deleteAssignment**
-> deleteAssignment(productID, buyerID, opts)
+<a name="Delete"></a>
+# **Delete**
+> Delete(productID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Products();
+
+var productID = "productID_example"; // String | ID of the product.
+
+apiInstance.Delete(productID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **productID** | **String**| ID of the product. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteAssignment"></a>
+# **DeleteAssignment**
+> DeleteAssignment(productID, buyerID, opts)
 
 
 
@@ -144,7 +144,7 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.deleteAssignment(productID, buyerID, opts).then(function() {
+apiInstance.DeleteAssignment(productID, buyerID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -176,9 +176,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="generateVariants"></a>
-# **generateVariants**
-> Product generateVariants(productID, opts)
+<a name="GenerateVariants"></a>
+# **GenerateVariants**
+> Product GenerateVariants(productID, opts)
 
 
 
@@ -198,7 +198,7 @@ var productID = "productID_example"; // String | ID of the product.
 var opts = { 
   'overwriteExisting': true // Boolean | Overwrite existing of the product.
 };
-apiInstance.generateVariants(productID, opts).then(function(data) {
+apiInstance.GenerateVariants(productID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -228,9 +228,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Product get(productID)
+<a name="Get"></a>
+# **Get**
+> Product Get(productID)
 
 
 
@@ -247,7 +247,7 @@ var apiInstance = new OrderCloud.Products();
 
 var productID = "productID_example"; // String | ID of the product.
 
-apiInstance.get(productID).then(function(data) {
+apiInstance.Get(productID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -276,9 +276,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="getVariant"></a>
-# **getVariant**
-> Variant getVariant(productID, variantID)
+<a name="GetVariant"></a>
+# **GetVariant**
+> Variant GetVariant(productID, variantID)
 
 
 
@@ -297,7 +297,7 @@ var productID = "productID_example"; // String | ID of the product.
 
 var variantID = "variantID_example"; // String | ID of the variant.
 
-apiInstance.getVariant(productID, variantID).then(function(data) {
+apiInstance.GetVariant(productID, variantID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -327,9 +327,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListProduct list(opts)
+<a name="List"></a>
+# **List**
+> ListProduct List(opts)
 
 
 
@@ -355,7 +355,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -392,9 +392,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListProductAssignment listAssignments(opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListProductAssignment ListAssignments(opts)
 
 
 
@@ -419,7 +419,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(opts).then(function(data) {
+apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -455,9 +455,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listSuppliers"></a>
-# **listSuppliers**
-> ListSupplier listSuppliers(productID, opts)
+<a name="ListSuppliers"></a>
+# **ListSuppliers**
+> ListSupplier ListSuppliers(productID, opts)
 
 
 
@@ -482,7 +482,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.listSuppliers(productID, opts).then(function(data) {
+apiInstance.ListSuppliers(productID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -517,9 +517,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listVariants"></a>
-# **listVariants**
-> ListVariant listVariants(productID, opts)
+<a name="ListVariants"></a>
+# **ListVariants**
+> ListVariant ListVariants(productID, opts)
 
 
 
@@ -544,7 +544,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.listVariants(productID, opts).then(function(data) {
+apiInstance.ListVariants(productID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -579,9 +579,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Product patch(productID, partialProduct)
+<a name="Patch"></a>
+# **Patch**
+> Product Patch(productID, partialProduct)
 
 
 
@@ -600,7 +600,7 @@ var productID = "productID_example"; // String | ID of the product.
 
 var partialProduct = new OrderCloud.Product(); // Product | 
 
-apiInstance.patch(productID, partialProduct).then(function(data) {
+apiInstance.Patch(productID, partialProduct).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -630,9 +630,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patchVariant"></a>
-# **patchVariant**
-> Variant patchVariant(productID, variantID, partialVariant)
+<a name="PatchVariant"></a>
+# **PatchVariant**
+> Variant PatchVariant(productID, variantID, partialVariant)
 
 
 
@@ -653,7 +653,7 @@ var variantID = "variantID_example"; // String | ID of the variant.
 
 var partialVariant = new OrderCloud.Variant(); // Variant | 
 
-apiInstance.patchVariant(productID, variantID, partialVariant).then(function(data) {
+apiInstance.PatchVariant(productID, variantID, partialVariant).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -684,9 +684,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="removeSupplier"></a>
-# **removeSupplier**
-> removeSupplier(productID, supplierID)
+<a name="RemoveSupplier"></a>
+# **RemoveSupplier**
+> RemoveSupplier(productID, supplierID)
 
 
 
@@ -705,7 +705,7 @@ var productID = "productID_example"; // String | ID of the product.
 
 var supplierID = "supplierID_example"; // String | ID of the supplier.
 
-apiInstance.removeSupplier(productID, supplierID).then(function() {
+apiInstance.RemoveSupplier(productID, supplierID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -735,9 +735,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Product save(productID, product)
+<a name="Save"></a>
+# **Save**
+> Product Save(productID, product)
 
 
 
@@ -756,7 +756,7 @@ var productID = "productID_example"; // String | ID of the product.
 
 var product = new OrderCloud.Product(); // Product | 
 
-apiInstance.save(productID, product).then(function(data) {
+apiInstance.Save(productID, product).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -786,9 +786,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(productAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(productAssignment)
 
 
 
@@ -805,7 +805,7 @@ var apiInstance = new OrderCloud.Products();
 
 var productAssignment = new OrderCloud.ProductAssignment(); // ProductAssignment | 
 
-apiInstance.saveAssignment(productAssignment).then(function() {
+apiInstance.SaveAssignment(productAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -834,9 +834,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveSupplier"></a>
-# **saveSupplier**
-> saveSupplier(productID, supplierID)
+<a name="SaveSupplier"></a>
+# **SaveSupplier**
+> SaveSupplier(productID, supplierID)
 
 
 
@@ -855,7 +855,7 @@ var productID = "productID_example"; // String | ID of the product.
 
 var supplierID = "supplierID_example"; // String | ID of the supplier.
 
-apiInstance.saveSupplier(productID, supplierID).then(function() {
+apiInstance.SaveSupplier(productID, supplierID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -885,9 +885,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveVariant"></a>
-# **saveVariant**
-> Variant saveVariant(productID, variantID, variant)
+<a name="SaveVariant"></a>
+# **SaveVariant**
+> Variant SaveVariant(productID, variantID, variant)
 
 
 
@@ -908,7 +908,7 @@ var variantID = "variantID_example"; // String | ID of the variant.
 
 var variant = new OrderCloud.Variant(); // Variant | 
 
-apiInstance.saveVariant(productID, variantID, variant).then(function(data) {
+apiInstance.SaveVariant(productID, variantID, variant).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

@@ -46,51 +46,15 @@
 
 
     /**
-     * @param {String} supplierID ID of the supplier.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(supplierID) {
-      var postBody = null;
-
-      // verify the required parameter 'supplierID' is set
-      if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'supplierID': supplierID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/suppliers/{supplierID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {module:model/Supplier} supplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.create = function(supplier) {
+    this.Create = function(supplier) {
       var postBody = supplier;
 
       // verify the required parameter 'supplier' is set
       if (supplier == undefined || supplier == null) {
-        throw new Error("Missing the required parameter 'supplier' when calling create");
+        throw new Error("Missing the required parameter 'supplier' when calling Create");
       }
 
 
@@ -118,14 +82,50 @@
 
     /**
      * @param {String} supplierID ID of the supplier.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.get = function(supplierID) {
+    this.Delete = function(supplierID) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling get");
+        throw new Error("Missing the required parameter 'supplierID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'supplierID': supplierID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/suppliers/{supplierID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} supplierID ID of the supplier.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
+     */
+    this.Get = function(supplierID) {
+      var postBody = null;
+
+      // verify the required parameter 'supplierID' is set
+      if (supplierID == undefined || supplierID == null) {
+        throw new Error("Missing the required parameter 'supplierID' when calling Get");
       }
 
 
@@ -162,7 +162,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -200,17 +200,17 @@
      * @param {module:model/Supplier} partialSupplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.patch = function(supplierID, partialSupplier) {
+    this.Patch = function(supplierID, partialSupplier) {
       var postBody = partialSupplier;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling patch");
+        throw new Error("Missing the required parameter 'supplierID' when calling Patch");
       }
 
       // verify the required parameter 'partialSupplier' is set
       if (partialSupplier == undefined || partialSupplier == null) {
-        throw new Error("Missing the required parameter 'partialSupplier' when calling patch");
+        throw new Error("Missing the required parameter 'partialSupplier' when calling Patch");
       }
 
 
@@ -242,17 +242,17 @@
      * @param {module:model/Supplier} supplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.save = function(supplierID, supplier) {
+    this.Save = function(supplierID, supplier) {
       var postBody = supplier;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling save");
+        throw new Error("Missing the required parameter 'supplierID' when calling Save");
       }
 
       // verify the required parameter 'supplier' is set
       if (supplier == undefined || supplier == null) {
-        throw new Error("Missing the required parameter 'supplier' when calling save");
+        throw new Error("Missing the required parameter 'supplier' when calling Save");
       }
 
 

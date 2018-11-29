@@ -46,51 +46,15 @@
 
 
     /**
-     * @param {String} incrementorID ID of the incrementor.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(incrementorID) {
-      var postBody = null;
-
-      // verify the required parameter 'incrementorID' is set
-      if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'incrementorID': incrementorID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/incrementors/{incrementorID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {module:model/Incrementor} incrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.create = function(incrementor) {
+    this.Create = function(incrementor) {
       var postBody = incrementor;
 
       // verify the required parameter 'incrementor' is set
       if (incrementor == undefined || incrementor == null) {
-        throw new Error("Missing the required parameter 'incrementor' when calling create");
+        throw new Error("Missing the required parameter 'incrementor' when calling Create");
       }
 
 
@@ -118,14 +82,50 @@
 
     /**
      * @param {String} incrementorID ID of the incrementor.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.get = function(incrementorID) {
+    this.Delete = function(incrementorID) {
       var postBody = null;
 
       // verify the required parameter 'incrementorID' is set
       if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling get");
+        throw new Error("Missing the required parameter 'incrementorID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'incrementorID': incrementorID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/incrementors/{incrementorID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} incrementorID ID of the incrementor.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
+     */
+    this.Get = function(incrementorID) {
+      var postBody = null;
+
+      // verify the required parameter 'incrementorID' is set
+      if (incrementorID == undefined || incrementorID == null) {
+        throw new Error("Missing the required parameter 'incrementorID' when calling Get");
       }
 
 
@@ -162,7 +162,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListIncrementor}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -200,17 +200,17 @@
      * @param {module:model/Incrementor} partialIncrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.patch = function(incrementorID, partialIncrementor) {
+    this.Patch = function(incrementorID, partialIncrementor) {
       var postBody = partialIncrementor;
 
       // verify the required parameter 'incrementorID' is set
       if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling patch");
+        throw new Error("Missing the required parameter 'incrementorID' when calling Patch");
       }
 
       // verify the required parameter 'partialIncrementor' is set
       if (partialIncrementor == undefined || partialIncrementor == null) {
-        throw new Error("Missing the required parameter 'partialIncrementor' when calling patch");
+        throw new Error("Missing the required parameter 'partialIncrementor' when calling Patch");
       }
 
 
@@ -242,17 +242,17 @@
      * @param {module:model/Incrementor} incrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.save = function(incrementorID, incrementor) {
+    this.Save = function(incrementorID, incrementor) {
       var postBody = incrementor;
 
       // verify the required parameter 'incrementorID' is set
       if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling save");
+        throw new Error("Missing the required parameter 'incrementorID' when calling Save");
       }
 
       // verify the required parameter 'incrementor' is set
       if (incrementor == undefined || incrementor == null) {
-        throw new Error("Missing the required parameter 'incrementor' when calling save");
+        throw new Error("Missing the required parameter 'incrementor' when calling Save");
       }
 
 

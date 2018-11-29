@@ -4,68 +4,17 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](ApprovalRules.md#callDelete) | **DELETE** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-[**create**](ApprovalRules.md#create) | **POST** /buyers/{buyerID}/approvalrules | 
-[**get**](ApprovalRules.md#get) | **GET** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-[**list**](ApprovalRules.md#list) | **GET** /buyers/{buyerID}/approvalrules | 
-[**patch**](ApprovalRules.md#patch) | **PATCH** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
-[**save**](ApprovalRules.md#save) | **PUT** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+[**Create**](ApprovalRules.md#Create) | **POST** /buyers/{buyerID}/approvalrules | 
+[**Delete**](ApprovalRules.md#Delete) | **DELETE** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+[**Get**](ApprovalRules.md#Get) | **GET** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+[**List**](ApprovalRules.md#List) | **GET** /buyers/{buyerID}/approvalrules | 
+[**Patch**](ApprovalRules.md#Patch) | **PATCH** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
+[**Save**](ApprovalRules.md#Save) | **PUT** /buyers/{buyerID}/approvalrules/{approvalRuleID} | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(buyerID, approvalRuleID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.ApprovalRules();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var approvalRuleID = "approvalRuleID_example"; // String | ID of the approval rule.
-
-apiInstance.callDelete(buyerID, approvalRuleID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **approvalRuleID** | **String**| ID of the approval rule. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> ApprovalRule create(buyerID, approvalRule)
+<a name="Create"></a>
+# **Create**
+> ApprovalRule Create(buyerID, approvalRule)
 
 
 
@@ -84,7 +33,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var approvalRule = new OrderCloud.ApprovalRule(); // ApprovalRule | 
 
-apiInstance.create(buyerID, approvalRule).then(function(data) {
+apiInstance.Create(buyerID, approvalRule).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -114,9 +63,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> ApprovalRule get(buyerID, approvalRuleID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(buyerID, approvalRuleID)
 
 
 
@@ -135,7 +84,58 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var approvalRuleID = "approvalRuleID_example"; // String | ID of the approval rule.
 
-apiInstance.get(buyerID, approvalRuleID).then(function(data) {
+apiInstance.Delete(buyerID, approvalRuleID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **buyerID** | **String**| ID of the buyer. | 
+ **approvalRuleID** | **String**| ID of the approval rule. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Get"></a>
+# **Get**
+> ApprovalRule Get(buyerID, approvalRuleID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ApprovalRules();
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var approvalRuleID = "approvalRuleID_example"; // String | ID of the approval rule.
+
+apiInstance.Get(buyerID, approvalRuleID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -165,9 +165,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListApprovalRule list(buyerID, opts)
+<a name="List"></a>
+# **List**
+> ListApprovalRule List(buyerID, opts)
 
 
 
@@ -192,7 +192,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(buyerID, opts).then(function(data) {
+apiInstance.List(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -227,9 +227,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> ApprovalRule patch(buyerID, approvalRuleID, partialApprovalRule)
+<a name="Patch"></a>
+# **Patch**
+> ApprovalRule Patch(buyerID, approvalRuleID, partialApprovalRule)
 
 
 
@@ -250,7 +250,7 @@ var approvalRuleID = "approvalRuleID_example"; // String | ID of the approval ru
 
 var partialApprovalRule = new OrderCloud.ApprovalRule(); // ApprovalRule | 
 
-apiInstance.patch(buyerID, approvalRuleID, partialApprovalRule).then(function(data) {
+apiInstance.Patch(buyerID, approvalRuleID, partialApprovalRule).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -281,9 +281,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> ApprovalRule save(buyerID, approvalRuleID, approvalRule)
+<a name="Save"></a>
+# **Save**
+> ApprovalRule Save(buyerID, approvalRuleID, approvalRule)
 
 
 
@@ -304,7 +304,7 @@ var approvalRuleID = "approvalRuleID_example"; // String | ID of the approval ru
 
 var approvalRule = new OrderCloud.ApprovalRule(); // ApprovalRule | 
 
-apiInstance.save(buyerID, approvalRuleID, approvalRule).then(function(data) {
+apiInstance.Save(buyerID, approvalRuleID, approvalRule).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

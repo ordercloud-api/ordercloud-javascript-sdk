@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **messageConfigDescription** | **String** |  | [optional] 
 **messageType** | **String** |  | [optional] 
 **buyerID** | **String** |  | [optional] 
-**supplierID** | **String** |  | [optional] 
 **userGroupID** | **String** |  | [optional] 
 **userID** | **String** |  | [optional] 
 

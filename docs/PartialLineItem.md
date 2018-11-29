@@ -18,7 +18,6 @@ Name | Type | Description | Notes
 **product** | [**LineItemProduct**](LineItemProduct.md) |  | [optional] 
 **shippingAddress** | [**Address**](Address.md) |  | [optional] 
 **shipFromAddress** | [**Address**](Address.md) |  | [optional] 
-**supplierID** | **String** |  | [optional] 
 **specs** | [**[LineItemSpec]**](LineItemSpec.md) |  | [optional] 
 **xp** | **Object** |  | [optional] 
 

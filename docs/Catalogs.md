@@ -4,71 +4,23 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](Catalogs.md#callDelete) | **DELETE** /catalogs/{catalogID} | 
-[**create**](Catalogs.md#create) | **POST** /catalogs | 
-[**deleteAssignment**](Catalogs.md#deleteAssignment) | **DELETE** /catalogs/{catalogID}/assignments | 
-[**deleteProductAssignment**](Catalogs.md#deleteProductAssignment) | **DELETE** /catalogs/{catalogID}/productassignments/{productID} | 
-[**get**](Catalogs.md#get) | **GET** /catalogs/{catalogID} | 
-[**list**](Catalogs.md#list) | **GET** /catalogs | 
-[**listAssignments**](Catalogs.md#listAssignments) | **GET** /catalogs/assignments | 
-[**listProductAssignments**](Catalogs.md#listProductAssignments) | **GET** /catalogs/productassignments | 
-[**patch**](Catalogs.md#patch) | **PATCH** /catalogs/{catalogID} | 
-[**save**](Catalogs.md#save) | **PUT** /catalogs/{catalogID} | 
-[**saveAssignment**](Catalogs.md#saveAssignment) | **POST** /catalogs/assignments | 
-[**saveProductAssignment**](Catalogs.md#saveProductAssignment) | **POST** /catalogs/productassignments | 
+[**Create**](Catalogs.md#Create) | **POST** /catalogs | 
+[**Delete**](Catalogs.md#Delete) | **DELETE** /catalogs/{catalogID} | 
+[**DeleteAssignment**](Catalogs.md#DeleteAssignment) | **DELETE** /catalogs/{catalogID}/assignments | 
+[**DeleteProductAssignment**](Catalogs.md#DeleteProductAssignment) | **DELETE** /catalogs/{catalogID}/productassignments/{productID} | 
+[**Get**](Catalogs.md#Get) | **GET** /catalogs/{catalogID} | 
+[**List**](Catalogs.md#List) | **GET** /catalogs | 
+[**ListAssignments**](Catalogs.md#ListAssignments) | **GET** /catalogs/assignments | 
+[**ListProductAssignments**](Catalogs.md#ListProductAssignments) | **GET** /catalogs/productassignments | 
+[**Patch**](Catalogs.md#Patch) | **PATCH** /catalogs/{catalogID} | 
+[**Save**](Catalogs.md#Save) | **PUT** /catalogs/{catalogID} | 
+[**SaveAssignment**](Catalogs.md#SaveAssignment) | **POST** /catalogs/assignments | 
+[**SaveProductAssignment**](Catalogs.md#SaveProductAssignment) | **POST** /catalogs/productassignments | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(catalogID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Catalogs();
-
-var catalogID = "catalogID_example"; // String | ID of the catalog.
-
-apiInstance.callDelete(catalogID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **catalogID** | **String**| ID of the catalog. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> Catalog create(catalog)
+<a name="Create"></a>
+# **Create**
+> Catalog Create(catalog)
 
 
 
@@ -85,7 +37,7 @@ var apiInstance = new OrderCloud.Catalogs();
 
 var catalog = new OrderCloud.Catalog(); // Catalog | 
 
-apiInstance.create(catalog).then(function(data) {
+apiInstance.Create(catalog).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -114,9 +66,57 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteAssignment"></a>
-# **deleteAssignment**
-> deleteAssignment(catalogID, buyerID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(catalogID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Catalogs();
+
+var catalogID = "catalogID_example"; // String | ID of the catalog.
+
+apiInstance.Delete(catalogID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **catalogID** | **String**| ID of the catalog. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteAssignment"></a>
+# **DeleteAssignment**
+> DeleteAssignment(catalogID, buyerID)
 
 
 
@@ -135,7 +135,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var buyerID = "buyerID_example"; // String | ID of the buyer.
 
-apiInstance.deleteAssignment(catalogID, buyerID).then(function() {
+apiInstance.DeleteAssignment(catalogID, buyerID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -165,9 +165,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteProductAssignment"></a>
-# **deleteProductAssignment**
-> deleteProductAssignment(catalogID, productID)
+<a name="DeleteProductAssignment"></a>
+# **DeleteProductAssignment**
+> DeleteProductAssignment(catalogID, productID)
 
 
 
@@ -186,7 +186,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var productID = "productID_example"; // String | ID of the product.
 
-apiInstance.deleteProductAssignment(catalogID, productID).then(function() {
+apiInstance.DeleteProductAssignment(catalogID, productID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -216,9 +216,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Catalog get(catalogID)
+<a name="Get"></a>
+# **Get**
+> Catalog Get(catalogID)
 
 
 
@@ -235,7 +235,7 @@ var apiInstance = new OrderCloud.Catalogs();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
-apiInstance.get(catalogID).then(function(data) {
+apiInstance.Get(catalogID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -264,9 +264,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListCatalog list(opts)
+<a name="List"></a>
+# **List**
+> ListCatalog List(opts)
 
 
 
@@ -289,7 +289,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -323,9 +323,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListCatalogAssignment listAssignments(opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListCatalogAssignment ListAssignments(opts)
 
 
 
@@ -346,7 +346,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(opts).then(function(data) {
+apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -378,9 +378,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listProductAssignments"></a>
-# **listProductAssignments**
-> ListProductCatalogAssignment listProductAssignments(opts)
+<a name="ListProductAssignments"></a>
+# **ListProductAssignments**
+> ListProductCatalogAssignment ListProductAssignments(opts)
 
 
 
@@ -401,7 +401,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listProductAssignments(opts).then(function(data) {
+apiInstance.ListProductAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -433,9 +433,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Catalog patch(catalogID, partialCatalog)
+<a name="Patch"></a>
+# **Patch**
+> Catalog Patch(catalogID, partialCatalog)
 
 
 
@@ -454,7 +454,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var partialCatalog = new OrderCloud.Catalog(); // Catalog | 
 
-apiInstance.patch(catalogID, partialCatalog).then(function(data) {
+apiInstance.Patch(catalogID, partialCatalog).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -484,9 +484,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Catalog save(catalogID, catalog)
+<a name="Save"></a>
+# **Save**
+> Catalog Save(catalogID, catalog)
 
 
 
@@ -505,7 +505,7 @@ var catalogID = "catalogID_example"; // String | ID of the catalog.
 
 var catalog = new OrderCloud.Catalog(); // Catalog | 
 
-apiInstance.save(catalogID, catalog).then(function(data) {
+apiInstance.Save(catalogID, catalog).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -535,9 +535,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(catalogAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(catalogAssignment)
 
 
 
@@ -554,7 +554,7 @@ var apiInstance = new OrderCloud.Catalogs();
 
 var catalogAssignment = new OrderCloud.CatalogAssignment(); // CatalogAssignment | 
 
-apiInstance.saveAssignment(catalogAssignment).then(function() {
+apiInstance.SaveAssignment(catalogAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -583,9 +583,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveProductAssignment"></a>
-# **saveProductAssignment**
-> saveProductAssignment(productCatalogAssignment)
+<a name="SaveProductAssignment"></a>
+# **SaveProductAssignment**
+> SaveProductAssignment(productCatalogAssignment)
 
 
 
@@ -602,7 +602,7 @@ var apiInstance = new OrderCloud.Catalogs();
 
 var productCatalogAssignment = new OrderCloud.ProductCatalogAssignment(); // ProductCatalogAssignment | 
 
-apiInstance.saveProductAssignment(productCatalogAssignment).then(function() {
+apiInstance.SaveProductAssignment(productCatalogAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

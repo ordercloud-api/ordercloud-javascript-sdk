@@ -49,12 +49,12 @@
      * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.createAddress = function(buyerAddress) {
+    this.CreateAddress = function(buyerAddress) {
       var postBody = buyerAddress;
 
       // verify the required parameter 'buyerAddress' is set
       if (buyerAddress == undefined || buyerAddress == null) {
-        throw new Error("Missing the required parameter 'buyerAddress' when calling createAddress");
+        throw new Error("Missing the required parameter 'buyerAddress' when calling CreateAddress");
       }
 
 
@@ -84,12 +84,12 @@
      * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.createCreditCard = function(buyerCreditCard) {
+    this.CreateCreditCard = function(buyerCreditCard) {
       var postBody = buyerCreditCard;
 
       // verify the required parameter 'buyerCreditCard' is set
       if (buyerCreditCard == undefined || buyerCreditCard == null) {
-        throw new Error("Missing the required parameter 'buyerCreditCard' when calling createCreditCard");
+        throw new Error("Missing the required parameter 'buyerCreditCard' when calling CreateCreditCard");
       }
 
 
@@ -119,12 +119,12 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteAddress = function(addressID) {
+    this.DeleteAddress = function(addressID) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling deleteAddress");
+        throw new Error("Missing the required parameter 'addressID' when calling DeleteAddress");
       }
 
 
@@ -155,12 +155,12 @@
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteCreditCard = function(creditcardID) {
+    this.DeleteCreditCard = function(creditcardID) {
       var postBody = null;
 
       // verify the required parameter 'creditcardID' is set
       if (creditcardID == undefined || creditcardID == null) {
-        throw new Error("Missing the required parameter 'creditcardID' when calling deleteCreditCard");
+        throw new Error("Missing the required parameter 'creditcardID' when calling DeleteCreditCard");
       }
 
 
@@ -190,7 +190,7 @@
     /**
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.get = function() {
+    this.Get = function() {
       var postBody = null;
 
 
@@ -220,12 +220,12 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.getAddress = function(addressID) {
+    this.GetAddress = function(addressID) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling getAddress");
+        throw new Error("Missing the required parameter 'addressID' when calling GetAddress");
       }
 
 
@@ -256,12 +256,12 @@
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.getCatalog = function(catalogID) {
+    this.GetCatalog = function(catalogID) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling getCatalog");
+        throw new Error("Missing the required parameter 'catalogID' when calling GetCatalog");
       }
 
 
@@ -293,17 +293,17 @@
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.getCategory = function(categoryID, catalogID) {
+    this.GetCategory = function(categoryID, catalogID) {
       var postBody = null;
 
       // verify the required parameter 'categoryID' is set
       if (categoryID == undefined || categoryID == null) {
-        throw new Error("Missing the required parameter 'categoryID' when calling getCategory");
+        throw new Error("Missing the required parameter 'categoryID' when calling GetCategory");
       }
 
       // verify the required parameter 'catalogID' is set
       if (catalogID == undefined || catalogID == null) {
-        throw new Error("Missing the required parameter 'catalogID' when calling getCategory");
+        throw new Error("Missing the required parameter 'catalogID' when calling GetCategory");
       }
 
 
@@ -335,12 +335,12 @@
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.getCreditCard = function(creditcardID) {
+    this.GetCreditCard = function(creditcardID) {
       var postBody = null;
 
       // verify the required parameter 'creditcardID' is set
       if (creditcardID == undefined || creditcardID == null) {
-        throw new Error("Missing the required parameter 'creditcardID' when calling getCreditCard");
+        throw new Error("Missing the required parameter 'creditcardID' when calling GetCreditCard");
       }
 
 
@@ -371,12 +371,12 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerProduct}
      */
-    this.getProduct = function(productID) {
+    this.GetProduct = function(productID) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling getProduct");
+        throw new Error("Missing the required parameter 'productID' when calling GetProduct");
       }
 
 
@@ -407,12 +407,12 @@
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.getPromotion = function(promotionID) {
+    this.GetPromotion = function(promotionID) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
       if (promotionID == undefined || promotionID == null) {
-        throw new Error("Missing the required parameter 'promotionID' when calling getPromotion");
+        throw new Error("Missing the required parameter 'promotionID' when calling GetPromotion");
       }
 
 
@@ -443,12 +443,12 @@
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.getShipment = function(shipmentID) {
+    this.GetShipment = function(shipmentID) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling getShipment");
+        throw new Error("Missing the required parameter 'shipmentID' when calling GetShipment");
       }
 
 
@@ -482,18 +482,18 @@
      * @param {String} opts.catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerSpec}
      */
-    this.getSpec = function(productID, specID, opts) {
+    this.GetSpec = function(productID, specID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling getSpec");
+        throw new Error("Missing the required parameter 'productID' when calling GetSpec");
       }
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling getSpec");
+        throw new Error("Missing the required parameter 'specID' when calling GetSpec");
       }
 
 
@@ -526,12 +526,12 @@
      * @param {String} spendingAccountID ID of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.getSpendingAccount = function(spendingAccountID) {
+    this.GetSpendingAccount = function(spendingAccountID) {
       var postBody = null;
 
       // verify the required parameter 'spendingAccountID' is set
       if (spendingAccountID == undefined || spendingAccountID == null) {
-        throw new Error("Missing the required parameter 'spendingAccountID' when calling getSpendingAccount");
+        throw new Error("Missing the required parameter 'spendingAccountID' when calling GetSpendingAccount");
       }
 
 
@@ -568,7 +568,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerAddress}
      */
-    this.listAddresses = function(opts) {
+    this.ListAddresses = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -613,7 +613,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.listApprovableOrders = function(opts) {
+    this.ListApprovableOrders = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -658,7 +658,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
-    this.listCatalogs = function(opts) {
+    this.ListCatalogs = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -704,7 +704,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
-    this.listCategories = function(opts) {
+    this.ListCategories = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -750,7 +750,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
-    this.listCostCenters = function(opts) {
+    this.ListCostCenters = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -793,7 +793,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerCreditCard}
      */
-    this.listCreditCards = function(opts) {
+    this.ListCreditCards = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -838,7 +838,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.listOrders = function(opts) {
+    this.ListOrders = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -886,7 +886,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerProduct}
      */
-    this.listProducts = function(opts) {
+    this.ListProducts = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -932,7 +932,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
-    this.listPromotions = function(opts) {
+    this.ListPromotions = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -977,13 +977,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
-    this.listShipmentItems = function(shipmentID, opts) {
+    this.ListShipmentItems = function(shipmentID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling listShipmentItems");
+        throw new Error("Missing the required parameter 'shipmentID' when calling ListShipmentItems");
       }
 
 
@@ -1028,7 +1028,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
-    this.listShipments = function(opts) {
+    this.ListShipments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -1074,13 +1074,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
      */
-    this.listSpecs = function(productID, opts) {
+    this.ListSpecs = function(productID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling listSpecs");
+        throw new Error("Missing the required parameter 'productID' when calling ListSpecs");
       }
 
 
@@ -1124,7 +1124,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
-    this.listSpendingAccounts = function(opts) {
+    this.ListSpendingAccounts = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -1167,7 +1167,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.listUserGroups = function(opts) {
+    this.ListUserGroups = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -1204,12 +1204,12 @@
      * @param {module:model/MeUser} partialMeUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.patch = function(partialMeUser) {
+    this.Patch = function(partialMeUser) {
       var postBody = partialMeUser;
 
       // verify the required parameter 'partialMeUser' is set
       if (partialMeUser == undefined || partialMeUser == null) {
-        throw new Error("Missing the required parameter 'partialMeUser' when calling patch");
+        throw new Error("Missing the required parameter 'partialMeUser' when calling Patch");
       }
 
 
@@ -1240,17 +1240,17 @@
      * @param {module:model/BuyerAddress} partialBuyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.patchAddress = function(addressID, partialBuyerAddress) {
+    this.PatchAddress = function(addressID, partialBuyerAddress) {
       var postBody = partialBuyerAddress;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling patchAddress");
+        throw new Error("Missing the required parameter 'addressID' when calling PatchAddress");
       }
 
       // verify the required parameter 'partialBuyerAddress' is set
       if (partialBuyerAddress == undefined || partialBuyerAddress == null) {
-        throw new Error("Missing the required parameter 'partialBuyerAddress' when calling patchAddress");
+        throw new Error("Missing the required parameter 'partialBuyerAddress' when calling PatchAddress");
       }
 
 
@@ -1282,17 +1282,17 @@
      * @param {module:model/BuyerCreditCard} partialBuyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.patchCreditCard = function(creditcardID, partialBuyerCreditCard) {
+    this.PatchCreditCard = function(creditcardID, partialBuyerCreditCard) {
       var postBody = partialBuyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
       if (creditcardID == undefined || creditcardID == null) {
-        throw new Error("Missing the required parameter 'creditcardID' when calling patchCreditCard");
+        throw new Error("Missing the required parameter 'creditcardID' when calling PatchCreditCard");
       }
 
       // verify the required parameter 'partialBuyerCreditCard' is set
       if (partialBuyerCreditCard == undefined || partialBuyerCreditCard == null) {
-        throw new Error("Missing the required parameter 'partialBuyerCreditCard' when calling patchCreditCard");
+        throw new Error("Missing the required parameter 'partialBuyerCreditCard' when calling PatchCreditCard");
       }
 
 
@@ -1324,17 +1324,17 @@
      * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    this.register = function(anonUserToken, meUser) {
+    this.Register = function(anonUserToken, meUser) {
       var postBody = meUser;
 
       // verify the required parameter 'anonUserToken' is set
       if (anonUserToken == undefined || anonUserToken == null) {
-        throw new Error("Missing the required parameter 'anonUserToken' when calling register");
+        throw new Error("Missing the required parameter 'anonUserToken' when calling Register");
       }
 
       // verify the required parameter 'meUser' is set
       if (meUser == undefined || meUser == null) {
-        throw new Error("Missing the required parameter 'meUser' when calling register");
+        throw new Error("Missing the required parameter 'meUser' when calling Register");
       }
 
 
@@ -1365,12 +1365,12 @@
      * @param {module:model/TokenPasswordReset} tokenPasswordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.resetPasswordByToken = function(tokenPasswordReset) {
+    this.ResetPasswordByToken = function(tokenPasswordReset) {
       var postBody = tokenPasswordReset;
 
       // verify the required parameter 'tokenPasswordReset' is set
       if (tokenPasswordReset == undefined || tokenPasswordReset == null) {
-        throw new Error("Missing the required parameter 'tokenPasswordReset' when calling resetPasswordByToken");
+        throw new Error("Missing the required parameter 'tokenPasswordReset' when calling ResetPasswordByToken");
       }
 
 
@@ -1400,12 +1400,12 @@
      * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.save = function(meUser) {
+    this.Save = function(meUser) {
       var postBody = meUser;
 
       // verify the required parameter 'meUser' is set
       if (meUser == undefined || meUser == null) {
-        throw new Error("Missing the required parameter 'meUser' when calling save");
+        throw new Error("Missing the required parameter 'meUser' when calling Save");
       }
 
 
@@ -1436,17 +1436,17 @@
      * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.saveAddress = function(addressID, buyerAddress) {
+    this.SaveAddress = function(addressID, buyerAddress) {
       var postBody = buyerAddress;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling saveAddress");
+        throw new Error("Missing the required parameter 'addressID' when calling SaveAddress");
       }
 
       // verify the required parameter 'buyerAddress' is set
       if (buyerAddress == undefined || buyerAddress == null) {
-        throw new Error("Missing the required parameter 'buyerAddress' when calling saveAddress");
+        throw new Error("Missing the required parameter 'buyerAddress' when calling SaveAddress");
       }
 
 
@@ -1478,17 +1478,17 @@
      * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.saveCreditCard = function(creditcardID, buyerCreditCard) {
+    this.SaveCreditCard = function(creditcardID, buyerCreditCard) {
       var postBody = buyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
       if (creditcardID == undefined || creditcardID == null) {
-        throw new Error("Missing the required parameter 'creditcardID' when calling saveCreditCard");
+        throw new Error("Missing the required parameter 'creditcardID' when calling SaveCreditCard");
       }
 
       // verify the required parameter 'buyerCreditCard' is set
       if (buyerCreditCard == undefined || buyerCreditCard == null) {
-        throw new Error("Missing the required parameter 'buyerCreditCard' when calling saveCreditCard");
+        throw new Error("Missing the required parameter 'buyerCreditCard' when calling SaveCreditCard");
       }
 
 
@@ -1519,12 +1519,12 @@
      * @param {String} anonUserToken Anon user token of the me.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.transferAnonUserOrder = function(anonUserToken) {
+    this.TransferAnonUserOrder = function(anonUserToken) {
       var postBody = null;
 
       // verify the required parameter 'anonUserToken' is set
       if (anonUserToken == undefined || anonUserToken == null) {
-        throw new Error("Missing the required parameter 'anonUserToken' when calling transferAnonUserOrder");
+        throw new Error("Missing the required parameter 'anonUserToken' when calling TransferAnonUserOrder");
       }
 
 

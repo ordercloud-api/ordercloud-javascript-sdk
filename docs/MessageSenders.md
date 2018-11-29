@@ -4,18 +4,18 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteAssignment**](MessageSenders.md#deleteAssignment) | **DELETE** /messagesenders/{messageSenderID}/assignments | 
-[**get**](MessageSenders.md#get) | **GET** /messagesenders/{messageSenderID} | 
-[**list**](MessageSenders.md#list) | **GET** /messagesenders | 
-[**listAssignments**](MessageSenders.md#listAssignments) | **GET** /messagesenders/assignments | 
-[**listCCListenerAssignments**](MessageSenders.md#listCCListenerAssignments) | **GET** /messagesenders/CCListenerAssignments | 
-[**saveAssignment**](MessageSenders.md#saveAssignment) | **POST** /messagesenders/assignments | 
-[**saveCCListenerAssignment**](MessageSenders.md#saveCCListenerAssignment) | **POST** /messagesenders/CCListenerAssignments | 
+[**DeleteAssignment**](MessageSenders.md#DeleteAssignment) | **DELETE** /messagesenders/{messageSenderID}/assignments | 
+[**Get**](MessageSenders.md#Get) | **GET** /messagesenders/{messageSenderID} | 
+[**List**](MessageSenders.md#List) | **GET** /messagesenders | 
+[**ListAssignments**](MessageSenders.md#ListAssignments) | **GET** /messagesenders/assignments | 
+[**ListCCListenerAssignments**](MessageSenders.md#ListCCListenerAssignments) | **GET** /messagesenders/CCListenerAssignments | 
+[**SaveAssignment**](MessageSenders.md#SaveAssignment) | **POST** /messagesenders/assignments | 
+[**SaveCCListenerAssignment**](MessageSenders.md#SaveCCListenerAssignment) | **POST** /messagesenders/CCListenerAssignments | 
 
 
-<a name="deleteAssignment"></a>
-# **deleteAssignment**
-> deleteAssignment(messageSenderID, opts)
+<a name="DeleteAssignment"></a>
+# **DeleteAssignment**
+> DeleteAssignment(messageSenderID, opts)
 
 
 
@@ -35,10 +35,9 @@ var messageSenderID = "messageSenderID_example"; // String | ID of the message s
 var opts = { 
   'buyerID': "buyerID_example", // String | ID of the buyer.
   'userID': "userID_example", // String | ID of the user.
-  'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'supplierID': "supplierID_example" // String | ID of the supplier.
+  'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.deleteAssignment(messageSenderID, opts).then(function() {
+apiInstance.DeleteAssignment(messageSenderID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -54,7 +53,6 @@ Name | Type | Description  | Notes
  **buyerID** | **String**| ID of the buyer. | [optional] 
  **userID** | **String**| ID of the user. | [optional] 
  **userGroupID** | **String**| ID of the user group. | [optional] 
- **supplierID** | **String**| ID of the supplier. | [optional] 
 
 ### Return type
 
@@ -71,9 +69,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> MessageSender get(messageSenderID)
+<a name="Get"></a>
+# **Get**
+> MessageSender Get(messageSenderID)
 
 
 
@@ -90,7 +88,7 @@ var apiInstance = new OrderCloud.MessageSenders();
 
 var messageSenderID = "messageSenderID_example"; // String | ID of the message sender.
 
-apiInstance.get(messageSenderID).then(function(data) {
+apiInstance.Get(messageSenderID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -119,9 +117,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListMessageSender list(opts)
+<a name="List"></a>
+# **List**
+> ListMessageSender List(opts)
 
 
 
@@ -144,7 +142,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -178,9 +176,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listAssignments"></a>
-# **listAssignments**
-> ListMessageSenderAssignment listAssignments(opts)
+<a name="ListAssignments"></a>
+# **ListAssignments**
+> ListMessageSenderAssignment ListAssignments(opts)
 
 
 
@@ -202,10 +200,9 @@ var opts = {
   'userGroupID': "userGroupID_example", // String | ID of the user group.
   'level': "level_example", // String | Level of the message sender assignment. Possible values: User, Group, Company.
   'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'supplierID': "supplierID_example" // String | ID of the supplier.
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.listAssignments(opts).then(function(data) {
+apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -224,7 +221,6 @@ Name | Type | Description  | Notes
  **level** | **String**| Level of the message sender assignment. Possible values: User, Group, Company. | [optional] 
  **page** | **Number**| Page of results to return. Default: 1 | [optional] 
  **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **supplierID** | **String**| ID of the supplier. | [optional] 
 
 ### Return type
 
@@ -241,9 +237,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listCCListenerAssignments"></a>
-# **listCCListenerAssignments**
-> ListMessageCCListenerAssignment listCCListenerAssignments(opts)
+<a name="ListCCListenerAssignments"></a>
+# **ListCCListenerAssignments**
+> ListMessageCCListenerAssignment ListCCListenerAssignments(opts)
 
 
 
@@ -266,7 +262,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.listCCListenerAssignments(opts).then(function(data) {
+apiInstance.ListCCListenerAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -300,9 +296,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveAssignment"></a>
-# **saveAssignment**
-> saveAssignment(messageSenderAssignment)
+<a name="SaveAssignment"></a>
+# **SaveAssignment**
+> SaveAssignment(messageSenderAssignment)
 
 
 
@@ -319,7 +315,7 @@ var apiInstance = new OrderCloud.MessageSenders();
 
 var messageSenderAssignment = new OrderCloud.MessageSenderAssignment(); // MessageSenderAssignment | 
 
-apiInstance.saveAssignment(messageSenderAssignment).then(function() {
+apiInstance.SaveAssignment(messageSenderAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -348,9 +344,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveCCListenerAssignment"></a>
-# **saveCCListenerAssignment**
-> saveCCListenerAssignment(messageCCListenerAssignment)
+<a name="SaveCCListenerAssignment"></a>
+# **SaveCCListenerAssignment**
+> SaveCCListenerAssignment(messageCCListenerAssignment)
 
 
 
@@ -367,7 +363,7 @@ var apiInstance = new OrderCloud.MessageSenders();
 
 var messageCCListenerAssignment = new OrderCloud.MessageCCListenerAssignment(); // MessageCCListenerAssignment | 
 
-apiInstance.saveCCListenerAssignment(messageCCListenerAssignment).then(function() {
+apiInstance.SaveCCListenerAssignment(messageCCListenerAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

@@ -18,6 +18,6 @@ Name | Type | Description | Notes
 **variantCount** | **Number** |  | [optional] 
 **shipFromAddressID** | **String** |  | [optional] 
 **inventory** | [**Inventory**](Inventory.md) |  | [optional] 
-**defaultSupplierID** | **String** |  | [optional] 
+**autoForwardSupplierID** | **String** |  | [optional] 
 
 

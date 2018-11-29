@@ -51,7 +51,6 @@
 
 
 
-
   };
 
   /**
@@ -73,9 +72,6 @@
       }
       if (data.hasOwnProperty('Status')) {
         obj['Status'] = ApiClient.convertToType(data['Status'], 'String');
-      }
-      if (data.hasOwnProperty('AllowResubmit')) {
-        obj['AllowResubmit'] = ApiClient.convertToType(data['AllowResubmit'], 'Boolean');
       }
       if (data.hasOwnProperty('DateCreated')) {
         obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
@@ -105,10 +101,6 @@
    * @member {String} Status
    */
   exports.prototype['Status'] = undefined;
-  /**
-   * @member {Boolean} AllowResubmit
-   */
-  exports.prototype['AllowResubmit'] = undefined;
   /**
    * @member {String} DateCreated
    */

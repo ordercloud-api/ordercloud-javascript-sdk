@@ -46,51 +46,15 @@
 
 
     /**
-     * @param {String} userID ID of the user.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(userID) {
-      var postBody = null;
-
-      // verify the required parameter 'userID' is set
-      if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'userID': userID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/adminusers/{userID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.create = function(user) {
+    this.Create = function(user) {
       var postBody = user;
 
       // verify the required parameter 'user' is set
       if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling create");
+        throw new Error("Missing the required parameter 'user' when calling Create");
       }
 
 
@@ -118,14 +82,50 @@
 
     /**
      * @param {String} userID ID of the user.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.get = function(userID) {
+    this.Delete = function(userID) {
       var postBody = null;
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling get");
+        throw new Error("Missing the required parameter 'userID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'userID': userID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/adminusers/{userID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} userID ID of the user.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     */
+    this.Get = function(userID) {
+      var postBody = null;
+
+      // verify the required parameter 'userID' is set
+      if (userID == undefined || userID == null) {
+        throw new Error("Missing the required parameter 'userID' when calling Get");
       }
 
 
@@ -162,7 +162,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -200,17 +200,17 @@
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.patch = function(userID, partialUser) {
+    this.Patch = function(userID, partialUser) {
       var postBody = partialUser;
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling patch");
+        throw new Error("Missing the required parameter 'userID' when calling Patch");
       }
 
       // verify the required parameter 'partialUser' is set
       if (partialUser == undefined || partialUser == null) {
-        throw new Error("Missing the required parameter 'partialUser' when calling patch");
+        throw new Error("Missing the required parameter 'partialUser' when calling Patch");
       }
 
 
@@ -242,17 +242,17 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.save = function(userID, user) {
+    this.Save = function(userID, user) {
       var postBody = user;
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling save");
+        throw new Error("Missing the required parameter 'userID' when calling Save");
       }
 
       // verify the required parameter 'user' is set
       if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling save");
+        throw new Error("Missing the required parameter 'user' when calling Save");
       }
 
 

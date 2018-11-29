@@ -46,51 +46,15 @@
 
 
     /**
-     * @param {String} promotionID ID of the promotion.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.callDelete = function(promotionID) {
-      var postBody = null;
-
-      // verify the required parameter 'promotionID' is set
-      if (promotionID == undefined || promotionID == null) {
-        throw new Error("Missing the required parameter 'promotionID' when calling callDelete");
-      }
-
-
-      var pathParams = {
-        'promotionID': promotionID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/promotions/{promotionID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.create = function(promotion) {
+    this.Create = function(promotion) {
       var postBody = promotion;
 
       // verify the required parameter 'promotion' is set
       if (promotion == undefined || promotion == null) {
-        throw new Error("Missing the required parameter 'promotion' when calling create");
+        throw new Error("Missing the required parameter 'promotion' when calling Create");
       }
 
 
@@ -118,24 +82,60 @@
 
     /**
      * @param {String} promotionID ID of the promotion.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(promotionID) {
+      var postBody = null;
+
+      // verify the required parameter 'promotionID' is set
+      if (promotionID == undefined || promotionID == null) {
+        throw new Error("Missing the required parameter 'promotionID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'promotionID': promotionID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/promotions/{promotionID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} promotionID ID of the promotion.
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.deleteAssignment = function(promotionID, buyerID, opts) {
+    this.DeleteAssignment = function(promotionID, buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
       if (promotionID == undefined || promotionID == null) {
-        throw new Error("Missing the required parameter 'promotionID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'promotionID' when calling DeleteAssignment");
       }
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling deleteAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
       }
 
 
@@ -169,12 +169,12 @@
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.get = function(promotionID) {
+    this.Get = function(promotionID) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
       if (promotionID == undefined || promotionID == null) {
-        throw new Error("Missing the required parameter 'promotionID' when calling get");
+        throw new Error("Missing the required parameter 'promotionID' when calling Get");
       }
 
 
@@ -211,7 +211,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
-    this.list = function(opts) {
+    this.List = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -255,7 +255,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotionAssignment}
      */
-    this.listAssignments = function(opts) {
+    this.ListAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -294,17 +294,17 @@
      * @param {module:model/Promotion} partialPromotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.patch = function(promotionID, partialPromotion) {
+    this.Patch = function(promotionID, partialPromotion) {
       var postBody = partialPromotion;
 
       // verify the required parameter 'promotionID' is set
       if (promotionID == undefined || promotionID == null) {
-        throw new Error("Missing the required parameter 'promotionID' when calling patch");
+        throw new Error("Missing the required parameter 'promotionID' when calling Patch");
       }
 
       // verify the required parameter 'partialPromotion' is set
       if (partialPromotion == undefined || partialPromotion == null) {
-        throw new Error("Missing the required parameter 'partialPromotion' when calling patch");
+        throw new Error("Missing the required parameter 'partialPromotion' when calling Patch");
       }
 
 
@@ -336,17 +336,17 @@
      * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.save = function(promotionID, promotion) {
+    this.Save = function(promotionID, promotion) {
       var postBody = promotion;
 
       // verify the required parameter 'promotionID' is set
       if (promotionID == undefined || promotionID == null) {
-        throw new Error("Missing the required parameter 'promotionID' when calling save");
+        throw new Error("Missing the required parameter 'promotionID' when calling Save");
       }
 
       // verify the required parameter 'promotion' is set
       if (promotion == undefined || promotion == null) {
-        throw new Error("Missing the required parameter 'promotion' when calling save");
+        throw new Error("Missing the required parameter 'promotion' when calling Save");
       }
 
 
@@ -377,12 +377,12 @@
      * @param {module:model/PromotionAssignment} promotionAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.saveAssignment = function(promotionAssignment) {
+    this.SaveAssignment = function(promotionAssignment) {
       var postBody = promotionAssignment;
 
       // verify the required parameter 'promotionAssignment' is set
       if (promotionAssignment == undefined || promotionAssignment == null) {
-        throw new Error("Missing the required parameter 'promotionAssignment' when calling saveAssignment");
+        throw new Error("Missing the required parameter 'promotionAssignment' when calling SaveAssignment");
       }
 
 

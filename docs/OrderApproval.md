@@ -6,7 +6,6 @@ Name | Type | Description | Notes
 **approvalRuleID** | **String** |  | [optional] 
 **approvingGroupID** | **String** |  | [optional] 
 **status** | **String** |  | [optional] 
-**allowResubmit** | **Boolean** |  | [optional] 
 **dateCreated** | **String** |  | [optional] 
 **dateCompleted** | **String** |  | [optional] 
 **approver** | [**User**](User.md) |  | [optional] 

@@ -4,65 +4,17 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](ProductFacets.md#callDelete) | **DELETE** /productfacets/{productFacetID} | 
-[**create**](ProductFacets.md#create) | **POST** /productfacets | 
-[**get**](ProductFacets.md#get) | **GET** /productfacets/{productFacetID} | 
-[**list**](ProductFacets.md#list) | **GET** /productfacets | 
-[**patch**](ProductFacets.md#patch) | **PATCH** /productfacets/{productFacetID} | 
-[**save**](ProductFacets.md#save) | **PUT** /productfacets/{productFacetID} | 
+[**Create**](ProductFacets.md#Create) | **POST** /productfacets | 
+[**Delete**](ProductFacets.md#Delete) | **DELETE** /productfacets/{productFacetID} | 
+[**Get**](ProductFacets.md#Get) | **GET** /productfacets/{productFacetID} | 
+[**List**](ProductFacets.md#List) | **GET** /productfacets | 
+[**Patch**](ProductFacets.md#Patch) | **PATCH** /productfacets/{productFacetID} | 
+[**Save**](ProductFacets.md#Save) | **PUT** /productfacets/{productFacetID} | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(productFacetID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.ProductFacets();
-
-var productFacetID = "productFacetID_example"; // String | ID of the product facet.
-
-apiInstance.callDelete(productFacetID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **productFacetID** | **String**| ID of the product facet. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> ProductFacet create(productFacet)
+<a name="Create"></a>
+# **Create**
+> ProductFacet Create(productFacet)
 
 
 
@@ -79,7 +31,7 @@ var apiInstance = new OrderCloud.ProductFacets();
 
 var productFacet = new OrderCloud.ProductFacet(); // ProductFacet | 
 
-apiInstance.create(productFacet).then(function(data) {
+apiInstance.Create(productFacet).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -108,9 +60,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> ProductFacet get(productFacetID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(productFacetID)
 
 
 
@@ -127,7 +79,55 @@ var apiInstance = new OrderCloud.ProductFacets();
 
 var productFacetID = "productFacetID_example"; // String | ID of the product facet.
 
-apiInstance.get(productFacetID).then(function(data) {
+apiInstance.Delete(productFacetID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **productFacetID** | **String**| ID of the product facet. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Get"></a>
+# **Get**
+> ProductFacet Get(productFacetID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ProductFacets();
+
+var productFacetID = "productFacetID_example"; // String | ID of the product facet.
+
+apiInstance.Get(productFacetID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -156,9 +156,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListProductFacet list(opts)
+<a name="List"></a>
+# **List**
+> ListProductFacet List(opts)
 
 
 
@@ -181,7 +181,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -215,9 +215,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> ProductFacet patch(productFacetID, partialProductFacet)
+<a name="Patch"></a>
+# **Patch**
+> ProductFacet Patch(productFacetID, partialProductFacet)
 
 
 
@@ -236,7 +236,7 @@ var productFacetID = "productFacetID_example"; // String | ID of the product fac
 
 var partialProductFacet = new OrderCloud.ProductFacet(); // ProductFacet | 
 
-apiInstance.patch(productFacetID, partialProductFacet).then(function(data) {
+apiInstance.Patch(productFacetID, partialProductFacet).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -266,9 +266,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> ProductFacet save(productFacetID, productFacet)
+<a name="Save"></a>
+# **Save**
+> ProductFacet Save(productFacetID, productFacet)
 
 
 
@@ -287,7 +287,7 @@ var productFacetID = "productFacetID_example"; // String | ID of the product fac
 
 var productFacet = new OrderCloud.ProductFacet(); // ProductFacet | 
 
-apiInstance.save(productFacetID, productFacet).then(function(data) {
+apiInstance.Save(productFacetID, productFacet).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

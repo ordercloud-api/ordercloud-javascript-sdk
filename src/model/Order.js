@@ -80,9 +80,6 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('DateCreated')) {
-        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
       }
@@ -112,6 +109,9 @@
       }
       if (data.hasOwnProperty('Status')) {
         obj['Status'] = ApiClient.convertToType(data['Status'], 'String');
+      }
+      if (data.hasOwnProperty('DateCreated')) {
+        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
       }
       if (data.hasOwnProperty('DateSubmitted')) {
         obj['DateSubmitted'] = ApiClient.convertToType(data['DateSubmitted'], 'String');
@@ -154,10 +154,6 @@
   }
 
   /**
-   * @member {String} DateCreated
-   */
-  exports.prototype['DateCreated'] = undefined;
-  /**
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
@@ -197,6 +193,10 @@
    * @member {String} Status
    */
   exports.prototype['Status'] = undefined;
+  /**
+   * @member {String} DateCreated
+   */
+  exports.prototype['DateCreated'] = undefined;
   /**
    * @member {String} DateSubmitted
    */

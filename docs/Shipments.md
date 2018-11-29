@@ -4,69 +4,21 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**callDelete**](Shipments.md#callDelete) | **DELETE** /shipments/{shipmentID} | 
-[**create**](Shipments.md#create) | **POST** /shipments | 
-[**deleteItem**](Shipments.md#deleteItem) | **DELETE** /shipments/{shipmentID}/items/{orderID}/{lineItemID} | 
-[**get**](Shipments.md#get) | **GET** /shipments/{shipmentID} | 
-[**getItem**](Shipments.md#getItem) | **GET** /shipments/{shipmentID}/items/{orderID}/{lineItemID} | 
-[**list**](Shipments.md#list) | **GET** /shipments | 
-[**listItems**](Shipments.md#listItems) | **GET** /shipments/{shipmentID}/items | 
-[**patch**](Shipments.md#patch) | **PATCH** /shipments/{shipmentID} | 
-[**save**](Shipments.md#save) | **PUT** /shipments/{shipmentID} | 
-[**saveItem**](Shipments.md#saveItem) | **POST** /shipments/{shipmentID}/items | 
+[**Create**](Shipments.md#Create) | **POST** /shipments | 
+[**Delete**](Shipments.md#Delete) | **DELETE** /shipments/{shipmentID} | 
+[**DeleteItem**](Shipments.md#DeleteItem) | **DELETE** /shipments/{shipmentID}/items/{orderID}/{lineItemID} | 
+[**Get**](Shipments.md#Get) | **GET** /shipments/{shipmentID} | 
+[**GetItem**](Shipments.md#GetItem) | **GET** /shipments/{shipmentID}/items/{orderID}/{lineItemID} | 
+[**List**](Shipments.md#List) | **GET** /shipments | 
+[**ListItems**](Shipments.md#ListItems) | **GET** /shipments/{shipmentID}/items | 
+[**Patch**](Shipments.md#Patch) | **PATCH** /shipments/{shipmentID} | 
+[**Save**](Shipments.md#Save) | **PUT** /shipments/{shipmentID} | 
+[**SaveItem**](Shipments.md#SaveItem) | **POST** /shipments/{shipmentID}/items | 
 
 
-<a name="callDelete"></a>
-# **callDelete**
-> callDelete(shipmentID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Shipments();
-
-var shipmentID = "shipmentID_example"; // String | ID of the shipment.
-
-apiInstance.callDelete(shipmentID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **shipmentID** | **String**| ID of the shipment. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="create"></a>
-# **create**
-> Shipment create(shipment)
+<a name="Create"></a>
+# **Create**
+> Shipment Create(shipment)
 
 
 
@@ -83,7 +35,7 @@ var apiInstance = new OrderCloud.Shipments();
 
 var shipment = new OrderCloud.Shipment(); // Shipment | 
 
-apiInstance.create(shipment).then(function(data) {
+apiInstance.Create(shipment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -112,9 +64,57 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="deleteItem"></a>
-# **deleteItem**
-> deleteItem(shipmentID, orderID, lineItemID)
+<a name="Delete"></a>
+# **Delete**
+> Delete(shipmentID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Shipments();
+
+var shipmentID = "shipmentID_example"; // String | ID of the shipment.
+
+apiInstance.Delete(shipmentID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **shipmentID** | **String**| ID of the shipment. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteItem"></a>
+# **DeleteItem**
+> DeleteItem(shipmentID, orderID, lineItemID)
 
 
 
@@ -135,7 +135,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
-apiInstance.deleteItem(shipmentID, orderID, lineItemID).then(function() {
+apiInstance.DeleteItem(shipmentID, orderID, lineItemID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -166,9 +166,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="get"></a>
-# **get**
-> Shipment get(shipmentID)
+<a name="Get"></a>
+# **Get**
+> Shipment Get(shipmentID)
 
 
 
@@ -185,7 +185,7 @@ var apiInstance = new OrderCloud.Shipments();
 
 var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
-apiInstance.get(shipmentID).then(function(data) {
+apiInstance.Get(shipmentID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -214,9 +214,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="getItem"></a>
-# **getItem**
-> ShipmentItem getItem(shipmentID, orderID, lineItemID)
+<a name="GetItem"></a>
+# **GetItem**
+> ShipmentItem GetItem(shipmentID, orderID, lineItemID)
 
 
 
@@ -237,7 +237,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
-apiInstance.getItem(shipmentID, orderID, lineItemID).then(function(data) {
+apiInstance.GetItem(shipmentID, orderID, lineItemID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -268,9 +268,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="list"></a>
-# **list**
-> ListShipment list(opts)
+<a name="List"></a>
+# **List**
+> ListShipment List(opts)
 
 
 
@@ -294,7 +294,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.list(opts).then(function(data) {
+apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -329,9 +329,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="listItems"></a>
-# **listItems**
-> ListShipmentItem listItems(shipmentID, opts)
+<a name="ListItems"></a>
+# **ListItems**
+> ListShipmentItem ListItems(shipmentID, opts)
 
 
 
@@ -356,7 +356,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.listItems(shipmentID, opts).then(function(data) {
+apiInstance.ListItems(shipmentID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -391,9 +391,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="patch"></a>
-# **patch**
-> Shipment patch(shipmentID, partialShipment)
+<a name="Patch"></a>
+# **Patch**
+> Shipment Patch(shipmentID, partialShipment)
 
 
 
@@ -412,7 +412,7 @@ var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
 var partialShipment = new OrderCloud.Shipment(); // Shipment | 
 
-apiInstance.patch(shipmentID, partialShipment).then(function(data) {
+apiInstance.Patch(shipmentID, partialShipment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -442,9 +442,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="save"></a>
-# **save**
-> Shipment save(shipmentID, shipment)
+<a name="Save"></a>
+# **Save**
+> Shipment Save(shipmentID, shipment)
 
 
 
@@ -463,7 +463,7 @@ var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
 var shipment = new OrderCloud.Shipment(); // Shipment | 
 
-apiInstance.save(shipmentID, shipment).then(function(data) {
+apiInstance.Save(shipmentID, shipment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -493,9 +493,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="saveItem"></a>
-# **saveItem**
-> ShipmentItem saveItem(shipmentID, shipmentItem)
+<a name="SaveItem"></a>
+# **SaveItem**
+> ShipmentItem SaveItem(shipmentID, shipmentItem)
 
 
 
@@ -514,7 +514,7 @@ var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
 var shipmentItem = new OrderCloud.ShipmentItem(); // ShipmentItem | 
 
-apiInstance.saveItem(shipmentID, shipmentItem).then(function(data) {
+apiInstance.SaveItem(shipmentID, shipmentItem).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

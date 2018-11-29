@@ -118,8 +118,8 @@
       if (data.hasOwnProperty('Inventory')) {
         obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
       }
-      if (data.hasOwnProperty('DefaultSupplierID')) {
-        obj['DefaultSupplierID'] = ApiClient.convertToType(data['DefaultSupplierID'], 'String');
+      if (data.hasOwnProperty('AutoForwardSupplierID')) {
+        obj['AutoForwardSupplierID'] = ApiClient.convertToType(data['AutoForwardSupplierID'], 'String');
       }
     }
     return obj;
@@ -186,9 +186,9 @@
    */
   exports.prototype['Inventory'] = undefined;
   /**
-   * @member {String} DefaultSupplierID
+   * @member {String} AutoForwardSupplierID
    */
-  exports.prototype['DefaultSupplierID'] = undefined;
+  exports.prototype['AutoForwardSupplierID'] = undefined;
 
 
 
