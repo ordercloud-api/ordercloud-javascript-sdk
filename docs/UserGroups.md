@@ -4,71 +4,20 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](UserGroups.md#Create) | **POST** /buyers/{buyerID}/usergroups | 
-[**Delete**](UserGroups.md#Delete) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID} | 
-[**DeleteUserAssignment**](UserGroups.md#DeleteUserAssignment) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID}/assignments/{userID} | 
-[**Get**](UserGroups.md#Get) | **GET** /buyers/{buyerID}/usergroups/{userGroupID} | 
-[**List**](UserGroups.md#List) | **GET** /buyers/{buyerID}/usergroups | 
-[**ListUserAssignments**](UserGroups.md#ListUserAssignments) | **GET** /buyers/{buyerID}/usergroups/assignments | 
-[**Patch**](UserGroups.md#Patch) | **PATCH** /buyers/{buyerID}/usergroups/{userGroupID} | 
-[**Save**](UserGroups.md#Save) | **PUT** /buyers/{buyerID}/usergroups/{userGroupID} | 
-[**SaveUserAssignment**](UserGroups.md#SaveUserAssignment) | **POST** /buyers/{buyerID}/usergroups/assignments | 
+[**callDelete**](UserGroups.md#callDelete) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID} | 
+[**create**](UserGroups.md#create) | **POST** /buyers/{buyerID}/usergroups | 
+[**deleteUserAssignment**](UserGroups.md#deleteUserAssignment) | **DELETE** /buyers/{buyerID}/usergroups/{userGroupID}/assignments/{userID} | 
+[**get**](UserGroups.md#get) | **GET** /buyers/{buyerID}/usergroups/{userGroupID} | 
+[**list**](UserGroups.md#list) | **GET** /buyers/{buyerID}/usergroups | 
+[**listUserAssignments**](UserGroups.md#listUserAssignments) | **GET** /buyers/{buyerID}/usergroups/assignments | 
+[**patch**](UserGroups.md#patch) | **PATCH** /buyers/{buyerID}/usergroups/{userGroupID} | 
+[**save**](UserGroups.md#save) | **PUT** /buyers/{buyerID}/usergroups/{userGroupID} | 
+[**saveUserAssignment**](UserGroups.md#saveUserAssignment) | **POST** /buyers/{buyerID}/usergroups/assignments | 
 
 
-<a name="Create"></a>
-# **Create**
-> UserGroup Create(buyerID, userGroup)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.UserGroups();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
-
-apiInstance.Create(buyerID, userGroup).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **userGroup** | [**UserGroup**](UserGroup.md)|  | 
-
-### Return type
-
-[**UserGroup**](UserGroup.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(buyerID, userGroupID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(buyerID, userGroupID)
 
 
 
@@ -87,7 +36,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
-apiInstance.Delete(buyerID, userGroupID).then(function() {
+apiInstance.callDelete(buyerID, userGroupID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -117,9 +66,60 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="DeleteUserAssignment"></a>
-# **DeleteUserAssignment**
-> DeleteUserAssignment(buyerID, userGroupID, userID)
+<a name="create"></a>
+# **create**
+> UserGroup create(buyerID, userGroup)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.UserGroups();
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
+
+apiInstance.create(buyerID, userGroup).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **buyerID** | **String**| ID of the buyer. | 
+ **userGroup** | [**UserGroup**](UserGroup.md)|  | 
+
+### Return type
+
+[**UserGroup**](UserGroup.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="deleteUserAssignment"></a>
+# **deleteUserAssignment**
+> deleteUserAssignment(buyerID, userGroupID, userID)
 
 
 
@@ -140,7 +140,7 @@ var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
 var userID = "userID_example"; // String | ID of the user.
 
-apiInstance.DeleteUserAssignment(buyerID, userGroupID, userID).then(function() {
+apiInstance.deleteUserAssignment(buyerID, userGroupID, userID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -171,9 +171,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> UserGroup Get(buyerID, userGroupID)
+<a name="get"></a>
+# **get**
+> UserGroup get(buyerID, userGroupID)
 
 
 
@@ -192,7 +192,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
-apiInstance.Get(buyerID, userGroupID).then(function(data) {
+apiInstance.get(buyerID, userGroupID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -222,9 +222,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListUserGroup List(buyerID, opts)
+<a name="list"></a>
+# **list**
+> ListUserGroup list(buyerID, opts)
 
 
 
@@ -249,7 +249,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(buyerID, opts).then(function(data) {
+apiInstance.list(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -284,9 +284,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListUserAssignments"></a>
-# **ListUserAssignments**
-> ListUserGroupAssignment ListUserAssignments(buyerID, opts)
+<a name="listUserAssignments"></a>
+# **listUserAssignments**
+> ListUserGroupAssignment listUserAssignments(buyerID, opts)
 
 
 
@@ -309,7 +309,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.ListUserAssignments(buyerID, opts).then(function(data) {
+apiInstance.listUserAssignments(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -342,9 +342,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> UserGroup Patch(buyerID, userGroupID, partialUserGroup)
+<a name="patch"></a>
+# **patch**
+> UserGroup patch(buyerID, userGroupID, partialUserGroup)
 
 
 
@@ -365,7 +365,7 @@ var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
 var partialUserGroup = new OrderCloud.UserGroup(); // UserGroup | 
 
-apiInstance.Patch(buyerID, userGroupID, partialUserGroup).then(function(data) {
+apiInstance.patch(buyerID, userGroupID, partialUserGroup).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -396,9 +396,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> UserGroup Save(buyerID, userGroupID, userGroup)
+<a name="save"></a>
+# **save**
+> UserGroup save(buyerID, userGroupID, userGroup)
 
 
 
@@ -419,7 +419,7 @@ var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
 var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
 
-apiInstance.Save(buyerID, userGroupID, userGroup).then(function(data) {
+apiInstance.save(buyerID, userGroupID, userGroup).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -450,9 +450,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveUserAssignment"></a>
-# **SaveUserAssignment**
-> SaveUserAssignment(buyerID, userGroupAssignment)
+<a name="saveUserAssignment"></a>
+# **saveUserAssignment**
+> saveUserAssignment(buyerID, userGroupAssignment)
 
 
 
@@ -471,7 +471,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var userGroupAssignment = new OrderCloud.UserGroupAssignment(); // UserGroupAssignment | 
 
-apiInstance.SaveUserAssignment(buyerID, userGroupAssignment).then(function() {
+apiInstance.saveUserAssignment(buyerID, userGroupAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

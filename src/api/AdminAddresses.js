@@ -46,50 +46,15 @@
 
 
     /**
-     * @param {module:model/Address} address 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
-     */
-    this.Create = function(address) {
-      var postBody = address;
-
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Create");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Address;
-
-      return this.apiClient.callApi(
-        '/addresses', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(addressID) {
+    this.callDelete = function(addressID) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Delete");
+        throw new Error("Missing the required parameter 'addressID' when calling callDelete");
       }
 
 
@@ -117,15 +82,50 @@
 
 
     /**
+     * @param {module:model/Address} address 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
+     */
+    this.create = function(address) {
+      var postBody = address;
+
+      // verify the required parameter 'address' is set
+      if (address == undefined || address == null) {
+        throw new Error("Missing the required parameter 'address' when calling create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Address;
+
+      return this.apiClient.callApi(
+        '/addresses', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(addressID) {
+    this.get = function(addressID) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Get");
+        throw new Error("Missing the required parameter 'addressID' when calling get");
       }
 
 
@@ -162,7 +162,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -200,17 +200,17 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(addressID, partialAddress) {
+    this.patch = function(addressID, partialAddress) {
       var postBody = partialAddress;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Patch");
+        throw new Error("Missing the required parameter 'addressID' when calling patch");
       }
 
       // verify the required parameter 'partialAddress' is set
       if (partialAddress == undefined || partialAddress == null) {
-        throw new Error("Missing the required parameter 'partialAddress' when calling Patch");
+        throw new Error("Missing the required parameter 'partialAddress' when calling patch");
       }
 
 
@@ -242,17 +242,17 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(addressID, address) {
+    this.save = function(addressID, address) {
       var postBody = address;
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Save");
+        throw new Error("Missing the required parameter 'addressID' when calling save");
       }
 
       // verify the required parameter 'address' is set
       if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Save");
+        throw new Error("Missing the required parameter 'address' when calling save");
       }
 
 

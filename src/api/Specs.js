@@ -46,15 +46,51 @@
 
 
     /**
+     * @param {String} specID ID of the spec.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.callDelete = function(specID) {
+      var postBody = null;
+
+      // verify the required parameter 'specID' is set
+      if (specID == undefined || specID == null) {
+        throw new Error("Missing the required parameter 'specID' when calling callDelete");
+      }
+
+
+      var pathParams = {
+        'specID': specID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/specs/{specID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {module:model/Spec} spec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Create = function(spec) {
+    this.create = function(spec) {
       var postBody = spec;
 
       // verify the required parameter 'spec' is set
       if (spec == undefined || spec == null) {
-        throw new Error("Missing the required parameter 'spec' when calling Create");
+        throw new Error("Missing the required parameter 'spec' when calling create");
       }
 
 
@@ -85,17 +121,17 @@
      * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.CreateOption = function(specID, specOption) {
+    this.createOption = function(specID, specOption) {
       var postBody = specOption;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling CreateOption");
+        throw new Error("Missing the required parameter 'specID' when calling createOption");
       }
 
       // verify the required parameter 'specOption' is set
       if (specOption == undefined || specOption == null) {
-        throw new Error("Missing the required parameter 'specOption' when calling CreateOption");
+        throw new Error("Missing the required parameter 'specOption' when calling createOption");
       }
 
 
@@ -124,56 +160,20 @@
 
     /**
      * @param {String} specID ID of the spec.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.Delete = function(specID) {
-      var postBody = null;
-
-      // verify the required parameter 'specID' is set
-      if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling Delete");
-      }
-
-
-      var pathParams = {
-        'specID': specID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/specs/{specID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} specID ID of the spec.
      * @param {String} optionID ID of the option.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteOption = function(specID, optionID) {
+    this.deleteOption = function(specID, optionID) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling DeleteOption");
+        throw new Error("Missing the required parameter 'specID' when calling deleteOption");
       }
 
       // verify the required parameter 'optionID' is set
       if (optionID == undefined || optionID == null) {
-        throw new Error("Missing the required parameter 'optionID' when calling DeleteOption");
+        throw new Error("Missing the required parameter 'optionID' when calling deleteOption");
       }
 
 
@@ -206,17 +206,17 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteProductAssignment = function(specID, productID) {
+    this.deleteProductAssignment = function(specID, productID) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling DeleteProductAssignment");
+        throw new Error("Missing the required parameter 'specID' when calling deleteProductAssignment");
       }
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling DeleteProductAssignment");
+        throw new Error("Missing the required parameter 'productID' when calling deleteProductAssignment");
       }
 
 
@@ -248,12 +248,12 @@
      * @param {String} specID ID of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Get = function(specID) {
+    this.get = function(specID) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling Get");
+        throw new Error("Missing the required parameter 'specID' when calling get");
       }
 
 
@@ -285,17 +285,17 @@
      * @param {String} optionID ID of the option.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.GetOption = function(specID, optionID) {
+    this.getOption = function(specID, optionID) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling GetOption");
+        throw new Error("Missing the required parameter 'specID' when calling getOption");
       }
 
       // verify the required parameter 'optionID' is set
       if (optionID == undefined || optionID == null) {
-        throw new Error("Missing the required parameter 'optionID' when calling GetOption");
+        throw new Error("Missing the required parameter 'optionID' when calling getOption");
       }
 
 
@@ -333,7 +333,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -377,13 +377,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecOption}
      */
-    this.ListOptions = function(specID, opts) {
+    this.listOptions = function(specID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling ListOptions");
+        throw new Error("Missing the required parameter 'specID' when calling listOptions");
       }
 
 
@@ -426,7 +426,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecProductAssignment}
      */
-    this.ListProductAssignments = function(opts) {
+    this.listProductAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -464,17 +464,17 @@
      * @param {module:model/Spec} partialSpec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Patch = function(specID, partialSpec) {
+    this.patch = function(specID, partialSpec) {
       var postBody = partialSpec;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling Patch");
+        throw new Error("Missing the required parameter 'specID' when calling patch");
       }
 
       // verify the required parameter 'partialSpec' is set
       if (partialSpec == undefined || partialSpec == null) {
-        throw new Error("Missing the required parameter 'partialSpec' when calling Patch");
+        throw new Error("Missing the required parameter 'partialSpec' when calling patch");
       }
 
 
@@ -507,22 +507,22 @@
      * @param {module:model/SpecOption} partialSpecOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.PatchOption = function(specID, optionID, partialSpecOption) {
+    this.patchOption = function(specID, optionID, partialSpecOption) {
       var postBody = partialSpecOption;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling PatchOption");
+        throw new Error("Missing the required parameter 'specID' when calling patchOption");
       }
 
       // verify the required parameter 'optionID' is set
       if (optionID == undefined || optionID == null) {
-        throw new Error("Missing the required parameter 'optionID' when calling PatchOption");
+        throw new Error("Missing the required parameter 'optionID' when calling patchOption");
       }
 
       // verify the required parameter 'partialSpecOption' is set
       if (partialSpecOption == undefined || partialSpecOption == null) {
-        throw new Error("Missing the required parameter 'partialSpecOption' when calling PatchOption");
+        throw new Error("Missing the required parameter 'partialSpecOption' when calling patchOption");
       }
 
 
@@ -555,17 +555,17 @@
      * @param {module:model/Spec} spec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Save = function(specID, spec) {
+    this.save = function(specID, spec) {
       var postBody = spec;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling Save");
+        throw new Error("Missing the required parameter 'specID' when calling save");
       }
 
       // verify the required parameter 'spec' is set
       if (spec == undefined || spec == null) {
-        throw new Error("Missing the required parameter 'spec' when calling Save");
+        throw new Error("Missing the required parameter 'spec' when calling save");
       }
 
 
@@ -598,22 +598,22 @@
      * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.SaveOption = function(specID, optionID, specOption) {
+    this.saveOption = function(specID, optionID, specOption) {
       var postBody = specOption;
 
       // verify the required parameter 'specID' is set
       if (specID == undefined || specID == null) {
-        throw new Error("Missing the required parameter 'specID' when calling SaveOption");
+        throw new Error("Missing the required parameter 'specID' when calling saveOption");
       }
 
       // verify the required parameter 'optionID' is set
       if (optionID == undefined || optionID == null) {
-        throw new Error("Missing the required parameter 'optionID' when calling SaveOption");
+        throw new Error("Missing the required parameter 'optionID' when calling saveOption");
       }
 
       // verify the required parameter 'specOption' is set
       if (specOption == undefined || specOption == null) {
-        throw new Error("Missing the required parameter 'specOption' when calling SaveOption");
+        throw new Error("Missing the required parameter 'specOption' when calling saveOption");
       }
 
 
@@ -645,12 +645,12 @@
      * @param {module:model/SpecProductAssignment} specProductAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(specProductAssignment) {
+    this.saveProductAssignment = function(specProductAssignment) {
       var postBody = specProductAssignment;
 
       // verify the required parameter 'specProductAssignment' is set
       if (specProductAssignment == undefined || specProductAssignment == null) {
-        throw new Error("Missing the required parameter 'specProductAssignment' when calling SaveProductAssignment");
+        throw new Error("Missing the required parameter 'specProductAssignment' when calling saveProductAssignment");
       }
 
 

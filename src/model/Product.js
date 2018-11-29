@@ -73,6 +73,9 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('Inventory')) {
+        obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
+      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = ApiClient.convertToType(data['DefaultPriceScheduleID'], 'String');
       }
@@ -115,16 +118,17 @@
       if (data.hasOwnProperty('ShipFromAddressID')) {
         obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
       }
-      if (data.hasOwnProperty('Inventory')) {
-        obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
-      }
-      if (data.hasOwnProperty('AutoForwardSupplierID')) {
-        obj['AutoForwardSupplierID'] = ApiClient.convertToType(data['AutoForwardSupplierID'], 'String');
+      if (data.hasOwnProperty('DefaultSupplierID')) {
+        obj['DefaultSupplierID'] = ApiClient.convertToType(data['DefaultSupplierID'], 'String');
       }
     }
     return obj;
   }
 
+  /**
+   * @member {module:model/Inventory} Inventory
+   */
+  exports.prototype['Inventory'] = undefined;
   /**
    * @member {String} DefaultPriceScheduleID
    */
@@ -182,13 +186,9 @@
    */
   exports.prototype['ShipFromAddressID'] = undefined;
   /**
-   * @member {module:model/Inventory} Inventory
+   * @member {String} DefaultSupplierID
    */
-  exports.prototype['Inventory'] = undefined;
-  /**
-   * @member {String} AutoForwardSupplierID
-   */
-  exports.prototype['AutoForwardSupplierID'] = undefined;
+  exports.prototype['DefaultSupplierID'] = undefined;
 
 
 

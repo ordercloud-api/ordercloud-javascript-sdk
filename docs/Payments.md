@@ -4,18 +4,72 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](Payments.md#Create) | **POST** /orders/{direction}/{orderID}/payments | 
-[**CreateTransaction**](Payments.md#CreateTransaction) | **POST** /orders/{direction}/{orderID}/payments/{paymentID}/transactions | 
-[**Delete**](Payments.md#Delete) | **DELETE** /orders/{direction}/{orderID}/payments/{paymentID} | 
-[**DeleteTransaction**](Payments.md#DeleteTransaction) | **DELETE** /orders/{direction}/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
-[**Get**](Payments.md#Get) | **GET** /orders/{direction}/{orderID}/payments/{paymentID} | 
-[**List**](Payments.md#List) | **GET** /orders/{direction}/{orderID}/payments | 
-[**Patch**](Payments.md#Patch) | **PATCH** /orders/{direction}/{orderID}/payments/{paymentID} | 
+[**callDelete**](Payments.md#callDelete) | **DELETE** /orders/{direction}/{orderID}/payments/{paymentID} | 
+[**create**](Payments.md#create) | **POST** /orders/{direction}/{orderID}/payments | 
+[**createTransaction**](Payments.md#createTransaction) | **POST** /orders/{direction}/{orderID}/payments/{paymentID}/transactions | 
+[**deleteTransaction**](Payments.md#deleteTransaction) | **DELETE** /orders/{direction}/{orderID}/payments/{paymentID}/transactions/{transactionID} | 
+[**get**](Payments.md#get) | **GET** /orders/{direction}/{orderID}/payments/{paymentID} | 
+[**list**](Payments.md#list) | **GET** /orders/{direction}/{orderID}/payments | 
+[**patch**](Payments.md#patch) | **PATCH** /orders/{direction}/{orderID}/payments/{paymentID} | 
 
 
-<a name="Create"></a>
-# **Create**
-> Payment Create(direction, orderID, payment)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(direction, orderID, paymentID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Payments();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+var paymentID = "paymentID_example"; // String | ID of the payment.
+
+apiInstance.callDelete(direction, orderID, paymentID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+ **paymentID** | **String**| ID of the payment. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="create"></a>
+# **create**
+> Payment create(direction, orderID, payment)
 
 
 
@@ -36,7 +90,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var payment = new OrderCloud.Payment(); // Payment | 
 
-apiInstance.Create(direction, orderID, payment).then(function(data) {
+apiInstance.create(direction, orderID, payment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -67,9 +121,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="CreateTransaction"></a>
-# **CreateTransaction**
-> Payment CreateTransaction(direction, orderID, paymentID, paymentTransaction)
+<a name="createTransaction"></a>
+# **createTransaction**
+> Payment createTransaction(direction, orderID, paymentID, paymentTransaction)
 
 
 
@@ -92,7 +146,7 @@ var paymentID = "paymentID_example"; // String | ID of the payment.
 
 var paymentTransaction = new OrderCloud.PaymentTransaction(); // PaymentTransaction | 
 
-apiInstance.CreateTransaction(direction, orderID, paymentID, paymentTransaction).then(function(data) {
+apiInstance.createTransaction(direction, orderID, paymentID, paymentTransaction).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -124,63 +178,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Delete"></a>
-# **Delete**
-> Delete(direction, orderID, paymentID)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Payments();
-
-var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-var paymentID = "paymentID_example"; // String | ID of the payment.
-
-apiInstance.Delete(direction, orderID, paymentID).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
- **orderID** | **String**| ID of the order. | 
- **paymentID** | **String**| ID of the payment. | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="DeleteTransaction"></a>
-# **DeleteTransaction**
-> DeleteTransaction(direction, orderID, paymentID, transactionID)
+<a name="deleteTransaction"></a>
+# **deleteTransaction**
+> deleteTransaction(direction, orderID, paymentID, transactionID)
 
 
 
@@ -203,7 +203,7 @@ var paymentID = "paymentID_example"; // String | ID of the payment.
 
 var transactionID = "transactionID_example"; // String | ID of the transaction.
 
-apiInstance.DeleteTransaction(direction, orderID, paymentID, transactionID).then(function() {
+apiInstance.deleteTransaction(direction, orderID, paymentID, transactionID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -235,9 +235,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> Payment Get(direction, orderID, paymentID)
+<a name="get"></a>
+# **get**
+> Payment get(direction, orderID, paymentID)
 
 
 
@@ -258,7 +258,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var paymentID = "paymentID_example"; // String | ID of the payment.
 
-apiInstance.Get(direction, orderID, paymentID).then(function(data) {
+apiInstance.get(direction, orderID, paymentID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -289,9 +289,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListPayment List(direction, orderID, opts)
+<a name="list"></a>
+# **list**
+> ListPayment list(direction, orderID, opts)
 
 
 
@@ -318,7 +318,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(direction, orderID, opts).then(function(data) {
+apiInstance.list(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -354,9 +354,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> Payment Patch(direction, orderID, paymentID, partialPayment)
+<a name="patch"></a>
+# **patch**
+> Payment patch(direction, orderID, paymentID, partialPayment)
 
 
 
@@ -379,7 +379,7 @@ var paymentID = "paymentID_example"; // String | ID of the payment.
 
 var partialPayment = new OrderCloud.Payment(); // Payment | 
 
-apiInstance.Patch(direction, orderID, paymentID, partialPayment).then(function(data) {
+apiInstance.patch(direction, orderID, paymentID, partialPayment).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

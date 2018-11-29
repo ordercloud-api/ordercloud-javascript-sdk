@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MeBuyer'], factory);
+    define(['ApiClient', 'model/MeBuyer', 'model/MeSupplier'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MeBuyer'));
+    module.exports = factory(require('../ApiClient'), require('./MeBuyer'), require('./MeSupplier'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialMeUser = factory(root.OrderCloud.ApiClient, root.OrderCloud.MeBuyer);
+    root.OrderCloud.PartialMeUser = factory(root.OrderCloud.ApiClient, root.OrderCloud.MeBuyer, root.OrderCloud.MeSupplier);
   }
-}(this, function(ApiClient, MeBuyer) {
+}(this, function(ApiClient, MeBuyer, MeSupplier) {
   'use strict';
 
 
@@ -56,6 +56,7 @@
 
 
 
+
   };
 
   /**
@@ -71,6 +72,9 @@
 
       if (data.hasOwnProperty('Buyer')) {
         obj['Buyer'] = MeBuyer.constructFromObject(data['Buyer']);
+      }
+      if (data.hasOwnProperty('Supplier')) {
+        obj['Supplier'] = MeSupplier.constructFromObject(data['Supplier']);
       }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
@@ -113,6 +117,10 @@
    * @member {module:model/MeBuyer} Buyer
    */
   exports.prototype['Buyer'] = undefined;
+  /**
+   * @member {module:model/MeSupplier} Supplier
+   */
+  exports.prototype['Supplier'] = undefined;
   /**
    * @member {String} ID
    */

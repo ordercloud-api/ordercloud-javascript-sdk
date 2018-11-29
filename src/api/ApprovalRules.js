@@ -47,62 +47,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/ApprovalRule} approvalRule 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
-     */
-    this.Create = function(buyerID, approvalRule) {
-      var postBody = approvalRule;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
-      }
-
-      // verify the required parameter 'approvalRule' is set
-      if (approvalRule == undefined || approvalRule == null) {
-        throw new Error("Missing the required parameter 'approvalRule' when calling Create");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ApprovalRule;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/approvalrules', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} approvalRuleID ID of the approval rule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, approvalRuleID) {
+    this.callDelete = function(buyerID, approvalRuleID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+        throw new Error("Missing the required parameter 'buyerID' when calling callDelete");
       }
 
       // verify the required parameter 'approvalRuleID' is set
       if (approvalRuleID == undefined || approvalRuleID == null) {
-        throw new Error("Missing the required parameter 'approvalRuleID' when calling Delete");
+        throw new Error("Missing the required parameter 'approvalRuleID' when calling callDelete");
       }
 
 
@@ -132,20 +90,62 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
+     * @param {module:model/ApprovalRule} approvalRule 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
+     */
+    this.create = function(buyerID, approvalRule) {
+      var postBody = approvalRule;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling create");
+      }
+
+      // verify the required parameter 'approvalRule' is set
+      if (approvalRule == undefined || approvalRule == null) {
+        throw new Error("Missing the required parameter 'approvalRule' when calling create");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ApprovalRule;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/approvalrules', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
      * @param {String} approvalRuleID ID of the approval rule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Get = function(buyerID, approvalRuleID) {
+    this.get = function(buyerID, approvalRuleID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+        throw new Error("Missing the required parameter 'buyerID' when calling get");
       }
 
       // verify the required parameter 'approvalRuleID' is set
       if (approvalRuleID == undefined || approvalRuleID == null) {
-        throw new Error("Missing the required parameter 'approvalRuleID' when calling Get");
+        throw new Error("Missing the required parameter 'approvalRuleID' when calling get");
       }
 
 
@@ -184,13 +184,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApprovalRule}
      */
-    this.List = function(buyerID, opts) {
+    this.list = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+        throw new Error("Missing the required parameter 'buyerID' when calling list");
       }
 
 
@@ -229,22 +229,22 @@
      * @param {module:model/ApprovalRule} partialApprovalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Patch = function(buyerID, approvalRuleID, partialApprovalRule) {
+    this.patch = function(buyerID, approvalRuleID, partialApprovalRule) {
       var postBody = partialApprovalRule;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+        throw new Error("Missing the required parameter 'buyerID' when calling patch");
       }
 
       // verify the required parameter 'approvalRuleID' is set
       if (approvalRuleID == undefined || approvalRuleID == null) {
-        throw new Error("Missing the required parameter 'approvalRuleID' when calling Patch");
+        throw new Error("Missing the required parameter 'approvalRuleID' when calling patch");
       }
 
       // verify the required parameter 'partialApprovalRule' is set
       if (partialApprovalRule == undefined || partialApprovalRule == null) {
-        throw new Error("Missing the required parameter 'partialApprovalRule' when calling Patch");
+        throw new Error("Missing the required parameter 'partialApprovalRule' when calling patch");
       }
 
 
@@ -278,22 +278,22 @@
      * @param {module:model/ApprovalRule} approvalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Save = function(buyerID, approvalRuleID, approvalRule) {
+    this.save = function(buyerID, approvalRuleID, approvalRule) {
       var postBody = approvalRule;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Save");
+        throw new Error("Missing the required parameter 'buyerID' when calling save");
       }
 
       // verify the required parameter 'approvalRuleID' is set
       if (approvalRuleID == undefined || approvalRuleID == null) {
-        throw new Error("Missing the required parameter 'approvalRuleID' when calling Save");
+        throw new Error("Missing the required parameter 'approvalRuleID' when calling save");
       }
 
       // verify the required parameter 'approvalRule' is set
       if (approvalRule == undefined || approvalRule == null) {
-        throw new Error("Missing the required parameter 'approvalRule' when calling Save");
+        throw new Error("Missing the required parameter 'approvalRule' when calling save");
       }
 
 

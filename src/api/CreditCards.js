@@ -47,62 +47,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/CreditCard} creditCard 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
-     */
-    this.Create = function(buyerID, creditCard) {
-      var postBody = creditCard;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
-      }
-
-      // verify the required parameter 'creditCard' is set
-      if (creditCard == undefined || creditCard == null) {
-        throw new Error("Missing the required parameter 'creditCard' when calling Create");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = CreditCard;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/creditcards', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} creditCardID ID of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, creditCardID) {
+    this.callDelete = function(buyerID, creditCardID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+        throw new Error("Missing the required parameter 'buyerID' when calling callDelete");
       }
 
       // verify the required parameter 'creditCardID' is set
       if (creditCardID == undefined || creditCardID == null) {
-        throw new Error("Missing the required parameter 'creditCardID' when calling Delete");
+        throw new Error("Missing the required parameter 'creditCardID' when calling callDelete");
       }
 
 
@@ -132,24 +90,66 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
+     * @param {module:model/CreditCard} creditCard 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
+     */
+    this.create = function(buyerID, creditCard) {
+      var postBody = creditCard;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling create");
+      }
+
+      // verify the required parameter 'creditCard' is set
+      if (creditCard == undefined || creditCard == null) {
+        throw new Error("Missing the required parameter 'creditCard' when calling create");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = CreditCard;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/creditcards', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
      * @param {String} creditCardID ID of the credit card.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, creditCardID, opts) {
+    this.deleteAssignment = function(buyerID, creditCardID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling deleteAssignment");
       }
 
       // verify the required parameter 'creditCardID' is set
       if (creditCardID == undefined || creditCardID == null) {
-        throw new Error("Missing the required parameter 'creditCardID' when calling DeleteAssignment");
+        throw new Error("Missing the required parameter 'creditCardID' when calling deleteAssignment");
       }
 
 
@@ -184,17 +184,17 @@
      * @param {String} creditCardID ID of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Get = function(buyerID, creditCardID) {
+    this.get = function(buyerID, creditCardID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+        throw new Error("Missing the required parameter 'buyerID' when calling get");
       }
 
       // verify the required parameter 'creditCardID' is set
       if (creditCardID == undefined || creditCardID == null) {
-        throw new Error("Missing the required parameter 'creditCardID' when calling Get");
+        throw new Error("Missing the required parameter 'creditCardID' when calling get");
       }
 
 
@@ -233,13 +233,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCard}
      */
-    this.List = function(buyerID, opts) {
+    this.list = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+        throw new Error("Missing the required parameter 'buyerID' when calling list");
       }
 
 
@@ -283,13 +283,13 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCardAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.listAssignments = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling ListAssignments");
+        throw new Error("Missing the required parameter 'buyerID' when calling listAssignments");
       }
 
 
@@ -328,22 +328,22 @@
      * @param {module:model/CreditCard} partialCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Patch = function(buyerID, creditCardID, partialCreditCard) {
+    this.patch = function(buyerID, creditCardID, partialCreditCard) {
       var postBody = partialCreditCard;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+        throw new Error("Missing the required parameter 'buyerID' when calling patch");
       }
 
       // verify the required parameter 'creditCardID' is set
       if (creditCardID == undefined || creditCardID == null) {
-        throw new Error("Missing the required parameter 'creditCardID' when calling Patch");
+        throw new Error("Missing the required parameter 'creditCardID' when calling patch");
       }
 
       // verify the required parameter 'partialCreditCard' is set
       if (partialCreditCard == undefined || partialCreditCard == null) {
-        throw new Error("Missing the required parameter 'partialCreditCard' when calling Patch");
+        throw new Error("Missing the required parameter 'partialCreditCard' when calling patch");
       }
 
 
@@ -377,22 +377,22 @@
      * @param {module:model/CreditCard} creditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Save = function(buyerID, creditCardID, creditCard) {
+    this.save = function(buyerID, creditCardID, creditCard) {
       var postBody = creditCard;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Save");
+        throw new Error("Missing the required parameter 'buyerID' when calling save");
       }
 
       // verify the required parameter 'creditCardID' is set
       if (creditCardID == undefined || creditCardID == null) {
-        throw new Error("Missing the required parameter 'creditCardID' when calling Save");
+        throw new Error("Missing the required parameter 'creditCardID' when calling save");
       }
 
       // verify the required parameter 'creditCard' is set
       if (creditCard == undefined || creditCard == null) {
-        throw new Error("Missing the required parameter 'creditCard' when calling Save");
+        throw new Error("Missing the required parameter 'creditCard' when calling save");
       }
 
 
@@ -425,17 +425,17 @@
      * @param {module:model/CreditCardAssignment} creditCardAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, creditCardAssignment) {
+    this.saveAssignment = function(buyerID, creditCardAssignment) {
       var postBody = creditCardAssignment;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling saveAssignment");
       }
 
       // verify the required parameter 'creditCardAssignment' is set
       if (creditCardAssignment == undefined || creditCardAssignment == null) {
-        throw new Error("Missing the required parameter 'creditCardAssignment' when calling SaveAssignment");
+        throw new Error("Missing the required parameter 'creditCardAssignment' when calling saveAssignment");
       }
 
 

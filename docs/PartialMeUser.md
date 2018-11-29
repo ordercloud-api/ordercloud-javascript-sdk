@@ -4,6 +4,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **buyer** | [**MeBuyer**](MeBuyer.md) |  | [optional] 
+**supplier** | [**MeSupplier**](MeSupplier.md) |  | [optional] 
 **ID** | **String** |  | [optional] 
 **username** | **String** |  | [optional] 
 **password** | **String** |  | [optional] 

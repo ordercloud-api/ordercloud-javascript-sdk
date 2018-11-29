@@ -46,50 +46,15 @@
 
 
     /**
-     * @param {module:model/Shipment} shipment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
-     */
-    this.Create = function(shipment) {
-      var postBody = shipment;
-
-      // verify the required parameter 'shipment' is set
-      if (shipment == undefined || shipment == null) {
-        throw new Error("Missing the required parameter 'shipment' when calling Create");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Shipment;
-
-      return this.apiClient.callApi(
-        '/shipments', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(shipmentID) {
+    this.callDelete = function(shipmentID) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling Delete");
+        throw new Error("Missing the required parameter 'shipmentID' when calling callDelete");
       }
 
 
@@ -117,27 +82,62 @@
 
 
     /**
+     * @param {module:model/Shipment} shipment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
+     */
+    this.create = function(shipment) {
+      var postBody = shipment;
+
+      // verify the required parameter 'shipment' is set
+      if (shipment == undefined || shipment == null) {
+        throw new Error("Missing the required parameter 'shipment' when calling create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Shipment;
+
+      return this.apiClient.callApi(
+        '/shipments', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} shipmentID ID of the shipment.
      * @param {String} orderID ID of the order.
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteItem = function(shipmentID, orderID, lineItemID) {
+    this.deleteItem = function(shipmentID, orderID, lineItemID) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling DeleteItem");
+        throw new Error("Missing the required parameter 'shipmentID' when calling deleteItem");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling DeleteItem");
+        throw new Error("Missing the required parameter 'orderID' when calling deleteItem");
       }
 
       // verify the required parameter 'lineItemID' is set
       if (lineItemID == undefined || lineItemID == null) {
-        throw new Error("Missing the required parameter 'lineItemID' when calling DeleteItem");
+        throw new Error("Missing the required parameter 'lineItemID' when calling deleteItem");
       }
 
 
@@ -170,12 +170,12 @@
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Get = function(shipmentID) {
+    this.get = function(shipmentID) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling Get");
+        throw new Error("Missing the required parameter 'shipmentID' when calling get");
       }
 
 
@@ -208,22 +208,22 @@
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.GetItem = function(shipmentID, orderID, lineItemID) {
+    this.getItem = function(shipmentID, orderID, lineItemID) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling GetItem");
+        throw new Error("Missing the required parameter 'shipmentID' when calling getItem");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling GetItem");
+        throw new Error("Missing the required parameter 'orderID' when calling getItem");
       }
 
       // verify the required parameter 'lineItemID' is set
       if (lineItemID == undefined || lineItemID == null) {
-        throw new Error("Missing the required parameter 'lineItemID' when calling GetItem");
+        throw new Error("Missing the required parameter 'lineItemID' when calling getItem");
       }
 
 
@@ -263,7 +263,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -308,13 +308,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
-    this.ListItems = function(shipmentID, opts) {
+    this.listItems = function(shipmentID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling ListItems");
+        throw new Error("Missing the required parameter 'shipmentID' when calling listItems");
       }
 
 
@@ -352,17 +352,17 @@
      * @param {module:model/Shipment} partialShipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Patch = function(shipmentID, partialShipment) {
+    this.patch = function(shipmentID, partialShipment) {
       var postBody = partialShipment;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling Patch");
+        throw new Error("Missing the required parameter 'shipmentID' when calling patch");
       }
 
       // verify the required parameter 'partialShipment' is set
       if (partialShipment == undefined || partialShipment == null) {
-        throw new Error("Missing the required parameter 'partialShipment' when calling Patch");
+        throw new Error("Missing the required parameter 'partialShipment' when calling patch");
       }
 
 
@@ -394,17 +394,17 @@
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Save = function(shipmentID, shipment) {
+    this.save = function(shipmentID, shipment) {
       var postBody = shipment;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling Save");
+        throw new Error("Missing the required parameter 'shipmentID' when calling save");
       }
 
       // verify the required parameter 'shipment' is set
       if (shipment == undefined || shipment == null) {
-        throw new Error("Missing the required parameter 'shipment' when calling Save");
+        throw new Error("Missing the required parameter 'shipment' when calling save");
       }
 
 
@@ -436,17 +436,17 @@
      * @param {module:model/ShipmentItem} shipmentItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.SaveItem = function(shipmentID, shipmentItem) {
+    this.saveItem = function(shipmentID, shipmentItem) {
       var postBody = shipmentItem;
 
       // verify the required parameter 'shipmentID' is set
       if (shipmentID == undefined || shipmentID == null) {
-        throw new Error("Missing the required parameter 'shipmentID' when calling SaveItem");
+        throw new Error("Missing the required parameter 'shipmentID' when calling saveItem");
       }
 
       // verify the required parameter 'shipmentItem' is set
       if (shipmentItem == undefined || shipmentItem == null) {
-        throw new Error("Missing the required parameter 'shipmentItem' when calling SaveItem");
+        throw new Error("Missing the required parameter 'shipmentItem' when calling saveItem");
       }
 
 

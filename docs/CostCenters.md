@@ -4,71 +4,20 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](CostCenters.md#Create) | **POST** /buyers/{buyerID}/costcenters | 
-[**Delete**](CostCenters.md#Delete) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID} | 
-[**DeleteAssignment**](CostCenters.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID}/assignments | 
-[**Get**](CostCenters.md#Get) | **GET** /buyers/{buyerID}/costcenters/{costCenterID} | 
-[**List**](CostCenters.md#List) | **GET** /buyers/{buyerID}/costcenters | 
-[**ListAssignments**](CostCenters.md#ListAssignments) | **GET** /buyers/{buyerID}/costcenters/assignments | 
-[**Patch**](CostCenters.md#Patch) | **PATCH** /buyers/{buyerID}/costcenters/{costCenterID} | 
-[**Save**](CostCenters.md#Save) | **PUT** /buyers/{buyerID}/costcenters/{costCenterID} | 
-[**SaveAssignment**](CostCenters.md#SaveAssignment) | **POST** /buyers/{buyerID}/costcenters/assignments | 
+[**callDelete**](CostCenters.md#callDelete) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID} | 
+[**create**](CostCenters.md#create) | **POST** /buyers/{buyerID}/costcenters | 
+[**deleteAssignment**](CostCenters.md#deleteAssignment) | **DELETE** /buyers/{buyerID}/costcenters/{costCenterID}/assignments | 
+[**get**](CostCenters.md#get) | **GET** /buyers/{buyerID}/costcenters/{costCenterID} | 
+[**list**](CostCenters.md#list) | **GET** /buyers/{buyerID}/costcenters | 
+[**listAssignments**](CostCenters.md#listAssignments) | **GET** /buyers/{buyerID}/costcenters/assignments | 
+[**patch**](CostCenters.md#patch) | **PATCH** /buyers/{buyerID}/costcenters/{costCenterID} | 
+[**save**](CostCenters.md#save) | **PUT** /buyers/{buyerID}/costcenters/{costCenterID} | 
+[**saveAssignment**](CostCenters.md#saveAssignment) | **POST** /buyers/{buyerID}/costcenters/assignments | 
 
 
-<a name="Create"></a>
-# **Create**
-> CostCenter Create(buyerID, costCenter)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.CostCenters();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var costCenter = new OrderCloud.CostCenter(); // CostCenter | 
-
-apiInstance.Create(buyerID, costCenter).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **costCenter** | [**CostCenter**](CostCenter.md)|  | 
-
-### Return type
-
-[**CostCenter**](CostCenter.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(buyerID, costCenterID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(buyerID, costCenterID)
 
 
 
@@ -87,7 +36,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var costCenterID = "costCenterID_example"; // String | ID of the cost center.
 
-apiInstance.Delete(buyerID, costCenterID).then(function() {
+apiInstance.callDelete(buyerID, costCenterID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -117,9 +66,60 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="DeleteAssignment"></a>
-# **DeleteAssignment**
-> DeleteAssignment(buyerID, costCenterID, opts)
+<a name="create"></a>
+# **create**
+> CostCenter create(buyerID, costCenter)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.CostCenters();
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var costCenter = new OrderCloud.CostCenter(); // CostCenter | 
+
+apiInstance.create(buyerID, costCenter).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **buyerID** | **String**| ID of the buyer. | 
+ **costCenter** | [**CostCenter**](CostCenter.md)|  | 
+
+### Return type
+
+[**CostCenter**](CostCenter.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="deleteAssignment"></a>
+# **deleteAssignment**
+> deleteAssignment(buyerID, costCenterID, opts)
 
 
 
@@ -142,7 +142,7 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.DeleteAssignment(buyerID, costCenterID, opts).then(function() {
+apiInstance.deleteAssignment(buyerID, costCenterID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -174,9 +174,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> CostCenter Get(buyerID, costCenterID)
+<a name="get"></a>
+# **get**
+> CostCenter get(buyerID, costCenterID)
 
 
 
@@ -195,7 +195,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var costCenterID = "costCenterID_example"; // String | ID of the cost center.
 
-apiInstance.Get(buyerID, costCenterID).then(function(data) {
+apiInstance.get(buyerID, costCenterID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -225,9 +225,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListCostCenter List(buyerID, opts)
+<a name="list"></a>
+# **list**
+> ListCostCenter list(buyerID, opts)
 
 
 
@@ -252,7 +252,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(buyerID, opts).then(function(data) {
+apiInstance.list(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -287,9 +287,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListAssignments"></a>
-# **ListAssignments**
-> ListCostCenterAssignment ListAssignments(buyerID, opts)
+<a name="listAssignments"></a>
+# **listAssignments**
+> ListCostCenterAssignment listAssignments(buyerID, opts)
 
 
 
@@ -314,7 +314,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.ListAssignments(buyerID, opts).then(function(data) {
+apiInstance.listAssignments(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -349,9 +349,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> CostCenter Patch(buyerID, costCenterID, partialCostCenter)
+<a name="patch"></a>
+# **patch**
+> CostCenter patch(buyerID, costCenterID, partialCostCenter)
 
 
 
@@ -372,7 +372,7 @@ var costCenterID = "costCenterID_example"; // String | ID of the cost center.
 
 var partialCostCenter = new OrderCloud.CostCenter(); // CostCenter | 
 
-apiInstance.Patch(buyerID, costCenterID, partialCostCenter).then(function(data) {
+apiInstance.patch(buyerID, costCenterID, partialCostCenter).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -403,9 +403,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> CostCenter Save(buyerID, costCenterID, costCenter)
+<a name="save"></a>
+# **save**
+> CostCenter save(buyerID, costCenterID, costCenter)
 
 
 
@@ -426,7 +426,7 @@ var costCenterID = "costCenterID_example"; // String | ID of the cost center.
 
 var costCenter = new OrderCloud.CostCenter(); // CostCenter | 
 
-apiInstance.Save(buyerID, costCenterID, costCenter).then(function(data) {
+apiInstance.save(buyerID, costCenterID, costCenter).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -457,9 +457,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveAssignment"></a>
-# **SaveAssignment**
-> SaveAssignment(buyerID, costCenterAssignment)
+<a name="saveAssignment"></a>
+# **saveAssignment**
+> saveAssignment(buyerID, costCenterAssignment)
 
 
 
@@ -478,7 +478,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var costCenterAssignment = new OrderCloud.CostCenterAssignment(); // CostCenterAssignment | 
 
-apiInstance.SaveAssignment(buyerID, costCenterAssignment).then(function() {
+apiInstance.saveAssignment(buyerID, costCenterAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

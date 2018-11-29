@@ -46,50 +46,15 @@
 
 
     /**
-     * @param {module:model/Product} product 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
-     */
-    this.Create = function(product) {
-      var postBody = product;
-
-      // verify the required parameter 'product' is set
-      if (product == undefined || product == null) {
-        throw new Error("Missing the required parameter 'product' when calling Create");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Product;
-
-      return this.apiClient.callApi(
-        '/products', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(productID) {
+    this.callDelete = function(productID) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling Delete");
+        throw new Error("Missing the required parameter 'productID' when calling callDelete");
       }
 
 
@@ -117,6 +82,41 @@
 
 
     /**
+     * @param {module:model/Product} product 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
+     */
+    this.create = function(product) {
+      var postBody = product;
+
+      // verify the required parameter 'product' is set
+      if (product == undefined || product == null) {
+        throw new Error("Missing the required parameter 'product' when calling create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Product;
+
+      return this.apiClient.callApi(
+        '/products', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} productID ID of the product.
      * @param {String} buyerID ID of the buyer.
      * @param {Object} opts Optional parameters
@@ -124,18 +124,18 @@
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(productID, buyerID, opts) {
+    this.deleteAssignment = function(productID, buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling DeleteAssignment");
+        throw new Error("Missing the required parameter 'productID' when calling deleteAssignment");
       }
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling deleteAssignment");
       }
 
 
@@ -171,13 +171,13 @@
      * @param {Boolean} opts.overwriteExisting Overwrite existing of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.GenerateVariants = function(productID, opts) {
+    this.generateVariants = function(productID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling GenerateVariants");
+        throw new Error("Missing the required parameter 'productID' when calling generateVariants");
       }
 
 
@@ -209,12 +209,12 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Get = function(productID) {
+    this.get = function(productID) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling Get");
+        throw new Error("Missing the required parameter 'productID' when calling get");
       }
 
 
@@ -246,17 +246,17 @@
      * @param {String} variantID ID of the variant.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
-    this.GetVariant = function(productID, variantID) {
+    this.getVariant = function(productID, variantID) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling GetVariant");
+        throw new Error("Missing the required parameter 'productID' when calling getVariant");
       }
 
       // verify the required parameter 'variantID' is set
       if (variantID == undefined || variantID == null) {
-        throw new Error("Missing the required parameter 'variantID' when calling GetVariant");
+        throw new Error("Missing the required parameter 'variantID' when calling getVariant");
       }
 
 
@@ -297,7 +297,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -345,7 +345,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.listAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -391,13 +391,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
-    this.ListSuppliers = function(productID, opts) {
+    this.listSuppliers = function(productID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling ListSuppliers");
+        throw new Error("Missing the required parameter 'productID' when calling listSuppliers");
       }
 
 
@@ -441,13 +441,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListVariant}
      */
-    this.ListVariants = function(productID, opts) {
+    this.listVariants = function(productID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling ListVariants");
+        throw new Error("Missing the required parameter 'productID' when calling listVariants");
       }
 
 
@@ -485,17 +485,17 @@
      * @param {module:model/Product} partialProduct 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Patch = function(productID, partialProduct) {
+    this.patch = function(productID, partialProduct) {
       var postBody = partialProduct;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling Patch");
+        throw new Error("Missing the required parameter 'productID' when calling patch");
       }
 
       // verify the required parameter 'partialProduct' is set
       if (partialProduct == undefined || partialProduct == null) {
-        throw new Error("Missing the required parameter 'partialProduct' when calling Patch");
+        throw new Error("Missing the required parameter 'partialProduct' when calling patch");
       }
 
 
@@ -528,22 +528,22 @@
      * @param {module:model/Variant} partialVariant 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
-    this.PatchVariant = function(productID, variantID, partialVariant) {
+    this.patchVariant = function(productID, variantID, partialVariant) {
       var postBody = partialVariant;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling PatchVariant");
+        throw new Error("Missing the required parameter 'productID' when calling patchVariant");
       }
 
       // verify the required parameter 'variantID' is set
       if (variantID == undefined || variantID == null) {
-        throw new Error("Missing the required parameter 'variantID' when calling PatchVariant");
+        throw new Error("Missing the required parameter 'variantID' when calling patchVariant");
       }
 
       // verify the required parameter 'partialVariant' is set
       if (partialVariant == undefined || partialVariant == null) {
-        throw new Error("Missing the required parameter 'partialVariant' when calling PatchVariant");
+        throw new Error("Missing the required parameter 'partialVariant' when calling patchVariant");
       }
 
 
@@ -576,17 +576,17 @@
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.RemoveSupplier = function(productID, supplierID) {
+    this.removeSupplier = function(productID, supplierID) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling RemoveSupplier");
+        throw new Error("Missing the required parameter 'productID' when calling removeSupplier");
       }
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling RemoveSupplier");
+        throw new Error("Missing the required parameter 'supplierID' when calling removeSupplier");
       }
 
 
@@ -619,17 +619,17 @@
      * @param {module:model/Product} product 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Save = function(productID, product) {
+    this.save = function(productID, product) {
       var postBody = product;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling Save");
+        throw new Error("Missing the required parameter 'productID' when calling save");
       }
 
       // verify the required parameter 'product' is set
       if (product == undefined || product == null) {
-        throw new Error("Missing the required parameter 'product' when calling Save");
+        throw new Error("Missing the required parameter 'product' when calling save");
       }
 
 
@@ -660,12 +660,12 @@
      * @param {module:model/ProductAssignment} productAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(productAssignment) {
+    this.saveAssignment = function(productAssignment) {
       var postBody = productAssignment;
 
       // verify the required parameter 'productAssignment' is set
       if (productAssignment == undefined || productAssignment == null) {
-        throw new Error("Missing the required parameter 'productAssignment' when calling SaveAssignment");
+        throw new Error("Missing the required parameter 'productAssignment' when calling saveAssignment");
       }
 
 
@@ -696,17 +696,17 @@
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveSupplier = function(productID, supplierID) {
+    this.saveSupplier = function(productID, supplierID) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling SaveSupplier");
+        throw new Error("Missing the required parameter 'productID' when calling saveSupplier");
       }
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling SaveSupplier");
+        throw new Error("Missing the required parameter 'supplierID' when calling saveSupplier");
       }
 
 
@@ -740,22 +740,22 @@
      * @param {module:model/Variant} variant 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
-    this.SaveVariant = function(productID, variantID, variant) {
+    this.saveVariant = function(productID, variantID, variant) {
       var postBody = variant;
 
       // verify the required parameter 'productID' is set
       if (productID == undefined || productID == null) {
-        throw new Error("Missing the required parameter 'productID' when calling SaveVariant");
+        throw new Error("Missing the required parameter 'productID' when calling saveVariant");
       }
 
       // verify the required parameter 'variantID' is set
       if (variantID == undefined || variantID == null) {
-        throw new Error("Missing the required parameter 'variantID' when calling SaveVariant");
+        throw new Error("Missing the required parameter 'variantID' when calling saveVariant");
       }
 
       // verify the required parameter 'variant' is set
       if (variant == undefined || variant == null) {
-        throw new Error("Missing the required parameter 'variant' when calling SaveVariant");
+        throw new Error("Missing the required parameter 'variant' when calling saveVariant");
       }
 
 

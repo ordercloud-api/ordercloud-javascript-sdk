@@ -51,15 +51,16 @@
      * @param {String} opts.buyerID ID of the buyer.
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
+     * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(messageSenderID, opts) {
+    this.deleteAssignment = function(messageSenderID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'messageSenderID' is set
       if (messageSenderID == undefined || messageSenderID == null) {
-        throw new Error("Missing the required parameter 'messageSenderID' when calling DeleteAssignment");
+        throw new Error("Missing the required parameter 'messageSenderID' when calling deleteAssignment");
       }
 
 
@@ -69,7 +70,8 @@
       var queryParams = {
         'buyerID': opts['buyerID'],
         'userID': opts['userID'],
-        'userGroupID': opts['userGroupID']
+        'userGroupID': opts['userGroupID'],
+        'supplierID': opts['supplierID']
       };
       var headerParams = {
       };
@@ -93,12 +95,12 @@
      * @param {String} messageSenderID ID of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Get = function(messageSenderID) {
+    this.get = function(messageSenderID) {
       var postBody = null;
 
       // verify the required parameter 'messageSenderID' is set
       if (messageSenderID == undefined || messageSenderID == null) {
-        throw new Error("Missing the required parameter 'messageSenderID' when calling Get");
+        throw new Error("Missing the required parameter 'messageSenderID' when calling get");
       }
 
 
@@ -135,7 +137,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSender}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -177,9 +179,10 @@
      * @param {String} opts.level Level of the message sender assignment. Possible values: User, Group, Company.
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSenderAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.listAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -193,7 +196,8 @@
         'userGroupID': opts['userGroupID'],
         'level': opts['level'],
         'page': opts['page'],
-        'pageSize': opts['pageSize']
+        'pageSize': opts['pageSize'],
+        'supplierID': opts['supplierID']
       };
       var headerParams = {
       };
@@ -223,7 +227,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageCCListenerAssignment}
      */
-    this.ListCCListenerAssignments = function(opts) {
+    this.listCCListenerAssignments = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -260,12 +264,12 @@
      * @param {module:model/MessageSenderAssignment} messageSenderAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(messageSenderAssignment) {
+    this.saveAssignment = function(messageSenderAssignment) {
       var postBody = messageSenderAssignment;
 
       // verify the required parameter 'messageSenderAssignment' is set
       if (messageSenderAssignment == undefined || messageSenderAssignment == null) {
-        throw new Error("Missing the required parameter 'messageSenderAssignment' when calling SaveAssignment");
+        throw new Error("Missing the required parameter 'messageSenderAssignment' when calling saveAssignment");
       }
 
 
@@ -295,12 +299,12 @@
      * @param {module:model/MessageCCListenerAssignment} messageCCListenerAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveCCListenerAssignment = function(messageCCListenerAssignment) {
+    this.saveCCListenerAssignment = function(messageCCListenerAssignment) {
       var postBody = messageCCListenerAssignment;
 
       // verify the required parameter 'messageCCListenerAssignment' is set
       if (messageCCListenerAssignment == undefined || messageCCListenerAssignment == null) {
-        throw new Error("Missing the required parameter 'messageCCListenerAssignment' when calling SaveCCListenerAssignment");
+        throw new Error("Missing the required parameter 'messageCCListenerAssignment' when calling saveCCListenerAssignment");
       }
 
 
