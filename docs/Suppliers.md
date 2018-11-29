@@ -4,65 +4,17 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](Suppliers.md#Create) | **POST** /suppliers | 
-[**Delete**](Suppliers.md#Delete) | **DELETE** /suppliers/{supplierID} | 
-[**Get**](Suppliers.md#Get) | **GET** /suppliers/{supplierID} | 
-[**List**](Suppliers.md#List) | **GET** /suppliers | 
-[**Patch**](Suppliers.md#Patch) | **PATCH** /suppliers/{supplierID} | 
-[**Save**](Suppliers.md#Save) | **PUT** /suppliers/{supplierID} | 
+[**callDelete**](Suppliers.md#callDelete) | **DELETE** /suppliers/{supplierID} | 
+[**create**](Suppliers.md#create) | **POST** /suppliers | 
+[**get**](Suppliers.md#get) | **GET** /suppliers/{supplierID} | 
+[**list**](Suppliers.md#list) | **GET** /suppliers | 
+[**patch**](Suppliers.md#patch) | **PATCH** /suppliers/{supplierID} | 
+[**save**](Suppliers.md#save) | **PUT** /suppliers/{supplierID} | 
 
 
-<a name="Create"></a>
-# **Create**
-> Supplier Create(supplier)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Suppliers();
-
-var supplier = new OrderCloud.Supplier(); // Supplier | 
-
-apiInstance.Create(supplier).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **supplier** | [**Supplier**](Supplier.md)|  | 
-
-### Return type
-
-[**Supplier**](Supplier.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(supplierID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(supplierID)
 
 
 
@@ -79,7 +31,7 @@ var apiInstance = new OrderCloud.Suppliers();
 
 var supplierID = "supplierID_example"; // String | ID of the supplier.
 
-apiInstance.Delete(supplierID).then(function() {
+apiInstance.callDelete(supplierID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -108,9 +60,57 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> Supplier Get(supplierID)
+<a name="create"></a>
+# **create**
+> Supplier create(supplier)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Suppliers();
+
+var supplier = new OrderCloud.Supplier(); // Supplier | 
+
+apiInstance.create(supplier).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **supplier** | [**Supplier**](Supplier.md)|  | 
+
+### Return type
+
+[**Supplier**](Supplier.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="get"></a>
+# **get**
+> Supplier get(supplierID)
 
 
 
@@ -127,7 +127,7 @@ var apiInstance = new OrderCloud.Suppliers();
 
 var supplierID = "supplierID_example"; // String | ID of the supplier.
 
-apiInstance.Get(supplierID).then(function(data) {
+apiInstance.get(supplierID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -156,9 +156,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListSupplier List(opts)
+<a name="list"></a>
+# **list**
+> ListSupplier list(opts)
 
 
 
@@ -181,7 +181,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(opts).then(function(data) {
+apiInstance.list(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -215,9 +215,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> Supplier Patch(supplierID, partialSupplier)
+<a name="patch"></a>
+# **patch**
+> Supplier patch(supplierID, partialSupplier)
 
 
 
@@ -236,7 +236,7 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var partialSupplier = new OrderCloud.Supplier(); // Supplier | 
 
-apiInstance.Patch(supplierID, partialSupplier).then(function(data) {
+apiInstance.patch(supplierID, partialSupplier).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -266,9 +266,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> Supplier Save(supplierID, supplier)
+<a name="save"></a>
+# **save**
+> Supplier save(supplierID, supplier)
 
 
 
@@ -287,7 +287,7 @@ var supplierID = "supplierID_example"; // String | ID of the supplier.
 
 var supplier = new OrderCloud.Supplier(); // Supplier | 
 
-apiInstance.Save(supplierID, supplier).then(function(data) {
+apiInstance.save(supplierID, supplier).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

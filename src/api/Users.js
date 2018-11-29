@@ -47,62 +47,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/User} user 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
-     */
-    this.Create = function(buyerID, user) {
-      var postBody = user;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
-      }
-
-      // verify the required parameter 'user' is set
-      if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Create");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = User;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/users', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, userID) {
+    this.callDelete = function(buyerID, userID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+        throw new Error("Missing the required parameter 'buyerID' when calling callDelete");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Delete");
+        throw new Error("Missing the required parameter 'userID' when calling callDelete");
       }
 
 
@@ -132,20 +90,62 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
+     * @param {module:model/User} user 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
+     */
+    this.create = function(buyerID, user) {
+      var postBody = user;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling create");
+      }
+
+      // verify the required parameter 'user' is set
+      if (user == undefined || user == null) {
+        throw new Error("Missing the required parameter 'user' when calling create");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = User;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/users', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Get = function(buyerID, userID) {
+    this.get = function(buyerID, userID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+        throw new Error("Missing the required parameter 'buyerID' when calling get");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Get");
+        throw new Error("Missing the required parameter 'userID' when calling get");
       }
 
 
@@ -179,22 +179,22 @@
      * @param {module:model/ImpersonateTokenRequest} impersonateTokenRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccessToken}
      */
-    this.GetAccessToken = function(buyerID, userID, impersonateTokenRequest) {
+    this.getAccessToken = function(buyerID, userID, impersonateTokenRequest) {
       var postBody = impersonateTokenRequest;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling GetAccessToken");
+        throw new Error("Missing the required parameter 'buyerID' when calling getAccessToken");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling GetAccessToken");
+        throw new Error("Missing the required parameter 'userID' when calling getAccessToken");
       }
 
       // verify the required parameter 'impersonateTokenRequest' is set
       if (impersonateTokenRequest == undefined || impersonateTokenRequest == null) {
-        throw new Error("Missing the required parameter 'impersonateTokenRequest' when calling GetAccessToken");
+        throw new Error("Missing the required parameter 'impersonateTokenRequest' when calling getAccessToken");
       }
 
 
@@ -234,13 +234,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.List = function(buyerID, opts) {
+    this.list = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+        throw new Error("Missing the required parameter 'buyerID' when calling list");
       }
 
 
@@ -281,27 +281,27 @@
      * @param {String} orders Orders of the user. Possible values: None, Unsubmitted, All.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Move = function(buyerID, userID, newBuyerID, orders) {
+    this.move = function(buyerID, userID, newBuyerID, orders) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Move");
+        throw new Error("Missing the required parameter 'buyerID' when calling move");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Move");
+        throw new Error("Missing the required parameter 'userID' when calling move");
       }
 
       // verify the required parameter 'newBuyerID' is set
       if (newBuyerID == undefined || newBuyerID == null) {
-        throw new Error("Missing the required parameter 'newBuyerID' when calling Move");
+        throw new Error("Missing the required parameter 'newBuyerID' when calling move");
       }
 
       // verify the required parameter 'orders' is set
       if (orders == undefined || orders == null) {
-        throw new Error("Missing the required parameter 'orders' when calling Move");
+        throw new Error("Missing the required parameter 'orders' when calling move");
       }
 
 
@@ -337,22 +337,22 @@
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(buyerID, userID, partialUser) {
+    this.patch = function(buyerID, userID, partialUser) {
       var postBody = partialUser;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+        throw new Error("Missing the required parameter 'buyerID' when calling patch");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Patch");
+        throw new Error("Missing the required parameter 'userID' when calling patch");
       }
 
       // verify the required parameter 'partialUser' is set
       if (partialUser == undefined || partialUser == null) {
-        throw new Error("Missing the required parameter 'partialUser' when calling Patch");
+        throw new Error("Missing the required parameter 'partialUser' when calling patch");
       }
 
 
@@ -386,22 +386,22 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Save = function(buyerID, userID, user) {
+    this.save = function(buyerID, userID, user) {
       var postBody = user;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Save");
+        throw new Error("Missing the required parameter 'buyerID' when calling save");
       }
 
       // verify the required parameter 'userID' is set
       if (userID == undefined || userID == null) {
-        throw new Error("Missing the required parameter 'userID' when calling Save");
+        throw new Error("Missing the required parameter 'userID' when calling save");
       }
 
       // verify the required parameter 'user' is set
       if (user == undefined || user == null) {
-        throw new Error("Missing the required parameter 'user' when calling Save");
+        throw new Error("Missing the required parameter 'user' when calling save");
       }
 
 

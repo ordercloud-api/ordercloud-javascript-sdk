@@ -46,50 +46,15 @@
 
 
     /**
-     * @param {module:model/ProductFacet} productFacet 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
-     */
-    this.Create = function(productFacet) {
-      var postBody = productFacet;
-
-      // verify the required parameter 'productFacet' is set
-      if (productFacet == undefined || productFacet == null) {
-        throw new Error("Missing the required parameter 'productFacet' when calling Create");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = ProductFacet;
-
-      return this.apiClient.callApi(
-        '/productfacets', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} productFacetID ID of the product facet.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(productFacetID) {
+    this.callDelete = function(productFacetID) {
       var postBody = null;
 
       // verify the required parameter 'productFacetID' is set
       if (productFacetID == undefined || productFacetID == null) {
-        throw new Error("Missing the required parameter 'productFacetID' when calling Delete");
+        throw new Error("Missing the required parameter 'productFacetID' when calling callDelete");
       }
 
 
@@ -117,15 +82,50 @@
 
 
     /**
+     * @param {module:model/ProductFacet} productFacet 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
+     */
+    this.create = function(productFacet) {
+      var postBody = productFacet;
+
+      // verify the required parameter 'productFacet' is set
+      if (productFacet == undefined || productFacet == null) {
+        throw new Error("Missing the required parameter 'productFacet' when calling create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ProductFacet;
+
+      return this.apiClient.callApi(
+        '/productfacets', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} productFacetID ID of the product facet.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Get = function(productFacetID) {
+    this.get = function(productFacetID) {
       var postBody = null;
 
       // verify the required parameter 'productFacetID' is set
       if (productFacetID == undefined || productFacetID == null) {
-        throw new Error("Missing the required parameter 'productFacetID' when calling Get");
+        throw new Error("Missing the required parameter 'productFacetID' when calling get");
       }
 
 
@@ -162,7 +162,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductFacet}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -200,17 +200,17 @@
      * @param {module:model/ProductFacet} partialProductFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Patch = function(productFacetID, partialProductFacet) {
+    this.patch = function(productFacetID, partialProductFacet) {
       var postBody = partialProductFacet;
 
       // verify the required parameter 'productFacetID' is set
       if (productFacetID == undefined || productFacetID == null) {
-        throw new Error("Missing the required parameter 'productFacetID' when calling Patch");
+        throw new Error("Missing the required parameter 'productFacetID' when calling patch");
       }
 
       // verify the required parameter 'partialProductFacet' is set
       if (partialProductFacet == undefined || partialProductFacet == null) {
-        throw new Error("Missing the required parameter 'partialProductFacet' when calling Patch");
+        throw new Error("Missing the required parameter 'partialProductFacet' when calling patch");
       }
 
 
@@ -242,17 +242,17 @@
      * @param {module:model/ProductFacet} productFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Save = function(productFacetID, productFacet) {
+    this.save = function(productFacetID, productFacet) {
       var postBody = productFacet;
 
       // verify the required parameter 'productFacetID' is set
       if (productFacetID == undefined || productFacetID == null) {
-        throw new Error("Missing the required parameter 'productFacetID' when calling Save");
+        throw new Error("Missing the required parameter 'productFacetID' when calling save");
       }
 
       // verify the required parameter 'productFacet' is set
       if (productFacet == undefined || productFacet == null) {
-        throw new Error("Missing the required parameter 'productFacet' when calling Save");
+        throw new Error("Missing the required parameter 'productFacet' when calling save");
       }
 
 

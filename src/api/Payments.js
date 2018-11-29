@@ -48,25 +48,75 @@
     /**
      * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @param {module:model/Payment} payment 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
+     * @param {String} paymentID ID of the payment.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Create = function(direction, orderID, payment) {
-      var postBody = payment;
+    this.callDelete = function(direction, orderID, paymentID) {
+      var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Create");
+        throw new Error("Missing the required parameter 'direction' when calling callDelete");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Create");
+        throw new Error("Missing the required parameter 'orderID' when calling callDelete");
+      }
+
+      // verify the required parameter 'paymentID' is set
+      if (paymentID == undefined || paymentID == null) {
+        throw new Error("Missing the required parameter 'paymentID' when calling callDelete");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID,
+        'paymentID': paymentID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.apiClient.callApi(
+        '/orders/{direction}/{orderID}/payments/{paymentID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @param {module:model/Payment} payment 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
+     */
+    this.create = function(direction, orderID, payment) {
+      var postBody = payment;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling create");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling create");
       }
 
       // verify the required parameter 'payment' is set
       if (payment == undefined || payment == null) {
-        throw new Error("Missing the required parameter 'payment' when calling Create");
+        throw new Error("Missing the required parameter 'payment' when calling create");
       }
 
 
@@ -101,27 +151,27 @@
      * @param {module:model/PaymentTransaction} paymentTransaction 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.CreateTransaction = function(direction, orderID, paymentID, paymentTransaction) {
+    this.createTransaction = function(direction, orderID, paymentID, paymentTransaction) {
       var postBody = paymentTransaction;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling CreateTransaction");
+        throw new Error("Missing the required parameter 'direction' when calling createTransaction");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling CreateTransaction");
+        throw new Error("Missing the required parameter 'orderID' when calling createTransaction");
       }
 
       // verify the required parameter 'paymentID' is set
       if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling CreateTransaction");
+        throw new Error("Missing the required parameter 'paymentID' when calling createTransaction");
       }
 
       // verify the required parameter 'paymentTransaction' is set
       if (paymentTransaction == undefined || paymentTransaction == null) {
-        throw new Error("Missing the required parameter 'paymentTransaction' when calling CreateTransaction");
+        throw new Error("Missing the required parameter 'paymentTransaction' when calling createTransaction");
       }
 
 
@@ -154,80 +204,30 @@
      * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
      * @param {String} paymentID ID of the payment.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
-     */
-    this.Delete = function(direction, orderID, paymentID) {
-      var postBody = null;
-
-      // verify the required parameter 'direction' is set
-      if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Delete");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Delete");
-      }
-
-      // verify the required parameter 'paymentID' is set
-      if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling Delete");
-      }
-
-
-      var pathParams = {
-        'direction': direction,
-        'orderID': orderID,
-        'paymentID': paymentID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = null;
-
-      return this.apiClient.callApi(
-        '/orders/{direction}/{orderID}/payments/{paymentID}', 'DELETE',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
-     * @param {String} orderID ID of the order.
-     * @param {String} paymentID ID of the payment.
      * @param {String} transactionID ID of the transaction.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteTransaction = function(direction, orderID, paymentID, transactionID) {
+    this.deleteTransaction = function(direction, orderID, paymentID, transactionID) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling DeleteTransaction");
+        throw new Error("Missing the required parameter 'direction' when calling deleteTransaction");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling DeleteTransaction");
+        throw new Error("Missing the required parameter 'orderID' when calling deleteTransaction");
       }
 
       // verify the required parameter 'paymentID' is set
       if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling DeleteTransaction");
+        throw new Error("Missing the required parameter 'paymentID' when calling deleteTransaction");
       }
 
       // verify the required parameter 'transactionID' is set
       if (transactionID == undefined || transactionID == null) {
-        throw new Error("Missing the required parameter 'transactionID' when calling DeleteTransaction");
+        throw new Error("Missing the required parameter 'transactionID' when calling deleteTransaction");
       }
 
 
@@ -263,22 +263,22 @@
      * @param {String} paymentID ID of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Get = function(direction, orderID, paymentID) {
+    this.get = function(direction, orderID, paymentID) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Get");
+        throw new Error("Missing the required parameter 'direction' when calling get");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Get");
+        throw new Error("Missing the required parameter 'orderID' when calling get");
       }
 
       // verify the required parameter 'paymentID' is set
       if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling Get");
+        throw new Error("Missing the required parameter 'paymentID' when calling get");
       }
 
 
@@ -319,18 +319,18 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPayment}
      */
-    this.List = function(direction, orderID, opts) {
+    this.list = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling List");
+        throw new Error("Missing the required parameter 'direction' when calling list");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling List");
+        throw new Error("Missing the required parameter 'orderID' when calling list");
       }
 
 
@@ -371,27 +371,27 @@
      * @param {module:model/Payment} partialPayment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Patch = function(direction, orderID, paymentID, partialPayment) {
+    this.patch = function(direction, orderID, paymentID, partialPayment) {
       var postBody = partialPayment;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Patch");
+        throw new Error("Missing the required parameter 'direction' when calling patch");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Patch");
+        throw new Error("Missing the required parameter 'orderID' when calling patch");
       }
 
       // verify the required parameter 'paymentID' is set
       if (paymentID == undefined || paymentID == null) {
-        throw new Error("Missing the required parameter 'paymentID' when calling Patch");
+        throw new Error("Missing the required parameter 'paymentID' when calling patch");
       }
 
       // verify the required parameter 'partialPayment' is set
       if (partialPayment == undefined || partialPayment == null) {
-        throw new Error("Missing the required parameter 'partialPayment' when calling Patch");
+        throw new Error("Missing the required parameter 'partialPayment' when calling patch");
       }
 
 

@@ -47,62 +47,20 @@
 
     /**
      * @param {String} supplierID ID of the supplier.
-     * @param {module:model/Address} address 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
-     */
-    this.Create = function(supplierID, address) {
-      var postBody = address;
-
-      // verify the required parameter 'supplierID' is set
-      if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling Create");
-      }
-
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Create");
-      }
-
-
-      var pathParams = {
-        'supplierID': supplierID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Address;
-
-      return this.apiClient.callApi(
-        '/suppliers/{supplierID}/addresses', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} supplierID ID of the supplier.
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(supplierID, addressID) {
+    this.callDelete = function(supplierID, addressID) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling Delete");
+        throw new Error("Missing the required parameter 'supplierID' when calling callDelete");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Delete");
+        throw new Error("Missing the required parameter 'addressID' when calling callDelete");
       }
 
 
@@ -132,20 +90,62 @@
 
     /**
      * @param {String} supplierID ID of the supplier.
+     * @param {module:model/Address} address 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
+     */
+    this.create = function(supplierID, address) {
+      var postBody = address;
+
+      // verify the required parameter 'supplierID' is set
+      if (supplierID == undefined || supplierID == null) {
+        throw new Error("Missing the required parameter 'supplierID' when calling create");
+      }
+
+      // verify the required parameter 'address' is set
+      if (address == undefined || address == null) {
+        throw new Error("Missing the required parameter 'address' when calling create");
+      }
+
+
+      var pathParams = {
+        'supplierID': supplierID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Address;
+
+      return this.apiClient.callApi(
+        '/suppliers/{supplierID}/addresses', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} supplierID ID of the supplier.
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(supplierID, addressID) {
+    this.get = function(supplierID, addressID) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling Get");
+        throw new Error("Missing the required parameter 'supplierID' when calling get");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Get");
+        throw new Error("Missing the required parameter 'addressID' when calling get");
       }
 
 
@@ -184,13 +184,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(supplierID, opts) {
+    this.list = function(supplierID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling List");
+        throw new Error("Missing the required parameter 'supplierID' when calling list");
       }
 
 
@@ -229,22 +229,22 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(supplierID, addressID, partialAddress) {
+    this.patch = function(supplierID, addressID, partialAddress) {
       var postBody = partialAddress;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling Patch");
+        throw new Error("Missing the required parameter 'supplierID' when calling patch");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Patch");
+        throw new Error("Missing the required parameter 'addressID' when calling patch");
       }
 
       // verify the required parameter 'partialAddress' is set
       if (partialAddress == undefined || partialAddress == null) {
-        throw new Error("Missing the required parameter 'partialAddress' when calling Patch");
+        throw new Error("Missing the required parameter 'partialAddress' when calling patch");
       }
 
 
@@ -278,22 +278,22 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(supplierID, addressID, address) {
+    this.save = function(supplierID, addressID, address) {
       var postBody = address;
 
       // verify the required parameter 'supplierID' is set
       if (supplierID == undefined || supplierID == null) {
-        throw new Error("Missing the required parameter 'supplierID' when calling Save");
+        throw new Error("Missing the required parameter 'supplierID' when calling save");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Save");
+        throw new Error("Missing the required parameter 'addressID' when calling save");
       }
 
       // verify the required parameter 'address' is set
       if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Save");
+        throw new Error("Missing the required parameter 'address' when calling save");
       }
 
 

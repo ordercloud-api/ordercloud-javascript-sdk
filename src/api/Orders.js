@@ -51,22 +51,22 @@
      * @param {String} promoCode Promo code of the order promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderPromotion}
      */
-    this.AddPromotion = function(direction, orderID, promoCode) {
+    this.addPromotion = function(direction, orderID, promoCode) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling AddPromotion");
+        throw new Error("Missing the required parameter 'direction' when calling addPromotion");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling AddPromotion");
+        throw new Error("Missing the required parameter 'orderID' when calling addPromotion");
       }
 
       // verify the required parameter 'promoCode' is set
       if (promoCode == undefined || promoCode == null) {
-        throw new Error("Missing the required parameter 'promoCode' when calling AddPromotion");
+        throw new Error("Missing the required parameter 'promoCode' when calling addPromotion");
       }
 
 
@@ -101,22 +101,22 @@
      * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Approve = function(direction, orderID, orderApprovalInfo) {
+    this.approve = function(direction, orderID, orderApprovalInfo) {
       var postBody = orderApprovalInfo;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Approve");
+        throw new Error("Missing the required parameter 'direction' when calling approve");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Approve");
+        throw new Error("Missing the required parameter 'orderID' when calling approve");
       }
 
       // verify the required parameter 'orderApprovalInfo' is set
       if (orderApprovalInfo == undefined || orderApprovalInfo == null) {
-        throw new Error("Missing the required parameter 'orderApprovalInfo' when calling Approve");
+        throw new Error("Missing the required parameter 'orderApprovalInfo' when calling approve");
       }
 
 
@@ -147,153 +147,19 @@
     /**
      * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
-     */
-    this.Cancel = function(direction, orderID) {
-      var postBody = null;
-
-      // verify the required parameter 'direction' is set
-      if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Cancel");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Cancel");
-      }
-
-
-      var pathParams = {
-        'direction': direction,
-        'orderID': orderID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Order;
-
-      return this.apiClient.callApi(
-        '/orders/{direction}/{orderID}/cancel', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
-     * @param {module:model/Order} order 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
-     */
-    this.Create = function(direction, order) {
-      var postBody = order;
-
-      // verify the required parameter 'direction' is set
-      if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Create");
-      }
-
-      // verify the required parameter 'order' is set
-      if (order == undefined || order == null) {
-        throw new Error("Missing the required parameter 'order' when calling Create");
-      }
-
-
-      var pathParams = {
-        'direction': direction
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Order;
-
-      return this.apiClient.callApi(
-        '/orders/{direction}', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
-     * @param {String} orderID ID of the order.
-     * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
-     */
-    this.Decline = function(direction, orderID, orderApprovalInfo) {
-      var postBody = orderApprovalInfo;
-
-      // verify the required parameter 'direction' is set
-      if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Decline");
-      }
-
-      // verify the required parameter 'orderID' is set
-      if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Decline");
-      }
-
-      // verify the required parameter 'orderApprovalInfo' is set
-      if (orderApprovalInfo == undefined || orderApprovalInfo == null) {
-        throw new Error("Missing the required parameter 'orderApprovalInfo' when calling Decline");
-      }
-
-
-      var pathParams = {
-        'direction': direction,
-        'orderID': orderID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Order;
-
-      return this.apiClient.callApi(
-        '/orders/{direction}/{orderID}/decline', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
-     * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(direction, orderID) {
+    this.callDelete = function(direction, orderID) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Delete");
+        throw new Error("Missing the required parameter 'direction' when calling callDelete");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Delete");
+        throw new Error("Missing the required parameter 'orderID' when calling callDelete");
       }
 
 
@@ -326,17 +192,151 @@
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Get = function(direction, orderID) {
+    this.cancel = function(direction, orderID) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Get");
+        throw new Error("Missing the required parameter 'direction' when calling cancel");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Get");
+        throw new Error("Missing the required parameter 'orderID' when calling cancel");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Order;
+
+      return this.apiClient.callApi(
+        '/orders/{direction}/{orderID}/cancel', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {module:model/Order} order 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
+     */
+    this.create = function(direction, order) {
+      var postBody = order;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling create");
+      }
+
+      // verify the required parameter 'order' is set
+      if (order == undefined || order == null) {
+        throw new Error("Missing the required parameter 'order' when calling create");
+      }
+
+
+      var pathParams = {
+        'direction': direction
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Order;
+
+      return this.apiClient.callApi(
+        '/orders/{direction}', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
+     */
+    this.decline = function(direction, orderID, orderApprovalInfo) {
+      var postBody = orderApprovalInfo;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling decline");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling decline");
+      }
+
+      // verify the required parameter 'orderApprovalInfo' is set
+      if (orderApprovalInfo == undefined || orderApprovalInfo == null) {
+        throw new Error("Missing the required parameter 'orderApprovalInfo' when calling decline");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Order;
+
+      return this.apiClient.callApi(
+        '/orders/{direction}/{orderID}/decline', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
+     */
+    this.get = function(direction, orderID) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling get");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling get");
       }
 
 
@@ -379,13 +379,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.List = function(direction, opts) {
+    this.list = function(direction, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling List");
+        throw new Error("Missing the required parameter 'direction' when calling list");
       }
 
 
@@ -434,18 +434,18 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderApproval}
      */
-    this.ListApprovals = function(direction, orderID, opts) {
+    this.listApprovals = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling ListApprovals");
+        throw new Error("Missing the required parameter 'direction' when calling listApprovals");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling ListApprovals");
+        throw new Error("Missing the required parameter 'orderID' when calling listApprovals");
       }
 
 
@@ -491,18 +491,18 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.ListEligibleApprovers = function(direction, orderID, opts) {
+    this.listEligibleApprovers = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling ListEligibleApprovers");
+        throw new Error("Missing the required parameter 'direction' when calling listEligibleApprovers");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling ListEligibleApprovers");
+        throw new Error("Missing the required parameter 'orderID' when calling listEligibleApprovers");
       }
 
 
@@ -548,18 +548,18 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderPromotion}
      */
-    this.ListPromotions = function(direction, orderID, opts) {
+    this.listPromotions = function(direction, orderID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling ListPromotions");
+        throw new Error("Missing the required parameter 'direction' when calling listPromotions");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling ListPromotions");
+        throw new Error("Missing the required parameter 'orderID' when calling listPromotions");
       }
 
 
@@ -599,22 +599,22 @@
      * @param {module:model/Order} partialOrder 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Patch = function(direction, orderID, partialOrder) {
+    this.patch = function(direction, orderID, partialOrder) {
       var postBody = partialOrder;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Patch");
+        throw new Error("Missing the required parameter 'direction' when calling patch");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Patch");
+        throw new Error("Missing the required parameter 'orderID' when calling patch");
       }
 
       // verify the required parameter 'partialOrder' is set
       if (partialOrder == undefined || partialOrder == null) {
-        throw new Error("Missing the required parameter 'partialOrder' when calling Patch");
+        throw new Error("Missing the required parameter 'partialOrder' when calling patch");
       }
 
 
@@ -648,22 +648,22 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchBillingAddress = function(direction, orderID, partialAddress) {
+    this.patchBillingAddress = function(direction, orderID, partialAddress) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling PatchBillingAddress");
+        throw new Error("Missing the required parameter 'direction' when calling patchBillingAddress");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling PatchBillingAddress");
+        throw new Error("Missing the required parameter 'orderID' when calling patchBillingAddress");
       }
 
       // verify the required parameter 'partialAddress' is set
       if (partialAddress == undefined || partialAddress == null) {
-        throw new Error("Missing the required parameter 'partialAddress' when calling PatchBillingAddress");
+        throw new Error("Missing the required parameter 'partialAddress' when calling patchBillingAddress");
       }
 
 
@@ -697,22 +697,22 @@
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchFromUser = function(direction, orderID, partialUser) {
+    this.patchFromUser = function(direction, orderID, partialUser) {
       var postBody = partialUser;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling PatchFromUser");
+        throw new Error("Missing the required parameter 'direction' when calling patchFromUser");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling PatchFromUser");
+        throw new Error("Missing the required parameter 'orderID' when calling patchFromUser");
       }
 
       // verify the required parameter 'partialUser' is set
       if (partialUser == undefined || partialUser == null) {
-        throw new Error("Missing the required parameter 'partialUser' when calling PatchFromUser");
+        throw new Error("Missing the required parameter 'partialUser' when calling patchFromUser");
       }
 
 
@@ -746,22 +746,22 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchShippingAddress = function(direction, orderID, partialAddress) {
+    this.patchShippingAddress = function(direction, orderID, partialAddress) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling PatchShippingAddress");
+        throw new Error("Missing the required parameter 'direction' when calling patchShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling PatchShippingAddress");
+        throw new Error("Missing the required parameter 'orderID' when calling patchShippingAddress");
       }
 
       // verify the required parameter 'partialAddress' is set
       if (partialAddress == undefined || partialAddress == null) {
-        throw new Error("Missing the required parameter 'partialAddress' when calling PatchShippingAddress");
+        throw new Error("Missing the required parameter 'partialAddress' when calling patchShippingAddress");
       }
 
 
@@ -795,22 +795,22 @@
      * @param {String} promoCode Promo code of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.RemovePromotion = function(direction, orderID, promoCode) {
+    this.removePromotion = function(direction, orderID, promoCode) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling RemovePromotion");
+        throw new Error("Missing the required parameter 'direction' when calling removePromotion");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling RemovePromotion");
+        throw new Error("Missing the required parameter 'orderID' when calling removePromotion");
       }
 
       // verify the required parameter 'promoCode' is set
       if (promoCode == undefined || promoCode == null) {
-        throw new Error("Missing the required parameter 'promoCode' when calling RemovePromotion");
+        throw new Error("Missing the required parameter 'promoCode' when calling removePromotion");
       }
 
 
@@ -845,22 +845,22 @@
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Save = function(direction, orderID, order) {
+    this.save = function(direction, orderID, order) {
       var postBody = order;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Save");
+        throw new Error("Missing the required parameter 'direction' when calling save");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Save");
+        throw new Error("Missing the required parameter 'orderID' when calling save");
       }
 
       // verify the required parameter 'order' is set
       if (order == undefined || order == null) {
-        throw new Error("Missing the required parameter 'order' when calling Save");
+        throw new Error("Missing the required parameter 'order' when calling save");
       }
 
 
@@ -894,22 +894,22 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetBillingAddress = function(direction, orderID, address) {
+    this.setBillingAddress = function(direction, orderID, address) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling SetBillingAddress");
+        throw new Error("Missing the required parameter 'direction' when calling setBillingAddress");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling SetBillingAddress");
+        throw new Error("Missing the required parameter 'orderID' when calling setBillingAddress");
       }
 
       // verify the required parameter 'address' is set
       if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling SetBillingAddress");
+        throw new Error("Missing the required parameter 'address' when calling setBillingAddress");
       }
 
 
@@ -943,22 +943,22 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetShippingAddress = function(direction, orderID, address) {
+    this.setShippingAddress = function(direction, orderID, address) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling SetShippingAddress");
+        throw new Error("Missing the required parameter 'direction' when calling setShippingAddress");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling SetShippingAddress");
+        throw new Error("Missing the required parameter 'orderID' when calling setShippingAddress");
       }
 
       // verify the required parameter 'address' is set
       if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling SetShippingAddress");
+        throw new Error("Missing the required parameter 'address' when calling setShippingAddress");
       }
 
 
@@ -992,22 +992,22 @@
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Ship = function(direction, orderID, shipment) {
+    this.ship = function(direction, orderID, shipment) {
       var postBody = shipment;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Ship");
+        throw new Error("Missing the required parameter 'direction' when calling ship");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Ship");
+        throw new Error("Missing the required parameter 'orderID' when calling ship");
       }
 
       // verify the required parameter 'shipment' is set
       if (shipment == undefined || shipment == null) {
-        throw new Error("Missing the required parameter 'shipment' when calling Ship");
+        throw new Error("Missing the required parameter 'shipment' when calling ship");
       }
 
 
@@ -1040,17 +1040,17 @@
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Submit = function(direction, orderID) {
+    this.submit = function(direction, orderID) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
       if (direction == undefined || direction == null) {
-        throw new Error("Missing the required parameter 'direction' when calling Submit");
+        throw new Error("Missing the required parameter 'direction' when calling submit");
       }
 
       // verify the required parameter 'orderID' is set
       if (orderID == undefined || orderID == null) {
-        throw new Error("Missing the required parameter 'orderID' when calling Submit");
+        throw new Error("Missing the required parameter 'orderID' when calling submit");
       }
 
 

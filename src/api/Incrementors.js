@@ -46,50 +46,15 @@
 
 
     /**
-     * @param {module:model/Incrementor} incrementor 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
-     */
-    this.Create = function(incrementor) {
-      var postBody = incrementor;
-
-      // verify the required parameter 'incrementor' is set
-      if (incrementor == undefined || incrementor == null) {
-        throw new Error("Missing the required parameter 'incrementor' when calling Create");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Incrementor;
-
-      return this.apiClient.callApi(
-        '/incrementors', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} incrementorID ID of the incrementor.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(incrementorID) {
+    this.callDelete = function(incrementorID) {
       var postBody = null;
 
       // verify the required parameter 'incrementorID' is set
       if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling Delete");
+        throw new Error("Missing the required parameter 'incrementorID' when calling callDelete");
       }
 
 
@@ -117,15 +82,50 @@
 
 
     /**
+     * @param {module:model/Incrementor} incrementor 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
+     */
+    this.create = function(incrementor) {
+      var postBody = incrementor;
+
+      // verify the required parameter 'incrementor' is set
+      if (incrementor == undefined || incrementor == null) {
+        throw new Error("Missing the required parameter 'incrementor' when calling create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Incrementor;
+
+      return this.apiClient.callApi(
+        '/incrementors', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} incrementorID ID of the incrementor.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Get = function(incrementorID) {
+    this.get = function(incrementorID) {
       var postBody = null;
 
       // verify the required parameter 'incrementorID' is set
       if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling Get");
+        throw new Error("Missing the required parameter 'incrementorID' when calling get");
       }
 
 
@@ -162,7 +162,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListIncrementor}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -200,17 +200,17 @@
      * @param {module:model/Incrementor} partialIncrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Patch = function(incrementorID, partialIncrementor) {
+    this.patch = function(incrementorID, partialIncrementor) {
       var postBody = partialIncrementor;
 
       // verify the required parameter 'incrementorID' is set
       if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling Patch");
+        throw new Error("Missing the required parameter 'incrementorID' when calling patch");
       }
 
       // verify the required parameter 'partialIncrementor' is set
       if (partialIncrementor == undefined || partialIncrementor == null) {
-        throw new Error("Missing the required parameter 'partialIncrementor' when calling Patch");
+        throw new Error("Missing the required parameter 'partialIncrementor' when calling patch");
       }
 
 
@@ -242,17 +242,17 @@
      * @param {module:model/Incrementor} incrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Save = function(incrementorID, incrementor) {
+    this.save = function(incrementorID, incrementor) {
       var postBody = incrementor;
 
       // verify the required parameter 'incrementorID' is set
       if (incrementorID == undefined || incrementorID == null) {
-        throw new Error("Missing the required parameter 'incrementorID' when calling Save");
+        throw new Error("Missing the required parameter 'incrementorID' when calling save");
       }
 
       // verify the required parameter 'incrementor' is set
       if (incrementor == undefined || incrementor == null) {
-        throw new Error("Missing the required parameter 'incrementor' when calling Save");
+        throw new Error("Missing the required parameter 'incrementor' when calling save");
       }
 
 

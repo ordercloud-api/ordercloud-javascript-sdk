@@ -4,13 +4,13 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ResetPasswordByVerificationCode**](PasswordResets.md#ResetPasswordByVerificationCode) | **PUT** /password/reset/{verificationCode} | 
-[**SendVerificationCode**](PasswordResets.md#SendVerificationCode) | **POST** /password/reset | 
+[**resetPasswordByVerificationCode**](PasswordResets.md#resetPasswordByVerificationCode) | **PUT** /password/reset/{verificationCode} | 
+[**sendVerificationCode**](PasswordResets.md#sendVerificationCode) | **POST** /password/reset | 
 
 
-<a name="ResetPasswordByVerificationCode"></a>
-# **ResetPasswordByVerificationCode**
-> ResetPasswordByVerificationCode(verificationCode, passwordReset)
+<a name="resetPasswordByVerificationCode"></a>
+# **resetPasswordByVerificationCode**
+> resetPasswordByVerificationCode(verificationCode, passwordReset)
 
 
 
@@ -29,7 +29,7 @@ var verificationCode = "verificationCode_example"; // String | Verification code
 
 var passwordReset = new OrderCloud.PasswordReset(); // PasswordReset | 
 
-apiInstance.ResetPasswordByVerificationCode(verificationCode, passwordReset).then(function() {
+apiInstance.resetPasswordByVerificationCode(verificationCode, passwordReset).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -59,9 +59,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SendVerificationCode"></a>
-# **SendVerificationCode**
-> SendVerificationCode(passwordResetRequest)
+<a name="sendVerificationCode"></a>
+# **sendVerificationCode**
+> sendVerificationCode(passwordResetRequest)
 
 
 
@@ -78,7 +78,7 @@ var apiInstance = new OrderCloud.PasswordResets();
 
 var passwordResetRequest = new OrderCloud.PasswordResetRequest(); // PasswordResetRequest | 
 
-apiInstance.SendVerificationCode(passwordResetRequest).then(function() {
+apiInstance.sendVerificationCode(passwordResetRequest).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

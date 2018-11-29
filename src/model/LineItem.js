@@ -61,6 +61,7 @@
 
 
 
+
   };
 
   /**
@@ -118,6 +119,9 @@
       }
       if (data.hasOwnProperty('ShipFromAddress')) {
         obj['ShipFromAddress'] = Address.constructFromObject(data['ShipFromAddress']);
+      }
+      if (data.hasOwnProperty('SupplierID')) {
+        obj['SupplierID'] = ApiClient.convertToType(data['SupplierID'], 'String');
       }
       if (data.hasOwnProperty('Specs')) {
         obj['Specs'] = ApiClient.convertToType(data['Specs'], [LineItemSpec]);
@@ -189,6 +193,10 @@
    * @member {module:model/Address} ShipFromAddress
    */
   exports.prototype['ShipFromAddress'] = undefined;
+  /**
+   * @member {String} SupplierID
+   */
+  exports.prototype['SupplierID'] = undefined;
   /**
    * @member {Array.<module:model/LineItemSpec>} Specs
    */

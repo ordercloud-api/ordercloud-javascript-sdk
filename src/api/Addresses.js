@@ -47,62 +47,20 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
-     * @param {module:model/Address} address 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
-     */
-    this.Create = function(buyerID, address) {
-      var postBody = address;
-
-      // verify the required parameter 'buyerID' is set
-      if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Create");
-      }
-
-      // verify the required parameter 'address' is set
-      if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Create");
-      }
-
-
-      var pathParams = {
-        'buyerID': buyerID
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = Address;
-
-      return this.apiClient.callApi(
-        '/buyers/{buyerID}/addresses', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
-     * @param {String} buyerID ID of the buyer.
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, addressID) {
+    this.callDelete = function(buyerID, addressID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Delete");
+        throw new Error("Missing the required parameter 'buyerID' when calling callDelete");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Delete");
+        throw new Error("Missing the required parameter 'addressID' when calling callDelete");
       }
 
 
@@ -132,24 +90,66 @@
 
     /**
      * @param {String} buyerID ID of the buyer.
+     * @param {module:model/Address} address 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
+     */
+    this.create = function(buyerID, address) {
+      var postBody = address;
+
+      // verify the required parameter 'buyerID' is set
+      if (buyerID == undefined || buyerID == null) {
+        throw new Error("Missing the required parameter 'buyerID' when calling create");
+      }
+
+      // verify the required parameter 'address' is set
+      if (address == undefined || address == null) {
+        throw new Error("Missing the required parameter 'address' when calling create");
+      }
+
+
+      var pathParams = {
+        'buyerID': buyerID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Address;
+
+      return this.apiClient.callApi(
+        '/buyers/{buyerID}/addresses', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} buyerID ID of the buyer.
      * @param {String} addressID ID of the address.
      * @param {Object} opts Optional parameters
      * @param {String} opts.userID ID of the user.
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, addressID, opts) {
+    this.deleteAssignment = function(buyerID, addressID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling DeleteAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling deleteAssignment");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling DeleteAssignment");
+        throw new Error("Missing the required parameter 'addressID' when calling deleteAssignment");
       }
 
 
@@ -184,17 +184,17 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(buyerID, addressID) {
+    this.get = function(buyerID, addressID) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Get");
+        throw new Error("Missing the required parameter 'buyerID' when calling get");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Get");
+        throw new Error("Missing the required parameter 'addressID' when calling get");
       }
 
 
@@ -233,13 +233,13 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(buyerID, opts) {
+    this.list = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling List");
+        throw new Error("Missing the required parameter 'buyerID' when calling list");
       }
 
 
@@ -285,13 +285,13 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddressAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.listAssignments = function(buyerID, opts) {
       opts = opts || {};
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling ListAssignments");
+        throw new Error("Missing the required parameter 'buyerID' when calling listAssignments");
       }
 
 
@@ -332,22 +332,22 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(buyerID, addressID, partialAddress) {
+    this.patch = function(buyerID, addressID, partialAddress) {
       var postBody = partialAddress;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Patch");
+        throw new Error("Missing the required parameter 'buyerID' when calling patch");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Patch");
+        throw new Error("Missing the required parameter 'addressID' when calling patch");
       }
 
       // verify the required parameter 'partialAddress' is set
       if (partialAddress == undefined || partialAddress == null) {
-        throw new Error("Missing the required parameter 'partialAddress' when calling Patch");
+        throw new Error("Missing the required parameter 'partialAddress' when calling patch");
       }
 
 
@@ -381,22 +381,22 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(buyerID, addressID, address) {
+    this.save = function(buyerID, addressID, address) {
       var postBody = address;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling Save");
+        throw new Error("Missing the required parameter 'buyerID' when calling save");
       }
 
       // verify the required parameter 'addressID' is set
       if (addressID == undefined || addressID == null) {
-        throw new Error("Missing the required parameter 'addressID' when calling Save");
+        throw new Error("Missing the required parameter 'addressID' when calling save");
       }
 
       // verify the required parameter 'address' is set
       if (address == undefined || address == null) {
-        throw new Error("Missing the required parameter 'address' when calling Save");
+        throw new Error("Missing the required parameter 'address' when calling save");
       }
 
 
@@ -429,17 +429,17 @@
      * @param {module:model/AddressAssignment} addressAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, addressAssignment) {
+    this.saveAssignment = function(buyerID, addressAssignment) {
       var postBody = addressAssignment;
 
       // verify the required parameter 'buyerID' is set
       if (buyerID == undefined || buyerID == null) {
-        throw new Error("Missing the required parameter 'buyerID' when calling SaveAssignment");
+        throw new Error("Missing the required parameter 'buyerID' when calling saveAssignment");
       }
 
       // verify the required parameter 'addressAssignment' is set
       if (addressAssignment == undefined || addressAssignment == null) {
-        throw new Error("Missing the required parameter 'addressAssignment' when calling SaveAssignment");
+        throw new Error("Missing the required parameter 'addressAssignment' when calling saveAssignment");
       }
 
 

@@ -4,48 +4,48 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**CreateAddress**](Me.md#CreateAddress) | **POST** /me/addresses | 
-[**CreateCreditCard**](Me.md#CreateCreditCard) | **POST** /me/creditcards | 
-[**DeleteAddress**](Me.md#DeleteAddress) | **DELETE** /me/addresses/{addressID} | 
-[**DeleteCreditCard**](Me.md#DeleteCreditCard) | **DELETE** /me/creditcards/{creditcardID} | 
-[**Get**](Me.md#Get) | **GET** /me | 
-[**GetAddress**](Me.md#GetAddress) | **GET** /me/addresses/{addressID} | 
-[**GetCatalog**](Me.md#GetCatalog) | **GET** /me/catalogs/{catalogID} | 
-[**GetCategory**](Me.md#GetCategory) | **GET** /me/categories/{categoryID} | 
-[**GetCreditCard**](Me.md#GetCreditCard) | **GET** /me/creditcards/{creditcardID} | 
-[**GetProduct**](Me.md#GetProduct) | **GET** /me/products/{productID} | 
-[**GetPromotion**](Me.md#GetPromotion) | **GET** /me/promotions/{promotionID} | 
-[**GetShipment**](Me.md#GetShipment) | **GET** /me/shipments/{shipmentID} | 
-[**GetSpec**](Me.md#GetSpec) | **GET** /me/products/{productID}/specs/{specID} | 
-[**GetSpendingAccount**](Me.md#GetSpendingAccount) | **GET** /me/spendingaccounts/{spendingAccountID} | 
-[**ListAddresses**](Me.md#ListAddresses) | **GET** /me/addresses | 
-[**ListApprovableOrders**](Me.md#ListApprovableOrders) | **GET** /me/orders/approvable | 
-[**ListCatalogs**](Me.md#ListCatalogs) | **GET** /me/catalogs | 
-[**ListCategories**](Me.md#ListCategories) | **GET** /me/categories | 
-[**ListCostCenters**](Me.md#ListCostCenters) | **GET** /me/costcenters | 
-[**ListCreditCards**](Me.md#ListCreditCards) | **GET** /me/creditcards | 
-[**ListOrders**](Me.md#ListOrders) | **GET** /me/orders | 
-[**ListProducts**](Me.md#ListProducts) | **GET** /me/products | 
-[**ListPromotions**](Me.md#ListPromotions) | **GET** /me/promotions | 
-[**ListShipmentItems**](Me.md#ListShipmentItems) | **GET** /me/shipments/{shipmentID}/items | 
-[**ListShipments**](Me.md#ListShipments) | **GET** /me/shipments | 
-[**ListSpecs**](Me.md#ListSpecs) | **GET** /me/products/{productID}/specs | 
-[**ListSpendingAccounts**](Me.md#ListSpendingAccounts) | **GET** /me/spendingAccounts | 
-[**ListUserGroups**](Me.md#ListUserGroups) | **GET** /me/usergroups | 
-[**Patch**](Me.md#Patch) | **PATCH** /me | 
-[**PatchAddress**](Me.md#PatchAddress) | **PATCH** /me/addresses/{addressID} | 
-[**PatchCreditCard**](Me.md#PatchCreditCard) | **PATCH** /me/creditcards/{creditcardID} | 
-[**Register**](Me.md#Register) | **PUT** /me/register | 
-[**ResetPasswordByToken**](Me.md#ResetPasswordByToken) | **POST** /me/password | 
-[**Save**](Me.md#Save) | **PUT** /me | 
-[**SaveAddress**](Me.md#SaveAddress) | **PUT** /me/addresses/{addressID} | 
-[**SaveCreditCard**](Me.md#SaveCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
-[**TransferAnonUserOrder**](Me.md#TransferAnonUserOrder) | **PUT** /me/orders | 
+[**createAddress**](Me.md#createAddress) | **POST** /me/addresses | 
+[**createCreditCard**](Me.md#createCreditCard) | **POST** /me/creditcards | 
+[**deleteAddress**](Me.md#deleteAddress) | **DELETE** /me/addresses/{addressID} | 
+[**deleteCreditCard**](Me.md#deleteCreditCard) | **DELETE** /me/creditcards/{creditcardID} | 
+[**get**](Me.md#get) | **GET** /me | 
+[**getAddress**](Me.md#getAddress) | **GET** /me/addresses/{addressID} | 
+[**getCatalog**](Me.md#getCatalog) | **GET** /me/catalogs/{catalogID} | 
+[**getCategory**](Me.md#getCategory) | **GET** /me/categories/{categoryID} | 
+[**getCreditCard**](Me.md#getCreditCard) | **GET** /me/creditcards/{creditcardID} | 
+[**getProduct**](Me.md#getProduct) | **GET** /me/products/{productID} | 
+[**getPromotion**](Me.md#getPromotion) | **GET** /me/promotions/{promotionID} | 
+[**getShipment**](Me.md#getShipment) | **GET** /me/shipments/{shipmentID} | 
+[**getSpec**](Me.md#getSpec) | **GET** /me/products/{productID}/specs/{specID} | 
+[**getSpendingAccount**](Me.md#getSpendingAccount) | **GET** /me/spendingaccounts/{spendingAccountID} | 
+[**listAddresses**](Me.md#listAddresses) | **GET** /me/addresses | 
+[**listApprovableOrders**](Me.md#listApprovableOrders) | **GET** /me/orders/approvable | 
+[**listCatalogs**](Me.md#listCatalogs) | **GET** /me/catalogs | 
+[**listCategories**](Me.md#listCategories) | **GET** /me/categories | 
+[**listCostCenters**](Me.md#listCostCenters) | **GET** /me/costcenters | 
+[**listCreditCards**](Me.md#listCreditCards) | **GET** /me/creditcards | 
+[**listOrders**](Me.md#listOrders) | **GET** /me/orders | 
+[**listProducts**](Me.md#listProducts) | **GET** /me/products | 
+[**listPromotions**](Me.md#listPromotions) | **GET** /me/promotions | 
+[**listShipmentItems**](Me.md#listShipmentItems) | **GET** /me/shipments/{shipmentID}/items | 
+[**listShipments**](Me.md#listShipments) | **GET** /me/shipments | 
+[**listSpecs**](Me.md#listSpecs) | **GET** /me/products/{productID}/specs | 
+[**listSpendingAccounts**](Me.md#listSpendingAccounts) | **GET** /me/spendingAccounts | 
+[**listUserGroups**](Me.md#listUserGroups) | **GET** /me/usergroups | 
+[**patch**](Me.md#patch) | **PATCH** /me | 
+[**patchAddress**](Me.md#patchAddress) | **PATCH** /me/addresses/{addressID} | 
+[**patchCreditCard**](Me.md#patchCreditCard) | **PATCH** /me/creditcards/{creditcardID} | 
+[**register**](Me.md#register) | **PUT** /me/register | 
+[**resetPasswordByToken**](Me.md#resetPasswordByToken) | **POST** /me/password | 
+[**save**](Me.md#save) | **PUT** /me | 
+[**saveAddress**](Me.md#saveAddress) | **PUT** /me/addresses/{addressID} | 
+[**saveCreditCard**](Me.md#saveCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
+[**transferAnonUserOrder**](Me.md#transferAnonUserOrder) | **PUT** /me/orders | 
 
 
-<a name="CreateAddress"></a>
-# **CreateAddress**
-> BuyerAddress CreateAddress(buyerAddress)
+<a name="createAddress"></a>
+# **createAddress**
+> BuyerAddress createAddress(buyerAddress)
 
 
 
@@ -62,7 +62,7 @@ var apiInstance = new OrderCloud.Me();
 
 var buyerAddress = new OrderCloud.BuyerAddress(); // BuyerAddress | 
 
-apiInstance.CreateAddress(buyerAddress).then(function(data) {
+apiInstance.createAddress(buyerAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -91,9 +91,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="CreateCreditCard"></a>
-# **CreateCreditCard**
-> BuyerCreditCard CreateCreditCard(buyerCreditCard)
+<a name="createCreditCard"></a>
+# **createCreditCard**
+> BuyerCreditCard createCreditCard(buyerCreditCard)
 
 
 
@@ -110,7 +110,7 @@ var apiInstance = new OrderCloud.Me();
 
 var buyerCreditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
 
-apiInstance.CreateCreditCard(buyerCreditCard).then(function(data) {
+apiInstance.createCreditCard(buyerCreditCard).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -139,9 +139,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="DeleteAddress"></a>
-# **DeleteAddress**
-> DeleteAddress(addressID)
+<a name="deleteAddress"></a>
+# **deleteAddress**
+> deleteAddress(addressID)
 
 
 
@@ -158,7 +158,7 @@ var apiInstance = new OrderCloud.Me();
 
 var addressID = "addressID_example"; // String | ID of the address.
 
-apiInstance.DeleteAddress(addressID).then(function() {
+apiInstance.deleteAddress(addressID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -187,9 +187,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="DeleteCreditCard"></a>
-# **DeleteCreditCard**
-> DeleteCreditCard(creditcardID)
+<a name="deleteCreditCard"></a>
+# **deleteCreditCard**
+> deleteCreditCard(creditcardID)
 
 
 
@@ -206,7 +206,7 @@ var apiInstance = new OrderCloud.Me();
 
 var creditcardID = "creditcardID_example"; // String | ID of the creditcard.
 
-apiInstance.DeleteCreditCard(creditcardID).then(function() {
+apiInstance.deleteCreditCard(creditcardID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -235,9 +235,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> MeUser Get()
+<a name="get"></a>
+# **get**
+> MeUser get()
 
 
 
@@ -251,7 +251,7 @@ var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
 var apiInstance = new OrderCloud.Me();
-apiInstance.Get().then(function(data) {
+apiInstance.get().then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -277,9 +277,9 @@ This endpoint does not need any parameter.
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetAddress"></a>
-# **GetAddress**
-> BuyerAddress GetAddress(addressID)
+<a name="getAddress"></a>
+# **getAddress**
+> BuyerAddress getAddress(addressID)
 
 
 
@@ -296,7 +296,7 @@ var apiInstance = new OrderCloud.Me();
 
 var addressID = "addressID_example"; // String | ID of the address.
 
-apiInstance.GetAddress(addressID).then(function(data) {
+apiInstance.getAddress(addressID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -325,9 +325,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetCatalog"></a>
-# **GetCatalog**
-> Catalog GetCatalog(catalogID)
+<a name="getCatalog"></a>
+# **getCatalog**
+> Catalog getCatalog(catalogID)
 
 
 
@@ -344,7 +344,7 @@ var apiInstance = new OrderCloud.Me();
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
-apiInstance.GetCatalog(catalogID).then(function(data) {
+apiInstance.getCatalog(catalogID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -373,9 +373,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetCategory"></a>
-# **GetCategory**
-> Category GetCategory(categoryID, catalogID)
+<a name="getCategory"></a>
+# **getCategory**
+> Category getCategory(categoryID, catalogID)
 
 
 
@@ -394,7 +394,7 @@ var categoryID = "categoryID_example"; // String | ID of the category.
 
 var catalogID = "catalogID_example"; // String | ID of the catalog.
 
-apiInstance.GetCategory(categoryID, catalogID).then(function(data) {
+apiInstance.getCategory(categoryID, catalogID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -424,9 +424,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetCreditCard"></a>
-# **GetCreditCard**
-> BuyerCreditCard GetCreditCard(creditcardID)
+<a name="getCreditCard"></a>
+# **getCreditCard**
+> BuyerCreditCard getCreditCard(creditcardID)
 
 
 
@@ -443,7 +443,7 @@ var apiInstance = new OrderCloud.Me();
 
 var creditcardID = "creditcardID_example"; // String | ID of the creditcard.
 
-apiInstance.GetCreditCard(creditcardID).then(function(data) {
+apiInstance.getCreditCard(creditcardID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -472,9 +472,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetProduct"></a>
-# **GetProduct**
-> BuyerProduct GetProduct(productID)
+<a name="getProduct"></a>
+# **getProduct**
+> BuyerProduct getProduct(productID)
 
 
 
@@ -491,7 +491,7 @@ var apiInstance = new OrderCloud.Me();
 
 var productID = "productID_example"; // String | ID of the product.
 
-apiInstance.GetProduct(productID).then(function(data) {
+apiInstance.getProduct(productID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -520,9 +520,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetPromotion"></a>
-# **GetPromotion**
-> Promotion GetPromotion(promotionID)
+<a name="getPromotion"></a>
+# **getPromotion**
+> Promotion getPromotion(promotionID)
 
 
 
@@ -539,7 +539,7 @@ var apiInstance = new OrderCloud.Me();
 
 var promotionID = "promotionID_example"; // String | ID of the promotion.
 
-apiInstance.GetPromotion(promotionID).then(function(data) {
+apiInstance.getPromotion(promotionID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -568,9 +568,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetShipment"></a>
-# **GetShipment**
-> Shipment GetShipment(shipmentID)
+<a name="getShipment"></a>
+# **getShipment**
+> Shipment getShipment(shipmentID)
 
 
 
@@ -587,7 +587,7 @@ var apiInstance = new OrderCloud.Me();
 
 var shipmentID = "shipmentID_example"; // String | ID of the shipment.
 
-apiInstance.GetShipment(shipmentID).then(function(data) {
+apiInstance.getShipment(shipmentID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -616,9 +616,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetSpec"></a>
-# **GetSpec**
-> BuyerSpec GetSpec(productID, specID, opts)
+<a name="getSpec"></a>
+# **getSpec**
+> BuyerSpec getSpec(productID, specID, opts)
 
 
 
@@ -640,7 +640,7 @@ var specID = "specID_example"; // String | ID of the spec.
 var opts = { 
   'catalogID': "catalogID_example" // String | ID of the catalog.
 };
-apiInstance.GetSpec(productID, specID, opts).then(function(data) {
+apiInstance.getSpec(productID, specID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -671,9 +671,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="GetSpendingAccount"></a>
-# **GetSpendingAccount**
-> SpendingAccount GetSpendingAccount(spendingAccountID)
+<a name="getSpendingAccount"></a>
+# **getSpendingAccount**
+> SpendingAccount getSpendingAccount(spendingAccountID)
 
 
 
@@ -690,7 +690,7 @@ var apiInstance = new OrderCloud.Me();
 
 var spendingAccountID = "spendingAccountID_example"; // String | ID of the spending account.
 
-apiInstance.GetSpendingAccount(spendingAccountID).then(function(data) {
+apiInstance.getSpendingAccount(spendingAccountID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -719,9 +719,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListAddresses"></a>
-# **ListAddresses**
-> ListBuyerAddress ListAddresses(opts)
+<a name="listAddresses"></a>
+# **listAddresses**
+> ListBuyerAddress listAddresses(opts)
 
 
 
@@ -744,7 +744,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListAddresses(opts).then(function(data) {
+apiInstance.listAddresses(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -778,9 +778,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListApprovableOrders"></a>
-# **ListApprovableOrders**
-> ListOrder ListApprovableOrders(opts)
+<a name="listApprovableOrders"></a>
+# **listApprovableOrders**
+> ListOrder listApprovableOrders(opts)
 
 
 
@@ -805,7 +805,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListApprovableOrders(opts).then(function(data) {
+apiInstance.listApprovableOrders(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -841,9 +841,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListCatalogs"></a>
-# **ListCatalogs**
-> ListCatalog ListCatalogs(opts)
+<a name="listCatalogs"></a>
+# **listCatalogs**
+> ListCatalog listCatalogs(opts)
 
 
 
@@ -866,7 +866,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListCatalogs(opts).then(function(data) {
+apiInstance.listCatalogs(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -900,9 +900,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListCategories"></a>
-# **ListCategories**
-> ListCategory ListCategories(opts)
+<a name="listCategories"></a>
+# **listCategories**
+> ListCategory listCategories(opts)
 
 
 
@@ -928,7 +928,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListCategories(opts).then(function(data) {
+apiInstance.listCategories(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -965,9 +965,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListCostCenters"></a>
-# **ListCostCenters**
-> ListCostCenter ListCostCenters(opts)
+<a name="listCostCenters"></a>
+# **listCostCenters**
+> ListCostCenter listCostCenters(opts)
 
 
 
@@ -990,7 +990,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListCostCenters(opts).then(function(data) {
+apiInstance.listCostCenters(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1024,9 +1024,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListCreditCards"></a>
-# **ListCreditCards**
-> ListBuyerCreditCard ListCreditCards(opts)
+<a name="listCreditCards"></a>
+# **listCreditCards**
+> ListBuyerCreditCard listCreditCards(opts)
 
 
 
@@ -1049,7 +1049,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListCreditCards(opts).then(function(data) {
+apiInstance.listCreditCards(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1083,9 +1083,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListOrders"></a>
-# **ListOrders**
-> ListOrder ListOrders(opts)
+<a name="listOrders"></a>
+# **listOrders**
+> ListOrder listOrders(opts)
 
 
 
@@ -1110,7 +1110,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListOrders(opts).then(function(data) {
+apiInstance.listOrders(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1146,9 +1146,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListProducts"></a>
-# **ListProducts**
-> ListBuyerProduct ListProducts(opts)
+<a name="listProducts"></a>
+# **listProducts**
+> ListBuyerProduct listProducts(opts)
 
 
 
@@ -1174,7 +1174,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListProducts(opts).then(function(data) {
+apiInstance.listProducts(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1211,9 +1211,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListPromotions"></a>
-# **ListPromotions**
-> ListPromotion ListPromotions(opts)
+<a name="listPromotions"></a>
+# **listPromotions**
+> ListPromotion listPromotions(opts)
 
 
 
@@ -1236,7 +1236,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListPromotions(opts).then(function(data) {
+apiInstance.listPromotions(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1270,9 +1270,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListShipmentItems"></a>
-# **ListShipmentItems**
-> ListShipmentItem ListShipmentItems(shipmentID, opts)
+<a name="listShipmentItems"></a>
+# **listShipmentItems**
+> ListShipmentItem listShipmentItems(shipmentID, opts)
 
 
 
@@ -1298,7 +1298,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListShipmentItems(shipmentID, opts).then(function(data) {
+apiInstance.listShipmentItems(shipmentID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1334,9 +1334,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListShipments"></a>
-# **ListShipments**
-> ListShipment ListShipments(opts)
+<a name="listShipments"></a>
+# **listShipments**
+> ListShipment listShipments(opts)
 
 
 
@@ -1360,7 +1360,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListShipments(opts).then(function(data) {
+apiInstance.listShipments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1395,9 +1395,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListSpecs"></a>
-# **ListSpecs**
-> ListBuyerSpec ListSpecs(productID, opts)
+<a name="listSpecs"></a>
+# **listSpecs**
+> ListBuyerSpec listSpecs(productID, opts)
 
 
 
@@ -1423,7 +1423,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListSpecs(productID, opts).then(function(data) {
+apiInstance.listSpecs(productID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1459,9 +1459,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListSpendingAccounts"></a>
-# **ListSpendingAccounts**
-> ListSpendingAccount ListSpendingAccounts(opts)
+<a name="listSpendingAccounts"></a>
+# **listSpendingAccounts**
+> ListSpendingAccount listSpendingAccounts(opts)
 
 
 
@@ -1484,7 +1484,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListSpendingAccounts(opts).then(function(data) {
+apiInstance.listSpendingAccounts(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1518,9 +1518,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListUserGroups"></a>
-# **ListUserGroups**
-> ListUserGroup ListUserGroups(opts)
+<a name="listUserGroups"></a>
+# **listUserGroups**
+> ListUserGroup listUserGroups(opts)
 
 
 
@@ -1543,7 +1543,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.ListUserGroups(opts).then(function(data) {
+apiInstance.listUserGroups(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1577,9 +1577,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> MeUser Patch(partialMeUser)
+<a name="patch"></a>
+# **patch**
+> MeUser patch(partialMeUser)
 
 
 
@@ -1596,7 +1596,7 @@ var apiInstance = new OrderCloud.Me();
 
 var partialMeUser = new OrderCloud.MeUser(); // MeUser | 
 
-apiInstance.Patch(partialMeUser).then(function(data) {
+apiInstance.patch(partialMeUser).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1625,9 +1625,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="PatchAddress"></a>
-# **PatchAddress**
-> PatchAddress(addressID, partialBuyerAddress)
+<a name="patchAddress"></a>
+# **patchAddress**
+> patchAddress(addressID, partialBuyerAddress)
 
 
 
@@ -1646,7 +1646,7 @@ var addressID = "addressID_example"; // String | ID of the address.
 
 var partialBuyerAddress = new OrderCloud.BuyerAddress(); // BuyerAddress | 
 
-apiInstance.PatchAddress(addressID, partialBuyerAddress).then(function() {
+apiInstance.patchAddress(addressID, partialBuyerAddress).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -1676,9 +1676,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="PatchCreditCard"></a>
-# **PatchCreditCard**
-> PatchCreditCard(creditcardID, partialBuyerCreditCard)
+<a name="patchCreditCard"></a>
+# **patchCreditCard**
+> patchCreditCard(creditcardID, partialBuyerCreditCard)
 
 
 
@@ -1697,7 +1697,7 @@ var creditcardID = "creditcardID_example"; // String | ID of the creditcard.
 
 var partialBuyerCreditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
 
-apiInstance.PatchCreditCard(creditcardID, partialBuyerCreditCard).then(function() {
+apiInstance.patchCreditCard(creditcardID, partialBuyerCreditCard).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -1727,9 +1727,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Register"></a>
-# **Register**
-> Object Register(anonUserToken, meUser)
+<a name="register"></a>
+# **register**
+> Object register(anonUserToken, meUser)
 
 
 
@@ -1748,7 +1748,7 @@ var anonUserToken = "anonUserToken_example"; // String | Anon user token of the 
 
 var meUser = new OrderCloud.MeUser(); // MeUser | 
 
-apiInstance.Register(anonUserToken, meUser).then(function(data) {
+apiInstance.register(anonUserToken, meUser).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1778,9 +1778,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ResetPasswordByToken"></a>
-# **ResetPasswordByToken**
-> ResetPasswordByToken(tokenPasswordReset)
+<a name="resetPasswordByToken"></a>
+# **resetPasswordByToken**
+> resetPasswordByToken(tokenPasswordReset)
 
 
 
@@ -1797,7 +1797,7 @@ var apiInstance = new OrderCloud.Me();
 
 var tokenPasswordReset = new OrderCloud.TokenPasswordReset(); // TokenPasswordReset | 
 
-apiInstance.ResetPasswordByToken(tokenPasswordReset).then(function() {
+apiInstance.resetPasswordByToken(tokenPasswordReset).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -1826,9 +1826,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> MeUser Save(meUser)
+<a name="save"></a>
+# **save**
+> MeUser save(meUser)
 
 
 
@@ -1845,7 +1845,7 @@ var apiInstance = new OrderCloud.Me();
 
 var meUser = new OrderCloud.MeUser(); // MeUser | 
 
-apiInstance.Save(meUser).then(function(data) {
+apiInstance.save(meUser).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1874,9 +1874,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveAddress"></a>
-# **SaveAddress**
-> BuyerAddress SaveAddress(addressID, buyerAddress)
+<a name="saveAddress"></a>
+# **saveAddress**
+> BuyerAddress saveAddress(addressID, buyerAddress)
 
 
 
@@ -1895,7 +1895,7 @@ var addressID = "addressID_example"; // String | ID of the address.
 
 var buyerAddress = new OrderCloud.BuyerAddress(); // BuyerAddress | 
 
-apiInstance.SaveAddress(addressID, buyerAddress).then(function(data) {
+apiInstance.saveAddress(addressID, buyerAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1925,9 +1925,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveCreditCard"></a>
-# **SaveCreditCard**
-> BuyerCreditCard SaveCreditCard(creditcardID, buyerCreditCard)
+<a name="saveCreditCard"></a>
+# **saveCreditCard**
+> BuyerCreditCard saveCreditCard(creditcardID, buyerCreditCard)
 
 
 
@@ -1946,7 +1946,7 @@ var creditcardID = "creditcardID_example"; // String | ID of the creditcard.
 
 var buyerCreditCard = new OrderCloud.BuyerCreditCard(); // BuyerCreditCard | 
 
-apiInstance.SaveCreditCard(creditcardID, buyerCreditCard).then(function(data) {
+apiInstance.saveCreditCard(creditcardID, buyerCreditCard).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -1976,9 +1976,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="TransferAnonUserOrder"></a>
-# **TransferAnonUserOrder**
-> TransferAnonUserOrder(anonUserToken)
+<a name="transferAnonUserOrder"></a>
+# **transferAnonUserOrder**
+> transferAnonUserOrder(anonUserToken)
 
 
 
@@ -1995,7 +1995,7 @@ var apiInstance = new OrderCloud.Me();
 
 var anonUserToken = "anonUserToken_example"; // String | Anon user token of the me.
 
-apiInstance.TransferAnonUserOrder(anonUserToken).then(function() {
+apiInstance.transferAnonUserOrder(anonUserToken).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

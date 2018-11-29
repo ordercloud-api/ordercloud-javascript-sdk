@@ -4,65 +4,17 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](Incrementors.md#Create) | **POST** /incrementors | 
-[**Delete**](Incrementors.md#Delete) | **DELETE** /incrementors/{incrementorID} | 
-[**Get**](Incrementors.md#Get) | **GET** /incrementors/{incrementorID} | 
-[**List**](Incrementors.md#List) | **GET** /incrementors | 
-[**Patch**](Incrementors.md#Patch) | **PATCH** /incrementors/{incrementorID} | 
-[**Save**](Incrementors.md#Save) | **PUT** /incrementors/{incrementorID} | 
+[**callDelete**](Incrementors.md#callDelete) | **DELETE** /incrementors/{incrementorID} | 
+[**create**](Incrementors.md#create) | **POST** /incrementors | 
+[**get**](Incrementors.md#get) | **GET** /incrementors/{incrementorID} | 
+[**list**](Incrementors.md#list) | **GET** /incrementors | 
+[**patch**](Incrementors.md#patch) | **PATCH** /incrementors/{incrementorID} | 
+[**save**](Incrementors.md#save) | **PUT** /incrementors/{incrementorID} | 
 
 
-<a name="Create"></a>
-# **Create**
-> Incrementor Create(incrementor)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.Incrementors();
-
-var incrementor = new OrderCloud.Incrementor(); // Incrementor | 
-
-apiInstance.Create(incrementor).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **incrementor** | [**Incrementor**](Incrementor.md)|  | 
-
-### Return type
-
-[**Incrementor**](Incrementor.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(incrementorID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(incrementorID)
 
 
 
@@ -79,7 +31,7 @@ var apiInstance = new OrderCloud.Incrementors();
 
 var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
-apiInstance.Delete(incrementorID).then(function() {
+apiInstance.callDelete(incrementorID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -108,9 +60,57 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> Incrementor Get(incrementorID)
+<a name="create"></a>
+# **create**
+> Incrementor create(incrementor)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Incrementors();
+
+var incrementor = new OrderCloud.Incrementor(); // Incrementor | 
+
+apiInstance.create(incrementor).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **incrementor** | [**Incrementor**](Incrementor.md)|  | 
+
+### Return type
+
+[**Incrementor**](Incrementor.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="get"></a>
+# **get**
+> Incrementor get(incrementorID)
 
 
 
@@ -127,7 +127,7 @@ var apiInstance = new OrderCloud.Incrementors();
 
 var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
-apiInstance.Get(incrementorID).then(function(data) {
+apiInstance.get(incrementorID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -156,9 +156,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListIncrementor List(opts)
+<a name="list"></a>
+# **list**
+> ListIncrementor list(opts)
 
 
 
@@ -181,7 +181,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(opts).then(function(data) {
+apiInstance.list(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -215,9 +215,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> Incrementor Patch(incrementorID, partialIncrementor)
+<a name="patch"></a>
+# **patch**
+> Incrementor patch(incrementorID, partialIncrementor)
 
 
 
@@ -236,7 +236,7 @@ var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
 var partialIncrementor = new OrderCloud.Incrementor(); // Incrementor | 
 
-apiInstance.Patch(incrementorID, partialIncrementor).then(function(data) {
+apiInstance.patch(incrementorID, partialIncrementor).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -266,9 +266,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> Incrementor Save(incrementorID, incrementor)
+<a name="save"></a>
+# **save**
+> Incrementor save(incrementorID, incrementor)
 
 
 
@@ -287,7 +287,7 @@ var incrementorID = "incrementorID_example"; // String | ID of the incrementor.
 
 var incrementor = new OrderCloud.Incrementor(); // Incrementor | 
 
-apiInstance.Save(incrementorID, incrementor).then(function(data) {
+apiInstance.save(incrementorID, incrementor).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

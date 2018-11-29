@@ -4,68 +4,20 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](AdminUserGroups.md#Create) | **POST** /usergroups | 
-[**Delete**](AdminUserGroups.md#Delete) | **DELETE** /usergroups/{userGroupID} | 
-[**DeleteUserAssignment**](AdminUserGroups.md#DeleteUserAssignment) | **DELETE** /usergroups/{userGroupID}/assignments/{userID} | 
-[**Get**](AdminUserGroups.md#Get) | **GET** /usergroups/{userGroupID} | 
-[**List**](AdminUserGroups.md#List) | **GET** /usergroups | 
-[**ListUserAssignments**](AdminUserGroups.md#ListUserAssignments) | **GET** /usergroups/assignments | 
-[**Patch**](AdminUserGroups.md#Patch) | **PATCH** /usergroups/{userGroupID} | 
-[**Save**](AdminUserGroups.md#Save) | **PUT** /usergroups/{userGroupID} | 
-[**SaveUserAssignment**](AdminUserGroups.md#SaveUserAssignment) | **POST** /usergroups/assignments | 
+[**callDelete**](AdminUserGroups.md#callDelete) | **DELETE** /usergroups/{userGroupID} | 
+[**create**](AdminUserGroups.md#create) | **POST** /usergroups | 
+[**deleteUserAssignment**](AdminUserGroups.md#deleteUserAssignment) | **DELETE** /usergroups/{userGroupID}/assignments/{userID} | 
+[**get**](AdminUserGroups.md#get) | **GET** /usergroups/{userGroupID} | 
+[**list**](AdminUserGroups.md#list) | **GET** /usergroups | 
+[**listUserAssignments**](AdminUserGroups.md#listUserAssignments) | **GET** /usergroups/assignments | 
+[**patch**](AdminUserGroups.md#patch) | **PATCH** /usergroups/{userGroupID} | 
+[**save**](AdminUserGroups.md#save) | **PUT** /usergroups/{userGroupID} | 
+[**saveUserAssignment**](AdminUserGroups.md#saveUserAssignment) | **POST** /usergroups/assignments | 
 
 
-<a name="Create"></a>
-# **Create**
-> UserGroup Create(userGroup)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.AdminUserGroups();
-
-var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
-
-apiInstance.Create(userGroup).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **userGroup** | [**UserGroup**](UserGroup.md)|  | 
-
-### Return type
-
-[**UserGroup**](UserGroup.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(userGroupID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(userGroupID)
 
 
 
@@ -82,7 +34,7 @@ var apiInstance = new OrderCloud.AdminUserGroups();
 
 var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
-apiInstance.Delete(userGroupID).then(function() {
+apiInstance.callDelete(userGroupID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -111,9 +63,57 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="DeleteUserAssignment"></a>
-# **DeleteUserAssignment**
-> DeleteUserAssignment(userGroupID, userID)
+<a name="create"></a>
+# **create**
+> UserGroup create(userGroup)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.AdminUserGroups();
+
+var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
+
+apiInstance.create(userGroup).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userGroup** | [**UserGroup**](UserGroup.md)|  | 
+
+### Return type
+
+[**UserGroup**](UserGroup.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="deleteUserAssignment"></a>
+# **deleteUserAssignment**
+> deleteUserAssignment(userGroupID, userID)
 
 
 
@@ -132,7 +132,7 @@ var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
 var userID = "userID_example"; // String | ID of the user.
 
-apiInstance.DeleteUserAssignment(userGroupID, userID).then(function() {
+apiInstance.deleteUserAssignment(userGroupID, userID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -162,9 +162,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> UserGroup Get(userGroupID)
+<a name="get"></a>
+# **get**
+> UserGroup get(userGroupID)
 
 
 
@@ -181,7 +181,7 @@ var apiInstance = new OrderCloud.AdminUserGroups();
 
 var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
-apiInstance.Get(userGroupID).then(function(data) {
+apiInstance.get(userGroupID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -210,9 +210,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListUserGroup List(opts)
+<a name="list"></a>
+# **list**
+> ListUserGroup list(opts)
 
 
 
@@ -235,7 +235,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(opts).then(function(data) {
+apiInstance.list(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -269,9 +269,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListUserAssignments"></a>
-# **ListUserAssignments**
-> ListUserGroupAssignment ListUserAssignments(opts)
+<a name="listUserAssignments"></a>
+# **listUserAssignments**
+> ListUserGroupAssignment listUserAssignments(opts)
 
 
 
@@ -292,7 +292,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.ListUserAssignments(opts).then(function(data) {
+apiInstance.listUserAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -324,9 +324,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> UserGroup Patch(userGroupID, partialUserGroup)
+<a name="patch"></a>
+# **patch**
+> UserGroup patch(userGroupID, partialUserGroup)
 
 
 
@@ -345,7 +345,7 @@ var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
 var partialUserGroup = new OrderCloud.UserGroup(); // UserGroup | 
 
-apiInstance.Patch(userGroupID, partialUserGroup).then(function(data) {
+apiInstance.patch(userGroupID, partialUserGroup).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -375,9 +375,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> UserGroup Save(userGroupID, userGroup)
+<a name="save"></a>
+# **save**
+> UserGroup save(userGroupID, userGroup)
 
 
 
@@ -396,7 +396,7 @@ var userGroupID = "userGroupID_example"; // String | ID of the user group.
 
 var userGroup = new OrderCloud.UserGroup(); // UserGroup | 
 
-apiInstance.Save(userGroupID, userGroup).then(function(data) {
+apiInstance.save(userGroupID, userGroup).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -426,9 +426,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveUserAssignment"></a>
-# **SaveUserAssignment**
-> SaveUserAssignment(userGroupAssignment)
+<a name="saveUserAssignment"></a>
+# **saveUserAssignment**
+> saveUserAssignment(userGroupAssignment)
 
 
 
@@ -445,7 +445,7 @@ var apiInstance = new OrderCloud.AdminUserGroups();
 
 var userGroupAssignment = new OrderCloud.UserGroupAssignment(); // UserGroupAssignment | 
 
-apiInstance.SaveUserAssignment(userGroupAssignment).then(function() {
+apiInstance.saveUserAssignment(userGroupAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

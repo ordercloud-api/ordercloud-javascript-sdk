@@ -3,6 +3,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**inventory** | [**Inventory**](Inventory.md) |  | [optional] 
 **defaultPriceScheduleID** | **String** |  | [optional] 
 **ID** | **String** |  | [optional] 
 **name** | **String** |  | [optional] 
@@ -17,7 +18,6 @@ Name | Type | Description | Notes
 **xp** | **Object** |  | [optional] 
 **variantCount** | **Number** |  | [optional] 
 **shipFromAddressID** | **String** |  | [optional] 
-**inventory** | [**Inventory**](Inventory.md) |  | [optional] 
-**autoForwardSupplierID** | **String** |  | [optional] 
+**defaultSupplierID** | **String** |  | [optional] 
 
 

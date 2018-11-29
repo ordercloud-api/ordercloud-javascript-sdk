@@ -4,71 +4,20 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](CreditCards.md#Create) | **POST** /buyers/{buyerID}/creditcards | 
-[**Delete**](CreditCards.md#Delete) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID} | 
-[**DeleteAssignment**](CreditCards.md#DeleteAssignment) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID}/assignments | 
-[**Get**](CreditCards.md#Get) | **GET** /buyers/{buyerID}/creditcards/{creditCardID} | 
-[**List**](CreditCards.md#List) | **GET** /buyers/{buyerID}/creditcards | 
-[**ListAssignments**](CreditCards.md#ListAssignments) | **GET** /buyers/{buyerID}/creditcards/assignments | 
-[**Patch**](CreditCards.md#Patch) | **PATCH** /buyers/{buyerID}/creditcards/{creditCardID} | 
-[**Save**](CreditCards.md#Save) | **PUT** /buyers/{buyerID}/creditcards/{creditCardID} | 
-[**SaveAssignment**](CreditCards.md#SaveAssignment) | **POST** /buyers/{buyerID}/creditcards/assignments | 
+[**callDelete**](CreditCards.md#callDelete) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID} | 
+[**create**](CreditCards.md#create) | **POST** /buyers/{buyerID}/creditcards | 
+[**deleteAssignment**](CreditCards.md#deleteAssignment) | **DELETE** /buyers/{buyerID}/creditcards/{creditCardID}/assignments | 
+[**get**](CreditCards.md#get) | **GET** /buyers/{buyerID}/creditcards/{creditCardID} | 
+[**list**](CreditCards.md#list) | **GET** /buyers/{buyerID}/creditcards | 
+[**listAssignments**](CreditCards.md#listAssignments) | **GET** /buyers/{buyerID}/creditcards/assignments | 
+[**patch**](CreditCards.md#patch) | **PATCH** /buyers/{buyerID}/creditcards/{creditCardID} | 
+[**save**](CreditCards.md#save) | **PUT** /buyers/{buyerID}/creditcards/{creditCardID} | 
+[**saveAssignment**](CreditCards.md#saveAssignment) | **POST** /buyers/{buyerID}/creditcards/assignments | 
 
 
-<a name="Create"></a>
-# **Create**
-> CreditCard Create(buyerID, creditCard)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.CreditCards();
-
-var buyerID = "buyerID_example"; // String | ID of the buyer.
-
-var creditCard = new OrderCloud.CreditCard(); // CreditCard | 
-
-apiInstance.Create(buyerID, creditCard).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **buyerID** | **String**| ID of the buyer. | 
- **creditCard** | [**CreditCard**](CreditCard.md)|  | 
-
-### Return type
-
-[**CreditCard**](CreditCard.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(buyerID, creditCardID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(buyerID, creditCardID)
 
 
 
@@ -87,7 +36,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var creditCardID = "creditCardID_example"; // String | ID of the credit card.
 
-apiInstance.Delete(buyerID, creditCardID).then(function() {
+apiInstance.callDelete(buyerID, creditCardID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -117,9 +66,60 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="DeleteAssignment"></a>
-# **DeleteAssignment**
-> DeleteAssignment(buyerID, creditCardID, opts)
+<a name="create"></a>
+# **create**
+> CreditCard create(buyerID, creditCard)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.CreditCards();
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+var creditCard = new OrderCloud.CreditCard(); // CreditCard | 
+
+apiInstance.create(buyerID, creditCard).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **buyerID** | **String**| ID of the buyer. | 
+ **creditCard** | [**CreditCard**](CreditCard.md)|  | 
+
+### Return type
+
+[**CreditCard**](CreditCard.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="deleteAssignment"></a>
+# **deleteAssignment**
+> deleteAssignment(buyerID, creditCardID, opts)
 
 
 
@@ -142,7 +142,7 @@ var opts = {
   'userID': "userID_example", // String | ID of the user.
   'userGroupID': "userGroupID_example" // String | ID of the user group.
 };
-apiInstance.DeleteAssignment(buyerID, creditCardID, opts).then(function() {
+apiInstance.deleteAssignment(buyerID, creditCardID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -174,9 +174,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> CreditCard Get(buyerID, creditCardID)
+<a name="get"></a>
+# **get**
+> CreditCard get(buyerID, creditCardID)
 
 
 
@@ -195,7 +195,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var creditCardID = "creditCardID_example"; // String | ID of the credit card.
 
-apiInstance.Get(buyerID, creditCardID).then(function(data) {
+apiInstance.get(buyerID, creditCardID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -225,9 +225,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListCreditCard List(buyerID, opts)
+<a name="list"></a>
+# **list**
+> ListCreditCard list(buyerID, opts)
 
 
 
@@ -252,7 +252,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(buyerID, opts).then(function(data) {
+apiInstance.list(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -287,9 +287,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListAssignments"></a>
-# **ListAssignments**
-> ListCreditCardAssignment ListAssignments(buyerID, opts)
+<a name="listAssignments"></a>
+# **listAssignments**
+> ListCreditCardAssignment listAssignments(buyerID, opts)
 
 
 
@@ -314,7 +314,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.ListAssignments(buyerID, opts).then(function(data) {
+apiInstance.listAssignments(buyerID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -349,9 +349,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> CreditCard Patch(buyerID, creditCardID, partialCreditCard)
+<a name="patch"></a>
+# **patch**
+> CreditCard patch(buyerID, creditCardID, partialCreditCard)
 
 
 
@@ -372,7 +372,7 @@ var creditCardID = "creditCardID_example"; // String | ID of the credit card.
 
 var partialCreditCard = new OrderCloud.CreditCard(); // CreditCard | 
 
-apiInstance.Patch(buyerID, creditCardID, partialCreditCard).then(function(data) {
+apiInstance.patch(buyerID, creditCardID, partialCreditCard).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -403,9 +403,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> CreditCard Save(buyerID, creditCardID, creditCard)
+<a name="save"></a>
+# **save**
+> CreditCard save(buyerID, creditCardID, creditCard)
 
 
 
@@ -426,7 +426,7 @@ var creditCardID = "creditCardID_example"; // String | ID of the credit card.
 
 var creditCard = new OrderCloud.CreditCard(); // CreditCard | 
 
-apiInstance.Save(buyerID, creditCardID, creditCard).then(function(data) {
+apiInstance.save(buyerID, creditCardID, creditCard).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -457,9 +457,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveAssignment"></a>
-# **SaveAssignment**
-> SaveAssignment(buyerID, creditCardAssignment)
+<a name="saveAssignment"></a>
+# **saveAssignment**
+> saveAssignment(buyerID, creditCardAssignment)
 
 
 
@@ -478,7 +478,7 @@ var buyerID = "buyerID_example"; // String | ID of the buyer.
 
 var creditCardAssignment = new OrderCloud.CreditCardAssignment(); // CreditCardAssignment | 
 
-apiInstance.SaveAssignment(buyerID, creditCardAssignment).then(function() {
+apiInstance.saveAssignment(buyerID, creditCardAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);

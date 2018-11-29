@@ -50,17 +50,17 @@
      * @param {module:model/PasswordReset} passwordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPasswordByVerificationCode = function(verificationCode, passwordReset) {
+    this.resetPasswordByVerificationCode = function(verificationCode, passwordReset) {
       var postBody = passwordReset;
 
       // verify the required parameter 'verificationCode' is set
       if (verificationCode == undefined || verificationCode == null) {
-        throw new Error("Missing the required parameter 'verificationCode' when calling ResetPasswordByVerificationCode");
+        throw new Error("Missing the required parameter 'verificationCode' when calling resetPasswordByVerificationCode");
       }
 
       // verify the required parameter 'passwordReset' is set
       if (passwordReset == undefined || passwordReset == null) {
-        throw new Error("Missing the required parameter 'passwordReset' when calling ResetPasswordByVerificationCode");
+        throw new Error("Missing the required parameter 'passwordReset' when calling resetPasswordByVerificationCode");
       }
 
 
@@ -91,12 +91,12 @@
      * @param {module:model/PasswordResetRequest} passwordResetRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SendVerificationCode = function(passwordResetRequest) {
+    this.sendVerificationCode = function(passwordResetRequest) {
       var postBody = passwordResetRequest;
 
       // verify the required parameter 'passwordResetRequest' is set
       if (passwordResetRequest == undefined || passwordResetRequest == null) {
-        throw new Error("Missing the required parameter 'passwordResetRequest' when calling SendVerificationCode");
+        throw new Error("Missing the required parameter 'passwordResetRequest' when calling sendVerificationCode");
       }
 
 

@@ -4,67 +4,19 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](PriceSchedules.md#Create) | **POST** /priceschedules | 
-[**Delete**](PriceSchedules.md#Delete) | **DELETE** /priceschedules/{priceScheduleID} | 
-[**DeletePriceBreak**](PriceSchedules.md#DeletePriceBreak) | **DELETE** /priceschedules/{priceScheduleID}/PriceBreaks | 
-[**Get**](PriceSchedules.md#Get) | **GET** /priceschedules/{priceScheduleID} | 
-[**List**](PriceSchedules.md#List) | **GET** /priceschedules | 
-[**Patch**](PriceSchedules.md#Patch) | **PATCH** /priceschedules/{priceScheduleID} | 
-[**Save**](PriceSchedules.md#Save) | **PUT** /priceschedules/{priceScheduleID} | 
-[**SavePriceBreak**](PriceSchedules.md#SavePriceBreak) | **POST** /priceschedules/{priceScheduleID}/PriceBreaks | 
+[**callDelete**](PriceSchedules.md#callDelete) | **DELETE** /priceschedules/{priceScheduleID} | 
+[**create**](PriceSchedules.md#create) | **POST** /priceschedules | 
+[**deletePriceBreak**](PriceSchedules.md#deletePriceBreak) | **DELETE** /priceschedules/{priceScheduleID}/PriceBreaks | 
+[**get**](PriceSchedules.md#get) | **GET** /priceschedules/{priceScheduleID} | 
+[**list**](PriceSchedules.md#list) | **GET** /priceschedules | 
+[**patch**](PriceSchedules.md#patch) | **PATCH** /priceschedules/{priceScheduleID} | 
+[**save**](PriceSchedules.md#save) | **PUT** /priceschedules/{priceScheduleID} | 
+[**savePriceBreak**](PriceSchedules.md#savePriceBreak) | **POST** /priceschedules/{priceScheduleID}/PriceBreaks | 
 
 
-<a name="Create"></a>
-# **Create**
-> PriceSchedule Create(priceSchedule)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.PriceSchedules();
-
-var priceSchedule = new OrderCloud.PriceSchedule(); // PriceSchedule | 
-
-apiInstance.Create(priceSchedule).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **priceSchedule** | [**PriceSchedule**](PriceSchedule.md)|  | 
-
-### Return type
-
-[**PriceSchedule**](PriceSchedule.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(priceScheduleID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(priceScheduleID)
 
 
 
@@ -81,7 +33,7 @@ var apiInstance = new OrderCloud.PriceSchedules();
 
 var priceScheduleID = "priceScheduleID_example"; // String | ID of the price schedule.
 
-apiInstance.Delete(priceScheduleID).then(function() {
+apiInstance.callDelete(priceScheduleID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -110,9 +62,57 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="DeletePriceBreak"></a>
-# **DeletePriceBreak**
-> DeletePriceBreak(priceScheduleID, quantity)
+<a name="create"></a>
+# **create**
+> PriceSchedule create(priceSchedule)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.PriceSchedules();
+
+var priceSchedule = new OrderCloud.PriceSchedule(); // PriceSchedule | 
+
+apiInstance.create(priceSchedule).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **priceSchedule** | [**PriceSchedule**](PriceSchedule.md)|  | 
+
+### Return type
+
+[**PriceSchedule**](PriceSchedule.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="deletePriceBreak"></a>
+# **deletePriceBreak**
+> deletePriceBreak(priceScheduleID, quantity)
 
 
 
@@ -131,7 +131,7 @@ var priceScheduleID = "priceScheduleID_example"; // String | ID of the price sch
 
 var quantity = 56; // Number | Quantity of the price schedule.
 
-apiInstance.DeletePriceBreak(priceScheduleID, quantity).then(function() {
+apiInstance.deletePriceBreak(priceScheduleID, quantity).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -161,9 +161,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> PriceSchedule Get(priceScheduleID)
+<a name="get"></a>
+# **get**
+> PriceSchedule get(priceScheduleID)
 
 
 
@@ -180,7 +180,7 @@ var apiInstance = new OrderCloud.PriceSchedules();
 
 var priceScheduleID = "priceScheduleID_example"; // String | ID of the price schedule.
 
-apiInstance.Get(priceScheduleID).then(function(data) {
+apiInstance.get(priceScheduleID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -209,9 +209,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListPriceSchedule List(opts)
+<a name="list"></a>
+# **list**
+> ListPriceSchedule list(opts)
 
 
 
@@ -234,7 +234,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(opts).then(function(data) {
+apiInstance.list(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -268,9 +268,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> PriceSchedule Patch(priceScheduleID, partialPriceSchedule)
+<a name="patch"></a>
+# **patch**
+> PriceSchedule patch(priceScheduleID, partialPriceSchedule)
 
 
 
@@ -289,7 +289,7 @@ var priceScheduleID = "priceScheduleID_example"; // String | ID of the price sch
 
 var partialPriceSchedule = new OrderCloud.PriceSchedule(); // PriceSchedule | 
 
-apiInstance.Patch(priceScheduleID, partialPriceSchedule).then(function(data) {
+apiInstance.patch(priceScheduleID, partialPriceSchedule).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -319,9 +319,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> PriceSchedule Save(priceScheduleID, priceSchedule)
+<a name="save"></a>
+# **save**
+> PriceSchedule save(priceScheduleID, priceSchedule)
 
 
 
@@ -340,7 +340,7 @@ var priceScheduleID = "priceScheduleID_example"; // String | ID of the price sch
 
 var priceSchedule = new OrderCloud.PriceSchedule(); // PriceSchedule | 
 
-apiInstance.Save(priceScheduleID, priceSchedule).then(function(data) {
+apiInstance.save(priceScheduleID, priceSchedule).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -370,9 +370,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SavePriceBreak"></a>
-# **SavePriceBreak**
-> PriceSchedule SavePriceBreak(priceScheduleID, priceBreak)
+<a name="savePriceBreak"></a>
+# **savePriceBreak**
+> PriceSchedule savePriceBreak(priceScheduleID, priceBreak)
 
 
 
@@ -391,7 +391,7 @@ var priceScheduleID = "priceScheduleID_example"; // String | ID of the price sch
 
 var priceBreak = new OrderCloud.PriceBreak(); // PriceBreak | 
 
-apiInstance.SavePriceBreak(priceScheduleID, priceBreak).then(function(data) {
+apiInstance.savePriceBreak(priceScheduleID, priceBreak).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

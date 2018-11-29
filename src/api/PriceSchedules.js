@@ -46,50 +46,15 @@
 
 
     /**
-     * @param {module:model/PriceSchedule} priceSchedule 
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
-     */
-    this.Create = function(priceSchedule) {
-      var postBody = priceSchedule;
-
-      // verify the required parameter 'priceSchedule' is set
-      if (priceSchedule == undefined || priceSchedule == null) {
-        throw new Error("Missing the required parameter 'priceSchedule' when calling Create");
-      }
-
-
-      var pathParams = {
-      };
-      var queryParams = {
-      };
-      var headerParams = {
-      };
-      var formParams = {
-      };
-
-      var authNames = ['oauth2'];
-      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
-      var accepts = ['application/json'];
-      var returnType = PriceSchedule;
-
-      return this.apiClient.callApi(
-        '/priceschedules', 'POST',
-        pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
-      );
-    }
-
-
-    /**
      * @param {String} priceScheduleID ID of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(priceScheduleID) {
+    this.callDelete = function(priceScheduleID) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
       if (priceScheduleID == undefined || priceScheduleID == null) {
-        throw new Error("Missing the required parameter 'priceScheduleID' when calling Delete");
+        throw new Error("Missing the required parameter 'priceScheduleID' when calling callDelete");
       }
 
 
@@ -117,21 +82,56 @@
 
 
     /**
+     * @param {module:model/PriceSchedule} priceSchedule 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
+     */
+    this.create = function(priceSchedule) {
+      var postBody = priceSchedule;
+
+      // verify the required parameter 'priceSchedule' is set
+      if (priceSchedule == undefined || priceSchedule == null) {
+        throw new Error("Missing the required parameter 'priceSchedule' when calling create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = PriceSchedule;
+
+      return this.apiClient.callApi(
+        '/priceschedules', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} priceScheduleID ID of the price schedule.
      * @param {Number} quantity Quantity of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeletePriceBreak = function(priceScheduleID, quantity) {
+    this.deletePriceBreak = function(priceScheduleID, quantity) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
       if (priceScheduleID == undefined || priceScheduleID == null) {
-        throw new Error("Missing the required parameter 'priceScheduleID' when calling DeletePriceBreak");
+        throw new Error("Missing the required parameter 'priceScheduleID' when calling deletePriceBreak");
       }
 
       // verify the required parameter 'quantity' is set
       if (quantity == undefined || quantity == null) {
-        throw new Error("Missing the required parameter 'quantity' when calling DeletePriceBreak");
+        throw new Error("Missing the required parameter 'quantity' when calling deletePriceBreak");
       }
 
 
@@ -163,12 +163,12 @@
      * @param {String} priceScheduleID ID of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Get = function(priceScheduleID) {
+    this.get = function(priceScheduleID) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
       if (priceScheduleID == undefined || priceScheduleID == null) {
-        throw new Error("Missing the required parameter 'priceScheduleID' when calling Get");
+        throw new Error("Missing the required parameter 'priceScheduleID' when calling get");
       }
 
 
@@ -205,7 +205,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPriceSchedule}
      */
-    this.List = function(opts) {
+    this.list = function(opts) {
       opts = opts || {};
       var postBody = null;
 
@@ -243,17 +243,17 @@
      * @param {module:model/PriceSchedule} partialPriceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Patch = function(priceScheduleID, partialPriceSchedule) {
+    this.patch = function(priceScheduleID, partialPriceSchedule) {
       var postBody = partialPriceSchedule;
 
       // verify the required parameter 'priceScheduleID' is set
       if (priceScheduleID == undefined || priceScheduleID == null) {
-        throw new Error("Missing the required parameter 'priceScheduleID' when calling Patch");
+        throw new Error("Missing the required parameter 'priceScheduleID' when calling patch");
       }
 
       // verify the required parameter 'partialPriceSchedule' is set
       if (partialPriceSchedule == undefined || partialPriceSchedule == null) {
-        throw new Error("Missing the required parameter 'partialPriceSchedule' when calling Patch");
+        throw new Error("Missing the required parameter 'partialPriceSchedule' when calling patch");
       }
 
 
@@ -285,17 +285,17 @@
      * @param {module:model/PriceSchedule} priceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Save = function(priceScheduleID, priceSchedule) {
+    this.save = function(priceScheduleID, priceSchedule) {
       var postBody = priceSchedule;
 
       // verify the required parameter 'priceScheduleID' is set
       if (priceScheduleID == undefined || priceScheduleID == null) {
-        throw new Error("Missing the required parameter 'priceScheduleID' when calling Save");
+        throw new Error("Missing the required parameter 'priceScheduleID' when calling save");
       }
 
       // verify the required parameter 'priceSchedule' is set
       if (priceSchedule == undefined || priceSchedule == null) {
-        throw new Error("Missing the required parameter 'priceSchedule' when calling Save");
+        throw new Error("Missing the required parameter 'priceSchedule' when calling save");
       }
 
 
@@ -327,17 +327,17 @@
      * @param {module:model/PriceBreak} priceBreak 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.SavePriceBreak = function(priceScheduleID, priceBreak) {
+    this.savePriceBreak = function(priceScheduleID, priceBreak) {
       var postBody = priceBreak;
 
       // verify the required parameter 'priceScheduleID' is set
       if (priceScheduleID == undefined || priceScheduleID == null) {
-        throw new Error("Missing the required parameter 'priceScheduleID' when calling SavePriceBreak");
+        throw new Error("Missing the required parameter 'priceScheduleID' when calling savePriceBreak");
       }
 
       // verify the required parameter 'priceBreak' is set
       if (priceBreak == undefined || priceBreak == null) {
-        throw new Error("Missing the required parameter 'priceBreak' when calling SavePriceBreak");
+        throw new Error("Missing the required parameter 'priceBreak' when calling savePriceBreak");
       }
 
 

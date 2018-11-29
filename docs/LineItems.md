@@ -4,73 +4,19 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**Create**](LineItems.md#Create) | **POST** /orders/{direction}/{orderID}/lineitems | 
-[**Delete**](LineItems.md#Delete) | **DELETE** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
-[**Get**](LineItems.md#Get) | **GET** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
-[**List**](LineItems.md#List) | **GET** /orders/{direction}/{orderID}/lineitems | 
-[**Patch**](LineItems.md#Patch) | **PATCH** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
-[**PatchShippingAddress**](LineItems.md#PatchShippingAddress) | **PATCH** /orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto | 
-[**Save**](LineItems.md#Save) | **PUT** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
-[**SetShippingAddress**](LineItems.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto | 
+[**callDelete**](LineItems.md#callDelete) | **DELETE** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
+[**create**](LineItems.md#create) | **POST** /orders/{direction}/{orderID}/lineitems | 
+[**get**](LineItems.md#get) | **GET** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
+[**list**](LineItems.md#list) | **GET** /orders/{direction}/{orderID}/lineitems | 
+[**patch**](LineItems.md#patch) | **PATCH** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
+[**patchShippingAddress**](LineItems.md#patchShippingAddress) | **PATCH** /orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto | 
+[**save**](LineItems.md#save) | **PUT** /orders/{direction}/{orderID}/lineitems/{lineItemID} | 
+[**setShippingAddress**](LineItems.md#setShippingAddress) | **PUT** /orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto | 
 
 
-<a name="Create"></a>
-# **Create**
-> LineItem Create(direction, orderID, lineItem)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.LineItems();
-
-var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
-
-var orderID = "orderID_example"; // String | ID of the order.
-
-var lineItem = new OrderCloud.LineItem(); // LineItem | 
-
-apiInstance.Create(direction, orderID, lineItem).then(function(data) {
-  console.log('API called successfully. Returned data: ' + data);
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
- **orderID** | **String**| ID of the order. | 
- **lineItem** | [**LineItem**](LineItem.md)|  | 
-
-### Return type
-
-[**LineItem**](LineItem.md)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="Delete"></a>
-# **Delete**
-> Delete(direction, orderID, lineItemID)
+<a name="callDelete"></a>
+# **callDelete**
+> callDelete(direction, orderID, lineItemID)
 
 
 
@@ -91,7 +37,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
-apiInstance.Delete(direction, orderID, lineItemID).then(function() {
+apiInstance.callDelete(direction, orderID, lineItemID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -122,9 +68,63 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> LineItem Get(direction, orderID, lineItemID)
+<a name="create"></a>
+# **create**
+> LineItem create(direction, orderID, lineItem)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.LineItems();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+var lineItem = new OrderCloud.LineItem(); // LineItem | 
+
+apiInstance.create(direction, orderID, lineItem).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+ **lineItem** | [**LineItem**](LineItem.md)|  | 
+
+### Return type
+
+[**LineItem**](LineItem.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="get"></a>
+# **get**
+> LineItem get(direction, orderID, lineItemID)
 
 
 
@@ -145,7 +145,7 @@ var orderID = "orderID_example"; // String | ID of the order.
 
 var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
-apiInstance.Get(direction, orderID, lineItemID).then(function(data) {
+apiInstance.get(direction, orderID, lineItemID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -176,9 +176,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListLineItem List(direction, orderID, opts)
+<a name="list"></a>
+# **list**
+> ListLineItem list(direction, orderID, opts)
 
 
 
@@ -205,7 +205,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(direction, orderID, opts).then(function(data) {
+apiInstance.list(direction, orderID, opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -241,9 +241,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Patch"></a>
-# **Patch**
-> LineItem Patch(direction, orderID, lineItemID, partialLineItem)
+<a name="patch"></a>
+# **patch**
+> LineItem patch(direction, orderID, lineItemID, partialLineItem)
 
 
 
@@ -266,7 +266,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var partialLineItem = new OrderCloud.LineItem(); // LineItem | 
 
-apiInstance.Patch(direction, orderID, lineItemID, partialLineItem).then(function(data) {
+apiInstance.patch(direction, orderID, lineItemID, partialLineItem).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -298,9 +298,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="PatchShippingAddress"></a>
-# **PatchShippingAddress**
-> LineItem PatchShippingAddress(direction, orderID, lineItemID, partialAddress)
+<a name="patchShippingAddress"></a>
+# **patchShippingAddress**
+> LineItem patchShippingAddress(direction, orderID, lineItemID, partialAddress)
 
 
 
@@ -323,7 +323,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var partialAddress = new OrderCloud.Address(); // Address | 
 
-apiInstance.PatchShippingAddress(direction, orderID, lineItemID, partialAddress).then(function(data) {
+apiInstance.patchShippingAddress(direction, orderID, lineItemID, partialAddress).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -355,9 +355,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Save"></a>
-# **Save**
-> LineItem Save(direction, orderID, lineItemID, lineItem)
+<a name="save"></a>
+# **save**
+> LineItem save(direction, orderID, lineItemID, lineItem)
 
 
 
@@ -380,7 +380,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var lineItem = new OrderCloud.LineItem(); // LineItem | 
 
-apiInstance.Save(direction, orderID, lineItemID, lineItem).then(function(data) {
+apiInstance.save(direction, orderID, lineItemID, lineItem).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -412,9 +412,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SetShippingAddress"></a>
-# **SetShippingAddress**
-> LineItem SetShippingAddress(direction, orderID, lineItemID, address)
+<a name="setShippingAddress"></a>
+# **setShippingAddress**
+> LineItem setShippingAddress(direction, orderID, lineItemID, address)
 
 
 
@@ -437,7 +437,7 @@ var lineItemID = "lineItemID_example"; // String | ID of the line item.
 
 var address = new OrderCloud.Address(); // Address | 
 
-apiInstance.SetShippingAddress(direction, orderID, lineItemID, address).then(function(data) {
+apiInstance.setShippingAddress(direction, orderID, lineItemID, address).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);

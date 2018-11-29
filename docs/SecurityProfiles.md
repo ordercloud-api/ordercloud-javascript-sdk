@@ -4,16 +4,16 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAssignment**](SecurityProfiles.md#DeleteAssignment) | **DELETE** /securityprofiles/{securityProfileID}/assignments | 
-[**Get**](SecurityProfiles.md#Get) | **GET** /securityprofiles/{securityProfileID} | 
-[**List**](SecurityProfiles.md#List) | **GET** /securityprofiles | 
-[**ListAssignments**](SecurityProfiles.md#ListAssignments) | **GET** /securityprofiles/assignments | 
-[**SaveAssignment**](SecurityProfiles.md#SaveAssignment) | **POST** /securityprofiles/assignments | 
+[**deleteAssignment**](SecurityProfiles.md#deleteAssignment) | **DELETE** /securityprofiles/{securityProfileID}/assignments | 
+[**get**](SecurityProfiles.md#get) | **GET** /securityprofiles/{securityProfileID} | 
+[**list**](SecurityProfiles.md#list) | **GET** /securityprofiles | 
+[**listAssignments**](SecurityProfiles.md#listAssignments) | **GET** /securityprofiles/assignments | 
+[**saveAssignment**](SecurityProfiles.md#saveAssignment) | **POST** /securityprofiles/assignments | 
 
 
-<a name="DeleteAssignment"></a>
-# **DeleteAssignment**
-> DeleteAssignment(securityProfileID, opts)
+<a name="deleteAssignment"></a>
+# **deleteAssignment**
+> deleteAssignment(securityProfileID, opts)
 
 
 
@@ -36,7 +36,7 @@ var opts = {
   'userGroupID': "userGroupID_example", // String | ID of the user group.
   'supplierID': "supplierID_example" // String | ID of the supplier.
 };
-apiInstance.DeleteAssignment(securityProfileID, opts).then(function() {
+apiInstance.deleteAssignment(securityProfileID, opts).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -69,9 +69,9 @@ null (empty response body)
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="Get"></a>
-# **Get**
-> SecurityProfile Get(securityProfileID)
+<a name="get"></a>
+# **get**
+> SecurityProfile get(securityProfileID)
 
 
 
@@ -88,7 +88,7 @@ var apiInstance = new OrderCloud.SecurityProfiles();
 
 var securityProfileID = "securityProfileID_example"; // String | ID of the security profile.
 
-apiInstance.Get(securityProfileID).then(function(data) {
+apiInstance.get(securityProfileID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -117,9 +117,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="List"></a>
-# **List**
-> ListSecurityProfile List(opts)
+<a name="list"></a>
+# **list**
+> ListSecurityProfile list(opts)
 
 
 
@@ -142,7 +142,7 @@ var opts = {
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
   'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
 };
-apiInstance.List(opts).then(function(data) {
+apiInstance.list(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -176,9 +176,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListAssignments"></a>
-# **ListAssignments**
-> ListSecurityProfileAssignment ListAssignments(opts)
+<a name="listAssignments"></a>
+# **listAssignments**
+> ListSecurityProfileAssignment listAssignments(opts)
 
 
 
@@ -204,7 +204,7 @@ var opts = {
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
-apiInstance.ListAssignments(opts).then(function(data) {
+apiInstance.listAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -241,9 +241,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="SaveAssignment"></a>
-# **SaveAssignment**
-> SaveAssignment(securityProfileAssignment)
+<a name="saveAssignment"></a>
+# **saveAssignment**
+> saveAssignment(securityProfileAssignment)
 
 
 
@@ -260,7 +260,7 @@ var apiInstance = new OrderCloud.SecurityProfiles();
 
 var securityProfileAssignment = new OrderCloud.SecurityProfileAssignment(); // SecurityProfileAssignment | 
 
-apiInstance.SaveAssignment(securityProfileAssignment).then(function() {
+apiInstance.saveAssignment(securityProfileAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
