@@ -1,21 +1,24 @@
-# OrderCloud.MessageSenders
+# OrderCloud.ApiClients
 
 All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**DeleteAssignment**](MessageSenders.md#DeleteAssignment) | **DELETE** /messagesenders/{messageSenderID}/assignments | 
-[**Get**](MessageSenders.md#Get) | **GET** /messagesenders/{messageSenderID} | 
-[**List**](MessageSenders.md#List) | **GET** /messagesenders | 
-[**ListAssignments**](MessageSenders.md#ListAssignments) | **GET** /messagesenders/assignments | 
-[**ListCCListenerAssignments**](MessageSenders.md#ListCCListenerAssignments) | **GET** /messagesenders/CCListenerAssignments | 
-[**SaveAssignment**](MessageSenders.md#SaveAssignment) | **POST** /messagesenders/assignments | 
-[**SaveCCListenerAssignment**](MessageSenders.md#SaveCCListenerAssignment) | **POST** /messagesenders/CCListenerAssignments | 
+[**Create**](ApiClients.md#Create) | **POST** /apiclients | 
+[**Delete**](ApiClients.md#Delete) | **DELETE** /apiclients/{apiClientID} | 
+[**DeleteBuyerAssignment**](ApiClients.md#DeleteBuyerAssignment) | **DELETE** /buyers/{buyerID}/ApiClients/Assignments/{apiClientID} | 
+[**DeleteSupplierAssignment**](ApiClients.md#DeleteSupplierAssignment) | **DELETE** /suppliers/{supplierID}/ApiClients/Assignments/{apiClientID} | 
+[**Get**](ApiClients.md#Get) | **GET** /apiclients/{apiClientID} | 
+[**List**](ApiClients.md#List) | **GET** /apiclients | 
+[**ListAssignments**](ApiClients.md#ListAssignments) | **GET** /apiclients/assignments | 
+[**Patch**](ApiClients.md#Patch) | **PATCH** /apiclients/{apiClientID} | 
+[**Save**](ApiClients.md#Save) | **PUT** /apiclients/{apiClientID} | 
+[**SaveAssignment**](ApiClients.md#SaveAssignment) | **POST** /apiclients/assignments | 
 
 
-<a name="DeleteAssignment"></a>
-# **DeleteAssignment**
-> DeleteAssignment(messageSenderID, opts)
+<a name="Create"></a>
+# **Create**
+> ApiClient Create(apiClient)
 
 
 
@@ -28,17 +31,59 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.MessageSenders();
+var apiInstance = new OrderCloud.ApiClients();
 
-var messageSenderID = "messageSenderID_example"; // String | ID of the message sender.
+var apiClient = new OrderCloud.ApiClient(); // ApiClient | 
 
-var opts = { 
-  'buyerID': "buyerID_example", // String | ID of the buyer.
-  'userID': "userID_example", // String | ID of the user.
-  'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'supplierID': "supplierID_example" // String | ID of the supplier.
-};
-apiInstance.DeleteAssignment(messageSenderID, opts).then(function() {
+apiInstance.Create(apiClient).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiClient** | [**ApiClient**](ApiClient.md)|  | 
+
+### Return type
+
+[**ApiClient**](ApiClient.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Delete"></a>
+# **Delete**
+> Delete(apiClientID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ApiClients();
+
+var apiClientID = "apiClientID_example"; // String | ID of the api client.
+
+apiInstance.Delete(apiClientID).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -50,11 +95,109 @@ apiInstance.DeleteAssignment(messageSenderID, opts).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **messageSenderID** | **String**| ID of the message sender. | 
- **buyerID** | **String**| ID of the buyer. | [optional] 
- **userID** | **String**| ID of the user. | [optional] 
- **userGroupID** | **String**| ID of the user group. | [optional] 
- **supplierID** | **String**| ID of the supplier. | [optional] 
+ **apiClientID** | **String**| ID of the api client. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteBuyerAssignment"></a>
+# **DeleteBuyerAssignment**
+> DeleteBuyerAssignment(apiClientID, buyerID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ApiClients();
+
+var apiClientID = "apiClientID_example"; // String | ID of the api client.
+
+var buyerID = "buyerID_example"; // String | ID of the buyer.
+
+apiInstance.DeleteBuyerAssignment(apiClientID, buyerID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiClientID** | **String**| ID of the api client. | 
+ **buyerID** | **String**| ID of the buyer. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="DeleteSupplierAssignment"></a>
+# **DeleteSupplierAssignment**
+> DeleteSupplierAssignment(apiClientID, supplierID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ApiClients();
+
+var apiClientID = "apiClientID_example"; // String | ID of the api client.
+
+var supplierID = "supplierID_example"; // String | ID of the supplier.
+
+apiInstance.DeleteSupplierAssignment(apiClientID, supplierID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiClientID** | **String**| ID of the api client. | 
+ **supplierID** | **String**| ID of the supplier. | 
 
 ### Return type
 
@@ -73,7 +216,7 @@ null (empty response body)
 
 <a name="Get"></a>
 # **Get**
-> MessageSender Get(messageSenderID)
+> ApiClient Get(apiClientID)
 
 
 
@@ -86,11 +229,11 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.MessageSenders();
+var apiInstance = new OrderCloud.ApiClients();
 
-var messageSenderID = "messageSenderID_example"; // String | ID of the message sender.
+var apiClientID = "apiClientID_example"; // String | ID of the api client.
 
-apiInstance.Get(messageSenderID).then(function(data) {
+apiInstance.Get(apiClientID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -102,11 +245,11 @@ apiInstance.Get(messageSenderID).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **messageSenderID** | **String**| ID of the message sender. | 
+ **apiClientID** | **String**| ID of the api client. | 
 
 ### Return type
 
-[**MessageSender**](MessageSender.md)
+[**ApiClient**](ApiClient.md)
 
 ### Authorization
 
@@ -121,7 +264,7 @@ Name | Type | Description  | Notes
 
 <a name="List"></a>
 # **List**
-> ListMessageSender List(opts)
+> ListApiClient List(opts)
 
 
 
@@ -134,7 +277,7 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.MessageSenders();
+var apiInstance = new OrderCloud.ApiClients();
 
 var opts = { 
   'search': "search_example", // String | Word or phrase to search for.
@@ -165,7 +308,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListMessageSender**](ListMessageSender.md)
+[**ListApiClient**](ListApiClient.md)
 
 ### Authorization
 
@@ -180,7 +323,7 @@ Name | Type | Description  | Notes
 
 <a name="ListAssignments"></a>
 # **ListAssignments**
-> ListMessageSenderAssignment ListAssignments(opts)
+> ListApiClientAssignment ListAssignments(opts)
 
 
 
@@ -193,17 +336,14 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.MessageSenders();
+var apiInstance = new OrderCloud.ApiClients();
 
 var opts = { 
+  'apiClientID': "apiClientID_example", // String | ID of the api client.
   'buyerID': "buyerID_example", // String | ID of the buyer.
-  'messageSenderID': "messageSenderID_example", // String | ID of the message sender.
-  'userID': "userID_example", // String | ID of the user.
-  'userGroupID': "userGroupID_example", // String | ID of the user group.
-  'level': "level_example", // String | Level of the message sender assignment. Possible values: User, Group, Company.
+  'supplierID': "supplierID_example", // String | ID of the supplier.
   'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'supplierID': "supplierID_example" // String | ID of the supplier.
+  'pageSize': 56 // Number | Number of results to return per page. Default: 20, max: 100.
 };
 apiInstance.ListAssignments(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -217,18 +357,15 @@ apiInstance.ListAssignments(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **apiClientID** | **String**| ID of the api client. | [optional] 
  **buyerID** | **String**| ID of the buyer. | [optional] 
- **messageSenderID** | **String**| ID of the message sender. | [optional] 
- **userID** | **String**| ID of the user. | [optional] 
- **userGroupID** | **String**| ID of the user group. | [optional] 
- **level** | **String**| Level of the message sender assignment. Possible values: User, Group, Company. | [optional] 
+ **supplierID** | **String**| ID of the supplier. | [optional] 
  **page** | **Number**| Page of results to return. Default: 1 | [optional] 
  **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **supplierID** | **String**| ID of the supplier. | [optional] 
 
 ### Return type
 
-[**ListMessageSenderAssignment**](ListMessageSenderAssignment.md)
+[**ListApiClientAssignment**](ListApiClientAssignment.md)
 
 ### Authorization
 
@@ -241,9 +378,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
-<a name="ListCCListenerAssignments"></a>
-# **ListCCListenerAssignments**
-> ListMessageCCListenerAssignment ListCCListenerAssignments(opts)
+<a name="Patch"></a>
+# **Patch**
+> ApiClient Patch(apiClientID, partialApiClient)
 
 
 
@@ -256,17 +393,13 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.MessageSenders();
+var apiInstance = new OrderCloud.ApiClients();
 
-var opts = { 
-  'search': "search_example", // String | Word or phrase to search for.
-  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
-  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
-  'page': 56, // Number | Page of results to return. Default: 1
-  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
-};
-apiInstance.ListCCListenerAssignments(opts).then(function(data) {
+var apiClientID = "apiClientID_example"; // String | ID of the api client.
+
+var partialApiClient = new OrderCloud.ApiClient(); // ApiClient | 
+
+apiInstance.Patch(apiClientID, partialApiClient).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -278,16 +411,63 @@ apiInstance.ListCCListenerAssignments(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **search** | **String**| Word or phrase to search for. | [optional] 
- **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
- **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
- **page** | **Number**| Page of results to return. Default: 1 | [optional] 
- **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
- **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **apiClientID** | **String**| ID of the api client. | 
+ **partialApiClient** | [**ApiClient**](ApiClient.md)|  | 
 
 ### Return type
 
-[**ListMessageCCListenerAssignment**](ListMessageCCListenerAssignment.md)
+[**ApiClient**](ApiClient.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Save"></a>
+# **Save**
+> ApiClient Save(apiClientID, apiClient)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.ApiClient.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.ApiClients();
+
+var apiClientID = "apiClientID_example"; // String | ID of the api client.
+
+var apiClient = new OrderCloud.ApiClient(); // ApiClient | 
+
+apiInstance.Save(apiClientID, apiClient).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiClientID** | **String**| ID of the api client. | 
+ **apiClient** | [**ApiClient**](ApiClient.md)|  | 
+
+### Return type
+
+[**ApiClient**](ApiClient.md)
 
 ### Authorization
 
@@ -302,7 +482,7 @@ Name | Type | Description  | Notes
 
 <a name="SaveAssignment"></a>
 # **SaveAssignment**
-> SaveAssignment(messageSenderAssignment)
+> SaveAssignment(apiClientAssignment)
 
 
 
@@ -315,11 +495,11 @@ var defaultClient = OrderCloud.ApiClient.default;
 var oauth2 = defaultClient.authentications['oauth2'];
 oauth2.accessToken = 'YOUR ACCESS TOKEN';
 
-var apiInstance = new OrderCloud.MessageSenders();
+var apiInstance = new OrderCloud.ApiClients();
 
-var messageSenderAssignment = new OrderCloud.MessageSenderAssignment(); // MessageSenderAssignment | 
+var apiClientAssignment = new OrderCloud.ApiClientAssignment(); // ApiClientAssignment | 
 
-apiInstance.SaveAssignment(messageSenderAssignment).then(function() {
+apiInstance.SaveAssignment(apiClientAssignment).then(function() {
   console.log('API called successfully.');
 }, function(error) {
   console.error(error);
@@ -331,55 +511,7 @@ apiInstance.SaveAssignment(messageSenderAssignment).then(function() {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **messageSenderAssignment** | [**MessageSenderAssignment**](MessageSenderAssignment.md)|  | 
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-
-
-[oauth2](../README.md#oauth2)
-
-### HTTP request headers
-
- - **Content-Type**: application/json, text/plain; charset=utf-8
- - **Accept**: application/json
-
-<a name="SaveCCListenerAssignment"></a>
-# **SaveCCListenerAssignment**
-> SaveCCListenerAssignment(messageCCListenerAssignment)
-
-
-
-### Example
-```javascript
-var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
-
-// Configure OAuth2 access token for authorization: oauth2
-var oauth2 = defaultClient.authentications['oauth2'];
-oauth2.accessToken = 'YOUR ACCESS TOKEN';
-
-var apiInstance = new OrderCloud.MessageSenders();
-
-var messageCCListenerAssignment = new OrderCloud.MessageCCListenerAssignment(); // MessageCCListenerAssignment | 
-
-apiInstance.SaveCCListenerAssignment(messageCCListenerAssignment).then(function() {
-  console.log('API called successfully.');
-}, function(error) {
-  console.error(error);
-});
-
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **messageCCListenerAssignment** | [**MessageCCListenerAssignment**](MessageCCListenerAssignment.md)|  | 
+ **apiClientAssignment** | [**ApiClientAssignment**](ApiClientAssignment.md)|  | 
 
 ### Return type
 

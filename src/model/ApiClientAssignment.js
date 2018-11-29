@@ -23,7 +23,7 @@
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.MessageSenderAssignment = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.ApiClientAssignment = factory(root.OrderCloud.ApiClient);
   }
 }(this, function(ApiClient) {
   'use strict';
@@ -32,13 +32,13 @@
 
 
   /**
-   * The MessageSenderAssignment model module.
-   * @module model/MessageSenderAssignment
+   * The ApiClientAssignment model module.
+   * @module model/ApiClientAssignment
    */
 
   /**
-   * Constructs a new <code>MessageSenderAssignment</code>.
-   * @alias module:model/MessageSenderAssignment
+   * Constructs a new <code>ApiClientAssignment</code>.
+   * @alias module:model/ApiClientAssignment
    * @class
    */
   var exports = function() {
@@ -47,24 +47,21 @@
 
 
 
-
-
-
   };
 
   /**
-   * Constructs a <code>MessageSenderAssignment</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>ApiClientAssignment</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MessageSenderAssignment} obj Optional instance to populate.
-   * @return {module:model/MessageSenderAssignment} The populated <code>MessageSenderAssignment</code> instance.
+   * @param {module:model/ApiClientAssignment} obj Optional instance to populate.
+   * @return {module:model/ApiClientAssignment} The populated <code>ApiClientAssignment</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('MessageSenderID')) {
-        obj['MessageSenderID'] = ApiClient.convertToType(data['MessageSenderID'], 'String');
+      if (data.hasOwnProperty('ApiClientID')) {
+        obj['ApiClientID'] = ApiClient.convertToType(data['ApiClientID'], 'String');
       }
       if (data.hasOwnProperty('BuyerID')) {
         obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
@@ -72,23 +69,14 @@
       if (data.hasOwnProperty('SupplierID')) {
         obj['SupplierID'] = ApiClient.convertToType(data['SupplierID'], 'String');
       }
-      if (data.hasOwnProperty('UserGroupID')) {
-        obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
-      }
-      if (data.hasOwnProperty('MessageConfigName')) {
-        obj['MessageConfigName'] = ApiClient.convertToType(data['MessageConfigName'], 'String');
-      }
-      if (data.hasOwnProperty('MessageConfigDescription')) {
-        obj['MessageConfigDescription'] = ApiClient.convertToType(data['MessageConfigDescription'], 'String');
-      }
     }
     return obj;
   }
 
   /**
-   * @member {String} MessageSenderID
+   * @member {String} ApiClientID
    */
-  exports.prototype['MessageSenderID'] = undefined;
+  exports.prototype['ApiClientID'] = undefined;
   /**
    * @member {String} BuyerID
    */
@@ -97,18 +85,6 @@
    * @member {String} SupplierID
    */
   exports.prototype['SupplierID'] = undefined;
-  /**
-   * @member {String} UserGroupID
-   */
-  exports.prototype['UserGroupID'] = undefined;
-  /**
-   * @member {String} MessageConfigName
-   */
-  exports.prototype['MessageConfigName'] = undefined;
-  /**
-   * @member {String} MessageConfigDescription
-   */
-  exports.prototype['MessageConfigDescription'] = undefined;
 
 
 
