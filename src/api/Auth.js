@@ -15,17 +15,17 @@
 (function(root, factory) {
     if (typeof define === 'function' && define.and) {
         // AMD. Register as an anonymous module.
-        define(['ApiClient', 'model/AccessToken'], factory);
+        define(['Sdk', 'model/AccessToken'], factory);
     } else if (typeof module === 'object' && module.exports) {
         // CommonJS-like environments that support module.exports, like Node.
-        module.exports = factory(require('../ApiClient'), require('../model/AccessToken'));
+        module.exports = factory(require('../Sdk'), require('../model/AccessToken'));
     } else {
         if (!root.OrderCloud) {
             root.OrderCloud = {};
         }
-        root.OrderCloud.Auth = factory(root.OrderCloud.ApiClient, root.OrderCloud.AccessToken);
+        root.OrderCloud.Auth = factory(root.OrderCloud.Sdk, root.OrderCloud.AccessToken);
     }
-}(this, function(ApiClient, AccessToken) {
+}(this, function(Sdk, AccessToken) {
     'use strict';
 
     /**
@@ -37,12 +37,12 @@
      * Constructs a new Auth. 
      * @alias module:api/Auth
      * @class
-     * @param {module:ApiClient} apiClient Optional API client implementation to use,
-     * default to {@link module:ApiClient#instance} if unspecified.
+     * @param {module:Sdk} sdk Optional SDK implementation to use,
+     * default to {@link module:Sdk#instance} if unspecified.
      */
 
-    var exports = function(apiClient) {
-        this.apiClient = apiClient || ApiClient.instance;
+    var exports = function(sdk) {
+        this.sdk = sdk || Sdk.instance;
 
         /**
          * @param {String} username of the user logging in
@@ -67,7 +67,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling Login");
             }
 
-            var postBody = 'grant_type=password&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
 
             var pathParams = {};
             var queryParams = {};
@@ -79,7 +79,7 @@
             var accepts = ['application/json'];
             var returnType = AccessToken;
 
-            return this.apiClient.callAuth(
+            return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 authNames, contentTypes, accepts, returnType
@@ -114,7 +114,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling ElevatedLogin");
             }
 
-            var postBody = 'grant_type=password&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
 
             var pathParams = {};
             var queryParams = {};
@@ -126,7 +126,7 @@
             var accepts = ['application/json'];
             var returnType = AccessToken;
 
-            return this.apiClient.callAuth(
+            return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 authNames, contentTypes, accepts, returnType
@@ -151,7 +151,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling ElevatedLogin");
             }
 
-            var postBody = 'grant_type=client_credentials&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID;
+            var postBody = 'grant_type=client_credentials&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -163,7 +163,7 @@
             var accepts = ['application/json'];
             var returnType = AccessToken;
             
-            return this.apiClient.callAuth(
+            return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 authNames, contentTypes, accepts, returnType
@@ -188,7 +188,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling RefreshToken");
             }
 
-            var postBody = 'grant_type=refresh_token&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&refresh_token=' + refreshToken + '&client_id=' + clientID;
+            var postBody = 'grant_type=refresh_token&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&refresh_token=' + refreshToken + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -200,7 +200,7 @@
             var accepts = ['application/json'];
             var returnType = AccessToken;
 
-            return this.apiClient.callAuth(
+            return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 authNames, contentTypes, accepts, returnType
@@ -220,7 +220,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling RefreshToken");
             }
 
-            var postBody = 'grant_type=client_credentials&scope=' + this.apiClient.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID;
+            var postBody = 'grant_type=client_credentials&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID;
 
             var pathParams = {};
             var queryParams = {};
@@ -232,7 +232,7 @@
             var accepts = ['application/json'];
             var returnType = AccessToken;
 
-            return this.apiClient.callAuth(
+            return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
                 authNames, contentTypes, accepts, returnType
