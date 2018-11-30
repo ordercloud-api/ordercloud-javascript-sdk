@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Buyer', 'model/ListBuyer'], factory);
+    define(['Sdk', 'model/Buyer', 'model/ListBuyer'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Buyer'), require('../model/ListBuyer'));
+    module.exports = factory(require('../Sdk'), require('../model/Buyer'), require('../model/ListBuyer'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Buyers = factory(root.OrderCloud.ApiClient, root.OrderCloud.Buyer, root.OrderCloud.ListBuyer);
+    root.OrderCloud.Buyers = factory(root.OrderCloud.Sdk, root.OrderCloud.Buyer, root.OrderCloud.ListBuyer);
   }
-}(this, function(ApiClient, Buyer, ListBuyer) {
+}(this, function(Sdk, Buyer, ListBuyer) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Buyers. 
    * @alias module:api/Buyers
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = Buyer;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -144,7 +144,7 @@
       var accepts = ['application/json'];
       var returnType = Buyer;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -187,7 +187,7 @@
       var accepts = ['application/json'];
       var returnType = ListBuyer;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -229,7 +229,7 @@
       var accepts = ['application/json'];
       var returnType = Buyer;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -271,7 +271,7 @@
       var accepts = ['application/json'];
       var returnType = Buyer;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

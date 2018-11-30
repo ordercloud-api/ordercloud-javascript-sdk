@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PasswordResetRequest = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PasswordResetRequest = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -62,16 +62,16 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ClientID')) {
-        obj['ClientID'] = ApiClient.convertToType(data['ClientID'], 'String');
+        obj['ClientID'] = Sdk.convertToType(data['ClientID'], 'String');
       }
       if (data.hasOwnProperty('Email')) {
-        obj['Email'] = ApiClient.convertToType(data['Email'], 'String');
+        obj['Email'] = Sdk.convertToType(data['Email'], 'String');
       }
       if (data.hasOwnProperty('Username')) {
-        obj['Username'] = ApiClient.convertToType(data['Username'], 'String');
+        obj['Username'] = Sdk.convertToType(data['Username'], 'String');
       }
       if (data.hasOwnProperty('URL')) {
-        obj['URL'] = ApiClient.convertToType(data['URL'], 'String');
+        obj['URL'] = Sdk.convertToType(data['URL'], 'String');
       }
     }
     return obj;

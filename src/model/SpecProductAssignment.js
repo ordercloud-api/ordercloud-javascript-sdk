@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.SpecProductAssignment = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.SpecProductAssignment = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -62,16 +62,16 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('SpecID')) {
-        obj['SpecID'] = ApiClient.convertToType(data['SpecID'], 'String');
+        obj['SpecID'] = Sdk.convertToType(data['SpecID'], 'String');
       }
       if (data.hasOwnProperty('ProductID')) {
-        obj['ProductID'] = ApiClient.convertToType(data['ProductID'], 'String');
+        obj['ProductID'] = Sdk.convertToType(data['ProductID'], 'String');
       }
       if (data.hasOwnProperty('DefaultValue')) {
-        obj['DefaultValue'] = ApiClient.convertToType(data['DefaultValue'], 'String');
+        obj['DefaultValue'] = Sdk.convertToType(data['DefaultValue'], 'String');
       }
       if (data.hasOwnProperty('DefaultOptionID')) {
-        obj['DefaultOptionID'] = ApiClient.convertToType(data['DefaultOptionID'], 'String');
+        obj['DefaultOptionID'] = Sdk.convertToType(data['DefaultOptionID'], 'String');
       }
     }
     return obj;

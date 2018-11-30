@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Incrementor', 'model/ListIncrementor'], factory);
+    define(['Sdk', 'model/Incrementor', 'model/ListIncrementor'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Incrementor'), require('../model/ListIncrementor'));
+    module.exports = factory(require('../Sdk'), require('../model/Incrementor'), require('../model/ListIncrementor'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Incrementors = factory(root.OrderCloud.ApiClient, root.OrderCloud.Incrementor, root.OrderCloud.ListIncrementor);
+    root.OrderCloud.Incrementors = factory(root.OrderCloud.Sdk, root.OrderCloud.Incrementor, root.OrderCloud.ListIncrementor);
   }
-}(this, function(ApiClient, Incrementor, ListIncrementor) {
+}(this, function(Sdk, Incrementor, ListIncrementor) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Incrementors. 
    * @alias module:api/Incrementors
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = Incrementor;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/incrementors', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -144,7 +144,7 @@
       var accepts = ['application/json'];
       var returnType = Incrementor;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -187,7 +187,7 @@
       var accepts = ['application/json'];
       var returnType = ListIncrementor;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/incrementors', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -229,7 +229,7 @@
       var accepts = ['application/json'];
       var returnType = Incrementor;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -271,7 +271,7 @@
       var accepts = ['application/json'];
       var returnType = Incrementor;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialBuyerCreditCard = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialBuyerCreditCard = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -67,31 +67,31 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Editable')) {
-        obj['Editable'] = ApiClient.convertToType(data['Editable'], 'Boolean');
+        obj['Editable'] = Sdk.convertToType(data['Editable'], 'Boolean');
       }
       if (data.hasOwnProperty('Token')) {
-        obj['Token'] = ApiClient.convertToType(data['Token'], 'String');
+        obj['Token'] = Sdk.convertToType(data['Token'], 'String');
       }
       if (data.hasOwnProperty('DateCreated')) {
-        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
+        obj['DateCreated'] = Sdk.convertToType(data['DateCreated'], 'String');
       }
       if (data.hasOwnProperty('CardType')) {
-        obj['CardType'] = ApiClient.convertToType(data['CardType'], 'String');
+        obj['CardType'] = Sdk.convertToType(data['CardType'], 'String');
       }
       if (data.hasOwnProperty('PartialAccountNumber')) {
-        obj['PartialAccountNumber'] = ApiClient.convertToType(data['PartialAccountNumber'], 'String');
+        obj['PartialAccountNumber'] = Sdk.convertToType(data['PartialAccountNumber'], 'String');
       }
       if (data.hasOwnProperty('CardholderName')) {
-        obj['CardholderName'] = ApiClient.convertToType(data['CardholderName'], 'String');
+        obj['CardholderName'] = Sdk.convertToType(data['CardholderName'], 'String');
       }
       if (data.hasOwnProperty('ExpirationDate')) {
-        obj['ExpirationDate'] = ApiClient.convertToType(data['ExpirationDate'], 'String');
+        obj['ExpirationDate'] = Sdk.convertToType(data['ExpirationDate'], 'String');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

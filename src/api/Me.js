@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/Category', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/Shipment', 'model/SpendingAccount', 'model/TokenPasswordReset'], factory);
+    define(['Sdk', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/Category', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/Shipment', 'model/SpendingAccount', 'model/TokenPasswordReset'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/Category'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/Shipment'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'));
+    module.exports = factory(require('../Sdk'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/Category'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/Shipment'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.ApiClient, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.Category, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset);
+    root.OrderCloud.Me = factory(root.OrderCloud.Sdk, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.Category, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset);
   }
-}(this, function(ApiClient, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, Category, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipment, ListShipmentItem, ListSpendingAccount, ListUserGroup, MeUser, Promotion, Shipment, SpendingAccount, TokenPasswordReset) {
+}(this, function(Sdk, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, Category, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipment, ListShipmentItem, ListSpendingAccount, ListUserGroup, MeUser, Promotion, Shipment, SpendingAccount, TokenPasswordReset) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Me. 
    * @alias module:api/Me
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -107,7 +107,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/creditcards', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -143,7 +143,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -179,7 +179,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -208,7 +208,7 @@
       var accepts = ['application/json'];
       var returnType = MeUser;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -244,7 +244,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -280,7 +280,7 @@
       var accepts = ['application/json'];
       var returnType = Catalog;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/catalogs/{catalogID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -323,7 +323,7 @@
       var accepts = ['application/json'];
       var returnType = Category;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/categories/{categoryID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -359,7 +359,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -395,7 +395,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerProduct;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/products/{productID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -431,7 +431,7 @@
       var accepts = ['application/json'];
       var returnType = Promotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/promotions/{promotionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -467,7 +467,7 @@
       var accepts = ['application/json'];
       var returnType = Shipment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/shipments/{shipmentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -514,7 +514,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerSpec;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/products/{productID}/specs/{specID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -550,7 +550,7 @@
       var accepts = ['application/json'];
       var returnType = SpendingAccount;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/spendingaccounts/{spendingAccountID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -593,7 +593,7 @@
       var accepts = ['application/json'];
       var returnType = ListBuyerAddress;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -640,7 +640,7 @@
       var accepts = ['application/json'];
       var returnType = ListOrder;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/orders/approvable', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -683,7 +683,7 @@
       var accepts = ['application/json'];
       var returnType = ListCatalog;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/catalogs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -732,7 +732,7 @@
       var accepts = ['application/json'];
       var returnType = ListCategory;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/categories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -775,7 +775,7 @@
       var accepts = ['application/json'];
       var returnType = ListCostCenter;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/costcenters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -818,7 +818,7 @@
       var accepts = ['application/json'];
       var returnType = ListBuyerCreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/creditcards', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -865,7 +865,7 @@
       var accepts = ['application/json'];
       var returnType = ListOrder;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -914,7 +914,7 @@
       var accepts = ['application/json'];
       var returnType = ListBuyerProduct;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -957,7 +957,7 @@
       var accepts = ['application/json'];
       var returnType = ListPromotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1009,7 +1009,7 @@
       var accepts = ['application/json'];
       var returnType = ListShipmentItem;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/shipments/{shipmentID}/items', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1054,7 +1054,7 @@
       var accepts = ['application/json'];
       var returnType = ListShipment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1106,7 +1106,7 @@
       var accepts = ['application/json'];
       var returnType = ListBuyerSpec;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/products/{productID}/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1149,7 +1149,7 @@
       var accepts = ['application/json'];
       var returnType = ListSpendingAccount;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/spendingAccounts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1192,7 +1192,7 @@
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1227,7 +1227,7 @@
       var accepts = ['application/json'];
       var returnType = MeUser;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1269,7 +1269,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1311,7 +1311,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1353,7 +1353,7 @@
       var accepts = ['application/json'];
       var returnType = Object;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/register', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1388,7 +1388,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/password', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1423,7 +1423,7 @@
       var accepts = ['application/json'];
       var returnType = MeUser;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1465,7 +1465,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1507,7 +1507,7 @@
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1543,7 +1543,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/me/orders', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

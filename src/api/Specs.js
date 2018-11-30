@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment'], factory);
+    define(['Sdk', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListSpec'), require('../model/ListSpecOption'), require('../model/ListSpecProductAssignment'), require('../model/Spec'), require('../model/SpecOption'), require('../model/SpecProductAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/ListSpec'), require('../model/ListSpecOption'), require('../model/ListSpecProductAssignment'), require('../model/Spec'), require('../model/SpecOption'), require('../model/SpecProductAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Specs = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListSpec, root.OrderCloud.ListSpecOption, root.OrderCloud.ListSpecProductAssignment, root.OrderCloud.Spec, root.OrderCloud.SpecOption, root.OrderCloud.SpecProductAssignment);
+    root.OrderCloud.Specs = factory(root.OrderCloud.Sdk, root.OrderCloud.ListSpec, root.OrderCloud.ListSpecOption, root.OrderCloud.ListSpecProductAssignment, root.OrderCloud.Spec, root.OrderCloud.SpecOption, root.OrderCloud.SpecProductAssignment);
   }
-}(this, function(ApiClient, ListSpec, ListSpecOption, ListSpecProductAssignment, Spec, SpecOption, SpecProductAssignment) {
+}(this, function(Sdk, ListSpec, ListSpecOption, ListSpecProductAssignment, Spec, SpecOption, SpecProductAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Specs. 
    * @alias module:api/Specs
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = Spec;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -114,7 +114,7 @@
       var accepts = ['application/json'];
       var returnType = SpecOption;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}/options', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -150,7 +150,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -193,7 +193,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -236,7 +236,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -272,7 +272,7 @@
       var accepts = ['application/json'];
       var returnType = Spec;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -315,7 +315,7 @@
       var accepts = ['application/json'];
       var returnType = SpecOption;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -358,7 +358,7 @@
       var accepts = ['application/json'];
       var returnType = ListSpec;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -408,7 +408,7 @@
       var accepts = ['application/json'];
       var returnType = ListSpecOption;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}/options', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -451,7 +451,7 @@
       var accepts = ['application/json'];
       var returnType = ListSpecProductAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -493,7 +493,7 @@
       var accepts = ['application/json'];
       var returnType = Spec;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -542,7 +542,7 @@
       var accepts = ['application/json'];
       var returnType = SpecOption;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -584,7 +584,7 @@
       var accepts = ['application/json'];
       var returnType = Spec;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -633,7 +633,7 @@
       var accepts = ['application/json'];
       var returnType = SpecOption;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -668,7 +668,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/specs/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

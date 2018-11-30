@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
+    define(['Sdk', 'model/Address', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Address'), require('./LineItemProduct'), require('./LineItemSpec'));
+    module.exports = factory(require('../Sdk'), require('./Address'), require('./LineItemProduct'), require('./LineItemSpec'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialLineItem = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
+    root.OrderCloud.PartialLineItem = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
   }
-}(this, function(ApiClient, Address, LineItemProduct, LineItemSpec) {
+}(this, function(Sdk, Address, LineItemProduct, LineItemSpec) {
   'use strict';
 
 
@@ -76,40 +76,40 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('ProductID')) {
-        obj['ProductID'] = ApiClient.convertToType(data['ProductID'], 'String');
+        obj['ProductID'] = Sdk.convertToType(data['ProductID'], 'String');
       }
       if (data.hasOwnProperty('Quantity')) {
-        obj['Quantity'] = ApiClient.convertToType(data['Quantity'], 'Number');
+        obj['Quantity'] = Sdk.convertToType(data['Quantity'], 'Number');
       }
       if (data.hasOwnProperty('DateAdded')) {
-        obj['DateAdded'] = ApiClient.convertToType(data['DateAdded'], 'String');
+        obj['DateAdded'] = Sdk.convertToType(data['DateAdded'], 'String');
       }
       if (data.hasOwnProperty('QuantityShipped')) {
-        obj['QuantityShipped'] = ApiClient.convertToType(data['QuantityShipped'], 'Number');
+        obj['QuantityShipped'] = Sdk.convertToType(data['QuantityShipped'], 'Number');
       }
       if (data.hasOwnProperty('UnitPrice')) {
-        obj['UnitPrice'] = ApiClient.convertToType(data['UnitPrice'], 'Number');
+        obj['UnitPrice'] = Sdk.convertToType(data['UnitPrice'], 'Number');
       }
       if (data.hasOwnProperty('LineTotal')) {
-        obj['LineTotal'] = ApiClient.convertToType(data['LineTotal'], 'Number');
+        obj['LineTotal'] = Sdk.convertToType(data['LineTotal'], 'Number');
       }
       if (data.hasOwnProperty('CostCenter')) {
-        obj['CostCenter'] = ApiClient.convertToType(data['CostCenter'], 'String');
+        obj['CostCenter'] = Sdk.convertToType(data['CostCenter'], 'String');
       }
       if (data.hasOwnProperty('DateNeeded')) {
-        obj['DateNeeded'] = ApiClient.convertToType(data['DateNeeded'], 'String');
+        obj['DateNeeded'] = Sdk.convertToType(data['DateNeeded'], 'String');
       }
       if (data.hasOwnProperty('ShippingAccount')) {
-        obj['ShippingAccount'] = ApiClient.convertToType(data['ShippingAccount'], 'String');
+        obj['ShippingAccount'] = Sdk.convertToType(data['ShippingAccount'], 'String');
       }
       if (data.hasOwnProperty('ShippingAddressID')) {
-        obj['ShippingAddressID'] = ApiClient.convertToType(data['ShippingAddressID'], 'String');
+        obj['ShippingAddressID'] = Sdk.convertToType(data['ShippingAddressID'], 'String');
       }
       if (data.hasOwnProperty('ShipFromAddressID')) {
-        obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
+        obj['ShipFromAddressID'] = Sdk.convertToType(data['ShipFromAddressID'], 'String');
       }
       if (data.hasOwnProperty('Product')) {
         obj['Product'] = LineItemProduct.constructFromObject(data['Product']);
@@ -121,13 +121,13 @@
         obj['ShipFromAddress'] = Address.constructFromObject(data['ShipFromAddress']);
       }
       if (data.hasOwnProperty('SupplierID')) {
-        obj['SupplierID'] = ApiClient.convertToType(data['SupplierID'], 'String');
+        obj['SupplierID'] = Sdk.convertToType(data['SupplierID'], 'String');
       }
       if (data.hasOwnProperty('Specs')) {
-        obj['Specs'] = ApiClient.convertToType(data['Specs'], [LineItemSpec]);
+        obj['Specs'] = Sdk.convertToType(data['Specs'], [LineItemSpec]);
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

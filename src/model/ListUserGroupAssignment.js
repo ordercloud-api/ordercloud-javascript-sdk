@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Meta', 'model/UserGroupAssignment'], factory);
+    define(['Sdk', 'model/Meta', 'model/UserGroupAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./UserGroupAssignment'));
+    module.exports = factory(require('../Sdk'), require('./Meta'), require('./UserGroupAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListUserGroupAssignment = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.UserGroupAssignment);
+    root.OrderCloud.ListUserGroupAssignment = factory(root.OrderCloud.Sdk, root.OrderCloud.Meta, root.OrderCloud.UserGroupAssignment);
   }
-}(this, function(ApiClient, Meta, UserGroupAssignment) {
+}(this, function(Sdk, Meta, UserGroupAssignment) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [UserGroupAssignment]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [UserGroupAssignment]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

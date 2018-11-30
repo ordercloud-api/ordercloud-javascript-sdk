@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ApiClient', 'model/ApiClientAssignment', 'model/ListApiClient', 'model/ListApiClientAssignment'], factory);
+    define(['Sdk', 'model/ApiClient', 'model/ApiClientAssignment', 'model/ListApiClient', 'model/ListApiClientAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ApiClient'), require('../model/ApiClientAssignment'), require('../model/ListApiClient'), require('../model/ListApiClientAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/ApiClient'), require('../model/ApiClientAssignment'), require('../model/ListApiClient'), require('../model/ListApiClientAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ApiClients = factory(root.OrderCloud.ApiClient, root.OrderCloud.ApiClient, root.OrderCloud.ApiClientAssignment, root.OrderCloud.ListApiClient, root.OrderCloud.ListApiClientAssignment);
+    root.OrderCloud.ApiClients = factory(root.OrderCloud.Sdk, root.OrderCloud.ApiClient, root.OrderCloud.ApiClientAssignment, root.OrderCloud.ListApiClient, root.OrderCloud.ListApiClientAssignment);
   }
-}(this, function(ApiClient, ApiClient, ApiClientAssignment, ListApiClient, ListApiClientAssignment) {
+}(this, function(Sdk, ApiClient, ApiClientAssignment, ListApiClient, ListApiClientAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new ApiClients. 
    * @alias module:api/ApiClients
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = ApiClient;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -151,7 +151,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/ApiClients/Assignments/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -194,7 +194,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/ApiClients/Assignments/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -230,7 +230,7 @@
       var accepts = ['application/json'];
       var returnType = ApiClient;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -273,7 +273,7 @@
       var accepts = ['application/json'];
       var returnType = ListApiClient;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -314,7 +314,7 @@
       var accepts = ['application/json'];
       var returnType = ListApiClientAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -356,7 +356,7 @@
       var accepts = ['application/json'];
       var returnType = ApiClient;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -398,7 +398,7 @@
       var accepts = ['application/json'];
       var returnType = ApiClient;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -433,7 +433,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/apiclients/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

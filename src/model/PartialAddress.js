@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialAddress = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialAddress = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -72,46 +72,46 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('DateCreated')) {
-        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
+        obj['DateCreated'] = Sdk.convertToType(data['DateCreated'], 'String');
       }
       if (data.hasOwnProperty('CompanyName')) {
-        obj['CompanyName'] = ApiClient.convertToType(data['CompanyName'], 'String');
+        obj['CompanyName'] = Sdk.convertToType(data['CompanyName'], 'String');
       }
       if (data.hasOwnProperty('FirstName')) {
-        obj['FirstName'] = ApiClient.convertToType(data['FirstName'], 'String');
+        obj['FirstName'] = Sdk.convertToType(data['FirstName'], 'String');
       }
       if (data.hasOwnProperty('LastName')) {
-        obj['LastName'] = ApiClient.convertToType(data['LastName'], 'String');
+        obj['LastName'] = Sdk.convertToType(data['LastName'], 'String');
       }
       if (data.hasOwnProperty('Street1')) {
-        obj['Street1'] = ApiClient.convertToType(data['Street1'], 'String');
+        obj['Street1'] = Sdk.convertToType(data['Street1'], 'String');
       }
       if (data.hasOwnProperty('Street2')) {
-        obj['Street2'] = ApiClient.convertToType(data['Street2'], 'String');
+        obj['Street2'] = Sdk.convertToType(data['Street2'], 'String');
       }
       if (data.hasOwnProperty('City')) {
-        obj['City'] = ApiClient.convertToType(data['City'], 'String');
+        obj['City'] = Sdk.convertToType(data['City'], 'String');
       }
       if (data.hasOwnProperty('State')) {
-        obj['State'] = ApiClient.convertToType(data['State'], 'String');
+        obj['State'] = Sdk.convertToType(data['State'], 'String');
       }
       if (data.hasOwnProperty('Zip')) {
-        obj['Zip'] = ApiClient.convertToType(data['Zip'], 'String');
+        obj['Zip'] = Sdk.convertToType(data['Zip'], 'String');
       }
       if (data.hasOwnProperty('Country')) {
-        obj['Country'] = ApiClient.convertToType(data['Country'], 'String');
+        obj['Country'] = Sdk.convertToType(data['Country'], 'String');
       }
       if (data.hasOwnProperty('Phone')) {
-        obj['Phone'] = ApiClient.convertToType(data['Phone'], 'String');
+        obj['Phone'] = Sdk.convertToType(data['Phone'], 'String');
       }
       if (data.hasOwnProperty('AddressName')) {
-        obj['AddressName'] = ApiClient.convertToType(data['AddressName'], 'String');
+        obj['AddressName'] = Sdk.convertToType(data['AddressName'], 'String');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

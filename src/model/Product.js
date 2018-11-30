@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Inventory'], factory);
+    define(['Sdk', 'model/Inventory'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Inventory'));
+    module.exports = factory(require('../Sdk'), require('./Inventory'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Product = factory(root.OrderCloud.ApiClient, root.OrderCloud.Inventory);
+    root.OrderCloud.Product = factory(root.OrderCloud.Sdk, root.OrderCloud.Inventory);
   }
-}(this, function(ApiClient, Inventory) {
+}(this, function(Sdk, Inventory) {
   'use strict';
 
 
@@ -74,52 +74,52 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
-        obj['DefaultPriceScheduleID'] = ApiClient.convertToType(data['DefaultPriceScheduleID'], 'String');
+        obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
       }
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('Description')) {
-        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('QuantityMultiplier')) {
-        obj['QuantityMultiplier'] = ApiClient.convertToType(data['QuantityMultiplier'], 'Number');
+        obj['QuantityMultiplier'] = Sdk.convertToType(data['QuantityMultiplier'], 'Number');
       }
       if (data.hasOwnProperty('ShipWeight')) {
-        obj['ShipWeight'] = ApiClient.convertToType(data['ShipWeight'], 'Number');
+        obj['ShipWeight'] = Sdk.convertToType(data['ShipWeight'], 'Number');
       }
       if (data.hasOwnProperty('ShipHeight')) {
-        obj['ShipHeight'] = ApiClient.convertToType(data['ShipHeight'], 'Number');
+        obj['ShipHeight'] = Sdk.convertToType(data['ShipHeight'], 'Number');
       }
       if (data.hasOwnProperty('ShipWidth')) {
-        obj['ShipWidth'] = ApiClient.convertToType(data['ShipWidth'], 'Number');
+        obj['ShipWidth'] = Sdk.convertToType(data['ShipWidth'], 'Number');
       }
       if (data.hasOwnProperty('ShipLength')) {
-        obj['ShipLength'] = ApiClient.convertToType(data['ShipLength'], 'Number');
+        obj['ShipLength'] = Sdk.convertToType(data['ShipLength'], 'Number');
       }
       if (data.hasOwnProperty('Active')) {
-        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+        obj['Active'] = Sdk.convertToType(data['Active'], 'Boolean');
       }
       if (data.hasOwnProperty('SpecCount')) {
-        obj['SpecCount'] = ApiClient.convertToType(data['SpecCount'], 'Number');
+        obj['SpecCount'] = Sdk.convertToType(data['SpecCount'], 'Number');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
       if (data.hasOwnProperty('VariantCount')) {
-        obj['VariantCount'] = ApiClient.convertToType(data['VariantCount'], 'Number');
+        obj['VariantCount'] = Sdk.convertToType(data['VariantCount'], 'Number');
       }
       if (data.hasOwnProperty('ShipFromAddressID')) {
-        obj['ShipFromAddressID'] = ApiClient.convertToType(data['ShipFromAddressID'], 'String');
+        obj['ShipFromAddressID'] = Sdk.convertToType(data['ShipFromAddressID'], 'String');
       }
       if (data.hasOwnProperty('Inventory')) {
         obj['Inventory'] = Inventory.constructFromObject(data['Inventory']);
       }
       if (data.hasOwnProperty('DefaultSupplierID')) {
-        obj['DefaultSupplierID'] = ApiClient.convertToType(data['DefaultSupplierID'], 'String');
+        obj['DefaultSupplierID'] = Sdk.convertToType(data['DefaultSupplierID'], 'String');
       }
     }
     return obj;

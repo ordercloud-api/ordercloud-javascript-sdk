@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/CostCenter', 'model/Meta'], factory);
+    define(['Sdk', 'model/CostCenter', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./CostCenter'), require('./Meta'));
+    module.exports = factory(require('../Sdk'), require('./CostCenter'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListCostCenter = factory(root.OrderCloud.ApiClient, root.OrderCloud.CostCenter, root.OrderCloud.Meta);
+    root.OrderCloud.ListCostCenter = factory(root.OrderCloud.Sdk, root.OrderCloud.CostCenter, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, CostCenter, Meta) {
+}(this, function(Sdk, CostCenter, Meta) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [CostCenter]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [CostCenter]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

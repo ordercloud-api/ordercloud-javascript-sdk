@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListUser', 'model/User'], factory);
+    define(['Sdk', 'model/ListUser', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListUser'), require('../model/User'));
+    module.exports = factory(require('../Sdk'), require('../model/ListUser'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.AdminUsers = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListUser, root.OrderCloud.User);
+    root.OrderCloud.AdminUsers = factory(root.OrderCloud.Sdk, root.OrderCloud.ListUser, root.OrderCloud.User);
   }
-}(this, function(ApiClient, ListUser, User) {
+}(this, function(Sdk, ListUser, User) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new AdminUsers. 
    * @alias module:api/AdminUsers
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = User;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/adminusers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/adminusers/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -144,7 +144,7 @@
       var accepts = ['application/json'];
       var returnType = User;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/adminusers/{userID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -187,7 +187,7 @@
       var accepts = ['application/json'];
       var returnType = ListUser;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/adminusers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -229,7 +229,7 @@
       var accepts = ['application/json'];
       var returnType = User;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/adminusers/{userID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -271,7 +271,7 @@
       var accepts = ['application/json'];
       var returnType = User;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/adminusers/{userID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

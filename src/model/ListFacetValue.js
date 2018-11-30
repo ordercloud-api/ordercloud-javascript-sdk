@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListFacetValue = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.ListFacetValue = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -60,10 +60,10 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Value')) {
-        obj['Value'] = ApiClient.convertToType(data['Value'], 'String');
+        obj['Value'] = Sdk.convertToType(data['Value'], 'String');
       }
       if (data.hasOwnProperty('Count')) {
-        obj['Count'] = ApiClient.convertToType(data['Count'], 'Number');
+        obj['Count'] = Sdk.convertToType(data['Count'], 'Number');
       }
     }
     return obj;

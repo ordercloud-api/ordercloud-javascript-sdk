@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListSupplier', 'model/Supplier'], factory);
+    define(['Sdk', 'model/ListSupplier', 'model/Supplier'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListSupplier'), require('../model/Supplier'));
+    module.exports = factory(require('../Sdk'), require('../model/ListSupplier'), require('../model/Supplier'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Suppliers = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListSupplier, root.OrderCloud.Supplier);
+    root.OrderCloud.Suppliers = factory(root.OrderCloud.Sdk, root.OrderCloud.ListSupplier, root.OrderCloud.Supplier);
   }
-}(this, function(ApiClient, ListSupplier, Supplier) {
+}(this, function(Sdk, ListSupplier, Supplier) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Suppliers. 
    * @alias module:api/Suppliers
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = Supplier;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -144,7 +144,7 @@
       var accepts = ['application/json'];
       var returnType = Supplier;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -187,7 +187,7 @@
       var accepts = ['application/json'];
       var returnType = ListSupplier;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -229,7 +229,7 @@
       var accepts = ['application/json'];
       var returnType = Supplier;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -271,7 +271,7 @@
       var accepts = ['application/json'];
       var returnType = Supplier;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

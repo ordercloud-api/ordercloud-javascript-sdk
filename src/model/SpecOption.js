@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.SpecOption = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.SpecOption = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -65,25 +65,25 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Value')) {
-        obj['Value'] = ApiClient.convertToType(data['Value'], 'String');
+        obj['Value'] = Sdk.convertToType(data['Value'], 'String');
       }
       if (data.hasOwnProperty('ListOrder')) {
-        obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
+        obj['ListOrder'] = Sdk.convertToType(data['ListOrder'], 'Number');
       }
       if (data.hasOwnProperty('IsOpenText')) {
-        obj['IsOpenText'] = ApiClient.convertToType(data['IsOpenText'], 'Boolean');
+        obj['IsOpenText'] = Sdk.convertToType(data['IsOpenText'], 'Boolean');
       }
       if (data.hasOwnProperty('PriceMarkupType')) {
-        obj['PriceMarkupType'] = ApiClient.convertToType(data['PriceMarkupType'], 'String');
+        obj['PriceMarkupType'] = Sdk.convertToType(data['PriceMarkupType'], 'String');
       }
       if (data.hasOwnProperty('PriceMarkup')) {
-        obj['PriceMarkup'] = ApiClient.convertToType(data['PriceMarkup'], 'Number');
+        obj['PriceMarkup'] = Sdk.convertToType(data['PriceMarkup'], 'Number');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

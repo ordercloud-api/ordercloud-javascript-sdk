@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
+    define(['Sdk', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
+    module.exports = factory(require('../Sdk'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Products = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
+    root.OrderCloud.Products = factory(root.OrderCloud.Sdk, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
   }
-}(this, function(ApiClient, ListProduct, ListProductAssignment, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
+}(this, function(Sdk, ListProduct, ListProductAssignment, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Products. 
    * @alias module:api/Products
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = Product;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -157,7 +157,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/assignments/{buyerID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -197,7 +197,7 @@
       var accepts = ['application/json'];
       var returnType = Product;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/variants/generate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -233,7 +233,7 @@
       var accepts = ['application/json'];
       var returnType = Product;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -276,7 +276,7 @@
       var accepts = ['application/json'];
       var returnType = Variant;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/variants/{variantID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -325,7 +325,7 @@
       var accepts = ['application/json'];
       var returnType = ListProduct;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -372,7 +372,7 @@
       var accepts = ['application/json'];
       var returnType = ListProductAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -422,7 +422,7 @@
       var accepts = ['application/json'];
       var returnType = ListSupplier;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/suppliers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -472,7 +472,7 @@
       var accepts = ['application/json'];
       var returnType = ListVariant;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/variants', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -514,7 +514,7 @@
       var accepts = ['application/json'];
       var returnType = Product;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -563,7 +563,7 @@
       var accepts = ['application/json'];
       var returnType = Variant;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/variants/{variantID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -606,7 +606,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/suppliers/{supplierID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -648,7 +648,7 @@
       var accepts = ['application/json'];
       var returnType = Product;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -683,7 +683,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -726,7 +726,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/suppliers/{supplierID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -775,7 +775,7 @@
       var accepts = ['application/json'];
       var returnType = Variant;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/products/{productID}/variants/{variantID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

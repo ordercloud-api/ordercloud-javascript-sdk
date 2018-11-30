@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Promotion = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.Promotion = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -72,46 +72,46 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Code')) {
-        obj['Code'] = ApiClient.convertToType(data['Code'], 'String');
+        obj['Code'] = Sdk.convertToType(data['Code'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('RedemptionLimit')) {
-        obj['RedemptionLimit'] = ApiClient.convertToType(data['RedemptionLimit'], 'Number');
+        obj['RedemptionLimit'] = Sdk.convertToType(data['RedemptionLimit'], 'Number');
       }
       if (data.hasOwnProperty('RedemptionLimitPerUser')) {
-        obj['RedemptionLimitPerUser'] = ApiClient.convertToType(data['RedemptionLimitPerUser'], 'Number');
+        obj['RedemptionLimitPerUser'] = Sdk.convertToType(data['RedemptionLimitPerUser'], 'Number');
       }
       if (data.hasOwnProperty('RedemptionCount')) {
-        obj['RedemptionCount'] = ApiClient.convertToType(data['RedemptionCount'], 'Number');
+        obj['RedemptionCount'] = Sdk.convertToType(data['RedemptionCount'], 'Number');
       }
       if (data.hasOwnProperty('Description')) {
-        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('FinePrint')) {
-        obj['FinePrint'] = ApiClient.convertToType(data['FinePrint'], 'String');
+        obj['FinePrint'] = Sdk.convertToType(data['FinePrint'], 'String');
       }
       if (data.hasOwnProperty('StartDate')) {
-        obj['StartDate'] = ApiClient.convertToType(data['StartDate'], 'String');
+        obj['StartDate'] = Sdk.convertToType(data['StartDate'], 'String');
       }
       if (data.hasOwnProperty('ExpirationDate')) {
-        obj['ExpirationDate'] = ApiClient.convertToType(data['ExpirationDate'], 'String');
+        obj['ExpirationDate'] = Sdk.convertToType(data['ExpirationDate'], 'String');
       }
       if (data.hasOwnProperty('EligibleExpression')) {
-        obj['EligibleExpression'] = ApiClient.convertToType(data['EligibleExpression'], 'String');
+        obj['EligibleExpression'] = Sdk.convertToType(data['EligibleExpression'], 'String');
       }
       if (data.hasOwnProperty('ValueExpression')) {
-        obj['ValueExpression'] = ApiClient.convertToType(data['ValueExpression'], 'String');
+        obj['ValueExpression'] = Sdk.convertToType(data['ValueExpression'], 'String');
       }
       if (data.hasOwnProperty('CanCombine')) {
-        obj['CanCombine'] = ApiClient.convertToType(data['CanCombine'], 'Boolean');
+        obj['CanCombine'] = Sdk.convertToType(data['CanCombine'], 'Boolean');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

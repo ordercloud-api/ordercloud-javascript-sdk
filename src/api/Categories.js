@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment'], factory);
+    define(['Sdk', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Category'), require('../model/CategoryAssignment'), require('../model/CategoryProductAssignment'), require('../model/ListCategory'), require('../model/ListCategoryAssignment'), require('../model/ListCategoryProductAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/Category'), require('../model/CategoryAssignment'), require('../model/CategoryProductAssignment'), require('../model/ListCategory'), require('../model/ListCategoryAssignment'), require('../model/ListCategoryProductAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Categories = factory(root.OrderCloud.ApiClient, root.OrderCloud.Category, root.OrderCloud.CategoryAssignment, root.OrderCloud.CategoryProductAssignment, root.OrderCloud.ListCategory, root.OrderCloud.ListCategoryAssignment, root.OrderCloud.ListCategoryProductAssignment);
+    root.OrderCloud.Categories = factory(root.OrderCloud.Sdk, root.OrderCloud.Category, root.OrderCloud.CategoryAssignment, root.OrderCloud.CategoryProductAssignment, root.OrderCloud.ListCategory, root.OrderCloud.ListCategoryAssignment, root.OrderCloud.ListCategoryProductAssignment);
   }
-}(this, function(ApiClient, Category, CategoryAssignment, CategoryProductAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment) {
+}(this, function(Sdk, Category, CategoryAssignment, CategoryProductAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Categories. 
    * @alias module:api/Categories
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -79,7 +79,7 @@
       var accepts = ['application/json'];
       var returnType = Category;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -122,7 +122,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -178,7 +178,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -228,7 +228,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -271,7 +271,7 @@
       var accepts = ['application/json'];
       var returnType = Category;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -323,7 +323,7 @@
       var accepts = ['application/json'];
       var returnType = ListCategory;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -375,7 +375,7 @@
       var accepts = ['application/json'];
       var returnType = ListCategoryAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -421,7 +421,7 @@
       var accepts = ['application/json'];
       var returnType = ListCategoryProductAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -470,7 +470,7 @@
       var accepts = ['application/json'];
       var returnType = Category;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -519,7 +519,7 @@
       var accepts = ['application/json'];
       var returnType = Category;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -561,7 +561,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -603,7 +603,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

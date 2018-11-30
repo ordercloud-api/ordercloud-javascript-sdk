@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment'], factory);
+    define(['Sdk', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListSecurityProfile'), require('../model/ListSecurityProfileAssignment'), require('../model/SecurityProfile'), require('../model/SecurityProfileAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/ListSecurityProfile'), require('../model/ListSecurityProfileAssignment'), require('../model/SecurityProfile'), require('../model/SecurityProfileAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.SecurityProfiles = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListSecurityProfile, root.OrderCloud.ListSecurityProfileAssignment, root.OrderCloud.SecurityProfile, root.OrderCloud.SecurityProfileAssignment);
+    root.OrderCloud.SecurityProfiles = factory(root.OrderCloud.Sdk, root.OrderCloud.ListSecurityProfile, root.OrderCloud.ListSecurityProfileAssignment, root.OrderCloud.SecurityProfile, root.OrderCloud.SecurityProfileAssignment);
   }
-}(this, function(ApiClient, ListSecurityProfile, ListSecurityProfileAssignment, SecurityProfile, SecurityProfileAssignment) {
+}(this, function(Sdk, ListSecurityProfile, ListSecurityProfileAssignment, SecurityProfile, SecurityProfileAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new SecurityProfiles. 
    * @alias module:api/SecurityProfiles
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -83,7 +83,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/securityprofiles/{securityProfileID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -119,7 +119,7 @@
       var accepts = ['application/json'];
       var returnType = SecurityProfile;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/securityprofiles/{securityProfileID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -162,7 +162,7 @@
       var accepts = ['application/json'];
       var returnType = ListSecurityProfile;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/securityprofiles', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -211,7 +211,7 @@
       var accepts = ['application/json'];
       var returnType = ListSecurityProfileAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/securityprofiles/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -246,7 +246,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/securityprofiles/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

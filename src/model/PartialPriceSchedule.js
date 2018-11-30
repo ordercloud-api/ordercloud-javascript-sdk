@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/PriceBreak'], factory);
+    define(['Sdk', 'model/PriceBreak'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./PriceBreak'));
+    module.exports = factory(require('../Sdk'), require('./PriceBreak'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialPriceSchedule = factory(root.OrderCloud.ApiClient, root.OrderCloud.PriceBreak);
+    root.OrderCloud.PartialPriceSchedule = factory(root.OrderCloud.Sdk, root.OrderCloud.PriceBreak);
   }
-}(this, function(ApiClient, PriceBreak) {
+}(this, function(Sdk, PriceBreak) {
   'use strict';
 
 
@@ -68,34 +68,34 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('ApplyTax')) {
-        obj['ApplyTax'] = ApiClient.convertToType(data['ApplyTax'], 'Boolean');
+        obj['ApplyTax'] = Sdk.convertToType(data['ApplyTax'], 'Boolean');
       }
       if (data.hasOwnProperty('ApplyShipping')) {
-        obj['ApplyShipping'] = ApiClient.convertToType(data['ApplyShipping'], 'Boolean');
+        obj['ApplyShipping'] = Sdk.convertToType(data['ApplyShipping'], 'Boolean');
       }
       if (data.hasOwnProperty('MinQuantity')) {
-        obj['MinQuantity'] = ApiClient.convertToType(data['MinQuantity'], 'Number');
+        obj['MinQuantity'] = Sdk.convertToType(data['MinQuantity'], 'Number');
       }
       if (data.hasOwnProperty('MaxQuantity')) {
-        obj['MaxQuantity'] = ApiClient.convertToType(data['MaxQuantity'], 'Number');
+        obj['MaxQuantity'] = Sdk.convertToType(data['MaxQuantity'], 'Number');
       }
       if (data.hasOwnProperty('UseCumulativeQuantity')) {
-        obj['UseCumulativeQuantity'] = ApiClient.convertToType(data['UseCumulativeQuantity'], 'Boolean');
+        obj['UseCumulativeQuantity'] = Sdk.convertToType(data['UseCumulativeQuantity'], 'Boolean');
       }
       if (data.hasOwnProperty('RestrictedQuantity')) {
-        obj['RestrictedQuantity'] = ApiClient.convertToType(data['RestrictedQuantity'], 'Boolean');
+        obj['RestrictedQuantity'] = Sdk.convertToType(data['RestrictedQuantity'], 'Boolean');
       }
       if (data.hasOwnProperty('PriceBreaks')) {
-        obj['PriceBreaks'] = ApiClient.convertToType(data['PriceBreaks'], [PriceBreak]);
+        obj['PriceBreaks'] = Sdk.convertToType(data['PriceBreaks'], [PriceBreak]);
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

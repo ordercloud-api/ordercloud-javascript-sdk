@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/UserGroup', 'model/UserGroupAssignment'], factory);
+    define(['Sdk', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/UserGroup', 'model/UserGroupAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListUserGroup'), require('../model/ListUserGroupAssignment'), require('../model/UserGroup'), require('../model/UserGroupAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/ListUserGroup'), require('../model/ListUserGroupAssignment'), require('../model/UserGroup'), require('../model/UserGroupAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.SupplierUserGroups = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListUserGroup, root.OrderCloud.ListUserGroupAssignment, root.OrderCloud.UserGroup, root.OrderCloud.UserGroupAssignment);
+    root.OrderCloud.SupplierUserGroups = factory(root.OrderCloud.Sdk, root.OrderCloud.ListUserGroup, root.OrderCloud.ListUserGroupAssignment, root.OrderCloud.UserGroup, root.OrderCloud.UserGroupAssignment);
   }
-}(this, function(ApiClient, ListUserGroup, ListUserGroupAssignment, UserGroup, UserGroupAssignment) {
+}(this, function(Sdk, ListUserGroup, ListUserGroupAssignment, UserGroup, UserGroupAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new SupplierUserGroups. 
    * @alias module:api/SupplierUserGroups
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -79,7 +79,7 @@
       var accepts = ['application/json'];
       var returnType = UserGroup;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -122,7 +122,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -172,7 +172,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}/assignments/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -215,7 +215,7 @@
       var accepts = ['application/json'];
       var returnType = UserGroup;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -265,7 +265,7 @@
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -311,7 +311,7 @@
       var accepts = ['application/json'];
       var returnType = ListUserGroupAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -360,7 +360,7 @@
       var accepts = ['application/json'];
       var returnType = UserGroup;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -409,7 +409,7 @@
       var accepts = ['application/json'];
       var returnType = UserGroup;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -451,7 +451,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

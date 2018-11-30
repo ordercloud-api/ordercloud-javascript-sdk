@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialIncrementor = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialIncrementor = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -62,16 +62,16 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('LastNumber')) {
-        obj['LastNumber'] = ApiClient.convertToType(data['LastNumber'], 'Number');
+        obj['LastNumber'] = Sdk.convertToType(data['LastNumber'], 'Number');
       }
       if (data.hasOwnProperty('LeftPaddingCount')) {
-        obj['LeftPaddingCount'] = ApiClient.convertToType(data['LeftPaddingCount'], 'Number');
+        obj['LeftPaddingCount'] = Sdk.convertToType(data['LeftPaddingCount'], 'Number');
       }
     }
     return obj;

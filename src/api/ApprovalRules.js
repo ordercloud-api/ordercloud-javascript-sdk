@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ApprovalRule', 'model/ListApprovalRule'], factory);
+    define(['Sdk', 'model/ApprovalRule', 'model/ListApprovalRule'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ApprovalRule'), require('../model/ListApprovalRule'));
+    module.exports = factory(require('../Sdk'), require('../model/ApprovalRule'), require('../model/ListApprovalRule'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ApprovalRules = factory(root.OrderCloud.ApiClient, root.OrderCloud.ApprovalRule, root.OrderCloud.ListApprovalRule);
+    root.OrderCloud.ApprovalRules = factory(root.OrderCloud.Sdk, root.OrderCloud.ApprovalRule, root.OrderCloud.ListApprovalRule);
   }
-}(this, function(ApiClient, ApprovalRule, ListApprovalRule) {
+}(this, function(Sdk, ApprovalRule, ListApprovalRule) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new ApprovalRules. 
    * @alias module:api/ApprovalRules
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -79,7 +79,7 @@
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -122,7 +122,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -165,7 +165,7 @@
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -215,7 +215,7 @@
       var accepts = ['application/json'];
       var returnType = ListApprovalRule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -264,7 +264,7 @@
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -313,7 +313,7 @@
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

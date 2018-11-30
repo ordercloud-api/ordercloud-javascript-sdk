@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListPriceSchedule', 'model/PriceBreak', 'model/PriceSchedule'], factory);
+    define(['Sdk', 'model/ListPriceSchedule', 'model/PriceBreak', 'model/PriceSchedule'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListPriceSchedule'), require('../model/PriceBreak'), require('../model/PriceSchedule'));
+    module.exports = factory(require('../Sdk'), require('../model/ListPriceSchedule'), require('../model/PriceBreak'), require('../model/PriceSchedule'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PriceSchedules = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListPriceSchedule, root.OrderCloud.PriceBreak, root.OrderCloud.PriceSchedule);
+    root.OrderCloud.PriceSchedules = factory(root.OrderCloud.Sdk, root.OrderCloud.ListPriceSchedule, root.OrderCloud.PriceBreak, root.OrderCloud.PriceSchedule);
   }
-}(this, function(ApiClient, ListPriceSchedule, PriceBreak, PriceSchedule) {
+}(this, function(Sdk, ListPriceSchedule, PriceBreak, PriceSchedule) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new PriceSchedules. 
    * @alias module:api/PriceSchedules
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -151,7 +151,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}/PriceBreaks', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -187,7 +187,7 @@
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -230,7 +230,7 @@
       var accepts = ['application/json'];
       var returnType = ListPriceSchedule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -272,7 +272,7 @@
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -314,7 +314,7 @@
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -356,7 +356,7 @@
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}/PriceBreaks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
