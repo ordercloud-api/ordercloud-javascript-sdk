@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BuyerAddress', 'model/Meta'], factory);
+    define(['Sdk', 'model/BuyerAddress', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./BuyerAddress'), require('./Meta'));
+    module.exports = factory(require('../Sdk'), require('./BuyerAddress'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListBuyerAddress = factory(root.OrderCloud.ApiClient, root.OrderCloud.BuyerAddress, root.OrderCloud.Meta);
+    root.OrderCloud.ListBuyerAddress = factory(root.OrderCloud.Sdk, root.OrderCloud.BuyerAddress, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, BuyerAddress, Meta) {
+}(this, function(Sdk, BuyerAddress, Meta) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [BuyerAddress]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [BuyerAddress]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

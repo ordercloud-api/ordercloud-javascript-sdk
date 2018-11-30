@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListFacet'], factory);
+    define(['Sdk', 'model/ListFacet'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./ListFacet'));
+    module.exports = factory(require('../Sdk'), require('./ListFacet'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.MetaWithFacets = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListFacet);
+    root.OrderCloud.MetaWithFacets = factory(root.OrderCloud.Sdk, root.OrderCloud.ListFacet);
   }
-}(this, function(ApiClient, ListFacet) {
+}(this, function(Sdk, ListFacet) {
   'use strict';
 
 
@@ -64,22 +64,22 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Facets')) {
-        obj['Facets'] = ApiClient.convertToType(data['Facets'], [ListFacet]);
+        obj['Facets'] = Sdk.convertToType(data['Facets'], [ListFacet]);
       }
       if (data.hasOwnProperty('Page')) {
-        obj['Page'] = ApiClient.convertToType(data['Page'], 'Number');
+        obj['Page'] = Sdk.convertToType(data['Page'], 'Number');
       }
       if (data.hasOwnProperty('PageSize')) {
-        obj['PageSize'] = ApiClient.convertToType(data['PageSize'], 'Number');
+        obj['PageSize'] = Sdk.convertToType(data['PageSize'], 'Number');
       }
       if (data.hasOwnProperty('TotalCount')) {
-        obj['TotalCount'] = ApiClient.convertToType(data['TotalCount'], 'Number');
+        obj['TotalCount'] = Sdk.convertToType(data['TotalCount'], 'Number');
       }
       if (data.hasOwnProperty('TotalPages')) {
-        obj['TotalPages'] = ApiClient.convertToType(data['TotalPages'], 'Number');
+        obj['TotalPages'] = Sdk.convertToType(data['TotalPages'], 'Number');
       }
       if (data.hasOwnProperty('ItemRange')) {
-        obj['ItemRange'] = ApiClient.convertToType(data['ItemRange'], ['Number']);
+        obj['ItemRange'] = Sdk.convertToType(data['ItemRange'], ['Number']);
       }
     }
     return obj;

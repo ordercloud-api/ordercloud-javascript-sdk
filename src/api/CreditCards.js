@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment'], factory);
+    define(['Sdk', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/CreditCard'), require('../model/CreditCardAssignment'), require('../model/ListCreditCard'), require('../model/ListCreditCardAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/CreditCard'), require('../model/CreditCardAssignment'), require('../model/ListCreditCard'), require('../model/ListCreditCardAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.CreditCards = factory(root.OrderCloud.ApiClient, root.OrderCloud.CreditCard, root.OrderCloud.CreditCardAssignment, root.OrderCloud.ListCreditCard, root.OrderCloud.ListCreditCardAssignment);
+    root.OrderCloud.CreditCards = factory(root.OrderCloud.Sdk, root.OrderCloud.CreditCard, root.OrderCloud.CreditCardAssignment, root.OrderCloud.ListCreditCard, root.OrderCloud.ListCreditCardAssignment);
   }
-}(this, function(ApiClient, CreditCard, CreditCardAssignment, ListCreditCard, ListCreditCardAssignment) {
+}(this, function(Sdk, CreditCard, CreditCardAssignment, ListCreditCard, ListCreditCardAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new CreditCards. 
    * @alias module:api/CreditCards
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -79,7 +79,7 @@
       var accepts = ['application/json'];
       var returnType = CreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -122,7 +122,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -171,7 +171,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -214,7 +214,7 @@
       var accepts = ['application/json'];
       var returnType = CreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -264,7 +264,7 @@
       var accepts = ['application/json'];
       var returnType = ListCreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -314,7 +314,7 @@
       var accepts = ['application/json'];
       var returnType = ListCreditCardAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -363,7 +363,7 @@
       var accepts = ['application/json'];
       var returnType = CreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -412,7 +412,7 @@
       var accepts = ['application/json'];
       var returnType = CreditCard;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -454,7 +454,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

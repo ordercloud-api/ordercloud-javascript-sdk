@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Meta', 'model/OrderPromotion'], factory);
+    define(['Sdk', 'model/Meta', 'model/OrderPromotion'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./OrderPromotion'));
+    module.exports = factory(require('../Sdk'), require('./Meta'), require('./OrderPromotion'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListOrderPromotion = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.OrderPromotion);
+    root.OrderCloud.ListOrderPromotion = factory(root.OrderCloud.Sdk, root.OrderCloud.Meta, root.OrderCloud.OrderPromotion);
   }
-}(this, function(ApiClient, Meta, OrderPromotion) {
+}(this, function(Sdk, Meta, OrderPromotion) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [OrderPromotion]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [OrderPromotion]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

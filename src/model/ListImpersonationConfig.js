@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ImpersonationConfig', 'model/Meta'], factory);
+    define(['Sdk', 'model/ImpersonationConfig', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./ImpersonationConfig'), require('./Meta'));
+    module.exports = factory(require('../Sdk'), require('./ImpersonationConfig'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListImpersonationConfig = factory(root.OrderCloud.ApiClient, root.OrderCloud.ImpersonationConfig, root.OrderCloud.Meta);
+    root.OrderCloud.ListImpersonationConfig = factory(root.OrderCloud.Sdk, root.OrderCloud.ImpersonationConfig, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, ImpersonationConfig, Meta) {
+}(this, function(Sdk, ImpersonationConfig, Meta) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [ImpersonationConfig]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [ImpersonationConfig]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

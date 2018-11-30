@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialSpec = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialSpec = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -68,34 +68,34 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('OptionCount')) {
-        obj['OptionCount'] = ApiClient.convertToType(data['OptionCount'], 'Number');
+        obj['OptionCount'] = Sdk.convertToType(data['OptionCount'], 'Number');
       }
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('ListOrder')) {
-        obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
+        obj['ListOrder'] = Sdk.convertToType(data['ListOrder'], 'Number');
       }
       if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('DefaultValue')) {
-        obj['DefaultValue'] = ApiClient.convertToType(data['DefaultValue'], 'String');
+        obj['DefaultValue'] = Sdk.convertToType(data['DefaultValue'], 'String');
       }
       if (data.hasOwnProperty('Required')) {
-        obj['Required'] = ApiClient.convertToType(data['Required'], 'Boolean');
+        obj['Required'] = Sdk.convertToType(data['Required'], 'Boolean');
       }
       if (data.hasOwnProperty('AllowOpenText')) {
-        obj['AllowOpenText'] = ApiClient.convertToType(data['AllowOpenText'], 'Boolean');
+        obj['AllowOpenText'] = Sdk.convertToType(data['AllowOpenText'], 'Boolean');
       }
       if (data.hasOwnProperty('DefaultOptionID')) {
-        obj['DefaultOptionID'] = ApiClient.convertToType(data['DefaultOptionID'], 'String');
+        obj['DefaultOptionID'] = Sdk.convertToType(data['DefaultOptionID'], 'String');
       }
       if (data.hasOwnProperty('DefinesVariant')) {
-        obj['DefinesVariant'] = ApiClient.convertToType(data['DefinesVariant'], 'Boolean');
+        obj['DefinesVariant'] = Sdk.convertToType(data['DefinesVariant'], 'Boolean');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

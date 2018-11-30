@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.AccessToken = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.AccessToken = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -62,16 +62,16 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('access_token')) {
-        obj['access_token'] = ApiClient.convertToType(data['access_token'], 'String');
+        obj['access_token'] = Sdk.convertToType(data['access_token'], 'String');
       }
       if (data.hasOwnProperty('expires_in')) {
-        obj['expires_in'] = ApiClient.convertToType(data['expires_in'], 'Number');
+        obj['expires_in'] = Sdk.convertToType(data['expires_in'], 'Number');
       }
       if (data.hasOwnProperty('token_type')) {
-        obj['token_type'] = ApiClient.convertToType(data['token_type'], 'String');
+        obj['token_type'] = Sdk.convertToType(data['token_type'], 'String');
       }
       if (data.hasOwnProperty('refresh_token')) {
-        obj['refresh_token'] = ApiClient.convertToType(data['refresh_token'], 'String');
+        obj['refresh_token'] = Sdk.convertToType(data['refresh_token'], 'String');
       }
     }
     return obj;

@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialApiClient = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialApiClient = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -72,46 +72,46 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('ClientSecret')) {
-        obj['ClientSecret'] = ApiClient.convertToType(data['ClientSecret'], 'String');
+        obj['ClientSecret'] = Sdk.convertToType(data['ClientSecret'], 'String');
       }
       if (data.hasOwnProperty('AccessTokenDuration')) {
-        obj['AccessTokenDuration'] = ApiClient.convertToType(data['AccessTokenDuration'], 'Number');
+        obj['AccessTokenDuration'] = Sdk.convertToType(data['AccessTokenDuration'], 'Number');
       }
       if (data.hasOwnProperty('Active')) {
-        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+        obj['Active'] = Sdk.convertToType(data['Active'], 'Boolean');
       }
       if (data.hasOwnProperty('AppName')) {
-        obj['AppName'] = ApiClient.convertToType(data['AppName'], 'String');
+        obj['AppName'] = Sdk.convertToType(data['AppName'], 'String');
       }
       if (data.hasOwnProperty('RefreshTokenDuration')) {
-        obj['RefreshTokenDuration'] = ApiClient.convertToType(data['RefreshTokenDuration'], 'Number');
+        obj['RefreshTokenDuration'] = Sdk.convertToType(data['RefreshTokenDuration'], 'Number');
       }
       if (data.hasOwnProperty('DefaultContextUserName')) {
-        obj['DefaultContextUserName'] = ApiClient.convertToType(data['DefaultContextUserName'], 'String');
+        obj['DefaultContextUserName'] = Sdk.convertToType(data['DefaultContextUserName'], 'String');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
       if (data.hasOwnProperty('AllowAnyBuyer')) {
-        obj['AllowAnyBuyer'] = ApiClient.convertToType(data['AllowAnyBuyer'], 'Boolean');
+        obj['AllowAnyBuyer'] = Sdk.convertToType(data['AllowAnyBuyer'], 'Boolean');
       }
       if (data.hasOwnProperty('AllowAnySupplier')) {
-        obj['AllowAnySupplier'] = ApiClient.convertToType(data['AllowAnySupplier'], 'Boolean');
+        obj['AllowAnySupplier'] = Sdk.convertToType(data['AllowAnySupplier'], 'Boolean');
       }
       if (data.hasOwnProperty('AllowSeller')) {
-        obj['AllowSeller'] = ApiClient.convertToType(data['AllowSeller'], 'Boolean');
+        obj['AllowSeller'] = Sdk.convertToType(data['AllowSeller'], 'Boolean');
       }
       if (data.hasOwnProperty('IsAnonBuyer')) {
-        obj['IsAnonBuyer'] = ApiClient.convertToType(data['IsAnonBuyer'], 'Boolean');
+        obj['IsAnonBuyer'] = Sdk.convertToType(data['IsAnonBuyer'], 'Boolean');
       }
       if (data.hasOwnProperty('AssignedBuyerCount')) {
-        obj['AssignedBuyerCount'] = ApiClient.convertToType(data['AssignedBuyerCount'], 'Number');
+        obj['AssignedBuyerCount'] = Sdk.convertToType(data['AssignedBuyerCount'], 'Number');
       }
       if (data.hasOwnProperty('AssignedSupplierCount')) {
-        obj['AssignedSupplierCount'] = ApiClient.convertToType(data['AssignedSupplierCount'], 'Number');
+        obj['AssignedSupplierCount'] = Sdk.convertToType(data['AssignedSupplierCount'], 'Number');
       }
     }
     return obj;

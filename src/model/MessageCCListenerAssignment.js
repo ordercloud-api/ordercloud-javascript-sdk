@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MessageSenderAssignment'], factory);
+    define(['Sdk', 'model/MessageSenderAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MessageSenderAssignment'));
+    module.exports = factory(require('../Sdk'), require('./MessageSenderAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.MessageCCListenerAssignment = factory(root.OrderCloud.ApiClient, root.OrderCloud.MessageSenderAssignment);
+    root.OrderCloud.MessageCCListenerAssignment = factory(root.OrderCloud.Sdk, root.OrderCloud.MessageSenderAssignment);
   }
-}(this, function(ApiClient, MessageSenderAssignment) {
+}(this, function(Sdk, MessageSenderAssignment) {
   'use strict';
 
 
@@ -69,25 +69,25 @@
         obj['MessageSenderAssignment'] = MessageSenderAssignment.constructFromObject(data['MessageSenderAssignment']);
       }
       if (data.hasOwnProperty('MessageConfigName')) {
-        obj['MessageConfigName'] = ApiClient.convertToType(data['MessageConfigName'], 'String');
+        obj['MessageConfigName'] = Sdk.convertToType(data['MessageConfigName'], 'String');
       }
       if (data.hasOwnProperty('MessageConfigDescription')) {
-        obj['MessageConfigDescription'] = ApiClient.convertToType(data['MessageConfigDescription'], 'String');
+        obj['MessageConfigDescription'] = Sdk.convertToType(data['MessageConfigDescription'], 'String');
       }
       if (data.hasOwnProperty('MessageType')) {
-        obj['MessageType'] = ApiClient.convertToType(data['MessageType'], 'String');
+        obj['MessageType'] = Sdk.convertToType(data['MessageType'], 'String');
       }
       if (data.hasOwnProperty('BuyerID')) {
-        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
+        obj['BuyerID'] = Sdk.convertToType(data['BuyerID'], 'String');
       }
       if (data.hasOwnProperty('SupplierID')) {
-        obj['SupplierID'] = ApiClient.convertToType(data['SupplierID'], 'String');
+        obj['SupplierID'] = Sdk.convertToType(data['SupplierID'], 'String');
       }
       if (data.hasOwnProperty('UserGroupID')) {
-        obj['UserGroupID'] = ApiClient.convertToType(data['UserGroupID'], 'String');
+        obj['UserGroupID'] = Sdk.convertToType(data['UserGroupID'], 'String');
       }
       if (data.hasOwnProperty('UserID')) {
-        obj['UserID'] = ApiClient.convertToType(data['UserID'], 'String');
+        obj['UserID'] = Sdk.convertToType(data['UserID'], 'String');
       }
     }
     return obj;

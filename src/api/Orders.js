@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/Shipment', 'model/User'], factory);
+    define(['Sdk', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/Shipment', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/Shipment'), require('../model/User'));
+    module.exports = factory(require('../Sdk'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/Shipment'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Orders = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.Shipment, root.OrderCloud.User);
+    root.OrderCloud.Orders = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.Shipment, root.OrderCloud.User);
   }
-}(this, function(ApiClient, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, OrderPromotion, Shipment, User) {
+}(this, function(Sdk, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, OrderPromotion, Shipment, User) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Orders. 
    * @alias module:api/Orders
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -87,7 +87,7 @@
       var accepts = ['application/json'];
       var returnType = OrderPromotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions/{promoCode}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -136,7 +136,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/approve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -179,7 +179,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/cancel', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -221,7 +221,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -270,7 +270,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/decline', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -313,7 +313,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -356,7 +356,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -414,7 +414,7 @@
       var accepts = ['application/json'];
       var returnType = ListOrder;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -471,7 +471,7 @@
       var accepts = ['application/json'];
       var returnType = ListOrderApproval;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/approvals', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -528,7 +528,7 @@
       var accepts = ['application/json'];
       var returnType = ListUser;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/eligibleapprovers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -585,7 +585,7 @@
       var accepts = ['application/json'];
       var returnType = ListOrderPromotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -634,7 +634,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -683,7 +683,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/billto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -732,7 +732,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/fromuser', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -781,7 +781,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -831,7 +831,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions/{promoCode}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -880,7 +880,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -929,7 +929,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/billto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -978,7 +978,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1027,7 +1027,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/ship', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -1070,7 +1070,7 @@
       var accepts = ['application/json'];
       var returnType = Order;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/orders/{direction}/{orderID}/submit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

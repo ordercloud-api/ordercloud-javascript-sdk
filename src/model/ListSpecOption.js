@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Meta', 'model/SpecOption'], factory);
+    define(['Sdk', 'model/Meta', 'model/SpecOption'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./SpecOption'));
+    module.exports = factory(require('../Sdk'), require('./Meta'), require('./SpecOption'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListSpecOption = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.SpecOption);
+    root.OrderCloud.ListSpecOption = factory(root.OrderCloud.Sdk, root.OrderCloud.Meta, root.OrderCloud.SpecOption);
   }
-}(this, function(ApiClient, Meta, SpecOption) {
+}(this, function(Sdk, Meta, SpecOption) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [SpecOption]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [SpecOption]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

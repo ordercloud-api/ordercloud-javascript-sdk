@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Meta', 'model/SpendingAccount'], factory);
+    define(['Sdk', 'model/Meta', 'model/SpendingAccount'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Meta'), require('./SpendingAccount'));
+    module.exports = factory(require('../Sdk'), require('./Meta'), require('./SpendingAccount'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListSpendingAccount = factory(root.OrderCloud.ApiClient, root.OrderCloud.Meta, root.OrderCloud.SpendingAccount);
+    root.OrderCloud.ListSpendingAccount = factory(root.OrderCloud.Sdk, root.OrderCloud.Meta, root.OrderCloud.SpendingAccount);
   }
-}(this, function(ApiClient, Meta, SpendingAccount) {
+}(this, function(Sdk, Meta, SpendingAccount) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [SpendingAccount]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [SpendingAccount]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

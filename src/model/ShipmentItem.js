@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
+    define(['Sdk', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./LineItemProduct'), require('./LineItemSpec'));
+    module.exports = factory(require('../Sdk'), require('./LineItemProduct'), require('./LineItemSpec'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.ApiClient, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
+    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.Sdk, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
   }
-}(this, function(ApiClient, LineItemProduct, LineItemSpec) {
+}(this, function(Sdk, LineItemProduct, LineItemSpec) {
   'use strict';
 
 
@@ -67,31 +67,31 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('OrderID')) {
-        obj['OrderID'] = ApiClient.convertToType(data['OrderID'], 'String');
+        obj['OrderID'] = Sdk.convertToType(data['OrderID'], 'String');
       }
       if (data.hasOwnProperty('LineItemID')) {
-        obj['LineItemID'] = ApiClient.convertToType(data['LineItemID'], 'String');
+        obj['LineItemID'] = Sdk.convertToType(data['LineItemID'], 'String');
       }
       if (data.hasOwnProperty('QuantityShipped')) {
-        obj['QuantityShipped'] = ApiClient.convertToType(data['QuantityShipped'], 'Number');
+        obj['QuantityShipped'] = Sdk.convertToType(data['QuantityShipped'], 'Number');
       }
       if (data.hasOwnProperty('UnitPrice')) {
-        obj['UnitPrice'] = ApiClient.convertToType(data['UnitPrice'], 'Number');
+        obj['UnitPrice'] = Sdk.convertToType(data['UnitPrice'], 'Number');
       }
       if (data.hasOwnProperty('CostCenter')) {
-        obj['CostCenter'] = ApiClient.convertToType(data['CostCenter'], 'String');
+        obj['CostCenter'] = Sdk.convertToType(data['CostCenter'], 'String');
       }
       if (data.hasOwnProperty('DateNeeded')) {
-        obj['DateNeeded'] = ApiClient.convertToType(data['DateNeeded'], 'String');
+        obj['DateNeeded'] = Sdk.convertToType(data['DateNeeded'], 'String');
       }
       if (data.hasOwnProperty('Product')) {
         obj['Product'] = LineItemProduct.constructFromObject(data['Product']);
       }
       if (data.hasOwnProperty('Specs')) {
-        obj['Specs'] = ApiClient.convertToType(data['Specs'], [LineItemSpec]);
+        obj['Specs'] = Sdk.convertToType(data['Specs'], [LineItemSpec]);
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

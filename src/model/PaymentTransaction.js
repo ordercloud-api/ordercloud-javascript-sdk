@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PaymentTransaction = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PaymentTransaction = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -66,28 +66,28 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Type')) {
-        obj['Type'] = ApiClient.convertToType(data['Type'], 'String');
+        obj['Type'] = Sdk.convertToType(data['Type'], 'String');
       }
       if (data.hasOwnProperty('DateExecuted')) {
-        obj['DateExecuted'] = ApiClient.convertToType(data['DateExecuted'], 'String');
+        obj['DateExecuted'] = Sdk.convertToType(data['DateExecuted'], 'String');
       }
       if (data.hasOwnProperty('Amount')) {
-        obj['Amount'] = ApiClient.convertToType(data['Amount'], 'Number');
+        obj['Amount'] = Sdk.convertToType(data['Amount'], 'Number');
       }
       if (data.hasOwnProperty('Succeeded')) {
-        obj['Succeeded'] = ApiClient.convertToType(data['Succeeded'], 'Boolean');
+        obj['Succeeded'] = Sdk.convertToType(data['Succeeded'], 'Boolean');
       }
       if (data.hasOwnProperty('ResultCode')) {
-        obj['ResultCode'] = ApiClient.convertToType(data['ResultCode'], 'String');
+        obj['ResultCode'] = Sdk.convertToType(data['ResultCode'], 'String');
       }
       if (data.hasOwnProperty('ResultMessage')) {
-        obj['ResultMessage'] = ApiClient.convertToType(data['ResultMessage'], 'String');
+        obj['ResultMessage'] = Sdk.convertToType(data['ResultMessage'], 'String');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

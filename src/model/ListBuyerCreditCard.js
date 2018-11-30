@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/BuyerCreditCard', 'model/Meta'], factory);
+    define(['Sdk', 'model/BuyerCreditCard', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./BuyerCreditCard'), require('./Meta'));
+    module.exports = factory(require('../Sdk'), require('./BuyerCreditCard'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListBuyerCreditCard = factory(root.OrderCloud.ApiClient, root.OrderCloud.BuyerCreditCard, root.OrderCloud.Meta);
+    root.OrderCloud.ListBuyerCreditCard = factory(root.OrderCloud.Sdk, root.OrderCloud.BuyerCreditCard, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, BuyerCreditCard, Meta) {
+}(this, function(Sdk, BuyerCreditCard, Meta) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [BuyerCreditCard]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [BuyerCreditCard]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

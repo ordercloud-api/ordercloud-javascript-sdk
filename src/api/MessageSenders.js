@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment'], factory);
+    define(['Sdk', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListMessageCCListenerAssignment'), require('../model/ListMessageSender'), require('../model/ListMessageSenderAssignment'), require('../model/MessageCCListenerAssignment'), require('../model/MessageSender'), require('../model/MessageSenderAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/ListMessageCCListenerAssignment'), require('../model/ListMessageSender'), require('../model/ListMessageSenderAssignment'), require('../model/MessageCCListenerAssignment'), require('../model/MessageSender'), require('../model/MessageSenderAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.MessageSenders = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListMessageCCListenerAssignment, root.OrderCloud.ListMessageSender, root.OrderCloud.ListMessageSenderAssignment, root.OrderCloud.MessageCCListenerAssignment, root.OrderCloud.MessageSender, root.OrderCloud.MessageSenderAssignment);
+    root.OrderCloud.MessageSenders = factory(root.OrderCloud.Sdk, root.OrderCloud.ListMessageCCListenerAssignment, root.OrderCloud.ListMessageSender, root.OrderCloud.ListMessageSenderAssignment, root.OrderCloud.MessageCCListenerAssignment, root.OrderCloud.MessageSender, root.OrderCloud.MessageSenderAssignment);
   }
-}(this, function(ApiClient, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment) {
+}(this, function(Sdk, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new MessageSenders. 
    * @alias module:api/MessageSenders
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -83,7 +83,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/messagesenders/{messageSenderID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -119,7 +119,7 @@
       var accepts = ['application/json'];
       var returnType = MessageSender;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -162,7 +162,7 @@
       var accepts = ['application/json'];
       var returnType = ListMessageSender;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/messagesenders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -209,7 +209,7 @@
       var accepts = ['application/json'];
       var returnType = ListMessageSenderAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/messagesenders/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -252,7 +252,7 @@
       var accepts = ['application/json'];
       var returnType = ListMessageCCListenerAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/messagesenders/CCListenerAssignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -287,7 +287,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/messagesenders/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -322,7 +322,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/messagesenders/CCListenerAssignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

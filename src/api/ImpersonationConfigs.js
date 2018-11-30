@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ImpersonationConfig', 'model/ListImpersonationConfig'], factory);
+    define(['Sdk', 'model/ImpersonationConfig', 'model/ListImpersonationConfig'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ImpersonationConfig'), require('../model/ListImpersonationConfig'));
+    module.exports = factory(require('../Sdk'), require('../model/ImpersonationConfig'), require('../model/ListImpersonationConfig'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ImpersonationConfigs = factory(root.OrderCloud.ApiClient, root.OrderCloud.ImpersonationConfig, root.OrderCloud.ListImpersonationConfig);
+    root.OrderCloud.ImpersonationConfigs = factory(root.OrderCloud.Sdk, root.OrderCloud.ImpersonationConfig, root.OrderCloud.ListImpersonationConfig);
   }
-}(this, function(ApiClient, ImpersonationConfig, ListImpersonationConfig) {
+}(this, function(Sdk, ImpersonationConfig, ListImpersonationConfig) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new ImpersonationConfigs. 
    * @alias module:api/ImpersonationConfigs
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/impersonationconfig', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -144,7 +144,7 @@
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -187,7 +187,7 @@
       var accepts = ['application/json'];
       var returnType = ListImpersonationConfig;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/impersonationconfig', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -229,7 +229,7 @@
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -271,7 +271,7 @@
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

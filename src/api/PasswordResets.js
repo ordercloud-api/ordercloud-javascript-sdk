@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/PasswordReset', 'model/PasswordResetRequest'], factory);
+    define(['Sdk', 'model/PasswordReset', 'model/PasswordResetRequest'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/PasswordReset'), require('../model/PasswordResetRequest'));
+    module.exports = factory(require('../Sdk'), require('../model/PasswordReset'), require('../model/PasswordResetRequest'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PasswordResets = factory(root.OrderCloud.ApiClient, root.OrderCloud.PasswordReset, root.OrderCloud.PasswordResetRequest);
+    root.OrderCloud.PasswordResets = factory(root.OrderCloud.Sdk, root.OrderCloud.PasswordReset, root.OrderCloud.PasswordResetRequest);
   }
-}(this, function(ApiClient, PasswordReset, PasswordResetRequest) {
+}(this, function(Sdk, PasswordReset, PasswordResetRequest) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new PasswordResets. 
    * @alias module:api/PasswordResets
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -79,7 +79,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/password/reset/{verificationCode}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -114,7 +114,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/password/reset', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

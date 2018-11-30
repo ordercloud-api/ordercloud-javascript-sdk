@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Incrementor', 'model/Meta'], factory);
+    define(['Sdk', 'model/Incrementor', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Incrementor'), require('./Meta'));
+    module.exports = factory(require('../Sdk'), require('./Incrementor'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListIncrementor = factory(root.OrderCloud.ApiClient, root.OrderCloud.Incrementor, root.OrderCloud.Meta);
+    root.OrderCloud.ListIncrementor = factory(root.OrderCloud.Sdk, root.OrderCloud.Incrementor, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, Incrementor, Meta) {
+}(this, function(Sdk, Incrementor, Meta) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [Incrementor]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [Incrementor]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

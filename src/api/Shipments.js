@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListShipment', 'model/ListShipmentItem', 'model/Shipment', 'model/ShipmentItem'], factory);
+    define(['Sdk', 'model/ListShipment', 'model/ListShipmentItem', 'model/Shipment', 'model/ShipmentItem'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/Shipment'), require('../model/ShipmentItem'));
+    module.exports = factory(require('../Sdk'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/Shipment'), require('../model/ShipmentItem'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Shipments = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.Shipment, root.OrderCloud.ShipmentItem);
+    root.OrderCloud.Shipments = factory(root.OrderCloud.Sdk, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.Shipment, root.OrderCloud.ShipmentItem);
   }
-}(this, function(ApiClient, ListShipment, ListShipmentItem, Shipment, ShipmentItem) {
+}(this, function(Sdk, ListShipment, ListShipmentItem, Shipment, ShipmentItem) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Shipments. 
    * @alias module:api/Shipments
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = Shipment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -158,7 +158,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -194,7 +194,7 @@
       var accepts = ['application/json'];
       var returnType = Shipment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -244,7 +244,7 @@
       var accepts = ['application/json'];
       var returnType = ShipmentItem;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -289,7 +289,7 @@
       var accepts = ['application/json'];
       var returnType = ListShipment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -339,7 +339,7 @@
       var accepts = ['application/json'];
       var returnType = ListShipmentItem;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}/items', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -381,7 +381,7 @@
       var accepts = ['application/json'];
       var returnType = Shipment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -423,7 +423,7 @@
       var accepts = ['application/json'];
       var returnType = Shipment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -465,7 +465,7 @@
       var accepts = ['application/json'];
       var returnType = ShipmentItem;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/shipments/{shipmentID}/items', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

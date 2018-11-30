@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/Address'], factory);
+    define(['Sdk', 'model/Address'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./Address'));
+    module.exports = factory(require('../Sdk'), require('./Address'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Shipment = factory(root.OrderCloud.ApiClient, root.OrderCloud.Address);
+    root.OrderCloud.Shipment = factory(root.OrderCloud.Sdk, root.OrderCloud.Address);
   }
-}(this, function(ApiClient, Address) {
+}(this, function(Sdk, Address) {
   'use strict';
 
 
@@ -71,37 +71,37 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('BuyerID')) {
-        obj['BuyerID'] = ApiClient.convertToType(data['BuyerID'], 'String');
+        obj['BuyerID'] = Sdk.convertToType(data['BuyerID'], 'String');
       }
       if (data.hasOwnProperty('Shipper')) {
-        obj['Shipper'] = ApiClient.convertToType(data['Shipper'], 'String');
+        obj['Shipper'] = Sdk.convertToType(data['Shipper'], 'String');
       }
       if (data.hasOwnProperty('DateShipped')) {
-        obj['DateShipped'] = ApiClient.convertToType(data['DateShipped'], 'String');
+        obj['DateShipped'] = Sdk.convertToType(data['DateShipped'], 'String');
       }
       if (data.hasOwnProperty('DateDelivered')) {
-        obj['DateDelivered'] = ApiClient.convertToType(data['DateDelivered'], 'String');
+        obj['DateDelivered'] = Sdk.convertToType(data['DateDelivered'], 'String');
       }
       if (data.hasOwnProperty('TrackingNumber')) {
-        obj['TrackingNumber'] = ApiClient.convertToType(data['TrackingNumber'], 'String');
+        obj['TrackingNumber'] = Sdk.convertToType(data['TrackingNumber'], 'String');
       }
       if (data.hasOwnProperty('Cost')) {
-        obj['Cost'] = ApiClient.convertToType(data['Cost'], 'Number');
+        obj['Cost'] = Sdk.convertToType(data['Cost'], 'Number');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
       if (data.hasOwnProperty('Account')) {
-        obj['Account'] = ApiClient.convertToType(data['Account'], 'String');
+        obj['Account'] = Sdk.convertToType(data['Account'], 'String');
       }
       if (data.hasOwnProperty('FromAddressID')) {
-        obj['FromAddressID'] = ApiClient.convertToType(data['FromAddressID'], 'String');
+        obj['FromAddressID'] = Sdk.convertToType(data['FromAddressID'], 'String');
       }
       if (data.hasOwnProperty('ToAddressID')) {
-        obj['ToAddressID'] = ApiClient.convertToType(data['ToAddressID'], 'String');
+        obj['ToAddressID'] = Sdk.convertToType(data['ToAddressID'], 'String');
       }
       if (data.hasOwnProperty('FromAddress')) {
         obj['FromAddress'] = Address.constructFromObject(data['FromAddress']);

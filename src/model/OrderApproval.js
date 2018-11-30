@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/User'], factory);
+    define(['Sdk', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./User'));
+    module.exports = factory(require('../Sdk'), require('./User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.OrderApproval = factory(root.OrderCloud.ApiClient, root.OrderCloud.User);
+    root.OrderCloud.OrderApproval = factory(root.OrderCloud.Sdk, root.OrderCloud.User);
   }
-}(this, function(ApiClient, User) {
+}(this, function(Sdk, User) {
   'use strict';
 
 
@@ -66,28 +66,28 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ApprovalRuleID')) {
-        obj['ApprovalRuleID'] = ApiClient.convertToType(data['ApprovalRuleID'], 'String');
+        obj['ApprovalRuleID'] = Sdk.convertToType(data['ApprovalRuleID'], 'String');
       }
       if (data.hasOwnProperty('ApprovingGroupID')) {
-        obj['ApprovingGroupID'] = ApiClient.convertToType(data['ApprovingGroupID'], 'String');
+        obj['ApprovingGroupID'] = Sdk.convertToType(data['ApprovingGroupID'], 'String');
       }
       if (data.hasOwnProperty('Status')) {
-        obj['Status'] = ApiClient.convertToType(data['Status'], 'String');
+        obj['Status'] = Sdk.convertToType(data['Status'], 'String');
       }
       if (data.hasOwnProperty('AllowResubmit')) {
-        obj['AllowResubmit'] = ApiClient.convertToType(data['AllowResubmit'], 'Boolean');
+        obj['AllowResubmit'] = Sdk.convertToType(data['AllowResubmit'], 'Boolean');
       }
       if (data.hasOwnProperty('DateCreated')) {
-        obj['DateCreated'] = ApiClient.convertToType(data['DateCreated'], 'String');
+        obj['DateCreated'] = Sdk.convertToType(data['DateCreated'], 'String');
       }
       if (data.hasOwnProperty('DateCompleted')) {
-        obj['DateCompleted'] = ApiClient.convertToType(data['DateCompleted'], 'String');
+        obj['DateCompleted'] = Sdk.convertToType(data['DateCompleted'], 'String');
       }
       if (data.hasOwnProperty('Approver')) {
         obj['Approver'] = User.constructFromObject(data['Approver']);
       }
       if (data.hasOwnProperty('Comments')) {
-        obj['Comments'] = ApiClient.convertToType(data['Comments'], 'String');
+        obj['Comments'] = Sdk.convertToType(data['Comments'], 'String');
       }
     }
     return obj;

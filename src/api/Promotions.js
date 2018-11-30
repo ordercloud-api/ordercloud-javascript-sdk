@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/Promotion', 'model/PromotionAssignment'], factory);
+    define(['Sdk', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/Promotion', 'model/PromotionAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/ListPromotion'), require('../model/ListPromotionAssignment'), require('../model/Promotion'), require('../model/PromotionAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/ListPromotion'), require('../model/ListPromotionAssignment'), require('../model/Promotion'), require('../model/PromotionAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Promotions = factory(root.OrderCloud.ApiClient, root.OrderCloud.ListPromotion, root.OrderCloud.ListPromotionAssignment, root.OrderCloud.Promotion, root.OrderCloud.PromotionAssignment);
+    root.OrderCloud.Promotions = factory(root.OrderCloud.Sdk, root.OrderCloud.ListPromotion, root.OrderCloud.ListPromotionAssignment, root.OrderCloud.Promotion, root.OrderCloud.PromotionAssignment);
   }
-}(this, function(ApiClient, ListPromotion, ListPromotionAssignment, Promotion, PromotionAssignment) {
+}(this, function(Sdk, ListPromotion, ListPromotionAssignment, Promotion, PromotionAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new Promotions. 
    * @alias module:api/Promotions
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -72,7 +72,7 @@
       var accepts = ['application/json'];
       var returnType = Promotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -108,7 +108,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions/{promotionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -157,7 +157,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions/{promotionID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -193,7 +193,7 @@
       var accepts = ['application/json'];
       var returnType = Promotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions/{promotionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -236,7 +236,7 @@
       var accepts = ['application/json'];
       var returnType = ListPromotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -281,7 +281,7 @@
       var accepts = ['application/json'];
       var returnType = ListPromotionAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -323,7 +323,7 @@
       var accepts = ['application/json'];
       var returnType = Promotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions/{promotionID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -365,7 +365,7 @@
       var accepts = ['application/json'];
       var returnType = Promotion;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions/{promotionID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -400,7 +400,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/promotions/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

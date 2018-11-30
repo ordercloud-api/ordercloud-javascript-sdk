@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ApprovalRule = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.ApprovalRule = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -64,22 +64,22 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('Description')) {
-        obj['Description'] = ApiClient.convertToType(data['Description'], 'String');
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('ApprovingGroupID')) {
-        obj['ApprovingGroupID'] = ApiClient.convertToType(data['ApprovingGroupID'], 'String');
+        obj['ApprovingGroupID'] = Sdk.convertToType(data['ApprovingGroupID'], 'String');
       }
       if (data.hasOwnProperty('RuleExpression')) {
-        obj['RuleExpression'] = ApiClient.convertToType(data['RuleExpression'], 'String');
+        obj['RuleExpression'] = Sdk.convertToType(data['RuleExpression'], 'String');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/CostCenter', 'model/CostCenterAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment'], factory);
+    define(['Sdk', 'model/CostCenter', 'model/CostCenterAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('../model/CostCenter'), require('../model/CostCenterAssignment'), require('../model/ListCostCenter'), require('../model/ListCostCenterAssignment'));
+    module.exports = factory(require('../Sdk'), require('../model/CostCenter'), require('../model/CostCenterAssignment'), require('../model/ListCostCenter'), require('../model/ListCostCenterAssignment'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.CostCenters = factory(root.OrderCloud.ApiClient, root.OrderCloud.CostCenter, root.OrderCloud.CostCenterAssignment, root.OrderCloud.ListCostCenter, root.OrderCloud.ListCostCenterAssignment);
+    root.OrderCloud.CostCenters = factory(root.OrderCloud.Sdk, root.OrderCloud.CostCenter, root.OrderCloud.CostCenterAssignment, root.OrderCloud.ListCostCenter, root.OrderCloud.ListCostCenterAssignment);
   }
-}(this, function(ApiClient, CostCenter, CostCenterAssignment, ListCostCenter, ListCostCenterAssignment) {
+}(this, function(Sdk, CostCenter, CostCenterAssignment, ListCostCenter, ListCostCenterAssignment) {
   'use strict';
 
   /**
@@ -37,11 +37,11 @@
    * Constructs a new CostCenters. 
    * @alias module:api/CostCenters
    * @class
-   * @param {module:ApiClient} apiClient Optional API client implementation to use,
-   * default to {@link module:ApiClient#instance} if unspecified.
+   * @param {module:Sdk} sdk Optional API client implementation to use,
+   * default to {@link module:Sdk#instance} if unspecified.
    */
-  var exports = function(apiClient) {
-    this.apiClient = apiClient || ApiClient.instance;
+  var exports = function(sdk) {
+    this.sdk = sdk || Sdk.instance;
 
 
 
@@ -79,7 +79,7 @@
       var accepts = ['application/json'];
       var returnType = CostCenter;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -122,7 +122,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -171,7 +171,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -214,7 +214,7 @@
       var accepts = ['application/json'];
       var returnType = CostCenter;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -264,7 +264,7 @@
       var accepts = ['application/json'];
       var returnType = ListCostCenter;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -314,7 +314,7 @@
       var accepts = ['application/json'];
       var returnType = ListCostCenterAssignment;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -363,7 +363,7 @@
       var accepts = ['application/json'];
       var returnType = CostCenter;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -412,7 +412,7 @@
       var accepts = ['application/json'];
       var returnType = CostCenter;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
@@ -454,7 +454,7 @@
       var accepts = ['application/json'];
       var returnType = null;
 
-      return this.apiClient.callApi(
+      return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType

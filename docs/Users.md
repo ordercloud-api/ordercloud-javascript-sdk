@@ -23,7 +23,7 @@ Method | HTTP request | Description
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -74,7 +74,7 @@ Name | Type | Description  | Notes
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -125,7 +125,7 @@ null (empty response body)
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -176,7 +176,7 @@ Name | Type | Description  | Notes
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -294,7 +294,7 @@ Name | Type | Description  | Notes
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -351,7 +351,7 @@ Name | Type | Description  | Notes
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
 ### Example
 ```javascript
 var OrderCloud = require('OrderCloud');
-var defaultClient = OrderCloud.ApiClient.default;
+var defaultClient = OrderCloud.Sdk.default;
 
 // Configure OAuth2 access token for authorization: oauth2
 var oauth2 = defaultClient.authentications['oauth2'];

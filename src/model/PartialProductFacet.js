@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialProductFacet = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialProductFacet = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -64,22 +64,22 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
-        obj['Name'] = ApiClient.convertToType(data['Name'], 'String');
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
       }
       if (data.hasOwnProperty('XpPath')) {
-        obj['XpPath'] = ApiClient.convertToType(data['XpPath'], 'String');
+        obj['XpPath'] = Sdk.convertToType(data['XpPath'], 'String');
       }
       if (data.hasOwnProperty('ListOrder')) {
-        obj['ListOrder'] = ApiClient.convertToType(data['ListOrder'], 'Number');
+        obj['ListOrder'] = Sdk.convertToType(data['ListOrder'], 'Number');
       }
       if (data.hasOwnProperty('MinCount')) {
-        obj['MinCount'] = ApiClient.convertToType(data['MinCount'], 'Number');
+        obj['MinCount'] = Sdk.convertToType(data['MinCount'], 'Number');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;

@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialInventory = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialInventory = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -64,22 +64,22 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Enabled')) {
-        obj['Enabled'] = ApiClient.convertToType(data['Enabled'], 'Boolean');
+        obj['Enabled'] = Sdk.convertToType(data['Enabled'], 'Boolean');
       }
       if (data.hasOwnProperty('NotificationPoint')) {
-        obj['NotificationPoint'] = ApiClient.convertToType(data['NotificationPoint'], 'Number');
+        obj['NotificationPoint'] = Sdk.convertToType(data['NotificationPoint'], 'Number');
       }
       if (data.hasOwnProperty('VariantLevelTracking')) {
-        obj['VariantLevelTracking'] = ApiClient.convertToType(data['VariantLevelTracking'], 'Boolean');
+        obj['VariantLevelTracking'] = Sdk.convertToType(data['VariantLevelTracking'], 'Boolean');
       }
       if (data.hasOwnProperty('OrderCanExceed')) {
-        obj['OrderCanExceed'] = ApiClient.convertToType(data['OrderCanExceed'], 'Boolean');
+        obj['OrderCanExceed'] = Sdk.convertToType(data['OrderCanExceed'], 'Boolean');
       }
       if (data.hasOwnProperty('QuantityAvailable')) {
-        obj['QuantityAvailable'] = ApiClient.convertToType(data['QuantityAvailable'], 'Number');
+        obj['QuantityAvailable'] = Sdk.convertToType(data['QuantityAvailable'], 'Number');
       }
       if (data.hasOwnProperty('LastUpdated')) {
-        obj['LastUpdated'] = ApiClient.convertToType(data['LastUpdated'], 'String');
+        obj['LastUpdated'] = Sdk.convertToType(data['LastUpdated'], 'String');
       }
     }
     return obj;

@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient', 'model/MessageCCListenerAssignment', 'model/Meta'], factory);
+    define(['Sdk', 'model/MessageCCListenerAssignment', 'model/Meta'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'), require('./MessageCCListenerAssignment'), require('./Meta'));
+    module.exports = factory(require('../Sdk'), require('./MessageCCListenerAssignment'), require('./Meta'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListMessageCCListenerAssignment = factory(root.OrderCloud.ApiClient, root.OrderCloud.MessageCCListenerAssignment, root.OrderCloud.Meta);
+    root.OrderCloud.ListMessageCCListenerAssignment = factory(root.OrderCloud.Sdk, root.OrderCloud.MessageCCListenerAssignment, root.OrderCloud.Meta);
   }
-}(this, function(ApiClient, MessageCCListenerAssignment, Meta) {
+}(this, function(Sdk, MessageCCListenerAssignment, Meta) {
   'use strict';
 
 
@@ -60,7 +60,7 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('Items')) {
-        obj['Items'] = ApiClient.convertToType(data['Items'], [MessageCCListenerAssignment]);
+        obj['Items'] = Sdk.convertToType(data['Items'], [MessageCCListenerAssignment]);
       }
       if (data.hasOwnProperty('Meta')) {
         obj['Meta'] = Meta.constructFromObject(data['Meta']);

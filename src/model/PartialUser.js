@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['ApiClient'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../ApiClient'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialUser = factory(root.OrderCloud.ApiClient);
+    root.OrderCloud.PartialUser = factory(root.OrderCloud.Sdk);
   }
-}(this, function(ApiClient) {
+}(this, function(Sdk) {
   'use strict';
 
 
@@ -69,37 +69,37 @@
       obj = obj || new exports();
 
       if (data.hasOwnProperty('ID')) {
-        obj['ID'] = ApiClient.convertToType(data['ID'], 'String');
+        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
       if (data.hasOwnProperty('Username')) {
-        obj['Username'] = ApiClient.convertToType(data['Username'], 'String');
+        obj['Username'] = Sdk.convertToType(data['Username'], 'String');
       }
       if (data.hasOwnProperty('Password')) {
-        obj['Password'] = ApiClient.convertToType(data['Password'], 'String');
+        obj['Password'] = Sdk.convertToType(data['Password'], 'String');
       }
       if (data.hasOwnProperty('FirstName')) {
-        obj['FirstName'] = ApiClient.convertToType(data['FirstName'], 'String');
+        obj['FirstName'] = Sdk.convertToType(data['FirstName'], 'String');
       }
       if (data.hasOwnProperty('LastName')) {
-        obj['LastName'] = ApiClient.convertToType(data['LastName'], 'String');
+        obj['LastName'] = Sdk.convertToType(data['LastName'], 'String');
       }
       if (data.hasOwnProperty('Email')) {
-        obj['Email'] = ApiClient.convertToType(data['Email'], 'String');
+        obj['Email'] = Sdk.convertToType(data['Email'], 'String');
       }
       if (data.hasOwnProperty('Phone')) {
-        obj['Phone'] = ApiClient.convertToType(data['Phone'], 'String');
+        obj['Phone'] = Sdk.convertToType(data['Phone'], 'String');
       }
       if (data.hasOwnProperty('TermsAccepted')) {
-        obj['TermsAccepted'] = ApiClient.convertToType(data['TermsAccepted'], 'String');
+        obj['TermsAccepted'] = Sdk.convertToType(data['TermsAccepted'], 'String');
       }
       if (data.hasOwnProperty('Active')) {
-        obj['Active'] = ApiClient.convertToType(data['Active'], 'Boolean');
+        obj['Active'] = Sdk.convertToType(data['Active'], 'Boolean');
       }
       if (data.hasOwnProperty('xp')) {
-        obj['xp'] = ApiClient.convertToType(data['xp'], Object);
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
       if (data.hasOwnProperty('AvailableRoles')) {
-        obj['AvailableRoles'] = ApiClient.convertToType(data['AvailableRoles'], ['String']);
+        obj['AvailableRoles'] = Sdk.convertToType(data['AvailableRoles'], ['String']);
       }
     }
     return obj;
