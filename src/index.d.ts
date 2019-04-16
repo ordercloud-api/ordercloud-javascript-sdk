@@ -8,6 +8,8 @@ export interface AccessToken {
 }
 
 export interface Address {
+    AddressName?: string;
+    City?: string;
     ID?: string;
     DateCreated?: string;
     CompanyName?: string;
@@ -15,12 +17,10 @@ export interface Address {
     LastName?: string;
     Street1?: string;
     Street2?: string;
-    City?: string;
     State?: string;
     Zip?: string;
     Country?: string;
     Phone?: string;
-    AddressName?: string;
     xp?: any;
 }
 
@@ -253,6 +253,7 @@ export interface LineItem {
     ShippingAddressID?: string;
     ShipFromAddressID?: string;
     Product?: LineItemProduct;
+    Variant?: LineItemVariant;
     ShippingAddress?: Address;
     ShipFromAddress?: Address;
     SupplierID?: string;
@@ -277,6 +278,17 @@ export interface LineItemSpec {
     Name?: string;
     OptionID?: string;
     Value?: string;
+}
+
+export interface LineItemVariant {
+    ID?: string;
+    Name?: string;
+    Description?: string;
+    ShipWeight?: number;
+    ShipHeight?: number;
+    ShipWidth?: number;
+    ShipLength?: number;
+    xp?: any;
 }
 
 export interface ListAddress {
@@ -413,6 +425,11 @@ export interface ListMessageSender {
 
 export interface ListMessageSenderAssignment {
     Items?: MessageSenderAssignment[];
+    Meta?: Meta;
+}
+
+export interface ListOpenIdConnect {
+    Items?: OpenIdConnect[];
     Meta?: Meta;
 }
 
@@ -582,6 +599,10 @@ export interface MessageSender {
     Name?: string;
     MessageTypes?: string[];
     Description?: string;
+    URL?: string;
+    ElevatedRolesList?: string[];
+    SharedKey?: string;
+    xp?: any;
 }
 
 export interface MessageSenderAssignment {
@@ -608,6 +629,17 @@ export interface MetaWithFacets {
     TotalCount?: number;
     TotalPages?: number;
     ItemRange?: number[];
+}
+
+export interface OpenIdConnect {
+    ID?: string;
+    StateHashKey?: string;
+    OrderCloudApiClientID?: string;
+    ConnectClientID?: string;
+    ConnectClientSecret?: string;
+    AppStartUrl?: string;
+    AuthorizationEndpoint?: string;
+    TokenEndpoint?: string;
 }
 
 export interface Order {
@@ -671,6 +703,8 @@ export interface OrderPromotion {
 }
 
 export interface PartialAddress {
+    AddressName?: string;
+    City?: string;
     ID?: string;
     DateCreated?: string;
     CompanyName?: string;
@@ -678,12 +712,10 @@ export interface PartialAddress {
     LastName?: string;
     Street1?: string;
     Street2?: string;
-    City?: string;
     State?: string;
     Zip?: string;
     Country?: string;
     Phone?: string;
-    AddressName?: string;
     xp?: any;
 }
 
@@ -833,6 +865,7 @@ export interface PartialLineItem {
     ShippingAddressID?: string;
     ShipFromAddressID?: string;
     Product?: LineItemProduct;
+    Variant?: LineItemVariant;
     ShippingAddress?: Address;
     ShipFromAddress?: Address;
     SupplierID?: string;
@@ -859,6 +892,17 @@ export interface PartialLineItemSpec {
     Value?: string;
 }
 
+export interface PartialLineItemVariant {
+    ID?: string;
+    Name?: string;
+    Description?: string;
+    ShipWeight?: number;
+    ShipHeight?: number;
+    ShipWidth?: number;
+    ShipLength?: number;
+    xp?: any;
+}
+
 export interface PartialMeBuyer {
     ID?: string;
     DefaultCatalogID?: string;
@@ -882,6 +926,28 @@ export interface PartialMeUser {
     Active?: boolean;
     xp?: any;
     AvailableRoles?: string[];
+}
+
+export interface PartialMessageSender {
+    ID?: string;
+    Name?: string;
+    MessageTypes?: string[];
+    Description?: string;
+    URL?: string;
+    ElevatedRolesList?: string[];
+    SharedKey?: string;
+    xp?: any;
+}
+
+export interface PartialOpenIdConnect {
+    ID?: string;
+    StateHashKey?: string;
+    OrderCloudApiClientID?: string;
+    ConnectClientID?: string;
+    ConnectClientSecret?: string;
+    AppStartUrl?: string;
+    AuthorizationEndpoint?: string;
+    TokenEndpoint?: string;
 }
 
 export interface PartialOrder {
@@ -953,7 +1019,6 @@ export interface PartialPriceSchedule {
 }
 
 export interface PartialProduct {
-    xp?: any;
     DefaultPriceScheduleID?: string;
     ID?: string;
     Name?: string;
@@ -965,6 +1030,7 @@ export interface PartialProduct {
     ShipLength?: number;
     Active?: boolean;
     SpecCount?: number;
+    xp?: any;
     VariantCount?: number;
     ShipFromAddressID?: string;
     Inventory?: Inventory;
@@ -1080,7 +1146,17 @@ export interface PartialVariant {
     Name?: string;
     Description?: string;
     Active?: boolean;
+    ShipWeight?: number;
+    ShipHeight?: number;
+    ShipWidth?: number;
+    ShipLength?: number;
+    Inventory?: VariantInventory;
     xp?: any;
+}
+
+export interface PartialVariantInventory {
+    QuantityAvailable?: number;
+    LastUpdated?: string;
 }
 
 export interface PasswordReset {
@@ -1139,7 +1215,6 @@ export interface PriceSchedule {
 }
 
 export interface Product {
-    xp?: any;
     DefaultPriceScheduleID?: string;
     ID?: string;
     Name?: string;
@@ -1151,6 +1226,7 @@ export interface Product {
     ShipLength?: number;
     Active?: boolean;
     SpecCount?: number;
+    xp?: any;
     VariantCount?: number;
     ShipFromAddressID?: string;
     Inventory?: Inventory;
@@ -1239,6 +1315,7 @@ export interface ShipmentItem {
     CostCenter?: string;
     DateNeeded?: string;
     Product?: LineItemProduct;
+    Variant?: LineItemVariant;
     Specs?: LineItemSpec[];
     xp?: any;
 }
@@ -1333,7 +1410,17 @@ export interface Variant {
     Name?: string;
     Description?: string;
     Active?: boolean;
+    ShipWeight?: number;
+    ShipHeight?: number;
+    ShipWidth?: number;
+    ShipLength?: number;
+    Inventory?: VariantInventory;
     xp?: any;
+}
+
+export interface VariantInventory {
+    QuantityAvailable?: number;
+    LastUpdated?: string;
 }
 
 
@@ -2404,7 +2491,7 @@ export namespace Me {
     export function ListCatalogs(options?: { search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }): Promise<ListCatalog>    
     
     /**
-     * @param options.depth Depth of the category.
+     * @param options.depth Indicates how deep down the hierarchy to return results. Valid values are a number of 1 or greater, or &#39;all&#39;. Relative to ParentID if specified. Default is 1.
      * @param options.catalogID ID of the catalog.
      * @param options.productID ID of the product.
      * @param options.search Word or phrase to search for.
@@ -2451,7 +2538,7 @@ export namespace Me {
     /**
      * @param options.catalogID ID of the catalog.
      * @param options.categoryID ID of the category.
-     * @param options.depth Depth of the product.
+     * @param options.depth Indicates how deep down the category hierarchy to return results. Valid values are a number of 1 or greater, or &#39;all&#39;. Relative to CategoryID if specified, otherwise top level of the Catalog. Default is &#39;all&#39;.
      * @param options.search Word or phrase to search for.
      * @param options.searchOn Comma-delimited list of fields to search on.
      * @param options.sortBy Comma-delimited list of fields to sort by.
@@ -2581,6 +2668,16 @@ export namespace Me {
 export namespace MessageSenders {
 
     /**
+     * @param messageSender 
+     */
+    export function Create(messageSender: MessageSender): Promise<MessageSender>    
+    
+    /**
+     * @param messageSenderID ID of the message sender.
+     */
+    export function Delete(messageSenderID: string): Promise<void>    
+    
+    /**
      * @param messageSenderID ID of the message sender.
      * @param options.buyerID ID of the buyer.
      * @param options.userID ID of the user.
@@ -2627,6 +2724,18 @@ export namespace MessageSenders {
     export function ListCCListenerAssignments(options?: { search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }): Promise<ListMessageCCListenerAssignment>    
     
     /**
+     * @param messageSenderID ID of the message sender.
+     * @param partialMessageSender 
+     */
+    export function Patch(messageSenderID: string, partialMessageSender: MessageSender): Promise<MessageSender>    
+    
+    /**
+     * @param messageSenderID ID of the message sender.
+     * @param messageSender 
+     */
+    export function Save(messageSenderID: string, messageSender: MessageSender): Promise<MessageSender>    
+    
+    /**
      * @param messageSenderAssignment 
      */
     export function SaveAssignment(messageSenderAssignment: MessageSenderAssignment): Promise<void>    
@@ -2635,6 +2744,47 @@ export namespace MessageSenders {
      * @param messageCCListenerAssignment 
      */
     export function SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment): Promise<void>    
+    
+}
+
+export namespace OpenIdConnects {
+
+    /**
+     * @param openIdConnect 
+     */
+    export function Create(openIdConnect: OpenIdConnect): Promise<OpenIdConnect>    
+    
+    /**
+     * @param openidconnectID ID of the openidconnect.
+     */
+    export function Delete(openidconnectID: string): Promise<void>    
+    
+    /**
+     * @param openidconnectID ID of the openidconnect.
+     */
+    export function Get(openidconnectID: string): Promise<OpenIdConnect>    
+    
+    /**
+     * @param options.search Word or phrase to search for.
+     * @param options.searchOn Comma-delimited list of fields to search on.
+     * @param options.sortBy Comma-delimited list of fields to sort by.
+     * @param options.page Page of results to return. Default: 1
+     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     */
+    export function List(options?: { search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }): Promise<ListOpenIdConnect>    
+    
+    /**
+     * @param openidconnectID ID of the openidconnect.
+     * @param partialOpenIdConnect 
+     */
+    export function Patch(openidconnectID: string, partialOpenIdConnect: OpenIdConnect): Promise<OpenIdConnect>    
+    
+    /**
+     * @param openidconnectID ID of the openidconnect.
+     * @param openIdConnect 
+     */
+    export function Save(openidconnectID: string, openIdConnect: OpenIdConnect): Promise<OpenIdConnect>    
     
 }
 

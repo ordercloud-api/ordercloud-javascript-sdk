@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dateCreated** | **String** |  | [optional] 
 **ID** | **String** |  | [optional] 
 **fromUser** | [**User**](User.md) |  | [optional] 
 **fromCompanyID** | **String** |  | [optional] 
@@ -14,6 +13,7 @@ Name | Type | Description | Notes
 **comments** | **String** |  | [optional] 
 **lineItemCount** | **Number** |  | [optional] 
 **status** | **String** |  | [optional] 
+**dateCreated** | **String** |  | [optional] 
 **dateSubmitted** | **String** |  | [optional] 
 **dateApproved** | **String** |  | [optional] 
 **dateDeclined** | **String** |  | [optional] 

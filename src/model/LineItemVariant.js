@@ -14,31 +14,31 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/VariantInventory'], factory);
+    define(['Sdk'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./VariantInventory'));
+    module.exports = factory(require('../Sdk'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialVariant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory);
+    root.OrderCloud.LineItemVariant = factory(root.OrderCloud.Sdk);
   }
-}(this, function(Sdk, VariantInventory) {
+}(this, function(Sdk) {
   'use strict';
 
 
 
 
   /**
-   * The PartialVariant model module.
-   * @module model/PartialVariant
+   * The LineItemVariant model module.
+   * @module model/LineItemVariant
    */
 
   /**
-   * Constructs a new <code>PartialVariant</code>.
-   * @alias module:model/PartialVariant
+   * Constructs a new <code>LineItemVariant</code>.
+   * @alias module:model/LineItemVariant
    * @class
    */
   var exports = function() {
@@ -52,16 +52,14 @@
 
 
 
-
-
   };
 
   /**
-   * Constructs a <code>PartialVariant</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>LineItemVariant</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/PartialVariant} obj Optional instance to populate.
-   * @return {module:model/PartialVariant} The populated <code>PartialVariant</code> instance.
+   * @param {module:model/LineItemVariant} obj Optional instance to populate.
+   * @return {module:model/LineItemVariant} The populated <code>LineItemVariant</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
@@ -76,9 +74,6 @@
       if (data.hasOwnProperty('Description')) {
         obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
-      if (data.hasOwnProperty('Active')) {
-        obj['Active'] = Sdk.convertToType(data['Active'], 'Boolean');
-      }
       if (data.hasOwnProperty('ShipWeight')) {
         obj['ShipWeight'] = Sdk.convertToType(data['ShipWeight'], 'Number');
       }
@@ -90,9 +85,6 @@
       }
       if (data.hasOwnProperty('ShipLength')) {
         obj['ShipLength'] = Sdk.convertToType(data['ShipLength'], 'Number');
-      }
-      if (data.hasOwnProperty('Inventory')) {
-        obj['Inventory'] = VariantInventory.constructFromObject(data['Inventory']);
       }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
@@ -114,10 +106,6 @@
    */
   exports.prototype['Description'] = undefined;
   /**
-   * @member {Boolean} Active
-   */
-  exports.prototype['Active'] = undefined;
-  /**
    * @member {Number} ShipWeight
    */
   exports.prototype['ShipWeight'] = undefined;
@@ -133,10 +121,6 @@
    * @member {Number} ShipLength
    */
   exports.prototype['ShipLength'] = undefined;
-  /**
-   * @member {module:model/VariantInventory} Inventory
-   */
-  exports.prototype['Inventory'] = undefined;
   /**
    * @member {Object} xp
    */

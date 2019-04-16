@@ -80,9 +80,6 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('DateCreated')) {
-        obj['DateCreated'] = Sdk.convertToType(data['DateCreated'], 'String');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
@@ -112,6 +109,9 @@
       }
       if (data.hasOwnProperty('Status')) {
         obj['Status'] = Sdk.convertToType(data['Status'], 'String');
+      }
+      if (data.hasOwnProperty('DateCreated')) {
+        obj['DateCreated'] = Sdk.convertToType(data['DateCreated'], 'String');
       }
       if (data.hasOwnProperty('DateSubmitted')) {
         obj['DateSubmitted'] = Sdk.convertToType(data['DateSubmitted'], 'String');
@@ -154,10 +154,6 @@
   }
 
   /**
-   * @member {String} DateCreated
-   */
-  exports.prototype['DateCreated'] = undefined;
-  /**
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
@@ -197,6 +193,10 @@
    * @member {String} Status
    */
   exports.prototype['Status'] = undefined;
+  /**
+   * @member {String} DateCreated
+   */
+  exports.prototype['DateCreated'] = undefined;
   /**
    * @member {String} DateSubmitted
    */

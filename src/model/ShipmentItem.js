@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
+    define(['Sdk', 'model/LineItemProduct', 'model/LineItemSpec', 'model/LineItemVariant'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./LineItemProduct'), require('./LineItemSpec'));
+    module.exports = factory(require('../Sdk'), require('./LineItemProduct'), require('./LineItemSpec'), require('./LineItemVariant'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.Sdk, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
+    root.OrderCloud.ShipmentItem = factory(root.OrderCloud.Sdk, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec, root.OrderCloud.LineItemVariant);
   }
-}(this, function(Sdk, LineItemProduct, LineItemSpec) {
+}(this, function(Sdk, LineItemProduct, LineItemSpec, LineItemVariant) {
   'use strict';
 
 
@@ -43,6 +43,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -87,6 +88,9 @@
       if (data.hasOwnProperty('Product')) {
         obj['Product'] = LineItemProduct.constructFromObject(data['Product']);
       }
+      if (data.hasOwnProperty('Variant')) {
+        obj['Variant'] = LineItemVariant.constructFromObject(data['Variant']);
+      }
       if (data.hasOwnProperty('Specs')) {
         obj['Specs'] = Sdk.convertToType(data['Specs'], [LineItemSpec]);
       }
@@ -125,6 +129,10 @@
    * @member {module:model/LineItemProduct} Product
    */
   exports.prototype['Product'] = undefined;
+  /**
+   * @member {module:model/LineItemVariant} Variant
+   */
+  exports.prototype['Variant'] = undefined;
   /**
    * @member {Array.<module:model/LineItemSpec>} Specs
    */

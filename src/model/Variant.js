@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk'], factory);
+    define(['Sdk', 'model/VariantInventory'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'));
+    module.exports = factory(require('../Sdk'), require('./VariantInventory'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Variant = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.Variant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory);
   }
-}(this, function(Sdk) {
+}(this, function(Sdk, VariantInventory) {
   'use strict';
 
 
@@ -43,6 +43,11 @@
    */
   var exports = function() {
     var _this = this;
+
+
+
+
+
 
 
 
@@ -74,6 +79,21 @@
       if (data.hasOwnProperty('Active')) {
         obj['Active'] = Sdk.convertToType(data['Active'], 'Boolean');
       }
+      if (data.hasOwnProperty('ShipWeight')) {
+        obj['ShipWeight'] = Sdk.convertToType(data['ShipWeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipHeight')) {
+        obj['ShipHeight'] = Sdk.convertToType(data['ShipHeight'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipWidth')) {
+        obj['ShipWidth'] = Sdk.convertToType(data['ShipWidth'], 'Number');
+      }
+      if (data.hasOwnProperty('ShipLength')) {
+        obj['ShipLength'] = Sdk.convertToType(data['ShipLength'], 'Number');
+      }
+      if (data.hasOwnProperty('Inventory')) {
+        obj['Inventory'] = VariantInventory.constructFromObject(data['Inventory']);
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
@@ -97,6 +117,26 @@
    * @member {Boolean} Active
    */
   exports.prototype['Active'] = undefined;
+  /**
+   * @member {Number} ShipWeight
+   */
+  exports.prototype['ShipWeight'] = undefined;
+  /**
+   * @member {Number} ShipHeight
+   */
+  exports.prototype['ShipHeight'] = undefined;
+  /**
+   * @member {Number} ShipWidth
+   */
+  exports.prototype['ShipWidth'] = undefined;
+  /**
+   * @member {Number} ShipLength
+   */
+  exports.prototype['ShipLength'] = undefined;
+  /**
+   * @member {module:model/VariantInventory} Inventory
+   */
+  exports.prototype['Inventory'] = undefined;
   /**
    * @member {Object} xp
    */

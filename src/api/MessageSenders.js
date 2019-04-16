@@ -46,6 +46,77 @@
 
 
     /**
+     * @param {module:model/MessageSender} messageSender 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
+     */
+    this.Create = function(messageSender) {
+      var postBody = messageSender;
+
+      // verify the required parameter 'messageSender' is set
+      if (messageSender == undefined || messageSender == null) {
+        throw new Error("Missing the required parameter 'messageSender' when calling Create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = MessageSender;
+
+      return this.sdk.callApi(
+        '/messagesenders', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} messageSenderID ID of the message sender.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(messageSenderID) {
+      var postBody = null;
+
+      // verify the required parameter 'messageSenderID' is set
+      if (messageSenderID == undefined || messageSenderID == null) {
+        throw new Error("Missing the required parameter 'messageSenderID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'messageSenderID': messageSenderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.sdk.callApi(
+        '/messagesenders/{messageSenderID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
      * @param {String} messageSenderID ID of the message sender.
      * @param {Object} opts Optional parameters
      * @param {String} opts.buyerID ID of the buyer.
@@ -254,6 +325,90 @@
 
       return this.sdk.callApi(
         '/messagesenders/CCListenerAssignments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} messageSenderID ID of the message sender.
+     * @param {module:model/MessageSender} partialMessageSender 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
+     */
+    this.Patch = function(messageSenderID, partialMessageSender) {
+      var postBody = partialMessageSender;
+
+      // verify the required parameter 'messageSenderID' is set
+      if (messageSenderID == undefined || messageSenderID == null) {
+        throw new Error("Missing the required parameter 'messageSenderID' when calling Patch");
+      }
+
+      // verify the required parameter 'partialMessageSender' is set
+      if (partialMessageSender == undefined || partialMessageSender == null) {
+        throw new Error("Missing the required parameter 'partialMessageSender' when calling Patch");
+      }
+
+
+      var pathParams = {
+        'messageSenderID': messageSenderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = MessageSender;
+
+      return this.sdk.callApi(
+        '/messagesenders/{messageSenderID}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        authNames, contentTypes, accepts, returnType
+      );
+    }
+
+
+    /**
+     * @param {String} messageSenderID ID of the message sender.
+     * @param {module:model/MessageSender} messageSender 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
+     */
+    this.Save = function(messageSenderID, messageSender) {
+      var postBody = messageSender;
+
+      // verify the required parameter 'messageSenderID' is set
+      if (messageSenderID == undefined || messageSenderID == null) {
+        throw new Error("Missing the required parameter 'messageSenderID' when calling Save");
+      }
+
+      // verify the required parameter 'messageSender' is set
+      if (messageSender == undefined || messageSender == null) {
+        throw new Error("Missing the required parameter 'messageSender' when calling Save");
+      }
+
+
+      var pathParams = {
+        'messageSenderID': messageSenderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var authNames = ['oauth2'];
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = MessageSender;
+
+      return this.sdk.callApi(
+        '/messagesenders/{messageSenderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         authNames, contentTypes, accepts, returnType
       );

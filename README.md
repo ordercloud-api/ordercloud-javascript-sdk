@@ -247,13 +247,23 @@ Class | Method | HTTP request | Description
 *OrderCloud.Me* | [**SaveAddress**](docs/Me.md#SaveAddress) | **PUT** /me/addresses/{addressID} | 
 *OrderCloud.Me* | [**SaveCreditCard**](docs/Me.md#SaveCreditCard) | **PUT** /me/creditcards/{creditcardID} | 
 *OrderCloud.Me* | [**TransferAnonUserOrder**](docs/Me.md#TransferAnonUserOrder) | **PUT** /me/orders | 
+*OrderCloud.MessageSenders* | [**Create**](docs/MessageSenders.md#Create) | **POST** /messagesenders | 
+*OrderCloud.MessageSenders* | [**Delete**](docs/MessageSenders.md#Delete) | **DELETE** /messagesenders/{messageSenderID} | 
 *OrderCloud.MessageSenders* | [**DeleteAssignment**](docs/MessageSenders.md#DeleteAssignment) | **DELETE** /messagesenders/{messageSenderID}/assignments | 
 *OrderCloud.MessageSenders* | [**Get**](docs/MessageSenders.md#Get) | **GET** /messagesenders/{messageSenderID} | 
 *OrderCloud.MessageSenders* | [**List**](docs/MessageSenders.md#List) | **GET** /messagesenders | 
 *OrderCloud.MessageSenders* | [**ListAssignments**](docs/MessageSenders.md#ListAssignments) | **GET** /messagesenders/assignments | 
 *OrderCloud.MessageSenders* | [**ListCCListenerAssignments**](docs/MessageSenders.md#ListCCListenerAssignments) | **GET** /messagesenders/CCListenerAssignments | 
+*OrderCloud.MessageSenders* | [**Patch**](docs/MessageSenders.md#Patch) | **PATCH** /messagesenders/{messageSenderID} | 
+*OrderCloud.MessageSenders* | [**Save**](docs/MessageSenders.md#Save) | **PUT** /messagesenders/{messageSenderID} | 
 *OrderCloud.MessageSenders* | [**SaveAssignment**](docs/MessageSenders.md#SaveAssignment) | **POST** /messagesenders/assignments | 
 *OrderCloud.MessageSenders* | [**SaveCCListenerAssignment**](docs/MessageSenders.md#SaveCCListenerAssignment) | **POST** /messagesenders/CCListenerAssignments | 
+*OrderCloud.OpenIdConnects* | [**Create**](docs/OpenIdConnects.md#Create) | **POST** /openidconnects | 
+*OrderCloud.OpenIdConnects* | [**Delete**](docs/OpenIdConnects.md#Delete) | **DELETE** /openidconnects/{openidconnectID} | 
+*OrderCloud.OpenIdConnects* | [**Get**](docs/OpenIdConnects.md#Get) | **GET** /openidconnects/{openidconnectID} | 
+*OrderCloud.OpenIdConnects* | [**List**](docs/OpenIdConnects.md#List) | **GET** /openidconnects | 
+*OrderCloud.OpenIdConnects* | [**Patch**](docs/OpenIdConnects.md#Patch) | **PATCH** /openidconnects/{openidconnectID} | 
+*OrderCloud.OpenIdConnects* | [**Save**](docs/OpenIdConnects.md#Save) | **PUT** /openidconnects/{openidconnectID} | 
 *OrderCloud.Orders* | [**AddPromotion**](docs/Orders.md#AddPromotion) | **POST** /orders/{direction}/{orderID}/promotions/{promoCode} | 
 *OrderCloud.Orders* | [**Approve**](docs/Orders.md#Approve) | **POST** /orders/{direction}/{orderID}/approve | 
 *OrderCloud.Orders* | [**Cancel**](docs/Orders.md#Cancel) | **POST** /orders/{direction}/{orderID}/cancel | 
@@ -439,6 +449,7 @@ Class | Method | HTTP request | Description
  - [OrderCloud.LineItem](docs/LineItem.md)
  - [OrderCloud.LineItemProduct](docs/LineItemProduct.md)
  - [OrderCloud.LineItemSpec](docs/LineItemSpec.md)
+ - [OrderCloud.LineItemVariant](docs/LineItemVariant.md)
  - [OrderCloud.ListAddress](docs/ListAddress.md)
  - [OrderCloud.ListAddressAssignment](docs/ListAddressAssignment.md)
  - [OrderCloud.ListApiClient](docs/ListApiClient.md)
@@ -466,6 +477,7 @@ Class | Method | HTTP request | Description
  - [OrderCloud.ListMessageCCListenerAssignment](docs/ListMessageCCListenerAssignment.md)
  - [OrderCloud.ListMessageSender](docs/ListMessageSender.md)
  - [OrderCloud.ListMessageSenderAssignment](docs/ListMessageSenderAssignment.md)
+ - [OrderCloud.ListOpenIdConnect](docs/ListOpenIdConnect.md)
  - [OrderCloud.ListOrder](docs/ListOrder.md)
  - [OrderCloud.ListOrderApproval](docs/ListOrderApproval.md)
  - [OrderCloud.ListOrderPromotion](docs/ListOrderPromotion.md)
@@ -499,6 +511,7 @@ Class | Method | HTTP request | Description
  - [OrderCloud.MessageSenderAssignment](docs/MessageSenderAssignment.md)
  - [OrderCloud.Meta](docs/Meta.md)
  - [OrderCloud.MetaWithFacets](docs/MetaWithFacets.md)
+ - [OrderCloud.OpenIdConnect](docs/OpenIdConnect.md)
  - [OrderCloud.Order](docs/Order.md)
  - [OrderCloud.OrderApproval](docs/OrderApproval.md)
  - [OrderCloud.OrderApprovalInfo](docs/OrderApprovalInfo.md)
@@ -519,9 +532,12 @@ Class | Method | HTTP request | Description
  - [OrderCloud.PartialLineItem](docs/PartialLineItem.md)
  - [OrderCloud.PartialLineItemProduct](docs/PartialLineItemProduct.md)
  - [OrderCloud.PartialLineItemSpec](docs/PartialLineItemSpec.md)
+ - [OrderCloud.PartialLineItemVariant](docs/PartialLineItemVariant.md)
  - [OrderCloud.PartialMeBuyer](docs/PartialMeBuyer.md)
  - [OrderCloud.PartialMeSupplier](docs/PartialMeSupplier.md)
  - [OrderCloud.PartialMeUser](docs/PartialMeUser.md)
+ - [OrderCloud.PartialMessageSender](docs/PartialMessageSender.md)
+ - [OrderCloud.PartialOpenIdConnect](docs/PartialOpenIdConnect.md)
  - [OrderCloud.PartialOrder](docs/PartialOrder.md)
  - [OrderCloud.PartialPayment](docs/PartialPayment.md)
  - [OrderCloud.PartialPaymentTransaction](docs/PartialPaymentTransaction.md)
@@ -538,6 +554,7 @@ Class | Method | HTTP request | Description
  - [OrderCloud.PartialUser](docs/PartialUser.md)
  - [OrderCloud.PartialUserGroup](docs/PartialUserGroup.md)
  - [OrderCloud.PartialVariant](docs/PartialVariant.md)
+ - [OrderCloud.PartialVariantInventory](docs/PartialVariantInventory.md)
  - [OrderCloud.PasswordReset](docs/PasswordReset.md)
  - [OrderCloud.PasswordResetRequest](docs/PasswordResetRequest.md)
  - [OrderCloud.Payment](docs/Payment.md)
@@ -565,6 +582,7 @@ Class | Method | HTTP request | Description
  - [OrderCloud.UserGroup](docs/UserGroup.md)
  - [OrderCloud.UserGroupAssignment](docs/UserGroupAssignment.md)
  - [OrderCloud.Variant](docs/Variant.md)
+ - [OrderCloud.VariantInventory](docs/VariantInventory.md)
 
 
 ## Documentation for Authorization
@@ -610,6 +628,8 @@ Class | Method | HTTP request | Description
   - MeAdmin: 
   - MeCreditCardAdmin: 
   - MessageConfigAssignmentAdmin: 
+  - MessageSenderAdmin: 
+  - MessageSenderReader: 
   - MeXpAdmin: 
   - OrderAdmin: 
   - OrderReader: 

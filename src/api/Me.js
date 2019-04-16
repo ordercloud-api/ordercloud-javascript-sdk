@@ -693,7 +693,7 @@
 
     /**
      * @param {Object} opts Optional parameters
-     * @param {String} opts.depth Depth of the category.
+     * @param {String} opts.depth Indicates how deep down the hierarchy to return results. Valid values are a number of 1 or greater, or &#39;all&#39;. Relative to ParentID if specified. Default is 1.
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.productID ID of the product.
      * @param {String} opts.search Word or phrase to search for.
@@ -877,7 +877,7 @@
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
      * @param {String} opts.categoryID ID of the category.
-     * @param {String} opts.depth Depth of the product.
+     * @param {String} opts.depth Indicates how deep down the category hierarchy to return results. Valid values are a number of 1 or greater, or &#39;all&#39;. Relative to CategoryID if specified, otherwise top level of the Catalog. Default is &#39;all&#39;.
      * @param {String} opts.search Word or phrase to search for.
      * @param {String} opts.searchOn Comma-delimited list of fields to search on.
      * @param {String} opts.sortBy Comma-delimited list of fields to sort by.

@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **shippingAddressID** | **String** |  | [optional] 
 **shipFromAddressID** | **String** |  | [optional] 
 **product** | [**LineItemProduct**](LineItemProduct.md) |  | [optional] 
+**variant** | [**LineItemVariant**](LineItemVariant.md) |  | [optional] 
 **shippingAddress** | [**Address**](Address.md) |  | [optional] 
 **shipFromAddress** | [**Address**](Address.md) |  | [optional] 
 **supplierID** | **String** |  | [optional] 

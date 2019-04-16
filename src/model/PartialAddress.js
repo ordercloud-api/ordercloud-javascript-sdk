@@ -71,6 +71,12 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('AddressName')) {
+        obj['AddressName'] = Sdk.convertToType(data['AddressName'], 'String');
+      }
+      if (data.hasOwnProperty('City')) {
+        obj['City'] = Sdk.convertToType(data['City'], 'String');
+      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
@@ -92,9 +98,6 @@
       if (data.hasOwnProperty('Street2')) {
         obj['Street2'] = Sdk.convertToType(data['Street2'], 'String');
       }
-      if (data.hasOwnProperty('City')) {
-        obj['City'] = Sdk.convertToType(data['City'], 'String');
-      }
       if (data.hasOwnProperty('State')) {
         obj['State'] = Sdk.convertToType(data['State'], 'String');
       }
@@ -107,9 +110,6 @@
       if (data.hasOwnProperty('Phone')) {
         obj['Phone'] = Sdk.convertToType(data['Phone'], 'String');
       }
-      if (data.hasOwnProperty('AddressName')) {
-        obj['AddressName'] = Sdk.convertToType(data['AddressName'], 'String');
-      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
@@ -117,6 +117,14 @@
     return obj;
   }
 
+  /**
+   * @member {String} AddressName
+   */
+  exports.prototype['AddressName'] = undefined;
+  /**
+   * @member {String} City
+   */
+  exports.prototype['City'] = undefined;
   /**
    * @member {String} ID
    */
@@ -146,10 +154,6 @@
    */
   exports.prototype['Street2'] = undefined;
   /**
-   * @member {String} City
-   */
-  exports.prototype['City'] = undefined;
-  /**
    * @member {String} State
    */
   exports.prototype['State'] = undefined;
@@ -165,10 +169,6 @@
    * @member {String} Phone
    */
   exports.prototype['Phone'] = undefined;
-  /**
-   * @member {String} AddressName
-   */
-  exports.prototype['AddressName'] = undefined;
   /**
    * @member {Object} xp
    */

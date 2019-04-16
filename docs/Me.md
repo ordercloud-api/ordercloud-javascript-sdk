@@ -918,7 +918,7 @@ oauth2.accessToken = 'YOUR ACCESS TOKEN';
 var apiInstance = new OrderCloud.Me();
 
 var opts = { 
-  'depth': "depth_example", // String | Depth of the category.
+  'depth': "depth_example", // String | Indicates how deep down the hierarchy to return results. Valid values are a number of 1 or greater, or 'all'. Relative to ParentID if specified. Default is 1.
   'catalogID': "catalogID_example", // String | ID of the catalog.
   'productID': "productID_example", // String | ID of the product.
   'search': "search_example", // String | Word or phrase to search for.
@@ -940,7 +940,7 @@ apiInstance.ListCategories(opts).then(function(data) {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **depth** | **String**| Depth of the category. | [optional] 
+ **depth** | **String**| Indicates how deep down the hierarchy to return results. Valid values are a number of 1 or greater, or &#39;all&#39;. Relative to ParentID if specified. Default is 1. | [optional] 
  **catalogID** | **String**| ID of the catalog. | [optional] 
  **productID** | **String**| ID of the product. | [optional] 
  **search** | **String**| Word or phrase to search for. | [optional] 
@@ -1166,7 +1166,7 @@ var apiInstance = new OrderCloud.Me();
 var opts = { 
   'catalogID': "catalogID_example", // String | ID of the catalog.
   'categoryID': "categoryID_example", // String | ID of the category.
-  'depth': "depth_example", // String | Depth of the product.
+  'depth': "depth_example", // String | Indicates how deep down the category hierarchy to return results. Valid values are a number of 1 or greater, or 'all'. Relative to CategoryID if specified, otherwise top level of the Catalog. Default is 'all'.
   'search': "search_example", // String | Word or phrase to search for.
   'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
   'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
@@ -1188,7 +1188,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **catalogID** | **String**| ID of the catalog. | [optional] 
  **categoryID** | **String**| ID of the category. | [optional] 
- **depth** | **String**| Depth of the product. | [optional] 
+ **depth** | **String**| Indicates how deep down the category hierarchy to return results. Valid values are a number of 1 or greater, or &#39;all&#39;. Relative to CategoryID if specified, otherwise top level of the Catalog. Default is &#39;all&#39;. | [optional] 
  **search** | **String**| Word or phrase to search for. | [optional] 
  **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
  **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 

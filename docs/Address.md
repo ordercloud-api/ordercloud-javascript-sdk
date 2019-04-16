@@ -3,6 +3,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**addressName** | **String** |  | [optional] 
+**city** | **String** |  | [optional] 
 **ID** | **String** |  | [optional] 
 **dateCreated** | **String** |  | [optional] 
 **companyName** | **String** |  | [optional] 
@@ -10,12 +12,10 @@ Name | Type | Description | Notes
 **lastName** | **String** |  | [optional] 
 **street1** | **String** |  | [optional] 
 **street2** | **String** |  | [optional] 
-**city** | **String** |  | [optional] 
 **state** | **String** |  | [optional] 
 **zip** | **String** |  | [optional] 
 **country** | **String** |  | [optional] 
 **phone** | **String** |  | [optional] 
-**addressName** | **String** |  | [optional] 
 **xp** | **Object** |  | [optional] 
 
 
