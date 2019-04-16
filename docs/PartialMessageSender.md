@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **messageTypes** | **[String]** |  | [optional] 
 **description** | **String** |  | [optional] 
 **URL** | **String** |  | [optional] 
-**elevatedRolesList** | **[String]** |  | [optional] 
+**elevatedRoles** | **[String]** |  | [optional] 
 **sharedKey** | **String** |  | [optional] 
 **xp** | **Object** |  | [optional] 
 

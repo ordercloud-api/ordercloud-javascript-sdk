@@ -80,8 +80,8 @@
       if (data.hasOwnProperty('URL')) {
         obj['URL'] = Sdk.convertToType(data['URL'], 'String');
       }
-      if (data.hasOwnProperty('ElevatedRolesList')) {
-        obj['ElevatedRolesList'] = Sdk.convertToType(data['ElevatedRolesList'], ['String']);
+      if (data.hasOwnProperty('ElevatedRoles')) {
+        obj['ElevatedRoles'] = Sdk.convertToType(data['ElevatedRoles'], ['String']);
       }
       if (data.hasOwnProperty('SharedKey')) {
         obj['SharedKey'] = Sdk.convertToType(data['SharedKey'], 'String');
@@ -114,9 +114,9 @@
    */
   exports.prototype['URL'] = undefined;
   /**
-   * @member {Array.<String>} ElevatedRolesList
+   * @member {Array.<String>} ElevatedRoles
    */
-  exports.prototype['ElevatedRolesList'] = undefined;
+  exports.prototype['ElevatedRoles'] = undefined;
   /**
    * @member {String} SharedKey
    */

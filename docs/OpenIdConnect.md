@@ -4,7 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ID** | **String** |  | [optional] 
-**stateHashKey** | **String** |  | [optional] 
 **orderCloudApiClientID** | **String** |  | [optional] 
 **connectClientID** | **String** |  | [optional] 
 **connectClientSecret** | **String** |  | [optional] 
