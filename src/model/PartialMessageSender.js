@@ -23,7 +23,7 @@
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.MessageSender = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.PartialMessageSender = factory(root.OrderCloud.Sdk);
   }
 }(this, function(Sdk) {
   'use strict';
@@ -32,13 +32,13 @@
 
 
   /**
-   * The MessageSender model module.
-   * @module model/MessageSender
+   * The PartialMessageSender model module.
+   * @module model/PartialMessageSender
    */
 
   /**
-   * Constructs a new <code>MessageSender</code>.
-   * @alias module:model/MessageSender
+   * Constructs a new <code>PartialMessageSender</code>.
+   * @alias module:model/PartialMessageSender
    * @class
    */
   var exports = function() {
@@ -55,11 +55,11 @@
   };
 
   /**
-   * Constructs a <code>MessageSender</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>PartialMessageSender</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/MessageSender} obj Optional instance to populate.
-   * @return {module:model/MessageSender} The populated <code>MessageSender</code> instance.
+   * @param {module:model/PartialMessageSender} obj Optional instance to populate.
+   * @return {module:model/PartialMessageSender} The populated <code>PartialMessageSender</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {

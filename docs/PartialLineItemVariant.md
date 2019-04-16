@@ -1,15 +1,15 @@
-# OrderCloud.MessageSender
+# OrderCloud.PartialLineItemVariant
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ID** | **String** |  | [optional] 
 **name** | **String** |  | [optional] 
-**messageTypes** | **[String]** |  | [optional] 
 **description** | **String** |  | [optional] 
-**URL** | **String** |  | [optional] 
-**elevatedRolesList** | **[String]** |  | [optional] 
-**sharedKey** | **String** |  | [optional] 
+**shipWeight** | **Number** |  | [optional] 
+**shipHeight** | **Number** |  | [optional] 
+**shipWidth** | **Number** |  | [optional] 
+**shipLength** | **Number** |  | [optional] 
 **xp** | **Object** |  | [optional] 
 
 

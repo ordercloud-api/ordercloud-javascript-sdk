@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **costCenter** | **String** |  | [optional] 
 **dateNeeded** | **String** |  | [optional] 
 **product** | [**LineItemProduct**](LineItemProduct.md) |  | [optional] 
+**variant** | [**LineItemVariant**](LineItemVariant.md) |  | [optional] 
 **specs** | [**[LineItemSpec]**](LineItemSpec.md) |  | [optional] 
 **xp** | **Object** |  | [optional] 
 

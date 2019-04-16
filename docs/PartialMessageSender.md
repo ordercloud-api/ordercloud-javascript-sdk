@@ -1,4 +1,4 @@
-# OrderCloud.MessageSender
+# OrderCloud.PartialMessageSender
 
 ## Properties
 Name | Type | Description | Notes

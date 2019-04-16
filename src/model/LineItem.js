@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/Address', 'model/LineItemProduct', 'model/LineItemSpec'], factory);
+    define(['Sdk', 'model/Address', 'model/LineItemProduct', 'model/LineItemSpec', 'model/LineItemVariant'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./Address'), require('./LineItemProduct'), require('./LineItemSpec'));
+    module.exports = factory(require('../Sdk'), require('./Address'), require('./LineItemProduct'), require('./LineItemSpec'), require('./LineItemVariant'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.LineItem = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec);
+    root.OrderCloud.LineItem = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.LineItemProduct, root.OrderCloud.LineItemSpec, root.OrderCloud.LineItemVariant);
   }
-}(this, function(Sdk, Address, LineItemProduct, LineItemSpec) {
+}(this, function(Sdk, Address, LineItemProduct, LineItemSpec, LineItemVariant) {
   'use strict';
 
 
@@ -43,6 +43,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -113,6 +114,9 @@
       }
       if (data.hasOwnProperty('Product')) {
         obj['Product'] = LineItemProduct.constructFromObject(data['Product']);
+      }
+      if (data.hasOwnProperty('Variant')) {
+        obj['Variant'] = LineItemVariant.constructFromObject(data['Variant']);
       }
       if (data.hasOwnProperty('ShippingAddress')) {
         obj['ShippingAddress'] = Address.constructFromObject(data['ShippingAddress']);
@@ -185,6 +189,10 @@
    * @member {module:model/LineItemProduct} Product
    */
   exports.prototype['Product'] = undefined;
+  /**
+   * @member {module:model/LineItemVariant} Variant
+   */
+  exports.prototype['Variant'] = undefined;
   /**
    * @member {module:model/Address} ShippingAddress
    */

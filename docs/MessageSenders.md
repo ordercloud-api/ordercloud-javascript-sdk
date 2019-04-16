@@ -4,14 +4,114 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**Create**](MessageSenders.md#Create) | **POST** /messagesenders | 
+[**Delete**](MessageSenders.md#Delete) | **DELETE** /messagesenders/{messageSenderID} | 
 [**DeleteAssignment**](MessageSenders.md#DeleteAssignment) | **DELETE** /messagesenders/{messageSenderID}/assignments | 
 [**Get**](MessageSenders.md#Get) | **GET** /messagesenders/{messageSenderID} | 
 [**List**](MessageSenders.md#List) | **GET** /messagesenders | 
 [**ListAssignments**](MessageSenders.md#ListAssignments) | **GET** /messagesenders/assignments | 
 [**ListCCListenerAssignments**](MessageSenders.md#ListCCListenerAssignments) | **GET** /messagesenders/CCListenerAssignments | 
+[**Patch**](MessageSenders.md#Patch) | **PATCH** /messagesenders/{messageSenderID} | 
+[**Save**](MessageSenders.md#Save) | **PUT** /messagesenders/{messageSenderID} | 
 [**SaveAssignment**](MessageSenders.md#SaveAssignment) | **POST** /messagesenders/assignments | 
 [**SaveCCListenerAssignment**](MessageSenders.md#SaveCCListenerAssignment) | **POST** /messagesenders/CCListenerAssignments | 
 
+
+<a name="Create"></a>
+# **Create**
+> MessageSender Create(messageSender)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.MessageSenders();
+
+var messageSender = new OrderCloud.MessageSender(); // MessageSender | 
+
+apiInstance.Create(messageSender).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **messageSender** | [**MessageSender**](MessageSender.md)|  | 
+
+### Return type
+
+[**MessageSender**](MessageSender.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Delete"></a>
+# **Delete**
+> Delete(messageSenderID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.MessageSenders();
+
+var messageSenderID = "messageSenderID_example"; // String | ID of the message sender.
+
+apiInstance.Delete(messageSenderID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **messageSenderID** | **String**| ID of the message sender. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
 
 <a name="DeleteAssignment"></a>
 # **DeleteAssignment**
@@ -288,6 +388,108 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListMessageCCListenerAssignment**](ListMessageCCListenerAssignment.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Patch"></a>
+# **Patch**
+> MessageSender Patch(messageSenderID, partialMessageSender)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.MessageSenders();
+
+var messageSenderID = "messageSenderID_example"; // String | ID of the message sender.
+
+var partialMessageSender = new OrderCloud.MessageSender(); // MessageSender | 
+
+apiInstance.Patch(messageSenderID, partialMessageSender).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **messageSenderID** | **String**| ID of the message sender. | 
+ **partialMessageSender** | [**MessageSender**](MessageSender.md)|  | 
+
+### Return type
+
+[**MessageSender**](MessageSender.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Save"></a>
+# **Save**
+> MessageSender Save(messageSenderID, messageSender)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.MessageSenders();
+
+var messageSenderID = "messageSenderID_example"; // String | ID of the message sender.
+
+var messageSender = new OrderCloud.MessageSender(); // MessageSender | 
+
+apiInstance.Save(messageSenderID, messageSender).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **messageSenderID** | **String**| ID of the message sender. | 
+ **messageSender** | [**MessageSender**](MessageSender.md)|  | 
+
+### Return type
+
+[**MessageSender**](MessageSender.md)
 
 ### Authorization
 
