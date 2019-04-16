@@ -51,7 +51,6 @@
 
 
 
-
   };
 
   /**
@@ -67,9 +66,6 @@
 
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
-      }
-      if (data.hasOwnProperty('StateHashKey')) {
-        obj['StateHashKey'] = Sdk.convertToType(data['StateHashKey'], 'String');
       }
       if (data.hasOwnProperty('OrderCloudApiClientID')) {
         obj['OrderCloudApiClientID'] = Sdk.convertToType(data['OrderCloudApiClientID'], 'String');
@@ -97,10 +93,6 @@
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
-  /**
-   * @member {String} StateHashKey
-   */
-  exports.prototype['StateHashKey'] = undefined;
   /**
    * @member {String} OrderCloudApiClientID
    */

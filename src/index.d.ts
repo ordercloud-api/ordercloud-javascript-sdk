@@ -600,7 +600,7 @@ export interface MessageSender {
     MessageTypes?: string[];
     Description?: string;
     URL?: string;
-    ElevatedRolesList?: string[];
+    ElevatedRoles?: string[];
     SharedKey?: string;
     xp?: any;
 }
@@ -633,7 +633,6 @@ export interface MetaWithFacets {
 
 export interface OpenIdConnect {
     ID?: string;
-    StateHashKey?: string;
     OrderCloudApiClientID?: string;
     ConnectClientID?: string;
     ConnectClientSecret?: string;
@@ -934,14 +933,13 @@ export interface PartialMessageSender {
     MessageTypes?: string[];
     Description?: string;
     URL?: string;
-    ElevatedRolesList?: string[];
+    ElevatedRoles?: string[];
     SharedKey?: string;
     xp?: any;
 }
 
 export interface PartialOpenIdConnect {
     ID?: string;
-    StateHashKey?: string;
     OrderCloudApiClientID?: string;
     ConnectClientID?: string;
     ConnectClientSecret?: string;
@@ -1019,10 +1017,10 @@ export interface PartialPriceSchedule {
 }
 
 export interface PartialProduct {
+    Description?: string;
     DefaultPriceScheduleID?: string;
     ID?: string;
     Name?: string;
-    Description?: string;
     QuantityMultiplier?: number;
     ShipWeight?: number;
     ShipHeight?: number;
@@ -1215,10 +1213,10 @@ export interface PriceSchedule {
 }
 
 export interface Product {
+    Description?: string;
     DefaultPriceScheduleID?: string;
     ID?: string;
     Name?: string;
-    Description?: string;
     QuantityMultiplier?: number;
     ShipWeight?: number;
     ShipHeight?: number;

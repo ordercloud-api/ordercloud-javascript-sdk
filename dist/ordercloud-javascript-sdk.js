@@ -20652,7 +20652,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * </pre>
    * </p>
    * @module index
-   * @version 3.1.2
+   * @version 3.2.3
    */
   var exports = {
     /**
@@ -30568,8 +30568,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('URL')) {
         obj['URL'] = Sdk.convertToType(data['URL'], 'String');
       }
-      if (data.hasOwnProperty('ElevatedRolesList')) {
-        obj['ElevatedRolesList'] = Sdk.convertToType(data['ElevatedRolesList'], ['String']);
+      if (data.hasOwnProperty('ElevatedRoles')) {
+        obj['ElevatedRoles'] = Sdk.convertToType(data['ElevatedRoles'], ['String']);
       }
       if (data.hasOwnProperty('SharedKey')) {
         obj['SharedKey'] = Sdk.convertToType(data['SharedKey'], 'String');
@@ -30602,9 +30602,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['URL'] = undefined;
   /**
-   * @member {Array.<String>} ElevatedRolesList
+   * @member {Array.<String>} ElevatedRoles
    */
-  exports.prototype['ElevatedRolesList'] = undefined;
+  exports.prototype['ElevatedRoles'] = undefined;
   /**
    * @member {String} SharedKey
    */
@@ -31027,7 +31027,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-
   };
 
   /**
@@ -31043,9 +31042,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
-      }
-      if (data.hasOwnProperty('StateHashKey')) {
-        obj['StateHashKey'] = Sdk.convertToType(data['StateHashKey'], 'String');
       }
       if (data.hasOwnProperty('OrderCloudApiClientID')) {
         obj['OrderCloudApiClientID'] = Sdk.convertToType(data['OrderCloudApiClientID'], 'String');
@@ -31073,10 +31069,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
-  /**
-   * @member {String} StateHashKey
-   */
-  exports.prototype['StateHashKey'] = undefined;
   /**
    * @member {String} OrderCloudApiClientID
    */
@@ -34632,8 +34624,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('URL')) {
         obj['URL'] = Sdk.convertToType(data['URL'], 'String');
       }
-      if (data.hasOwnProperty('ElevatedRolesList')) {
-        obj['ElevatedRolesList'] = Sdk.convertToType(data['ElevatedRolesList'], ['String']);
+      if (data.hasOwnProperty('ElevatedRoles')) {
+        obj['ElevatedRoles'] = Sdk.convertToType(data['ElevatedRoles'], ['String']);
       }
       if (data.hasOwnProperty('SharedKey')) {
         obj['SharedKey'] = Sdk.convertToType(data['SharedKey'], 'String');
@@ -34666,9 +34658,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['URL'] = undefined;
   /**
-   * @member {Array.<String>} ElevatedRolesList
+   * @member {Array.<String>} ElevatedRoles
    */
-  exports.prototype['ElevatedRolesList'] = undefined;
+  exports.prototype['ElevatedRoles'] = undefined;
   /**
    * @member {String} SharedKey
    */
@@ -34739,7 +34731,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-
   };
 
   /**
@@ -34755,9 +34746,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
-      }
-      if (data.hasOwnProperty('StateHashKey')) {
-        obj['StateHashKey'] = Sdk.convertToType(data['StateHashKey'], 'String');
       }
       if (data.hasOwnProperty('OrderCloudApiClientID')) {
         obj['OrderCloudApiClientID'] = Sdk.convertToType(data['OrderCloudApiClientID'], 'String');
@@ -34785,10 +34773,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
-  /**
-   * @member {String} StateHashKey
-   */
-  exports.prototype['StateHashKey'] = undefined;
   /**
    * @member {String} OrderCloudApiClientID
    */
@@ -35681,6 +35665,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
+      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
       }
@@ -35689,9 +35676,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
-      }
-      if (data.hasOwnProperty('Description')) {
-        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('QuantityMultiplier')) {
         obj['QuantityMultiplier'] = Sdk.convertToType(data['QuantityMultiplier'], 'Number');
@@ -35734,6 +35718,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   }
 
   /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
@@ -35745,10 +35733,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Name
    */
   exports.prototype['Name'] = undefined;
-  /**
-   * @member {String} Description
-   */
-  exports.prototype['Description'] = undefined;
   /**
    * @member {Number} QuantityMultiplier
    */
@@ -38113,6 +38097,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
+      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
       }
@@ -38121,9 +38108,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
-      }
-      if (data.hasOwnProperty('Description')) {
-        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('QuantityMultiplier')) {
         obj['QuantityMultiplier'] = Sdk.convertToType(data['QuantityMultiplier'], 'Number');
@@ -38166,6 +38150,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   }
 
   /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
@@ -38177,10 +38165,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Name
    */
   exports.prototype['Name'] = undefined;
-  /**
-   * @member {String} Description
-   */
-  exports.prototype['Description'] = undefined;
   /**
    * @member {Number} QuantityMultiplier
    */

@@ -73,6 +73,9 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
+      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
       }
@@ -81,9 +84,6 @@
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
-      }
-      if (data.hasOwnProperty('Description')) {
-        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('QuantityMultiplier')) {
         obj['QuantityMultiplier'] = Sdk.convertToType(data['QuantityMultiplier'], 'Number');
@@ -126,6 +126,10 @@
   }
 
   /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
+  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
@@ -137,10 +141,6 @@
    * @member {String} Name
    */
   exports.prototype['Name'] = undefined;
-  /**
-   * @member {String} Description
-   */
-  exports.prototype['Description'] = undefined;
   /**
    * @member {Number} QuantityMultiplier
    */
