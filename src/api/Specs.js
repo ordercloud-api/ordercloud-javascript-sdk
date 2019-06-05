@@ -49,7 +49,7 @@
      * @param {module:model/Spec} spec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Create = function(spec) {
+    this.Create = function(spec, accessToken ) {
       var postBody = spec;
 
       // verify the required parameter 'spec' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/specs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -85,7 +84,7 @@
      * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.CreateOption = function(specID, specOption) {
+    this.CreateOption = function(specID, specOption, accessToken ) {
       var postBody = specOption;
 
       // verify the required parameter 'specID' is set
@@ -109,7 +108,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -117,7 +115,7 @@
       return this.sdk.callApi(
         '/specs/{specID}/options', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -126,7 +124,7 @@
      * @param {String} specID ID of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(specID) {
+    this.Delete = function(specID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -145,7 +143,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -153,7 +150,7 @@
       return this.sdk.callApi(
         '/specs/{specID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -163,7 +160,7 @@
      * @param {String} optionID ID of the option.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteOption = function(specID, optionID) {
+    this.DeleteOption = function(specID, optionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -188,7 +185,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -196,7 +192,7 @@
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -206,7 +202,7 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteProductAssignment = function(specID, productID) {
+    this.DeleteProductAssignment = function(specID, productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -231,7 +227,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -239,7 +234,7 @@
       return this.sdk.callApi(
         '/specs/{specID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -248,7 +243,7 @@
      * @param {String} specID ID of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Get = function(specID) {
+    this.Get = function(specID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -267,7 +262,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -275,7 +269,7 @@
       return this.sdk.callApi(
         '/specs/{specID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -285,7 +279,7 @@
      * @param {String} optionID ID of the option.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.GetOption = function(specID, optionID) {
+    this.GetOption = function(specID, optionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -310,7 +304,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -318,7 +311,7 @@
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -333,7 +326,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -353,7 +346,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpec;
@@ -361,7 +353,7 @@
       return this.sdk.callApi(
         '/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -377,7 +369,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecOption}
      */
-    this.ListOptions = function(specID, opts) {
+    this.ListOptions = function(specID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -403,7 +395,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpecOption;
@@ -411,7 +402,7 @@
       return this.sdk.callApi(
         '/specs/{specID}/options', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -426,7 +417,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecProductAssignment}
      */
-    this.ListProductAssignments = function(opts) {
+    this.ListProductAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -446,7 +437,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpecProductAssignment;
@@ -454,7 +444,7 @@
       return this.sdk.callApi(
         '/specs/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -464,7 +454,7 @@
      * @param {module:model/Spec} partialSpec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Patch = function(specID, partialSpec) {
+    this.Patch = function(specID, partialSpec, accessToken ) {
       var postBody = partialSpec;
 
       // verify the required parameter 'specID' is set
@@ -488,7 +478,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -496,7 +485,7 @@
       return this.sdk.callApi(
         '/specs/{specID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -507,7 +496,7 @@
      * @param {module:model/SpecOption} partialSpecOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.PatchOption = function(specID, optionID, partialSpecOption) {
+    this.PatchOption = function(specID, optionID, partialSpecOption, accessToken ) {
       var postBody = partialSpecOption;
 
       // verify the required parameter 'specID' is set
@@ -537,7 +526,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -545,7 +533,7 @@
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -555,7 +543,7 @@
      * @param {module:model/Spec} spec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Save = function(specID, spec) {
+    this.Save = function(specID, spec, accessToken ) {
       var postBody = spec;
 
       // verify the required parameter 'specID' is set
@@ -579,7 +567,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -587,7 +574,7 @@
       return this.sdk.callApi(
         '/specs/{specID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -598,7 +585,7 @@
      * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.SaveOption = function(specID, optionID, specOption) {
+    this.SaveOption = function(specID, optionID, specOption, accessToken ) {
       var postBody = specOption;
 
       // verify the required parameter 'specID' is set
@@ -628,7 +615,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -636,7 +622,7 @@
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -645,7 +631,7 @@
      * @param {module:model/SpecProductAssignment} specProductAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(specProductAssignment) {
+    this.SaveProductAssignment = function(specProductAssignment, accessToken ) {
       var postBody = specProductAssignment;
 
       // verify the required parameter 'specProductAssignment' is set
@@ -663,7 +649,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -671,7 +656,7 @@
       return this.sdk.callApi(
         '/specs/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

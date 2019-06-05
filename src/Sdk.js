@@ -279,46 +279,23 @@
   /**
    * Applies authentication headers to the request.
    * @param {Object} request The request object created by a <code>superagent()</code> call.
-   * @param {Array.<String>} authNames An array of authentication method names.
+   * @param {String} accessToken An alternative token to the one stored in the sdk instance (useful for impersonation)
    */
-  exports.prototype.applyAuthToRequest = function(request, authNames) {
+  exports.prototype.applyAuthToRequest = function(request, accessToken) {
     var _this = this;
-    authNames.forEach(function(authName) {
-      var auth = _this.authentications[authName];
-      switch (auth.type) {
-        case 'basic':
-          if (auth.username || auth.password) {
-            request.auth(auth.username || '', auth.password || '');
-          }
-          break;
-        case 'apiKey':
-          if (auth.apiKey) {
-            var data = {};
-            if (auth.apiKeyPrefix) {
-              data[auth.name] = auth.apiKeyPrefix + ' ' + auth.apiKey;
-            } else {
-              data[auth.name] = auth.apiKey;
-            }
-            if (auth['in'] === 'header') {
-              request.set(data);
-            } else {
-              request.query(data);
-            }
-          }
-          break;
-        case 'oauth2':
-          if (auth.accessToken) {
-            if (!_this.impersonation) {
-              request.set({'Authorization': 'Bearer ' + auth.accessToken});
-            } else {
-              request.set({'Authorization': 'Bearer ' + auth.impersonationToken});
-            }
-          }
-          break;
-        default:
-          throw new Error('Unknown authentication type: ' + auth.type);
-      }
-    });
+    var auth = _this.authentications['oauth2'];
+    var token;
+
+    if(accessToken) {
+      token = accessToken;
+    } else if(_this.impersonation) {
+      token = auth.impersonationToken;
+    } else {
+      token = auth.accessToken;
+    }
+
+    _this.impersonation = false; // reset impersonation boolean
+    request.set({'Authorization': 'Bearer ' + token});
   };
 
   /**
@@ -353,23 +330,23 @@
    * @param {Object.<String, Object>} headerParams A map of header parameters and their values.
    * @param {Object.<String, Object>} formParams A map of form parameters and their values.
    * @param {Object} bodyParam The value to pass as the request body.
-   * @param {Array.<String>} authNames An array of authentication type names.
    * @param {Array.<String>} contentTypes An array of request MIME types.
    * @param {Array.<String>} accepts An array of acceptable response MIME types.
    * @param {(String|Array|ObjectFunction)} returnType The required type to return; can be a string for simple types or the
    * constructor for a complex type.
+   * @param {String} accessToken An alternative token to the one stored in the sdk instance (useful for impersonation)
    * @returns {Promise} A {@link https://www.promisejs.org/|Promise} object.
    */
   exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
-      queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts,
-      returnType) {
+      queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
+      returnType, accessToken) {
 
     var _this = this;
     var url = this.buildUrl(path, pathParams);
     var request = superagent(httpMethod, url);
 
     // apply authentications
-    this.applyAuthToRequest(request, authNames);
+    this.applyAuthToRequest(request, accessToken);
 
     // set query parameters
     request.query(this.normalizeParams(queryParams));
@@ -422,13 +399,9 @@
     return new Promise(function(resolve, reject) {
       request.end(function(error, response) {
         if (error) {
-          // reset impersonation boolean
-          _this.impersonation = false;
           reject(error);
         } else {
           var data = _this.deserialize(response, returnType);
-          // reset impersonation boolean
-          _this.impersonation = false;
           resolve(data);
         }
       });
@@ -436,7 +409,7 @@
   };
 
 exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
-      queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts,
+      queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
       returnType) {
 
     var _this = this;

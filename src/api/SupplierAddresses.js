@@ -50,7 +50,7 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Create = function(supplierID, address) {
+    this.Create = function(supplierID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'supplierID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(supplierID, addressID) {
+    this.Delete = function(supplierID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -135,7 +133,7 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(supplierID, addressID) {
+    this.Get = function(supplierID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -160,7 +158,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -168,7 +165,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -184,7 +181,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(supplierID, opts) {
+    this.List = function(supplierID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -210,7 +207,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListAddress;
@@ -218,7 +214,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -229,7 +225,7 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(supplierID, addressID, partialAddress) {
+    this.Patch = function(supplierID, addressID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'supplierID' is set
@@ -259,7 +255,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -267,7 +262,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -278,7 +273,7 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(supplierID, addressID, address) {
+    this.Save = function(supplierID, addressID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'supplierID' is set
@@ -308,7 +303,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -316,7 +310,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

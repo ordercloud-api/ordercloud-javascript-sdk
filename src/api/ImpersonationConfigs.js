@@ -49,7 +49,7 @@
      * @param {module:model/ImpersonationConfig} impersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Create = function(impersonationConfig) {
+    this.Create = function(impersonationConfig, accessToken ) {
       var postBody = impersonationConfig;
 
       // verify the required parameter 'impersonationConfig' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/impersonationconfig', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} impersonationConfigID ID of the impersonation config.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(impersonationConfigID) {
+    this.Delete = function(impersonationConfigID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -120,7 +118,7 @@
      * @param {String} impersonationConfigID ID of the impersonation config.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Get = function(impersonationConfigID) {
+    this.Get = function(impersonationConfigID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -139,7 +137,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -147,7 +144,7 @@
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -162,7 +159,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListImpersonationConfig}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -182,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListImpersonationConfig;
@@ -190,7 +186,7 @@
       return this.sdk.callApi(
         '/impersonationconfig', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -200,7 +196,7 @@
      * @param {module:model/ImpersonationConfig} partialImpersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Patch = function(impersonationConfigID, partialImpersonationConfig) {
+    this.Patch = function(impersonationConfigID, partialImpersonationConfig, accessToken ) {
       var postBody = partialImpersonationConfig;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -224,7 +220,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -232,7 +227,7 @@
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -242,7 +237,7 @@
      * @param {module:model/ImpersonationConfig} impersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Save = function(impersonationConfigID, impersonationConfig) {
+    this.Save = function(impersonationConfigID, impersonationConfig, accessToken ) {
       var postBody = impersonationConfig;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -266,7 +261,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -274,7 +268,7 @@
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

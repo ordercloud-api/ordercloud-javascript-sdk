@@ -50,7 +50,7 @@
      * @param {module:model/CostCenter} costCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Create = function(buyerID, costCenter) {
+    this.Create = function(buyerID, costCenter, accessToken ) {
       var postBody = costCenter;
 
       // verify the required parameter 'buyerID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} costCenterID ID of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, costCenterID) {
+    this.Delete = function(buyerID, costCenterID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -138,7 +136,7 @@
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, costCenterID, opts) {
+    this.DeleteAssignment = function(buyerID, costCenterID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -166,7 +164,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -174,7 +171,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -184,7 +181,7 @@
      * @param {String} costCenterID ID of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Get = function(buyerID, costCenterID) {
+    this.Get = function(buyerID, costCenterID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -209,7 +206,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -217,7 +213,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -233,7 +229,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -259,7 +255,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCostCenter;
@@ -267,7 +262,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -283,7 +278,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenterAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -309,7 +304,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCostCenterAssignment;
@@ -317,7 +311,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -328,7 +322,7 @@
      * @param {module:model/CostCenter} partialCostCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Patch = function(buyerID, costCenterID, partialCostCenter) {
+    this.Patch = function(buyerID, costCenterID, partialCostCenter, accessToken ) {
       var postBody = partialCostCenter;
 
       // verify the required parameter 'buyerID' is set
@@ -358,7 +352,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -366,7 +359,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -377,7 +370,7 @@
      * @param {module:model/CostCenter} costCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Save = function(buyerID, costCenterID, costCenter) {
+    this.Save = function(buyerID, costCenterID, costCenter, accessToken ) {
       var postBody = costCenter;
 
       // verify the required parameter 'buyerID' is set
@@ -407,7 +400,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -415,7 +407,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -425,7 +417,7 @@
      * @param {module:model/CostCenterAssignment} costCenterAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, costCenterAssignment) {
+    this.SaveAssignment = function(buyerID, costCenterAssignment, accessToken ) {
       var postBody = costCenterAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -449,7 +441,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -457,7 +448,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

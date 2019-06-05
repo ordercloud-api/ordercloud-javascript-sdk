@@ -49,7 +49,7 @@
      * @param {module:model/OpenIdConnect} openIdConnect 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Create = function(openIdConnect) {
+    this.Create = function(openIdConnect, accessToken ) {
       var postBody = openIdConnect;
 
       // verify the required parameter 'openIdConnect' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/openidconnects', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} openidconnectID ID of the openidconnect.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(openidconnectID) {
+    this.Delete = function(openidconnectID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'openidconnectID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -120,7 +118,7 @@
      * @param {String} openidconnectID ID of the openidconnect.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Get = function(openidconnectID) {
+    this.Get = function(openidconnectID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'openidconnectID' is set
@@ -139,7 +137,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -147,7 +144,7 @@
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -162,7 +159,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOpenIdConnect}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -182,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOpenIdConnect;
@@ -190,7 +186,7 @@
       return this.sdk.callApi(
         '/openidconnects', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -200,7 +196,7 @@
      * @param {module:model/OpenIdConnect} partialOpenIdConnect 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Patch = function(openidconnectID, partialOpenIdConnect) {
+    this.Patch = function(openidconnectID, partialOpenIdConnect, accessToken ) {
       var postBody = partialOpenIdConnect;
 
       // verify the required parameter 'openidconnectID' is set
@@ -224,7 +220,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -232,7 +227,7 @@
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -242,7 +237,7 @@
      * @param {module:model/OpenIdConnect} openIdConnect 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Save = function(openidconnectID, openIdConnect) {
+    this.Save = function(openidconnectID, openIdConnect, accessToken ) {
       var postBody = openIdConnect;
 
       // verify the required parameter 'openidconnectID' is set
@@ -266,7 +261,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -274,7 +268,7 @@
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

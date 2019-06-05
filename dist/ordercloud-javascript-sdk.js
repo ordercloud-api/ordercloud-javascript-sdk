@@ -4332,46 +4332,23 @@ exports.cleanHeader = function(header, changesOrigin){
   /**
    * Applies authentication headers to the request.
    * @param {Object} request The request object created by a <code>superagent()</code> call.
-   * @param {Array.<String>} authNames An array of authentication method names.
+   * @param {String} accessToken An alternative token to the one stored in the sdk instance (useful for impersonation)
    */
-  exports.prototype.applyAuthToRequest = function(request, authNames) {
+  exports.prototype.applyAuthToRequest = function(request, accessToken) {
     var _this = this;
-    authNames.forEach(function(authName) {
-      var auth = _this.authentications[authName];
-      switch (auth.type) {
-        case 'basic':
-          if (auth.username || auth.password) {
-            request.auth(auth.username || '', auth.password || '');
-          }
-          break;
-        case 'apiKey':
-          if (auth.apiKey) {
-            var data = {};
-            if (auth.apiKeyPrefix) {
-              data[auth.name] = auth.apiKeyPrefix + ' ' + auth.apiKey;
-            } else {
-              data[auth.name] = auth.apiKey;
-            }
-            if (auth['in'] === 'header') {
-              request.set(data);
-            } else {
-              request.query(data);
-            }
-          }
-          break;
-        case 'oauth2':
-          if (auth.accessToken) {
-            if (!_this.impersonation) {
-              request.set({'Authorization': 'Bearer ' + auth.accessToken});
-            } else {
-              request.set({'Authorization': 'Bearer ' + auth.impersonationToken});
-            }
-          }
-          break;
-        default:
-          throw new Error('Unknown authentication type: ' + auth.type);
-      }
-    });
+    var auth = _this.authentications['oauth2'];
+    var token;
+
+    if(accessToken) {
+      token = accessToken;
+    } else if(_this.impersonation) {
+      token = auth.impersonationToken;
+    } else {
+      token = auth.accessToken;
+    }
+
+    _this.impersonation = false; // reset impersonation boolean
+    request.set({'Authorization': 'Bearer ' + token});
   };
 
   /**
@@ -4406,23 +4383,23 @@ exports.cleanHeader = function(header, changesOrigin){
    * @param {Object.<String, Object>} headerParams A map of header parameters and their values.
    * @param {Object.<String, Object>} formParams A map of form parameters and their values.
    * @param {Object} bodyParam The value to pass as the request body.
-   * @param {Array.<String>} authNames An array of authentication type names.
    * @param {Array.<String>} contentTypes An array of request MIME types.
    * @param {Array.<String>} accepts An array of acceptable response MIME types.
    * @param {(String|Array|ObjectFunction)} returnType The required type to return; can be a string for simple types or the
    * constructor for a complex type.
+   * @param {String} accessToken An alternative token to the one stored in the sdk instance (useful for impersonation)
    * @returns {Promise} A {@link https://www.promisejs.org/|Promise} object.
    */
   exports.prototype.callApi = function callApi(path, httpMethod, pathParams,
-      queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts,
-      returnType) {
+      queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
+      returnType, accessToken) {
 
     var _this = this;
     var url = this.buildUrl(path, pathParams);
     var request = superagent(httpMethod, url);
 
     // apply authentications
-    this.applyAuthToRequest(request, authNames);
+    this.applyAuthToRequest(request, accessToken);
 
     // set query parameters
     request.query(this.normalizeParams(queryParams));
@@ -4475,13 +4452,9 @@ exports.cleanHeader = function(header, changesOrigin){
     return new Promise(function(resolve, reject) {
       request.end(function(error, response) {
         if (error) {
-          // reset impersonation boolean
-          _this.impersonation = false;
           reject(error);
         } else {
           var data = _this.deserialize(response, returnType);
-          // reset impersonation boolean
-          _this.impersonation = false;
           resolve(data);
         }
       });
@@ -4489,7 +4462,7 @@ exports.cleanHeader = function(header, changesOrigin){
   };
 
 exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
-      queryParams, headerParams, formParams, bodyParam, authNames, contentTypes, accepts,
+      queryParams, headerParams, formParams, bodyParam, contentTypes, accepts,
       returnType) {
 
     var _this = this;
@@ -4707,7 +4680,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Create = function(buyerID, address) {
+    this.Create = function(buyerID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'buyerID' is set
@@ -4731,7 +4704,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -4739,7 +4711,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -4749,7 +4721,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, addressID) {
+    this.Delete = function(buyerID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -4774,7 +4746,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -4782,7 +4753,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -4795,7 +4766,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, addressID, opts) {
+    this.DeleteAssignment = function(buyerID, addressID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -4823,7 +4794,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -4831,7 +4801,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -4841,7 +4811,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(buyerID, addressID) {
+    this.Get = function(buyerID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -4866,7 +4836,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -4874,7 +4843,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -4890,7 +4859,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -4916,7 +4885,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListAddress;
@@ -4924,7 +4892,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -4942,7 +4910,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddressAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -4970,7 +4938,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListAddressAssignment;
@@ -4978,7 +4945,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -4989,7 +4956,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(buyerID, addressID, partialAddress) {
+    this.Patch = function(buyerID, addressID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'buyerID' is set
@@ -5019,7 +4986,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -5027,7 +4993,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5038,7 +5004,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(buyerID, addressID, address) {
+    this.Save = function(buyerID, addressID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'buyerID' is set
@@ -5068,7 +5034,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -5076,7 +5041,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5086,7 +5051,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/AddressAssignment} addressAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, addressAssignment) {
+    this.SaveAssignment = function(buyerID, addressAssignment, accessToken ) {
       var postBody = addressAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -5110,7 +5075,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -5118,7 +5082,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -5178,7 +5142,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Create = function(address) {
+    this.Create = function(address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'address' is set
@@ -5196,7 +5160,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -5204,7 +5167,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5213,7 +5176,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(addressID) {
+    this.Delete = function(addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
@@ -5232,7 +5195,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -5240,7 +5202,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5249,7 +5211,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(addressID) {
+    this.Get = function(addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
@@ -5268,7 +5230,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -5276,7 +5237,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5291,7 +5252,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -5311,7 +5272,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListAddress;
@@ -5319,7 +5279,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5329,7 +5289,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(addressID, partialAddress) {
+    this.Patch = function(addressID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'addressID' is set
@@ -5353,7 +5313,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -5361,7 +5320,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5371,7 +5330,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(addressID, address) {
+    this.Save = function(addressID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'addressID' is set
@@ -5395,7 +5354,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -5403,7 +5361,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -5463,7 +5421,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Create = function(userGroup) {
+    this.Create = function(userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'userGroup' is set
@@ -5481,7 +5439,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -5489,7 +5446,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5498,7 +5455,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(userGroupID) {
+    this.Delete = function(userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
@@ -5517,7 +5474,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -5525,7 +5481,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5535,7 +5491,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteUserAssignment = function(userGroupID, userID) {
+    this.DeleteUserAssignment = function(userGroupID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
@@ -5560,7 +5516,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -5568,7 +5523,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups/{userGroupID}/assignments/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5577,7 +5532,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Get = function(userGroupID) {
+    this.Get = function(userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
@@ -5596,7 +5551,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -5604,7 +5558,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5619,7 +5573,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -5639,7 +5593,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
@@ -5647,7 +5600,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5660,7 +5613,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
-    this.ListUserAssignments = function(opts) {
+    this.ListUserAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -5678,7 +5631,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroupAssignment;
@@ -5686,7 +5638,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5696,7 +5648,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Patch = function(userGroupID, partialUserGroup) {
+    this.Patch = function(userGroupID, partialUserGroup, accessToken ) {
       var postBody = partialUserGroup;
 
       // verify the required parameter 'userGroupID' is set
@@ -5720,7 +5672,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -5728,7 +5679,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5738,7 +5689,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Save = function(userGroupID, userGroup) {
+    this.Save = function(userGroupID, userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'userGroupID' is set
@@ -5762,7 +5713,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -5770,7 +5720,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5779,7 +5729,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroupAssignment} userGroupAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveUserAssignment = function(userGroupAssignment) {
+    this.SaveUserAssignment = function(userGroupAssignment, accessToken ) {
       var postBody = userGroupAssignment;
 
       // verify the required parameter 'userGroupAssignment' is set
@@ -5797,7 +5747,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -5805,7 +5754,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/usergroups/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -5865,7 +5814,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Create = function(user) {
+    this.Create = function(user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'user' is set
@@ -5883,7 +5832,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -5891,7 +5839,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/adminusers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5900,7 +5848,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(userID) {
+    this.Delete = function(userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userID' is set
@@ -5919,7 +5867,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -5927,7 +5874,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/adminusers/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5936,7 +5883,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Get = function(userID) {
+    this.Get = function(userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userID' is set
@@ -5955,7 +5902,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -5963,7 +5909,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/adminusers/{userID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -5978,7 +5924,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -5998,7 +5944,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -6006,7 +5951,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/adminusers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6016,7 +5961,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(userID, partialUser) {
+    this.Patch = function(userID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'userID' is set
@@ -6040,7 +5985,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -6048,7 +5992,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/adminusers/{userID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6058,7 +6002,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Save = function(userID, user) {
+    this.Save = function(userID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'userID' is set
@@ -6082,7 +6026,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -6090,7 +6033,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/adminusers/{userID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -6150,7 +6093,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ApiClient} apiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Create = function(apiClient) {
+    this.Create = function(apiClient, accessToken ) {
       var postBody = apiClient;
 
       // verify the required parameter 'apiClient' is set
@@ -6168,7 +6111,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -6176,7 +6118,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6185,7 +6127,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} apiClientID ID of the api client.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(apiClientID) {
+    this.Delete = function(apiClientID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -6204,7 +6146,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -6212,7 +6153,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6222,7 +6163,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} buyerID ID of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteBuyerAssignment = function(apiClientID, buyerID) {
+    this.DeleteBuyerAssignment = function(apiClientID, buyerID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -6247,7 +6188,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -6255,7 +6195,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/ApiClients/Assignments/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6265,7 +6205,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteSupplierAssignment = function(apiClientID, supplierID) {
+    this.DeleteSupplierAssignment = function(apiClientID, supplierID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -6290,7 +6230,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -6298,7 +6237,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/ApiClients/Assignments/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6307,7 +6246,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} apiClientID ID of the api client.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Get = function(apiClientID) {
+    this.Get = function(apiClientID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -6326,7 +6265,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -6334,7 +6272,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6349,7 +6287,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApiClient}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -6369,7 +6307,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListApiClient;
@@ -6377,7 +6314,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6391,7 +6328,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApiClientAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -6410,7 +6347,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListApiClientAssignment;
@@ -6418,7 +6354,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6428,7 +6364,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ApiClient} partialApiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Patch = function(apiClientID, partialApiClient) {
+    this.Patch = function(apiClientID, partialApiClient, accessToken ) {
       var postBody = partialApiClient;
 
       // verify the required parameter 'apiClientID' is set
@@ -6452,7 +6388,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -6460,7 +6395,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6470,7 +6405,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ApiClient} apiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Save = function(apiClientID, apiClient) {
+    this.Save = function(apiClientID, apiClient, accessToken ) {
       var postBody = apiClient;
 
       // verify the required parameter 'apiClientID' is set
@@ -6494,7 +6429,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -6502,7 +6436,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6511,7 +6445,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ApiClientAssignment} apiClientAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(apiClientAssignment) {
+    this.SaveAssignment = function(apiClientAssignment, accessToken ) {
       var postBody = apiClientAssignment;
 
       // verify the required parameter 'apiClientAssignment' is set
@@ -6529,7 +6463,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -6537,7 +6470,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/apiclients/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -6598,7 +6531,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ApprovalRule} approvalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Create = function(buyerID, approvalRule) {
+    this.Create = function(buyerID, approvalRule, accessToken ) {
       var postBody = approvalRule;
 
       // verify the required parameter 'buyerID' is set
@@ -6622,7 +6555,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -6630,7 +6562,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6640,7 +6572,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} approvalRuleID ID of the approval rule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, approvalRuleID) {
+    this.Delete = function(buyerID, approvalRuleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -6665,7 +6597,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -6673,7 +6604,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6683,7 +6614,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} approvalRuleID ID of the approval rule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Get = function(buyerID, approvalRuleID) {
+    this.Get = function(buyerID, approvalRuleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -6708,7 +6639,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -6716,7 +6646,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6732,7 +6662,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApprovalRule}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -6758,7 +6688,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListApprovalRule;
@@ -6766,7 +6695,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6777,7 +6706,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ApprovalRule} partialApprovalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Patch = function(buyerID, approvalRuleID, partialApprovalRule) {
+    this.Patch = function(buyerID, approvalRuleID, partialApprovalRule, accessToken ) {
       var postBody = partialApprovalRule;
 
       // verify the required parameter 'buyerID' is set
@@ -6807,7 +6736,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -6815,7 +6743,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -6826,7 +6754,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ApprovalRule} approvalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Save = function(buyerID, approvalRuleID, approvalRule) {
+    this.Save = function(buyerID, approvalRuleID, approvalRule, accessToken ) {
       var postBody = approvalRule;
 
       // verify the required parameter 'buyerID' is set
@@ -6856,7 +6784,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -6864,7 +6791,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -6949,7 +6876,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -6957,7 +6883,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );         
         }
 
@@ -6996,7 +6922,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -7004,7 +6929,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );  
         }
 
@@ -7033,7 +6958,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -7041,7 +6965,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             ); 
         }
 
@@ -7070,7 +6994,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -7078,7 +7001,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );
         }
 
@@ -7102,7 +7025,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -7110,7 +7032,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );
         }
     };
@@ -7169,7 +7091,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Buyer} buyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.Create = function(buyer) {
+    this.Create = function(buyer, accessToken ) {
       var postBody = buyer;
 
       // verify the required parameter 'buyer' is set
@@ -7187,7 +7109,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Buyer;
@@ -7195,7 +7116,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7204,7 +7125,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} buyerID ID of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID) {
+    this.Delete = function(buyerID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -7223,7 +7144,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -7231,7 +7151,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7240,7 +7160,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} buyerID ID of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.Get = function(buyerID) {
+    this.Get = function(buyerID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -7259,7 +7179,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Buyer;
@@ -7267,7 +7186,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7282,7 +7201,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyer}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -7302,7 +7221,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyer;
@@ -7310,7 +7228,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7320,7 +7238,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Buyer} partialBuyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.Patch = function(buyerID, partialBuyer) {
+    this.Patch = function(buyerID, partialBuyer, accessToken ) {
       var postBody = partialBuyer;
 
       // verify the required parameter 'buyerID' is set
@@ -7344,7 +7262,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Buyer;
@@ -7352,7 +7269,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7362,7 +7279,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Buyer} buyer 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Buyer}
      */
-    this.Save = function(buyerID, buyer) {
+    this.Save = function(buyerID, buyer, accessToken ) {
       var postBody = buyer;
 
       // verify the required parameter 'buyerID' is set
@@ -7386,7 +7303,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Buyer;
@@ -7394,7 +7310,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -7454,7 +7370,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Catalog} catalog 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Create = function(catalog) {
+    this.Create = function(catalog, accessToken ) {
       var postBody = catalog;
 
       // verify the required parameter 'catalog' is set
@@ -7472,7 +7388,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -7480,7 +7395,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7489,7 +7404,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(catalogID) {
+    this.Delete = function(catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -7508,7 +7423,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -7516,7 +7430,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7526,7 +7440,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} buyerID ID of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(catalogID, buyerID) {
+    this.DeleteAssignment = function(catalogID, buyerID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -7551,7 +7465,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -7559,7 +7472,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7569,7 +7482,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteProductAssignment = function(catalogID, productID) {
+    this.DeleteProductAssignment = function(catalogID, productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -7594,7 +7507,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -7602,7 +7514,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7611,7 +7523,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Get = function(catalogID) {
+    this.Get = function(catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -7630,7 +7542,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -7638,7 +7549,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7653,7 +7564,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -7673,7 +7584,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCatalog;
@@ -7681,7 +7591,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7694,7 +7604,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalogAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -7712,7 +7622,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCatalogAssignment;
@@ -7720,7 +7629,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7733,7 +7642,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductCatalogAssignment}
      */
-    this.ListProductAssignments = function(opts) {
+    this.ListProductAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -7751,7 +7660,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListProductCatalogAssignment;
@@ -7759,7 +7667,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7769,7 +7677,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Catalog} partialCatalog 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Patch = function(catalogID, partialCatalog) {
+    this.Patch = function(catalogID, partialCatalog, accessToken ) {
       var postBody = partialCatalog;
 
       // verify the required parameter 'catalogID' is set
@@ -7793,7 +7701,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -7801,7 +7708,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7811,7 +7718,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Catalog} catalog 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Save = function(catalogID, catalog) {
+    this.Save = function(catalogID, catalog, accessToken ) {
       var postBody = catalog;
 
       // verify the required parameter 'catalogID' is set
@@ -7835,7 +7742,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -7843,7 +7749,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7852,7 +7758,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CatalogAssignment} catalogAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(catalogAssignment) {
+    this.SaveAssignment = function(catalogAssignment, accessToken ) {
       var postBody = catalogAssignment;
 
       // verify the required parameter 'catalogAssignment' is set
@@ -7870,7 +7776,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -7878,7 +7783,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -7887,7 +7792,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ProductCatalogAssignment} productCatalogAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(productCatalogAssignment) {
+    this.SaveProductAssignment = function(productCatalogAssignment, accessToken ) {
       var postBody = productCatalogAssignment;
 
       // verify the required parameter 'productCatalogAssignment' is set
@@ -7905,7 +7810,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -7913,7 +7817,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -7974,7 +7878,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Category} category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Create = function(catalogID, category) {
+    this.Create = function(catalogID, category, accessToken ) {
       var postBody = category;
 
       // verify the required parameter 'catalogID' is set
@@ -7998,7 +7902,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -8006,7 +7909,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8016,7 +7919,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} categoryID ID of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(catalogID, categoryID) {
+    this.Delete = function(catalogID, categoryID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -8041,7 +7944,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8049,7 +7951,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8063,7 +7965,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(catalogID, categoryID, buyerID, opts) {
+    this.DeleteAssignment = function(catalogID, categoryID, buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -8097,7 +7999,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8105,7 +8006,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8116,7 +8017,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteProductAssignment = function(catalogID, categoryID, productID) {
+    this.DeleteProductAssignment = function(catalogID, categoryID, productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -8147,7 +8048,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8155,7 +8055,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8165,7 +8065,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} categoryID ID of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Get = function(catalogID, categoryID) {
+    this.Get = function(catalogID, categoryID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -8190,7 +8090,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -8198,7 +8097,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8215,7 +8114,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
-    this.List = function(catalogID, opts) {
+    this.List = function(catalogID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -8242,7 +8141,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategory;
@@ -8250,7 +8148,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8267,7 +8165,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryAssignment}
      */
-    this.ListAssignments = function(catalogID, opts) {
+    this.ListAssignments = function(catalogID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -8294,7 +8192,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategoryAssignment;
@@ -8302,7 +8199,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8316,7 +8213,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryProductAssignment}
      */
-    this.ListProductAssignments = function(catalogID, opts) {
+    this.ListProductAssignments = function(catalogID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -8340,7 +8237,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategoryProductAssignment;
@@ -8348,7 +8244,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8359,7 +8255,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Category} partialCategory 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Patch = function(catalogID, categoryID, partialCategory) {
+    this.Patch = function(catalogID, categoryID, partialCategory, accessToken ) {
       var postBody = partialCategory;
 
       // verify the required parameter 'catalogID' is set
@@ -8389,7 +8285,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -8397,7 +8292,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8408,7 +8303,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Category} category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Save = function(catalogID, categoryID, category) {
+    this.Save = function(catalogID, categoryID, category, accessToken ) {
       var postBody = category;
 
       // verify the required parameter 'catalogID' is set
@@ -8438,7 +8333,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -8446,7 +8340,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8456,7 +8350,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CategoryAssignment} categoryAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(catalogID, categoryAssignment) {
+    this.SaveAssignment = function(catalogID, categoryAssignment, accessToken ) {
       var postBody = categoryAssignment;
 
       // verify the required parameter 'catalogID' is set
@@ -8480,7 +8374,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8488,7 +8381,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8498,7 +8391,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CategoryProductAssignment} categoryProductAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(catalogID, categoryProductAssignment) {
+    this.SaveProductAssignment = function(catalogID, categoryProductAssignment, accessToken ) {
       var postBody = categoryProductAssignment;
 
       // verify the required parameter 'catalogID' is set
@@ -8522,7 +8415,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8530,7 +8422,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -8591,7 +8483,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CostCenter} costCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Create = function(buyerID, costCenter) {
+    this.Create = function(buyerID, costCenter, accessToken ) {
       var postBody = costCenter;
 
       // verify the required parameter 'buyerID' is set
@@ -8615,7 +8507,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -8623,7 +8514,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8633,7 +8524,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} costCenterID ID of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, costCenterID) {
+    this.Delete = function(buyerID, costCenterID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -8658,7 +8549,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8666,7 +8556,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8679,7 +8569,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, costCenterID, opts) {
+    this.DeleteAssignment = function(buyerID, costCenterID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -8707,7 +8597,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8715,7 +8604,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8725,7 +8614,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} costCenterID ID of the cost center.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Get = function(buyerID, costCenterID) {
+    this.Get = function(buyerID, costCenterID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -8750,7 +8639,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -8758,7 +8646,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8774,7 +8662,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -8800,7 +8688,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCostCenter;
@@ -8808,7 +8695,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8824,7 +8711,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenterAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -8850,7 +8737,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCostCenterAssignment;
@@ -8858,7 +8744,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8869,7 +8755,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CostCenter} partialCostCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Patch = function(buyerID, costCenterID, partialCostCenter) {
+    this.Patch = function(buyerID, costCenterID, partialCostCenter, accessToken ) {
       var postBody = partialCostCenter;
 
       // verify the required parameter 'buyerID' is set
@@ -8899,7 +8785,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -8907,7 +8792,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8918,7 +8803,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CostCenter} costCenter 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CostCenter}
      */
-    this.Save = function(buyerID, costCenterID, costCenter) {
+    this.Save = function(buyerID, costCenterID, costCenter, accessToken ) {
       var postBody = costCenter;
 
       // verify the required parameter 'buyerID' is set
@@ -8948,7 +8833,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CostCenter;
@@ -8956,7 +8840,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/{costCenterID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -8966,7 +8850,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CostCenterAssignment} costCenterAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, costCenterAssignment) {
+    this.SaveAssignment = function(buyerID, costCenterAssignment, accessToken ) {
       var postBody = costCenterAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -8990,7 +8874,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -8998,7 +8881,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/costcenters/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -9059,7 +8942,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CreditCard} creditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Create = function(buyerID, creditCard) {
+    this.Create = function(buyerID, creditCard, accessToken ) {
       var postBody = creditCard;
 
       // verify the required parameter 'buyerID' is set
@@ -9083,7 +8966,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -9091,7 +8973,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9101,7 +8983,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} creditCardID ID of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, creditCardID) {
+    this.Delete = function(buyerID, creditCardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -9126,7 +9008,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -9134,7 +9015,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9147,7 +9028,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, creditCardID, opts) {
+    this.DeleteAssignment = function(buyerID, creditCardID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -9175,7 +9056,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -9183,7 +9063,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9193,7 +9073,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} creditCardID ID of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Get = function(buyerID, creditCardID) {
+    this.Get = function(buyerID, creditCardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -9218,7 +9098,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -9226,7 +9105,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9242,7 +9121,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCard}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -9268,7 +9147,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCreditCard;
@@ -9276,7 +9154,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9292,7 +9170,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCardAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -9318,7 +9196,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCreditCardAssignment;
@@ -9326,7 +9203,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9337,7 +9214,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CreditCard} partialCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Patch = function(buyerID, creditCardID, partialCreditCard) {
+    this.Patch = function(buyerID, creditCardID, partialCreditCard, accessToken ) {
       var postBody = partialCreditCard;
 
       // verify the required parameter 'buyerID' is set
@@ -9367,7 +9244,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -9375,7 +9251,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9386,7 +9262,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CreditCard} creditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Save = function(buyerID, creditCardID, creditCard) {
+    this.Save = function(buyerID, creditCardID, creditCard, accessToken ) {
       var postBody = creditCard;
 
       // verify the required parameter 'buyerID' is set
@@ -9416,7 +9292,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -9424,7 +9299,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9434,7 +9309,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/CreditCardAssignment} creditCardAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, creditCardAssignment) {
+    this.SaveAssignment = function(buyerID, creditCardAssignment, accessToken ) {
       var postBody = creditCardAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -9458,7 +9333,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -9466,7 +9340,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -9526,7 +9400,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ImpersonationConfig} impersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Create = function(impersonationConfig) {
+    this.Create = function(impersonationConfig, accessToken ) {
       var postBody = impersonationConfig;
 
       // verify the required parameter 'impersonationConfig' is set
@@ -9544,7 +9418,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -9552,7 +9425,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/impersonationconfig', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9561,7 +9434,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} impersonationConfigID ID of the impersonation config.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(impersonationConfigID) {
+    this.Delete = function(impersonationConfigID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -9580,7 +9453,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -9588,7 +9460,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9597,7 +9469,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} impersonationConfigID ID of the impersonation config.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Get = function(impersonationConfigID) {
+    this.Get = function(impersonationConfigID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -9616,7 +9488,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -9624,7 +9495,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9639,7 +9510,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListImpersonationConfig}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -9659,7 +9530,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListImpersonationConfig;
@@ -9667,7 +9537,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/impersonationconfig', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9677,7 +9547,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ImpersonationConfig} partialImpersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Patch = function(impersonationConfigID, partialImpersonationConfig) {
+    this.Patch = function(impersonationConfigID, partialImpersonationConfig, accessToken ) {
       var postBody = partialImpersonationConfig;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -9701,7 +9571,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -9709,7 +9578,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9719,7 +9588,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ImpersonationConfig} impersonationConfig 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ImpersonationConfig}
      */
-    this.Save = function(impersonationConfigID, impersonationConfig) {
+    this.Save = function(impersonationConfigID, impersonationConfig, accessToken ) {
       var postBody = impersonationConfig;
 
       // verify the required parameter 'impersonationConfigID' is set
@@ -9743,7 +9612,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ImpersonationConfig;
@@ -9751,7 +9619,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/impersonationconfig/{impersonationConfigID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -9811,7 +9679,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Incrementor} incrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Create = function(incrementor) {
+    this.Create = function(incrementor, accessToken ) {
       var postBody = incrementor;
 
       // verify the required parameter 'incrementor' is set
@@ -9829,7 +9697,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -9837,7 +9704,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/incrementors', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9846,7 +9713,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} incrementorID ID of the incrementor.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(incrementorID) {
+    this.Delete = function(incrementorID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'incrementorID' is set
@@ -9865,7 +9732,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -9873,7 +9739,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9882,7 +9748,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} incrementorID ID of the incrementor.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Get = function(incrementorID) {
+    this.Get = function(incrementorID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'incrementorID' is set
@@ -9901,7 +9767,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -9909,7 +9774,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9924,7 +9789,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListIncrementor}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -9944,7 +9809,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListIncrementor;
@@ -9952,7 +9816,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/incrementors', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -9962,7 +9826,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Incrementor} partialIncrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Patch = function(incrementorID, partialIncrementor) {
+    this.Patch = function(incrementorID, partialIncrementor, accessToken ) {
       var postBody = partialIncrementor;
 
       // verify the required parameter 'incrementorID' is set
@@ -9986,7 +9850,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -9994,7 +9857,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10004,7 +9867,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Incrementor} incrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Save = function(incrementorID, incrementor) {
+    this.Save = function(incrementorID, incrementor, accessToken ) {
       var postBody = incrementor;
 
       // verify the required parameter 'incrementorID' is set
@@ -10028,7 +9891,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -10036,7 +9898,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -10098,7 +9960,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Create = function(direction, orderID, lineItem) {
+    this.Create = function(direction, orderID, lineItem, accessToken ) {
       var postBody = lineItem;
 
       // verify the required parameter 'direction' is set
@@ -10128,7 +9990,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -10136,7 +9997,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10147,7 +10008,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(direction, orderID, lineItemID) {
+    this.Delete = function(direction, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -10178,7 +10039,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -10186,7 +10046,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10197,7 +10057,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Get = function(direction, orderID, lineItemID) {
+    this.Get = function(direction, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -10228,7 +10088,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -10236,7 +10095,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10253,7 +10112,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListLineItem}
      */
-    this.List = function(direction, orderID, opts) {
+    this.List = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -10285,7 +10144,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListLineItem;
@@ -10293,7 +10151,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10305,7 +10163,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/LineItem} partialLineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Patch = function(direction, orderID, lineItemID, partialLineItem) {
+    this.Patch = function(direction, orderID, lineItemID, partialLineItem, accessToken ) {
       var postBody = partialLineItem;
 
       // verify the required parameter 'direction' is set
@@ -10341,7 +10199,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -10349,7 +10206,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10361,7 +10218,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.PatchShippingAddress = function(direction, orderID, lineItemID, partialAddress) {
+    this.PatchShippingAddress = function(direction, orderID, lineItemID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
@@ -10397,7 +10254,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -10405,7 +10261,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10417,7 +10273,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Save = function(direction, orderID, lineItemID, lineItem) {
+    this.Save = function(direction, orderID, lineItemID, lineItem, accessToken ) {
       var postBody = lineItem;
 
       // verify the required parameter 'direction' is set
@@ -10453,7 +10309,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -10461,7 +10316,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10473,7 +10328,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.SetShippingAddress = function(direction, orderID, lineItemID, address) {
+    this.SetShippingAddress = function(direction, orderID, lineItemID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
@@ -10509,7 +10364,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -10517,7 +10371,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -10577,7 +10431,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.CreateAddress = function(buyerAddress) {
+    this.CreateAddress = function(buyerAddress, accessToken ) {
       var postBody = buyerAddress;
 
       // verify the required parameter 'buyerAddress' is set
@@ -10595,7 +10449,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
@@ -10603,7 +10456,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10612,7 +10465,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.CreateCreditCard = function(buyerCreditCard) {
+    this.CreateCreditCard = function(buyerCreditCard, accessToken ) {
       var postBody = buyerCreditCard;
 
       // verify the required parameter 'buyerCreditCard' is set
@@ -10630,7 +10483,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
@@ -10638,7 +10490,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/creditcards', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10647,7 +10499,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAddress = function(addressID) {
+    this.DeleteAddress = function(addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
@@ -10666,7 +10518,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -10674,7 +10525,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10683,7 +10534,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteCreditCard = function(creditcardID) {
+    this.DeleteCreditCard = function(creditcardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'creditcardID' is set
@@ -10702,7 +10553,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -10710,7 +10560,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10718,7 +10568,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Get = function() {
+    this.Get = function( accessToken ) {
       var postBody = null;
 
 
@@ -10731,7 +10581,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MeUser;
@@ -10739,7 +10588,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10748,7 +10597,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.GetAddress = function(addressID) {
+    this.GetAddress = function(addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
@@ -10767,7 +10616,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
@@ -10775,7 +10623,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10784,7 +10632,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.GetCatalog = function(catalogID) {
+    this.GetCatalog = function(catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -10803,7 +10651,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -10811,7 +10658,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/catalogs/{catalogID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10821,7 +10668,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.GetCategory = function(categoryID, catalogID) {
+    this.GetCategory = function(categoryID, catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'categoryID' is set
@@ -10846,7 +10693,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -10854,7 +10700,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/categories/{categoryID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10863,7 +10709,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.GetCreditCard = function(creditcardID) {
+    this.GetCreditCard = function(creditcardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'creditcardID' is set
@@ -10882,7 +10728,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
@@ -10890,7 +10735,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10899,7 +10744,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerProduct}
      */
-    this.GetProduct = function(productID) {
+    this.GetProduct = function(productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -10918,7 +10763,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerProduct;
@@ -10926,7 +10770,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/products/{productID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10935,7 +10779,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.GetPromotion = function(promotionID) {
+    this.GetPromotion = function(promotionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
@@ -10954,7 +10798,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -10962,7 +10805,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/promotions/{promotionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -10971,7 +10814,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.GetShipment = function(shipmentID) {
+    this.GetShipment = function(shipmentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -10990,7 +10833,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -10998,7 +10840,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/shipments/{shipmentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11010,7 +10852,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerSpec}
      */
-    this.GetSpec = function(productID, specID, opts) {
+    this.GetSpec = function(productID, specID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11037,7 +10879,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerSpec;
@@ -11045,7 +10886,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/products/{productID}/specs/{specID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11054,7 +10895,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} spendingAccountID ID of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.GetSpendingAccount = function(spendingAccountID) {
+    this.GetSpendingAccount = function(spendingAccountID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'spendingAccountID' is set
@@ -11073,7 +10914,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpendingAccount;
@@ -11081,7 +10921,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/spendingaccounts/{spendingAccountID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11096,7 +10936,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerAddress}
      */
-    this.ListAddresses = function(opts) {
+    this.ListAddresses = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11116,7 +10956,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerAddress;
@@ -11124,7 +10963,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11141,7 +10980,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.ListApprovableOrders = function(opts) {
+    this.ListApprovableOrders = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11163,7 +11002,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrder;
@@ -11171,7 +11009,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/orders/approvable', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11186,7 +11024,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
-    this.ListCatalogs = function(opts) {
+    this.ListCatalogs = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11206,7 +11044,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCatalog;
@@ -11214,7 +11051,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/catalogs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11232,7 +11069,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
-    this.ListCategories = function(opts) {
+    this.ListCategories = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11255,7 +11092,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategory;
@@ -11263,7 +11099,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/categories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11278,7 +11114,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
-    this.ListCostCenters = function(opts) {
+    this.ListCostCenters = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11298,7 +11134,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCostCenter;
@@ -11306,7 +11141,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/costcenters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11321,7 +11156,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerCreditCard}
      */
-    this.ListCreditCards = function(opts) {
+    this.ListCreditCards = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11341,7 +11176,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerCreditCard;
@@ -11349,7 +11183,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/creditcards', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11366,7 +11200,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.ListOrders = function(opts) {
+    this.ListOrders = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11388,7 +11222,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrder;
@@ -11396,7 +11229,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11414,7 +11247,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerProduct}
      */
-    this.ListProducts = function(opts) {
+    this.ListProducts = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11437,7 +11270,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerProduct;
@@ -11445,7 +11277,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11460,7 +11292,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
-    this.ListPromotions = function(opts) {
+    this.ListPromotions = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11480,7 +11312,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPromotion;
@@ -11488,7 +11319,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11505,7 +11336,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
-    this.ListShipmentItems = function(shipmentID, opts) {
+    this.ListShipmentItems = function(shipmentID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11532,7 +11363,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipmentItem;
@@ -11540,7 +11370,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/shipments/{shipmentID}/items', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11556,7 +11386,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
-    this.ListShipments = function(opts) {
+    this.ListShipments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11577,7 +11407,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipment;
@@ -11585,7 +11414,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11602,7 +11431,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
      */
-    this.ListSpecs = function(productID, opts) {
+    this.ListSpecs = function(productID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11629,7 +11458,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerSpec;
@@ -11637,7 +11465,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/products/{productID}/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11652,7 +11480,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
-    this.ListSpendingAccounts = function(opts) {
+    this.ListSpendingAccounts = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11672,7 +11500,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpendingAccount;
@@ -11680,7 +11507,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/spendingAccounts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11695,7 +11522,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.ListUserGroups = function(opts) {
+    this.ListUserGroups = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -11715,7 +11542,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
@@ -11723,7 +11549,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11732,7 +11558,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MeUser} partialMeUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Patch = function(partialMeUser) {
+    this.Patch = function(partialMeUser, accessToken ) {
       var postBody = partialMeUser;
 
       // verify the required parameter 'partialMeUser' is set
@@ -11750,7 +11576,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MeUser;
@@ -11758,7 +11583,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11768,7 +11593,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/BuyerAddress} partialBuyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.PatchAddress = function(addressID, partialBuyerAddress) {
+    this.PatchAddress = function(addressID, partialBuyerAddress, accessToken ) {
       var postBody = partialBuyerAddress;
 
       // verify the required parameter 'addressID' is set
@@ -11792,7 +11617,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -11800,7 +11624,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11810,7 +11634,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/BuyerCreditCard} partialBuyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.PatchCreditCard = function(creditcardID, partialBuyerCreditCard) {
+    this.PatchCreditCard = function(creditcardID, partialBuyerCreditCard, accessToken ) {
       var postBody = partialBuyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
@@ -11834,7 +11658,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -11842,7 +11665,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11852,7 +11675,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    this.Register = function(anonUserToken, meUser) {
+    this.Register = function(anonUserToken, meUser, accessToken ) {
       var postBody = meUser;
 
       // verify the required parameter 'anonUserToken' is set
@@ -11876,7 +11699,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Object;
@@ -11884,7 +11706,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/register', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11893,7 +11715,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/TokenPasswordReset} tokenPasswordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPasswordByToken = function(tokenPasswordReset) {
+    this.ResetPasswordByToken = function(tokenPasswordReset, accessToken ) {
       var postBody = tokenPasswordReset;
 
       // verify the required parameter 'tokenPasswordReset' is set
@@ -11911,7 +11733,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -11919,7 +11740,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/password', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11928,7 +11749,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Save = function(meUser) {
+    this.Save = function(meUser, accessToken ) {
       var postBody = meUser;
 
       // verify the required parameter 'meUser' is set
@@ -11946,7 +11767,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MeUser;
@@ -11954,7 +11774,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -11964,7 +11784,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.SaveAddress = function(addressID, buyerAddress) {
+    this.SaveAddress = function(addressID, buyerAddress, accessToken ) {
       var postBody = buyerAddress;
 
       // verify the required parameter 'addressID' is set
@@ -11988,7 +11808,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
@@ -11996,7 +11815,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12006,7 +11825,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.SaveCreditCard = function(creditcardID, buyerCreditCard) {
+    this.SaveCreditCard = function(creditcardID, buyerCreditCard, accessToken ) {
       var postBody = buyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
@@ -12030,7 +11849,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
@@ -12038,7 +11856,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12047,7 +11865,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} anonUserToken Anon user token of the me.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.TransferAnonUserOrder = function(anonUserToken) {
+    this.TransferAnonUserOrder = function(anonUserToken, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'anonUserToken' is set
@@ -12066,7 +11884,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -12074,7 +11891,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/me/orders', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -12134,7 +11951,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MessageSender} messageSender 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Create = function(messageSender) {
+    this.Create = function(messageSender, accessToken ) {
       var postBody = messageSender;
 
       // verify the required parameter 'messageSender' is set
@@ -12152,7 +11969,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -12160,7 +11976,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12169,7 +11985,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} messageSenderID ID of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(messageSenderID) {
+    this.Delete = function(messageSenderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'messageSenderID' is set
@@ -12188,7 +12004,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -12196,7 +12011,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12210,7 +12025,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(messageSenderID, opts) {
+    this.DeleteAssignment = function(messageSenderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -12234,7 +12049,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -12242,7 +12056,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12251,7 +12065,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} messageSenderID ID of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Get = function(messageSenderID) {
+    this.Get = function(messageSenderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'messageSenderID' is set
@@ -12270,7 +12084,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -12278,7 +12091,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12293,7 +12106,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSender}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -12313,7 +12126,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListMessageSender;
@@ -12321,7 +12133,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12338,7 +12150,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSenderAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -12360,7 +12172,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListMessageSenderAssignment;
@@ -12368,7 +12179,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12383,7 +12194,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageCCListenerAssignment}
      */
-    this.ListCCListenerAssignments = function(opts) {
+    this.ListCCListenerAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -12403,7 +12214,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListMessageCCListenerAssignment;
@@ -12411,7 +12221,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/CCListenerAssignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12421,7 +12231,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MessageSender} partialMessageSender 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Patch = function(messageSenderID, partialMessageSender) {
+    this.Patch = function(messageSenderID, partialMessageSender, accessToken ) {
       var postBody = partialMessageSender;
 
       // verify the required parameter 'messageSenderID' is set
@@ -12445,7 +12255,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -12453,7 +12262,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12463,7 +12272,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MessageSender} messageSender 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Save = function(messageSenderID, messageSender) {
+    this.Save = function(messageSenderID, messageSender, accessToken ) {
       var postBody = messageSender;
 
       // verify the required parameter 'messageSenderID' is set
@@ -12487,7 +12296,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -12495,7 +12303,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12504,7 +12312,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MessageSenderAssignment} messageSenderAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(messageSenderAssignment) {
+    this.SaveAssignment = function(messageSenderAssignment, accessToken ) {
       var postBody = messageSenderAssignment;
 
       // verify the required parameter 'messageSenderAssignment' is set
@@ -12522,7 +12330,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -12530,7 +12337,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12539,7 +12346,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/MessageCCListenerAssignment} messageCCListenerAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveCCListenerAssignment = function(messageCCListenerAssignment) {
+    this.SaveCCListenerAssignment = function(messageCCListenerAssignment, accessToken ) {
       var postBody = messageCCListenerAssignment;
 
       // verify the required parameter 'messageCCListenerAssignment' is set
@@ -12557,7 +12364,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -12565,7 +12371,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/messagesenders/CCListenerAssignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -12625,7 +12431,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/OpenIdConnect} openIdConnect 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Create = function(openIdConnect) {
+    this.Create = function(openIdConnect, accessToken ) {
       var postBody = openIdConnect;
 
       // verify the required parameter 'openIdConnect' is set
@@ -12643,7 +12449,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -12651,7 +12456,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/openidconnects', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12660,7 +12465,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} openidconnectID ID of the openidconnect.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(openidconnectID) {
+    this.Delete = function(openidconnectID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'openidconnectID' is set
@@ -12679,7 +12484,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -12687,7 +12491,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12696,7 +12500,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} openidconnectID ID of the openidconnect.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Get = function(openidconnectID) {
+    this.Get = function(openidconnectID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'openidconnectID' is set
@@ -12715,7 +12519,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -12723,7 +12526,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12738,7 +12541,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOpenIdConnect}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -12758,7 +12561,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOpenIdConnect;
@@ -12766,7 +12568,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/openidconnects', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12776,7 +12578,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/OpenIdConnect} partialOpenIdConnect 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Patch = function(openidconnectID, partialOpenIdConnect) {
+    this.Patch = function(openidconnectID, partialOpenIdConnect, accessToken ) {
       var postBody = partialOpenIdConnect;
 
       // verify the required parameter 'openidconnectID' is set
@@ -12800,7 +12602,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -12808,7 +12609,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12818,7 +12619,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/OpenIdConnect} openIdConnect 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OpenIdConnect}
      */
-    this.Save = function(openidconnectID, openIdConnect) {
+    this.Save = function(openidconnectID, openIdConnect, accessToken ) {
       var postBody = openIdConnect;
 
       // verify the required parameter 'openidconnectID' is set
@@ -12842,7 +12643,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OpenIdConnect;
@@ -12850,7 +12650,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/openidconnects/{openidconnectID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -12912,7 +12712,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} promoCode Promo code of the order promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderPromotion}
      */
-    this.AddPromotion = function(direction, orderID, promoCode) {
+    this.AddPromotion = function(direction, orderID, promoCode, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -12943,7 +12743,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OrderPromotion;
@@ -12951,7 +12750,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions/{promoCode}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -12962,7 +12761,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Approve = function(direction, orderID, orderApprovalInfo) {
+    this.Approve = function(direction, orderID, orderApprovalInfo, accessToken ) {
       var postBody = orderApprovalInfo;
 
       // verify the required parameter 'direction' is set
@@ -12992,7 +12791,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13000,7 +12798,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/approve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13010,7 +12808,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Cancel = function(direction, orderID) {
+    this.Cancel = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -13035,7 +12833,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13043,7 +12840,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/cancel', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13053,7 +12850,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Create = function(direction, order) {
+    this.Create = function(direction, order, accessToken ) {
       var postBody = order;
 
       // verify the required parameter 'direction' is set
@@ -13077,7 +12874,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13085,7 +12881,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13096,7 +12892,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Decline = function(direction, orderID, orderApprovalInfo) {
+    this.Decline = function(direction, orderID, orderApprovalInfo, accessToken ) {
       var postBody = orderApprovalInfo;
 
       // verify the required parameter 'direction' is set
@@ -13126,7 +12922,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13134,7 +12929,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/decline', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13144,7 +12939,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(direction, orderID) {
+    this.Delete = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -13169,7 +12964,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -13177,7 +12971,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13187,7 +12981,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Get = function(direction, orderID) {
+    this.Get = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -13212,7 +13006,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13220,7 +13013,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13240,7 +13033,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.List = function(direction, opts) {
+    this.List = function(direction, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -13270,7 +13063,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrder;
@@ -13278,7 +13070,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13295,7 +13087,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderApproval}
      */
-    this.ListApprovals = function(direction, orderID, opts) {
+    this.ListApprovals = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -13327,7 +13119,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrderApproval;
@@ -13335,7 +13126,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/approvals', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13352,7 +13143,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.ListEligibleApprovers = function(direction, orderID, opts) {
+    this.ListEligibleApprovers = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -13384,7 +13175,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -13392,7 +13182,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/eligibleapprovers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13409,7 +13199,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderPromotion}
      */
-    this.ListPromotions = function(direction, orderID, opts) {
+    this.ListPromotions = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -13441,7 +13231,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrderPromotion;
@@ -13449,7 +13238,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13460,7 +13249,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Order} partialOrder 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Patch = function(direction, orderID, partialOrder) {
+    this.Patch = function(direction, orderID, partialOrder, accessToken ) {
       var postBody = partialOrder;
 
       // verify the required parameter 'direction' is set
@@ -13490,7 +13279,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13498,7 +13286,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13509,7 +13297,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchBillingAddress = function(direction, orderID, partialAddress) {
+    this.PatchBillingAddress = function(direction, orderID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
@@ -13539,7 +13327,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13547,7 +13334,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/billto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13558,7 +13345,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchFromUser = function(direction, orderID, partialUser) {
+    this.PatchFromUser = function(direction, orderID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'direction' is set
@@ -13588,7 +13375,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13596,7 +13382,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/fromuser', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13607,7 +13393,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchShippingAddress = function(direction, orderID, partialAddress) {
+    this.PatchShippingAddress = function(direction, orderID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
@@ -13637,7 +13423,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13645,7 +13430,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13656,7 +13441,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} promoCode Promo code of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.RemovePromotion = function(direction, orderID, promoCode) {
+    this.RemovePromotion = function(direction, orderID, promoCode, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -13687,7 +13472,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13695,7 +13479,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions/{promoCode}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13706,7 +13490,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Save = function(direction, orderID, order) {
+    this.Save = function(direction, orderID, order, accessToken ) {
       var postBody = order;
 
       // verify the required parameter 'direction' is set
@@ -13736,7 +13520,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13744,7 +13527,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13755,7 +13538,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetBillingAddress = function(direction, orderID, address) {
+    this.SetBillingAddress = function(direction, orderID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
@@ -13785,7 +13568,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13793,7 +13575,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/billto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13804,7 +13586,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetShippingAddress = function(direction, orderID, address) {
+    this.SetShippingAddress = function(direction, orderID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
@@ -13834,7 +13616,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13842,7 +13623,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13853,7 +13634,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Ship = function(direction, orderID, shipment) {
+    this.Ship = function(direction, orderID, shipment, accessToken ) {
       var postBody = shipment;
 
       // verify the required parameter 'direction' is set
@@ -13883,7 +13664,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13891,7 +13671,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/ship', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -13901,7 +13681,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Submit = function(direction, orderID) {
+    this.Submit = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -13926,7 +13706,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -13934,7 +13713,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/submit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -13995,7 +13774,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PasswordReset} passwordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPasswordByVerificationCode = function(verificationCode, passwordReset) {
+    this.ResetPasswordByVerificationCode = function(verificationCode, passwordReset, accessToken ) {
       var postBody = passwordReset;
 
       // verify the required parameter 'verificationCode' is set
@@ -14019,7 +13798,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -14027,7 +13805,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/password/reset/{verificationCode}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14036,7 +13814,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PasswordResetRequest} passwordResetRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SendVerificationCode = function(passwordResetRequest) {
+    this.SendVerificationCode = function(passwordResetRequest, accessToken ) {
       var postBody = passwordResetRequest;
 
       // verify the required parameter 'passwordResetRequest' is set
@@ -14054,7 +13832,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -14062,7 +13839,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/password/reset', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -14124,7 +13901,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Payment} payment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Create = function(direction, orderID, payment) {
+    this.Create = function(direction, orderID, payment, accessToken ) {
       var postBody = payment;
 
       // verify the required parameter 'direction' is set
@@ -14154,7 +13931,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Payment;
@@ -14162,7 +13938,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/payments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14174,7 +13950,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PaymentTransaction} paymentTransaction 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.CreateTransaction = function(direction, orderID, paymentID, paymentTransaction) {
+    this.CreateTransaction = function(direction, orderID, paymentID, paymentTransaction, accessToken ) {
       var postBody = paymentTransaction;
 
       // verify the required parameter 'direction' is set
@@ -14210,7 +13986,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Payment;
@@ -14218,7 +13993,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/payments/{paymentID}/transactions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14229,7 +14004,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} paymentID ID of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(direction, orderID, paymentID) {
+    this.Delete = function(direction, orderID, paymentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -14260,7 +14035,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -14268,7 +14042,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/payments/{paymentID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14280,7 +14054,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} transactionID ID of the transaction.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteTransaction = function(direction, orderID, paymentID, transactionID) {
+    this.DeleteTransaction = function(direction, orderID, paymentID, transactionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -14317,7 +14091,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -14325,7 +14098,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/payments/{paymentID}/transactions/{transactionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14336,7 +14109,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} paymentID ID of the payment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Get = function(direction, orderID, paymentID) {
+    this.Get = function(direction, orderID, paymentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -14367,7 +14140,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Payment;
@@ -14375,7 +14147,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/payments/{paymentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14392,7 +14164,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPayment}
      */
-    this.List = function(direction, orderID, opts) {
+    this.List = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -14424,7 +14196,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPayment;
@@ -14432,7 +14203,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/payments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14444,7 +14215,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Payment} partialPayment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Payment}
      */
-    this.Patch = function(direction, orderID, paymentID, partialPayment) {
+    this.Patch = function(direction, orderID, paymentID, partialPayment, accessToken ) {
       var postBody = partialPayment;
 
       // verify the required parameter 'direction' is set
@@ -14480,7 +14251,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Payment;
@@ -14488,7 +14258,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/payments/{paymentID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -14548,7 +14318,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PriceSchedule} priceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Create = function(priceSchedule) {
+    this.Create = function(priceSchedule, accessToken ) {
       var postBody = priceSchedule;
 
       // verify the required parameter 'priceSchedule' is set
@@ -14566,7 +14336,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -14574,7 +14343,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14583,7 +14352,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} priceScheduleID ID of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(priceScheduleID) {
+    this.Delete = function(priceScheduleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -14602,7 +14371,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -14610,7 +14378,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14620,7 +14388,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} quantity Quantity of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeletePriceBreak = function(priceScheduleID, quantity) {
+    this.DeletePriceBreak = function(priceScheduleID, quantity, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -14645,7 +14413,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -14653,7 +14420,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}/PriceBreaks', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14662,7 +14429,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} priceScheduleID ID of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Get = function(priceScheduleID) {
+    this.Get = function(priceScheduleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -14681,7 +14448,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -14689,7 +14455,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14704,7 +14470,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPriceSchedule}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -14724,7 +14490,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPriceSchedule;
@@ -14732,7 +14497,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14742,7 +14507,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PriceSchedule} partialPriceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Patch = function(priceScheduleID, partialPriceSchedule) {
+    this.Patch = function(priceScheduleID, partialPriceSchedule, accessToken ) {
       var postBody = partialPriceSchedule;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -14766,7 +14531,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -14774,7 +14538,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14784,7 +14548,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PriceSchedule} priceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Save = function(priceScheduleID, priceSchedule) {
+    this.Save = function(priceScheduleID, priceSchedule, accessToken ) {
       var postBody = priceSchedule;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -14808,7 +14572,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -14816,7 +14579,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14826,7 +14589,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PriceBreak} priceBreak 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.SavePriceBreak = function(priceScheduleID, priceBreak) {
+    this.SavePriceBreak = function(priceScheduleID, priceBreak, accessToken ) {
       var postBody = priceBreak;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -14850,7 +14613,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -14858,7 +14620,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}/PriceBreaks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -14918,7 +14680,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ProductFacet} productFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Create = function(productFacet) {
+    this.Create = function(productFacet, accessToken ) {
       var postBody = productFacet;
 
       // verify the required parameter 'productFacet' is set
@@ -14936,7 +14698,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -14944,7 +14705,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/productfacets', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14953,7 +14714,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productFacetID ID of the product facet.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(productFacetID) {
+    this.Delete = function(productFacetID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productFacetID' is set
@@ -14972,7 +14733,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -14980,7 +14740,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -14989,7 +14749,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productFacetID ID of the product facet.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Get = function(productFacetID) {
+    this.Get = function(productFacetID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productFacetID' is set
@@ -15008,7 +14768,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -15016,7 +14775,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15031,7 +14790,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductFacet}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -15051,7 +14810,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListProductFacet;
@@ -15059,7 +14817,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/productfacets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15069,7 +14827,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ProductFacet} partialProductFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Patch = function(productFacetID, partialProductFacet) {
+    this.Patch = function(productFacetID, partialProductFacet, accessToken ) {
       var postBody = partialProductFacet;
 
       // verify the required parameter 'productFacetID' is set
@@ -15093,7 +14851,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -15101,7 +14858,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15111,7 +14868,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ProductFacet} productFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Save = function(productFacetID, productFacet) {
+    this.Save = function(productFacetID, productFacet, accessToken ) {
       var postBody = productFacet;
 
       // verify the required parameter 'productFacetID' is set
@@ -15135,7 +14892,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -15143,7 +14899,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -15203,7 +14959,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Product} product 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Create = function(product) {
+    this.Create = function(product, accessToken ) {
       var postBody = product;
 
       // verify the required parameter 'product' is set
@@ -15221,7 +14977,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Product;
@@ -15229,7 +14984,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15238,7 +14993,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(productID) {
+    this.Delete = function(productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -15257,7 +15012,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -15265,7 +15019,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15278,7 +15032,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(productID, buyerID, opts) {
+    this.DeleteAssignment = function(productID, buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -15306,7 +15060,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -15314,7 +15067,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/assignments/{buyerID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15325,7 +15078,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Boolean} opts.overwriteExisting Overwrite existing of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.GenerateVariants = function(productID, opts) {
+    this.GenerateVariants = function(productID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -15346,7 +15099,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Product;
@@ -15354,7 +15106,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/variants/generate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15363,7 +15115,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Get = function(productID) {
+    this.Get = function(productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -15382,7 +15134,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Product;
@@ -15390,7 +15141,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15400,7 +15151,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} variantID ID of the variant.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
-    this.GetVariant = function(productID, variantID) {
+    this.GetVariant = function(productID, variantID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -15425,7 +15176,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Variant;
@@ -15433,7 +15183,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/variants/{variantID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15451,7 +15201,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -15474,7 +15224,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListProduct;
@@ -15482,7 +15231,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15499,7 +15248,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -15521,7 +15270,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListProductAssignment;
@@ -15529,7 +15277,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15545,7 +15293,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
-    this.ListSuppliers = function(productID, opts) {
+    this.ListSuppliers = function(productID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -15571,7 +15319,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSupplier;
@@ -15579,7 +15326,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/suppliers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15595,7 +15342,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListVariant}
      */
-    this.ListVariants = function(productID, opts) {
+    this.ListVariants = function(productID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -15621,7 +15368,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListVariant;
@@ -15629,7 +15375,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/variants', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15639,7 +15385,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Product} partialProduct 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Patch = function(productID, partialProduct) {
+    this.Patch = function(productID, partialProduct, accessToken ) {
       var postBody = partialProduct;
 
       // verify the required parameter 'productID' is set
@@ -15663,7 +15409,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Product;
@@ -15671,7 +15416,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15682,7 +15427,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Variant} partialVariant 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
-    this.PatchVariant = function(productID, variantID, partialVariant) {
+    this.PatchVariant = function(productID, variantID, partialVariant, accessToken ) {
       var postBody = partialVariant;
 
       // verify the required parameter 'productID' is set
@@ -15712,7 +15457,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Variant;
@@ -15720,7 +15464,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/variants/{variantID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15730,7 +15474,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.RemoveSupplier = function(productID, supplierID) {
+    this.RemoveSupplier = function(productID, supplierID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -15755,7 +15499,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -15763,7 +15506,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/suppliers/{supplierID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15773,7 +15516,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Product} product 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Product}
      */
-    this.Save = function(productID, product) {
+    this.Save = function(productID, product, accessToken ) {
       var postBody = product;
 
       // verify the required parameter 'productID' is set
@@ -15797,7 +15540,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Product;
@@ -15805,7 +15547,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15814,7 +15556,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ProductAssignment} productAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(productAssignment) {
+    this.SaveAssignment = function(productAssignment, accessToken ) {
       var postBody = productAssignment;
 
       // verify the required parameter 'productAssignment' is set
@@ -15832,7 +15574,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -15840,7 +15581,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15850,7 +15591,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveSupplier = function(productID, supplierID) {
+    this.SaveSupplier = function(productID, supplierID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -15875,7 +15616,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -15883,7 +15623,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/suppliers/{supplierID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -15894,7 +15634,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Variant} variant 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Variant}
      */
-    this.SaveVariant = function(productID, variantID, variant) {
+    this.SaveVariant = function(productID, variantID, variant, accessToken ) {
       var postBody = variant;
 
       // verify the required parameter 'productID' is set
@@ -15924,7 +15664,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Variant;
@@ -15932,7 +15671,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/products/{productID}/variants/{variantID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -15992,7 +15731,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Create = function(promotion) {
+    this.Create = function(promotion, accessToken ) {
       var postBody = promotion;
 
       // verify the required parameter 'promotion' is set
@@ -16010,7 +15749,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -16018,7 +15756,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16027,7 +15765,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(promotionID) {
+    this.Delete = function(promotionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
@@ -16046,7 +15784,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -16054,7 +15791,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16067,7 +15804,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(promotionID, buyerID, opts) {
+    this.DeleteAssignment = function(promotionID, buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16095,7 +15832,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -16103,7 +15839,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions/{promotionID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16112,7 +15848,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Get = function(promotionID) {
+    this.Get = function(promotionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
@@ -16131,7 +15867,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -16139,7 +15874,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16154,7 +15889,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16174,7 +15909,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPromotion;
@@ -16182,7 +15916,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16198,7 +15932,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotionAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16219,7 +15953,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPromotionAssignment;
@@ -16227,7 +15960,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16237,7 +15970,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Promotion} partialPromotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Patch = function(promotionID, partialPromotion) {
+    this.Patch = function(promotionID, partialPromotion, accessToken ) {
       var postBody = partialPromotion;
 
       // verify the required parameter 'promotionID' is set
@@ -16261,7 +15994,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -16269,7 +16001,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16279,7 +16011,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Save = function(promotionID, promotion) {
+    this.Save = function(promotionID, promotion, accessToken ) {
       var postBody = promotion;
 
       // verify the required parameter 'promotionID' is set
@@ -16303,7 +16035,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -16311,7 +16042,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16320,7 +16051,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/PromotionAssignment} promotionAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(promotionAssignment) {
+    this.SaveAssignment = function(promotionAssignment, accessToken ) {
       var postBody = promotionAssignment;
 
       // verify the required parameter 'promotionAssignment' is set
@@ -16338,7 +16069,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -16346,7 +16076,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/promotions/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -16411,7 +16141,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(securityProfileID, opts) {
+    this.DeleteAssignment = function(securityProfileID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16435,7 +16165,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -16443,7 +16172,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/securityprofiles/{securityProfileID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16452,7 +16181,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} securityProfileID ID of the security profile.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SecurityProfile}
      */
-    this.Get = function(securityProfileID) {
+    this.Get = function(securityProfileID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'securityProfileID' is set
@@ -16471,7 +16200,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SecurityProfile;
@@ -16479,7 +16207,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/securityprofiles/{securityProfileID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16494,7 +16222,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfile}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16514,7 +16242,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSecurityProfile;
@@ -16522,7 +16249,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/securityprofiles', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16540,7 +16267,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfileAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16563,7 +16290,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSecurityProfileAssignment;
@@ -16571,7 +16297,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/securityprofiles/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16580,7 +16306,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SecurityProfileAssignment} securityProfileAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(securityProfileAssignment) {
+    this.SaveAssignment = function(securityProfileAssignment, accessToken ) {
       var postBody = securityProfileAssignment;
 
       // verify the required parameter 'securityProfileAssignment' is set
@@ -16598,7 +16324,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -16606,7 +16331,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/securityprofiles/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -16666,7 +16391,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Create = function(shipment) {
+    this.Create = function(shipment, accessToken ) {
       var postBody = shipment;
 
       // verify the required parameter 'shipment' is set
@@ -16684,7 +16409,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -16692,7 +16416,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16701,7 +16425,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(shipmentID) {
+    this.Delete = function(shipmentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -16720,7 +16444,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -16728,7 +16451,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16739,7 +16462,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteItem = function(shipmentID, orderID, lineItemID) {
+    this.DeleteItem = function(shipmentID, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -16770,7 +16493,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -16778,7 +16500,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16787,7 +16509,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Get = function(shipmentID) {
+    this.Get = function(shipmentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -16806,7 +16528,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -16814,7 +16535,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16825,7 +16546,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.GetItem = function(shipmentID, orderID, lineItemID) {
+    this.GetItem = function(shipmentID, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -16856,7 +16577,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ShipmentItem;
@@ -16864,7 +16584,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16880,7 +16600,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16901,7 +16621,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipment;
@@ -16909,7 +16628,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16925,7 +16644,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
-    this.ListItems = function(shipmentID, opts) {
+    this.ListItems = function(shipmentID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -16951,7 +16670,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipmentItem;
@@ -16959,7 +16677,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -16969,7 +16687,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Shipment} partialShipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Patch = function(shipmentID, partialShipment) {
+    this.Patch = function(shipmentID, partialShipment, accessToken ) {
       var postBody = partialShipment;
 
       // verify the required parameter 'shipmentID' is set
@@ -16993,7 +16711,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -17001,7 +16718,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17011,7 +16728,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Save = function(shipmentID, shipment) {
+    this.Save = function(shipmentID, shipment, accessToken ) {
       var postBody = shipment;
 
       // verify the required parameter 'shipmentID' is set
@@ -17035,7 +16752,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -17043,7 +16759,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17053,7 +16769,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ShipmentItem} shipmentItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.SaveItem = function(shipmentID, shipmentItem) {
+    this.SaveItem = function(shipmentID, shipmentItem, accessToken ) {
       var postBody = shipmentItem;
 
       // verify the required parameter 'shipmentID' is set
@@ -17077,7 +16793,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ShipmentItem;
@@ -17085,7 +16800,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -17145,7 +16860,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Spec} spec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Create = function(spec) {
+    this.Create = function(spec, accessToken ) {
       var postBody = spec;
 
       // verify the required parameter 'spec' is set
@@ -17163,7 +16878,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -17171,7 +16885,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17181,7 +16895,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.CreateOption = function(specID, specOption) {
+    this.CreateOption = function(specID, specOption, accessToken ) {
       var postBody = specOption;
 
       // verify the required parameter 'specID' is set
@@ -17205,7 +16919,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -17213,7 +16926,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}/options', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17222,7 +16935,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} specID ID of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(specID) {
+    this.Delete = function(specID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -17241,7 +16954,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -17249,7 +16961,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17259,7 +16971,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} optionID ID of the option.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteOption = function(specID, optionID) {
+    this.DeleteOption = function(specID, optionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -17284,7 +16996,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -17292,7 +17003,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17302,7 +17013,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteProductAssignment = function(specID, productID) {
+    this.DeleteProductAssignment = function(specID, productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -17327,7 +17038,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -17335,7 +17045,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17344,7 +17054,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} specID ID of the spec.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Get = function(specID) {
+    this.Get = function(specID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -17363,7 +17073,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -17371,7 +17080,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17381,7 +17090,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} optionID ID of the option.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.GetOption = function(specID, optionID) {
+    this.GetOption = function(specID, optionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'specID' is set
@@ -17406,7 +17115,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -17414,7 +17122,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17429,7 +17137,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -17449,7 +17157,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpec;
@@ -17457,7 +17164,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17473,7 +17180,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecOption}
      */
-    this.ListOptions = function(specID, opts) {
+    this.ListOptions = function(specID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -17499,7 +17206,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpecOption;
@@ -17507,7 +17213,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}/options', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17522,7 +17228,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpecProductAssignment}
      */
-    this.ListProductAssignments = function(opts) {
+    this.ListProductAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -17542,7 +17248,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpecProductAssignment;
@@ -17550,7 +17255,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17560,7 +17265,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Spec} partialSpec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Patch = function(specID, partialSpec) {
+    this.Patch = function(specID, partialSpec, accessToken ) {
       var postBody = partialSpec;
 
       // verify the required parameter 'specID' is set
@@ -17584,7 +17289,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -17592,7 +17296,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17603,7 +17307,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpecOption} partialSpecOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.PatchOption = function(specID, optionID, partialSpecOption) {
+    this.PatchOption = function(specID, optionID, partialSpecOption, accessToken ) {
       var postBody = partialSpecOption;
 
       // verify the required parameter 'specID' is set
@@ -17633,7 +17337,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -17641,7 +17344,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17651,7 +17354,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Spec} spec 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
-    this.Save = function(specID, spec) {
+    this.Save = function(specID, spec, accessToken ) {
       var postBody = spec;
 
       // verify the required parameter 'specID' is set
@@ -17675,7 +17378,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Spec;
@@ -17683,7 +17385,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17694,7 +17396,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpecOption} specOption 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpecOption}
      */
-    this.SaveOption = function(specID, optionID, specOption) {
+    this.SaveOption = function(specID, optionID, specOption, accessToken ) {
       var postBody = specOption;
 
       // verify the required parameter 'specID' is set
@@ -17724,7 +17426,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpecOption;
@@ -17732,7 +17433,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/{specID}/options/{optionID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17741,7 +17442,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpecProductAssignment} specProductAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(specProductAssignment) {
+    this.SaveProductAssignment = function(specProductAssignment, accessToken ) {
       var postBody = specProductAssignment;
 
       // verify the required parameter 'specProductAssignment' is set
@@ -17759,7 +17460,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -17767,7 +17467,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/specs/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -17828,7 +17528,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpendingAccount} spendingAccount 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.Create = function(buyerID, spendingAccount) {
+    this.Create = function(buyerID, spendingAccount, accessToken ) {
       var postBody = spendingAccount;
 
       // verify the required parameter 'buyerID' is set
@@ -17852,7 +17552,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpendingAccount;
@@ -17860,7 +17559,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17870,7 +17569,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} spendingAccountID ID of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, spendingAccountID) {
+    this.Delete = function(buyerID, spendingAccountID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -17895,7 +17594,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -17903,7 +17601,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts/{spendingAccountID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17916,7 +17614,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, spendingAccountID, opts) {
+    this.DeleteAssignment = function(buyerID, spendingAccountID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -17944,7 +17642,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -17952,7 +17649,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts/{spendingAccountID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -17962,7 +17659,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} spendingAccountID ID of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.Get = function(buyerID, spendingAccountID) {
+    this.Get = function(buyerID, spendingAccountID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -17987,7 +17684,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpendingAccount;
@@ -17995,7 +17691,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts/{spendingAccountID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18011,7 +17707,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -18037,7 +17733,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpendingAccount;
@@ -18045,7 +17740,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18061,7 +17756,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccountAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -18087,7 +17782,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpendingAccountAssignment;
@@ -18095,7 +17789,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18106,7 +17800,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpendingAccount} partialSpendingAccount 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.Patch = function(buyerID, spendingAccountID, partialSpendingAccount) {
+    this.Patch = function(buyerID, spendingAccountID, partialSpendingAccount, accessToken ) {
       var postBody = partialSpendingAccount;
 
       // verify the required parameter 'buyerID' is set
@@ -18136,7 +17830,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpendingAccount;
@@ -18144,7 +17837,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts/{spendingAccountID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18155,7 +17848,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpendingAccount} spendingAccount 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.Save = function(buyerID, spendingAccountID, spendingAccount) {
+    this.Save = function(buyerID, spendingAccountID, spendingAccount, accessToken ) {
       var postBody = spendingAccount;
 
       // verify the required parameter 'buyerID' is set
@@ -18185,7 +17878,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpendingAccount;
@@ -18193,7 +17885,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts/{spendingAccountID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18203,7 +17895,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/SpendingAccountAssignment} spendingAccountAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, spendingAccountAssignment) {
+    this.SaveAssignment = function(buyerID, spendingAccountAssignment, accessToken ) {
       var postBody = spendingAccountAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -18227,7 +17919,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -18235,7 +17926,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/spendingaccounts/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -18296,7 +17987,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Create = function(supplierID, address) {
+    this.Create = function(supplierID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'supplierID' is set
@@ -18320,7 +18011,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -18328,7 +18018,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18338,7 +18028,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(supplierID, addressID) {
+    this.Delete = function(supplierID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -18363,7 +18053,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -18371,7 +18060,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18381,7 +18070,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(supplierID, addressID) {
+    this.Get = function(supplierID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -18406,7 +18095,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -18414,7 +18102,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18430,7 +18118,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(supplierID, opts) {
+    this.List = function(supplierID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -18456,7 +18144,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListAddress;
@@ -18464,7 +18151,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18475,7 +18162,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(supplierID, addressID, partialAddress) {
+    this.Patch = function(supplierID, addressID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'supplierID' is set
@@ -18505,7 +18192,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -18513,7 +18199,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18524,7 +18210,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(supplierID, addressID, address) {
+    this.Save = function(supplierID, addressID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'supplierID' is set
@@ -18554,7 +18240,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -18562,7 +18247,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -18623,7 +18308,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Create = function(supplierID, userGroup) {
+    this.Create = function(supplierID, userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'supplierID' is set
@@ -18647,7 +18332,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -18655,7 +18339,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18665,7 +18349,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(supplierID, userGroupID) {
+    this.Delete = function(supplierID, userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -18690,7 +18374,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -18698,7 +18381,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18709,7 +18392,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteUserAssignment = function(supplierID, userGroupID, userID) {
+    this.DeleteUserAssignment = function(supplierID, userGroupID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -18740,7 +18423,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -18748,7 +18430,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}/assignments/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18758,7 +18440,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Get = function(supplierID, userGroupID) {
+    this.Get = function(supplierID, userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -18783,7 +18465,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -18791,7 +18472,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18807,7 +18488,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.List = function(supplierID, opts) {
+    this.List = function(supplierID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -18833,7 +18514,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
@@ -18841,7 +18521,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18855,7 +18535,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
-    this.ListUserAssignments = function(supplierID, opts) {
+    this.ListUserAssignments = function(supplierID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -18879,7 +18559,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroupAssignment;
@@ -18887,7 +18566,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18898,7 +18577,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Patch = function(supplierID, userGroupID, partialUserGroup) {
+    this.Patch = function(supplierID, userGroupID, partialUserGroup, accessToken ) {
       var postBody = partialUserGroup;
 
       // verify the required parameter 'supplierID' is set
@@ -18928,7 +18607,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -18936,7 +18614,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18947,7 +18625,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Save = function(supplierID, userGroupID, userGroup) {
+    this.Save = function(supplierID, userGroupID, userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'supplierID' is set
@@ -18977,7 +18655,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -18985,7 +18662,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/{userGroupID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -18995,7 +18672,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroupAssignment} userGroupAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveUserAssignment = function(supplierID, userGroupAssignment) {
+    this.SaveUserAssignment = function(supplierID, userGroupAssignment, accessToken ) {
       var postBody = userGroupAssignment;
 
       // verify the required parameter 'supplierID' is set
@@ -19019,7 +18696,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -19027,7 +18703,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/usergroups/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -19088,7 +18764,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Create = function(supplierID, user) {
+    this.Create = function(supplierID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'supplierID' is set
@@ -19112,7 +18788,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -19120,7 +18795,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19130,7 +18805,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(supplierID, userID) {
+    this.Delete = function(supplierID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -19155,7 +18830,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -19163,7 +18837,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19173,7 +18847,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Get = function(supplierID, userID) {
+    this.Get = function(supplierID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -19198,7 +18872,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -19206,7 +18879,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19217,7 +18890,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ImpersonateTokenRequest} impersonateTokenRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccessToken}
      */
-    this.GetAccessToken = function(supplierID, userID, impersonateTokenRequest) {
+    this.GetAccessToken = function(supplierID, userID, impersonateTokenRequest, accessToken ) {
       var postBody = impersonateTokenRequest;
 
       // verify the required parameter 'supplierID' is set
@@ -19247,7 +18920,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = AccessToken;
@@ -19255,7 +18927,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}/accesstoken', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19272,7 +18944,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.List = function(supplierID, opts) {
+    this.List = function(supplierID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -19299,7 +18971,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -19307,7 +18978,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19318,7 +18989,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(supplierID, userID, partialUser) {
+    this.Patch = function(supplierID, userID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'supplierID' is set
@@ -19348,7 +19019,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -19356,7 +19026,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19367,7 +19037,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Save = function(supplierID, userID, user) {
+    this.Save = function(supplierID, userID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'supplierID' is set
@@ -19397,7 +19067,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -19405,7 +19074,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -19465,7 +19134,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Supplier} supplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.Create = function(supplier) {
+    this.Create = function(supplier, accessToken ) {
       var postBody = supplier;
 
       // verify the required parameter 'supplier' is set
@@ -19483,7 +19152,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Supplier;
@@ -19491,7 +19159,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19500,7 +19168,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(supplierID) {
+    this.Delete = function(supplierID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -19519,7 +19187,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -19527,7 +19194,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19536,7 +19203,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.Get = function(supplierID) {
+    this.Get = function(supplierID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -19555,7 +19222,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Supplier;
@@ -19563,7 +19229,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19578,7 +19244,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSupplier}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -19598,7 +19264,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSupplier;
@@ -19606,7 +19271,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19616,7 +19281,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Supplier} partialSupplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.Patch = function(supplierID, partialSupplier) {
+    this.Patch = function(supplierID, partialSupplier, accessToken ) {
       var postBody = partialSupplier;
 
       // verify the required parameter 'supplierID' is set
@@ -19640,7 +19305,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Supplier;
@@ -19648,7 +19312,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19658,7 +19322,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/Supplier} supplier 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Supplier}
      */
-    this.Save = function(supplierID, supplier) {
+    this.Save = function(supplierID, supplier, accessToken ) {
       var postBody = supplier;
 
       // verify the required parameter 'supplierID' is set
@@ -19682,7 +19346,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Supplier;
@@ -19690,7 +19353,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/suppliers/{supplierID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -19751,7 +19414,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Create = function(buyerID, userGroup) {
+    this.Create = function(buyerID, userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'buyerID' is set
@@ -19775,7 +19438,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -19783,7 +19445,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19793,7 +19455,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, userGroupID) {
+    this.Delete = function(buyerID, userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -19818,7 +19480,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -19826,7 +19487,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups/{userGroupID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19837,7 +19498,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteUserAssignment = function(buyerID, userGroupID, userID) {
+    this.DeleteUserAssignment = function(buyerID, userGroupID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -19868,7 +19529,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -19876,7 +19536,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups/{userGroupID}/assignments/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19886,7 +19546,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Get = function(buyerID, userGroupID) {
+    this.Get = function(buyerID, userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -19911,7 +19571,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -19919,7 +19578,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups/{userGroupID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19935,7 +19594,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -19961,7 +19620,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
@@ -19969,7 +19627,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -19983,7 +19641,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
-    this.ListUserAssignments = function(buyerID, opts) {
+    this.ListUserAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -20007,7 +19665,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroupAssignment;
@@ -20015,7 +19672,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20026,7 +19683,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Patch = function(buyerID, userGroupID, partialUserGroup) {
+    this.Patch = function(buyerID, userGroupID, partialUserGroup, accessToken ) {
       var postBody = partialUserGroup;
 
       // verify the required parameter 'buyerID' is set
@@ -20056,7 +19713,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -20064,7 +19720,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups/{userGroupID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20075,7 +19731,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Save = function(buyerID, userGroupID, userGroup) {
+    this.Save = function(buyerID, userGroupID, userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'buyerID' is set
@@ -20105,7 +19761,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -20113,7 +19768,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups/{userGroupID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20123,7 +19778,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/UserGroupAssignment} userGroupAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveUserAssignment = function(buyerID, userGroupAssignment) {
+    this.SaveUserAssignment = function(buyerID, userGroupAssignment, accessToken ) {
       var postBody = userGroupAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -20147,7 +19802,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -20155,7 +19809,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/usergroups/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -20216,7 +19870,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Create = function(buyerID, user) {
+    this.Create = function(buyerID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'buyerID' is set
@@ -20240,7 +19894,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -20248,7 +19901,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20258,7 +19911,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, userID) {
+    this.Delete = function(buyerID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -20283,7 +19936,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -20291,7 +19943,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20301,7 +19953,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Get = function(buyerID, userID) {
+    this.Get = function(buyerID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -20326,7 +19978,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -20334,7 +19985,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20345,7 +19996,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/ImpersonateTokenRequest} impersonateTokenRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccessToken}
      */
-    this.GetAccessToken = function(buyerID, userID, impersonateTokenRequest) {
+    this.GetAccessToken = function(buyerID, userID, impersonateTokenRequest, accessToken ) {
       var postBody = impersonateTokenRequest;
 
       // verify the required parameter 'buyerID' is set
@@ -20375,7 +20026,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = AccessToken;
@@ -20383,7 +20033,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}/accesstoken', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20400,7 +20050,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -20427,7 +20077,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -20435,7 +20084,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20447,7 +20096,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} orders Orders of the user. Possible values: None, Unsubmitted, All.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Move = function(buyerID, userID, newBuyerID, orders) {
+    this.Move = function(buyerID, userID, newBuyerID, orders, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -20484,7 +20133,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -20492,7 +20140,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}/moveto/{newBuyerID}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20503,7 +20151,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(buyerID, userID, partialUser) {
+    this.Patch = function(buyerID, userID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'buyerID' is set
@@ -20533,7 +20181,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -20541,7 +20188,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -20552,7 +20199,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Save = function(buyerID, userID, user) {
+    this.Save = function(buyerID, userID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'buyerID' is set
@@ -20582,7 +20229,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -20590,7 +20236,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
@@ -20652,7 +20298,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * </pre>
    * </p>
    * @module index
-   * @version 3.2.3
+   * @version 3.3.3
    */
   var exports = {
     /**
@@ -21831,12 +21477,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('AddressName')) {
-        obj['AddressName'] = Sdk.convertToType(data['AddressName'], 'String');
-      }
-      if (data.hasOwnProperty('City')) {
-        obj['City'] = Sdk.convertToType(data['City'], 'String');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
@@ -21858,6 +21498,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Street2')) {
         obj['Street2'] = Sdk.convertToType(data['Street2'], 'String');
       }
+      if (data.hasOwnProperty('City')) {
+        obj['City'] = Sdk.convertToType(data['City'], 'String');
+      }
       if (data.hasOwnProperty('State')) {
         obj['State'] = Sdk.convertToType(data['State'], 'String');
       }
@@ -21870,6 +21513,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Phone')) {
         obj['Phone'] = Sdk.convertToType(data['Phone'], 'String');
       }
+      if (data.hasOwnProperty('AddressName')) {
+        obj['AddressName'] = Sdk.convertToType(data['AddressName'], 'String');
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
@@ -21877,14 +21523,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     return obj;
   }
 
-  /**
-   * @member {String} AddressName
-   */
-  exports.prototype['AddressName'] = undefined;
-  /**
-   * @member {String} City
-   */
-  exports.prototype['City'] = undefined;
   /**
    * @member {String} ID
    */
@@ -21914,6 +21552,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Street2'] = undefined;
   /**
+   * @member {String} City
+   */
+  exports.prototype['City'] = undefined;
+  /**
    * @member {String} State
    */
   exports.prototype['State'] = undefined;
@@ -21929,6 +21571,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Phone
    */
   exports.prototype['Phone'] = undefined;
+  /**
+   * @member {String} AddressName
+   */
+  exports.prototype['AddressName'] = undefined;
   /**
    * @member {Object} xp
    */
@@ -31847,12 +31493,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('AddressName')) {
-        obj['AddressName'] = Sdk.convertToType(data['AddressName'], 'String');
-      }
-      if (data.hasOwnProperty('City')) {
-        obj['City'] = Sdk.convertToType(data['City'], 'String');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
@@ -31874,6 +31514,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Street2')) {
         obj['Street2'] = Sdk.convertToType(data['Street2'], 'String');
       }
+      if (data.hasOwnProperty('City')) {
+        obj['City'] = Sdk.convertToType(data['City'], 'String');
+      }
       if (data.hasOwnProperty('State')) {
         obj['State'] = Sdk.convertToType(data['State'], 'String');
       }
@@ -31886,6 +31529,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Phone')) {
         obj['Phone'] = Sdk.convertToType(data['Phone'], 'String');
       }
+      if (data.hasOwnProperty('AddressName')) {
+        obj['AddressName'] = Sdk.convertToType(data['AddressName'], 'String');
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
@@ -31893,14 +31539,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     return obj;
   }
 
-  /**
-   * @member {String} AddressName
-   */
-  exports.prototype['AddressName'] = undefined;
-  /**
-   * @member {String} City
-   */
-  exports.prototype['City'] = undefined;
   /**
    * @member {String} ID
    */
@@ -31930,6 +31568,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Street2'] = undefined;
   /**
+   * @member {String} City
+   */
+  exports.prototype['City'] = undefined;
+  /**
    * @member {String} State
    */
   exports.prototype['State'] = undefined;
@@ -31945,6 +31587,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Phone
    */
   exports.prototype['Phone'] = undefined;
+  /**
+   * @member {String} AddressName
+   */
+  exports.prototype['AddressName'] = undefined;
   /**
    * @member {Object} xp
    */
@@ -35665,9 +35311,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('Description')) {
-        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
-      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
       }
@@ -35676,6 +35319,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('QuantityMultiplier')) {
         obj['QuantityMultiplier'] = Sdk.convertToType(data['QuantityMultiplier'], 'Number');
@@ -35718,10 +35364,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   }
 
   /**
-   * @member {String} Description
-   */
-  exports.prototype['Description'] = undefined;
-  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
@@ -35733,6 +35375,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Name
    */
   exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
   /**
    * @member {Number} QuantityMultiplier
    */
@@ -38097,9 +37743,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('Description')) {
-        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
-      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
       }
@@ -38108,6 +37751,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('Description')) {
+        obj['Description'] = Sdk.convertToType(data['Description'], 'String');
       }
       if (data.hasOwnProperty('QuantityMultiplier')) {
         obj['QuantityMultiplier'] = Sdk.convertToType(data['QuantityMultiplier'], 'Number');
@@ -38150,10 +37796,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   }
 
   /**
-   * @member {String} Description
-   */
-  exports.prototype['Description'] = undefined;
-  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
@@ -38165,6 +37807,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Name
    */
   exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} Description
+   */
+  exports.prototype['Description'] = undefined;
   /**
    * @member {Number} QuantityMultiplier
    */

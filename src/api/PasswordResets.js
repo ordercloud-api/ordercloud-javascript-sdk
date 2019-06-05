@@ -50,7 +50,7 @@
      * @param {module:model/PasswordReset} passwordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPasswordByVerificationCode = function(verificationCode, passwordReset) {
+    this.ResetPasswordByVerificationCode = function(verificationCode, passwordReset, accessToken ) {
       var postBody = passwordReset;
 
       // verify the required parameter 'verificationCode' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/password/reset/{verificationCode}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -91,7 +90,7 @@
      * @param {module:model/PasswordResetRequest} passwordResetRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SendVerificationCode = function(passwordResetRequest) {
+    this.SendVerificationCode = function(passwordResetRequest, accessToken ) {
       var postBody = passwordResetRequest;
 
       // verify the required parameter 'passwordResetRequest' is set
@@ -109,7 +108,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -117,7 +115,7 @@
       return this.sdk.callApi(
         '/password/reset', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

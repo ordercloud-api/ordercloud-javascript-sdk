@@ -49,7 +49,7 @@
      * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.CreateAddress = function(buyerAddress) {
+    this.CreateAddress = function(buyerAddress, accessToken ) {
       var postBody = buyerAddress;
 
       // verify the required parameter 'buyerAddress' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/me/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.CreateCreditCard = function(buyerCreditCard) {
+    this.CreateCreditCard = function(buyerCreditCard, accessToken ) {
       var postBody = buyerCreditCard;
 
       // verify the required parameter 'buyerCreditCard' is set
@@ -102,7 +101,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
@@ -110,7 +108,7 @@
       return this.sdk.callApi(
         '/me/creditcards', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -119,7 +117,7 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAddress = function(addressID) {
+    this.DeleteAddress = function(addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
@@ -138,7 +136,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -146,7 +143,7 @@
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -155,7 +152,7 @@
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteCreditCard = function(creditcardID) {
+    this.DeleteCreditCard = function(creditcardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'creditcardID' is set
@@ -174,7 +171,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -182,7 +178,7 @@
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -190,7 +186,7 @@
     /**
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Get = function() {
+    this.Get = function( accessToken ) {
       var postBody = null;
 
 
@@ -203,7 +199,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MeUser;
@@ -211,7 +206,7 @@
       return this.sdk.callApi(
         '/me', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -220,7 +215,7 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.GetAddress = function(addressID) {
+    this.GetAddress = function(addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'addressID' is set
@@ -239,7 +234,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
@@ -247,7 +241,7 @@
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -256,7 +250,7 @@
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.GetCatalog = function(catalogID) {
+    this.GetCatalog = function(catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -275,7 +269,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -283,7 +276,7 @@
       return this.sdk.callApi(
         '/me/catalogs/{catalogID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -293,7 +286,7 @@
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.GetCategory = function(categoryID, catalogID) {
+    this.GetCategory = function(categoryID, catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'categoryID' is set
@@ -318,7 +311,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -326,7 +318,7 @@
       return this.sdk.callApi(
         '/me/categories/{categoryID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -335,7 +327,7 @@
      * @param {String} creditcardID ID of the creditcard.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.GetCreditCard = function(creditcardID) {
+    this.GetCreditCard = function(creditcardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'creditcardID' is set
@@ -354,7 +346,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
@@ -362,7 +353,7 @@
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -371,7 +362,7 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerProduct}
      */
-    this.GetProduct = function(productID) {
+    this.GetProduct = function(productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productID' is set
@@ -390,7 +381,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerProduct;
@@ -398,7 +388,7 @@
       return this.sdk.callApi(
         '/me/products/{productID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -407,7 +397,7 @@
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.GetPromotion = function(promotionID) {
+    this.GetPromotion = function(promotionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
@@ -426,7 +416,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -434,7 +423,7 @@
       return this.sdk.callApi(
         '/me/promotions/{promotionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -443,7 +432,7 @@
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.GetShipment = function(shipmentID) {
+    this.GetShipment = function(shipmentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -462,7 +451,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -470,7 +458,7 @@
       return this.sdk.callApi(
         '/me/shipments/{shipmentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -482,7 +470,7 @@
      * @param {String} opts.catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerSpec}
      */
-    this.GetSpec = function(productID, specID, opts) {
+    this.GetSpec = function(productID, specID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -509,7 +497,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerSpec;
@@ -517,7 +504,7 @@
       return this.sdk.callApi(
         '/me/products/{productID}/specs/{specID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -526,7 +513,7 @@
      * @param {String} spendingAccountID ID of the spending account.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SpendingAccount}
      */
-    this.GetSpendingAccount = function(spendingAccountID) {
+    this.GetSpendingAccount = function(spendingAccountID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'spendingAccountID' is set
@@ -545,7 +532,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SpendingAccount;
@@ -553,7 +539,7 @@
       return this.sdk.callApi(
         '/me/spendingaccounts/{spendingAccountID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -568,7 +554,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerAddress}
      */
-    this.ListAddresses = function(opts) {
+    this.ListAddresses = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -588,7 +574,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerAddress;
@@ -596,7 +581,7 @@
       return this.sdk.callApi(
         '/me/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -613,7 +598,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.ListApprovableOrders = function(opts) {
+    this.ListApprovableOrders = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -635,7 +620,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrder;
@@ -643,7 +627,7 @@
       return this.sdk.callApi(
         '/me/orders/approvable', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -658,7 +642,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
-    this.ListCatalogs = function(opts) {
+    this.ListCatalogs = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -678,7 +662,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCatalog;
@@ -686,7 +669,7 @@
       return this.sdk.callApi(
         '/me/catalogs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -704,7 +687,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
-    this.ListCategories = function(opts) {
+    this.ListCategories = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -727,7 +710,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategory;
@@ -735,7 +717,7 @@
       return this.sdk.callApi(
         '/me/categories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -750,7 +732,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCostCenter}
      */
-    this.ListCostCenters = function(opts) {
+    this.ListCostCenters = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -770,7 +752,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCostCenter;
@@ -778,7 +759,7 @@
       return this.sdk.callApi(
         '/me/costcenters', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -793,7 +774,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerCreditCard}
      */
-    this.ListCreditCards = function(opts) {
+    this.ListCreditCards = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -813,7 +794,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerCreditCard;
@@ -821,7 +801,7 @@
       return this.sdk.callApi(
         '/me/creditcards', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -838,7 +818,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.ListOrders = function(opts) {
+    this.ListOrders = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -860,7 +840,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrder;
@@ -868,7 +847,7 @@
       return this.sdk.callApi(
         '/me/orders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -886,7 +865,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerProduct}
      */
-    this.ListProducts = function(opts) {
+    this.ListProducts = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -909,7 +888,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerProduct;
@@ -917,7 +895,7 @@
       return this.sdk.callApi(
         '/me/products', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -932,7 +910,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
-    this.ListPromotions = function(opts) {
+    this.ListPromotions = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -952,7 +930,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPromotion;
@@ -960,7 +937,7 @@
       return this.sdk.callApi(
         '/me/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -977,7 +954,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
-    this.ListShipmentItems = function(shipmentID, opts) {
+    this.ListShipmentItems = function(shipmentID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -1004,7 +981,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipmentItem;
@@ -1012,7 +988,7 @@
       return this.sdk.callApi(
         '/me/shipments/{shipmentID}/items', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1028,7 +1004,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
-    this.ListShipments = function(opts) {
+    this.ListShipments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -1049,7 +1025,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipment;
@@ -1057,7 +1032,7 @@
       return this.sdk.callApi(
         '/me/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1074,7 +1049,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
      */
-    this.ListSpecs = function(productID, opts) {
+    this.ListSpecs = function(productID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -1101,7 +1076,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListBuyerSpec;
@@ -1109,7 +1083,7 @@
       return this.sdk.callApi(
         '/me/products/{productID}/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1124,7 +1098,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpendingAccount}
      */
-    this.ListSpendingAccounts = function(opts) {
+    this.ListSpendingAccounts = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -1144,7 +1118,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSpendingAccount;
@@ -1152,7 +1125,7 @@
       return this.sdk.callApi(
         '/me/spendingAccounts', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1167,7 +1140,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.ListUserGroups = function(opts) {
+    this.ListUserGroups = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -1187,7 +1160,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
@@ -1195,7 +1167,7 @@
       return this.sdk.callApi(
         '/me/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1204,7 +1176,7 @@
      * @param {module:model/MeUser} partialMeUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Patch = function(partialMeUser) {
+    this.Patch = function(partialMeUser, accessToken ) {
       var postBody = partialMeUser;
 
       // verify the required parameter 'partialMeUser' is set
@@ -1222,7 +1194,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MeUser;
@@ -1230,7 +1201,7 @@
       return this.sdk.callApi(
         '/me', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1240,7 +1211,7 @@
      * @param {module:model/BuyerAddress} partialBuyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.PatchAddress = function(addressID, partialBuyerAddress) {
+    this.PatchAddress = function(addressID, partialBuyerAddress, accessToken ) {
       var postBody = partialBuyerAddress;
 
       // verify the required parameter 'addressID' is set
@@ -1264,7 +1235,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -1272,7 +1242,7 @@
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1282,7 +1252,7 @@
      * @param {module:model/BuyerCreditCard} partialBuyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.PatchCreditCard = function(creditcardID, partialBuyerCreditCard) {
+    this.PatchCreditCard = function(creditcardID, partialBuyerCreditCard, accessToken ) {
       var postBody = partialBuyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
@@ -1306,7 +1276,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -1314,7 +1283,7 @@
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1324,7 +1293,7 @@
      * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link Object}
      */
-    this.Register = function(anonUserToken, meUser) {
+    this.Register = function(anonUserToken, meUser, accessToken ) {
       var postBody = meUser;
 
       // verify the required parameter 'anonUserToken' is set
@@ -1348,7 +1317,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Object;
@@ -1356,7 +1324,7 @@
       return this.sdk.callApi(
         '/me/register', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1365,7 +1333,7 @@
      * @param {module:model/TokenPasswordReset} tokenPasswordReset 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.ResetPasswordByToken = function(tokenPasswordReset) {
+    this.ResetPasswordByToken = function(tokenPasswordReset, accessToken ) {
       var postBody = tokenPasswordReset;
 
       // verify the required parameter 'tokenPasswordReset' is set
@@ -1383,7 +1351,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -1391,7 +1358,7 @@
       return this.sdk.callApi(
         '/me/password', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1400,7 +1367,7 @@
      * @param {module:model/MeUser} meUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MeUser}
      */
-    this.Save = function(meUser) {
+    this.Save = function(meUser, accessToken ) {
       var postBody = meUser;
 
       // verify the required parameter 'meUser' is set
@@ -1418,7 +1385,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MeUser;
@@ -1426,7 +1392,7 @@
       return this.sdk.callApi(
         '/me', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1436,7 +1402,7 @@
      * @param {module:model/BuyerAddress} buyerAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerAddress}
      */
-    this.SaveAddress = function(addressID, buyerAddress) {
+    this.SaveAddress = function(addressID, buyerAddress, accessToken ) {
       var postBody = buyerAddress;
 
       // verify the required parameter 'addressID' is set
@@ -1460,7 +1426,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerAddress;
@@ -1468,7 +1433,7 @@
       return this.sdk.callApi(
         '/me/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1478,7 +1443,7 @@
      * @param {module:model/BuyerCreditCard} buyerCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerCreditCard}
      */
-    this.SaveCreditCard = function(creditcardID, buyerCreditCard) {
+    this.SaveCreditCard = function(creditcardID, buyerCreditCard, accessToken ) {
       var postBody = buyerCreditCard;
 
       // verify the required parameter 'creditcardID' is set
@@ -1502,7 +1467,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = BuyerCreditCard;
@@ -1510,7 +1474,7 @@
       return this.sdk.callApi(
         '/me/creditcards/{creditcardID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1519,7 +1483,7 @@
      * @param {String} anonUserToken Anon user token of the me.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.TransferAnonUserOrder = function(anonUserToken) {
+    this.TransferAnonUserOrder = function(anonUserToken, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'anonUserToken' is set
@@ -1538,7 +1502,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -1546,7 +1509,7 @@
       return this.sdk.callApi(
         '/me/orders', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

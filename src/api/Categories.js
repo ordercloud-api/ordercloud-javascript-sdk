@@ -50,7 +50,7 @@
      * @param {module:model/Category} category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Create = function(catalogID, category) {
+    this.Create = function(catalogID, category, accessToken ) {
       var postBody = category;
 
       // verify the required parameter 'catalogID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} categoryID ID of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(catalogID, categoryID) {
+    this.Delete = function(catalogID, categoryID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -139,7 +137,7 @@
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(catalogID, categoryID, buyerID, opts) {
+    this.DeleteAssignment = function(catalogID, categoryID, buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -173,7 +171,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -181,7 +178,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -192,7 +189,7 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteProductAssignment = function(catalogID, categoryID, productID) {
+    this.DeleteProductAssignment = function(catalogID, categoryID, productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -223,7 +220,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -231,7 +227,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -241,7 +237,7 @@
      * @param {String} categoryID ID of the category.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Get = function(catalogID, categoryID) {
+    this.Get = function(catalogID, categoryID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -266,7 +262,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -274,7 +269,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -291,7 +286,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategory}
      */
-    this.List = function(catalogID, opts) {
+    this.List = function(catalogID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -318,7 +313,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategory;
@@ -326,7 +320,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -343,7 +337,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryAssignment}
      */
-    this.ListAssignments = function(catalogID, opts) {
+    this.ListAssignments = function(catalogID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -370,7 +364,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategoryAssignment;
@@ -378,7 +371,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -392,7 +385,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCategoryProductAssignment}
      */
-    this.ListProductAssignments = function(catalogID, opts) {
+    this.ListProductAssignments = function(catalogID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -416,7 +409,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCategoryProductAssignment;
@@ -424,7 +416,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -435,7 +427,7 @@
      * @param {module:model/Category} partialCategory 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Patch = function(catalogID, categoryID, partialCategory) {
+    this.Patch = function(catalogID, categoryID, partialCategory, accessToken ) {
       var postBody = partialCategory;
 
       // verify the required parameter 'catalogID' is set
@@ -465,7 +457,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -473,7 +464,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -484,7 +475,7 @@
      * @param {module:model/Category} category 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Category}
      */
-    this.Save = function(catalogID, categoryID, category) {
+    this.Save = function(catalogID, categoryID, category, accessToken ) {
       var postBody = category;
 
       // verify the required parameter 'catalogID' is set
@@ -514,7 +505,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Category;
@@ -522,7 +512,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/{categoryID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -532,7 +522,7 @@
      * @param {module:model/CategoryAssignment} categoryAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(catalogID, categoryAssignment) {
+    this.SaveAssignment = function(catalogID, categoryAssignment, accessToken ) {
       var postBody = categoryAssignment;
 
       // verify the required parameter 'catalogID' is set
@@ -556,7 +546,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -564,7 +553,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -574,7 +563,7 @@
      * @param {module:model/CategoryProductAssignment} categoryProductAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(catalogID, categoryProductAssignment) {
+    this.SaveProductAssignment = function(catalogID, categoryProductAssignment, accessToken ) {
       var postBody = categoryProductAssignment;
 
       // verify the required parameter 'catalogID' is set
@@ -598,7 +587,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -606,7 +594,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/categories/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

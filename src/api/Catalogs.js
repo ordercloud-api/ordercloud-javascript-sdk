@@ -49,7 +49,7 @@
      * @param {module:model/Catalog} catalog 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Create = function(catalog) {
+    this.Create = function(catalog, accessToken ) {
       var postBody = catalog;
 
       // verify the required parameter 'catalog' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/catalogs', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(catalogID) {
+    this.Delete = function(catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -121,7 +119,7 @@
      * @param {String} buyerID ID of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(catalogID, buyerID) {
+    this.DeleteAssignment = function(catalogID, buyerID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -146,7 +144,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -154,7 +151,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -164,7 +161,7 @@
      * @param {String} productID ID of the product.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteProductAssignment = function(catalogID, productID) {
+    this.DeleteProductAssignment = function(catalogID, productID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -189,7 +186,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -197,7 +193,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}/productassignments/{productID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -206,7 +202,7 @@
      * @param {String} catalogID ID of the catalog.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Get = function(catalogID) {
+    this.Get = function(catalogID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'catalogID' is set
@@ -225,7 +221,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -233,7 +228,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -248,7 +243,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalog}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -268,7 +263,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCatalog;
@@ -276,7 +270,7 @@
       return this.sdk.callApi(
         '/catalogs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -289,7 +283,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCatalogAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -307,7 +301,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCatalogAssignment;
@@ -315,7 +308,7 @@
       return this.sdk.callApi(
         '/catalogs/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -328,7 +321,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductCatalogAssignment}
      */
-    this.ListProductAssignments = function(opts) {
+    this.ListProductAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -346,7 +339,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListProductCatalogAssignment;
@@ -354,7 +346,7 @@
       return this.sdk.callApi(
         '/catalogs/productassignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -364,7 +356,7 @@
      * @param {module:model/Catalog} partialCatalog 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Patch = function(catalogID, partialCatalog) {
+    this.Patch = function(catalogID, partialCatalog, accessToken ) {
       var postBody = partialCatalog;
 
       // verify the required parameter 'catalogID' is set
@@ -388,7 +380,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -396,7 +387,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -406,7 +397,7 @@
      * @param {module:model/Catalog} catalog 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Catalog}
      */
-    this.Save = function(catalogID, catalog) {
+    this.Save = function(catalogID, catalog, accessToken ) {
       var postBody = catalog;
 
       // verify the required parameter 'catalogID' is set
@@ -430,7 +421,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Catalog;
@@ -438,7 +428,7 @@
       return this.sdk.callApi(
         '/catalogs/{catalogID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -447,7 +437,7 @@
      * @param {module:model/CatalogAssignment} catalogAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(catalogAssignment) {
+    this.SaveAssignment = function(catalogAssignment, accessToken ) {
       var postBody = catalogAssignment;
 
       // verify the required parameter 'catalogAssignment' is set
@@ -465,7 +455,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -473,7 +462,7 @@
       return this.sdk.callApi(
         '/catalogs/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -482,7 +471,7 @@
      * @param {module:model/ProductCatalogAssignment} productCatalogAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveProductAssignment = function(productCatalogAssignment) {
+    this.SaveProductAssignment = function(productCatalogAssignment, accessToken ) {
       var postBody = productCatalogAssignment;
 
       // verify the required parameter 'productCatalogAssignment' is set
@@ -500,7 +489,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -508,7 +496,7 @@
       return this.sdk.callApi(
         '/catalogs/productassignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

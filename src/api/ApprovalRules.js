@@ -50,7 +50,7 @@
      * @param {module:model/ApprovalRule} approvalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Create = function(buyerID, approvalRule) {
+    this.Create = function(buyerID, approvalRule, accessToken ) {
       var postBody = approvalRule;
 
       // verify the required parameter 'buyerID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} approvalRuleID ID of the approval rule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, approvalRuleID) {
+    this.Delete = function(buyerID, approvalRuleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -135,7 +133,7 @@
      * @param {String} approvalRuleID ID of the approval rule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Get = function(buyerID, approvalRuleID) {
+    this.Get = function(buyerID, approvalRuleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -160,7 +158,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -168,7 +165,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -184,7 +181,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApprovalRule}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -210,7 +207,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListApprovalRule;
@@ -218,7 +214,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -229,7 +225,7 @@
      * @param {module:model/ApprovalRule} partialApprovalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Patch = function(buyerID, approvalRuleID, partialApprovalRule) {
+    this.Patch = function(buyerID, approvalRuleID, partialApprovalRule, accessToken ) {
       var postBody = partialApprovalRule;
 
       // verify the required parameter 'buyerID' is set
@@ -259,7 +255,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -267,7 +262,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -278,7 +273,7 @@
      * @param {module:model/ApprovalRule} approvalRule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApprovalRule}
      */
-    this.Save = function(buyerID, approvalRuleID, approvalRule) {
+    this.Save = function(buyerID, approvalRuleID, approvalRule, accessToken ) {
       var postBody = approvalRule;
 
       // verify the required parameter 'buyerID' is set
@@ -308,7 +303,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApprovalRule;
@@ -316,7 +310,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/approvalrules/{approvalRuleID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
