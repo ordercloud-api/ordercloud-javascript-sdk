@@ -49,7 +49,7 @@
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Create = function(shipment) {
+    this.Create = function(shipment, accessToken ) {
       var postBody = shipment;
 
       // verify the required parameter 'shipment' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/shipments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(shipmentID) {
+    this.Delete = function(shipmentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -122,7 +120,7 @@
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteItem = function(shipmentID, orderID, lineItemID) {
+    this.DeleteItem = function(shipmentID, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -153,7 +151,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -161,7 +158,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -170,7 +167,7 @@
      * @param {String} shipmentID ID of the shipment.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Get = function(shipmentID) {
+    this.Get = function(shipmentID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -189,7 +186,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -197,7 +193,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -208,7 +204,7 @@
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.GetItem = function(shipmentID, orderID, lineItemID) {
+    this.GetItem = function(shipmentID, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'shipmentID' is set
@@ -239,7 +235,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ShipmentItem;
@@ -247,7 +242,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items/{orderID}/{lineItemID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -263,7 +258,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -284,7 +279,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipment;
@@ -292,7 +286,7 @@
       return this.sdk.callApi(
         '/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -308,7 +302,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipmentItem}
      */
-    this.ListItems = function(shipmentID, opts) {
+    this.ListItems = function(shipmentID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -334,7 +328,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListShipmentItem;
@@ -342,7 +335,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -352,7 +345,7 @@
      * @param {module:model/Shipment} partialShipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Patch = function(shipmentID, partialShipment) {
+    this.Patch = function(shipmentID, partialShipment, accessToken ) {
       var postBody = partialShipment;
 
       // verify the required parameter 'shipmentID' is set
@@ -376,7 +369,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -384,7 +376,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -394,7 +386,7 @@
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Shipment}
      */
-    this.Save = function(shipmentID, shipment) {
+    this.Save = function(shipmentID, shipment, accessToken ) {
       var postBody = shipment;
 
       // verify the required parameter 'shipmentID' is set
@@ -418,7 +410,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Shipment;
@@ -426,7 +417,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -436,7 +427,7 @@
      * @param {module:model/ShipmentItem} shipmentItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ShipmentItem}
      */
-    this.SaveItem = function(shipmentID, shipmentItem) {
+    this.SaveItem = function(shipmentID, shipmentItem, accessToken ) {
       var postBody = shipmentItem;
 
       // verify the required parameter 'shipmentID' is set
@@ -460,7 +451,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ShipmentItem;
@@ -468,7 +458,7 @@
       return this.sdk.callApi(
         '/shipments/{shipmentID}/items', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

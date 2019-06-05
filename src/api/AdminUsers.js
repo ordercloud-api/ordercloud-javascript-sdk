@@ -49,7 +49,7 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Create = function(user) {
+    this.Create = function(user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'user' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/adminusers', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(userID) {
+    this.Delete = function(userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/adminusers/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -120,7 +118,7 @@
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Get = function(userID) {
+    this.Get = function(userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userID' is set
@@ -139,7 +137,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -147,7 +144,7 @@
       return this.sdk.callApi(
         '/adminusers/{userID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -162,7 +159,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -182,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -190,7 +186,7 @@
       return this.sdk.callApi(
         '/adminusers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -200,7 +196,7 @@
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(userID, partialUser) {
+    this.Patch = function(userID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'userID' is set
@@ -224,7 +220,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -232,7 +227,7 @@
       return this.sdk.callApi(
         '/adminusers/{userID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -242,7 +237,7 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Save = function(userID, user) {
+    this.Save = function(userID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'userID' is set
@@ -266,7 +261,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -274,7 +268,7 @@
       return this.sdk.callApi(
         '/adminusers/{userID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

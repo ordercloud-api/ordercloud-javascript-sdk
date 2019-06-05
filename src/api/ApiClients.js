@@ -49,7 +49,7 @@
      * @param {module:model/ApiClient} apiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Create = function(apiClient) {
+    this.Create = function(apiClient, accessToken ) {
       var postBody = apiClient;
 
       // verify the required parameter 'apiClient' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/apiclients', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} apiClientID ID of the api client.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(apiClientID) {
+    this.Delete = function(apiClientID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -121,7 +119,7 @@
      * @param {String} buyerID ID of the buyer.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteBuyerAssignment = function(apiClientID, buyerID) {
+    this.DeleteBuyerAssignment = function(apiClientID, buyerID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -146,7 +144,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -154,7 +151,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/ApiClients/Assignments/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -164,7 +161,7 @@
      * @param {String} supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteSupplierAssignment = function(apiClientID, supplierID) {
+    this.DeleteSupplierAssignment = function(apiClientID, supplierID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -189,7 +186,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -197,7 +193,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/ApiClients/Assignments/{apiClientID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -206,7 +202,7 @@
      * @param {String} apiClientID ID of the api client.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Get = function(apiClientID) {
+    this.Get = function(apiClientID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'apiClientID' is set
@@ -225,7 +221,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -233,7 +228,7 @@
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -248,7 +243,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApiClient}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -268,7 +263,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListApiClient;
@@ -276,7 +270,7 @@
       return this.sdk.callApi(
         '/apiclients', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -290,7 +284,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListApiClientAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -309,7 +303,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListApiClientAssignment;
@@ -317,7 +310,7 @@
       return this.sdk.callApi(
         '/apiclients/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -327,7 +320,7 @@
      * @param {module:model/ApiClient} partialApiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Patch = function(apiClientID, partialApiClient) {
+    this.Patch = function(apiClientID, partialApiClient, accessToken ) {
       var postBody = partialApiClient;
 
       // verify the required parameter 'apiClientID' is set
@@ -351,7 +344,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -359,7 +351,7 @@
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -369,7 +361,7 @@
      * @param {module:model/ApiClient} apiClient 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ApiClient}
      */
-    this.Save = function(apiClientID, apiClient) {
+    this.Save = function(apiClientID, apiClient, accessToken ) {
       var postBody = apiClient;
 
       // verify the required parameter 'apiClientID' is set
@@ -393,7 +385,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ApiClient;
@@ -401,7 +392,7 @@
       return this.sdk.callApi(
         '/apiclients/{apiClientID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -410,7 +401,7 @@
      * @param {module:model/ApiClientAssignment} apiClientAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(apiClientAssignment) {
+    this.SaveAssignment = function(apiClientAssignment, accessToken ) {
       var postBody = apiClientAssignment;
 
       // verify the required parameter 'apiClientAssignment' is set
@@ -428,7 +419,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -436,7 +426,7 @@
       return this.sdk.callApi(
         '/apiclients/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

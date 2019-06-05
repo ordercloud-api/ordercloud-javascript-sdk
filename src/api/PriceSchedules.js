@@ -49,7 +49,7 @@
      * @param {module:model/PriceSchedule} priceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Create = function(priceSchedule) {
+    this.Create = function(priceSchedule, accessToken ) {
       var postBody = priceSchedule;
 
       // verify the required parameter 'priceSchedule' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/priceschedules', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} priceScheduleID ID of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(priceScheduleID) {
+    this.Delete = function(priceScheduleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -121,7 +119,7 @@
      * @param {Number} quantity Quantity of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeletePriceBreak = function(priceScheduleID, quantity) {
+    this.DeletePriceBreak = function(priceScheduleID, quantity, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -146,7 +144,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -154,7 +151,7 @@
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}/PriceBreaks', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -163,7 +160,7 @@
      * @param {String} priceScheduleID ID of the price schedule.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Get = function(priceScheduleID) {
+    this.Get = function(priceScheduleID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -182,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -190,7 +186,7 @@
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -205,7 +201,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPriceSchedule}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -225,7 +221,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPriceSchedule;
@@ -233,7 +228,7 @@
       return this.sdk.callApi(
         '/priceschedules', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -243,7 +238,7 @@
      * @param {module:model/PriceSchedule} partialPriceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Patch = function(priceScheduleID, partialPriceSchedule) {
+    this.Patch = function(priceScheduleID, partialPriceSchedule, accessToken ) {
       var postBody = partialPriceSchedule;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -267,7 +262,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -275,7 +269,7 @@
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -285,7 +279,7 @@
      * @param {module:model/PriceSchedule} priceSchedule 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.Save = function(priceScheduleID, priceSchedule) {
+    this.Save = function(priceScheduleID, priceSchedule, accessToken ) {
       var postBody = priceSchedule;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -309,7 +303,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -317,7 +310,7 @@
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -327,7 +320,7 @@
      * @param {module:model/PriceBreak} priceBreak 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/PriceSchedule}
      */
-    this.SavePriceBreak = function(priceScheduleID, priceBreak) {
+    this.SavePriceBreak = function(priceScheduleID, priceBreak, accessToken ) {
       var postBody = priceBreak;
 
       // verify the required parameter 'priceScheduleID' is set
@@ -351,7 +344,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = PriceSchedule;
@@ -359,7 +351,7 @@
       return this.sdk.callApi(
         '/priceschedules/{priceScheduleID}/PriceBreaks', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

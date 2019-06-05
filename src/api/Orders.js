@@ -51,7 +51,7 @@
      * @param {String} promoCode Promo code of the order promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderPromotion}
      */
-    this.AddPromotion = function(direction, orderID, promoCode) {
+    this.AddPromotion = function(direction, orderID, promoCode, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -82,7 +82,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = OrderPromotion;
@@ -90,7 +89,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions/{promoCode}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -101,7 +100,7 @@
      * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Approve = function(direction, orderID, orderApprovalInfo) {
+    this.Approve = function(direction, orderID, orderApprovalInfo, accessToken ) {
       var postBody = orderApprovalInfo;
 
       // verify the required parameter 'direction' is set
@@ -131,7 +130,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -139,7 +137,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/approve', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -149,7 +147,7 @@
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Cancel = function(direction, orderID) {
+    this.Cancel = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -174,7 +172,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -182,7 +179,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/cancel', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -192,7 +189,7 @@
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Create = function(direction, order) {
+    this.Create = function(direction, order, accessToken ) {
       var postBody = order;
 
       // verify the required parameter 'direction' is set
@@ -216,7 +213,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -224,7 +220,7 @@
       return this.sdk.callApi(
         '/orders/{direction}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -235,7 +231,7 @@
      * @param {module:model/OrderApprovalInfo} orderApprovalInfo 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Decline = function(direction, orderID, orderApprovalInfo) {
+    this.Decline = function(direction, orderID, orderApprovalInfo, accessToken ) {
       var postBody = orderApprovalInfo;
 
       // verify the required parameter 'direction' is set
@@ -265,7 +261,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -273,7 +268,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/decline', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -283,7 +278,7 @@
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(direction, orderID) {
+    this.Delete = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -308,7 +303,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -316,7 +310,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -326,7 +320,7 @@
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Get = function(direction, orderID) {
+    this.Get = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -351,7 +345,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -359,7 +352,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -379,7 +372,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrder}
      */
-    this.List = function(direction, opts) {
+    this.List = function(direction, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -409,7 +402,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrder;
@@ -417,7 +409,7 @@
       return this.sdk.callApi(
         '/orders/{direction}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -434,7 +426,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderApproval}
      */
-    this.ListApprovals = function(direction, orderID, opts) {
+    this.ListApprovals = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -466,7 +458,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrderApproval;
@@ -474,7 +465,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/approvals', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -491,7 +482,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.ListEligibleApprovers = function(direction, orderID, opts) {
+    this.ListEligibleApprovers = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -523,7 +514,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -531,7 +521,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/eligibleapprovers', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -548,7 +538,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListOrderPromotion}
      */
-    this.ListPromotions = function(direction, orderID, opts) {
+    this.ListPromotions = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -580,7 +570,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListOrderPromotion;
@@ -588,7 +577,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -599,7 +588,7 @@
      * @param {module:model/Order} partialOrder 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Patch = function(direction, orderID, partialOrder) {
+    this.Patch = function(direction, orderID, partialOrder, accessToken ) {
       var postBody = partialOrder;
 
       // verify the required parameter 'direction' is set
@@ -629,7 +618,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -637,7 +625,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -648,7 +636,7 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchBillingAddress = function(direction, orderID, partialAddress) {
+    this.PatchBillingAddress = function(direction, orderID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
@@ -678,7 +666,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -686,7 +673,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/billto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -697,7 +684,7 @@
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchFromUser = function(direction, orderID, partialUser) {
+    this.PatchFromUser = function(direction, orderID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'direction' is set
@@ -727,7 +714,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -735,7 +721,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/fromuser', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -746,7 +732,7 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.PatchShippingAddress = function(direction, orderID, partialAddress) {
+    this.PatchShippingAddress = function(direction, orderID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
@@ -776,7 +762,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -784,7 +769,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -795,7 +780,7 @@
      * @param {String} promoCode Promo code of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.RemovePromotion = function(direction, orderID, promoCode) {
+    this.RemovePromotion = function(direction, orderID, promoCode, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -826,7 +811,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -834,7 +818,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions/{promoCode}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -845,7 +829,7 @@
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Save = function(direction, orderID, order) {
+    this.Save = function(direction, orderID, order, accessToken ) {
       var postBody = order;
 
       // verify the required parameter 'direction' is set
@@ -875,7 +859,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -883,7 +866,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -894,7 +877,7 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetBillingAddress = function(direction, orderID, address) {
+    this.SetBillingAddress = function(direction, orderID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
@@ -924,7 +907,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -932,7 +914,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/billto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -943,7 +925,7 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.SetShippingAddress = function(direction, orderID, address) {
+    this.SetShippingAddress = function(direction, orderID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
@@ -973,7 +955,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -981,7 +962,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -992,7 +973,7 @@
      * @param {module:model/Shipment} shipment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Ship = function(direction, orderID, shipment) {
+    this.Ship = function(direction, orderID, shipment, accessToken ) {
       var postBody = shipment;
 
       // verify the required parameter 'direction' is set
@@ -1022,7 +1003,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -1030,7 +1010,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/ship', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -1040,7 +1020,7 @@
      * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
-    this.Submit = function(direction, orderID) {
+    this.Submit = function(direction, orderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -1065,7 +1045,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Order;
@@ -1073,7 +1052,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/submit', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

@@ -49,7 +49,7 @@
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Create = function(userGroup) {
+    this.Create = function(userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'userGroup' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/usergroups', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(userGroupID) {
+    this.Delete = function(userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -121,7 +119,7 @@
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteUserAssignment = function(userGroupID, userID) {
+    this.DeleteUserAssignment = function(userGroupID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
@@ -146,7 +144,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -154,7 +151,7 @@
       return this.sdk.callApi(
         '/usergroups/{userGroupID}/assignments/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -163,7 +160,7 @@
      * @param {String} userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Get = function(userGroupID) {
+    this.Get = function(userGroupID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'userGroupID' is set
@@ -182,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -190,7 +186,7 @@
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -205,7 +201,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroup}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -225,7 +221,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroup;
@@ -233,7 +228,7 @@
       return this.sdk.callApi(
         '/usergroups', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -246,7 +241,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUserGroupAssignment}
      */
-    this.ListUserAssignments = function(opts) {
+    this.ListUserAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -264,7 +259,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUserGroupAssignment;
@@ -272,7 +266,7 @@
       return this.sdk.callApi(
         '/usergroups/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -282,7 +276,7 @@
      * @param {module:model/UserGroup} partialUserGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Patch = function(userGroupID, partialUserGroup) {
+    this.Patch = function(userGroupID, partialUserGroup, accessToken ) {
       var postBody = partialUserGroup;
 
       // verify the required parameter 'userGroupID' is set
@@ -306,7 +300,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -314,7 +307,7 @@
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -324,7 +317,7 @@
      * @param {module:model/UserGroup} userGroup 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/UserGroup}
      */
-    this.Save = function(userGroupID, userGroup) {
+    this.Save = function(userGroupID, userGroup, accessToken ) {
       var postBody = userGroup;
 
       // verify the required parameter 'userGroupID' is set
@@ -348,7 +341,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = UserGroup;
@@ -356,7 +348,7 @@
       return this.sdk.callApi(
         '/usergroups/{userGroupID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -365,7 +357,7 @@
      * @param {module:model/UserGroupAssignment} userGroupAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveUserAssignment = function(userGroupAssignment) {
+    this.SaveUserAssignment = function(userGroupAssignment, accessToken ) {
       var postBody = userGroupAssignment;
 
       // verify the required parameter 'userGroupAssignment' is set
@@ -383,7 +375,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -391,7 +382,7 @@
       return this.sdk.callApi(
         '/usergroups/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

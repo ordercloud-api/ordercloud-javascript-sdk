@@ -51,7 +51,7 @@
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Create = function(direction, orderID, lineItem) {
+    this.Create = function(direction, orderID, lineItem, accessToken ) {
       var postBody = lineItem;
 
       // verify the required parameter 'direction' is set
@@ -81,7 +81,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -89,7 +88,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -100,7 +99,7 @@
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(direction, orderID, lineItemID) {
+    this.Delete = function(direction, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -131,7 +130,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -139,7 +137,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -150,7 +148,7 @@
      * @param {String} lineItemID ID of the line item.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Get = function(direction, orderID, lineItemID) {
+    this.Get = function(direction, orderID, lineItemID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'direction' is set
@@ -181,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -189,7 +186,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -206,7 +203,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListLineItem}
      */
-    this.List = function(direction, orderID, opts) {
+    this.List = function(direction, orderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -238,7 +235,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListLineItem;
@@ -246,7 +242,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -258,7 +254,7 @@
      * @param {module:model/LineItem} partialLineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Patch = function(direction, orderID, lineItemID, partialLineItem) {
+    this.Patch = function(direction, orderID, lineItemID, partialLineItem, accessToken ) {
       var postBody = partialLineItem;
 
       // verify the required parameter 'direction' is set
@@ -294,7 +290,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -302,7 +297,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -314,7 +309,7 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.PatchShippingAddress = function(direction, orderID, lineItemID, partialAddress) {
+    this.PatchShippingAddress = function(direction, orderID, lineItemID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'direction' is set
@@ -350,7 +345,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -358,7 +352,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -370,7 +364,7 @@
      * @param {module:model/LineItem} lineItem 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.Save = function(direction, orderID, lineItemID, lineItem) {
+    this.Save = function(direction, orderID, lineItemID, lineItem, accessToken ) {
       var postBody = lineItem;
 
       // verify the required parameter 'direction' is set
@@ -406,7 +400,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -414,7 +407,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -426,7 +419,7 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/LineItem}
      */
-    this.SetShippingAddress = function(direction, orderID, lineItemID, address) {
+    this.SetShippingAddress = function(direction, orderID, lineItemID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'direction' is set
@@ -462,7 +455,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = LineItem;
@@ -470,7 +462,7 @@
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/lineitems/{lineItemID}/shipto', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

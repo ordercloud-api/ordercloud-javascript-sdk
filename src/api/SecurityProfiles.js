@@ -54,7 +54,7 @@
      * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(securityProfileID, opts) {
+    this.DeleteAssignment = function(securityProfileID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -78,7 +78,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -86,7 +85,7 @@
       return this.sdk.callApi(
         '/securityprofiles/{securityProfileID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -95,7 +94,7 @@
      * @param {String} securityProfileID ID of the security profile.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SecurityProfile}
      */
-    this.Get = function(securityProfileID) {
+    this.Get = function(securityProfileID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'securityProfileID' is set
@@ -114,7 +113,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = SecurityProfile;
@@ -122,7 +120,7 @@
       return this.sdk.callApi(
         '/securityprofiles/{securityProfileID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -137,7 +135,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfile}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -157,7 +155,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSecurityProfile;
@@ -165,7 +162,7 @@
       return this.sdk.callApi(
         '/securityprofiles', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -183,7 +180,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSecurityProfileAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -206,7 +203,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListSecurityProfileAssignment;
@@ -214,7 +210,7 @@
       return this.sdk.callApi(
         '/securityprofiles/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -223,7 +219,7 @@
      * @param {module:model/SecurityProfileAssignment} securityProfileAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(securityProfileAssignment) {
+    this.SaveAssignment = function(securityProfileAssignment, accessToken ) {
       var postBody = securityProfileAssignment;
 
       // verify the required parameter 'securityProfileAssignment' is set
@@ -241,7 +237,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -249,7 +244,7 @@
       return this.sdk.callApi(
         '/securityprofiles/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

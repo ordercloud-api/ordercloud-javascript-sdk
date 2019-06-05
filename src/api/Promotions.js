@@ -49,7 +49,7 @@
      * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Create = function(promotion) {
+    this.Create = function(promotion, accessToken ) {
       var postBody = promotion;
 
       // verify the required parameter 'promotion' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/promotions', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(promotionID) {
+    this.Delete = function(promotionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -124,7 +122,7 @@
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(promotionID, buyerID, opts) {
+    this.DeleteAssignment = function(promotionID, buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -152,7 +150,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -160,7 +157,7 @@
       return this.sdk.callApi(
         '/promotions/{promotionID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -169,7 +166,7 @@
      * @param {String} promotionID ID of the promotion.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Get = function(promotionID) {
+    this.Get = function(promotionID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'promotionID' is set
@@ -188,7 +185,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -196,7 +192,7 @@
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -211,7 +207,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotion}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -231,7 +227,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPromotion;
@@ -239,7 +234,7 @@
       return this.sdk.callApi(
         '/promotions', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -255,7 +250,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListPromotionAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -276,7 +271,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListPromotionAssignment;
@@ -284,7 +278,7 @@
       return this.sdk.callApi(
         '/promotions/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -294,7 +288,7 @@
      * @param {module:model/Promotion} partialPromotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Patch = function(promotionID, partialPromotion) {
+    this.Patch = function(promotionID, partialPromotion, accessToken ) {
       var postBody = partialPromotion;
 
       // verify the required parameter 'promotionID' is set
@@ -318,7 +312,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -326,7 +319,7 @@
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -336,7 +329,7 @@
      * @param {module:model/Promotion} promotion 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Promotion}
      */
-    this.Save = function(promotionID, promotion) {
+    this.Save = function(promotionID, promotion, accessToken ) {
       var postBody = promotion;
 
       // verify the required parameter 'promotionID' is set
@@ -360,7 +353,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Promotion;
@@ -368,7 +360,7 @@
       return this.sdk.callApi(
         '/promotions/{promotionID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -377,7 +369,7 @@
      * @param {module:model/PromotionAssignment} promotionAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(promotionAssignment) {
+    this.SaveAssignment = function(promotionAssignment, accessToken ) {
       var postBody = promotionAssignment;
 
       // verify the required parameter 'promotionAssignment' is set
@@ -395,7 +387,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -403,7 +394,7 @@
       return this.sdk.callApi(
         '/promotions/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

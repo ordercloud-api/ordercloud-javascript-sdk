@@ -50,7 +50,7 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Create = function(buyerID, address) {
+    this.Create = function(buyerID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'buyerID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, addressID) {
+    this.Delete = function(buyerID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -138,7 +136,7 @@
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, addressID, opts) {
+    this.DeleteAssignment = function(buyerID, addressID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -166,7 +164,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -174,7 +171,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -184,7 +181,7 @@
      * @param {String} addressID ID of the address.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Get = function(buyerID, addressID) {
+    this.Get = function(buyerID, addressID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -209,7 +206,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -217,7 +213,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -233,7 +229,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddress}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -259,7 +255,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListAddress;
@@ -267,7 +262,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -285,7 +280,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListAddressAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -313,7 +308,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListAddressAssignment;
@@ -321,7 +315,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -332,7 +326,7 @@
      * @param {module:model/Address} partialAddress 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Patch = function(buyerID, addressID, partialAddress) {
+    this.Patch = function(buyerID, addressID, partialAddress, accessToken ) {
       var postBody = partialAddress;
 
       // verify the required parameter 'buyerID' is set
@@ -362,7 +356,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -370,7 +363,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -381,7 +374,7 @@
      * @param {module:model/Address} address 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Address}
      */
-    this.Save = function(buyerID, addressID, address) {
+    this.Save = function(buyerID, addressID, address, accessToken ) {
       var postBody = address;
 
       // verify the required parameter 'buyerID' is set
@@ -411,7 +404,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Address;
@@ -419,7 +411,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/{addressID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -429,7 +421,7 @@
      * @param {module:model/AddressAssignment} addressAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, addressAssignment) {
+    this.SaveAssignment = function(buyerID, addressAssignment, accessToken ) {
       var postBody = addressAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -453,7 +445,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -461,7 +452,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/addresses/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

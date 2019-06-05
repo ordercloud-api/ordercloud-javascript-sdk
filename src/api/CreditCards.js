@@ -50,7 +50,7 @@
      * @param {module:model/CreditCard} creditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Create = function(buyerID, creditCard) {
+    this.Create = function(buyerID, creditCard, accessToken ) {
       var postBody = creditCard;
 
       // verify the required parameter 'buyerID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} creditCardID ID of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, creditCardID) {
+    this.Delete = function(buyerID, creditCardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -138,7 +136,7 @@
      * @param {String} opts.userGroupID ID of the user group.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(buyerID, creditCardID, opts) {
+    this.DeleteAssignment = function(buyerID, creditCardID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -166,7 +164,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -174,7 +171,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -184,7 +181,7 @@
      * @param {String} creditCardID ID of the credit card.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Get = function(buyerID, creditCardID) {
+    this.Get = function(buyerID, creditCardID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -209,7 +206,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -217,7 +213,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -233,7 +229,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCard}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -259,7 +255,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCreditCard;
@@ -267,7 +262,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -283,7 +278,7 @@
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListCreditCardAssignment}
      */
-    this.ListAssignments = function(buyerID, opts) {
+    this.ListAssignments = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -309,7 +304,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListCreditCardAssignment;
@@ -317,7 +311,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -328,7 +322,7 @@
      * @param {module:model/CreditCard} partialCreditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Patch = function(buyerID, creditCardID, partialCreditCard) {
+    this.Patch = function(buyerID, creditCardID, partialCreditCard, accessToken ) {
       var postBody = partialCreditCard;
 
       // verify the required parameter 'buyerID' is set
@@ -358,7 +352,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -366,7 +359,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -377,7 +370,7 @@
      * @param {module:model/CreditCard} creditCard 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/CreditCard}
      */
-    this.Save = function(buyerID, creditCardID, creditCard) {
+    this.Save = function(buyerID, creditCardID, creditCard, accessToken ) {
       var postBody = creditCard;
 
       // verify the required parameter 'buyerID' is set
@@ -407,7 +400,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = CreditCard;
@@ -415,7 +407,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/{creditCardID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -425,7 +417,7 @@
      * @param {module:model/CreditCardAssignment} creditCardAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(buyerID, creditCardAssignment) {
+    this.SaveAssignment = function(buyerID, creditCardAssignment, accessToken ) {
       var postBody = creditCardAssignment;
 
       // verify the required parameter 'buyerID' is set
@@ -449,7 +441,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -457,7 +448,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/creditcards/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

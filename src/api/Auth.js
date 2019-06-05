@@ -74,7 +74,6 @@
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -82,7 +81,7 @@
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );         
         }
 
@@ -121,7 +120,6 @@
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -129,7 +127,7 @@
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );  
         }
 
@@ -158,7 +156,6 @@
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -166,7 +163,7 @@
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             ); 
         }
 
@@ -195,7 +192,6 @@
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -203,7 +199,7 @@
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );
         }
 
@@ -227,7 +223,6 @@
             var headerParams = {};
             var formParams = {};
 
-            var authNames = null;
             var contentTypes = ['application/x-www-form-urlencoded'];
             var accepts = ['application/json'];
             var returnType = AccessToken;
@@ -235,7 +230,7 @@
             return this.sdk.callAuth(
                 '/oauth/token', 'POST',
                 pathParams, queryParams, headerParams, formParams, postBody,
-                authNames, contentTypes, accepts, returnType
+                contentTypes, accepts, returnType
             );
         }
     };

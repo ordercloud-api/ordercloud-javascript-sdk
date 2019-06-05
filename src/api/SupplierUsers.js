@@ -50,7 +50,7 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Create = function(supplierID, user) {
+    this.Create = function(supplierID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'supplierID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(supplierID, userID) {
+    this.Delete = function(supplierID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -135,7 +133,7 @@
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Get = function(supplierID, userID) {
+    this.Get = function(supplierID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'supplierID' is set
@@ -160,7 +158,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -168,7 +165,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -179,7 +176,7 @@
      * @param {module:model/ImpersonateTokenRequest} impersonateTokenRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccessToken}
      */
-    this.GetAccessToken = function(supplierID, userID, impersonateTokenRequest) {
+    this.GetAccessToken = function(supplierID, userID, impersonateTokenRequest, accessToken ) {
       var postBody = impersonateTokenRequest;
 
       // verify the required parameter 'supplierID' is set
@@ -209,7 +206,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = AccessToken;
@@ -217,7 +213,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}/accesstoken', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -234,7 +230,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.List = function(supplierID, opts) {
+    this.List = function(supplierID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -261,7 +257,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -269,7 +264,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -280,7 +275,7 @@
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(supplierID, userID, partialUser) {
+    this.Patch = function(supplierID, userID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'supplierID' is set
@@ -310,7 +305,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -318,7 +312,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -329,7 +323,7 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Save = function(supplierID, userID, user) {
+    this.Save = function(supplierID, userID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'supplierID' is set
@@ -359,7 +353,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -367,7 +360,7 @@
       return this.sdk.callApi(
         '/suppliers/{supplierID}/users/{userID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

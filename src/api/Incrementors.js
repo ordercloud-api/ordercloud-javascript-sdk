@@ -49,7 +49,7 @@
      * @param {module:model/Incrementor} incrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Create = function(incrementor) {
+    this.Create = function(incrementor, accessToken ) {
       var postBody = incrementor;
 
       // verify the required parameter 'incrementor' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/incrementors', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} incrementorID ID of the incrementor.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(incrementorID) {
+    this.Delete = function(incrementorID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'incrementorID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -120,7 +118,7 @@
      * @param {String} incrementorID ID of the incrementor.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Get = function(incrementorID) {
+    this.Get = function(incrementorID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'incrementorID' is set
@@ -139,7 +137,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -147,7 +144,7 @@
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -162,7 +159,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListIncrementor}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -182,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListIncrementor;
@@ -190,7 +186,7 @@
       return this.sdk.callApi(
         '/incrementors', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -200,7 +196,7 @@
      * @param {module:model/Incrementor} partialIncrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Patch = function(incrementorID, partialIncrementor) {
+    this.Patch = function(incrementorID, partialIncrementor, accessToken ) {
       var postBody = partialIncrementor;
 
       // verify the required parameter 'incrementorID' is set
@@ -224,7 +220,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -232,7 +227,7 @@
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -242,7 +237,7 @@
      * @param {module:model/Incrementor} incrementor 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Incrementor}
      */
-    this.Save = function(incrementorID, incrementor) {
+    this.Save = function(incrementorID, incrementor, accessToken ) {
       var postBody = incrementor;
 
       // verify the required parameter 'incrementorID' is set
@@ -266,7 +261,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = Incrementor;
@@ -274,7 +268,7 @@
       return this.sdk.callApi(
         '/incrementors/{incrementorID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

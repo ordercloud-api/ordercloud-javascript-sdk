@@ -50,7 +50,7 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Create = function(buyerID, user) {
+    this.Create = function(buyerID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'buyerID' is set
@@ -74,7 +74,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -82,7 +81,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -92,7 +91,7 @@
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(buyerID, userID) {
+    this.Delete = function(buyerID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -117,7 +116,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -125,7 +123,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -135,7 +133,7 @@
      * @param {String} userID ID of the user.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Get = function(buyerID, userID) {
+    this.Get = function(buyerID, userID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -160,7 +158,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -168,7 +165,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -179,7 +176,7 @@
      * @param {module:model/ImpersonateTokenRequest} impersonateTokenRequest 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/AccessToken}
      */
-    this.GetAccessToken = function(buyerID, userID, impersonateTokenRequest) {
+    this.GetAccessToken = function(buyerID, userID, impersonateTokenRequest, accessToken ) {
       var postBody = impersonateTokenRequest;
 
       // verify the required parameter 'buyerID' is set
@@ -209,7 +206,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = AccessToken;
@@ -217,7 +213,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}/accesstoken', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -234,7 +230,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListUser}
      */
-    this.List = function(buyerID, opts) {
+    this.List = function(buyerID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -261,7 +257,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListUser;
@@ -269,7 +264,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -281,7 +276,7 @@
      * @param {String} orders Orders of the user. Possible values: None, Unsubmitted, All.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Move = function(buyerID, userID, newBuyerID, orders) {
+    this.Move = function(buyerID, userID, newBuyerID, orders, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'buyerID' is set
@@ -318,7 +313,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -326,7 +320,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}/moveto/{newBuyerID}', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -337,7 +331,7 @@
      * @param {module:model/User} partialUser 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Patch = function(buyerID, userID, partialUser) {
+    this.Patch = function(buyerID, userID, partialUser, accessToken ) {
       var postBody = partialUser;
 
       // verify the required parameter 'buyerID' is set
@@ -367,7 +361,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -375,7 +368,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -386,7 +379,7 @@
      * @param {module:model/User} user 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/User}
      */
-    this.Save = function(buyerID, userID, user) {
+    this.Save = function(buyerID, userID, user, accessToken ) {
       var postBody = user;
 
       // verify the required parameter 'buyerID' is set
@@ -416,7 +409,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = User;
@@ -424,7 +416,7 @@
       return this.sdk.callApi(
         '/buyers/{buyerID}/users/{userID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

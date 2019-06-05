@@ -49,7 +49,7 @@
      * @param {module:model/ProductFacet} productFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Create = function(productFacet) {
+    this.Create = function(productFacet, accessToken ) {
       var postBody = productFacet;
 
       // verify the required parameter 'productFacet' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/productfacets', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} productFacetID ID of the product facet.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(productFacetID) {
+    this.Delete = function(productFacetID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productFacetID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -120,7 +118,7 @@
      * @param {String} productFacetID ID of the product facet.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Get = function(productFacetID) {
+    this.Get = function(productFacetID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'productFacetID' is set
@@ -139,7 +137,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -147,7 +144,7 @@
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -162,7 +159,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProductFacet}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -182,7 +179,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListProductFacet;
@@ -190,7 +186,7 @@
       return this.sdk.callApi(
         '/productfacets', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -200,7 +196,7 @@
      * @param {module:model/ProductFacet} partialProductFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Patch = function(productFacetID, partialProductFacet) {
+    this.Patch = function(productFacetID, partialProductFacet, accessToken ) {
       var postBody = partialProductFacet;
 
       // verify the required parameter 'productFacetID' is set
@@ -224,7 +220,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -232,7 +227,7 @@
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -242,7 +237,7 @@
      * @param {module:model/ProductFacet} productFacet 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ProductFacet}
      */
-    this.Save = function(productFacetID, productFacet) {
+    this.Save = function(productFacetID, productFacet, accessToken ) {
       var postBody = productFacet;
 
       // verify the required parameter 'productFacetID' is set
@@ -266,7 +261,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ProductFacet;
@@ -274,7 +268,7 @@
       return this.sdk.callApi(
         '/productfacets/{productFacetID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };

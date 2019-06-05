@@ -49,7 +49,7 @@
      * @param {module:model/MessageSender} messageSender 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Create = function(messageSender) {
+    this.Create = function(messageSender, accessToken ) {
       var postBody = messageSender;
 
       // verify the required parameter 'messageSender' is set
@@ -67,7 +67,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -75,7 +74,7 @@
       return this.sdk.callApi(
         '/messagesenders', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -84,7 +83,7 @@
      * @param {String} messageSenderID ID of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.Delete = function(messageSenderID) {
+    this.Delete = function(messageSenderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'messageSenderID' is set
@@ -103,7 +102,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -111,7 +109,7 @@
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -125,7 +123,7 @@
      * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.DeleteAssignment = function(messageSenderID, opts) {
+    this.DeleteAssignment = function(messageSenderID, opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -149,7 +147,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -157,7 +154,7 @@
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}/assignments', 'DELETE',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -166,7 +163,7 @@
      * @param {String} messageSenderID ID of the message sender.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Get = function(messageSenderID) {
+    this.Get = function(messageSenderID, accessToken ) {
       var postBody = null;
 
       // verify the required parameter 'messageSenderID' is set
@@ -185,7 +182,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -193,7 +189,7 @@
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -208,7 +204,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSender}
      */
-    this.List = function(opts) {
+    this.List = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -228,7 +224,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListMessageSender;
@@ -236,7 +231,7 @@
       return this.sdk.callApi(
         '/messagesenders', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -253,7 +248,7 @@
      * @param {String} opts.supplierID ID of the supplier.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageSenderAssignment}
      */
-    this.ListAssignments = function(opts) {
+    this.ListAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -275,7 +270,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListMessageSenderAssignment;
@@ -283,7 +277,7 @@
       return this.sdk.callApi(
         '/messagesenders/assignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -298,7 +292,7 @@
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListMessageCCListenerAssignment}
      */
-    this.ListCCListenerAssignments = function(opts) {
+    this.ListCCListenerAssignments = function(opts, accessToken ) {
       opts = opts || {};
       var postBody = null;
 
@@ -318,7 +312,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = ListMessageCCListenerAssignment;
@@ -326,7 +319,7 @@
       return this.sdk.callApi(
         '/messagesenders/CCListenerAssignments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -336,7 +329,7 @@
      * @param {module:model/MessageSender} partialMessageSender 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Patch = function(messageSenderID, partialMessageSender) {
+    this.Patch = function(messageSenderID, partialMessageSender, accessToken ) {
       var postBody = partialMessageSender;
 
       // verify the required parameter 'messageSenderID' is set
@@ -360,7 +353,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -368,7 +360,7 @@
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'PATCH',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -378,7 +370,7 @@
      * @param {module:model/MessageSender} messageSender 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/MessageSender}
      */
-    this.Save = function(messageSenderID, messageSender) {
+    this.Save = function(messageSenderID, messageSender, accessToken ) {
       var postBody = messageSender;
 
       // verify the required parameter 'messageSenderID' is set
@@ -402,7 +394,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = MessageSender;
@@ -410,7 +401,7 @@
       return this.sdk.callApi(
         '/messagesenders/{messageSenderID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -419,7 +410,7 @@
      * @param {module:model/MessageSenderAssignment} messageSenderAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveAssignment = function(messageSenderAssignment) {
+    this.SaveAssignment = function(messageSenderAssignment, accessToken ) {
       var postBody = messageSenderAssignment;
 
       // verify the required parameter 'messageSenderAssignment' is set
@@ -437,7 +428,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -445,7 +435,7 @@
       return this.sdk.callApi(
         '/messagesenders/assignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
 
@@ -454,7 +444,7 @@
      * @param {module:model/MessageCCListenerAssignment} messageCCListenerAssignment 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}
      */
-    this.SaveCCListenerAssignment = function(messageCCListenerAssignment) {
+    this.SaveCCListenerAssignment = function(messageCCListenerAssignment, accessToken ) {
       var postBody = messageCCListenerAssignment;
 
       // verify the required parameter 'messageCCListenerAssignment' is set
@@ -472,7 +462,6 @@
       var formParams = {
       };
 
-      var authNames = ['oauth2'];
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
       var returnType = null;
@@ -480,7 +469,7 @@
       return this.sdk.callApi(
         '/messagesenders/CCListenerAssignments', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
-        authNames, contentTypes, accepts, returnType
+        contentTypes, accepts, returnType, accessToken
       );
     }
   };
