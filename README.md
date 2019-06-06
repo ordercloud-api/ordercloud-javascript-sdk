@@ -132,15 +132,15 @@ var token2 = 'USER2_TOKEN';
 var token3 = 'USER3_TOKEN';
 
 // Get products for user 1
-OrderCloudSDK.As(null, token1).Me.ListProducts()
+OrderCloudSDK.Me.ListProducts(null, token1)
   .then(user1ProductList => console.log(user1ProductList))
 
 // Get products for user 2
-OrderCloudSDK.As(null, token2).Me.ListProducts()
+OrderCloudSDK.Me.ListProducts(null, token2)
   .then(user2ProductList => console.log(user2ProductList))
 
 // Get products for user 3
-OrderCloudSDK.As(null, token3).Me.ListProducts()
+OrderCloudSDK.Me.ListProducts(null, token3)
   .then(user3ProductList => console.log(user3ProductList))
 ```
 
