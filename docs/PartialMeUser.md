@@ -16,5 +16,6 @@ Name | Type | Description | Notes
 **active** | **Boolean** |  | [optional] 
 **xp** | **Object** |  | [optional] 
 **availableRoles** | **[String]** |  | [optional] 
+**dateCreated** | **String** |  | [optional] 
 
 
