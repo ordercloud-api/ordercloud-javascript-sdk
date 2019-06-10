@@ -3,10 +3,10 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** |  | [optional] 
 **defaultPriceScheduleID** | **String** |  | [optional] 
 **ID** | **String** |  | [optional] 
 **name** | **String** |  | [optional] 
+**description** | **String** |  | [optional] 
 **quantityMultiplier** | **Number** |  | [optional] 
 **shipWeight** | **Number** |  | [optional] 
 **shipHeight** | **Number** |  | [optional] 

@@ -558,6 +558,16 @@ export interface ListVariant {
     Meta: Meta;
 }
 
+export interface ListWebhook {
+    Items: Webhook[];
+    Meta: Meta;
+}
+
+export interface ListXpIndex {
+    Items: XpIndex[];
+    Meta: Meta;
+}
+
 export interface MeBuyer {
     ID: string;
     DefaultCatalogID: string;
@@ -581,6 +591,7 @@ export interface MeUser {
     Active: boolean;
     xp: any;
     AvailableRoles: string[];
+    DateCreated: string;
 }
 
 export interface MessageCCListenerAssignment {
@@ -933,6 +944,7 @@ export interface User {
     Active: boolean;
     xp: any;
     AvailableRoles: string[];
+    DateCreated: string;
 }
 
 export interface UserGroup {
@@ -963,6 +975,29 @@ export interface Variant {
 export interface VariantInventory {
     QuantityAvailable: number;
     LastUpdated: string;
+}
+
+export interface Webhook {
+    ID: string;
+    Name: string;
+    Description: string;
+    Url: string;
+    HashKey: string;
+    ElevatedRoles: string[];
+    ConfigData: any;
+    BeforeProcessRequest: boolean;
+    ApiClientIDs: string[];
+    WebhookRoutes: WebhookRoute[];
+}
+
+export interface WebhookRoute {
+    Route: string;
+    Verb: string;
+}
+
+export interface XpIndex {
+    ThingType: string;
+    Key: string;
 }
 
 
@@ -3829,5 +3864,80 @@ export namespace UserGroups {
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
     export function SaveUserAssignment(buyerID: string, userGroupAssignment: Partial<UserGroupAssignment>, accessToken?: string): Promise<void>    
+    
+}
+
+export namespace Webhooks {
+
+    /**
+    * @param webhook 
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Create(webhook: Partial<Webhook>, accessToken?: string): Promise<Webhook>    
+    
+    /**
+    * @param webhookID ID of the webhook.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Delete(webhookID: string, accessToken?: string): Promise<void>    
+    
+    /**
+    * @param webhookID ID of the webhook.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Get(webhookID: string, accessToken?: string): Promise<Webhook>    
+    
+    /**
+    * @param options.search Word or phrase to search for.
+    * @param options.searchOn Comma-delimited list of fields to search on.
+    * @param options.sortBy Comma-delimited list of fields to sort by.
+    * @param options.page Page of results to return. Default: 1
+    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function List(options?: { search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListWebhook>    
+    
+    /**
+    * @param webhookID ID of the webhook.
+    * @param partialWebhook 
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Patch(webhookID: string, partialWebhook: Partial<Webhook>, accessToken?: string): Promise<Webhook>    
+    
+    /**
+    * @param webhookID ID of the webhook.
+    * @param webhook 
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Save(webhookID: string, webhook: Partial<Webhook>, accessToken?: string): Promise<Webhook>    
+    
+}
+
+export namespace XpIndexs {
+
+    /**
+    * @param thingType Thing type of the xp index. Possible values: Product, Variant, Order, LineItem, Address, CostCenter, CreditCard, Payment, Spec, SpecOption, UserGroup, Company, Category, PriceSchedule, Shipment, SpendingAccount, User, Promotion, ApprovalRule, Catalog, ProductFacet, MessageSender.
+    * @param key Key of the xp index.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Delete(thingType: string, key: string, accessToken?: string): Promise<void>    
+    
+    /**
+    * @param options.search Word or phrase to search for.
+    * @param options.searchOn Comma-delimited list of fields to search on.
+    * @param options.sortBy Comma-delimited list of fields to sort by.
+    * @param options.page Page of results to return. Default: 1
+    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function List(options?: { search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListXpIndex>    
+    
+    /**
+    * @param xpIndex 
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Put(xpIndex: Partial<XpIndex>, accessToken?: string): Promise<void>    
     
 }

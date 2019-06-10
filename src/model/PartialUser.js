@@ -55,6 +55,7 @@
 
 
 
+
   };
 
   /**
@@ -100,6 +101,9 @@
       }
       if (data.hasOwnProperty('AvailableRoles')) {
         obj['AvailableRoles'] = Sdk.convertToType(data['AvailableRoles'], ['String']);
+      }
+      if (data.hasOwnProperty('DateCreated')) {
+        obj['DateCreated'] = Sdk.convertToType(data['DateCreated'], 'String');
       }
     }
     return obj;
@@ -149,6 +153,10 @@
    * @member {Array.<String>} AvailableRoles
    */
   exports.prototype['AvailableRoles'] = undefined;
+  /**
+   * @member {String} DateCreated
+   */
+  exports.prototype['DateCreated'] = undefined;
 
 
 
