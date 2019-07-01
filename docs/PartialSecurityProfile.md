@@ -1,4 +1,4 @@
-# OrderCloud.SecurityProfile
+# OrderCloud.PartialSecurityProfile
 
 ## Properties
 Name | Type | Description | Notes

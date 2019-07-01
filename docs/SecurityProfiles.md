@@ -4,12 +4,112 @@ All URIs are relative to *https://api.ordercloud.io/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**Create**](SecurityProfiles.md#Create) | **POST** /securityprofiles | 
+[**Delete**](SecurityProfiles.md#Delete) | **DELETE** /securityprofiles/{securityProfileID} | 
 [**DeleteAssignment**](SecurityProfiles.md#DeleteAssignment) | **DELETE** /securityprofiles/{securityProfileID}/assignments | 
 [**Get**](SecurityProfiles.md#Get) | **GET** /securityprofiles/{securityProfileID} | 
 [**List**](SecurityProfiles.md#List) | **GET** /securityprofiles | 
 [**ListAssignments**](SecurityProfiles.md#ListAssignments) | **GET** /securityprofiles/assignments | 
+[**Patch**](SecurityProfiles.md#Patch) | **PATCH** /securityprofiles/{securityProfileID} | 
+[**Save**](SecurityProfiles.md#Save) | **PUT** /securityprofiles/{securityProfileID} | 
 [**SaveAssignment**](SecurityProfiles.md#SaveAssignment) | **POST** /securityprofiles/assignments | 
 
+
+<a name="Create"></a>
+# **Create**
+> SecurityProfile Create(securityProfile)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.SecurityProfiles();
+
+var securityProfile = new OrderCloud.SecurityProfile(); // SecurityProfile | 
+
+apiInstance.Create(securityProfile).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **securityProfile** | [**SecurityProfile**](SecurityProfile.md)|  | 
+
+### Return type
+
+[**SecurityProfile**](SecurityProfile.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Delete"></a>
+# **Delete**
+> Delete(securityProfileID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.SecurityProfiles();
+
+var securityProfileID = "securityProfileID_example"; // String | ID of the security profile.
+
+apiInstance.Delete(securityProfileID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **securityProfileID** | **String**| ID of the security profile. | 
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
 
 <a name="DeleteAssignment"></a>
 # **DeleteAssignment**
@@ -229,6 +329,108 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListSecurityProfileAssignment**](ListSecurityProfileAssignment.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Patch"></a>
+# **Patch**
+> SecurityProfile Patch(securityProfileID, partialSecurityProfile)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.SecurityProfiles();
+
+var securityProfileID = "securityProfileID_example"; // String | ID of the security profile.
+
+var partialSecurityProfile = new OrderCloud.SecurityProfile(); // SecurityProfile | 
+
+apiInstance.Patch(securityProfileID, partialSecurityProfile).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **securityProfileID** | **String**| ID of the security profile. | 
+ **partialSecurityProfile** | [**SecurityProfile**](SecurityProfile.md)|  | 
+
+### Return type
+
+[**SecurityProfile**](SecurityProfile.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Save"></a>
+# **Save**
+> SecurityProfile Save(securityProfileID, securityProfile)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.SecurityProfiles();
+
+var securityProfileID = "securityProfileID_example"; // String | ID of the security profile.
+
+var securityProfile = new OrderCloud.SecurityProfile(); // SecurityProfile | 
+
+apiInstance.Save(securityProfileID, securityProfile).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **securityProfileID** | **String**| ID of the security profile. | 
+ **securityProfile** | [**SecurityProfile**](SecurityProfile.md)|  | 
+
+### Return type
+
+[**SecurityProfile**](SecurityProfile.md)
 
 ### Authorization
 
