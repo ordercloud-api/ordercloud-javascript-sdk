@@ -1729,7 +1729,7 @@ null (empty response body)
 
 <a name="Register"></a>
 # **Register**
-> Object Register(anonUserToken, meUser)
+> AccessTokenBasic Register(anonUserToken, meUser)
 
 
 
@@ -1765,7 +1765,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**AccessTokenBasic**](AccessTokenBasic.md)
 
 ### Authorization
 

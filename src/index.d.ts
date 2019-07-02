@@ -7,6 +7,10 @@ export interface AccessToken {
     refresh_token: string;
 }
 
+export interface AccessTokenBasic {
+    access_token: string;
+}
+
 export interface Address {
     ID: string;
     DateCreated: string;
@@ -834,6 +838,7 @@ export interface SecurityProfile {
     ID: string;
     Name: string;
     Roles: string[];
+    CustomRoles: string[];
 }
 
 export interface SecurityProfileAssignment {
@@ -2364,7 +2369,7 @@ export namespace Me {
     * @param meUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Register(meUser: Partial<MeUser>, options?: { anonUserToken?: string }, accessToken?: string): Promise<Object>    
+    export function Register(meUser: Partial<MeUser>, options?: { anonUserToken?: string }, accessToken?: string): Promise<AccessTokenBasic>    
     
     /**
     * @param tokenPasswordReset 
@@ -3146,6 +3151,18 @@ export namespace Promotions {
 export namespace SecurityProfiles {
 
     /**
+    * @param securityProfile 
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Create(securityProfile: Partial<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
+    
+    /**
+    * @param securityProfileID ID of the security profile.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Delete(securityProfileID: string, accessToken?: string): Promise<void>    
+    
+    /**
     * @param securityProfileID ID of the security profile.
     * @param options.buyerID ID of the buyer.
     * @param options.userID ID of the user.
@@ -3185,6 +3202,20 @@ export namespace SecurityProfiles {
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
     export function ListAssignments(options?: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: string, level?: string, page?: number, pageSize?: number }, accessToken?: string): Promise<ListSecurityProfileAssignment>    
+    
+    /**
+    * @param securityProfileID ID of the security profile.
+    * @param partialSecurityProfile 
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Patch(securityProfileID: string, partialSecurityProfile: Partial<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
+    
+    /**
+    * @param securityProfileID ID of the security profile.
+    * @param securityProfile 
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Save(securityProfileID: string, securityProfile: Partial<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
     
     /**
     * @param securityProfileAssignment 

@@ -46,6 +46,75 @@
 
 
     /**
+     * @param {module:model/SecurityProfile} securityProfile 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SecurityProfile}
+     */
+    this.Create = function(securityProfile, accessToken ) {
+      var postBody = securityProfile;
+
+      // verify the required parameter 'securityProfile' is set
+      if (securityProfile == undefined || securityProfile == null) {
+        throw new Error("Missing the required parameter 'securityProfile' when calling Create");
+      }
+
+
+      var pathParams = {
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = SecurityProfile;
+
+      return this.sdk.callApi(
+        '/securityprofiles', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} securityProfileID ID of the security profile.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Delete = function(securityProfileID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'securityProfileID' is set
+      if (securityProfileID == undefined || securityProfileID == null) {
+        throw new Error("Missing the required parameter 'securityProfileID' when calling Delete");
+      }
+
+
+      var pathParams = {
+        'securityProfileID': securityProfileID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.sdk.callApi(
+        '/securityprofiles/{securityProfileID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
      * @param {String} securityProfileID ID of the security profile.
      * @param {Object} opts Optional parameters
      * @param {String} opts.buyerID ID of the buyer.
@@ -209,6 +278,88 @@
 
       return this.sdk.callApi(
         '/securityprofiles/assignments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} securityProfileID ID of the security profile.
+     * @param {module:model/SecurityProfile} partialSecurityProfile 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SecurityProfile}
+     */
+    this.Patch = function(securityProfileID, partialSecurityProfile, accessToken ) {
+      var postBody = partialSecurityProfile;
+
+      // verify the required parameter 'securityProfileID' is set
+      if (securityProfileID == undefined || securityProfileID == null) {
+        throw new Error("Missing the required parameter 'securityProfileID' when calling Patch");
+      }
+
+      // verify the required parameter 'partialSecurityProfile' is set
+      if (partialSecurityProfile == undefined || partialSecurityProfile == null) {
+        throw new Error("Missing the required parameter 'partialSecurityProfile' when calling Patch");
+      }
+
+
+      var pathParams = {
+        'securityProfileID': securityProfileID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = SecurityProfile;
+
+      return this.sdk.callApi(
+        '/securityprofiles/{securityProfileID}', 'PATCH',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} securityProfileID ID of the security profile.
+     * @param {module:model/SecurityProfile} securityProfile 
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/SecurityProfile}
+     */
+    this.Save = function(securityProfileID, securityProfile, accessToken ) {
+      var postBody = securityProfile;
+
+      // verify the required parameter 'securityProfileID' is set
+      if (securityProfileID == undefined || securityProfileID == null) {
+        throw new Error("Missing the required parameter 'securityProfileID' when calling Save");
+      }
+
+      // verify the required parameter 'securityProfile' is set
+      if (securityProfile == undefined || securityProfile == null) {
+        throw new Error("Missing the required parameter 'securityProfile' when calling Save");
+      }
+
+
+      var pathParams = {
+        'securityProfileID': securityProfileID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = SecurityProfile;
+
+      return this.sdk.callApi(
+        '/securityprofiles/{securityProfileID}', 'PUT',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );

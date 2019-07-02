@@ -23,7 +23,7 @@
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.SecurityProfile = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.PartialSecurityProfile = factory(root.OrderCloud.Sdk);
   }
 }(this, function(Sdk) {
   'use strict';
@@ -32,13 +32,13 @@
 
 
   /**
-   * The SecurityProfile model module.
-   * @module model/SecurityProfile
+   * The PartialSecurityProfile model module.
+   * @module model/PartialSecurityProfile
    */
 
   /**
-   * Constructs a new <code>SecurityProfile</code>.
-   * @alias module:model/SecurityProfile
+   * Constructs a new <code>PartialSecurityProfile</code>.
+   * @alias module:model/PartialSecurityProfile
    * @class
    */
   var exports = function() {
@@ -51,11 +51,11 @@
   };
 
   /**
-   * Constructs a <code>SecurityProfile</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>PartialSecurityProfile</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/SecurityProfile} obj Optional instance to populate.
-   * @return {module:model/SecurityProfile} The populated <code>SecurityProfile</code> instance.
+   * @param {module:model/PartialSecurityProfile} obj Optional instance to populate.
+   * @return {module:model/PartialSecurityProfile} The populated <code>PartialSecurityProfile</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {

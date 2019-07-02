@@ -23,7 +23,7 @@
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.SecurityProfile = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.AccessTokenBasic = factory(root.OrderCloud.Sdk);
   }
 }(this, function(Sdk) {
   'use strict';
@@ -32,67 +32,43 @@
 
 
   /**
-   * The SecurityProfile model module.
-   * @module model/SecurityProfile
+   * The AccessTokenBasic model module.
+   * @module model/AccessTokenBasic
    */
 
   /**
-   * Constructs a new <code>SecurityProfile</code>.
-   * @alias module:model/SecurityProfile
+   * Constructs a new <code>AccessTokenBasic</code>.
+   * @alias module:model/AccessTokenBasic
    * @class
    */
   var exports = function() {
     var _this = this;
 
 
-
-
-
   };
 
   /**
-   * Constructs a <code>SecurityProfile</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>AccessTokenBasic</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/SecurityProfile} obj Optional instance to populate.
-   * @return {module:model/SecurityProfile} The populated <code>SecurityProfile</code> instance.
+   * @param {module:model/AccessTokenBasic} obj Optional instance to populate.
+   * @return {module:model/AccessTokenBasic} The populated <code>AccessTokenBasic</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('ID')) {
-        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
-      }
-      if (data.hasOwnProperty('Name')) {
-        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
-      }
-      if (data.hasOwnProperty('Roles')) {
-        obj['Roles'] = Sdk.convertToType(data['Roles'], ['String']);
-      }
-      if (data.hasOwnProperty('CustomRoles')) {
-        obj['CustomRoles'] = Sdk.convertToType(data['CustomRoles'], ['String']);
+      if (data.hasOwnProperty('access_token')) {
+        obj['access_token'] = Sdk.convertToType(data['access_token'], 'String');
       }
     }
     return obj;
   }
 
   /**
-   * @member {String} ID
+   * @member {String} access_token
    */
-  exports.prototype['ID'] = undefined;
-  /**
-   * @member {String} Name
-   */
-  exports.prototype['Name'] = undefined;
-  /**
-   * @member {Array.<String>} Roles
-   */
-  exports.prototype['Roles'] = undefined;
-  /**
-   * @member {Array.<String>} CustomRoles
-   */
-  exports.prototype['CustomRoles'] = undefined;
+  exports.prototype['access_token'] = undefined;
 
 
 
