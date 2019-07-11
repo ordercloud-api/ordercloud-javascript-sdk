@@ -596,6 +596,7 @@ export interface MeUser {
     xp: any;
     AvailableRoles: string[];
     DateCreated: string;
+    PasswordLastSetDate: string;
 }
 
 export interface MessageCCListenerAssignment {
@@ -713,7 +714,12 @@ export interface OrderPromotion {
     EligibleExpression: string;
     ValueExpression: string;
     CanCombine: boolean;
+    AllowAllBuyers: boolean;
     xp: any;
+}
+
+export interface PasswordConfig {
+    ExpireInDays: number;
 }
 
 export interface PasswordReset {
@@ -825,6 +831,7 @@ export interface Promotion {
     EligibleExpression: string;
     ValueExpression: string;
     CanCombine: boolean;
+    AllowAllBuyers: boolean;
     xp: any;
 }
 
@@ -839,6 +846,7 @@ export interface SecurityProfile {
     Name: string;
     Roles: string[];
     CustomRoles: string[];
+    PasswordConfig: PasswordConfig;
 }
 
 export interface SecurityProfileAssignment {
@@ -950,6 +958,7 @@ export interface User {
     xp: any;
     AvailableRoles: string[];
     DateCreated: string;
+    PasswordLastSetDate: string;
 }
 
 export interface UserGroup {

@@ -59,6 +59,7 @@
 
 
 
+
   };
 
   /**
@@ -113,6 +114,9 @@
       }
       if (data.hasOwnProperty('CanCombine')) {
         obj['CanCombine'] = Sdk.convertToType(data['CanCombine'], 'Boolean');
+      }
+      if (data.hasOwnProperty('AllowAllBuyers')) {
+        obj['AllowAllBuyers'] = Sdk.convertToType(data['AllowAllBuyers'], 'Boolean');
       }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
@@ -177,6 +181,10 @@
    * @member {Boolean} CanCombine
    */
   exports.prototype['CanCombine'] = undefined;
+  /**
+   * @member {Boolean} AllowAllBuyers
+   */
+  exports.prototype['AllowAllBuyers'] = undefined;
   /**
    * @member {Object} xp
    */

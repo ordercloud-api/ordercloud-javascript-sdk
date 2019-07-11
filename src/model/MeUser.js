@@ -58,6 +58,7 @@
 
 
 
+
   };
 
   /**
@@ -112,6 +113,9 @@
       }
       if (data.hasOwnProperty('DateCreated')) {
         obj['DateCreated'] = Sdk.convertToType(data['DateCreated'], 'String');
+      }
+      if (data.hasOwnProperty('PasswordLastSetDate')) {
+        obj['PasswordLastSetDate'] = Sdk.convertToType(data['PasswordLastSetDate'], 'String');
       }
     }
     return obj;
@@ -173,6 +177,10 @@
    * @member {String} DateCreated
    */
   exports.prototype['DateCreated'] = undefined;
+  /**
+   * @member {String} PasswordLastSetDate
+   */
+  exports.prototype['PasswordLastSetDate'] = undefined;
 
 
 

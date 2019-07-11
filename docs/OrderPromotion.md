@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **eligibleExpression** | **String** |  | [optional] 
 **valueExpression** | **String** |  | [optional] 
 **canCombine** | **Boolean** |  | [optional] 
+**allowAllBuyers** | **Boolean** |  | [optional] 
 **xp** | **Object** |  | [optional] 
 
 

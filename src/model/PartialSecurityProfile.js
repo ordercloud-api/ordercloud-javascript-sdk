@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk'], factory);
+    define(['Sdk', 'model/PasswordConfig'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'));
+    module.exports = factory(require('../Sdk'), require('./PasswordConfig'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialSecurityProfile = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.PartialSecurityProfile = factory(root.OrderCloud.Sdk, root.OrderCloud.PasswordConfig);
   }
-}(this, function(Sdk) {
+}(this, function(Sdk, PasswordConfig) {
   'use strict';
 
 
@@ -43,6 +43,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -73,6 +74,9 @@
       if (data.hasOwnProperty('CustomRoles')) {
         obj['CustomRoles'] = Sdk.convertToType(data['CustomRoles'], ['String']);
       }
+      if (data.hasOwnProperty('PasswordConfig')) {
+        obj['PasswordConfig'] = PasswordConfig.constructFromObject(data['PasswordConfig']);
+      }
     }
     return obj;
   }
@@ -93,6 +97,10 @@
    * @member {Array.<String>} CustomRoles
    */
   exports.prototype['CustomRoles'] = undefined;
+  /**
+   * @member {module:model/PasswordConfig} PasswordConfig
+   */
+  exports.prototype['PasswordConfig'] = undefined;
 
 
 

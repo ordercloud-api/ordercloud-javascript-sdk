@@ -7,5 +7,6 @@ Name | Type | Description | Notes
 **name** | **String** |  | [optional] 
 **roles** | **[String]** |  | [optional] 
 **customRoles** | **[String]** |  | [optional] 
+**passwordConfig** | [**PasswordConfig**](PasswordConfig.md) |  | [optional] 
 
 
