@@ -17,5 +17,6 @@ Name | Type | Description | Notes
 **xp** | **Object** |  | [optional] 
 **availableRoles** | **[String]** |  | [optional] 
 **dateCreated** | **String** |  | [optional] 
+**passwordLastSetDate** | **String** |  | [optional] 
 
 
