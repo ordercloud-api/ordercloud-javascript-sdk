@@ -11,6 +11,35 @@
  *
  */
 
+
+// ordercloud's error responses have a BOM character that causes json parse to fail
+ function customJsonParser(res, fn) {
+    res.text = '';
+    res.setEncoding('utf8');
+    res.on('data', function(chunk) {
+      res.text += chunk;
+    })
+    res.on('end', function() {
+      var body;
+      var err;
+      try {
+        var text = res.text;
+        if(text && text.charCodeAt(0) === 65279) {
+          text = text.substr(1)
+        }
+        body = text && JSON.parse(text);
+      } catch (err2) {
+        err = err2;
+        // issue #675: return the raw response if the response parsing fails
+        err.rawResponse = res.text || null;
+        // issue #876: return the http status code if the response parsing fails
+        err.statusCode = res.statusCode;
+      } finally {
+        fn(err, body);
+      }
+    })
+ }
+
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
@@ -344,6 +373,8 @@
     var _this = this;
     var url = this.buildUrl(path, pathParams);
     var request = superagent(httpMethod, url);
+    request.parse(customJsonParser);
+    request.buffer(true)
 
     // apply authentications
     this.applyAuthToRequest(request, accessToken);
@@ -415,6 +446,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
     var url = _this.baseAuthPath.replace(/\/+$/, '') + path;
     var request = superagent(httpMethod, url);
+    request.parse(customJsonParser);
+    request.buffer(true)
 
     // set query parameters
     request.query(this.normalizeParams(queryParams));
