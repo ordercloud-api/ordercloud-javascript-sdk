@@ -67,7 +67,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling Login");
             }
 
-            var postBody = 'grant_type=password&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_id=' + clientID + '&username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
 
             var pathParams = {};
             var queryParams = {};
@@ -113,7 +113,7 @@
                 throw new Error("Missing the required parameter 'scope' when calling ElevatedLogin");
             }
 
-            var postBody = 'grant_type=password&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + username + '&password=' + password;
+            var postBody = 'grant_type=password&scope=' + this.sdk.buildCollectionParam(scope, 'plus') + '&client_secret=' + clientSecret + '&client_id=' + clientID + '&username=' + encodeURIComponent(username) + '&password=' + encodeURIComponent(password);
 
             var pathParams = {};
             var queryParams = {};
