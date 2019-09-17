@@ -1,12 +1,6 @@
 // Typescript's Partial helper only goes one level deep
 // However partial for OrderCloud requests means Partial for any nested sub-model as well
-type PartialDeep<T> = {
-    [P in keyof T]?: T[P] extends Array<infer U>
-      ? Array<PartialDeep<U>>
-      : T[P] extends ReadonlyArray<infer U>
-        ? ReadonlyArray<PartialDeep<U>>
-        : PartialDeep<T[P]>
-};
+type PartialDeep<T> = T extends object ? { [K in keyof T]?: PartialDeep<T[K]> } : T
 
 export as namespace OrderCloudSDK;
 
