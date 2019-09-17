@@ -1,3 +1,13 @@
+// Typescript's Partial helper only goes one level deep
+// However partial for OrderCloud requests means Partial for any nested sub-model as well
+type PartialDeep<T> = {
+    [P in keyof T]?: T[P] extends Array<infer U>
+      ? Array<PartialDeep<U>>
+      : T[P] extends ReadonlyArray<infer U>
+        ? ReadonlyArray<PartialDeep<U>>
+        : PartialDeep<T[P]>
+};
+
 export as namespace OrderCloudSDK;
 
 export interface AccessToken {
@@ -1147,7 +1157,7 @@ export namespace Addresses {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyerID: string, address: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Create(buyerID: string, address: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1204,7 +1214,7 @@ export namespace Addresses {
     * @param partialAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, addressID: string, partialAddress: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Patch(buyerID: string, addressID: string, partialAddress: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1212,14 +1222,14 @@ export namespace Addresses {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, addressID: string, address: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Save(buyerID: string, addressID: string, address: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
     /**
     * @param buyerID ID of the buyer.
     * @param addressAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(buyerID: string, addressAssignment: Partial<AddressAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(buyerID: string, addressAssignment: PartialDeep<AddressAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -1229,7 +1239,7 @@ export namespace AdminAddresses {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(address: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Create(address: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
     /**
     * @param addressID ID of the address.
@@ -1259,14 +1269,14 @@ export namespace AdminAddresses {
     * @param partialAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(addressID: string, partialAddress: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Patch(addressID: string, partialAddress: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
     /**
     * @param addressID ID of the address.
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(addressID: string, address: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Save(addressID: string, address: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
 }
 
@@ -1276,7 +1286,7 @@ export namespace AdminUsers {
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(user: Partial<User>, accessToken?: string): Promise<User>    
+    export function Create(user: PartialDeep<User>, accessToken?: string): Promise<User>    
     
     /**
     * @param userID ID of the user.
@@ -1306,14 +1316,14 @@ export namespace AdminUsers {
     * @param partialUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(userID: string, partialUser: Partial<User>, accessToken?: string): Promise<User>    
+    export function Patch(userID: string, partialUser: PartialDeep<User>, accessToken?: string): Promise<User>    
     
     /**
     * @param userID ID of the user.
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(userID: string, user: Partial<User>, accessToken?: string): Promise<User>    
+    export function Save(userID: string, user: PartialDeep<User>, accessToken?: string): Promise<User>    
     
 }
 
@@ -1323,7 +1333,7 @@ export namespace AdminUserGroups {
     * @param userGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(userGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Create(userGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param userGroupID ID of the user group.
@@ -1369,20 +1379,20 @@ export namespace AdminUserGroups {
     * @param partialUserGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(userGroupID: string, partialUserGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Patch(userGroupID: string, partialUserGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param userGroupID ID of the user group.
     * @param userGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(userGroupID: string, userGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Save(userGroupID: string, userGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param userGroupAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveUserAssignment(userGroupAssignment: Partial<UserGroupAssignment>, accessToken?: string): Promise<void>    
+    export function SaveUserAssignment(userGroupAssignment: PartialDeep<UserGroupAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -1392,7 +1402,7 @@ export namespace ApiClients {
     * @param apiClient 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(apiClient: Partial<ApiClient>, accessToken?: string): Promise<ApiClient>    
+    export function Create(apiClient: PartialDeep<ApiClient>, accessToken?: string): Promise<ApiClient>    
     
     /**
     * @param apiClientID ID of the api client.
@@ -1446,20 +1456,20 @@ export namespace ApiClients {
     * @param partialApiClient 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(apiClientID: string, partialApiClient: Partial<ApiClient>, accessToken?: string): Promise<ApiClient>    
+    export function Patch(apiClientID: string, partialApiClient: PartialDeep<ApiClient>, accessToken?: string): Promise<ApiClient>    
     
     /**
     * @param apiClientID ID of the api client.
     * @param apiClient 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(apiClientID: string, apiClient: Partial<ApiClient>, accessToken?: string): Promise<ApiClient>    
+    export function Save(apiClientID: string, apiClient: PartialDeep<ApiClient>, accessToken?: string): Promise<ApiClient>    
     
     /**
     * @param apiClientAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(apiClientAssignment: Partial<ApiClientAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(apiClientAssignment: PartialDeep<ApiClientAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -1470,7 +1480,7 @@ export namespace ApprovalRules {
     * @param approvalRule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyerID: string, approvalRule: Partial<ApprovalRule>, accessToken?: string): Promise<ApprovalRule>    
+    export function Create(buyerID: string, approvalRule: PartialDeep<ApprovalRule>, accessToken?: string): Promise<ApprovalRule>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1504,7 +1514,7 @@ export namespace ApprovalRules {
     * @param partialApprovalRule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, approvalRuleID: string, partialApprovalRule: Partial<ApprovalRule>, accessToken?: string): Promise<ApprovalRule>    
+    export function Patch(buyerID: string, approvalRuleID: string, partialApprovalRule: PartialDeep<ApprovalRule>, accessToken?: string): Promise<ApprovalRule>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1512,7 +1522,7 @@ export namespace ApprovalRules {
     * @param approvalRule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, approvalRuleID: string, approvalRule: Partial<ApprovalRule>, accessToken?: string): Promise<ApprovalRule>    
+    export function Save(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>, accessToken?: string): Promise<ApprovalRule>    
     
 }
 
@@ -1522,7 +1532,7 @@ export namespace Buyers {
     * @param buyer 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyer: Partial<Buyer>, accessToken?: string): Promise<Buyer>    
+    export function Create(buyer: PartialDeep<Buyer>, accessToken?: string): Promise<Buyer>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1552,14 +1562,14 @@ export namespace Buyers {
     * @param partialBuyer 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, partialBuyer: Partial<Buyer>, accessToken?: string): Promise<Buyer>    
+    export function Patch(buyerID: string, partialBuyer: PartialDeep<Buyer>, accessToken?: string): Promise<Buyer>    
     
     /**
     * @param buyerID ID of the buyer.
     * @param buyer 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, buyer: Partial<Buyer>, accessToken?: string): Promise<Buyer>    
+    export function Save(buyerID: string, buyer: PartialDeep<Buyer>, accessToken?: string): Promise<Buyer>    
     
 }
 
@@ -1569,7 +1579,7 @@ export namespace Catalogs {
     * @param catalog 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(catalog: Partial<Catalog>, accessToken?: string): Promise<Catalog>    
+    export function Create(catalog: PartialDeep<Catalog>, accessToken?: string): Promise<Catalog>    
     
     /**
     * @param catalogID ID of the catalog.
@@ -1631,26 +1641,26 @@ export namespace Catalogs {
     * @param partialCatalog 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(catalogID: string, partialCatalog: Partial<Catalog>, accessToken?: string): Promise<Catalog>    
+    export function Patch(catalogID: string, partialCatalog: PartialDeep<Catalog>, accessToken?: string): Promise<Catalog>    
     
     /**
     * @param catalogID ID of the catalog.
     * @param catalog 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(catalogID: string, catalog: Partial<Catalog>, accessToken?: string): Promise<Catalog>    
+    export function Save(catalogID: string, catalog: PartialDeep<Catalog>, accessToken?: string): Promise<Catalog>    
     
     /**
     * @param catalogAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(catalogAssignment: Partial<CatalogAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(catalogAssignment: PartialDeep<CatalogAssignment>, accessToken?: string): Promise<void>    
     
     /**
     * @param productCatalogAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveProductAssignment(productCatalogAssignment: Partial<ProductCatalogAssignment>, accessToken?: string): Promise<void>    
+    export function SaveProductAssignment(productCatalogAssignment: PartialDeep<ProductCatalogAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -1661,7 +1671,7 @@ export namespace Categories {
     * @param category 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(catalogID: string, category: Partial<Category>, accessToken?: string): Promise<Category>    
+    export function Create(catalogID: string, category: PartialDeep<Category>, accessToken?: string): Promise<Category>    
     
     /**
     * @param catalogID ID of the catalog.
@@ -1737,7 +1747,7 @@ export namespace Categories {
     * @param partialCategory 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(catalogID: string, categoryID: string, partialCategory: Partial<Category>, accessToken?: string): Promise<Category>    
+    export function Patch(catalogID: string, categoryID: string, partialCategory: PartialDeep<Category>, accessToken?: string): Promise<Category>    
     
     /**
     * @param catalogID ID of the catalog.
@@ -1745,21 +1755,21 @@ export namespace Categories {
     * @param category 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(catalogID: string, categoryID: string, category: Partial<Category>, accessToken?: string): Promise<Category>    
+    export function Save(catalogID: string, categoryID: string, category: PartialDeep<Category>, accessToken?: string): Promise<Category>    
     
     /**
     * @param catalogID ID of the catalog.
     * @param categoryAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(catalogID: string, categoryAssignment: Partial<CategoryAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(catalogID: string, categoryAssignment: PartialDeep<CategoryAssignment>, accessToken?: string): Promise<void>    
     
     /**
     * @param catalogID ID of the catalog.
     * @param categoryProductAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveProductAssignment(catalogID: string, categoryProductAssignment: Partial<CategoryProductAssignment>, accessToken?: string): Promise<void>    
+    export function SaveProductAssignment(catalogID: string, categoryProductAssignment: PartialDeep<CategoryProductAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -1770,7 +1780,7 @@ export namespace CostCenters {
     * @param costCenter 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyerID: string, costCenter: Partial<CostCenter>, accessToken?: string): Promise<CostCenter>    
+    export function Create(buyerID: string, costCenter: PartialDeep<CostCenter>, accessToken?: string): Promise<CostCenter>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1825,7 +1835,7 @@ export namespace CostCenters {
     * @param partialCostCenter 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, costCenterID: string, partialCostCenter: Partial<CostCenter>, accessToken?: string): Promise<CostCenter>    
+    export function Patch(buyerID: string, costCenterID: string, partialCostCenter: PartialDeep<CostCenter>, accessToken?: string): Promise<CostCenter>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1833,14 +1843,14 @@ export namespace CostCenters {
     * @param costCenter 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, costCenterID: string, costCenter: Partial<CostCenter>, accessToken?: string): Promise<CostCenter>    
+    export function Save(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>, accessToken?: string): Promise<CostCenter>    
     
     /**
     * @param buyerID ID of the buyer.
     * @param costCenterAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(buyerID: string, costCenterAssignment: Partial<CostCenterAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(buyerID: string, costCenterAssignment: PartialDeep<CostCenterAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -1851,7 +1861,7 @@ export namespace CreditCards {
     * @param creditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyerID: string, creditCard: Partial<CreditCard>, accessToken?: string): Promise<CreditCard>    
+    export function Create(buyerID: string, creditCard: PartialDeep<CreditCard>, accessToken?: string): Promise<CreditCard>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1906,7 +1916,7 @@ export namespace CreditCards {
     * @param partialCreditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, creditCardID: string, partialCreditCard: Partial<CreditCard>, accessToken?: string): Promise<CreditCard>    
+    export function Patch(buyerID: string, creditCardID: string, partialCreditCard: PartialDeep<CreditCard>, accessToken?: string): Promise<CreditCard>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -1914,14 +1924,14 @@ export namespace CreditCards {
     * @param creditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, creditCardID: string, creditCard: Partial<CreditCard>, accessToken?: string): Promise<CreditCard>    
+    export function Save(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, accessToken?: string): Promise<CreditCard>    
     
     /**
     * @param buyerID ID of the buyer.
     * @param creditCardAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(buyerID: string, creditCardAssignment: Partial<CreditCardAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(buyerID: string, creditCardAssignment: PartialDeep<CreditCardAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -1931,7 +1941,7 @@ export namespace ImpersonationConfigs {
     * @param impersonationConfig 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(impersonationConfig: Partial<ImpersonationConfig>, accessToken?: string): Promise<ImpersonationConfig>    
+    export function Create(impersonationConfig: PartialDeep<ImpersonationConfig>, accessToken?: string): Promise<ImpersonationConfig>    
     
     /**
     * @param impersonationConfigID ID of the impersonation config.
@@ -1961,14 +1971,14 @@ export namespace ImpersonationConfigs {
     * @param partialImpersonationConfig 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(impersonationConfigID: string, partialImpersonationConfig: Partial<ImpersonationConfig>, accessToken?: string): Promise<ImpersonationConfig>    
+    export function Patch(impersonationConfigID: string, partialImpersonationConfig: PartialDeep<ImpersonationConfig>, accessToken?: string): Promise<ImpersonationConfig>    
     
     /**
     * @param impersonationConfigID ID of the impersonation config.
     * @param impersonationConfig 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(impersonationConfigID: string, impersonationConfig: Partial<ImpersonationConfig>, accessToken?: string): Promise<ImpersonationConfig>    
+    export function Save(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>, accessToken?: string): Promise<ImpersonationConfig>    
     
 }
 
@@ -1978,7 +1988,7 @@ export namespace Incrementors {
     * @param incrementor 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(incrementor: Partial<Incrementor>, accessToken?: string): Promise<Incrementor>    
+    export function Create(incrementor: PartialDeep<Incrementor>, accessToken?: string): Promise<Incrementor>    
     
     /**
     * @param incrementorID ID of the incrementor.
@@ -2008,14 +2018,14 @@ export namespace Incrementors {
     * @param partialIncrementor 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(incrementorID: string, partialIncrementor: Partial<Incrementor>, accessToken?: string): Promise<Incrementor>    
+    export function Patch(incrementorID: string, partialIncrementor: PartialDeep<Incrementor>, accessToken?: string): Promise<Incrementor>    
     
     /**
     * @param incrementorID ID of the incrementor.
     * @param incrementor 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(incrementorID: string, incrementor: Partial<Incrementor>, accessToken?: string): Promise<Incrementor>    
+    export function Save(incrementorID: string, incrementor: PartialDeep<Incrementor>, accessToken?: string): Promise<Incrementor>    
     
 }
 
@@ -2027,7 +2037,7 @@ export namespace LineItems {
     * @param lineItem 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(direction: string, orderID: string, lineItem: Partial<LineItem>, accessToken?: string): Promise<LineItem>    
+    export function Create(direction: string, orderID: string, lineItem: PartialDeep<LineItem>, accessToken?: string): Promise<LineItem>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2065,7 +2075,7 @@ export namespace LineItems {
     * @param partialLineItem 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(direction: string, orderID: string, lineItemID: string, partialLineItem: Partial<LineItem>, accessToken?: string): Promise<LineItem>    
+    export function Patch(direction: string, orderID: string, lineItemID: string, partialLineItem: PartialDeep<LineItem>, accessToken?: string): Promise<LineItem>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2074,7 +2084,7 @@ export namespace LineItems {
     * @param partialAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchShippingAddress(direction: string, orderID: string, lineItemID: string, partialAddress: Partial<Address>, accessToken?: string): Promise<LineItem>    
+    export function PatchShippingAddress(direction: string, orderID: string, lineItemID: string, partialAddress: PartialDeep<Address>, accessToken?: string): Promise<LineItem>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2083,7 +2093,7 @@ export namespace LineItems {
     * @param lineItem 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(direction: string, orderID: string, lineItemID: string, lineItem: Partial<LineItem>, accessToken?: string): Promise<LineItem>    
+    export function Save(direction: string, orderID: string, lineItemID: string, lineItem: PartialDeep<LineItem>, accessToken?: string): Promise<LineItem>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2092,7 +2102,7 @@ export namespace LineItems {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SetShippingAddress(direction: string, orderID: string, lineItemID: string, address: Partial<Address>, accessToken?: string): Promise<LineItem>    
+    export function SetShippingAddress(direction: string, orderID: string, lineItemID: string, address: PartialDeep<Address>, accessToken?: string): Promise<LineItem>    
     
 }
 
@@ -2102,13 +2112,13 @@ export namespace Me {
     * @param buyerAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function CreateAddress(buyerAddress: Partial<BuyerAddress>, accessToken?: string): Promise<BuyerAddress>    
+    export function CreateAddress(buyerAddress: PartialDeep<BuyerAddress>, accessToken?: string): Promise<BuyerAddress>    
     
     /**
     * @param buyerCreditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function CreateCreditCard(buyerCreditCard: Partial<BuyerCreditCard>, accessToken?: string): Promise<BuyerCreditCard>    
+    export function CreateCreditCard(buyerCreditCard: PartialDeep<BuyerCreditCard>, accessToken?: string): Promise<BuyerCreditCard>    
     
     /**
     * @param addressID ID of the address.
@@ -2357,54 +2367,54 @@ export namespace Me {
     * @param partialMeUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(partialMeUser: Partial<MeUser>, accessToken?: string): Promise<MeUser>    
+    export function Patch(partialMeUser: PartialDeep<MeUser>, accessToken?: string): Promise<MeUser>    
     
     /**
     * @param addressID ID of the address.
     * @param partialBuyerAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchAddress(addressID: string, partialBuyerAddress: Partial<BuyerAddress>, accessToken?: string): Promise<void>    
+    export function PatchAddress(addressID: string, partialBuyerAddress: PartialDeep<BuyerAddress>, accessToken?: string): Promise<void>    
     
     /**
     * @param creditcardID ID of the creditcard.
     * @param partialBuyerCreditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchCreditCard(creditcardID: string, partialBuyerCreditCard: Partial<BuyerCreditCard>, accessToken?: string): Promise<void>    
+    export function PatchCreditCard(creditcardID: string, partialBuyerCreditCard: PartialDeep<BuyerCreditCard>, accessToken?: string): Promise<void>    
     
     /**
     * @param options.anonUserToken Anon user token of the user.
     * @param meUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Register(meUser: Partial<MeUser>, options?: { anonUserToken?: string }, accessToken?: string): Promise<AccessTokenBasic>    
+    export function Register(meUser: PartialDeep<MeUser>, options?: { anonUserToken?: string }, accessToken?: string): Promise<AccessTokenBasic>    
     
     /**
     * @param tokenPasswordReset 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function ResetPasswordByToken(tokenPasswordReset: Partial<TokenPasswordReset>, accessToken?: string): Promise<void>    
+    export function ResetPasswordByToken(tokenPasswordReset: PartialDeep<TokenPasswordReset>, accessToken?: string): Promise<void>    
     
     /**
     * @param meUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(meUser: Partial<MeUser>, accessToken?: string): Promise<MeUser>    
+    export function Save(meUser: PartialDeep<MeUser>, accessToken?: string): Promise<MeUser>    
     
     /**
     * @param addressID ID of the address.
     * @param buyerAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAddress(addressID: string, buyerAddress: Partial<BuyerAddress>, accessToken?: string): Promise<BuyerAddress>    
+    export function SaveAddress(addressID: string, buyerAddress: PartialDeep<BuyerAddress>, accessToken?: string): Promise<BuyerAddress>    
     
     /**
     * @param creditcardID ID of the creditcard.
     * @param buyerCreditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveCreditCard(creditcardID: string, buyerCreditCard: Partial<BuyerCreditCard>, accessToken?: string): Promise<BuyerCreditCard>    
+    export function SaveCreditCard(creditcardID: string, buyerCreditCard: PartialDeep<BuyerCreditCard>, accessToken?: string): Promise<BuyerCreditCard>    
     
     /**
     * @param options.anonUserToken Anon user token of the me.
@@ -2420,7 +2430,7 @@ export namespace MessageSenders {
     * @param messageSender 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(messageSender: Partial<MessageSender>, accessToken?: string): Promise<MessageSender>    
+    export function Create(messageSender: PartialDeep<MessageSender>, accessToken?: string): Promise<MessageSender>    
     
     /**
     * @param messageSenderID ID of the message sender.
@@ -2484,26 +2494,26 @@ export namespace MessageSenders {
     * @param partialMessageSender 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(messageSenderID: string, partialMessageSender: Partial<MessageSender>, accessToken?: string): Promise<MessageSender>    
+    export function Patch(messageSenderID: string, partialMessageSender: PartialDeep<MessageSender>, accessToken?: string): Promise<MessageSender>    
     
     /**
     * @param messageSenderID ID of the message sender.
     * @param messageSender 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(messageSenderID: string, messageSender: Partial<MessageSender>, accessToken?: string): Promise<MessageSender>    
+    export function Save(messageSenderID: string, messageSender: PartialDeep<MessageSender>, accessToken?: string): Promise<MessageSender>    
     
     /**
     * @param messageSenderAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(messageSenderAssignment: Partial<MessageSenderAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(messageSenderAssignment: PartialDeep<MessageSenderAssignment>, accessToken?: string): Promise<void>    
     
     /**
     * @param messageCCListenerAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveCCListenerAssignment(messageCCListenerAssignment: Partial<MessageCCListenerAssignment>, accessToken?: string): Promise<void>    
+    export function SaveCCListenerAssignment(messageCCListenerAssignment: PartialDeep<MessageCCListenerAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -2513,7 +2523,7 @@ export namespace OpenIdConnects {
     * @param openIdConnect 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(openIdConnect: Partial<OpenIdConnect>, accessToken?: string): Promise<OpenIdConnect>    
+    export function Create(openIdConnect: PartialDeep<OpenIdConnect>, accessToken?: string): Promise<OpenIdConnect>    
     
     /**
     * @param openidconnectID ID of the openidconnect.
@@ -2543,14 +2553,14 @@ export namespace OpenIdConnects {
     * @param partialOpenIdConnect 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(openidconnectID: string, partialOpenIdConnect: Partial<OpenIdConnect>, accessToken?: string): Promise<OpenIdConnect>    
+    export function Patch(openidconnectID: string, partialOpenIdConnect: PartialDeep<OpenIdConnect>, accessToken?: string): Promise<OpenIdConnect>    
     
     /**
     * @param openidconnectID ID of the openidconnect.
     * @param openIdConnect 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(openidconnectID: string, openIdConnect: Partial<OpenIdConnect>, accessToken?: string): Promise<OpenIdConnect>    
+    export function Save(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>, accessToken?: string): Promise<OpenIdConnect>    
     
 }
 
@@ -2570,7 +2580,7 @@ export namespace Orders {
     * @param orderApprovalInfo 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Approve(direction: string, orderID: string, orderApprovalInfo: Partial<OrderApprovalInfo>, accessToken?: string): Promise<Order>    
+    export function Approve(direction: string, orderID: string, orderApprovalInfo: PartialDeep<OrderApprovalInfo>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2584,7 +2594,7 @@ export namespace Orders {
     * @param order 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(direction: string, order: Partial<Order>, accessToken?: string): Promise<Order>    
+    export function Create(direction: string, order: PartialDeep<Order>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2592,7 +2602,7 @@ export namespace Orders {
     * @param orderApprovalInfo 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Decline(direction: string, orderID: string, orderApprovalInfo: Partial<OrderApprovalInfo>, accessToken?: string): Promise<Order>    
+    export function Decline(direction: string, orderID: string, orderApprovalInfo: PartialDeep<OrderApprovalInfo>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2669,7 +2679,7 @@ export namespace Orders {
     * @param partialOrder 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(direction: string, orderID: string, partialOrder: Partial<Order>, accessToken?: string): Promise<Order>    
+    export function Patch(direction: string, orderID: string, partialOrder: PartialDeep<Order>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2677,7 +2687,7 @@ export namespace Orders {
     * @param partialAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchBillingAddress(direction: string, orderID: string, partialAddress: Partial<Address>, accessToken?: string): Promise<Order>    
+    export function PatchBillingAddress(direction: string, orderID: string, partialAddress: PartialDeep<Address>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2685,7 +2695,7 @@ export namespace Orders {
     * @param partialUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchFromUser(direction: string, orderID: string, partialUser: Partial<User>, accessToken?: string): Promise<Order>    
+    export function PatchFromUser(direction: string, orderID: string, partialUser: PartialDeep<User>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2693,7 +2703,7 @@ export namespace Orders {
     * @param partialAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchShippingAddress(direction: string, orderID: string, partialAddress: Partial<Address>, accessToken?: string): Promise<Order>    
+    export function PatchShippingAddress(direction: string, orderID: string, partialAddress: PartialDeep<Address>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2709,7 +2719,7 @@ export namespace Orders {
     * @param order 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(direction: string, orderID: string, order: Partial<Order>, accessToken?: string): Promise<Order>    
+    export function Save(direction: string, orderID: string, order: PartialDeep<Order>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2717,7 +2727,7 @@ export namespace Orders {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SetBillingAddress(direction: string, orderID: string, address: Partial<Address>, accessToken?: string): Promise<Order>    
+    export function SetBillingAddress(direction: string, orderID: string, address: PartialDeep<Address>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2725,7 +2735,7 @@ export namespace Orders {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SetShippingAddress(direction: string, orderID: string, address: Partial<Address>, accessToken?: string): Promise<Order>    
+    export function SetShippingAddress(direction: string, orderID: string, address: PartialDeep<Address>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2733,7 +2743,7 @@ export namespace Orders {
     * @param shipment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Ship(direction: string, orderID: string, shipment: Partial<Shipment>, accessToken?: string): Promise<Order>    
+    export function Ship(direction: string, orderID: string, shipment: PartialDeep<Shipment>, accessToken?: string): Promise<Order>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2751,13 +2761,13 @@ export namespace PasswordResets {
     * @param passwordReset 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function ResetPasswordByVerificationCode(verificationCode: string, passwordReset: Partial<PasswordReset>, accessToken?: string): Promise<void>    
+    export function ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PartialDeep<PasswordReset>, accessToken?: string): Promise<void>    
     
     /**
     * @param passwordResetRequest 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SendVerificationCode(passwordResetRequest: Partial<PasswordResetRequest>, accessToken?: string): Promise<void>    
+    export function SendVerificationCode(passwordResetRequest: PartialDeep<PasswordResetRequest>, accessToken?: string): Promise<void>    
     
 }
 
@@ -2769,7 +2779,7 @@ export namespace Payments {
     * @param payment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(direction: string, orderID: string, payment: Partial<Payment>, accessToken?: string): Promise<Payment>    
+    export function Create(direction: string, orderID: string, payment: PartialDeep<Payment>, accessToken?: string): Promise<Payment>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2778,7 +2788,7 @@ export namespace Payments {
     * @param paymentTransaction 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function CreateTransaction(direction: string, orderID: string, paymentID: string, paymentTransaction: Partial<PaymentTransaction>, accessToken?: string): Promise<Payment>    
+    export function CreateTransaction(direction: string, orderID: string, paymentID: string, paymentTransaction: PartialDeep<PaymentTransaction>, accessToken?: string): Promise<Payment>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2825,7 +2835,7 @@ export namespace Payments {
     * @param partialPayment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(direction: string, orderID: string, paymentID: string, partialPayment: Partial<Payment>, accessToken?: string): Promise<Payment>    
+    export function Patch(direction: string, orderID: string, paymentID: string, partialPayment: PartialDeep<Payment>, accessToken?: string): Promise<Payment>    
     
 }
 
@@ -2835,7 +2845,7 @@ export namespace PriceSchedules {
     * @param priceSchedule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(priceSchedule: Partial<PriceSchedule>, accessToken?: string): Promise<PriceSchedule>    
+    export function Create(priceSchedule: PartialDeep<PriceSchedule>, accessToken?: string): Promise<PriceSchedule>    
     
     /**
     * @param priceScheduleID ID of the price schedule.
@@ -2872,21 +2882,21 @@ export namespace PriceSchedules {
     * @param partialPriceSchedule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(priceScheduleID: string, partialPriceSchedule: Partial<PriceSchedule>, accessToken?: string): Promise<PriceSchedule>    
+    export function Patch(priceScheduleID: string, partialPriceSchedule: PartialDeep<PriceSchedule>, accessToken?: string): Promise<PriceSchedule>    
     
     /**
     * @param priceScheduleID ID of the price schedule.
     * @param priceSchedule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(priceScheduleID: string, priceSchedule: Partial<PriceSchedule>, accessToken?: string): Promise<PriceSchedule>    
+    export function Save(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>, accessToken?: string): Promise<PriceSchedule>    
     
     /**
     * @param priceScheduleID ID of the price schedule.
     * @param priceBreak 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SavePriceBreak(priceScheduleID: string, priceBreak: Partial<PriceBreak>, accessToken?: string): Promise<PriceSchedule>    
+    export function SavePriceBreak(priceScheduleID: string, priceBreak: PartialDeep<PriceBreak>, accessToken?: string): Promise<PriceSchedule>    
     
 }
 
@@ -2896,7 +2906,7 @@ export namespace Products {
     * @param product 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(product: Partial<Product>, accessToken?: string): Promise<Product>    
+    export function Create(product: PartialDeep<Product>, accessToken?: string): Promise<Product>    
     
     /**
     * @param productID ID of the product.
@@ -2989,7 +2999,7 @@ export namespace Products {
     * @param partialProduct 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(productID: string, partialProduct: Partial<Product>, accessToken?: string): Promise<Product>    
+    export function Patch(productID: string, partialProduct: PartialDeep<Product>, accessToken?: string): Promise<Product>    
     
     /**
     * @param productID ID of the product.
@@ -2997,7 +3007,7 @@ export namespace Products {
     * @param partialVariant 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchVariant(productID: string, variantID: string, partialVariant: Partial<Variant>, accessToken?: string): Promise<Variant>    
+    export function PatchVariant(productID: string, variantID: string, partialVariant: PartialDeep<Variant>, accessToken?: string): Promise<Variant>    
     
     /**
     * @param productID ID of the product.
@@ -3011,13 +3021,13 @@ export namespace Products {
     * @param product 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(productID: string, product: Partial<Product>, accessToken?: string): Promise<Product>    
+    export function Save(productID: string, product: PartialDeep<Product>, accessToken?: string): Promise<Product>    
     
     /**
     * @param productAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(productAssignment: Partial<ProductAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(productAssignment: PartialDeep<ProductAssignment>, accessToken?: string): Promise<void>    
     
     /**
     * @param productID ID of the product.
@@ -3032,7 +3042,7 @@ export namespace Products {
     * @param variant 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveVariant(productID: string, variantID: string, variant: Partial<Variant>, accessToken?: string): Promise<Variant>    
+    export function SaveVariant(productID: string, variantID: string, variant: PartialDeep<Variant>, accessToken?: string): Promise<Variant>    
     
 }
 
@@ -3042,7 +3052,7 @@ export namespace ProductFacets {
     * @param productFacet 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(productFacet: Partial<ProductFacet>, accessToken?: string): Promise<ProductFacet>    
+    export function Create(productFacet: PartialDeep<ProductFacet>, accessToken?: string): Promise<ProductFacet>    
     
     /**
     * @param productFacetID ID of the product facet.
@@ -3072,14 +3082,14 @@ export namespace ProductFacets {
     * @param partialProductFacet 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(productFacetID: string, partialProductFacet: Partial<ProductFacet>, accessToken?: string): Promise<ProductFacet>    
+    export function Patch(productFacetID: string, partialProductFacet: PartialDeep<ProductFacet>, accessToken?: string): Promise<ProductFacet>    
     
     /**
     * @param productFacetID ID of the product facet.
     * @param productFacet 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(productFacetID: string, productFacet: Partial<ProductFacet>, accessToken?: string): Promise<ProductFacet>    
+    export function Save(productFacetID: string, productFacet: PartialDeep<ProductFacet>, accessToken?: string): Promise<ProductFacet>    
     
 }
 
@@ -3089,7 +3099,7 @@ export namespace Promotions {
     * @param promotion 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(promotion: Partial<Promotion>, accessToken?: string): Promise<Promotion>    
+    export function Create(promotion: PartialDeep<Promotion>, accessToken?: string): Promise<Promotion>    
     
     /**
     * @param promotionID ID of the promotion.
@@ -3140,20 +3150,20 @@ export namespace Promotions {
     * @param partialPromotion 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(promotionID: string, partialPromotion: Partial<Promotion>, accessToken?: string): Promise<Promotion>    
+    export function Patch(promotionID: string, partialPromotion: PartialDeep<Promotion>, accessToken?: string): Promise<Promotion>    
     
     /**
     * @param promotionID ID of the promotion.
     * @param promotion 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(promotionID: string, promotion: Partial<Promotion>, accessToken?: string): Promise<Promotion>    
+    export function Save(promotionID: string, promotion: PartialDeep<Promotion>, accessToken?: string): Promise<Promotion>    
     
     /**
     * @param promotionAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(promotionAssignment: Partial<PromotionAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(promotionAssignment: PartialDeep<PromotionAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -3163,7 +3173,7 @@ export namespace SecurityProfiles {
     * @param securityProfile 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(securityProfile: Partial<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
+    export function Create(securityProfile: PartialDeep<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
     
     /**
     * @param securityProfileID ID of the security profile.
@@ -3217,20 +3227,20 @@ export namespace SecurityProfiles {
     * @param partialSecurityProfile 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(securityProfileID: string, partialSecurityProfile: Partial<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
+    export function Patch(securityProfileID: string, partialSecurityProfile: PartialDeep<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
     
     /**
     * @param securityProfileID ID of the security profile.
     * @param securityProfile 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(securityProfileID: string, securityProfile: Partial<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
+    export function Save(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>, accessToken?: string): Promise<SecurityProfile>    
     
     /**
     * @param securityProfileAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(securityProfileAssignment: Partial<SecurityProfileAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(securityProfileAssignment: PartialDeep<SecurityProfileAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -3240,7 +3250,7 @@ export namespace Shipments {
     * @param shipment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(shipment: Partial<Shipment>, accessToken?: string): Promise<Shipment>    
+    export function Create(shipment: PartialDeep<Shipment>, accessToken?: string): Promise<Shipment>    
     
     /**
     * @param shipmentID ID of the shipment.
@@ -3299,21 +3309,21 @@ export namespace Shipments {
     * @param partialShipment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(shipmentID: string, partialShipment: Partial<Shipment>, accessToken?: string): Promise<Shipment>    
+    export function Patch(shipmentID: string, partialShipment: PartialDeep<Shipment>, accessToken?: string): Promise<Shipment>    
     
     /**
     * @param shipmentID ID of the shipment.
     * @param shipment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(shipmentID: string, shipment: Partial<Shipment>, accessToken?: string): Promise<Shipment>    
+    export function Save(shipmentID: string, shipment: PartialDeep<Shipment>, accessToken?: string): Promise<Shipment>    
     
     /**
     * @param shipmentID ID of the shipment.
     * @param shipmentItem 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveItem(shipmentID: string, shipmentItem: Partial<ShipmentItem>, accessToken?: string): Promise<ShipmentItem>    
+    export function SaveItem(shipmentID: string, shipmentItem: PartialDeep<ShipmentItem>, accessToken?: string): Promise<ShipmentItem>    
     
 }
 
@@ -3323,14 +3333,14 @@ export namespace Specs {
     * @param spec 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(spec: Partial<Spec>, accessToken?: string): Promise<Spec>    
+    export function Create(spec: PartialDeep<Spec>, accessToken?: string): Promise<Spec>    
     
     /**
     * @param specID ID of the spec.
     * @param specOption 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function CreateOption(specID: string, specOption: Partial<SpecOption>, accessToken?: string): Promise<SpecOption>    
+    export function CreateOption(specID: string, specOption: PartialDeep<SpecOption>, accessToken?: string): Promise<SpecOption>    
     
     /**
     * @param specID ID of the spec.
@@ -3404,7 +3414,7 @@ export namespace Specs {
     * @param partialSpec 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(specID: string, partialSpec: Partial<Spec>, accessToken?: string): Promise<Spec>    
+    export function Patch(specID: string, partialSpec: PartialDeep<Spec>, accessToken?: string): Promise<Spec>    
     
     /**
     * @param specID ID of the spec.
@@ -3412,14 +3422,14 @@ export namespace Specs {
     * @param partialSpecOption 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function PatchOption(specID: string, optionID: string, partialSpecOption: Partial<SpecOption>, accessToken?: string): Promise<SpecOption>    
+    export function PatchOption(specID: string, optionID: string, partialSpecOption: PartialDeep<SpecOption>, accessToken?: string): Promise<SpecOption>    
     
     /**
     * @param specID ID of the spec.
     * @param spec 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(specID: string, spec: Partial<Spec>, accessToken?: string): Promise<Spec>    
+    export function Save(specID: string, spec: PartialDeep<Spec>, accessToken?: string): Promise<Spec>    
     
     /**
     * @param specID ID of the spec.
@@ -3427,13 +3437,13 @@ export namespace Specs {
     * @param specOption 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveOption(specID: string, optionID: string, specOption: Partial<SpecOption>, accessToken?: string): Promise<SpecOption>    
+    export function SaveOption(specID: string, optionID: string, specOption: PartialDeep<SpecOption>, accessToken?: string): Promise<SpecOption>    
     
     /**
     * @param specProductAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveProductAssignment(specProductAssignment: Partial<SpecProductAssignment>, accessToken?: string): Promise<void>    
+    export function SaveProductAssignment(specProductAssignment: PartialDeep<SpecProductAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -3444,7 +3454,7 @@ export namespace SpendingAccounts {
     * @param spendingAccount 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyerID: string, spendingAccount: Partial<SpendingAccount>, accessToken?: string): Promise<SpendingAccount>    
+    export function Create(buyerID: string, spendingAccount: PartialDeep<SpendingAccount>, accessToken?: string): Promise<SpendingAccount>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -3499,7 +3509,7 @@ export namespace SpendingAccounts {
     * @param partialSpendingAccount 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, spendingAccountID: string, partialSpendingAccount: Partial<SpendingAccount>, accessToken?: string): Promise<SpendingAccount>    
+    export function Patch(buyerID: string, spendingAccountID: string, partialSpendingAccount: PartialDeep<SpendingAccount>, accessToken?: string): Promise<SpendingAccount>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -3507,14 +3517,14 @@ export namespace SpendingAccounts {
     * @param spendingAccount 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, spendingAccountID: string, spendingAccount: Partial<SpendingAccount>, accessToken?: string): Promise<SpendingAccount>    
+    export function Save(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>, accessToken?: string): Promise<SpendingAccount>    
     
     /**
     * @param buyerID ID of the buyer.
     * @param spendingAccountAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveAssignment(buyerID: string, spendingAccountAssignment: Partial<SpendingAccountAssignment>, accessToken?: string): Promise<void>    
+    export function SaveAssignment(buyerID: string, spendingAccountAssignment: PartialDeep<SpendingAccountAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -3524,7 +3534,7 @@ export namespace Suppliers {
     * @param supplier 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(supplier: Partial<Supplier>, accessToken?: string): Promise<Supplier>    
+    export function Create(supplier: PartialDeep<Supplier>, accessToken?: string): Promise<Supplier>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3554,14 +3564,14 @@ export namespace Suppliers {
     * @param partialSupplier 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(supplierID: string, partialSupplier: Partial<Supplier>, accessToken?: string): Promise<Supplier>    
+    export function Patch(supplierID: string, partialSupplier: PartialDeep<Supplier>, accessToken?: string): Promise<Supplier>    
     
     /**
     * @param supplierID ID of the supplier.
     * @param supplier 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(supplierID: string, supplier: Partial<Supplier>, accessToken?: string): Promise<Supplier>    
+    export function Save(supplierID: string, supplier: PartialDeep<Supplier>, accessToken?: string): Promise<Supplier>    
     
 }
 
@@ -3572,7 +3582,7 @@ export namespace SupplierAddresses {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(supplierID: string, address: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Create(supplierID: string, address: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3606,7 +3616,7 @@ export namespace SupplierAddresses {
     * @param partialAddress 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(supplierID: string, addressID: string, partialAddress: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Patch(supplierID: string, addressID: string, partialAddress: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3614,7 +3624,7 @@ export namespace SupplierAddresses {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(supplierID: string, addressID: string, address: Partial<Address>, accessToken?: string): Promise<Address>    
+    export function Save(supplierID: string, addressID: string, address: PartialDeep<Address>, accessToken?: string): Promise<Address>    
     
 }
 
@@ -3625,7 +3635,7 @@ export namespace SupplierUsers {
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(supplierID: string, user: Partial<User>, accessToken?: string): Promise<User>    
+    export function Create(supplierID: string, user: PartialDeep<User>, accessToken?: string): Promise<User>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3647,7 +3657,7 @@ export namespace SupplierUsers {
     * @param impersonateTokenRequest 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function GetAccessToken(supplierID: string, userID: string, impersonateTokenRequest: Partial<ImpersonateTokenRequest>, accessToken?: string): Promise<AccessToken>    
+    export function GetAccessToken(supplierID: string, userID: string, impersonateTokenRequest: PartialDeep<ImpersonateTokenRequest>, accessToken?: string): Promise<AccessToken>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3668,7 +3678,7 @@ export namespace SupplierUsers {
     * @param partialUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(supplierID: string, userID: string, partialUser: Partial<User>, accessToken?: string): Promise<User>    
+    export function Patch(supplierID: string, userID: string, partialUser: PartialDeep<User>, accessToken?: string): Promise<User>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3676,7 +3686,7 @@ export namespace SupplierUsers {
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(supplierID: string, userID: string, user: Partial<User>, accessToken?: string): Promise<User>    
+    export function Save(supplierID: string, userID: string, user: PartialDeep<User>, accessToken?: string): Promise<User>    
     
 }
 
@@ -3687,7 +3697,7 @@ export namespace SupplierUserGroups {
     * @param userGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(supplierID: string, userGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Create(supplierID: string, userGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3739,7 +3749,7 @@ export namespace SupplierUserGroups {
     * @param partialUserGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(supplierID: string, userGroupID: string, partialUserGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Patch(supplierID: string, userGroupID: string, partialUserGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param supplierID ID of the supplier.
@@ -3747,14 +3757,14 @@ export namespace SupplierUserGroups {
     * @param userGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(supplierID: string, userGroupID: string, userGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Save(supplierID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param supplierID ID of the supplier.
     * @param userGroupAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveUserAssignment(supplierID: string, userGroupAssignment: Partial<UserGroupAssignment>, accessToken?: string): Promise<void>    
+    export function SaveUserAssignment(supplierID: string, userGroupAssignment: PartialDeep<UserGroupAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -3765,7 +3775,7 @@ export namespace Users {
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyerID: string, user: Partial<User>, accessToken?: string): Promise<User>    
+    export function Create(buyerID: string, user: PartialDeep<User>, accessToken?: string): Promise<User>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -3787,7 +3797,7 @@ export namespace Users {
     * @param impersonateTokenRequest 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function GetAccessToken(buyerID: string, userID: string, impersonateTokenRequest: Partial<ImpersonateTokenRequest>, accessToken?: string): Promise<AccessToken>    
+    export function GetAccessToken(buyerID: string, userID: string, impersonateTokenRequest: PartialDeep<ImpersonateTokenRequest>, accessToken?: string): Promise<AccessToken>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -3817,7 +3827,7 @@ export namespace Users {
     * @param partialUser 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, userID: string, partialUser: Partial<User>, accessToken?: string): Promise<User>    
+    export function Patch(buyerID: string, userID: string, partialUser: PartialDeep<User>, accessToken?: string): Promise<User>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -3825,7 +3835,7 @@ export namespace Users {
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, userID: string, user: Partial<User>, accessToken?: string): Promise<User>    
+    export function Save(buyerID: string, userID: string, user: PartialDeep<User>, accessToken?: string): Promise<User>    
     
 }
 
@@ -3836,7 +3846,7 @@ export namespace UserGroups {
     * @param userGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(buyerID: string, userGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Create(buyerID: string, userGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -3888,7 +3898,7 @@ export namespace UserGroups {
     * @param partialUserGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(buyerID: string, userGroupID: string, partialUserGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Patch(buyerID: string, userGroupID: string, partialUserGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param buyerID ID of the buyer.
@@ -3896,14 +3906,14 @@ export namespace UserGroups {
     * @param userGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(buyerID: string, userGroupID: string, userGroup: Partial<UserGroup>, accessToken?: string): Promise<UserGroup>    
+    export function Save(buyerID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>, accessToken?: string): Promise<UserGroup>    
     
     /**
     * @param buyerID ID of the buyer.
     * @param userGroupAssignment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function SaveUserAssignment(buyerID: string, userGroupAssignment: Partial<UserGroupAssignment>, accessToken?: string): Promise<void>    
+    export function SaveUserAssignment(buyerID: string, userGroupAssignment: PartialDeep<UserGroupAssignment>, accessToken?: string): Promise<void>    
     
 }
 
@@ -3913,7 +3923,7 @@ export namespace Webhooks {
     * @param webhook 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Create(webhook: Partial<Webhook>, accessToken?: string): Promise<Webhook>    
+    export function Create(webhook: PartialDeep<Webhook>, accessToken?: string): Promise<Webhook>    
     
     /**
     * @param webhookID ID of the webhook.
@@ -3943,14 +3953,14 @@ export namespace Webhooks {
     * @param partialWebhook 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Patch(webhookID: string, partialWebhook: Partial<Webhook>, accessToken?: string): Promise<Webhook>    
+    export function Patch(webhookID: string, partialWebhook: PartialDeep<Webhook>, accessToken?: string): Promise<Webhook>    
     
     /**
     * @param webhookID ID of the webhook.
     * @param webhook 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Save(webhookID: string, webhook: Partial<Webhook>, accessToken?: string): Promise<Webhook>    
+    export function Save(webhookID: string, webhook: PartialDeep<Webhook>, accessToken?: string): Promise<Webhook>    
     
 }
 
@@ -3978,6 +3988,6 @@ export namespace XpIndexs {
     * @param xpIndex 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function Put(xpIndex: Partial<XpIndex>, accessToken?: string): Promise<void>    
+    export function Put(xpIndex: PartialDeep<XpIndex>, accessToken?: string): Promise<void>    
     
 }

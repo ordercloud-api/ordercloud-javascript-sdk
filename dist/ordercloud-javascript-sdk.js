@@ -2019,6 +2019,192 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 }
 
 },{}],5:[function(require,module,exports){
+// shim for using process in browser
+var process = module.exports = {};
+
+// cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
+(function () {
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
+    }
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
+    }
+} ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+    if (!draining || !currentQueue) {
+        return;
+    }
+    draining = false;
+    if (currentQueue.length) {
+        queue = currentQueue.concat(queue);
+    } else {
+        queueIndex = -1;
+    }
+    if (queue.length) {
+        drainQueue();
+    }
+}
+
+function drainQueue() {
+    if (draining) {
+        return;
+    }
+    var timeout = runTimeout(cleanUpNextTick);
+    draining = true;
+
+    var len = queue.length;
+    while(len) {
+        currentQueue = queue;
+        queue = [];
+        while (++queueIndex < len) {
+            if (currentQueue) {
+                currentQueue[queueIndex].run();
+            }
+        }
+        queueIndex = -1;
+        len = queue.length;
+    }
+    currentQueue = null;
+    draining = false;
+    runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+    var args = new Array(arguments.length - 1);
+    if (arguments.length > 1) {
+        for (var i = 1; i < arguments.length; i++) {
+            args[i - 1] = arguments[i];
+        }
+    }
+    queue.push(new Item(fun, args));
+    if (queue.length === 1 && !draining) {
+        runTimeout(drainQueue);
+    }
+};
+
+// v8 likes predictible objects
+function Item(fun, array) {
+    this.fun = fun;
+    this.array = array;
+}
+Item.prototype.run = function () {
+    this.fun.apply(null, this.array);
+};
+process.title = 'browser';
+process.browser = true;
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) { return [] }
+
+process.binding = function (name) {
+    throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () { return '/' };
+process.chdir = function (dir) {
+    throw new Error('process.chdir is not supported');
+};
+process.umask = function() { return 0; };
+
+},{}],6:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -2195,7 +2381,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 module.exports = stringify
 stringify.default = stringify
 stringify.stable = deterministicStringify
@@ -2300,7 +2486,7 @@ function deterministicDecirc (val, k, stack, parent) {
   }
 }
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 "use strict";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -2338,7 +2524,7 @@ Agent.prototype._setDefaults = function (req) {
 };
 
 module.exports = Agent;
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -3358,7 +3544,7 @@ request.put = function (url, data, fn) {
   if (fn) req.end(fn);
   return req;
 };
-},{"./agent-base":7,"./is-object":9,"./request-base":10,"./response-base":11,"component-emitter":5,"fast-safe-stringify":6}],9:[function(require,module,exports){
+},{"./agent-base":8,"./is-object":10,"./request-base":11,"./response-base":12,"component-emitter":6,"fast-safe-stringify":7}],10:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -3375,7 +3561,7 @@ function isObject(obj) {
 }
 
 module.exports = isObject;
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -4122,7 +4308,7 @@ RequestBase.prototype._setTimeouts = function () {
     }, this._responseTimeout);
   }
 };
-},{"./is-object":9}],11:[function(require,module,exports){
+},{"./is-object":10}],12:[function(require,module,exports){
 "use strict";
 
 /**
@@ -4253,7 +4439,7 @@ ResponseBase.prototype._setStatusProperties = function (status) {
   this.notFound = status === 404;
   this.unprocessableEntity = status === 422;
 };
-},{"./utils":12}],12:[function(require,module,exports){
+},{"./utils":13}],13:[function(require,module,exports){
 "use strict";
 
 /**
@@ -4324,8 +4510,8 @@ exports.cleanHeader = function (header, changesOrigin) {
 
   return header;
 };
-},{}],13:[function(require,module,exports){
-(function (Buffer){
+},{}],14:[function(require,module,exports){
+(function (process,Buffer){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -4701,8 +4887,11 @@ exports.cleanHeader = function (header, changesOrigin) {
     var _this = this;
     var url = this.buildUrl(path, pathParams);
     var request = superagent(httpMethod, url);
-    request.parse(customJsonParser);
-    request.buffer(true)
+    if(typeof process === 'object' && process + '' === '[object process]') {
+      // only use custom parser in node
+      request.parse(customJsonParser);
+      request.buffer(true)
+    }
 
     // apply authentications
     this.applyAuthToRequest(request, accessToken);
@@ -4774,8 +4963,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
     var url = _this.baseAuthPath.replace(/\/+$/, '') + path;
     var request = superagent(httpMethod, url);
-    request.parse(customJsonParser);
-    request.buffer(true)
+    if(typeof process === 'object' && process + '' === '[object process]') {
+      // only use custom parser in node
+      request.parse(customJsonParser);
+      request.buffer(true)
+    }
 
     // set query parameters
     request.query(this.normalizeParams(queryParams));
@@ -4934,8 +5126,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-}).call(this,require("buffer").Buffer)
-},{"buffer":3,"fs":1,"superagent":8}],14:[function(require,module,exports){
+}).call(this,require('_process'),require("buffer").Buffer)
+},{"_process":5,"buffer":3,"fs":1,"superagent":9}],15:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5398,7 +5590,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Address":54,"../model/AddressAssignment":55,"../model/ListAddress":81,"../model/ListAddressAssignment":82}],15:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/AddressAssignment":56,"../model/ListAddress":82,"../model/ListAddressAssignment":83}],16:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5677,7 +5869,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Address":54,"../model/ListAddress":81}],16:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/ListAddress":82}],17:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6070,7 +6262,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListUserGroup":131,"../model/ListUserGroupAssignment":132,"../model/UserGroup":217,"../model/UserGroupAssignment":218}],17:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUserGroup":132,"../model/ListUserGroupAssignment":133,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],18:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6349,7 +6541,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListUser":130,"../model/User":216}],18:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUser":131,"../model/User":217}],19:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6786,7 +6978,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ApiClient":56,"../model/ApiClientAssignment":57,"../model/ListApiClient":83,"../model/ListApiClientAssignment":84}],19:[function(require,module,exports){
+},{"../Sdk":14,"../model/ApiClient":57,"../model/ApiClientAssignment":58,"../model/ListApiClient":84,"../model/ListApiClientAssignment":85}],20:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -7107,7 +7299,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ApprovalRule":58,"../model/ListApprovalRule":85}],20:[function(require,module,exports){
+},{"../Sdk":14,"../model/ApprovalRule":59,"../model/ListApprovalRule":86}],21:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -7347,7 +7539,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     return exports;
 }));
-},{"../Sdk":13,"../model/AccessToken":52}],21:[function(require,module,exports){
+},{"../Sdk":14,"../model/AccessToken":53}],22:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -7626,7 +7818,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Buyer":59,"../model/ListBuyer":86}],22:[function(require,module,exports){
+},{"../Sdk":14,"../model/Buyer":60,"../model/ListBuyer":87}],23:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -8133,7 +8325,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Catalog":64,"../model/CatalogAssignment":65,"../model/ListCatalog":91,"../model/ListCatalogAssignment":92,"../model/ListProductCatalogAssignment":116,"../model/ProductCatalogAssignment":201}],23:[function(require,module,exports){
+},{"../Sdk":14,"../model/Catalog":65,"../model/CatalogAssignment":66,"../model/ListCatalog":92,"../model/ListCatalogAssignment":93,"../model/ListProductCatalogAssignment":117,"../model/ProductCatalogAssignment":202}],24:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -8738,7 +8930,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Category":66,"../model/CategoryAssignment":67,"../model/CategoryProductAssignment":68,"../model/ListCategory":93,"../model/ListCategoryAssignment":94,"../model/ListCategoryProductAssignment":95}],24:[function(require,module,exports){
+},{"../Sdk":14,"../model/Category":67,"../model/CategoryAssignment":68,"../model/CategoryProductAssignment":69,"../model/ListCategory":94,"../model/ListCategoryAssignment":95,"../model/ListCategoryProductAssignment":96}],25:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -9197,7 +9389,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/CostCenter":69,"../model/CostCenterAssignment":70,"../model/ListCostCenter":96,"../model/ListCostCenterAssignment":97}],25:[function(require,module,exports){
+},{"../Sdk":14,"../model/CostCenter":70,"../model/CostCenterAssignment":71,"../model/ListCostCenter":97,"../model/ListCostCenterAssignment":98}],26:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -9656,7 +9848,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/CreditCard":71,"../model/CreditCardAssignment":72,"../model/ListCreditCard":98,"../model/ListCreditCardAssignment":99}],26:[function(require,module,exports){
+},{"../Sdk":14,"../model/CreditCard":72,"../model/CreditCardAssignment":73,"../model/ListCreditCard":99,"../model/ListCreditCardAssignment":100}],27:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -9935,7 +10127,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ImpersonationConfig":74,"../model/ListImpersonationConfig":102}],27:[function(require,module,exports){
+},{"../Sdk":14,"../model/ImpersonationConfig":75,"../model/ListImpersonationConfig":103}],28:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10214,7 +10406,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Incrementor":75,"../model/ListIncrementor":103}],28:[function(require,module,exports){
+},{"../Sdk":14,"../model/Incrementor":76,"../model/ListIncrementor":104}],29:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10687,7 +10879,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Address":54,"../model/LineItem":77,"../model/ListLineItem":104}],29:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/LineItem":78,"../model/ListLineItem":105}],30:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12207,7 +12399,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/AccessTokenBasic":53,"../model/BuyerAddress":60,"../model/BuyerCreditCard":61,"../model/BuyerProduct":62,"../model/BuyerSpec":63,"../model/Catalog":64,"../model/Category":66,"../model/ListBuyerAddress":87,"../model/ListBuyerCreditCard":88,"../model/ListBuyerProduct":89,"../model/ListBuyerSpec":90,"../model/ListCatalog":91,"../model/ListCategory":93,"../model/ListCostCenter":96,"../model/ListOrder":109,"../model/ListPromotion":118,"../model/ListShipment":122,"../model/ListShipmentItem":123,"../model/ListSpendingAccount":127,"../model/ListUserGroup":131,"../model/MeUser":138,"../model/Promotion":203,"../model/Shipment":207,"../model/SpendingAccount":212,"../model/TokenPasswordReset":215}],30:[function(require,module,exports){
+},{"../Sdk":14,"../model/AccessTokenBasic":54,"../model/BuyerAddress":61,"../model/BuyerCreditCard":62,"../model/BuyerProduct":63,"../model/BuyerSpec":64,"../model/Catalog":65,"../model/Category":67,"../model/ListBuyerAddress":88,"../model/ListBuyerCreditCard":89,"../model/ListBuyerProduct":90,"../model/ListBuyerSpec":91,"../model/ListCatalog":92,"../model/ListCategory":94,"../model/ListCostCenter":97,"../model/ListOrder":110,"../model/ListPromotion":119,"../model/ListShipment":123,"../model/ListShipmentItem":124,"../model/ListSpendingAccount":128,"../model/ListUserGroup":132,"../model/MeUser":139,"../model/Promotion":204,"../model/Shipment":208,"../model/SpendingAccount":213,"../model/TokenPasswordReset":216}],31:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12687,7 +12879,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListMessageCCListenerAssignment":105,"../model/ListMessageSender":106,"../model/ListMessageSenderAssignment":107,"../model/MessageCCListenerAssignment":139,"../model/MessageSender":140,"../model/MessageSenderAssignment":141}],31:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListMessageCCListenerAssignment":106,"../model/ListMessageSender":107,"../model/ListMessageSenderAssignment":108,"../model/MessageCCListenerAssignment":140,"../model/MessageSender":141,"../model/MessageSenderAssignment":142}],32:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12966,7 +13158,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListOpenIdConnect":108,"../model/OpenIdConnect":144}],32:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListOpenIdConnect":109,"../model/OpenIdConnect":145}],33:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14029,7 +14221,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Address":54,"../model/ListOrder":109,"../model/ListOrderApproval":110,"../model/ListOrderPromotion":111,"../model/ListUser":130,"../model/Order":145,"../model/OrderApprovalInfo":147,"../model/OrderPromotion":148,"../model/Shipment":207,"../model/User":216}],33:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/ListOrder":110,"../model/ListOrderApproval":111,"../model/ListOrderPromotion":112,"../model/ListUser":131,"../model/Order":146,"../model/OrderApprovalInfo":148,"../model/OrderPromotion":149,"../model/Shipment":208,"../model/User":217}],34:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14155,7 +14347,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/PasswordReset":193,"../model/PasswordResetRequest":194}],34:[function(require,module,exports){
+},{"../Sdk":14,"../model/PasswordReset":194,"../model/PasswordResetRequest":195}],35:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14574,7 +14766,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListPayment":112,"../model/Payment":195,"../model/PaymentTransaction":196}],35:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListPayment":113,"../model/Payment":196,"../model/PaymentTransaction":197}],36:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14936,7 +15128,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListPriceSchedule":113,"../model/PriceBreak":197,"../model/PriceSchedule":198}],36:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListPriceSchedule":114,"../model/PriceBreak":198,"../model/PriceSchedule":199}],37:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15215,7 +15407,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListProductFacet":117,"../model/ProductFacet":202}],37:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListProductFacet":118,"../model/ProductFacet":203}],38:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15987,7 +16179,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListProduct":114,"../model/ListProductAssignment":115,"../model/ListSupplier":129,"../model/ListVariant":133,"../model/Product":199,"../model/ProductAssignment":200,"../model/Variant":219}],38:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListProduct":115,"../model/ListProductAssignment":116,"../model/ListSupplier":130,"../model/ListVariant":134,"../model/Product":200,"../model/ProductAssignment":201,"../model/Variant":220}],39:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16392,7 +16584,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListPromotion":118,"../model/ListPromotionAssignment":119,"../model/Promotion":203,"../model/PromotionAssignment":204}],39:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListPromotion":119,"../model/ListPromotionAssignment":120,"../model/Promotion":204,"../model/PromotionAssignment":205}],40:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16798,7 +16990,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListSecurityProfile":120,"../model/ListSecurityProfileAssignment":121,"../model/SecurityProfile":205,"../model/SecurityProfileAssignment":206}],40:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSecurityProfile":121,"../model/ListSecurityProfileAssignment":122,"../model/SecurityProfile":206,"../model/SecurityProfileAssignment":207}],41:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17267,7 +17459,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListShipment":122,"../model/ListShipmentItem":123,"../model/Shipment":207,"../model/ShipmentItem":208}],41:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListShipment":123,"../model/ListShipmentItem":124,"../model/Shipment":208,"../model/ShipmentItem":209}],42:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17934,7 +18126,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListSpec":124,"../model/ListSpecOption":125,"../model/ListSpecProductAssignment":126,"../model/Spec":209,"../model/SpecOption":210,"../model/SpecProductAssignment":211}],42:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSpec":125,"../model/ListSpecOption":126,"../model/ListSpecProductAssignment":127,"../model/Spec":210,"../model/SpecOption":211,"../model/SpecProductAssignment":212}],43:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18393,7 +18585,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListSpendingAccount":127,"../model/ListSpendingAccountAssignment":128,"../model/SpendingAccount":212,"../model/SpendingAccountAssignment":213}],43:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSpendingAccount":128,"../model/ListSpendingAccountAssignment":129,"../model/SpendingAccount":213,"../model/SpendingAccountAssignment":214}],44:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18714,7 +18906,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/Address":54,"../model/ListAddress":81}],44:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/ListAddress":82}],45:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19170,7 +19362,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListUserGroup":131,"../model/ListUserGroupAssignment":132,"../model/UserGroup":217,"../model/UserGroupAssignment":218}],45:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUserGroup":132,"../model/ListUserGroupAssignment":133,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],46:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19541,7 +19733,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/AccessToken":52,"../model/ImpersonateTokenRequest":73,"../model/ListUser":130,"../model/User":216}],46:[function(require,module,exports){
+},{"../Sdk":14,"../model/AccessToken":53,"../model/ImpersonateTokenRequest":74,"../model/ListUser":131,"../model/User":217}],47:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19820,7 +20012,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListSupplier":129,"../model/Supplier":214}],47:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSupplier":130,"../model/Supplier":215}],48:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20276,7 +20468,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListUserGroup":131,"../model/ListUserGroupAssignment":132,"../model/UserGroup":217,"../model/UserGroupAssignment":218}],48:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUserGroup":132,"../model/ListUserGroupAssignment":133,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],49:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20703,7 +20895,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/AccessToken":52,"../model/ImpersonateTokenRequest":73,"../model/ListUser":130,"../model/User":216}],49:[function(require,module,exports){
+},{"../Sdk":14,"../model/AccessToken":53,"../model/ImpersonateTokenRequest":74,"../model/ListUser":131,"../model/User":217}],50:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20982,7 +21174,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListWebhook":134,"../model/Webhook":221}],50:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListWebhook":135,"../model/Webhook":222}],51:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21151,7 +21343,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":13,"../model/ListXpIndex":135,"../model/XpIndex":223}],51:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListXpIndex":136,"../model/XpIndex":224}],52:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21205,7 +21397,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * </pre>
    * </p>
    * @module index
-   * @version 3.5.7
+   * @version 3.5.8
    */
   var exports = {
     /**
@@ -22271,7 +22463,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"./Sdk":13,"./api/Addresses":14,"./api/AdminAddresses":15,"./api/AdminUserGroups":16,"./api/AdminUsers":17,"./api/ApiClients":18,"./api/ApprovalRules":19,"./api/Auth":20,"./api/Buyers":21,"./api/Catalogs":22,"./api/Categories":23,"./api/CostCenters":24,"./api/CreditCards":25,"./api/ImpersonationConfigs":26,"./api/Incrementors":27,"./api/LineItems":28,"./api/Me":29,"./api/MessageSenders":30,"./api/OpenIdConnects":31,"./api/Orders":32,"./api/PasswordResets":33,"./api/Payments":34,"./api/PriceSchedules":35,"./api/ProductFacets":36,"./api/Products":37,"./api/Promotions":38,"./api/SecurityProfiles":39,"./api/Shipments":40,"./api/Specs":41,"./api/SpendingAccounts":42,"./api/SupplierAddresses":43,"./api/SupplierUserGroups":44,"./api/SupplierUsers":45,"./api/Suppliers":46,"./api/UserGroups":47,"./api/Users":48,"./api/Webhooks":49,"./api/XpIndexs":50,"./model/AccessToken":52,"./model/AccessTokenBasic":53,"./model/Address":54,"./model/AddressAssignment":55,"./model/ApiClient":56,"./model/ApiClientAssignment":57,"./model/ApprovalRule":58,"./model/Buyer":59,"./model/BuyerAddress":60,"./model/BuyerCreditCard":61,"./model/BuyerProduct":62,"./model/BuyerSpec":63,"./model/Catalog":64,"./model/CatalogAssignment":65,"./model/Category":66,"./model/CategoryAssignment":67,"./model/CategoryProductAssignment":68,"./model/CostCenter":69,"./model/CostCenterAssignment":70,"./model/CreditCard":71,"./model/CreditCardAssignment":72,"./model/ImpersonateTokenRequest":73,"./model/ImpersonationConfig":74,"./model/Incrementor":75,"./model/Inventory":76,"./model/LineItem":77,"./model/LineItemProduct":78,"./model/LineItemSpec":79,"./model/LineItemVariant":80,"./model/ListAddress":81,"./model/ListAddressAssignment":82,"./model/ListApiClient":83,"./model/ListApiClientAssignment":84,"./model/ListApprovalRule":85,"./model/ListBuyer":86,"./model/ListBuyerAddress":87,"./model/ListBuyerCreditCard":88,"./model/ListBuyerProduct":89,"./model/ListBuyerSpec":90,"./model/ListCatalog":91,"./model/ListCatalogAssignment":92,"./model/ListCategory":93,"./model/ListCategoryAssignment":94,"./model/ListCategoryProductAssignment":95,"./model/ListCostCenter":96,"./model/ListCostCenterAssignment":97,"./model/ListCreditCard":98,"./model/ListCreditCardAssignment":99,"./model/ListFacet":100,"./model/ListFacetValue":101,"./model/ListImpersonationConfig":102,"./model/ListIncrementor":103,"./model/ListLineItem":104,"./model/ListMessageCCListenerAssignment":105,"./model/ListMessageSender":106,"./model/ListMessageSenderAssignment":107,"./model/ListOpenIdConnect":108,"./model/ListOrder":109,"./model/ListOrderApproval":110,"./model/ListOrderPromotion":111,"./model/ListPayment":112,"./model/ListPriceSchedule":113,"./model/ListProduct":114,"./model/ListProductAssignment":115,"./model/ListProductCatalogAssignment":116,"./model/ListProductFacet":117,"./model/ListPromotion":118,"./model/ListPromotionAssignment":119,"./model/ListSecurityProfile":120,"./model/ListSecurityProfileAssignment":121,"./model/ListShipment":122,"./model/ListShipmentItem":123,"./model/ListSpec":124,"./model/ListSpecOption":125,"./model/ListSpecProductAssignment":126,"./model/ListSpendingAccount":127,"./model/ListSpendingAccountAssignment":128,"./model/ListSupplier":129,"./model/ListUser":130,"./model/ListUserGroup":131,"./model/ListUserGroupAssignment":132,"./model/ListVariant":133,"./model/ListWebhook":134,"./model/ListXpIndex":135,"./model/MeBuyer":136,"./model/MeSupplier":137,"./model/MeUser":138,"./model/MessageCCListenerAssignment":139,"./model/MessageSender":140,"./model/MessageSenderAssignment":141,"./model/Meta":142,"./model/MetaWithFacets":143,"./model/OpenIdConnect":144,"./model/Order":145,"./model/OrderApproval":146,"./model/OrderApprovalInfo":147,"./model/OrderPromotion":148,"./model/PartialAddress":149,"./model/PartialApiClient":150,"./model/PartialApprovalRule":151,"./model/PartialBuyer":152,"./model/PartialBuyerAddress":153,"./model/PartialBuyerCreditCard":154,"./model/PartialCatalog":155,"./model/PartialCategory":156,"./model/PartialCostCenter":157,"./model/PartialCreditCard":158,"./model/PartialImpersonationConfig":159,"./model/PartialIncrementor":160,"./model/PartialInventory":161,"./model/PartialLineItem":162,"./model/PartialLineItemProduct":163,"./model/PartialLineItemSpec":164,"./model/PartialLineItemVariant":165,"./model/PartialMeBuyer":166,"./model/PartialMeSupplier":167,"./model/PartialMeUser":168,"./model/PartialMessageSender":169,"./model/PartialOpenIdConnect":170,"./model/PartialOrder":171,"./model/PartialPasswordConfig":172,"./model/PartialPayment":173,"./model/PartialPaymentTransaction":174,"./model/PartialPriceBreak":175,"./model/PartialPriceSchedule":176,"./model/PartialProduct":177,"./model/PartialProductFacet":178,"./model/PartialPromotion":179,"./model/PartialSecurityProfile":180,"./model/PartialShipment":181,"./model/PartialSpec":182,"./model/PartialSpecOption":183,"./model/PartialSpendingAccount":184,"./model/PartialSupplier":185,"./model/PartialUser":186,"./model/PartialUserGroup":187,"./model/PartialVariant":188,"./model/PartialVariantInventory":189,"./model/PartialWebhook":190,"./model/PartialWebhookRoute":191,"./model/PasswordConfig":192,"./model/PasswordReset":193,"./model/PasswordResetRequest":194,"./model/Payment":195,"./model/PaymentTransaction":196,"./model/PriceBreak":197,"./model/PriceSchedule":198,"./model/Product":199,"./model/ProductAssignment":200,"./model/ProductCatalogAssignment":201,"./model/ProductFacet":202,"./model/Promotion":203,"./model/PromotionAssignment":204,"./model/SecurityProfile":205,"./model/SecurityProfileAssignment":206,"./model/Shipment":207,"./model/ShipmentItem":208,"./model/Spec":209,"./model/SpecOption":210,"./model/SpecProductAssignment":211,"./model/SpendingAccount":212,"./model/SpendingAccountAssignment":213,"./model/Supplier":214,"./model/TokenPasswordReset":215,"./model/User":216,"./model/UserGroup":217,"./model/UserGroupAssignment":218,"./model/Variant":219,"./model/VariantInventory":220,"./model/Webhook":221,"./model/WebhookRoute":222,"./model/XpIndex":223}],52:[function(require,module,exports){
+},{"./Sdk":14,"./api/Addresses":15,"./api/AdminAddresses":16,"./api/AdminUserGroups":17,"./api/AdminUsers":18,"./api/ApiClients":19,"./api/ApprovalRules":20,"./api/Auth":21,"./api/Buyers":22,"./api/Catalogs":23,"./api/Categories":24,"./api/CostCenters":25,"./api/CreditCards":26,"./api/ImpersonationConfigs":27,"./api/Incrementors":28,"./api/LineItems":29,"./api/Me":30,"./api/MessageSenders":31,"./api/OpenIdConnects":32,"./api/Orders":33,"./api/PasswordResets":34,"./api/Payments":35,"./api/PriceSchedules":36,"./api/ProductFacets":37,"./api/Products":38,"./api/Promotions":39,"./api/SecurityProfiles":40,"./api/Shipments":41,"./api/Specs":42,"./api/SpendingAccounts":43,"./api/SupplierAddresses":44,"./api/SupplierUserGroups":45,"./api/SupplierUsers":46,"./api/Suppliers":47,"./api/UserGroups":48,"./api/Users":49,"./api/Webhooks":50,"./api/XpIndexs":51,"./model/AccessToken":53,"./model/AccessTokenBasic":54,"./model/Address":55,"./model/AddressAssignment":56,"./model/ApiClient":57,"./model/ApiClientAssignment":58,"./model/ApprovalRule":59,"./model/Buyer":60,"./model/BuyerAddress":61,"./model/BuyerCreditCard":62,"./model/BuyerProduct":63,"./model/BuyerSpec":64,"./model/Catalog":65,"./model/CatalogAssignment":66,"./model/Category":67,"./model/CategoryAssignment":68,"./model/CategoryProductAssignment":69,"./model/CostCenter":70,"./model/CostCenterAssignment":71,"./model/CreditCard":72,"./model/CreditCardAssignment":73,"./model/ImpersonateTokenRequest":74,"./model/ImpersonationConfig":75,"./model/Incrementor":76,"./model/Inventory":77,"./model/LineItem":78,"./model/LineItemProduct":79,"./model/LineItemSpec":80,"./model/LineItemVariant":81,"./model/ListAddress":82,"./model/ListAddressAssignment":83,"./model/ListApiClient":84,"./model/ListApiClientAssignment":85,"./model/ListApprovalRule":86,"./model/ListBuyer":87,"./model/ListBuyerAddress":88,"./model/ListBuyerCreditCard":89,"./model/ListBuyerProduct":90,"./model/ListBuyerSpec":91,"./model/ListCatalog":92,"./model/ListCatalogAssignment":93,"./model/ListCategory":94,"./model/ListCategoryAssignment":95,"./model/ListCategoryProductAssignment":96,"./model/ListCostCenter":97,"./model/ListCostCenterAssignment":98,"./model/ListCreditCard":99,"./model/ListCreditCardAssignment":100,"./model/ListFacet":101,"./model/ListFacetValue":102,"./model/ListImpersonationConfig":103,"./model/ListIncrementor":104,"./model/ListLineItem":105,"./model/ListMessageCCListenerAssignment":106,"./model/ListMessageSender":107,"./model/ListMessageSenderAssignment":108,"./model/ListOpenIdConnect":109,"./model/ListOrder":110,"./model/ListOrderApproval":111,"./model/ListOrderPromotion":112,"./model/ListPayment":113,"./model/ListPriceSchedule":114,"./model/ListProduct":115,"./model/ListProductAssignment":116,"./model/ListProductCatalogAssignment":117,"./model/ListProductFacet":118,"./model/ListPromotion":119,"./model/ListPromotionAssignment":120,"./model/ListSecurityProfile":121,"./model/ListSecurityProfileAssignment":122,"./model/ListShipment":123,"./model/ListShipmentItem":124,"./model/ListSpec":125,"./model/ListSpecOption":126,"./model/ListSpecProductAssignment":127,"./model/ListSpendingAccount":128,"./model/ListSpendingAccountAssignment":129,"./model/ListSupplier":130,"./model/ListUser":131,"./model/ListUserGroup":132,"./model/ListUserGroupAssignment":133,"./model/ListVariant":134,"./model/ListWebhook":135,"./model/ListXpIndex":136,"./model/MeBuyer":137,"./model/MeSupplier":138,"./model/MeUser":139,"./model/MessageCCListenerAssignment":140,"./model/MessageSender":141,"./model/MessageSenderAssignment":142,"./model/Meta":143,"./model/MetaWithFacets":144,"./model/OpenIdConnect":145,"./model/Order":146,"./model/OrderApproval":147,"./model/OrderApprovalInfo":148,"./model/OrderPromotion":149,"./model/PartialAddress":150,"./model/PartialApiClient":151,"./model/PartialApprovalRule":152,"./model/PartialBuyer":153,"./model/PartialBuyerAddress":154,"./model/PartialBuyerCreditCard":155,"./model/PartialCatalog":156,"./model/PartialCategory":157,"./model/PartialCostCenter":158,"./model/PartialCreditCard":159,"./model/PartialImpersonationConfig":160,"./model/PartialIncrementor":161,"./model/PartialInventory":162,"./model/PartialLineItem":163,"./model/PartialLineItemProduct":164,"./model/PartialLineItemSpec":165,"./model/PartialLineItemVariant":166,"./model/PartialMeBuyer":167,"./model/PartialMeSupplier":168,"./model/PartialMeUser":169,"./model/PartialMessageSender":170,"./model/PartialOpenIdConnect":171,"./model/PartialOrder":172,"./model/PartialPasswordConfig":173,"./model/PartialPayment":174,"./model/PartialPaymentTransaction":175,"./model/PartialPriceBreak":176,"./model/PartialPriceSchedule":177,"./model/PartialProduct":178,"./model/PartialProductFacet":179,"./model/PartialPromotion":180,"./model/PartialSecurityProfile":181,"./model/PartialShipment":182,"./model/PartialSpec":183,"./model/PartialSpecOption":184,"./model/PartialSpendingAccount":185,"./model/PartialSupplier":186,"./model/PartialUser":187,"./model/PartialUserGroup":188,"./model/PartialVariant":189,"./model/PartialVariantInventory":190,"./model/PartialWebhook":191,"./model/PartialWebhookRoute":192,"./model/PasswordConfig":193,"./model/PasswordReset":194,"./model/PasswordResetRequest":195,"./model/Payment":196,"./model/PaymentTransaction":197,"./model/PriceBreak":198,"./model/PriceSchedule":199,"./model/Product":200,"./model/ProductAssignment":201,"./model/ProductCatalogAssignment":202,"./model/ProductFacet":203,"./model/Promotion":204,"./model/PromotionAssignment":205,"./model/SecurityProfile":206,"./model/SecurityProfileAssignment":207,"./model/Shipment":208,"./model/ShipmentItem":209,"./model/Spec":210,"./model/SpecOption":211,"./model/SpecProductAssignment":212,"./model/SpendingAccount":213,"./model/SpendingAccountAssignment":214,"./model/Supplier":215,"./model/TokenPasswordReset":216,"./model/User":217,"./model/UserGroup":218,"./model/UserGroupAssignment":219,"./model/Variant":220,"./model/VariantInventory":221,"./model/Webhook":222,"./model/WebhookRoute":223,"./model/XpIndex":224}],53:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22375,7 +22567,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],53:[function(require,module,exports){
+},{"../Sdk":14}],54:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22455,7 +22647,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],54:[function(require,module,exports){
+},{"../Sdk":14}],55:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22639,7 +22831,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],55:[function(require,module,exports){
+},{"../Sdk":14}],56:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22751,7 +22943,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],56:[function(require,module,exports){
+},{"../Sdk":14}],57:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -22935,7 +23127,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],57:[function(require,module,exports){
+},{"../Sdk":14}],58:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23031,7 +23223,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],58:[function(require,module,exports){
+},{"../Sdk":14}],59:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23151,7 +23343,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],59:[function(require,module,exports){
+},{"../Sdk":14}],60:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23263,7 +23455,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],60:[function(require,module,exports){
+},{"../Sdk":14}],61:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23471,7 +23663,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],61:[function(require,module,exports){
+},{"../Sdk":14}],62:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23615,7 +23807,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],62:[function(require,module,exports){
+},{"../Sdk":14}],63:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23815,7 +24007,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Inventory":76,"./PriceSchedule":198}],63:[function(require,module,exports){
+},{"../Sdk":14,"./Inventory":77,"./PriceSchedule":199}],64:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23967,7 +24159,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./SpecOption":210}],64:[function(require,module,exports){
+},{"../Sdk":14,"./SpecOption":211}],65:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24087,7 +24279,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],65:[function(require,module,exports){
+},{"../Sdk":14}],66:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24191,7 +24383,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],66:[function(require,module,exports){
+},{"../Sdk":14}],67:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24327,7 +24519,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],67:[function(require,module,exports){
+},{"../Sdk":14}],68:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24439,7 +24631,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],68:[function(require,module,exports){
+},{"../Sdk":14}],69:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24535,7 +24727,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],69:[function(require,module,exports){
+},{"../Sdk":14}],70:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24639,7 +24831,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],70:[function(require,module,exports){
+},{"../Sdk":14}],71:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24727,7 +24919,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],71:[function(require,module,exports){
+},{"../Sdk":14}],72:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24863,7 +25055,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],72:[function(require,module,exports){
+},{"../Sdk":14}],73:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24959,7 +25151,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],73:[function(require,module,exports){
+},{"../Sdk":14}],74:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25047,7 +25239,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],74:[function(require,module,exports){
+},{"../Sdk":14}],75:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25191,7 +25383,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],75:[function(require,module,exports){
+},{"../Sdk":14}],76:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25295,7 +25487,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],76:[function(require,module,exports){
+},{"../Sdk":14}],77:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25415,7 +25607,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],77:[function(require,module,exports){
+},{"../Sdk":14}],78:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25639,7 +25831,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Address":54,"./LineItemProduct":78,"./LineItemSpec":79,"./LineItemVariant":80}],78:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./LineItemProduct":79,"./LineItemSpec":80,"./LineItemVariant":81}],79:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25783,7 +25975,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],79:[function(require,module,exports){
+},{"../Sdk":14}],80:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25887,7 +26079,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],80:[function(require,module,exports){
+},{"../Sdk":14}],81:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26023,7 +26215,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],81:[function(require,module,exports){
+},{"../Sdk":14}],82:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26111,7 +26303,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Address":54,"./Meta":142}],82:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./Meta":143}],83:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26199,7 +26391,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./AddressAssignment":55,"./Meta":142}],83:[function(require,module,exports){
+},{"../Sdk":14,"./AddressAssignment":56,"./Meta":143}],84:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26287,7 +26479,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./ApiClient":56,"./Meta":142}],84:[function(require,module,exports){
+},{"../Sdk":14,"./ApiClient":57,"./Meta":143}],85:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26375,7 +26567,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./ApiClientAssignment":57,"./Meta":142}],85:[function(require,module,exports){
+},{"../Sdk":14,"./ApiClientAssignment":58,"./Meta":143}],86:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26463,7 +26655,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./ApprovalRule":58,"./Meta":142}],86:[function(require,module,exports){
+},{"../Sdk":14,"./ApprovalRule":59,"./Meta":143}],87:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26551,7 +26743,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Buyer":59,"./Meta":142}],87:[function(require,module,exports){
+},{"../Sdk":14,"./Buyer":60,"./Meta":143}],88:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26639,7 +26831,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./BuyerAddress":60,"./Meta":142}],88:[function(require,module,exports){
+},{"../Sdk":14,"./BuyerAddress":61,"./Meta":143}],89:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26727,7 +26919,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./BuyerCreditCard":61,"./Meta":142}],89:[function(require,module,exports){
+},{"../Sdk":14,"./BuyerCreditCard":62,"./Meta":143}],90:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26815,7 +27007,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./BuyerProduct":62,"./MetaWithFacets":143}],90:[function(require,module,exports){
+},{"../Sdk":14,"./BuyerProduct":63,"./MetaWithFacets":144}],91:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26903,7 +27095,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./BuyerSpec":63,"./Meta":142}],91:[function(require,module,exports){
+},{"../Sdk":14,"./BuyerSpec":64,"./Meta":143}],92:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26991,7 +27183,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Catalog":64,"./Meta":142}],92:[function(require,module,exports){
+},{"../Sdk":14,"./Catalog":65,"./Meta":143}],93:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27079,7 +27271,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./CatalogAssignment":65,"./Meta":142}],93:[function(require,module,exports){
+},{"../Sdk":14,"./CatalogAssignment":66,"./Meta":143}],94:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27167,7 +27359,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Category":66,"./Meta":142}],94:[function(require,module,exports){
+},{"../Sdk":14,"./Category":67,"./Meta":143}],95:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27255,7 +27447,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./CategoryAssignment":67,"./Meta":142}],95:[function(require,module,exports){
+},{"../Sdk":14,"./CategoryAssignment":68,"./Meta":143}],96:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27343,7 +27535,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./CategoryProductAssignment":68,"./Meta":142}],96:[function(require,module,exports){
+},{"../Sdk":14,"./CategoryProductAssignment":69,"./Meta":143}],97:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27431,7 +27623,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./CostCenter":69,"./Meta":142}],97:[function(require,module,exports){
+},{"../Sdk":14,"./CostCenter":70,"./Meta":143}],98:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27519,7 +27711,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./CostCenterAssignment":70,"./Meta":142}],98:[function(require,module,exports){
+},{"../Sdk":14,"./CostCenterAssignment":71,"./Meta":143}],99:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27607,7 +27799,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./CreditCard":71,"./Meta":142}],99:[function(require,module,exports){
+},{"../Sdk":14,"./CreditCard":72,"./Meta":143}],100:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27695,7 +27887,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./CreditCardAssignment":72,"./Meta":142}],100:[function(require,module,exports){
+},{"../Sdk":14,"./CreditCardAssignment":73,"./Meta":143}],101:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27799,7 +27991,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./ListFacetValue":101}],101:[function(require,module,exports){
+},{"../Sdk":14,"./ListFacetValue":102}],102:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27887,7 +28079,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],102:[function(require,module,exports){
+},{"../Sdk":14}],103:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27975,7 +28167,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./ImpersonationConfig":74,"./Meta":142}],103:[function(require,module,exports){
+},{"../Sdk":14,"./ImpersonationConfig":75,"./Meta":143}],104:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28063,7 +28255,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Incrementor":75,"./Meta":142}],104:[function(require,module,exports){
+},{"../Sdk":14,"./Incrementor":76,"./Meta":143}],105:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28151,7 +28343,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./LineItem":77,"./Meta":142}],105:[function(require,module,exports){
+},{"../Sdk":14,"./LineItem":78,"./Meta":143}],106:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28239,7 +28431,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./MessageCCListenerAssignment":139,"./Meta":142}],106:[function(require,module,exports){
+},{"../Sdk":14,"./MessageCCListenerAssignment":140,"./Meta":143}],107:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28327,7 +28519,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./MessageSender":140,"./Meta":142}],107:[function(require,module,exports){
+},{"../Sdk":14,"./MessageSender":141,"./Meta":143}],108:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28415,7 +28607,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./MessageSenderAssignment":141,"./Meta":142}],108:[function(require,module,exports){
+},{"../Sdk":14,"./MessageSenderAssignment":142,"./Meta":143}],109:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28503,7 +28695,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./OpenIdConnect":144}],109:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./OpenIdConnect":145}],110:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28591,7 +28783,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Order":145}],110:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Order":146}],111:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28679,7 +28871,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./OrderApproval":146}],111:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./OrderApproval":147}],112:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28767,7 +28959,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./OrderPromotion":148}],112:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./OrderPromotion":149}],113:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28855,7 +29047,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Payment":195}],113:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Payment":196}],114:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28943,7 +29135,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./PriceSchedule":198}],114:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./PriceSchedule":199}],115:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29031,7 +29223,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Product":199}],115:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Product":200}],116:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29119,7 +29311,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./ProductAssignment":200}],116:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./ProductAssignment":201}],117:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29207,7 +29399,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./ProductCatalogAssignment":201}],117:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./ProductCatalogAssignment":202}],118:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29295,7 +29487,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./ProductFacet":202}],118:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./ProductFacet":203}],119:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29383,7 +29575,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Promotion":203}],119:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Promotion":204}],120:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29471,7 +29663,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./PromotionAssignment":204}],120:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./PromotionAssignment":205}],121:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29559,7 +29751,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./SecurityProfile":205}],121:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./SecurityProfile":206}],122:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29647,7 +29839,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./SecurityProfileAssignment":206}],122:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./SecurityProfileAssignment":207}],123:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29735,7 +29927,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Shipment":207}],123:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Shipment":208}],124:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29823,7 +30015,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./ShipmentItem":208}],124:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./ShipmentItem":209}],125:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29911,7 +30103,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Spec":209}],125:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Spec":210}],126:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29999,7 +30191,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./SpecOption":210}],126:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./SpecOption":211}],127:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30087,7 +30279,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./SpecProductAssignment":211}],127:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./SpecProductAssignment":212}],128:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30175,7 +30367,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./SpendingAccount":212}],128:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./SpendingAccount":213}],129:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30263,7 +30455,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./SpendingAccountAssignment":213}],129:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./SpendingAccountAssignment":214}],130:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30351,7 +30543,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Supplier":214}],130:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Supplier":215}],131:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30439,7 +30631,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./User":216}],131:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./User":217}],132:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30527,7 +30719,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./UserGroup":217}],132:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./UserGroup":218}],133:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30615,7 +30807,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./UserGroupAssignment":218}],133:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./UserGroupAssignment":219}],134:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30703,7 +30895,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Variant":219}],134:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Variant":220}],135:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30791,7 +30983,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./Webhook":221}],135:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./Webhook":222}],136:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30879,7 +31071,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Meta":142,"./XpIndex":223}],136:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":143,"./XpIndex":224}],137:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30967,7 +31159,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],137:[function(require,module,exports){
+},{"../Sdk":14}],138:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31047,7 +31239,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],138:[function(require,module,exports){
+},{"../Sdk":14}],139:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31239,7 +31431,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./MeBuyer":136,"./MeSupplier":137}],139:[function(require,module,exports){
+},{"../Sdk":14,"./MeBuyer":137,"./MeSupplier":138}],140:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31375,7 +31567,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./MessageSenderAssignment":141}],140:[function(require,module,exports){
+},{"../Sdk":14,"./MessageSenderAssignment":142}],141:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31511,7 +31703,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],141:[function(require,module,exports){
+},{"../Sdk":14}],142:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31631,7 +31823,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],142:[function(require,module,exports){
+},{"../Sdk":14}],143:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31743,7 +31935,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],143:[function(require,module,exports){
+},{"../Sdk":14}],144:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31863,7 +32055,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./ListFacet":100}],144:[function(require,module,exports){
+},{"../Sdk":14,"./ListFacet":101}],145:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31991,7 +32183,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],145:[function(require,module,exports){
+},{"../Sdk":14}],146:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32247,7 +32439,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Address":54,"./User":216}],146:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./User":217}],147:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32383,7 +32575,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./User":216}],147:[function(require,module,exports){
+},{"../Sdk":14,"./User":217}],148:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32471,7 +32663,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],148:[function(require,module,exports){
+},{"../Sdk":14}],149:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32671,7 +32863,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],149:[function(require,module,exports){
+},{"../Sdk":14}],150:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32855,7 +33047,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],150:[function(require,module,exports){
+},{"../Sdk":14}],151:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33039,7 +33231,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],151:[function(require,module,exports){
+},{"../Sdk":14}],152:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33159,7 +33351,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],152:[function(require,module,exports){
+},{"../Sdk":14}],153:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33271,7 +33463,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],153:[function(require,module,exports){
+},{"../Sdk":14}],154:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33479,7 +33671,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],154:[function(require,module,exports){
+},{"../Sdk":14}],155:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33623,7 +33815,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],155:[function(require,module,exports){
+},{"../Sdk":14}],156:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33743,7 +33935,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],156:[function(require,module,exports){
+},{"../Sdk":14}],157:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33879,7 +34071,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],157:[function(require,module,exports){
+},{"../Sdk":14}],158:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33983,7 +34175,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],158:[function(require,module,exports){
+},{"../Sdk":14}],159:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34119,7 +34311,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],159:[function(require,module,exports){
+},{"../Sdk":14}],160:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34263,7 +34455,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],160:[function(require,module,exports){
+},{"../Sdk":14}],161:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34367,7 +34559,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],161:[function(require,module,exports){
+},{"../Sdk":14}],162:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34487,7 +34679,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],162:[function(require,module,exports){
+},{"../Sdk":14}],163:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34711,7 +34903,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Address":54,"./LineItemProduct":78,"./LineItemSpec":79,"./LineItemVariant":80}],163:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./LineItemProduct":79,"./LineItemSpec":80,"./LineItemVariant":81}],164:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34855,7 +35047,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],164:[function(require,module,exports){
+},{"../Sdk":14}],165:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34959,7 +35151,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],165:[function(require,module,exports){
+},{"../Sdk":14}],166:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35095,7 +35287,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],166:[function(require,module,exports){
+},{"../Sdk":14}],167:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35183,7 +35375,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],167:[function(require,module,exports){
+},{"../Sdk":14}],168:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35263,7 +35455,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],168:[function(require,module,exports){
+},{"../Sdk":14}],169:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35455,7 +35647,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./MeBuyer":136,"./MeSupplier":137}],169:[function(require,module,exports){
+},{"../Sdk":14,"./MeBuyer":137,"./MeSupplier":138}],170:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35591,7 +35783,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],170:[function(require,module,exports){
+},{"../Sdk":14}],171:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35719,7 +35911,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],171:[function(require,module,exports){
+},{"../Sdk":14}],172:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35975,7 +36167,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Address":54,"./User":216}],172:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./User":217}],173:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36055,7 +36247,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],173:[function(require,module,exports){
+},{"../Sdk":14}],174:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36207,7 +36399,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./PaymentTransaction":196}],174:[function(require,module,exports){
+},{"../Sdk":14,"./PaymentTransaction":197}],175:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36343,7 +36535,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],175:[function(require,module,exports){
+},{"../Sdk":14}],176:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36431,7 +36623,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],176:[function(require,module,exports){
+},{"../Sdk":14}],177:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36583,7 +36775,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./PriceBreak":197}],177:[function(require,module,exports){
+},{"../Sdk":14,"./PriceBreak":198}],178:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36783,7 +36975,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Inventory":76}],178:[function(require,module,exports){
+},{"../Sdk":14,"./Inventory":77}],179:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36903,7 +37095,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],179:[function(require,module,exports){
+},{"../Sdk":14}],180:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37095,7 +37287,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],180:[function(require,module,exports){
+},{"../Sdk":14}],181:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37207,7 +37399,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./PasswordConfig":192}],181:[function(require,module,exports){
+},{"../Sdk":14,"./PasswordConfig":193}],182:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37383,7 +37575,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Address":54}],182:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55}],183:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37535,7 +37727,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],183:[function(require,module,exports){
+},{"../Sdk":14}],184:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37663,7 +37855,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],184:[function(require,module,exports){
+},{"../Sdk":14}],185:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37799,7 +37991,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],185:[function(require,module,exports){
+},{"../Sdk":14}],186:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37903,7 +38095,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],186:[function(require,module,exports){
+},{"../Sdk":14}],187:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38079,7 +38271,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],187:[function(require,module,exports){
+},{"../Sdk":14}],188:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38183,7 +38375,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],188:[function(require,module,exports){
+},{"../Sdk":14}],189:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38335,7 +38527,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./VariantInventory":220}],189:[function(require,module,exports){
+},{"../Sdk":14,"./VariantInventory":221}],190:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38423,7 +38615,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],190:[function(require,module,exports){
+},{"../Sdk":14}],191:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38575,7 +38767,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./WebhookRoute":222}],191:[function(require,module,exports){
+},{"../Sdk":14,"./WebhookRoute":223}],192:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38663,7 +38855,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],192:[function(require,module,exports){
+},{"../Sdk":14}],193:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38743,7 +38935,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],193:[function(require,module,exports){
+},{"../Sdk":14}],194:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38839,7 +39031,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],194:[function(require,module,exports){
+},{"../Sdk":14}],195:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38943,7 +39135,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],195:[function(require,module,exports){
+},{"../Sdk":14}],196:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39095,7 +39287,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./PaymentTransaction":196}],196:[function(require,module,exports){
+},{"../Sdk":14,"./PaymentTransaction":197}],197:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39231,7 +39423,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],197:[function(require,module,exports){
+},{"../Sdk":14}],198:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39319,7 +39511,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],198:[function(require,module,exports){
+},{"../Sdk":14}],199:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39471,7 +39663,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./PriceBreak":197}],199:[function(require,module,exports){
+},{"../Sdk":14,"./PriceBreak":198}],200:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39671,7 +39863,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Inventory":76}],200:[function(require,module,exports){
+},{"../Sdk":14,"./Inventory":77}],201:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39775,7 +39967,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],201:[function(require,module,exports){
+},{"../Sdk":14}],202:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39863,7 +40055,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],202:[function(require,module,exports){
+},{"../Sdk":14}],203:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39983,7 +40175,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],203:[function(require,module,exports){
+},{"../Sdk":14}],204:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -40175,7 +40367,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],204:[function(require,module,exports){
+},{"../Sdk":14}],205:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -40271,7 +40463,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],205:[function(require,module,exports){
+},{"../Sdk":14}],206:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -40383,7 +40575,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./PasswordConfig":192}],206:[function(require,module,exports){
+},{"../Sdk":14,"./PasswordConfig":193}],207:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -40495,7 +40687,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],207:[function(require,module,exports){
+},{"../Sdk":14}],208:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -40671,7 +40863,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./Address":54}],208:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55}],209:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -40823,7 +41015,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./LineItemProduct":78,"./LineItemSpec":79,"./LineItemVariant":80}],209:[function(require,module,exports){
+},{"../Sdk":14,"./LineItemProduct":79,"./LineItemSpec":80,"./LineItemVariant":81}],210:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -40975,7 +41167,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],210:[function(require,module,exports){
+},{"../Sdk":14}],211:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41103,7 +41295,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],211:[function(require,module,exports){
+},{"../Sdk":14}],212:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41207,7 +41399,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],212:[function(require,module,exports){
+},{"../Sdk":14}],213:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41343,7 +41535,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],213:[function(require,module,exports){
+},{"../Sdk":14}],214:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41447,7 +41639,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],214:[function(require,module,exports){
+},{"../Sdk":14}],215:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41551,7 +41743,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],215:[function(require,module,exports){
+},{"../Sdk":14}],216:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41631,7 +41823,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],216:[function(require,module,exports){
+},{"../Sdk":14}],217:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41807,7 +41999,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],217:[function(require,module,exports){
+},{"../Sdk":14}],218:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41911,7 +42103,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],218:[function(require,module,exports){
+},{"../Sdk":14}],219:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41999,7 +42191,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],219:[function(require,module,exports){
+},{"../Sdk":14}],220:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42151,7 +42343,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./VariantInventory":220}],220:[function(require,module,exports){
+},{"../Sdk":14,"./VariantInventory":221}],221:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42239,7 +42431,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],221:[function(require,module,exports){
+},{"../Sdk":14}],222:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42391,7 +42583,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13,"./WebhookRoute":222}],222:[function(require,module,exports){
+},{"../Sdk":14,"./WebhookRoute":223}],223:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42479,7 +42671,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}],223:[function(require,module,exports){
+},{"../Sdk":14}],224:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42567,5 +42759,5 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":13}]},{},[51])(51)
+},{"../Sdk":14}]},{},[52])(52)
 });
