@@ -373,8 +373,11 @@
     var _this = this;
     var url = this.buildUrl(path, pathParams);
     var request = superagent(httpMethod, url);
-    request.parse(customJsonParser);
-    request.buffer(true)
+    if(typeof process === 'object' && process + '' === '[object process]') {
+      // only use custom parser in node
+      request.parse(customJsonParser);
+      request.buffer(true)
+    }
 
     // apply authentications
     this.applyAuthToRequest(request, accessToken);
@@ -446,8 +449,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     var _this = this;
     var url = _this.baseAuthPath.replace(/\/+$/, '') + path;
     var request = superagent(httpMethod, url);
-    request.parse(customJsonParser);
-    request.buffer(true)
+    if(typeof process === 'object' && process + '' === '[object process]') {
+      // only use custom parser in node
+      request.parse(customJsonParser);
+      request.buffer(true)
+    }
 
     // set query parameters
     request.query(this.normalizeParams(queryParams));
