@@ -1,0 +1,13 @@
+{{#resources}}
+import {{this.id}} from './{{this.id}}';
+{{/resources}}
+import Auth from './Auth';
+import Tokens from './Tokens';
+
+export {
+    {{#resources}}
+    {{this.id}},
+    {{/resources}}
+    Auth,
+    Tokens
+}
