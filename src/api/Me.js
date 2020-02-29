@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/AccessTokenBasic', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/Category', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/Shipment', 'model/SpendingAccount', 'model/TokenPasswordReset'], factory);
+    define(['Sdk', 'model/AccessTokenBasic', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/Catalog', 'model/Category', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/Shipment', 'model/Spec', 'model/SpendingAccount', 'model/TokenPasswordReset'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('../model/AccessTokenBasic'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/Category'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/Shipment'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'));
+    module.exports = factory(require('../Sdk'), require('../model/AccessTokenBasic'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/Catalog'), require('../model/Category'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/ListSpec'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/Shipment'), require('../model/Spec'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.Sdk, root.OrderCloud.AccessTokenBasic, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.Category, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset);
+    root.OrderCloud.Me = factory(root.OrderCloud.Sdk, root.OrderCloud.AccessTokenBasic, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.Catalog, root.OrderCloud.Category, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpec, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.Spec, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset);
   }
-}(this, function(Sdk, AccessTokenBasic, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, Category, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipment, ListShipmentItem, ListSpendingAccount, ListUserGroup, MeUser, Promotion, Shipment, SpendingAccount, TokenPasswordReset) {
+}(this, function(Sdk, AccessTokenBasic, BuyerAddress, BuyerCreditCard, BuyerProduct, Catalog, Category, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipment, ListShipmentItem, ListSpec, ListSpendingAccount, ListUserGroup, MeUser, Promotion, Shipment, Spec, SpendingAccount, TokenPasswordReset) {
   'use strict';
 
   /**
@@ -468,7 +468,7 @@
      * @param {String} specID ID of the spec.
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerSpec}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
     this.GetSpec = function(productID, specID, opts, accessToken ) {
       opts = opts || {};
@@ -499,7 +499,7 @@
 
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = BuyerSpec;
+      var returnType = Spec;
 
       return this.sdk.callApi(
         '/me/products/{productID}/specs/{specID}', 'GET',
@@ -1047,7 +1047,7 @@
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
     this.ListSpecs = function(productID, opts, accessToken ) {
       opts = opts || {};
@@ -1078,7 +1078,7 @@
 
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = ListBuyerSpec;
+      var returnType = ListSpec;
 
       return this.sdk.callApi(
         '/me/products/{productID}/specs', 'GET',

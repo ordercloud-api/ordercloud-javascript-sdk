@@ -7,9 +7,11 @@ Method | HTTP request | Description
 [**AddPromotion**](Orders.md#AddPromotion) | **POST** /orders/{direction}/{orderID}/promotions/{promoCode} | 
 [**Approve**](Orders.md#Approve) | **POST** /orders/{direction}/{orderID}/approve | 
 [**Cancel**](Orders.md#Cancel) | **POST** /orders/{direction}/{orderID}/cancel | 
+[**Complete**](Orders.md#Complete) | **POST** /orders/{direction}/{orderID}/complete | 
 [**Create**](Orders.md#Create) | **POST** /orders/{direction} | 
 [**Decline**](Orders.md#Decline) | **POST** /orders/{direction}/{orderID}/decline | 
 [**Delete**](Orders.md#Delete) | **DELETE** /orders/{direction}/{orderID} | 
+[**Forward**](Orders.md#Forward) | **POST** /orders/{direction}/{orderID}/forward | 
 [**Get**](Orders.md#Get) | **GET** /orders/{direction}/{orderID} | 
 [**List**](Orders.md#List) | **GET** /orders/{direction} | 
 [**ListApprovals**](Orders.md#ListApprovals) | **GET** /orders/{direction}/{orderID}/approvals | 
@@ -24,7 +26,9 @@ Method | HTTP request | Description
 [**SetBillingAddress**](Orders.md#SetBillingAddress) | **PUT** /orders/{direction}/{orderID}/billto | 
 [**SetShippingAddress**](Orders.md#SetShippingAddress) | **PUT** /orders/{direction}/{orderID}/shipto | 
 [**Ship**](Orders.md#Ship) | **POST** /orders/{direction}/{orderID}/ship | 
+[**Split**](Orders.md#Split) | **POST** /orders/{direction}/{orderID}/split | 
 [**Submit**](Orders.md#Submit) | **POST** /orders/{direction}/{orderID}/submit | 
+[**Validate**](Orders.md#Validate) | **POST** /orders/{direction}/{orderID}/validate | 
 
 
 <a name="AddPromotion"></a>
@@ -157,6 +161,57 @@ var direction = "direction_example"; // String | Direction of the order, from th
 var orderID = "orderID_example"; // String | ID of the order.
 
 apiInstance.Cancel(direction, orderID).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+
+### Return type
+
+[**Order**](Order.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Complete"></a>
+# **Complete**
+> Order Complete(direction, orderID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+apiInstance.Complete(direction, orderID).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
 }, function(error) {
   console.error(error);
@@ -330,6 +385,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 null (empty response body)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Forward"></a>
+# **Forward**
+> OrderSplitResult Forward(direction, orderID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+apiInstance.Forward(direction, orderID).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+
+### Return type
+
+[**OrderSplitResult**](OrderSplitResult.md)
 
 ### Authorization
 
@@ -1144,6 +1250,57 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json, text/plain; charset=utf-8
  - **Accept**: application/json
 
+<a name="Split"></a>
+# **Split**
+> OrderSplitResult Split(direction, orderID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+apiInstance.Split(direction, orderID).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+
+### Return type
+
+[**OrderSplitResult**](OrderSplitResult.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
 <a name="Submit"></a>
 # **Submit**
 > Order Submit(direction, orderID)
@@ -1183,6 +1340,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Order**](Order.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="Validate"></a>
+# **Validate**
+> Validate(direction, orderID)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+apiInstance.Validate(direction, orderID).then(function() {
+  console.log('API called successfully.');
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+
+### Return type
+
+null (empty response body)
 
 ### Authorization
 

@@ -14,31 +14,31 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/MetaWithFacets', 'model/Product'], factory);
+    define(['Sdk', 'model/Order'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./MetaWithFacets'), require('./Product'));
+    module.exports = factory(require('../Sdk'), require('./Order'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListProduct = factory(root.OrderCloud.Sdk, root.OrderCloud.MetaWithFacets, root.OrderCloud.Product);
+    root.OrderCloud.OrderSplitResult = factory(root.OrderCloud.Sdk, root.OrderCloud.Order);
   }
-}(this, function(Sdk, MetaWithFacets, Product) {
+}(this, function(Sdk, Order) {
   'use strict';
 
 
 
 
   /**
-   * The ListProduct model module.
-   * @module model/ListProduct
+   * The OrderSplitResult model module.
+   * @module model/OrderSplitResult
    */
 
   /**
-   * Constructs a new <code>ListProduct</code>.
-   * @alias module:model/ListProduct
+   * Constructs a new <code>OrderSplitResult</code>.
+   * @alias module:model/OrderSplitResult
    * @class
    */
   var exports = function() {
@@ -49,34 +49,34 @@
   };
 
   /**
-   * Constructs a <code>ListProduct</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>OrderSplitResult</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ListProduct} obj Optional instance to populate.
-   * @return {module:model/ListProduct} The populated <code>ListProduct</code> instance.
+   * @param {module:model/OrderSplitResult} obj Optional instance to populate.
+   * @return {module:model/OrderSplitResult} The populated <code>OrderSplitResult</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('Items')) {
-        obj['Items'] = Sdk.convertToType(data['Items'], [Product]);
+      if (data.hasOwnProperty('OutgoingOrders')) {
+        obj['OutgoingOrders'] = Sdk.convertToType(data['OutgoingOrders'], [Order]);
       }
-      if (data.hasOwnProperty('Meta')) {
-        obj['Meta'] = MetaWithFacets.constructFromObject(data['Meta']);
+      if (data.hasOwnProperty('RemainingLineItemIDs')) {
+        obj['RemainingLineItemIDs'] = Sdk.convertToType(data['RemainingLineItemIDs'], ['String']);
       }
     }
     return obj;
   }
 
   /**
-   * @member {Array.<module:model/Product>} Items
+   * @member {Array.<module:model/Order>} OutgoingOrders
    */
-  exports.prototype['Items'] = undefined;
+  exports.prototype['OutgoingOrders'] = undefined;
   /**
-   * @member {module:model/MetaWithFacets} Meta
+   * @member {Array.<String>} RemainingLineItemIDs
    */
-  exports.prototype['Meta'] = undefined;
+  exports.prototype['RemainingLineItemIDs'] = undefined;
 
 
 

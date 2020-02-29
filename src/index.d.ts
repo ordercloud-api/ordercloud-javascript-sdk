@@ -124,28 +124,16 @@ export interface BuyerProduct {
     ShipLength: number;
     Active: boolean;
     SpecCount: number;
-    xp: any;
     VariantCount: number;
     ShipFromAddressID: string;
     Inventory: Inventory;
     DefaultSupplierID: string;
-}
-
-export interface BuyerSpec {
-    Options: SpecOption[];
-    ID: string;
-    ListOrder: number;
-    Name: string;
-    DefaultValue: string;
-    Required: boolean;
-    AllowOpenText: boolean;
-    DefaultOptionID: string;
-    DefinesVariant: boolean;
     xp: any;
 }
 
 export interface Catalog {
     ID: string;
+    OwnerID: string;
     Name: string;
     Description: string;
     Active: boolean;
@@ -217,6 +205,7 @@ export interface CreditCardAssignment {
 export interface ImpersonateTokenRequest {
     ClientID: string;
     Roles: string[];
+    CustomRoles: string[];
 }
 
 export interface ImpersonationConfig {
@@ -344,11 +333,6 @@ export interface ListBuyerProduct {
     Meta: MetaWithFacets;
 }
 
-export interface ListBuyerSpec {
-    Items: BuyerSpec[];
-    Meta: Meta;
-}
-
 export interface ListCatalog {
     Items: Catalog[];
     Meta: Meta;
@@ -468,7 +452,7 @@ export interface ListPriceSchedule {
 
 export interface ListProduct {
     Items: Product[];
-    Meta: Meta;
+    Meta: MetaWithFacets;
 }
 
 export interface ListProductAssignment {
@@ -659,12 +643,14 @@ export interface OpenIdConnect {
     AppStartUrl: string;
     AuthorizationEndpoint: string;
     TokenEndpoint: string;
+    UrlEncoded: boolean;
 }
 
 export interface Order {
     ID: string;
     FromUser: User;
     FromCompanyID: string;
+    ToCompanyID: string;
     FromUserID: string;
     BillingAddressID: string;
     BillingAddress: Address;
@@ -720,6 +706,11 @@ export interface OrderPromotion {
     CanCombine: boolean;
     AllowAllBuyers: boolean;
     xp: any;
+}
+
+export interface OrderSplitResult {
+    OutgoingOrders: Order[];
+    RemainingLineItemIDs: string[];
 }
 
 export interface PasswordConfig {
@@ -782,7 +773,9 @@ export interface PriceSchedule {
 }
 
 export interface Product {
+    OwnerID: string;
     DefaultPriceScheduleID: string;
+    AutoForward: boolean;
     ID: string;
     Name: string;
     Description: string;
@@ -793,11 +786,11 @@ export interface Product {
     ShipLength: number;
     Active: boolean;
     SpecCount: number;
-    xp: any;
     VariantCount: number;
     ShipFromAddressID: string;
     Inventory: Inventory;
     DefaultSupplierID: string;
+    xp: any;
 }
 
 export interface ProductAssignment {
@@ -891,7 +884,6 @@ export interface ShipmentItem {
 }
 
 export interface Spec {
-    OptionCount: number;
     ID: string;
     ListOrder: number;
     Name: string;
@@ -901,6 +893,8 @@ export interface Spec {
     DefaultOptionID: string;
     DefinesVariant: boolean;
     xp: any;
+    OptionCount: number;
+    Options: SpecOption[];
 }
 
 export interface SpecOption {
@@ -2180,7 +2174,7 @@ export namespace Me {
     * @param options.catalogID ID of the catalog.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function GetSpec(productID: string, specID: string, options?: { catalogID?: string }, accessToken?: string): Promise<BuyerSpec>    
+    export function GetSpec(productID: string, specID: string, options?: { catalogID?: string }, accessToken?: string): Promise<Spec>    
     
     /**
     * @param spendingAccountID ID of the spending account.
@@ -2333,7 +2327,7 @@ export namespace Me {
     * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function ListSpecs(productID: string, options?: { catalogID?: string, search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListBuyerSpec>    
+    export function ListSpecs(productID: string, options?: { catalogID?: string, search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListSpec>    
     
     /**
     * @param options.search Word or phrase to search for.
@@ -2585,6 +2579,13 @@ export namespace Orders {
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Complete(direction: string, orderID: string, accessToken?: string): Promise<Order>    
+    
+    /**
+    * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
     * @param order 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
@@ -2604,6 +2605,13 @@ export namespace Orders {
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
     export function Delete(direction: string, orderID: string, accessToken?: string): Promise<void>    
+    
+    /**
+    * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Forward(direction: string, orderID: string, accessToken?: string): Promise<OrderSplitResult>    
     
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
@@ -2744,7 +2752,21 @@ export namespace Orders {
     * @param orderID ID of the order.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
+    export function Split(direction: string, orderID: string, accessToken?: string): Promise<OrderSplitResult>    
+    
+    /**
+    * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
     export function Submit(direction: string, orderID: string, accessToken?: string): Promise<Order>    
+    
+    /**
+    * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function Validate(direction: string, orderID: string, accessToken?: string): Promise<void>    
     
 }
 
@@ -2963,6 +2985,18 @@ export namespace Products {
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
     export function ListAssignments(options?: { productID?: string, priceScheduleID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number }, accessToken?: string): Promise<ListProductAssignment>    
+    
+    /**
+    * @param productID ID of the product.
+    * @param options.search Word or phrase to search for.
+    * @param options.searchOn Comma-delimited list of fields to search on.
+    * @param options.sortBy Comma-delimited list of fields to sort by.
+    * @param options.page Page of results to return. Default: 1
+    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function ListSpecs(productID: string, options?: { search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListSpec>    
     
     /**
     * @param productID ID of the product.

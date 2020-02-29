@@ -4,6 +4,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **items** | [**[Product]**](Product.md) |  | [optional] 
-**meta** | [**Meta**](Meta.md) |  | [optional] 
+**meta** | [**MetaWithFacets**](MetaWithFacets.md) |  | [optional] 
 
 

@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/Shipment', 'model/User'], factory);
+    define(['Sdk', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/OrderSplitResult', 'model/Shipment', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/Shipment'), require('../model/User'));
+    module.exports = factory(require('../Sdk'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/OrderSplitResult'), require('../model/Shipment'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Orders = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.Shipment, root.OrderCloud.User);
+    root.OrderCloud.Orders = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.OrderSplitResult, root.OrderCloud.Shipment, root.OrderCloud.User);
   }
-}(this, function(Sdk, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, OrderPromotion, Shipment, User) {
+}(this, function(Sdk, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, OrderPromotion, OrderSplitResult, Shipment, User) {
   'use strict';
 
   /**
@@ -186,6 +186,48 @@
 
     /**
      * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
+     */
+    this.Complete = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Complete");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Complete");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Order;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/complete', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
@@ -309,6 +351,48 @@
 
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderSplitResult}
+     */
+    this.Forward = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Forward");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Forward");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = OrderSplitResult;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/forward', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );
@@ -1018,6 +1102,48 @@
     /**
      * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderSplitResult}
+     */
+    this.Split = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Split");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Split");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = OrderSplitResult;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/split', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
     this.Submit = function(direction, orderID, accessToken ) {
@@ -1051,6 +1177,48 @@
 
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/submit', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Validate = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Validate");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Validate");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/validate', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );

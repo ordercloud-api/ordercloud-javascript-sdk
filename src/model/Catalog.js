@@ -50,6 +50,7 @@
 
 
 
+
   };
 
   /**
@@ -65,6 +66,9 @@
 
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('OwnerID')) {
+        obj['OwnerID'] = Sdk.convertToType(data['OwnerID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
@@ -89,6 +93,10 @@
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} OwnerID
+   */
+  exports.prototype['OwnerID'] = undefined;
   /**
    * @member {String} Name
    */

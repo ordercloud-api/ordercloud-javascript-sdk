@@ -618,7 +618,7 @@ Name | Type | Description  | Notes
 
 <a name="GetSpec"></a>
 # **GetSpec**
-> BuyerSpec GetSpec(productID, specID, opts)
+> Spec GetSpec(productID, specID, opts)
 
 
 
@@ -658,7 +658,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BuyerSpec**](BuyerSpec.md)
+[**Spec**](Spec.md)
 
 ### Authorization
 
@@ -1397,7 +1397,7 @@ Name | Type | Description  | Notes
 
 <a name="ListSpecs"></a>
 # **ListSpecs**
-> ListBuyerSpec ListSpecs(productID, opts)
+> ListSpec ListSpecs(productID, opts)
 
 
 
@@ -1446,7 +1446,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListBuyerSpec**](ListBuyerSpec.md)
+[**ListSpec**](ListSpec.md)
 
 ### Authorization
 

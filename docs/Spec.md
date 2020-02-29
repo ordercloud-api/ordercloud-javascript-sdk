@@ -3,7 +3,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**optionCount** | **Number** |  | [optional] 
 **ID** | **String** |  | [optional] 
 **listOrder** | **Number** |  | [optional] 
 **name** | **String** |  | [optional] 
@@ -13,5 +12,7 @@ Name | Type | Description | Notes
 **defaultOptionID** | **String** |  | [optional] 
 **definesVariant** | **Boolean** |  | [optional] 
 **xp** | **Object** |  | [optional] 
+**optionCount** | **Number** |  | [optional] 
+**options** | [**[SpecOption]**](SpecOption.md) |  | [optional] 
 
 

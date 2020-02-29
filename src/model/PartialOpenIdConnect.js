@@ -51,6 +51,7 @@
 
 
 
+
   };
 
   /**
@@ -85,6 +86,9 @@
       if (data.hasOwnProperty('TokenEndpoint')) {
         obj['TokenEndpoint'] = Sdk.convertToType(data['TokenEndpoint'], 'String');
       }
+      if (data.hasOwnProperty('UrlEncoded')) {
+        obj['UrlEncoded'] = Sdk.convertToType(data['UrlEncoded'], 'Boolean');
+      }
     }
     return obj;
   }
@@ -117,6 +121,10 @@
    * @member {String} TokenEndpoint
    */
   exports.prototype['TokenEndpoint'] = undefined;
+  /**
+   * @member {Boolean} UrlEncoded
+   */
+  exports.prototype['UrlEncoded'] = undefined;
 
 
 

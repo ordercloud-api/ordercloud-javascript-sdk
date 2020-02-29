@@ -10,5 +10,6 @@ Name | Type | Description | Notes
 **appStartUrl** | **String** |  | [optional] 
 **authorizationEndpoint** | **String** |  | [optional] 
 **tokenEndpoint** | **String** |  | [optional] 
+**urlEncoded** | **Boolean** |  | [optional] 
 
 

@@ -60,6 +60,8 @@
 
 
 
+
+
   };
 
   /**
@@ -73,8 +75,14 @@
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('OwnerID')) {
+        obj['OwnerID'] = Sdk.convertToType(data['OwnerID'], 'String');
+      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
+      }
+      if (data.hasOwnProperty('AutoForward')) {
+        obj['AutoForward'] = Sdk.convertToType(data['AutoForward'], 'Boolean');
       }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
@@ -106,9 +114,6 @@
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = Sdk.convertToType(data['SpecCount'], 'Number');
       }
-      if (data.hasOwnProperty('xp')) {
-        obj['xp'] = Sdk.convertToType(data['xp'], Object);
-      }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = Sdk.convertToType(data['VariantCount'], 'Number');
       }
@@ -121,14 +126,25 @@
       if (data.hasOwnProperty('DefaultSupplierID')) {
         obj['DefaultSupplierID'] = Sdk.convertToType(data['DefaultSupplierID'], 'String');
       }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
 
   /**
+   * @member {String} OwnerID
+   */
+  exports.prototype['OwnerID'] = undefined;
+  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
+  /**
+   * @member {Boolean} AutoForward
+   */
+  exports.prototype['AutoForward'] = undefined;
   /**
    * @member {String} ID
    */
@@ -170,10 +186,6 @@
    */
   exports.prototype['SpecCount'] = undefined;
   /**
-   * @member {Object} xp
-   */
-  exports.prototype['xp'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -189,6 +201,10 @@
    * @member {String} DefaultSupplierID
    */
   exports.prototype['DefaultSupplierID'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 

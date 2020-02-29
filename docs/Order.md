@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 **ID** | **String** |  | [optional] 
 **fromUser** | [**User**](User.md) |  | [optional] 
 **fromCompanyID** | **String** |  | [optional] 
+**toCompanyID** | **String** |  | [optional] 
 **fromUserID** | **String** |  | [optional] 
 **billingAddressID** | **String** |  | [optional] 
 **billingAddress** | [**Address**](Address.md) |  | [optional] 

@@ -46,6 +46,7 @@
 
 
 
+
   };
 
   /**
@@ -65,6 +66,9 @@
       if (data.hasOwnProperty('Roles')) {
         obj['Roles'] = Sdk.convertToType(data['Roles'], ['String']);
       }
+      if (data.hasOwnProperty('CustomRoles')) {
+        obj['CustomRoles'] = Sdk.convertToType(data['CustomRoles'], ['String']);
+      }
     }
     return obj;
   }
@@ -77,6 +81,10 @@
    * @member {Array.<String>} Roles
    */
   exports.prototype['Roles'] = undefined;
+  /**
+   * @member {Array.<String>} CustomRoles
+   */
+  exports.prototype['CustomRoles'] = undefined;
 
 
 

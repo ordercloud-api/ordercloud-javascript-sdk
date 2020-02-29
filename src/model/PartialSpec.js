@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk'], factory);
+    define(['Sdk', 'model/SpecOption'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'));
+    module.exports = factory(require('../Sdk'), require('./SpecOption'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialSpec = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.PartialSpec = factory(root.OrderCloud.Sdk, root.OrderCloud.SpecOption);
   }
-}(this, function(Sdk) {
+}(this, function(Sdk, SpecOption) {
   'use strict';
 
 
@@ -54,6 +54,7 @@
 
 
 
+
   };
 
   /**
@@ -67,9 +68,6 @@
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('OptionCount')) {
-        obj['OptionCount'] = Sdk.convertToType(data['OptionCount'], 'Number');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
@@ -97,14 +95,16 @@
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
+      if (data.hasOwnProperty('OptionCount')) {
+        obj['OptionCount'] = Sdk.convertToType(data['OptionCount'], 'Number');
+      }
+      if (data.hasOwnProperty('Options')) {
+        obj['Options'] = Sdk.convertToType(data['Options'], [SpecOption]);
+      }
     }
     return obj;
   }
 
-  /**
-   * @member {Number} OptionCount
-   */
-  exports.prototype['OptionCount'] = undefined;
   /**
    * @member {String} ID
    */
@@ -141,6 +141,14 @@
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
+  /**
+   * @member {Number} OptionCount
+   */
+  exports.prototype['OptionCount'] = undefined;
+  /**
+   * @member {Array.<module:model/SpecOption>} Options
+   */
+  exports.prototype['Options'] = undefined;
 
 
 

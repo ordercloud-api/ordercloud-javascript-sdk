@@ -106,9 +106,6 @@
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = Sdk.convertToType(data['SpecCount'], 'Number');
       }
-      if (data.hasOwnProperty('xp')) {
-        obj['xp'] = Sdk.convertToType(data['xp'], Object);
-      }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = Sdk.convertToType(data['VariantCount'], 'Number');
       }
@@ -120,6 +117,9 @@
       }
       if (data.hasOwnProperty('DefaultSupplierID')) {
         obj['DefaultSupplierID'] = Sdk.convertToType(data['DefaultSupplierID'], 'String');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;
@@ -170,10 +170,6 @@
    */
   exports.prototype['SpecCount'] = undefined;
   /**
-   * @member {Object} xp
-   */
-  exports.prototype['xp'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -189,6 +185,10 @@
    * @member {String} DefaultSupplierID
    */
   exports.prototype['DefaultSupplierID'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 

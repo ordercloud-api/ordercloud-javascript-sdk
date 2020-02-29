@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
+    define(['Sdk', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSpec', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
+    module.exports = factory(require('../Sdk'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSpec'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Products = factory(root.OrderCloud.Sdk, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
+    root.OrderCloud.Products = factory(root.OrderCloud.Sdk, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSpec, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
   }
-}(this, function(Sdk, ListProduct, ListProductAssignment, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
+}(this, function(Sdk, ListProduct, ListProductAssignment, ListSpec, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
   'use strict';
 
   /**
@@ -366,6 +366,55 @@
 
       return this.sdk.callApi(
         '/products/assignments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} productID ID of the product.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
+     */
+    this.ListSpecs = function(productID, opts, accessToken ) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling ListSpecs");
+      }
+
+
+      var pathParams = {
+        'productID': productID
+      };
+      var queryParams = {
+        'search': opts['search'],
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListSpec;
+
+      return this.sdk.callApi(
+        '/products/{productID}/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );

@@ -14,10 +14,10 @@ Name | Type | Description | Notes
 **shipLength** | **Number** |  | [optional] 
 **active** | **Boolean** |  | [optional] 
 **specCount** | **Number** |  | [optional] 
-**xp** | **Object** |  | [optional] 
 **variantCount** | **Number** |  | [optional] 
 **shipFromAddressID** | **String** |  | [optional] 
 **inventory** | [**Inventory**](Inventory.md) |  | [optional] 
 **defaultSupplierID** | **String** |  | [optional] 
+**xp** | **Object** |  | [optional] 
 
 

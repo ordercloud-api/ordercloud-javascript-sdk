@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**GetVariant**](Products.md#GetVariant) | **GET** /products/{productID}/variants/{variantID} | 
 [**List**](Products.md#List) | **GET** /products | 
 [**ListAssignments**](Products.md#ListAssignments) | **GET** /products/assignments | 
+[**ListSpecs**](Products.md#ListSpecs) | **GET** /products/{productID}/specs | 
 [**ListSuppliers**](Products.md#ListSuppliers) | **GET** /products/{productID}/suppliers | 
 [**ListVariants**](Products.md#ListVariants) | **GET** /products/{productID}/variants | 
 [**Patch**](Products.md#Patch) | **PATCH** /products/{productID} | 
@@ -443,6 +444,68 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListProductAssignment**](ListProductAssignment.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="ListSpecs"></a>
+# **ListSpecs**
+> ListSpec ListSpecs(productID, opts)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Products();
+
+var productID = "productID_example"; // String | ID of the product.
+
+var opts = { 
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+};
+apiInstance.ListSpecs(productID, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **productID** | **String**| ID of the product. | 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+
+### Return type
+
+[**ListSpec**](ListSpec.md)
 
 ### Authorization
 
