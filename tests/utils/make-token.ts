@@ -1,8 +1,6 @@
-
-
 export default function makeToken(
   expiresInMilliSeconds: number = Date.now() + 1000 * (60 * 10), // (valid) 10 minutes from now
-  clientID: string = 'mock-client-id'
+  clientID = 'mock-client-id'
 ): string {
   // return a mock token with an updated expiration
   const jwt = {
@@ -24,16 +22,16 @@ export default function makeToken(
 }
 
 function encodeBase64(str) {
-  if(typeof btoa !== 'undefined') {
+  if (typeof btoa !== 'undefined') {
     return btoa(str)
   }
   // on the server btoa doesn't exist
   // so we build our own base64 encoding with buffer
-  let buffer;
+  let buffer
   if (str instanceof Buffer) {
-    buffer = str;
+    buffer = str
   } else {
-    buffer = Buffer.from(str.toString(), 'binary');
+    buffer = Buffer.from(str.toString(), 'binary')
   }
-  return buffer.toString('base64');
+  return buffer.toString('base64')
 }

@@ -1,10 +1,13 @@
 {
-    "beautify.ignore": "**/*",
     "editor.formatOnSave": false,
     "[handlebars]": {
         "editor.formatOnSave": false
     },
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
-    }
+    },
+    "eslint.validate": [
+        "javascript",
+        "typescript"
+      ]
 }

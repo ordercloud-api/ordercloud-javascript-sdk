@@ -1,6 +1,5 @@
-import mockAxios from './__mocks__/axios'
-import { Auth } from '../dist/index.js'
-import { SecurityProfile } from '../dist/models/index.js'
+import mockAxios from 'axios'
+import { Auth, SecurityProfile } from '../src/index'
 
 const testdata = {
   authUrl: 'https://auth.ordercloud.io/oauth/token',

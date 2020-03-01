@@ -6,13 +6,18 @@ class Configuration {
     baseAuthUrl: 'https://auth.ordercloud.io/oauth/token',
     timeoutInMilliseconds: 10 * 1000,
     clientID: null,
+    cookieOptions: {
+      samesite: 'lax', // browser default
+      secure: false,
+      domain: null,
+    },
   }
 
-  Set(config: SdkConfiguration) {
+  Set(config: SdkConfiguration): void {
     this.config = { ...this.config, ...config }
   }
 
-  Get() {
+  Get(): SdkConfiguration {
     return this.config
   }
 }

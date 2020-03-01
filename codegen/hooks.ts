@@ -168,7 +168,7 @@ function inspectModelForTypeParams(
     }
     if (prop.isXp) {
       if (!rootProp) {
-        let typeParam = `T${inspectModel.name}Xp`
+        const typeParam = `T${inspectModel.name}Xp`
         rootModel['typeParams'].unshift(typeParam)
         prop['typeParams'].unshift(typeParam)
       } else {

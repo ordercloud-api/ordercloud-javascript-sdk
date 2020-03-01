@@ -1,5 +1,3 @@
-const _ = require('lodash')
-
 function handlebarsExt(Handlebars) {
   // converts /buyers/{buyerID} to /buyers/${buyerID} so template literal take in parameters
   Handlebars.registerHelper('parameterizePath', (path?: string) => {

@@ -1,9 +1,7 @@
 module.exports = {
-    "roots": [
-      "../"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "ts-jest"
-    },
-    "testEnvironment": "jsdom" // Default: simulates browser environment
-  }
+  'roots': ['../'],
+  'transform': {
+    '^.+\\.tsx?$': 'ts-jest',
+  },
+  'testEnvironment': 'jsdom', // Default: simulates browser environment
+}
