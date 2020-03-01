@@ -1,6 +1,6 @@
 import cookies from '../utils/CookieService'
+import parseJwt from '../utils/ParseJwt'
 
-// s
 const isNode = new Function(
   'try {return this===global;}catch(e){return false;}'
 )
@@ -22,6 +22,7 @@ class Tokens {
   }
 
   public SetAccessToken(token: string): void {
+    parseJwt(token) // check if token is valid
     isNode()
       ? (this.accessToken = token)
       : cookies.set(this.accessTokenCookieName, token)
@@ -44,6 +45,7 @@ class Tokens {
   }
 
   public SetImpersonationToken(token: string): void {
+    parseJwt(token) // check if token is valid
     isNode()
       ? (this.impersonationToken = token)
       : cookies.set(this.impersonationTokenCookieName, token)
@@ -66,6 +68,7 @@ class Tokens {
   }
 
   public SetRefreshToken(token: string): void {
+    parseJwt(token) // check if token is valid
     isNode()
       ? (this.refreshToken = token)
       : cookies.set(this.refreshTokenCookieName, token)
