@@ -5,6 +5,10 @@ import Auth from '../api/Auth'
 import paramsSerializer from './ParamsSerializer'
 import parseJwt from './ParseJwt';
 
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
 class HttpClient {
   private _session: AxiosInstance
 

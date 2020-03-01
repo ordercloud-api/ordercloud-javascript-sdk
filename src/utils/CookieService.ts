@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
 class CookieService {
   public get(cookieName: string): string {
     const rows = document.cookie.split(';')

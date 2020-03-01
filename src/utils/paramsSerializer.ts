@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
 export default function ParamSerializer(params: {
   [key: string]: any
 }): string {
@@ -31,11 +35,14 @@ export default function ParamSerializer(params: {
 }
 
 /**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ * 
  * build a flattened filters object  where each key is the dot-referenced property
  * to filter and the value is the value to filter by
  * this ultimately gets sent to ordercloud as a query param
  */
-function flattenFiltersObject(filters) {
+ function flattenFiltersObject(filters) {
   const result = {}
   for (const key in filters) {
     inspectProp(filters[key], key, result)
@@ -43,6 +50,10 @@ function flattenFiltersObject(filters) {
   return result
 }
 
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
 function inspectProp(propVal, propName, result) {
   const isObject = Object.prototype.toString.call(propVal) === '[object Object]'
   if (isObject) {
