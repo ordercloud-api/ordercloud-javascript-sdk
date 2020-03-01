@@ -9,7 +9,7 @@ test('should serialize top-level params', () => {
   expect(serialize(params)).toBe('DateSubmitted=%3E2018-04-20')
 })
 
-it('should handle filters', () => {
+test('should handle filters', () => {
   const params = {
     filters: {
       LastName: 'Smith*',
@@ -18,7 +18,7 @@ it('should handle filters', () => {
   expect(serialize(params)).toBe('LastName=Smith*')
 })
 
-it('should handle arrays on filters', () => {
+test('should handle arrays on filters', () => {
   const params = {
     filters: {
       xp: {
@@ -29,7 +29,7 @@ it('should handle arrays on filters', () => {
   expect(serialize(params)).toBe('xp.Color=!red&xp.Color=!blue')
 })
 
-it('should handle mixed arrays and values filters', () => {
+test('should handle mixed arrays and values filters', () => {
   const params = {
     filters: {
       FirstName: 'Bob',
@@ -41,7 +41,7 @@ it('should handle mixed arrays and values filters', () => {
   expect(serialize(params)).toBe('FirstName=Bob&xp.Color=!red&xp.Color=!blue')
 })
 
-it('should throw if value is null', () => {
+test('should throw if value is null', () => {
   const params = {
     filters: {
       FirstName: null,
@@ -52,7 +52,7 @@ it('should throw if value is null', () => {
   )
 })
 
-it('should ignore undefined values', () => {
+test('should ignore undefined values', () => {
   const params = {
     filters: {
       FirstName: 'Bob',
