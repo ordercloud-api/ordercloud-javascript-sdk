@@ -1,9 +1,9 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import tokenService from '../api/Tokens'
 import Configuration from '../Configuration'
-import { DecodedToken } from '../models/DecodedToken'
 import Auth from '../api/Auth'
 import paramsSerializer from './ParamsSerializer'
+import parseJwt from './ParseJwt';
 
 class HttpClient {
   private _session: AxiosInstance
@@ -111,7 +111,7 @@ class HttpClient {
     if (!token) {
       return true
     }
-    const decodedToken = this._parseJwt(token)
+    const decodedToken = parseJwt(token)
     const currentSeconds = Date.now() / 1000
     const currentSecondsWithBuffer = currentSeconds - 10
     return decodedToken.exp < currentSecondsWithBuffer
@@ -128,7 +128,7 @@ class HttpClient {
     }
     let clientID
     if (accessToken) {
-      const decodedToken = this._parseJwt(accessToken)
+      const decodedToken = parseJwt(accessToken)
       clientID = decodedToken.cid
     }
     if (sdkConfig.clientID) {
@@ -136,19 +136,6 @@ class HttpClient {
     }
     const refreshRequest = await Auth.RefreshToken(refreshToken, clientID)
     return refreshRequest.access_token
-  }
-
-  private _parseJwt(token: string): DecodedToken {
-    let base64Url = token.split('.')[1]
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-    let jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split('')
-        .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-        .join('')
-    )
-
-    return JSON.parse(jsonPayload)
   }
 
   private _buildRequestConfig(

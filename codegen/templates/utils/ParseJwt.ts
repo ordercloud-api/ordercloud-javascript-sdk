@@ -1,0 +1,22 @@
+import { DecodedToken } from '../models/DecodedToken';
+
+function decodeBase64(str) {
+    // atob is defined on the browser, in node we must use buffer
+    if(typeof atob !== 'undefined') {
+      return atob(str)
+    }
+    return Buffer.from(str, 'base64').toString('binary');
+}
+
+export default function parseJwt(token: string): DecodedToken {
+  let base64Url = token.split('.')[1]
+  let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+  let jsonPayload = decodeURIComponent(
+    decodeBase64(base64)
+      .split('')
+      .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+      .join('')
+  )
+
+  return JSON.parse(jsonPayload)
+}
