@@ -2,7 +2,7 @@
   "name": "ordercloud-javascript-sdk",
   "description": "The offical Javascript SDK for the Ordercloud ecommerce API",
   "author": "Four51 OrderCloud",
-  "version": "4.0.0-1",
+  "version": "4.0.0-2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
