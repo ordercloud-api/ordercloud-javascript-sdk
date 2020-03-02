@@ -18,7 +18,7 @@ class Shipments {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TShipment extends Shipment>( options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> }, accessToken?: string ): Promise<Required<ListPage<TShipment>>> {
+    public async List<TShipment extends Shipment>( options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TShipment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/shipments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -86,7 +86,7 @@ class Shipments {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> }, accessToken?: string ): Promise<Required<ListPage<TShipmentItem>>> {
+    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, accessToken?: string ): Promise<Required<ListPage<TShipmentItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/shipments/${shipmentID}/items`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

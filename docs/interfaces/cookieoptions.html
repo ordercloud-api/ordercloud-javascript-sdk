@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>SdkConfiguration | ordercloud-javascript-sdk</title>
+	<title>CookieOptions | ordercloud-javascript-sdk</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -34,7 +34,7 @@
 					<a href="../index.html">OrderCloudSDK</a>
 				</li>
 				<li>
-					<a href="sdkconfiguration.html">SdkConfiguration</a>
+					<a href="cookieoptions.html">CookieOptions</a>
 				</li>
 			</ul>
 		</div>
@@ -50,11 +50,9 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sdkconfiguration.html#baseapiurl" class="tsd-kind-icon">base<wbr>Api<wbr>Url</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sdkconfiguration.html#baseauthurl" class="tsd-kind-icon">base<wbr>Auth<wbr>Url</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sdkconfiguration.html#clientid" class="tsd-kind-icon">clientID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sdkconfiguration.html#cookieoptions" class="tsd-kind-icon">cookie<wbr>Options</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="sdkconfiguration.html#timeoutinmilliseconds" class="tsd-kind-icon">timeout<wbr>InMilliseconds</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cookieoptions.html#domain" class="tsd-kind-icon">domain</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cookieoptions.html#samesite" class="tsd-kind-icon">samesite</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="cookieoptions.html#secure" class="tsd-kind-icon">secure</a></li>
 							</ul>
 						</section>
 					</div>
@@ -63,68 +61,40 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="baseapiurl" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> base<wbr>Api<wbr>Url</h3>
-					<div class="tsd-signature tsd-kind-icon">base<wbr>Api<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="domain" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> domain</h3>
+					<div class="tsd-signature tsd-kind-icon">domain<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the path that will be used to talk to the ordercloud api.
-								It may be useful to change this to interact with different
-								environments or different versions of the api. At the time of writing
-							there is only one version of the api.</p>
+							<p>The cookie will be available only for this domain and its sub-domains</p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="baseauthurl" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> base<wbr>Auth<wbr>Url</h3>
-					<div class="tsd-signature tsd-kind-icon">base<wbr>Auth<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="samesite" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> samesite</h3>
+					<div class="tsd-signature tsd-kind-icon">samesite<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"none"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"lax"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"strict"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>the path that will be used to authenticate into ordercloud api.
-								It may be useful to change this to interact with different
-								environments or different versions of the api. At the time of writing
-							there is only one version of the api.</p>
+							<p>Defines protocol for how cookies should be sent
+							in first or third party contexts <a href="https://adzerk.com/blog/chrome-samesite/">https://adzerk.com/blog/chrome-samesite/</a></p>
 						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="clientid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> clientID</h3>
-					<div class="tsd-signature tsd-kind-icon">clientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="secure" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> secure</h3>
+					<div class="tsd-signature tsd-kind-icon">secure<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>when set is used to call the refresh token endpoint to obtain a new access
-								token when exired (provided a refresh token is set in the sdk)
-								this functionality is only intended for users that interact
-							with at most one client per sdk instance</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="cookieoptions" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> cookie<wbr>Options</h3>
-					<div class="tsd-signature tsd-kind-icon">cookie<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="cookieoptions.html" class="tsd-signature-type">CookieOptions</a></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="timeoutinmilliseconds" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> timeout<wbr>InMilliseconds</h3>
-					<div class="tsd-signature tsd-kind-icon">timeout<wbr>InMilliseconds<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>specifies the number of milliseconds before the request times out.
-								If the request takes longer than <code>timeoutInMilliseconds</code>, the request will be aborted.
-							Default timeout is 10,000 milliseconds or 10 seconds</p>
+							<p>If true, then the cookie will only be available through a
+							secured connection (generally https)</p>
 						</div>
 					</div>
 				</section>
@@ -140,22 +110,16 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface">
-						<a href="sdkconfiguration.html" class="tsd-kind-icon">Sdk<wbr>Configuration</a>
+						<a href="cookieoptions.html" class="tsd-kind-icon">Cookie<wbr>Options</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sdkconfiguration.html#baseapiurl" class="tsd-kind-icon">base<wbr>Api<wbr>Url</a>
+								<a href="cookieoptions.html#domain" class="tsd-kind-icon">domain</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sdkconfiguration.html#baseauthurl" class="tsd-kind-icon">base<wbr>Auth<wbr>Url</a>
+								<a href="cookieoptions.html#samesite" class="tsd-kind-icon">samesite</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sdkconfiguration.html#clientid" class="tsd-kind-icon">clientID</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sdkconfiguration.html#cookieoptions" class="tsd-kind-icon">cookie<wbr>Options</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="sdkconfiguration.html#timeoutinmilliseconds" class="tsd-kind-icon">timeout<wbr>InMilliseconds</a>
+								<a href="cookieoptions.html#secure" class="tsd-kind-icon">secure</a>
 							</li>
 						</ul>
 					</li>

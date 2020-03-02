@@ -16,7 +16,7 @@ class Buyers {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TBuyer extends Buyer>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> }, accessToken?: string ): Promise<Required<ListPage<TBuyer>>> {
+    public async List<TBuyer extends Buyer>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, accessToken?: string ): Promise<Required<ListPage<TBuyer>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

@@ -19,7 +19,7 @@ class Payments {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> }, accessToken?: string ): Promise<Required<ListPage<TPayment>>> {
+    public async List<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TPayment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/payments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

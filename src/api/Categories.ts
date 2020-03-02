@@ -20,7 +20,7 @@ class Categories {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TCategory extends Category>(catalogID: string,  options: { depth?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> }, accessToken?: string ): Promise<Required<ListPage<TCategory>>> {
+    public async List<TCategory extends Category>(catalogID: string,  options: { depth?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCategory>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -91,7 +91,7 @@ class Categories {
     * @param options.userGroupID ID of the user group.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async DeleteAssignment(catalogID: string, categoryID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string }, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(catalogID: string, categoryID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/catalogs/${catalogID}/categories/${categoryID}/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -120,7 +120,7 @@ class Categories {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TCategoryAssignment extends CategoryAssignment>(catalogID: string,  options: { categoryID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TCategoryAssignment>>> {
+    public async ListAssignments<TCategoryAssignment extends CategoryAssignment>(catalogID: string,  options: { categoryID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCategoryAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -145,7 +145,7 @@ class Categories {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListProductAssignments<TCategoryProductAssignment extends CategoryProductAssignment>(catalogID: string,  options: { categoryID?: string, productID?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TCategoryProductAssignment>>> {
+    public async ListProductAssignments<TCategoryProductAssignment extends CategoryProductAssignment>(catalogID: string,  options: { categoryID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCategoryProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories/productassignments`, { params: { ...options, accessToken, impersonating } } );

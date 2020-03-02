@@ -18,7 +18,7 @@ class MessageSenders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TMessageSender extends MessageSender>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> }, accessToken?: string ): Promise<Required<ListPage<TMessageSender>>> {
+    public async List<TMessageSender extends MessageSender>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, accessToken?: string ): Promise<Required<ListPage<TMessageSender>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -84,7 +84,7 @@ class MessageSenders {
     * @param options.supplierID ID of the supplier.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async DeleteAssignment(messageSenderID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(messageSenderID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/messagesenders/${messageSenderID}/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -101,7 +101,7 @@ class MessageSenders {
     * @param options.supplierID ID of the supplier.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( options: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number, supplierID?: string }, accessToken?: string ): Promise<Required<ListPage<TMessageSenderAssignment>>> {
+    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( options: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number, supplierID?: string } = {}, accessToken?: string ): Promise<Required<ListPage<TMessageSenderAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -126,7 +126,7 @@ class MessageSenders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> }, accessToken?: string ): Promise<Required<ListPage<TMessageCCListenerAssignment>>> {
+    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TMessageCCListenerAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders/CCListenerAssignments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

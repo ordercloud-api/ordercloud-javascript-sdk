@@ -68,7 +68,6 @@ class Tokens {
   }
 
   public SetRefreshToken(token: string): void {
-    parseJwt(token) // check if token is valid
     isNode()
       ? (this.refreshToken = token)
       : cookies.set(this.refreshTokenCookieName, token)

@@ -18,7 +18,7 @@ class Catalogs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TCatalog extends Catalog>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> }, accessToken?: string ): Promise<Required<ListPage<TCatalog>>> {
+    public async List<TCatalog extends Catalog>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCatalog>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -81,7 +81,7 @@ class Catalogs {
     * @param options.buyerID ID of the buyer.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async DeleteAssignment(catalogID: string,  options: { buyerID?: string }, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(catalogID: string,  options: { buyerID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/catalogs/${catalogID}/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -105,7 +105,7 @@ class Catalogs {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>( options: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TCatalogAssignment>>> {
+    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>( options: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCatalogAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -128,7 +128,7 @@ class Catalogs {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>( options: { catalogID?: string, productID?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TProductCatalogAssignment>>> {
+    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>( options: { catalogID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TProductCatalogAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/productassignments`, { params: { ...options, accessToken, impersonating } } );

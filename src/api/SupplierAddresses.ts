@@ -17,7 +17,7 @@ class SupplierAddresses {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TAddress extends Address>(supplierID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> }, accessToken?: string ): Promise<Required<ListPage<TAddress>>> {
+    public async List<TAddress extends Address>(supplierID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, accessToken?: string ): Promise<Required<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/suppliers/${supplierID}/addresses`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

@@ -18,7 +18,7 @@ class CostCenters {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TCostCenter extends CostCenter>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> }, accessToken?: string ): Promise<Required<ListPage<TCostCenter>>> {
+    public async List<TCostCenter extends CostCenter>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCostCenter>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/costcenters`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -88,7 +88,7 @@ class CostCenters {
     * @param options.userGroupID ID of the user group.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async DeleteAssignment(buyerID: string, costCenterID: string,  options: { userID?: string, userGroupID?: string }, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, costCenterID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/buyers/${buyerID}/costcenters/${costCenterID}/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -104,7 +104,7 @@ class CostCenters {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string,  options: { costCenterID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TCostCenterAssignment>>> {
+    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string,  options: { costCenterID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCostCenterAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/costcenters/assignments`, { params: { ...options, accessToken, impersonating } } );

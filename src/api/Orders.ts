@@ -28,7 +28,7 @@ class Orders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TOrder extends Order>(direction: 'Incoming' | 'Outgoing',  options: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> }, accessToken?: string ): Promise<Required<ListPage<TOrder>>> {
+    public async List<TOrder extends Order>(direction: 'Incoming' | 'Outgoing',  options: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, accessToken?: string ): Promise<Required<ListPage<TOrder>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -102,7 +102,7 @@ class Orders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListApprovals<TOrderApproval extends OrderApproval>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> }, accessToken?: string ): Promise<Required<ListPage<TOrderApproval>>> {
+    public async ListApprovals<TOrderApproval extends OrderApproval>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> } = {}, accessToken?: string ): Promise<Required<ListPage<TOrderApproval>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/approvals`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -189,7 +189,7 @@ class Orders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListEligibleApprovers<TUser extends User>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> }, accessToken?: string ): Promise<Required<ListPage<TUser>>> {
+    public async ListEligibleApprovers<TUser extends User>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<Required<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/eligibleapprovers`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -229,7 +229,7 @@ class Orders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> }, accessToken?: string ): Promise<Required<ListPage<TOrderPromotion>>> {
+    public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> } = {}, accessToken?: string ): Promise<Required<ListPage<TOrderPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/promotions`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

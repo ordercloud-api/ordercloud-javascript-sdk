@@ -3,7 +3,7 @@ import tokenService from '../api/Tokens'
 import Configuration from '../Configuration'
 import Auth from '../api/Auth'
 import paramsSerializer from './ParamsSerializer'
-import parseJwt from './ParseJwt';
+import parseJwt from './ParseJwt'
 
 /**
  * @ignore
@@ -16,7 +16,13 @@ class HttpClient {
     // create a new instance so we avoid clashes with any
     // configurations done on default axios instance that
     // a consumer of this SDK might use
-    this._session = axios.create({ paramsSerializer })
+    if (typeof axios === 'undefined') {
+      throw new Error(
+        'Ordercloud is missing required peer dependency axios. This must be installed and loaded before the OrderCloud SDK'
+      )
+    } else {
+      this._session = axios.create({ paramsSerializer })
+    }
   }
 
   public get = async (

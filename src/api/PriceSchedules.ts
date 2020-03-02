@@ -17,7 +17,7 @@ class PriceSchedules {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TPriceSchedule extends PriceSchedule>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> }, accessToken?: string ): Promise<Required<ListPage<TPriceSchedule>>> {
+    public async List<TPriceSchedule extends PriceSchedule>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, accessToken?: string ): Promise<Required<ListPage<TPriceSchedule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/priceschedules`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -91,7 +91,7 @@ class PriceSchedules {
     * @param options.quantity Quantity of the price schedule.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async DeletePriceBreak(priceScheduleID: string,  options: { quantity?: number }, accessToken?: string ): Promise<void> {
+    public async DeletePriceBreak(priceScheduleID: string,  options: { quantity?: number } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { params: { ...options, accessToken, impersonating } } );

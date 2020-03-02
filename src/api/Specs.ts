@@ -18,7 +18,7 @@ class Specs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TSpec extends Spec>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> }, accessToken?: string ): Promise<Required<ListPage<TSpec>>> {
+    public async List<TSpec extends Spec>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -86,7 +86,7 @@ class Specs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> }, accessToken?: string ): Promise<Required<ListPage<TSpecOption>>> {
+    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpecOption>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/${specID}/options`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -169,7 +169,7 @@ class Specs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> }, accessToken?: string ): Promise<Required<ListPage<TSpecProductAssignment>>> {
+    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpecProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/productassignments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

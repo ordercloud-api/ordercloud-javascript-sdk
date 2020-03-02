@@ -16,7 +16,7 @@ class Incrementors {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TIncrementor extends Incrementor>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> }, accessToken?: string ): Promise<Required<ListPage<TIncrementor>>> {
+    public async List<TIncrementor extends Incrementor>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, accessToken?: string ): Promise<Required<ListPage<TIncrementor>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/incrementors`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

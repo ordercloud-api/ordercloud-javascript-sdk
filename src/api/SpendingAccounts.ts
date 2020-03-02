@@ -18,7 +18,7 @@ class SpendingAccounts {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> }, accessToken?: string ): Promise<Required<ListPage<TSpendingAccount>>> {
+    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpendingAccount>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -88,7 +88,7 @@ class SpendingAccounts {
     * @param options.userGroupID ID of the user group.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async DeleteAssignment(buyerID: string, spendingAccountID: string,  options: { userID?: string, userGroupID?: string }, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, spendingAccountID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -104,7 +104,7 @@ class SpendingAccounts {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TSpendingAccountAssignment>>> {
+    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TSpendingAccountAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { params: { ...options, accessToken, impersonating } } );

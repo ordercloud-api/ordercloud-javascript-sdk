@@ -18,7 +18,7 @@ class SupplierUserGroups {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TUserGroup extends UserGroup>(supplierID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> }, accessToken?: string ): Promise<Required<ListPage<TUserGroup>>> {
+    public async List<TUserGroup extends UserGroup>(supplierID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, accessToken?: string ): Promise<Required<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/suppliers/${supplierID}/usergroups`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -101,7 +101,7 @@ class SupplierUserGroups {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(supplierID: string,  options: { userGroupID?: string, userID?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TUserGroupAssignment>>> {
+    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(supplierID: string,  options: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TUserGroupAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/suppliers/${supplierID}/usergroups/assignments`, { params: { ...options, accessToken, impersonating } } );

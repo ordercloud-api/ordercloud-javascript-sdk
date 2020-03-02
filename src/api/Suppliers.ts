@@ -16,7 +16,7 @@ class Suppliers {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TSupplier extends Supplier>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> }, accessToken?: string ): Promise<Required<ListPage<TSupplier>>> {
+    public async List<TSupplier extends Supplier>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSupplier>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/suppliers`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

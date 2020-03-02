@@ -19,7 +19,7 @@ class LineItems {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> }, accessToken?: string ): Promise<Required<ListPage<TLineItem>>> {
+    public async List<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, accessToken?: string ): Promise<Required<ListPage<TLineItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

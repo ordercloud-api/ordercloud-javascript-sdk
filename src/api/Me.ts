@@ -61,7 +61,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAddresses<TBuyerAddress extends BuyerAddress>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerAddress>> }, accessToken?: string ): Promise<Required<ListPage<TBuyerAddress>>> {
+    public async ListAddresses<TBuyerAddress extends BuyerAddress>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerAddress>> } = {}, accessToken?: string ): Promise<Required<ListPage<TBuyerAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/addresses`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -128,7 +128,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListCatalogs<TCatalog extends Catalog>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> }, accessToken?: string ): Promise<Required<ListPage<TCatalog>>> {
+    public async ListCatalogs<TCatalog extends Catalog>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCatalog>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/catalogs`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -156,7 +156,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListCategories<TCategory extends Category>( options: { depth?: string, catalogID?: string, productID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> }, accessToken?: string ): Promise<Required<ListPage<TCategory>>> {
+    public async ListCategories<TCategory extends Category>( options: { depth?: string, catalogID?: string, productID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCategory>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/categories`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -167,7 +167,7 @@ class Me {
     * @param options.catalogID ID of the catalog.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async GetCategory<TCategory extends Category>(categoryID: string,  options: { catalogID?: string }, accessToken?: string ): Promise<Required<TCategory>> {
+    public async GetCategory<TCategory extends Category>(categoryID: string,  options: { catalogID?: string } = {}, accessToken?: string ): Promise<Required<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/categories/${categoryID}`, { params: { ...options, accessToken, impersonating } } );
@@ -182,7 +182,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListCostCenters<TCostCenter extends CostCenter>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> }, accessToken?: string ): Promise<Required<ListPage<TCostCenter>>> {
+    public async ListCostCenters<TCostCenter extends CostCenter>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCostCenter>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/costcenters`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -197,7 +197,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListCreditCards<TBuyerCreditCard extends BuyerCreditCard>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerCreditCard>> }, accessToken?: string ): Promise<Required<ListPage<TBuyerCreditCard>>> {
+    public async ListCreditCards<TBuyerCreditCard extends BuyerCreditCard>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerCreditCard>> } = {}, accessToken?: string ): Promise<Required<ListPage<TBuyerCreditCard>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/creditcards`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -266,7 +266,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListOrders<TOrder extends Order>( options: { from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> }, accessToken?: string ): Promise<Required<ListPage<TOrder>>> {
+    public async ListOrders<TOrder extends Order>( options: { from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, accessToken?: string ): Promise<Required<ListPage<TOrder>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/orders`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -276,7 +276,7 @@ class Me {
     * @param options.anonUserToken Anon user token of the me.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async TransferAnonUserOrder( options: { anonUserToken?: string }, accessToken?: string ): Promise<void> {
+    public async TransferAnonUserOrder( options: { anonUserToken?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/me/orders`, { params: { ...options, accessToken, impersonating } } );
@@ -293,7 +293,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListApprovableOrders<TOrder extends Order>( options: { from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> }, accessToken?: string ): Promise<Required<ListPage<TOrder>>> {
+    public async ListApprovableOrders<TOrder extends Order>( options: { from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, accessToken?: string ): Promise<Required<ListPage<TOrder>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/orders/approvable`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -321,7 +321,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListProducts<TBuyerProduct extends BuyerProduct>( options: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerProduct>> }, accessToken?: string ): Promise<Required<ListPageFacet<TBuyerProduct>>> {
+    public async ListProducts<TBuyerProduct extends BuyerProduct>( options: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerProduct>> } = {}, accessToken?: string ): Promise<Required<ListPageFacet<TBuyerProduct>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/products`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -348,7 +348,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListSpecs<TSpec extends Spec>(productID: string,  options: { catalogID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> }, accessToken?: string ): Promise<Required<ListPage<TSpec>>> {
+    public async ListSpecs<TSpec extends Spec>(productID: string,  options: { catalogID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/products/${productID}/specs`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -360,7 +360,7 @@ class Me {
     * @param options.catalogID ID of the catalog.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async GetSpec<TSpec extends Spec>(productID: string, specID: string,  options: { catalogID?: string }, accessToken?: string ): Promise<Required<TSpec>> {
+    public async GetSpec<TSpec extends Spec>(productID: string, specID: string,  options: { catalogID?: string } = {}, accessToken?: string ): Promise<Required<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/products/${productID}/specs/${specID}`, { params: { ...options, accessToken, impersonating } } );
@@ -375,7 +375,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListPromotions<TPromotion extends Promotion>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> }, accessToken?: string ): Promise<Required<ListPage<TPromotion>>> {
+    public async ListPromotions<TPromotion extends Promotion>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, accessToken?: string ): Promise<Required<ListPage<TPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/promotions`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -396,7 +396,7 @@ class Me {
     * @param meUser Required fields: Username, FirstName, LastName, Email, Active
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Register<TAccessTokenBasic extends AccessTokenBasic>(meUser: MeUser, options: { anonUserToken?: string }, accessToken?: string ): Promise<Required<TAccessTokenBasic>> {
+    public async Register<TAccessTokenBasic extends AccessTokenBasic>(meUser: MeUser, options: { anonUserToken?: string } = {}, accessToken?: string ): Promise<Required<TAccessTokenBasic>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/me/register`, { params: { ...options, accessToken, impersonating } }, { data: meUser, params: { accessToken, impersonating } }  );
@@ -412,7 +412,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListShipments<TShipment extends Shipment>( options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> }, accessToken?: string ): Promise<Required<ListPage<TShipment>>> {
+    public async ListShipments<TShipment extends Shipment>( options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TShipment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/shipments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -439,7 +439,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListShipmentItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> }, accessToken?: string ): Promise<Required<ListPage<TShipmentItem>>> {
+    public async ListShipmentItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, accessToken?: string ): Promise<Required<ListPage<TShipmentItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/shipments/${shipmentID}/items`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -454,7 +454,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListSpendingAccounts<TSpendingAccount extends SpendingAccount>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> }, accessToken?: string ): Promise<Required<ListPage<TSpendingAccount>>> {
+    public async ListSpendingAccounts<TSpendingAccount extends SpendingAccount>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpendingAccount>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/spendingAccounts`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -479,7 +479,7 @@ class Me {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListUserGroups<TUserGroup extends UserGroup>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> }, accessToken?: string ): Promise<Required<ListPage<TUserGroup>>> {
+    public async ListUserGroups<TUserGroup extends UserGroup>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, accessToken?: string ): Promise<Required<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/me/usergroups`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

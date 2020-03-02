@@ -18,7 +18,7 @@ class Addresses {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TAddress extends Address>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> }, accessToken?: string ): Promise<Required<ListPage<TAddress>>> {
+    public async List<TAddress extends Address>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, accessToken?: string ): Promise<Required<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/addresses`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -88,7 +88,7 @@ class Addresses {
     * @param options.userGroupID ID of the user group.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async DeleteAssignment(buyerID: string, addressID: string,  options: { userID?: string, userGroupID?: string }, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, addressID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/buyers/${buyerID}/addresses/${addressID}/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -106,7 +106,7 @@ class Addresses {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TAddressAssignment extends AddressAssignment>(buyerID: string,  options: { addressID?: string, userID?: string, userGroupID?: string, level?: string, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TAddressAssignment>>> {
+    public async ListAssignments<TAddressAssignment extends AddressAssignment>(buyerID: string,  options: { addressID?: string, userID?: string, userGroupID?: string, level?: string, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TAddressAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/addresses/assignments`, { params: { ...options, accessToken, impersonating } } );

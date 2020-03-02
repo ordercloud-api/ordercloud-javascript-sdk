@@ -17,7 +17,7 @@ class ApiClients {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TApiClient extends ApiClient>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> }, accessToken?: string ): Promise<Required<ListPage<TApiClient>>> {
+    public async List<TApiClient extends ApiClient>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, accessToken?: string ): Promise<Required<ListPage<TApiClient>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/apiclients`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -83,7 +83,7 @@ class ApiClients {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( options: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number }, accessToken?: string ): Promise<Required<ListPage<TApiClientAssignment>>> {
+    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( options: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TApiClientAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/apiclients/assignments`, { params: { ...options, accessToken, impersonating } } );

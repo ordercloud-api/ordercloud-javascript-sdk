@@ -16,7 +16,7 @@ class ProductFacets {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> }, accessToken?: string ): Promise<Required<ListPage<TProductFacet>>> {
+    public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, accessToken?: string ): Promise<Required<ListPage<TProductFacet>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/productfacets`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

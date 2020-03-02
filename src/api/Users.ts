@@ -20,7 +20,7 @@ class Users {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TUser extends User>(buyerID: string,  options: { userGroupID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> }, accessToken?: string ): Promise<Required<ListPage<TUser>>> {
+    public async List<TUser extends User>(buyerID: string,  options: { userGroupID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<Required<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/users`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -102,7 +102,7 @@ class Users {
     * @param options.orders Orders of the user. Possible values: None, Unsubmitted, All.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string,  options: { orders?: 'None' | 'Unsubmitted' | 'All' }, accessToken?: string ): Promise<Required<TUser>> {
+    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string,  options: { orders?: 'None' | 'Unsubmitted' | 'All' } = {}, accessToken?: string ): Promise<Required<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/users/${userID}/moveto/${newBuyerID}`, { params: { ...options, accessToken, impersonating } } );
