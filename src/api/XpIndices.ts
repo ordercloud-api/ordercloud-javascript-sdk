@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { XpIndex } from '../models/XpIndex';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class XpIndices {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TXpIndex extends XpIndex>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, accessToken?: string ): Promise<Required<ListPage<TXpIndex>>> {
+    public async List<TXpIndex extends XpIndex>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/xpindices`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { ApprovalRule } from '../models/ApprovalRule';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -17,7 +18,7 @@ class ApprovalRules {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TApprovalRule extends ApprovalRule>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, accessToken?: string ): Promise<Required<ListPage<TApprovalRule>>> {
+    public async List<TApprovalRule extends ApprovalRule>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TApprovalRule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/approvalrules`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -28,7 +29,7 @@ class ApprovalRules {
     * @param approvalRule Required fields: ApprovingGroupID, RuleExpression
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule, accessToken?: string ): Promise<Required<TApprovalRule>> {
+    public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule, accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/approvalrules`, { data: approvalRule, params: { accessToken, impersonating } }  );
@@ -39,7 +40,7 @@ class ApprovalRules {
     * @param approvalRuleID ID of the approval rule.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string,  accessToken?: string ): Promise<Required<TApprovalRule>> {
+    public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string,  accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { params: { accessToken, impersonating } } );
@@ -51,7 +52,7 @@ class ApprovalRules {
     * @param approvalRule Required fields: ApprovingGroupID, RuleExpression
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule, accessToken?: string ): Promise<Required<TApprovalRule>> {
+    public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule, accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { data: approvalRule, params: { accessToken, impersonating } }  );
@@ -74,7 +75,7 @@ class ApprovalRules {
     * @param approvalRule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>,  accessToken?: string ): Promise<Required<TApprovalRule>> {
+    public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>,  accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { data: approvalRule, params: { accessToken, impersonating } }  );

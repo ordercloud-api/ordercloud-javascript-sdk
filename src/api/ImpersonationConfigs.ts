@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { ImpersonationConfig } from '../models/ImpersonationConfig';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class ImpersonationConfigs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TImpersonationConfig extends ImpersonationConfig>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, accessToken?: string ): Promise<Required<ListPage<TImpersonationConfig>>> {
+    public async List<TImpersonationConfig extends ImpersonationConfig>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/impersonationconfig`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -26,7 +27,7 @@ class ImpersonationConfigs {
     * @param impersonationConfig Required fields: BuyerID, SecurityProfileID, ClientID
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig, accessToken?: string ): Promise<Required<TImpersonationConfig>> {
+    public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig, accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/impersonationconfig`, { data: impersonationConfig, params: { accessToken, impersonating } }  );
@@ -36,7 +37,7 @@ class ImpersonationConfigs {
     * @param impersonationConfigID ID of the impersonation config.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string,  accessToken?: string ): Promise<Required<TImpersonationConfig>> {
+    public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string,  accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/impersonationconfig/${impersonationConfigID}`, { params: { accessToken, impersonating } } );
@@ -47,7 +48,7 @@ class ImpersonationConfigs {
     * @param impersonationConfig Required fields: BuyerID, SecurityProfileID, ClientID
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig, accessToken?: string ): Promise<Required<TImpersonationConfig>> {
+    public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig, accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/impersonationconfig/${impersonationConfigID}`, { data: impersonationConfig, params: { accessToken, impersonating } }  );
@@ -68,7 +69,7 @@ class ImpersonationConfigs {
     * @param impersonationConfig 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>,  accessToken?: string ): Promise<Required<TImpersonationConfig>> {
+    public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>,  accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/impersonationconfig/${impersonationConfigID}`, { data: impersonationConfig, params: { accessToken, impersonating } }  );

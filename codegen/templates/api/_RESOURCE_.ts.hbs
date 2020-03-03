@@ -2,6 +2,7 @@
 import { {{this}} } from '../models/{{this}}';
 {{/resource.fileImports}}
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -13,7 +14,7 @@ class {{resource.id}} {
     * @param {{#if isQueryParam}}options.{{name}} {{description}}{{else}}{{name}} {{description}}{{#if isBodyParam}}{{#if hasRequiredFields}}Required fields: {{commaSeparate requiredFields}}{{/if}}{{/if}}{{/if}}{{/allParams}}
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async {{name}}{{#if hasReturnType}}{{#if isList}}<T{{baseType}} extends {{baseType}}>{{else}}<T{{returnType}} extends {{returnType}}>{{/if}}{{/if}}({{#allParams}}{{#unless isQueryParam}}{{#if isBodyParam}}{{#if ../isPatch}}{{name}}: PartialDeep<{{typescriptType}}>, {{else}}{{name}}: {{typescriptType}},{{/if}}{{else}}{{name}}: {{typescriptType}}, {{/if}}{{/unless}}{{/allParams}} {{#if hasQueryParams}}options: { {{#queryParams}}{{name}}?: {{typescriptType}}{{#unless @last}}, {{/unless}}{{/queryParams}} } = {}, {{/if}}accessToken?: string ): Promise<{{#if hasReturnType}}Required<{{#if isList}}{{#if isFacetList}}ListPageFacet<T{{baseType}}>{{else}}ListPage<T{{baseType}}>{{/if}}{{else}}T{{returnType}}{{/if}}>{{else}}void{{/if}}> {
+    public async {{name}}{{#if hasReturnType}}{{#if isList}}<T{{baseType}} extends {{baseType}}>{{else}}<T{{returnType}} extends {{returnType}}>{{/if}}{{/if}}({{#allParams}}{{#unless isQueryParam}}{{#if isBodyParam}}{{#if ../isPatch}}{{name}}: PartialDeep<{{typescriptType}}>, {{else}}{{name}}: {{typescriptType}},{{/if}}{{else}}{{name}}: {{typescriptType}}, {{/if}}{{/unless}}{{/allParams}} {{#if hasQueryParams}}options: { {{#queryParams}}{{name}}?: {{typescriptType}}{{#unless @last}}, {{/unless}}{{/queryParams}} } = {}, {{/if}}accessToken?: string ): Promise<{{#if hasReturnType}}RequiredDeep<{{#if isList}}{{#if isFacetList}}ListPageFacet<T{{baseType}}>{{else}}ListPage<T{{baseType}}>{{/if}}{{else}}T{{returnType}}{{/if}}>{{else}}void{{/if}}> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.{{verb}}(`{{parameterizePath path}}`{{#if hasQueryParams}}, { params: { ...options, {{#if hasFilters}}filters: options.filters, {{/if}}accessToken, impersonating } }{{/if}}{{#if hasBodyParam}}, { data: {{bodyParam.name}}, params: { accessToken, impersonating } } {{/if}}{{#unless hasQueryParams}}{{#unless hasBodyParam}}, { params: { accessToken, impersonating } }{{/unless}}{{/unless}} );

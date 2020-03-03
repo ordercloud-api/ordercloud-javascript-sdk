@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { Buyer } from '../models/Buyer';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class Buyers {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TBuyer extends Buyer>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, accessToken?: string ): Promise<Required<ListPage<TBuyer>>> {
+    public async List<TBuyer extends Buyer>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TBuyer>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -26,7 +27,7 @@ class Buyers {
     * @param buyer Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TBuyer extends Buyer>(buyer: Buyer, accessToken?: string ): Promise<Required<TBuyer>> {
+    public async Create<TBuyer extends Buyer>(buyer: Buyer, accessToken?: string ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers`, { data: buyer, params: { accessToken, impersonating } }  );
@@ -36,7 +37,7 @@ class Buyers {
     * @param buyerID ID of the buyer.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TBuyer extends Buyer>(buyerID: string,  accessToken?: string ): Promise<Required<TBuyer>> {
+    public async Get<TBuyer extends Buyer>(buyerID: string,  accessToken?: string ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}`, { params: { accessToken, impersonating } } );
@@ -47,7 +48,7 @@ class Buyers {
     * @param buyer Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TBuyer extends Buyer>(buyerID: string, buyer: Buyer, accessToken?: string ): Promise<Required<TBuyer>> {
+    public async Save<TBuyer extends Buyer>(buyerID: string, buyer: Buyer, accessToken?: string ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/buyers/${buyerID}`, { data: buyer, params: { accessToken, impersonating } }  );
@@ -68,7 +69,7 @@ class Buyers {
     * @param buyer 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TBuyer extends Buyer>(buyerID: string, buyer: PartialDeep<Buyer>,  accessToken?: string ): Promise<Required<TBuyer>> {
+    public async Patch<TBuyer extends Buyer>(buyerID: string, buyer: PartialDeep<Buyer>,  accessToken?: string ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/buyers/${buyerID}`, { data: buyer, params: { accessToken, impersonating } }  );

@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { ApiClient } from '../models/ApiClient';
 import { ApiClientAssignment } from '../models/ApiClientAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -17,7 +18,7 @@ class ApiClients {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TApiClient extends ApiClient>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, accessToken?: string ): Promise<Required<ListPage<TApiClient>>> {
+    public async List<TApiClient extends ApiClient>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TApiClient>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/apiclients`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -27,7 +28,7 @@ class ApiClients {
     * @param apiClient Required fields: AccessTokenDuration, AppName
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TApiClient extends ApiClient>(apiClient: ApiClient, accessToken?: string ): Promise<Required<TApiClient>> {
+    public async Create<TApiClient extends ApiClient>(apiClient: ApiClient, accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/apiclients`, { data: apiClient, params: { accessToken, impersonating } }  );
@@ -37,7 +38,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TApiClient extends ApiClient>(apiClientID: string,  accessToken?: string ): Promise<Required<TApiClient>> {
+    public async Get<TApiClient extends ApiClient>(apiClientID: string,  accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/apiclients/${apiClientID}`, { params: { accessToken, impersonating } } );
@@ -48,7 +49,7 @@ class ApiClients {
     * @param apiClient Required fields: AccessTokenDuration, AppName
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient, accessToken?: string ): Promise<Required<TApiClient>> {
+    public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient, accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/apiclients/${apiClientID}`, { data: apiClient, params: { accessToken, impersonating } }  );
@@ -69,7 +70,7 @@ class ApiClients {
     * @param apiClient 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>,  accessToken?: string ): Promise<Required<TApiClient>> {
+    public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>,  accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/apiclients/${apiClientID}`, { data: apiClient, params: { accessToken, impersonating } }  );
@@ -83,7 +84,7 @@ class ApiClients {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( options: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TApiClientAssignment>>> {
+    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( options: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/apiclients/assignments`, { params: { ...options, accessToken, impersonating } } );

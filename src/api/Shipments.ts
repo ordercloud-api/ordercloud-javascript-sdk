@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { Shipment } from '../models/Shipment';
 import { ShipmentItem } from '../models/ShipmentItem';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class Shipments {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TShipment extends Shipment>( options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TShipment>>> {
+    public async List<TShipment extends Shipment>( options: { orderID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TShipment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/shipments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -28,7 +29,7 @@ class Shipments {
     * @param shipment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TShipment extends Shipment>(shipment: Shipment, accessToken?: string ): Promise<Required<TShipment>> {
+    public async Create<TShipment extends Shipment>(shipment: Shipment, accessToken?: string ): Promise<RequiredDeep<TShipment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/shipments`, { data: shipment, params: { accessToken, impersonating } }  );
@@ -38,7 +39,7 @@ class Shipments {
     * @param shipmentID ID of the shipment.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TShipment extends Shipment>(shipmentID: string,  accessToken?: string ): Promise<Required<TShipment>> {
+    public async Get<TShipment extends Shipment>(shipmentID: string,  accessToken?: string ): Promise<RequiredDeep<TShipment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/shipments/${shipmentID}`, { params: { accessToken, impersonating } } );
@@ -49,7 +50,7 @@ class Shipments {
     * @param shipment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TShipment extends Shipment>(shipmentID: string, shipment: Shipment, accessToken?: string ): Promise<Required<TShipment>> {
+    public async Save<TShipment extends Shipment>(shipmentID: string, shipment: Shipment, accessToken?: string ): Promise<RequiredDeep<TShipment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/shipments/${shipmentID}`, { data: shipment, params: { accessToken, impersonating } }  );
@@ -70,7 +71,7 @@ class Shipments {
     * @param shipment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TShipment extends Shipment>(shipmentID: string, shipment: PartialDeep<Shipment>,  accessToken?: string ): Promise<Required<TShipment>> {
+    public async Patch<TShipment extends Shipment>(shipmentID: string, shipment: PartialDeep<Shipment>,  accessToken?: string ): Promise<RequiredDeep<TShipment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/shipments/${shipmentID}`, { data: shipment, params: { accessToken, impersonating } }  );
@@ -86,7 +87,7 @@ class Shipments {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, accessToken?: string ): Promise<Required<ListPage<TShipmentItem>>> {
+    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TShipmentItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/shipments/${shipmentID}/items`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -97,7 +98,7 @@ class Shipments {
     * @param shipmentItem Required fields: OrderID, LineItemID, QuantityShipped
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async SaveItem<TShipmentItem extends ShipmentItem>(shipmentID: string, shipmentItem: ShipmentItem, accessToken?: string ): Promise<Required<TShipmentItem>> {
+    public async SaveItem<TShipmentItem extends ShipmentItem>(shipmentID: string, shipmentItem: ShipmentItem, accessToken?: string ): Promise<RequiredDeep<TShipmentItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/shipments/${shipmentID}/items`, { data: shipmentItem, params: { accessToken, impersonating } }  );
@@ -109,7 +110,7 @@ class Shipments {
     * @param lineItemID ID of the line item.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async GetItem<TShipmentItem extends ShipmentItem>(shipmentID: string, orderID: string, lineItemID: string,  accessToken?: string ): Promise<Required<TShipmentItem>> {
+    public async GetItem<TShipmentItem extends ShipmentItem>(shipmentID: string, orderID: string, lineItemID: string,  accessToken?: string ): Promise<RequiredDeep<TShipmentItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/shipments/${shipmentID}/items/${orderID}/${lineItemID}`, { params: { accessToken, impersonating } } );

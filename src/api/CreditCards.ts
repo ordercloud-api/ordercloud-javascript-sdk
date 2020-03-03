@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { CreditCard } from '../models/CreditCard';
 import { CreditCardAssignment } from '../models/CreditCardAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class CreditCards {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TCreditCard extends CreditCard>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCreditCard>>> {
+    public async List<TCreditCard extends CreditCard>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCreditCard>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/creditcards`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -29,7 +30,7 @@ class CreditCards {
     * @param creditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard, accessToken?: string ): Promise<Required<TCreditCard>> {
+    public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard, accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/creditcards`, { data: creditCard, params: { accessToken, impersonating } }  );
@@ -40,7 +41,7 @@ class CreditCards {
     * @param creditCardID ID of the credit card.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string,  accessToken?: string ): Promise<Required<TCreditCard>> {
+    public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string,  accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/creditcards/${creditCardID}`, { params: { accessToken, impersonating } } );
@@ -52,7 +53,7 @@ class CreditCards {
     * @param creditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard, accessToken?: string ): Promise<Required<TCreditCard>> {
+    public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard, accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/buyers/${buyerID}/creditcards/${creditCardID}`, { data: creditCard, params: { accessToken, impersonating } }  );
@@ -75,7 +76,7 @@ class CreditCards {
     * @param creditCard 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>,  accessToken?: string ): Promise<Required<TCreditCard>> {
+    public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>,  accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/buyers/${buyerID}/creditcards/${creditCardID}`, { data: creditCard, params: { accessToken, impersonating } }  );
@@ -104,7 +105,7 @@ class CreditCards {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string,  options: { creditCardID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCreditCardAssignment>>> {
+    public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string,  options: { creditCardID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/creditcards/assignments`, { params: { ...options, accessToken, impersonating } } );

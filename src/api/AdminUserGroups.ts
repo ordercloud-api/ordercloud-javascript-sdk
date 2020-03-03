@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { UserGroup } from '../models/UserGroup';
 import { UserGroupAssignment } from '../models/UserGroupAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -17,7 +18,7 @@ class AdminUserGroups {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TUserGroup extends UserGroup>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, accessToken?: string ): Promise<Required<ListPage<TUserGroup>>> {
+    public async List<TUserGroup extends UserGroup>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/usergroups`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -27,7 +28,7 @@ class AdminUserGroups {
     * @param userGroup Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TUserGroup extends UserGroup>(userGroup: UserGroup, accessToken?: string ): Promise<Required<TUserGroup>> {
+    public async Create<TUserGroup extends UserGroup>(userGroup: UserGroup, accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/usergroups`, { data: userGroup, params: { accessToken, impersonating } }  );
@@ -37,7 +38,7 @@ class AdminUserGroups {
     * @param userGroupID ID of the user group.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TUserGroup extends UserGroup>(userGroupID: string,  accessToken?: string ): Promise<Required<TUserGroup>> {
+    public async Get<TUserGroup extends UserGroup>(userGroupID: string,  accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/usergroups/${userGroupID}`, { params: { accessToken, impersonating } } );
@@ -48,7 +49,7 @@ class AdminUserGroups {
     * @param userGroup Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TUserGroup extends UserGroup>(userGroupID: string, userGroup: UserGroup, accessToken?: string ): Promise<Required<TUserGroup>> {
+    public async Save<TUserGroup extends UserGroup>(userGroupID: string, userGroup: UserGroup, accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/usergroups/${userGroupID}`, { data: userGroup, params: { accessToken, impersonating } }  );
@@ -69,7 +70,7 @@ class AdminUserGroups {
     * @param userGroup 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TUserGroup extends UserGroup>(userGroupID: string, userGroup: PartialDeep<UserGroup>,  accessToken?: string ): Promise<Required<TUserGroup>> {
+    public async Patch<TUserGroup extends UserGroup>(userGroupID: string, userGroup: PartialDeep<UserGroup>,  accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/usergroups/${userGroupID}`, { data: userGroup, params: { accessToken, impersonating } }  );
@@ -93,7 +94,7 @@ class AdminUserGroups {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>( options: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TUserGroupAssignment>>> {
+    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>( options: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/usergroups/assignments`, { params: { ...options, accessToken, impersonating } } );

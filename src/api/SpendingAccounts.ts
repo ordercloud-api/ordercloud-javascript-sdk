@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { SpendingAccount } from '../models/SpendingAccount';
 import { SpendingAccountAssignment } from '../models/SpendingAccountAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class SpendingAccounts {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpendingAccount>>> {
+    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -29,7 +30,7 @@ class SpendingAccounts {
     * @param spendingAccount Required fields: Name, Balance
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<Required<TSpendingAccount>> {
+    public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/spendingaccounts`, { data: spendingAccount, params: { accessToken, impersonating } }  );
@@ -40,7 +41,7 @@ class SpendingAccounts {
     * @param spendingAccountID ID of the spending account.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string,  accessToken?: string ): Promise<Required<TSpendingAccount>> {
+    public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string,  accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: { accessToken, impersonating } } );
@@ -52,7 +53,7 @@ class SpendingAccounts {
     * @param spendingAccount Required fields: Name, Balance
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<Required<TSpendingAccount>> {
+    public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { data: spendingAccount, params: { accessToken, impersonating } }  );
@@ -75,7 +76,7 @@ class SpendingAccounts {
     * @param spendingAccount 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>,  accessToken?: string ): Promise<Required<TSpendingAccount>> {
+    public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>,  accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { data: spendingAccount, params: { accessToken, impersonating } }  );
@@ -104,7 +105,7 @@ class SpendingAccounts {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TSpendingAccountAssignment>>> {
+    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { params: { ...options, accessToken, impersonating } } );

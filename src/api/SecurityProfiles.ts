@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { SecurityProfile } from '../models/SecurityProfile';
 import { SecurityProfileAssignment } from '../models/SecurityProfileAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -17,7 +18,7 @@ class SecurityProfiles {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TSecurityProfile extends SecurityProfile>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSecurityProfile>>> {
+    public async List<TSecurityProfile extends SecurityProfile>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/securityprofiles`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -27,7 +28,7 @@ class SecurityProfiles {
     * @param securityProfile Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, accessToken?: string ): Promise<Required<TSecurityProfile>> {
+    public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/securityprofiles`, { data: securityProfile, params: { accessToken, impersonating } }  );
@@ -37,7 +38,7 @@ class SecurityProfiles {
     * @param securityProfileID ID of the security profile.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  accessToken?: string ): Promise<Required<TSecurityProfile>> {
+    public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/securityprofiles/${securityProfileID}`, { params: { accessToken, impersonating } } );
@@ -48,7 +49,7 @@ class SecurityProfiles {
     * @param securityProfile Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, accessToken?: string ): Promise<Required<TSecurityProfile>> {
+    public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/securityprofiles/${securityProfileID}`, { data: securityProfile, params: { accessToken, impersonating } }  );
@@ -69,7 +70,7 @@ class SecurityProfiles {
     * @param securityProfile 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  accessToken?: string ): Promise<Required<TSecurityProfile>> {
+    public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/securityprofiles/${securityProfileID}`, { data: securityProfile, params: { accessToken, impersonating } }  );
@@ -101,7 +102,7 @@ class SecurityProfiles {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( options: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TSecurityProfileAssignment>>> {
+    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( options: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/securityprofiles/assignments`, { params: { ...options, accessToken, impersonating } } );

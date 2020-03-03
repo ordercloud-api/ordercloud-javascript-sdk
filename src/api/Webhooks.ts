@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { Webhook } from '../models/Webhook';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class Webhooks {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TWebhook extends Webhook>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, accessToken?: string ): Promise<Required<ListPage<TWebhook>>> {
+    public async List<TWebhook extends Webhook>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TWebhook>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/webhooks`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -26,7 +27,7 @@ class Webhooks {
     * @param webhook Required fields: Name, Url, HashKey
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TWebhook extends Webhook>(webhook: Webhook, accessToken?: string ): Promise<Required<TWebhook>> {
+    public async Create<TWebhook extends Webhook>(webhook: Webhook, accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/webhooks`, { data: webhook, params: { accessToken, impersonating } }  );
@@ -36,7 +37,7 @@ class Webhooks {
     * @param webhookID ID of the webhook.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TWebhook extends Webhook>(webhookID: string,  accessToken?: string ): Promise<Required<TWebhook>> {
+    public async Get<TWebhook extends Webhook>(webhookID: string,  accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/webhooks/${webhookID}`, { params: { accessToken, impersonating } } );
@@ -47,7 +48,7 @@ class Webhooks {
     * @param webhook Required fields: Name, Url, HashKey
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook, accessToken?: string ): Promise<Required<TWebhook>> {
+    public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook, accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/webhooks/${webhookID}`, { data: webhook, params: { accessToken, impersonating } }  );
@@ -68,7 +69,7 @@ class Webhooks {
     * @param webhook 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>,  accessToken?: string ): Promise<Required<TWebhook>> {
+    public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>,  accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/webhooks/${webhookID}`, { data: webhook, params: { accessToken, impersonating } }  );

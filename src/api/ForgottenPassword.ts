@@ -1,6 +1,7 @@
 import { PasswordResetRequest } from '../models/PasswordResetRequest';
 import { PasswordReset } from '../models/PasswordReset';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 

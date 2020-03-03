@@ -3,6 +3,7 @@ import { Category } from '../models/Category';
 import { CategoryAssignment } from '../models/CategoryAssignment';
 import { CategoryProductAssignment } from '../models/CategoryProductAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -20,7 +21,7 @@ class Categories {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TCategory extends Category>(catalogID: string,  options: { depth?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCategory>>> {
+    public async List<TCategory extends Category>(catalogID: string,  options: { depth?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCategory>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -31,7 +32,7 @@ class Categories {
     * @param category Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TCategory extends Category>(catalogID: string, category: Category, accessToken?: string ): Promise<Required<TCategory>> {
+    public async Create<TCategory extends Category>(catalogID: string, category: Category, accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/catalogs/${catalogID}/categories`, { data: category, params: { accessToken, impersonating } }  );
@@ -42,7 +43,7 @@ class Categories {
     * @param categoryID ID of the category.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TCategory extends Category>(catalogID: string, categoryID: string,  accessToken?: string ): Promise<Required<TCategory>> {
+    public async Get<TCategory extends Category>(catalogID: string, categoryID: string,  accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories/${categoryID}`, { params: { accessToken, impersonating } } );
@@ -54,7 +55,7 @@ class Categories {
     * @param category Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TCategory extends Category>(catalogID: string, categoryID: string, category: Category, accessToken?: string ): Promise<Required<TCategory>> {
+    public async Save<TCategory extends Category>(catalogID: string, categoryID: string, category: Category, accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/catalogs/${catalogID}/categories/${categoryID}`, { data: category, params: { accessToken, impersonating } }  );
@@ -77,7 +78,7 @@ class Categories {
     * @param category 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TCategory extends Category>(catalogID: string, categoryID: string, category: PartialDeep<Category>,  accessToken?: string ): Promise<Required<TCategory>> {
+    public async Patch<TCategory extends Category>(catalogID: string, categoryID: string, category: PartialDeep<Category>,  accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/catalogs/${catalogID}/categories/${categoryID}`, { data: category, params: { accessToken, impersonating } }  );
@@ -120,7 +121,7 @@ class Categories {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TCategoryAssignment extends CategoryAssignment>(catalogID: string,  options: { categoryID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCategoryAssignment>>> {
+    public async ListAssignments<TCategoryAssignment extends CategoryAssignment>(catalogID: string,  options: { categoryID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCategoryAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -145,7 +146,7 @@ class Categories {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListProductAssignments<TCategoryProductAssignment extends CategoryProductAssignment>(catalogID: string,  options: { categoryID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCategoryProductAssignment>>> {
+    public async ListProductAssignments<TCategoryProductAssignment extends CategoryProductAssignment>(catalogID: string,  options: { categoryID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCategoryProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories/productassignments`, { params: { ...options, accessToken, impersonating } } );

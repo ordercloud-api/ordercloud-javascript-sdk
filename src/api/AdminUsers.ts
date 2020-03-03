@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { User } from '../models/User';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class AdminUsers {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TUser extends User>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<Required<ListPage<TUser>>> {
+    public async List<TUser extends User>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/adminusers`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -26,7 +27,7 @@ class AdminUsers {
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TUser extends User>(user: User, accessToken?: string ): Promise<Required<TUser>> {
+    public async Create<TUser extends User>(user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/adminusers`, { data: user, params: { accessToken, impersonating } }  );
@@ -36,7 +37,7 @@ class AdminUsers {
     * @param userID ID of the user.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TUser extends User>(userID: string,  accessToken?: string ): Promise<Required<TUser>> {
+    public async Get<TUser extends User>(userID: string,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/adminusers/${userID}`, { params: { accessToken, impersonating } } );
@@ -47,7 +48,7 @@ class AdminUsers {
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TUser extends User>(userID: string, user: User, accessToken?: string ): Promise<Required<TUser>> {
+    public async Save<TUser extends User>(userID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/adminusers/${userID}`, { data: user, params: { accessToken, impersonating } }  );
@@ -68,7 +69,7 @@ class AdminUsers {
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<Required<TUser>> {
+    public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/adminusers/${userID}`, { data: user, params: { accessToken, impersonating } }  );

@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { Incrementor } from '../models/Incrementor';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class Incrementors {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TIncrementor extends Incrementor>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, accessToken?: string ): Promise<Required<ListPage<TIncrementor>>> {
+    public async List<TIncrementor extends Incrementor>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TIncrementor>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/incrementors`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -26,7 +27,7 @@ class Incrementors {
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor, accessToken?: string ): Promise<Required<TIncrementor>> {
+    public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor, accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/incrementors`, { data: incrementor, params: { accessToken, impersonating } }  );
@@ -36,7 +37,7 @@ class Incrementors {
     * @param incrementorID ID of the incrementor.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TIncrementor extends Incrementor>(incrementorID: string,  accessToken?: string ): Promise<Required<TIncrementor>> {
+    public async Get<TIncrementor extends Incrementor>(incrementorID: string,  accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/incrementors/${incrementorID}`, { params: { accessToken, impersonating } } );
@@ -47,7 +48,7 @@ class Incrementors {
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor, accessToken?: string ): Promise<Required<TIncrementor>> {
+    public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor, accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/incrementors/${incrementorID}`, { data: incrementor, params: { accessToken, impersonating } }  );
@@ -68,7 +69,7 @@ class Incrementors {
     * @param incrementor 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>,  accessToken?: string ): Promise<Required<TIncrementor>> {
+    public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>,  accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/incrementors/${incrementorID}`, { data: incrementor, params: { accessToken, impersonating } }  );

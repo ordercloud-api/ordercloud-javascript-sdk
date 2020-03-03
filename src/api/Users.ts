@@ -3,6 +3,7 @@ import { User } from '../models/User';
 import { ImpersonateTokenRequest } from '../models/ImpersonateTokenRequest';
 import { AccessToken } from '../models/AccessToken';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -20,7 +21,7 @@ class Users {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TUser extends User>(buyerID: string,  options: { userGroupID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<Required<ListPage<TUser>>> {
+    public async List<TUser extends User>(buyerID: string,  options: { userGroupID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/users`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -31,7 +32,7 @@ class Users {
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TUser extends User>(buyerID: string, user: User, accessToken?: string ): Promise<Required<TUser>> {
+    public async Create<TUser extends User>(buyerID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/users`, { data: user, params: { accessToken, impersonating } }  );
@@ -42,7 +43,7 @@ class Users {
     * @param userID ID of the user.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TUser extends User>(buyerID: string, userID: string,  accessToken?: string ): Promise<Required<TUser>> {
+    public async Get<TUser extends User>(buyerID: string, userID: string,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/users/${userID}`, { params: { accessToken, impersonating } } );
@@ -54,7 +55,7 @@ class Users {
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TUser extends User>(buyerID: string, userID: string, user: User, accessToken?: string ): Promise<Required<TUser>> {
+    public async Save<TUser extends User>(buyerID: string, userID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/buyers/${buyerID}/users/${userID}`, { data: user, params: { accessToken, impersonating } }  );
@@ -77,7 +78,7 @@ class Users {
     * @param user 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TUser extends User>(buyerID: string, userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<Required<TUser>> {
+    public async Patch<TUser extends User>(buyerID: string, userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/buyers/${buyerID}/users/${userID}`, { data: user, params: { accessToken, impersonating } }  );
@@ -89,7 +90,7 @@ class Users {
     * @param impersonateTokenRequest Required fields: ClientID, Roles
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async GetAccessToken<TAccessToken extends AccessToken>(buyerID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest, accessToken?: string ): Promise<Required<TAccessToken>> {
+    public async GetAccessToken<TAccessToken extends AccessToken>(buyerID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest, accessToken?: string ): Promise<RequiredDeep<TAccessToken>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/users/${userID}/accesstoken`, { data: impersonateTokenRequest, params: { accessToken, impersonating } }  );
@@ -102,7 +103,7 @@ class Users {
     * @param options.orders Orders of the user. Possible values: None, Unsubmitted, All.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string,  options: { orders?: 'None' | 'Unsubmitted' | 'All' } = {}, accessToken?: string ): Promise<Required<TUser>> {
+    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string,  options: { orders?: 'None' | 'Unsubmitted' | 'All' } = {}, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/users/${userID}/moveto/${newBuyerID}`, { params: { ...options, accessToken, impersonating } } );

@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { Promotion } from '../models/Promotion';
 import { PromotionAssignment } from '../models/PromotionAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -17,7 +18,7 @@ class Promotions {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TPromotion extends Promotion>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, accessToken?: string ): Promise<Required<ListPage<TPromotion>>> {
+    public async List<TPromotion extends Promotion>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/promotions`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -27,7 +28,7 @@ class Promotions {
     * @param promotion Required fields: Code, EligibleExpression, ValueExpression
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TPromotion extends Promotion>(promotion: Promotion, accessToken?: string ): Promise<Required<TPromotion>> {
+    public async Create<TPromotion extends Promotion>(promotion: Promotion, accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/promotions`, { data: promotion, params: { accessToken, impersonating } }  );
@@ -37,7 +38,7 @@ class Promotions {
     * @param promotionID ID of the promotion.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TPromotion extends Promotion>(promotionID: string,  accessToken?: string ): Promise<Required<TPromotion>> {
+    public async Get<TPromotion extends Promotion>(promotionID: string,  accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/promotions/${promotionID}`, { params: { accessToken, impersonating } } );
@@ -48,7 +49,7 @@ class Promotions {
     * @param promotion Required fields: Code, EligibleExpression, ValueExpression
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion, accessToken?: string ): Promise<Required<TPromotion>> {
+    public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion, accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/promotions/${promotionID}`, { data: promotion, params: { accessToken, impersonating } }  );
@@ -69,7 +70,7 @@ class Promotions {
     * @param promotion 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>,  accessToken?: string ): Promise<Required<TPromotion>> {
+    public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>,  accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/promotions/${promotionID}`, { data: promotion, params: { accessToken, impersonating } }  );
@@ -98,7 +99,7 @@ class Promotions {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TPromotionAssignment extends PromotionAssignment>( options: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TPromotionAssignment>>> {
+    public async ListAssignments<TPromotionAssignment extends PromotionAssignment>( options: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/promotions/assignments`, { params: { ...options, accessToken, impersonating } } );

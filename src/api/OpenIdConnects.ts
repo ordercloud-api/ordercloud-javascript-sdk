@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { OpenIdConnect } from '../models/OpenIdConnect';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class OpenIdConnects {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TOpenIdConnect extends OpenIdConnect>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, accessToken?: string ): Promise<Required<ListPage<TOpenIdConnect>>> {
+    public async List<TOpenIdConnect extends OpenIdConnect>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/openidconnects`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -26,7 +27,7 @@ class OpenIdConnects {
     * @param openIdConnect Required fields: OrderCloudApiClientID, ConnectClientID, ConnectClientSecret, AppStartUrl, AuthorizationEndpoint, TokenEndpoint
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect, accessToken?: string ): Promise<Required<TOpenIdConnect>> {
+    public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect, accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/openidconnects`, { data: openIdConnect, params: { accessToken, impersonating } }  );
@@ -36,7 +37,7 @@ class OpenIdConnects {
     * @param openidconnectID ID of the openidconnect.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string,  accessToken?: string ): Promise<Required<TOpenIdConnect>> {
+    public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string,  accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/openidconnects/${openidconnectID}`, { params: { accessToken, impersonating } } );
@@ -47,7 +48,7 @@ class OpenIdConnects {
     * @param openIdConnect Required fields: OrderCloudApiClientID, ConnectClientID, ConnectClientSecret, AppStartUrl, AuthorizationEndpoint, TokenEndpoint
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect, accessToken?: string ): Promise<Required<TOpenIdConnect>> {
+    public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect, accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/openidconnects/${openidconnectID}`, { data: openIdConnect, params: { accessToken, impersonating } }  );
@@ -68,7 +69,7 @@ class OpenIdConnects {
     * @param openIdConnect 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>,  accessToken?: string ): Promise<Required<TOpenIdConnect>> {
+    public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>,  accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/openidconnects/${openidconnectID}`, { data: openIdConnect, params: { accessToken, impersonating } }  );

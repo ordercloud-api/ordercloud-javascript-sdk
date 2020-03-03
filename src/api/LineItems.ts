@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { LineItem } from '../models/LineItem';
 import { Address } from '../models/Address';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -19,7 +20,7 @@ class LineItems {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, accessToken?: string ): Promise<Required<ListPage<TLineItem>>> {
+    public async List<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TLineItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -31,7 +32,7 @@ class LineItems {
     * @param lineItem Required fields: ProductID, Quantity
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItem: LineItem, accessToken?: string ): Promise<Required<TLineItem>> {
+    public async Create<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItem: LineItem, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/orders/${direction}/${orderID}/lineitems`, { data: lineItem, params: { accessToken, impersonating } }  );
@@ -43,7 +44,7 @@ class LineItems {
     * @param lineItemID ID of the line item.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string,  accessToken?: string ): Promise<Required<TLineItem>> {
+    public async Get<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string,  accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { params: { accessToken, impersonating } } );
@@ -56,7 +57,7 @@ class LineItems {
     * @param lineItem Required fields: ProductID, Quantity
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, lineItem: LineItem, accessToken?: string ): Promise<Required<TLineItem>> {
+    public async Save<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, lineItem: LineItem, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { data: lineItem, params: { accessToken, impersonating } }  );
@@ -81,7 +82,7 @@ class LineItems {
     * @param lineItem 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, lineItem: PartialDeep<LineItem>,  accessToken?: string ): Promise<Required<TLineItem>> {
+    public async Patch<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, lineItem: PartialDeep<LineItem>,  accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { data: lineItem, params: { accessToken, impersonating } }  );
@@ -94,7 +95,7 @@ class LineItems {
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async SetShippingAddress<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, address: Address, accessToken?: string ): Promise<Required<TLineItem>> {
+    public async SetShippingAddress<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, { data: address, params: { accessToken, impersonating } }  );
@@ -107,7 +108,7 @@ class LineItems {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async PatchShippingAddress<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, address: Address, accessToken?: string ): Promise<Required<TLineItem>> {
+    public async PatchShippingAddress<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, { data: address, params: { accessToken, impersonating } }  );

@@ -3,6 +3,7 @@ import { Catalog } from '../models/Catalog';
 import { CatalogAssignment } from '../models/CatalogAssignment';
 import { ProductCatalogAssignment } from '../models/ProductCatalogAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class Catalogs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TCatalog extends Catalog>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCatalog>>> {
+    public async List<TCatalog extends Catalog>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCatalog>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -28,7 +29,7 @@ class Catalogs {
     * @param catalog Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TCatalog extends Catalog>(catalog: Catalog, accessToken?: string ): Promise<Required<TCatalog>> {
+    public async Create<TCatalog extends Catalog>(catalog: Catalog, accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/catalogs`, { data: catalog, params: { accessToken, impersonating } }  );
@@ -38,7 +39,7 @@ class Catalogs {
     * @param catalogID ID of the catalog.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TCatalog extends Catalog>(catalogID: string,  accessToken?: string ): Promise<Required<TCatalog>> {
+    public async Get<TCatalog extends Catalog>(catalogID: string,  accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}`, { params: { accessToken, impersonating } } );
@@ -49,7 +50,7 @@ class Catalogs {
     * @param catalog Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog, accessToken?: string ): Promise<Required<TCatalog>> {
+    public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog, accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/catalogs/${catalogID}`, { data: catalog, params: { accessToken, impersonating } }  );
@@ -70,7 +71,7 @@ class Catalogs {
     * @param catalog 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>,  accessToken?: string ): Promise<Required<TCatalog>> {
+    public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>,  accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/catalogs/${catalogID}`, { data: catalog, params: { accessToken, impersonating } }  );
@@ -105,7 +106,7 @@ class Catalogs {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>( options: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCatalogAssignment>>> {
+    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>( options: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -128,7 +129,7 @@ class Catalogs {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>( options: { catalogID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TProductCatalogAssignment>>> {
+    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>( options: { catalogID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/productassignments`, { params: { ...options, accessToken, impersonating } } );

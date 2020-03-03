@@ -3,6 +3,7 @@ import { MessageSender } from '../models/MessageSender';
 import { MessageSenderAssignment } from '../models/MessageSenderAssignment';
 import { MessageCCListenerAssignment } from '../models/MessageCCListenerAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class MessageSenders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TMessageSender extends MessageSender>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, accessToken?: string ): Promise<Required<ListPage<TMessageSender>>> {
+    public async List<TMessageSender extends MessageSender>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -28,7 +29,7 @@ class MessageSenders {
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender, accessToken?: string ): Promise<Required<TMessageSender>> {
+    public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender, accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/messagesenders`, { data: messageSender, params: { accessToken, impersonating } }  );
@@ -38,7 +39,7 @@ class MessageSenders {
     * @param messageSenderID ID of the message sender.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TMessageSender extends MessageSender>(messageSenderID: string,  accessToken?: string ): Promise<Required<TMessageSender>> {
+    public async Get<TMessageSender extends MessageSender>(messageSenderID: string,  accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders/${messageSenderID}`, { params: { accessToken, impersonating } } );
@@ -49,7 +50,7 @@ class MessageSenders {
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender, accessToken?: string ): Promise<Required<TMessageSender>> {
+    public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender, accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/messagesenders/${messageSenderID}`, { data: messageSender, params: { accessToken, impersonating } }  );
@@ -70,7 +71,7 @@ class MessageSenders {
     * @param messageSender 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>,  accessToken?: string ): Promise<Required<TMessageSender>> {
+    public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>,  accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/messagesenders/${messageSenderID}`, { data: messageSender, params: { accessToken, impersonating } }  );
@@ -101,7 +102,7 @@ class MessageSenders {
     * @param options.supplierID ID of the supplier.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( options: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number, supplierID?: string } = {}, accessToken?: string ): Promise<Required<ListPage<TMessageSenderAssignment>>> {
+    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( options: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number, supplierID?: string } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders/assignments`, { params: { ...options, accessToken, impersonating } } );
@@ -126,7 +127,7 @@ class MessageSenders {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TMessageCCListenerAssignment>>> {
+    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders/CCListenerAssignments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );

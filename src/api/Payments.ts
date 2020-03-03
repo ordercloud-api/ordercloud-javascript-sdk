@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { Payment } from '../models/Payment';
 import { PaymentTransaction } from '../models/PaymentTransaction';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -19,7 +20,7 @@ class Payments {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TPayment>>> {
+    public async List<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPayment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/payments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -31,7 +32,7 @@ class Payments {
     * @param payment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, payment: Payment, accessToken?: string ): Promise<Required<TPayment>> {
+    public async Create<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, payment: Payment, accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/orders/${direction}/${orderID}/payments`, { data: payment, params: { accessToken, impersonating } }  );
@@ -43,7 +44,7 @@ class Payments {
     * @param paymentID ID of the payment.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string,  accessToken?: string ): Promise<Required<TPayment>> {
+    public async Get<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string,  accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { params: { accessToken, impersonating } } );
@@ -68,7 +69,7 @@ class Payments {
     * @param payment 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, payment: PartialDeep<Payment>,  accessToken?: string ): Promise<Required<TPayment>> {
+    public async Patch<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, payment: PartialDeep<Payment>,  accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, { data: payment, params: { accessToken, impersonating } }  );
@@ -81,7 +82,7 @@ class Payments {
     * @param paymentTransaction Required fields: Type, DateExecuted
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async CreateTransaction<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, paymentTransaction: PaymentTransaction, accessToken?: string ): Promise<Required<TPayment>> {
+    public async CreateTransaction<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, paymentTransaction: PaymentTransaction, accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, { data: paymentTransaction, params: { accessToken, impersonating } }  );

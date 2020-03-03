@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { PriceSchedule } from '../models/PriceSchedule';
 import { PriceBreak } from '../models/PriceBreak';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -17,7 +18,7 @@ class PriceSchedules {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TPriceSchedule extends PriceSchedule>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, accessToken?: string ): Promise<Required<ListPage<TPriceSchedule>>> {
+    public async List<TPriceSchedule extends PriceSchedule>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/priceschedules`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -27,7 +28,7 @@ class PriceSchedules {
     * @param priceSchedule Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule, accessToken?: string ): Promise<Required<TPriceSchedule>> {
+    public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule, accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/priceschedules`, { data: priceSchedule, params: { accessToken, impersonating } }  );
@@ -37,7 +38,7 @@ class PriceSchedules {
     * @param priceScheduleID ID of the price schedule.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string,  accessToken?: string ): Promise<Required<TPriceSchedule>> {
+    public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string,  accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/priceschedules/${priceScheduleID}`, { params: { accessToken, impersonating } } );
@@ -48,7 +49,7 @@ class PriceSchedules {
     * @param priceSchedule Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule, accessToken?: string ): Promise<Required<TPriceSchedule>> {
+    public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule, accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/priceschedules/${priceScheduleID}`, { data: priceSchedule, params: { accessToken, impersonating } }  );
@@ -69,7 +70,7 @@ class PriceSchedules {
     * @param priceSchedule 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>,  accessToken?: string ): Promise<Required<TPriceSchedule>> {
+    public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>,  accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/priceschedules/${priceScheduleID}`, { data: priceSchedule, params: { accessToken, impersonating } }  );
@@ -80,7 +81,7 @@ class PriceSchedules {
     * @param priceBreak Required fields: Quantity, Price
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak, accessToken?: string ): Promise<Required<TPriceSchedule>> {
+    public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak, accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, { data: priceBreak, params: { accessToken, impersonating } }  );

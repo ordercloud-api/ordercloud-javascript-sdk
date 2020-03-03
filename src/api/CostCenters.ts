@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { CostCenter } from '../models/CostCenter';
 import { CostCenterAssignment } from '../models/CostCenterAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class CostCenters {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TCostCenter extends CostCenter>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, accessToken?: string ): Promise<Required<ListPage<TCostCenter>>> {
+    public async List<TCostCenter extends CostCenter>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCostCenter>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/costcenters`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -29,7 +30,7 @@ class CostCenters {
     * @param costCenter Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter, accessToken?: string ): Promise<Required<TCostCenter>> {
+    public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter, accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/costcenters`, { data: costCenter, params: { accessToken, impersonating } }  );
@@ -40,7 +41,7 @@ class CostCenters {
     * @param costCenterID ID of the cost center.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string,  accessToken?: string ): Promise<Required<TCostCenter>> {
+    public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string,  accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/costcenters/${costCenterID}`, { params: { accessToken, impersonating } } );
@@ -52,7 +53,7 @@ class CostCenters {
     * @param costCenter Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter, accessToken?: string ): Promise<Required<TCostCenter>> {
+    public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter, accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/buyers/${buyerID}/costcenters/${costCenterID}`, { data: costCenter, params: { accessToken, impersonating } }  );
@@ -75,7 +76,7 @@ class CostCenters {
     * @param costCenter 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>,  accessToken?: string ): Promise<Required<TCostCenter>> {
+    public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>,  accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/buyers/${buyerID}/costcenters/${costCenterID}`, { data: costCenter, params: { accessToken, impersonating } }  );
@@ -104,7 +105,7 @@ class CostCenters {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string,  options: { costCenterID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TCostCenterAssignment>>> {
+    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string,  options: { costCenterID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/costcenters/assignments`, { params: { ...options, accessToken, impersonating } } );

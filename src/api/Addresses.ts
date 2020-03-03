@@ -2,6 +2,7 @@ import { ListPage } from '../models/ListPage';
 import { Address } from '../models/Address';
 import { AddressAssignment } from '../models/AddressAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class Addresses {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TAddress extends Address>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, accessToken?: string ): Promise<Required<ListPage<TAddress>>> {
+    public async List<TAddress extends Address>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/addresses`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -29,7 +30,7 @@ class Addresses {
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TAddress extends Address>(buyerID: string, address: Address, accessToken?: string ): Promise<Required<TAddress>> {
+    public async Create<TAddress extends Address>(buyerID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/buyers/${buyerID}/addresses`, { data: address, params: { accessToken, impersonating } }  );
@@ -40,7 +41,7 @@ class Addresses {
     * @param addressID ID of the address.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TAddress extends Address>(buyerID: string, addressID: string,  accessToken?: string ): Promise<Required<TAddress>> {
+    public async Get<TAddress extends Address>(buyerID: string, addressID: string,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/addresses/${addressID}`, { params: { accessToken, impersonating } } );
@@ -52,7 +53,7 @@ class Addresses {
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TAddress extends Address>(buyerID: string, addressID: string, address: Address, accessToken?: string ): Promise<Required<TAddress>> {
+    public async Save<TAddress extends Address>(buyerID: string, addressID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/buyers/${buyerID}/addresses/${addressID}`, { data: address, params: { accessToken, impersonating } }  );
@@ -75,7 +76,7 @@ class Addresses {
     * @param address 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TAddress extends Address>(buyerID: string, addressID: string, address: PartialDeep<Address>,  accessToken?: string ): Promise<Required<TAddress>> {
+    public async Patch<TAddress extends Address>(buyerID: string, addressID: string, address: PartialDeep<Address>,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/buyers/${buyerID}/addresses/${addressID}`, { data: address, params: { accessToken, impersonating } }  );
@@ -106,7 +107,7 @@ class Addresses {
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListAssignments<TAddressAssignment extends AddressAssignment>(buyerID: string,  options: { addressID?: string, userID?: string, userGroupID?: string, level?: string, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<Required<ListPage<TAddressAssignment>>> {
+    public async ListAssignments<TAddressAssignment extends AddressAssignment>(buyerID: string,  options: { addressID?: string, userID?: string, userGroupID?: string, level?: string, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TAddressAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/addresses/assignments`, { params: { ...options, accessToken, impersonating } } );

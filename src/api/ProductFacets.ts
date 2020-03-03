@@ -1,6 +1,7 @@
 import { ListPage } from '../models/ListPage';
 import { ProductFacet } from '../models/ProductFacet';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -16,7 +17,7 @@ class ProductFacets {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, accessToken?: string ): Promise<Required<ListPage<TProductFacet>>> {
+    public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TProductFacet>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/productfacets`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -26,7 +27,7 @@ class ProductFacets {
     * @param productFacet Required fields: Name, MinCount
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, accessToken?: string ): Promise<Required<TProductFacet>> {
+    public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/productfacets`, { data: productFacet, params: { accessToken, impersonating } }  );
@@ -36,7 +37,7 @@ class ProductFacets {
     * @param productFacetID ID of the product facet.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  accessToken?: string ): Promise<Required<TProductFacet>> {
+    public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/productfacets/${productFacetID}`, { params: { accessToken, impersonating } } );
@@ -47,7 +48,7 @@ class ProductFacets {
     * @param productFacet Required fields: Name, MinCount
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, accessToken?: string ): Promise<Required<TProductFacet>> {
+    public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/productfacets/${productFacetID}`, { data: productFacet, params: { accessToken, impersonating } }  );
@@ -68,7 +69,7 @@ class ProductFacets {
     * @param productFacet 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  accessToken?: string ): Promise<Required<TProductFacet>> {
+    public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/productfacets/${productFacetID}`, { data: productFacet, params: { accessToken, impersonating } }  );

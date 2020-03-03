@@ -3,6 +3,7 @@ import { Spec } from '../models/Spec';
 import { SpecOption } from '../models/SpecOption';
 import { SpecProductAssignment } from '../models/SpecProductAssignment';
 import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
 
@@ -18,7 +19,7 @@ class Specs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async List<TSpec extends Spec>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpec>>> {
+    public async List<TSpec extends Spec>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -28,7 +29,7 @@ class Specs {
     * @param spec Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Create<TSpec extends Spec>(spec: Spec, accessToken?: string ): Promise<Required<TSpec>> {
+    public async Create<TSpec extends Spec>(spec: Spec, accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/specs`, { data: spec, params: { accessToken, impersonating } }  );
@@ -38,7 +39,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Get<TSpec extends Spec>(specID: string,  accessToken?: string ): Promise<Required<TSpec>> {
+    public async Get<TSpec extends Spec>(specID: string,  accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/${specID}`, { params: { accessToken, impersonating } } );
@@ -49,7 +50,7 @@ class Specs {
     * @param spec Required fields: Name
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Save<TSpec extends Spec>(specID: string, spec: Spec, accessToken?: string ): Promise<Required<TSpec>> {
+    public async Save<TSpec extends Spec>(specID: string, spec: Spec, accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/specs/${specID}`, { data: spec, params: { accessToken, impersonating } }  );
@@ -70,7 +71,7 @@ class Specs {
     * @param spec 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>,  accessToken?: string ): Promise<Required<TSpec>> {
+    public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>,  accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/specs/${specID}`, { data: spec, params: { accessToken, impersonating } }  );
@@ -86,7 +87,7 @@ class Specs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpecOption>>> {
+    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpecOption>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/${specID}/options`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
@@ -97,7 +98,7 @@ class Specs {
     * @param specOption Required fields: Value
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption, accessToken?: string ): Promise<Required<TSpecOption>> {
+    public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption, accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/specs/${specID}/options`, { data: specOption, params: { accessToken, impersonating } }  );
@@ -108,7 +109,7 @@ class Specs {
     * @param optionID ID of the option.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string,  accessToken?: string ): Promise<Required<TSpecOption>> {
+    public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string,  accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/${specID}/options/${optionID}`, { params: { accessToken, impersonating } } );
@@ -120,7 +121,7 @@ class Specs {
     * @param specOption Required fields: Value
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, accessToken?: string ): Promise<Required<TSpecOption>> {
+    public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.put(`/specs/${specID}/options/${optionID}`, { data: specOption, params: { accessToken, impersonating } }  );
@@ -143,7 +144,7 @@ class Specs {
     * @param specOption 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, accessToken?: string ): Promise<Required<TSpecOption>> {
+    public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/specs/${specID}/options/${optionID}`, { data: specOption, params: { accessToken, impersonating } }  );
@@ -169,7 +170,7 @@ class Specs {
     * @param options.filters An object whose keys match the model, and the values are the values to filter by
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */
-    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, accessToken?: string ): Promise<Required<ListPage<TSpecProductAssignment>>> {
+    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/productassignments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
