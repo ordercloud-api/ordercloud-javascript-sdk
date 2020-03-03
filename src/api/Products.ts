@@ -13,6 +13,31 @@ import httpClient from '../utils/HttpClient';
 class Products {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Create = this.Create.bind(this);
+        this.Get = this.Get.bind(this);
+        this.Save = this.Save.bind(this);
+        this.Delete = this.Delete.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.DeleteAssignment = this.DeleteAssignment.bind(this);
+        this.ListSpecs = this.ListSpecs.bind(this);
+        this.ListSuppliers = this.ListSuppliers.bind(this);
+        this.SaveSupplier = this.SaveSupplier.bind(this);
+        this.RemoveSupplier = this.RemoveSupplier.bind(this);
+        this.ListVariants = this.ListVariants.bind(this);
+        this.GetVariant = this.GetVariant.bind(this);
+        this.SaveVariant = this.SaveVariant.bind(this);
+        this.PatchVariant = this.PatchVariant.bind(this);
+        this.GenerateVariants = this.GenerateVariants.bind(this);
+        this.ListAssignments = this.ListAssignments.bind(this);
+        this.SaveAssignment = this.SaveAssignment.bind(this);
+    }
+
    /**
     * @param options.catalogID ID of the catalog.
     * @param options.categoryID ID of the category.

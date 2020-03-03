@@ -9,6 +9,16 @@ import httpClient from '../utils/HttpClient';
 class {{resource.id}} {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        {{#resource.operations}}
+        this.{{name}} = this.{{name}}.bind(this);
+        {{/resource.operations}}
+    }
+
     {{#resource.operations}}
    /**{{#allParams}}
     * @param {{#if isQueryParam}}options.{{name}} {{description}}{{else}}{{name}} {{description}}{{#if isBodyParam}}{{#if hasRequiredFields}}Required fields: {{commaSeparate requiredFields}}{{/if}}{{/if}}{{/if}}{{/allParams}}

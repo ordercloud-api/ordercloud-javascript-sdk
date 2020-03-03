@@ -10,6 +10,28 @@ import httpClient from '../utils/HttpClient';
 class Specs {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Create = this.Create.bind(this);
+        this.Get = this.Get.bind(this);
+        this.Save = this.Save.bind(this);
+        this.Delete = this.Delete.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.ListOptions = this.ListOptions.bind(this);
+        this.CreateOption = this.CreateOption.bind(this);
+        this.GetOption = this.GetOption.bind(this);
+        this.SaveOption = this.SaveOption.bind(this);
+        this.DeleteOption = this.DeleteOption.bind(this);
+        this.PatchOption = this.PatchOption.bind(this);
+        this.DeleteProductAssignment = this.DeleteProductAssignment.bind(this);
+        this.ListProductAssignments = this.ListProductAssignments.bind(this);
+        this.SaveProductAssignment = this.SaveProductAssignment.bind(this);
+    }
+
    /**
     * @param options.search Word or phrase to search for.
     * @param options.searchOn Comma-delimited list of fields to search on.

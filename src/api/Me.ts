@@ -24,6 +24,50 @@ import httpClient from '../utils/HttpClient';
 class Me {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.Get = this.Get.bind(this);
+        this.Save = this.Save.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.ListAddresses = this.ListAddresses.bind(this);
+        this.CreateAddress = this.CreateAddress.bind(this);
+        this.GetAddress = this.GetAddress.bind(this);
+        this.SaveAddress = this.SaveAddress.bind(this);
+        this.DeleteAddress = this.DeleteAddress.bind(this);
+        this.PatchAddress = this.PatchAddress.bind(this);
+        this.ListCatalogs = this.ListCatalogs.bind(this);
+        this.GetCatalog = this.GetCatalog.bind(this);
+        this.ListCategories = this.ListCategories.bind(this);
+        this.GetCategory = this.GetCategory.bind(this);
+        this.ListCostCenters = this.ListCostCenters.bind(this);
+        this.ListCreditCards = this.ListCreditCards.bind(this);
+        this.CreateCreditCard = this.CreateCreditCard.bind(this);
+        this.GetCreditCard = this.GetCreditCard.bind(this);
+        this.SaveCreditCard = this.SaveCreditCard.bind(this);
+        this.DeleteCreditCard = this.DeleteCreditCard.bind(this);
+        this.PatchCreditCard = this.PatchCreditCard.bind(this);
+        this.ListOrders = this.ListOrders.bind(this);
+        this.TransferAnonUserOrder = this.TransferAnonUserOrder.bind(this);
+        this.ListApprovableOrders = this.ListApprovableOrders.bind(this);
+        this.ResetPasswordByToken = this.ResetPasswordByToken.bind(this);
+        this.ListProducts = this.ListProducts.bind(this);
+        this.GetProduct = this.GetProduct.bind(this);
+        this.ListSpecs = this.ListSpecs.bind(this);
+        this.GetSpec = this.GetSpec.bind(this);
+        this.ListPromotions = this.ListPromotions.bind(this);
+        this.GetPromotion = this.GetPromotion.bind(this);
+        this.Register = this.Register.bind(this);
+        this.ListShipments = this.ListShipments.bind(this);
+        this.GetShipment = this.GetShipment.bind(this);
+        this.ListShipmentItems = this.ListShipmentItems.bind(this);
+        this.ListSpendingAccounts = this.ListSpendingAccounts.bind(this);
+        this.GetSpendingAccount = this.GetSpendingAccount.bind(this);
+        this.ListUserGroups = this.ListUserGroups.bind(this);
+    }
+
    /**
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     */

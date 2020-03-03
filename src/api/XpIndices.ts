@@ -8,6 +8,16 @@ import httpClient from '../utils/HttpClient';
 class XpIndices {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Put = this.Put.bind(this);
+        this.Delete = this.Delete.bind(this);
+    }
+
    /**
     * @param options.search Word or phrase to search for.
     * @param options.searchOn Comma-delimited list of fields to search on.

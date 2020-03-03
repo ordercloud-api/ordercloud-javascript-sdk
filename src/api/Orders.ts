@@ -15,6 +15,38 @@ import httpClient from '../utils/HttpClient';
 class Orders {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Create = this.Create.bind(this);
+        this.Get = this.Get.bind(this);
+        this.Save = this.Save.bind(this);
+        this.Delete = this.Delete.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.ListApprovals = this.ListApprovals.bind(this);
+        this.Approve = this.Approve.bind(this);
+        this.SetBillingAddress = this.SetBillingAddress.bind(this);
+        this.PatchBillingAddress = this.PatchBillingAddress.bind(this);
+        this.Cancel = this.Cancel.bind(this);
+        this.Complete = this.Complete.bind(this);
+        this.Decline = this.Decline.bind(this);
+        this.ListEligibleApprovers = this.ListEligibleApprovers.bind(this);
+        this.Forward = this.Forward.bind(this);
+        this.PatchFromUser = this.PatchFromUser.bind(this);
+        this.ListPromotions = this.ListPromotions.bind(this);
+        this.AddPromotion = this.AddPromotion.bind(this);
+        this.RemovePromotion = this.RemovePromotion.bind(this);
+        this.Ship = this.Ship.bind(this);
+        this.SetShippingAddress = this.SetShippingAddress.bind(this);
+        this.PatchShippingAddress = this.PatchShippingAddress.bind(this);
+        this.Split = this.Split.bind(this);
+        this.Submit = this.Submit.bind(this);
+        this.Validate = this.Validate.bind(this);
+    }
+
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param options.buyerID ID of the buyer.

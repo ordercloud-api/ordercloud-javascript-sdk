@@ -9,6 +9,20 @@ import httpClient from '../utils/HttpClient';
 class Payments {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Create = this.Create.bind(this);
+        this.Get = this.Get.bind(this);
+        this.Delete = this.Delete.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.CreateTransaction = this.CreateTransaction.bind(this);
+        this.DeleteTransaction = this.DeleteTransaction.bind(this);
+    }
+
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.

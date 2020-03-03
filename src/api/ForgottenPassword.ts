@@ -8,6 +8,15 @@ import httpClient from '../utils/HttpClient';
 class ForgottenPassword {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.SendVerificationCode = this.SendVerificationCode.bind(this);
+        this.ResetPasswordByVerificationCode = this.ResetPasswordByVerificationCode.bind(this);
+    }
+
    /**
     * @param passwordResetRequest Required fields: ClientID
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

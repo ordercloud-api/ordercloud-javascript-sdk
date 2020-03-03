@@ -10,6 +10,25 @@ import httpClient from '../utils/HttpClient';
 class Categories {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Create = this.Create.bind(this);
+        this.Get = this.Get.bind(this);
+        this.Save = this.Save.bind(this);
+        this.Delete = this.Delete.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.DeleteAssignment = this.DeleteAssignment.bind(this);
+        this.DeleteProductAssignment = this.DeleteProductAssignment.bind(this);
+        this.ListAssignments = this.ListAssignments.bind(this);
+        this.SaveAssignment = this.SaveAssignment.bind(this);
+        this.ListProductAssignments = this.ListProductAssignments.bind(this);
+        this.SaveProductAssignment = this.SaveProductAssignment.bind(this);
+    }
+
    /**
     * @param catalogID ID of the catalog.
     * @param options.depth Depth of the category.

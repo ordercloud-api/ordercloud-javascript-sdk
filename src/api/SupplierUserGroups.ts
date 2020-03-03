@@ -9,6 +9,22 @@ import httpClient from '../utils/HttpClient';
 class SupplierUserGroups {
     private impersonating:boolean = false;
 
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Create = this.Create.bind(this);
+        this.Get = this.Get.bind(this);
+        this.Save = this.Save.bind(this);
+        this.Delete = this.Delete.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.DeleteUserAssignment = this.DeleteUserAssignment.bind(this);
+        this.ListUserAssignments = this.ListUserAssignments.bind(this);
+        this.SaveUserAssignment = this.SaveUserAssignment.bind(this);
+    }
+
    /**
     * @param supplierID ID of the supplier.
     * @param options.search Word or phrase to search for.
