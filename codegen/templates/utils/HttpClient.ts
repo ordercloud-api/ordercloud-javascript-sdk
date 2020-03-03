@@ -23,6 +23,17 @@ class HttpClient {
     } else {
       this._session = axios.create({ paramsSerializer })
     }
+
+    this.get = this.get.bind(this)
+    this.put = this.put.bind(this)
+    this.post = this.post.bind(this)
+    this.patch = this.patch.bind(this)
+    this.delete = this.delete.bind(this)
+    this._buildRequestConfig = this._buildRequestConfig.bind(this)
+    this._getToken = this._getToken.bind(this)
+    this._isTokenExpired = this._isTokenExpired.bind(this)
+    this._tokenInterceptor = this._tokenInterceptor.bind(this)
+    this._tryRefreshToken = this._tryRefreshToken.bind(this)
   }
 
   public get = async (

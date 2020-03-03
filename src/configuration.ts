@@ -13,6 +13,15 @@ class Configuration {
     },
   }
 
+  /**
+   * @ignore
+   * not part of public api, don't include in generated docs
+   */
+  constructor() {
+    this.Set = this.Set.bind(this)
+    this.Get = this.Get.bind(this)
+  }
+
   Set(config: SdkConfiguration): void {
     this.config = { ...this.config, ...config }
   }

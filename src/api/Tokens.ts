@@ -14,6 +14,22 @@ class Tokens {
   private refreshToken?: string = null
 
   /**
+   * @ignore
+   * not part of public api, don't include in generated docs
+   */
+  constructor() {
+    this.GetAccessToken = this.GetAccessToken.bind(this)
+    this.GetImpersonationToken = this.GetImpersonationToken.bind(this)
+    this.GetRefreshToken = this.GetRefreshToken.bind(this)
+    this.RemoveAccessToken = this.RemoveAccessToken.bind(this)
+    this.RemoveImpersonationToken = this.RemoveImpersonationToken.bind(this)
+    this.SetAccessToken = this.SetAccessToken.bind(this)
+    this.RemoveRefreshToken = this.RemoveRefreshToken.bind(this)
+    this.SetImpersonationToken = this.SetImpersonationToken.bind(this)
+    this.SetRefreshToken = this.SetRefreshToken.bind(this)
+  }
+
+  /**
    * Manage Access Tokens
    */
 

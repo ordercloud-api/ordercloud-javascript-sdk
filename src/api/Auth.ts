@@ -17,6 +17,16 @@ class Auth {
     } else {
       this._http = axios.create()
     }
+
+    /**
+     * @ignore
+     * not part of public api, don't include in generated docs
+     */
+    this.Anonymous = this.Anonymous.bind(this)
+    this.ClientCredentials = this.ClientCredentials.bind(this)
+    this.ElevatedLogin = this.ElevatedLogin.bind(this)
+    this.Login = this.Login.bind(this)
+    this.RefreshToken = this.RefreshToken.bind(this)
   }
 
   /**

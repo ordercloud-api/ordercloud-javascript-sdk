@@ -5,6 +5,13 @@ import Configuration from '../Configuration'
  * not part of public api, don't include in generated docs
  */
 class CookieService {
+  constructor() {
+    this.get = this.get.bind(this)
+    this.set = this.set.bind(this)
+    this.buildCookieString = this.buildCookieString.bind(this)
+    this.remove = this.remove.bind(this)
+  }
+
   public get(cookieName: string): string {
     const rows = document.cookie.split(';')
     for (const row of rows) {
