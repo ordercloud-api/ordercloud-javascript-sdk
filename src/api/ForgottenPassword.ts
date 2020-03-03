@@ -24,7 +24,7 @@ class ForgottenPassword {
     public async SendVerificationCode(passwordResetRequest: PasswordResetRequest, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/password/reset`, { data: passwordResetRequest, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/password/reset`, passwordResetRequest, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -35,7 +35,7 @@ class ForgottenPassword {
     public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/password/reset/${verificationCode}`, { data: passwordReset, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/password/reset/${verificationCode}`, passwordReset, { params: {  accessToken, impersonating } } );
     }
 
     /**

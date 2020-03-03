@@ -44,7 +44,7 @@ class Specs {
     public async List<TSpec extends Spec>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/specs`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -54,7 +54,7 @@ class Specs {
     public async Create<TSpec extends Spec>(spec: Spec, accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/specs`, { data: spec, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/specs`, spec, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -64,7 +64,7 @@ class Specs {
     public async Get<TSpec extends Spec>(specID: string,  accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/${specID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/specs/${specID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -75,7 +75,7 @@ class Specs {
     public async Save<TSpec extends Spec>(specID: string, spec: Spec, accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/specs/${specID}`, { data: spec, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/specs/${specID}`, spec, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -85,7 +85,7 @@ class Specs {
     public async Delete(specID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/specs/${specID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/specs/${specID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -96,7 +96,7 @@ class Specs {
     public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>,  accessToken?: string ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/specs/${specID}`, { data: spec, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/specs/${specID}`, spec, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -112,7 +112,7 @@ class Specs {
     public async ListOptions<TSpecOption extends SpecOption>(specID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpecOption>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/${specID}/options`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/specs/${specID}/options`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -123,7 +123,7 @@ class Specs {
     public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption, accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/specs/${specID}/options`, { data: specOption, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/specs/${specID}/options`, specOption, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -134,7 +134,7 @@ class Specs {
     public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string,  accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/${specID}/options/${optionID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/specs/${specID}/options/${optionID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -146,7 +146,7 @@ class Specs {
     public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/specs/${specID}/options/${optionID}`, { data: specOption, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/specs/${specID}/options/${optionID}`, specOption, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -157,7 +157,7 @@ class Specs {
     public async DeleteOption(specID: string, optionID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/specs/${specID}/options/${optionID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/specs/${specID}/options/${optionID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -169,7 +169,7 @@ class Specs {
     public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, accessToken?: string ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/specs/${specID}/options/${optionID}`, { data: specOption, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/specs/${specID}/options/${optionID}`, specOption, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -180,7 +180,7 @@ class Specs {
     public async DeleteProductAssignment(specID: string, productID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/specs/${specID}/productassignments/${productID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/specs/${specID}/productassignments/${productID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -195,7 +195,7 @@ class Specs {
     public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/productassignments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/specs/productassignments`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -205,7 +205,7 @@ class Specs {
     public async SaveProductAssignment(specProductAssignment: SpecProductAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/specs/productassignments`, { data: specProductAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/specs/productassignments`, specProductAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**

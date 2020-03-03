@@ -38,7 +38,7 @@ class ApiClients {
     public async List<TApiClient extends ApiClient>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TApiClient>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/apiclients`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -48,7 +48,7 @@ class ApiClients {
     public async Create<TApiClient extends ApiClient>(apiClient: ApiClient, accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/apiclients`, { data: apiClient, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/apiclients`, apiClient, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -58,7 +58,7 @@ class ApiClients {
     public async Get<TApiClient extends ApiClient>(apiClientID: string,  accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients/${apiClientID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/apiclients/${apiClientID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -69,7 +69,7 @@ class ApiClients {
     public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient, accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/apiclients/${apiClientID}`, { data: apiClient, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/apiclients/${apiClientID}`, apiClient, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -79,7 +79,7 @@ class ApiClients {
     public async Delete(apiClientID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/apiclients/${apiClientID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/apiclients/${apiClientID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -90,7 +90,7 @@ class ApiClients {
     public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>,  accessToken?: string ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/apiclients/${apiClientID}`, { data: apiClient, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/apiclients/${apiClientID}`, apiClient, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -104,7 +104,7 @@ class ApiClients {
     public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( options: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/apiclients/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -114,7 +114,7 @@ class ApiClients {
     public async SaveAssignment(apiClientAssignment: ApiClientAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/apiclients/assignments`, { data: apiClientAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/apiclients/assignments`, apiClientAssignment, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -125,7 +125,7 @@ class ApiClients {
     public async DeleteBuyerAssignment(apiClientID: string, buyerID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/ApiClients/Assignments/${apiClientID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/ApiClients/Assignments/${apiClientID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -136,7 +136,7 @@ class ApiClients {
     public async DeleteSupplierAssignment(apiClientID: string, supplierID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/ApiClients/Assignments/${apiClientID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/suppliers/${supplierID}/ApiClients/Assignments/${apiClientID}`, { params: {  accessToken, impersonating } } );
     }
 
     /**

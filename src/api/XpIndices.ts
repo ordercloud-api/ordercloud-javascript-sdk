@@ -30,7 +30,7 @@ class XpIndices {
     public async List<TXpIndex extends XpIndex>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/xpindices`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/xpindices`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -40,7 +40,7 @@ class XpIndices {
     public async Put(xpIndex: XpIndex, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/xpindices`, { data: xpIndex, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/xpindices`, xpIndex, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -51,7 +51,7 @@ class XpIndices {
     public async Delete(thingType: 'Product' | 'Variant' | 'Order' | 'LineItem' | 'Address' | 'CostCenter' | 'CreditCard' | 'Payment' | 'Spec' | 'SpecOption' | 'UserGroup' | 'Company' | 'Category' | 'PriceSchedule' | 'Shipment' | 'SpendingAccount' | 'User' | 'Promotion' | 'ApprovalRule' | 'Catalog' | 'ProductFacet' | 'MessageSender', key: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/xpindices/${thingType}/${key}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/xpindices/${thingType}/${key}`, { params: {  accessToken, impersonating } } );
     }
 
     /**

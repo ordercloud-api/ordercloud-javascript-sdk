@@ -33,7 +33,7 @@ class ProductFacets {
     public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TProductFacet>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/productfacets`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -43,7 +43,7 @@ class ProductFacets {
     public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/productfacets`, { data: productFacet, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/productfacets`, productFacet, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -53,7 +53,7 @@ class ProductFacets {
     public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets/${productFacetID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -64,7 +64,7 @@ class ProductFacets {
     public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/productfacets/${productFacetID}`, { data: productFacet, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -74,7 +74,7 @@ class ProductFacets {
     public async Delete(productFacetID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/productfacets/${productFacetID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -85,7 +85,7 @@ class ProductFacets {
     public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/productfacets/${productFacetID}`, { data: productFacet, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } );
     }
 
     /**

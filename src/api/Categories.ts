@@ -43,7 +43,7 @@ class Categories {
     public async List<TCategory extends Category>(catalogID: string,  options: { depth?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCategory>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs/${catalogID}/categories`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs/${catalogID}/categories`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -54,7 +54,7 @@ class Categories {
     public async Create<TCategory extends Category>(catalogID: string, category: Category, accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/catalogs/${catalogID}/categories`, { data: category, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/catalogs/${catalogID}/categories`, category, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -65,7 +65,7 @@ class Categories {
     public async Get<TCategory extends Category>(catalogID: string, categoryID: string,  accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs/${catalogID}/categories/${categoryID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs/${catalogID}/categories/${categoryID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -77,7 +77,7 @@ class Categories {
     public async Save<TCategory extends Category>(catalogID: string, categoryID: string, category: Category, accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/catalogs/${catalogID}/categories/${categoryID}`, { data: category, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/catalogs/${catalogID}/categories/${categoryID}`, category, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -88,7 +88,7 @@ class Categories {
     public async Delete(catalogID: string, categoryID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/catalogs/${catalogID}/categories/${categoryID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/catalogs/${catalogID}/categories/${categoryID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -100,7 +100,7 @@ class Categories {
     public async Patch<TCategory extends Category>(catalogID: string, categoryID: string, category: PartialDeep<Category>,  accessToken?: string ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/catalogs/${catalogID}/categories/${categoryID}`, { data: category, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/catalogs/${catalogID}/categories/${categoryID}`, category, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -114,7 +114,7 @@ class Categories {
     public async DeleteAssignment(catalogID: string, categoryID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/catalogs/${catalogID}/categories/${categoryID}/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.delete(`/catalogs/${catalogID}/categories/${categoryID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -126,7 +126,7 @@ class Categories {
     public async DeleteProductAssignment(catalogID: string, categoryID: string, productID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/catalogs/${catalogID}/categories/${categoryID}/productassignments/${productID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/catalogs/${catalogID}/categories/${categoryID}/productassignments/${productID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -143,7 +143,7 @@ class Categories {
     public async ListAssignments<TCategoryAssignment extends CategoryAssignment>(catalogID: string,  options: { categoryID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCategoryAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs/${catalogID}/categories/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs/${catalogID}/categories/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -154,7 +154,7 @@ class Categories {
     public async SaveAssignment(catalogID: string, categoryAssignment: CategoryAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/catalogs/${catalogID}/categories/assignments`, { data: categoryAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/catalogs/${catalogID}/categories/assignments`, categoryAssignment, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -168,7 +168,7 @@ class Categories {
     public async ListProductAssignments<TCategoryProductAssignment extends CategoryProductAssignment>(catalogID: string,  options: { categoryID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCategoryProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs/${catalogID}/categories/productassignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs/${catalogID}/categories/productassignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -179,7 +179,7 @@ class Categories {
     public async SaveProductAssignment(catalogID: string, categoryProductAssignment: CategoryProductAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/catalogs/${catalogID}/categories/productassignments`, { data: categoryProductAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/catalogs/${catalogID}/categories/productassignments`, categoryProductAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**

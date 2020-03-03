@@ -38,7 +38,7 @@ class CreditCards {
     public async List<TCreditCard extends CreditCard>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCreditCard>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/creditcards`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/creditcards`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -49,7 +49,7 @@ class CreditCards {
     public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard, accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/creditcards`, { data: creditCard, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/creditcards`, creditCard, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -60,7 +60,7 @@ class CreditCards {
     public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string,  accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/creditcards/${creditCardID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/creditcards/${creditCardID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -72,7 +72,7 @@ class CreditCards {
     public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard, accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/creditcards/${creditCardID}`, { data: creditCard, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/buyers/${buyerID}/creditcards/${creditCardID}`, creditCard, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -83,7 +83,7 @@ class CreditCards {
     public async Delete(buyerID: string, creditCardID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/creditcards/${creditCardID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/creditcards/${creditCardID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -95,7 +95,7 @@ class CreditCards {
     public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>,  accessToken?: string ): Promise<RequiredDeep<TCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/creditcards/${creditCardID}`, { data: creditCard, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/buyers/${buyerID}/creditcards/${creditCardID}`, creditCard, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -108,7 +108,7 @@ class CreditCards {
     public async DeleteAssignment(buyerID: string, creditCardID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/creditcards/${creditCardID}/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/creditcards/${creditCardID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -124,7 +124,7 @@ class CreditCards {
     public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string,  options: { creditCardID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/creditcards/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/creditcards/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -135,7 +135,7 @@ class CreditCards {
     public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/creditcards/assignments`, { data: creditCardAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/creditcards/assignments`, creditCardAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**

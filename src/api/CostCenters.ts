@@ -38,7 +38,7 @@ class CostCenters {
     public async List<TCostCenter extends CostCenter>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCostCenter>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/costcenters`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/costcenters`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -49,7 +49,7 @@ class CostCenters {
     public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter, accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/costcenters`, { data: costCenter, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/costcenters`, costCenter, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -60,7 +60,7 @@ class CostCenters {
     public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string,  accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/costcenters/${costCenterID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/costcenters/${costCenterID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -72,7 +72,7 @@ class CostCenters {
     public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter, accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/costcenters/${costCenterID}`, { data: costCenter, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/buyers/${buyerID}/costcenters/${costCenterID}`, costCenter, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -83,7 +83,7 @@ class CostCenters {
     public async Delete(buyerID: string, costCenterID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/costcenters/${costCenterID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/costcenters/${costCenterID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -95,7 +95,7 @@ class CostCenters {
     public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>,  accessToken?: string ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/costcenters/${costCenterID}`, { data: costCenter, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/buyers/${buyerID}/costcenters/${costCenterID}`, costCenter, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -108,7 +108,7 @@ class CostCenters {
     public async DeleteAssignment(buyerID: string, costCenterID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/costcenters/${costCenterID}/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/costcenters/${costCenterID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -124,7 +124,7 @@ class CostCenters {
     public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string,  options: { costCenterID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/costcenters/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/costcenters/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -135,7 +135,7 @@ class CostCenters {
     public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/costcenters/assignments`, { data: costCenterAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/costcenters/assignments`, costCenterAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**

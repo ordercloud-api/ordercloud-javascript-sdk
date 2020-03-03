@@ -38,7 +38,7 @@ class SupplierUsers {
     public async List<TUser extends User>(supplierID: string,  options: { userGroupID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/users`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/suppliers/${supplierID}/users`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -49,7 +49,7 @@ class SupplierUsers {
     public async Create<TUser extends User>(supplierID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/users`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/suppliers/${supplierID}/users`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -60,7 +60,7 @@ class SupplierUsers {
     public async Get<TUser extends User>(supplierID: string, userID: string,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/users/${userID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/suppliers/${supplierID}/users/${userID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -72,7 +72,7 @@ class SupplierUsers {
     public async Save<TUser extends User>(supplierID: string, userID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}/users/${userID}`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/suppliers/${supplierID}/users/${userID}`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -83,7 +83,7 @@ class SupplierUsers {
     public async Delete(supplierID: string, userID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/users/${userID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/suppliers/${supplierID}/users/${userID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -95,7 +95,7 @@ class SupplierUsers {
     public async Patch<TUser extends User>(supplierID: string, userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}/users/${userID}`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/suppliers/${supplierID}/users/${userID}`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -107,7 +107,7 @@ class SupplierUsers {
     public async GetAccessToken<TAccessToken extends AccessToken>(supplierID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest, accessToken?: string ): Promise<RequiredDeep<TAccessToken>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/users/${userID}/accesstoken`, { data: impersonateTokenRequest, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/suppliers/${supplierID}/users/${userID}/accesstoken`, impersonateTokenRequest, { params: {  accessToken, impersonating } } );
     }
 
     /**

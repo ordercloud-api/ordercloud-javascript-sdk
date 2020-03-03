@@ -37,7 +37,7 @@ class SecurityProfiles {
     public async List<TSecurityProfile extends SecurityProfile>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/securityprofiles`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -47,7 +47,7 @@ class SecurityProfiles {
     public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles`, { data: securityProfile, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/securityprofiles`, securityProfile, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -57,7 +57,7 @@ class SecurityProfiles {
     public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/${securityProfileID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/securityprofiles/${securityProfileID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -68,7 +68,7 @@ class SecurityProfiles {
     public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/securityprofiles/${securityProfileID}`, { data: securityProfile, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -78,7 +78,7 @@ class SecurityProfiles {
     public async Delete(securityProfileID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/securityprofiles/${securityProfileID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -89,7 +89,7 @@ class SecurityProfiles {
     public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/securityprofiles/${securityProfileID}`, { data: securityProfile, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -103,7 +103,7 @@ class SecurityProfiles {
     public async DeleteAssignment(securityProfileID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.delete(`/securityprofiles/${securityProfileID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -121,7 +121,7 @@ class SecurityProfiles {
     public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( options: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/securityprofiles/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -131,7 +131,7 @@ class SecurityProfiles {
     public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles/assignments`, { data: securityProfileAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/securityprofiles/assignments`, securityProfileAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**

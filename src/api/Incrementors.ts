@@ -33,7 +33,7 @@ class Incrementors {
     public async List<TIncrementor extends Incrementor>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TIncrementor>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/incrementors`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/incrementors`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -43,7 +43,7 @@ class Incrementors {
     public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor, accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/incrementors`, { data: incrementor, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/incrementors`, incrementor, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -53,7 +53,7 @@ class Incrementors {
     public async Get<TIncrementor extends Incrementor>(incrementorID: string,  accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/incrementors/${incrementorID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/incrementors/${incrementorID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -64,7 +64,7 @@ class Incrementors {
     public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor, accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/incrementors/${incrementorID}`, { data: incrementor, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/incrementors/${incrementorID}`, incrementor, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -74,7 +74,7 @@ class Incrementors {
     public async Delete(incrementorID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/incrementors/${incrementorID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/incrementors/${incrementorID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -85,7 +85,7 @@ class Incrementors {
     public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>,  accessToken?: string ): Promise<RequiredDeep<TIncrementor>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/incrementors/${incrementorID}`, { data: incrementor, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/incrementors/${incrementorID}`, incrementor, { params: {  accessToken, impersonating } } );
     }
 
     /**

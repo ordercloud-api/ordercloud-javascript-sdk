@@ -34,7 +34,7 @@ class SupplierAddresses {
     public async List<TAddress extends Address>(supplierID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/addresses`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/suppliers/${supplierID}/addresses`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -45,7 +45,7 @@ class SupplierAddresses {
     public async Create<TAddress extends Address>(supplierID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/addresses`, { data: address, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/suppliers/${supplierID}/addresses`, address, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -56,7 +56,7 @@ class SupplierAddresses {
     public async Get<TAddress extends Address>(supplierID: string, addressID: string,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/addresses/${addressID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/suppliers/${supplierID}/addresses/${addressID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -68,7 +68,7 @@ class SupplierAddresses {
     public async Save<TAddress extends Address>(supplierID: string, addressID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}/addresses/${addressID}`, { data: address, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/suppliers/${supplierID}/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -79,7 +79,7 @@ class SupplierAddresses {
     public async Delete(supplierID: string, addressID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/addresses/${addressID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/suppliers/${supplierID}/addresses/${addressID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -91,7 +91,7 @@ class SupplierAddresses {
     public async Patch<TAddress extends Address>(supplierID: string, addressID: string, address: PartialDeep<Address>,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}/addresses/${addressID}`, { data: address, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/suppliers/${supplierID}/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } );
     }
 
     /**

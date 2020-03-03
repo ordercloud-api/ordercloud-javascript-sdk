@@ -37,7 +37,7 @@ class Promotions {
     public async List<TPromotion extends Promotion>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/promotions`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/promotions`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -47,7 +47,7 @@ class Promotions {
     public async Create<TPromotion extends Promotion>(promotion: Promotion, accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/promotions`, { data: promotion, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/promotions`, promotion, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -57,7 +57,7 @@ class Promotions {
     public async Get<TPromotion extends Promotion>(promotionID: string,  accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/promotions/${promotionID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/promotions/${promotionID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -68,7 +68,7 @@ class Promotions {
     public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion, accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/promotions/${promotionID}`, { data: promotion, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/promotions/${promotionID}`, promotion, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -78,7 +78,7 @@ class Promotions {
     public async Delete(promotionID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/promotions/${promotionID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/promotions/${promotionID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -89,7 +89,7 @@ class Promotions {
     public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>,  accessToken?: string ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/promotions/${promotionID}`, { data: promotion, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/promotions/${promotionID}`, promotion, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -102,7 +102,7 @@ class Promotions {
     public async DeleteAssignment(promotionID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/promotions/${promotionID}/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.delete(`/promotions/${promotionID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -118,7 +118,7 @@ class Promotions {
     public async ListAssignments<TPromotionAssignment extends PromotionAssignment>( options: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/promotions/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/promotions/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -128,7 +128,7 @@ class Promotions {
     public async SaveAssignment(promotionAssignment: PromotionAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/promotions/assignments`, { data: promotionAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/promotions/assignments`, promotionAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**

@@ -33,7 +33,7 @@ class AdminUsers {
     public async List<TUser extends User>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/adminusers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -43,7 +43,7 @@ class AdminUsers {
     public async Create<TUser extends User>(user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/adminusers`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/adminusers`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -53,7 +53,7 @@ class AdminUsers {
     public async Get<TUser extends User>(userID: string,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers/${userID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/adminusers/${userID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -64,7 +64,7 @@ class AdminUsers {
     public async Save<TUser extends User>(userID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/adminusers/${userID}`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/adminusers/${userID}`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -74,7 +74,7 @@ class AdminUsers {
     public async Delete(userID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/adminusers/${userID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/adminusers/${userID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -85,7 +85,7 @@ class AdminUsers {
     public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/adminusers/${userID}`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/adminusers/${userID}`, user, { params: {  accessToken, impersonating } } );
     }
 
     /**

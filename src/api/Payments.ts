@@ -37,7 +37,7 @@ class Payments {
     public async List<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPayment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/payments`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/orders/${direction}/${orderID}/payments`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -49,7 +49,7 @@ class Payments {
     public async Create<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, payment: Payment, accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/payments`, { data: payment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/orders/${direction}/${orderID}/payments`, payment, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -61,7 +61,7 @@ class Payments {
     public async Get<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string,  accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -73,7 +73,7 @@ class Payments {
     public async Delete(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -86,7 +86,7 @@ class Payments {
     public async Patch<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, payment: PartialDeep<Payment>,  accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, { data: payment, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, payment, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -99,7 +99,7 @@ class Payments {
     public async CreateTransaction<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, paymentTransaction: PaymentTransaction, accessToken?: string ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, { data: paymentTransaction, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, paymentTransaction, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -112,7 +112,7 @@ class Payments {
     public async DeleteTransaction(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, transactionID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions/${transactionID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions/${transactionID}`, { params: {  accessToken, impersonating } } );
     }
 
     /**

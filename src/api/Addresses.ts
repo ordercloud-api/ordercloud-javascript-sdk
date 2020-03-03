@@ -38,7 +38,7 @@ class Addresses {
     public async List<TAddress extends Address>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/addresses`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/addresses`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -49,7 +49,7 @@ class Addresses {
     public async Create<TAddress extends Address>(buyerID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/addresses`, { data: address, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/addresses`, address, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -60,7 +60,7 @@ class Addresses {
     public async Get<TAddress extends Address>(buyerID: string, addressID: string,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/addresses/${addressID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/addresses/${addressID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -72,7 +72,7 @@ class Addresses {
     public async Save<TAddress extends Address>(buyerID: string, addressID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/addresses/${addressID}`, { data: address, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/buyers/${buyerID}/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -83,7 +83,7 @@ class Addresses {
     public async Delete(buyerID: string, addressID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/addresses/${addressID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/addresses/${addressID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -95,7 +95,7 @@ class Addresses {
     public async Patch<TAddress extends Address>(buyerID: string, addressID: string, address: PartialDeep<Address>,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/addresses/${addressID}`, { data: address, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/buyers/${buyerID}/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -108,7 +108,7 @@ class Addresses {
     public async DeleteAssignment(buyerID: string, addressID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/addresses/${addressID}/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/addresses/${addressID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -126,7 +126,7 @@ class Addresses {
     public async ListAssignments<TAddressAssignment extends AddressAssignment>(buyerID: string,  options: { addressID?: string, userID?: string, userGroupID?: string, level?: string, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TAddressAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/addresses/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/addresses/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -137,7 +137,7 @@ class Addresses {
     public async SaveAssignment(buyerID: string, addressAssignment: AddressAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/addresses/assignments`, { data: addressAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/addresses/assignments`, addressAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**

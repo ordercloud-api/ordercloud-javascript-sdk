@@ -33,7 +33,7 @@ class Webhooks {
     public async List<TWebhook extends Webhook>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TWebhook>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/webhooks`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/webhooks`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -43,7 +43,7 @@ class Webhooks {
     public async Create<TWebhook extends Webhook>(webhook: Webhook, accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/webhooks`, { data: webhook, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/webhooks`, webhook, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -53,7 +53,7 @@ class Webhooks {
     public async Get<TWebhook extends Webhook>(webhookID: string,  accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/webhooks/${webhookID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/webhooks/${webhookID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -64,7 +64,7 @@ class Webhooks {
     public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook, accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/webhooks/${webhookID}`, { data: webhook, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/webhooks/${webhookID}`, webhook, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -74,7 +74,7 @@ class Webhooks {
     public async Delete(webhookID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/webhooks/${webhookID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/webhooks/${webhookID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -85,7 +85,7 @@ class Webhooks {
     public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>,  accessToken?: string ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/webhooks/${webhookID}`, { data: webhook, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/webhooks/${webhookID}`, webhook, { params: {  accessToken, impersonating } } );
     }
 
     /**

@@ -39,7 +39,7 @@ class Users {
     public async List<TUser extends User>(buyerID: string,  options: { userGroupID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/users`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/users`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -50,7 +50,7 @@ class Users {
     public async Create<TUser extends User>(buyerID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/users`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/users`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -61,7 +61,7 @@ class Users {
     public async Get<TUser extends User>(buyerID: string, userID: string,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/users/${userID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/users/${userID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -73,7 +73,7 @@ class Users {
     public async Save<TUser extends User>(buyerID: string, userID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/users/${userID}`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/buyers/${buyerID}/users/${userID}`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -84,7 +84,7 @@ class Users {
     public async Delete(buyerID: string, userID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/users/${userID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/users/${userID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -96,7 +96,7 @@ class Users {
     public async Patch<TUser extends User>(buyerID: string, userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/users/${userID}`, { data: user, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/buyers/${buyerID}/users/${userID}`, user, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -108,7 +108,7 @@ class Users {
     public async GetAccessToken<TAccessToken extends AccessToken>(buyerID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest, accessToken?: string ): Promise<RequiredDeep<TAccessToken>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/users/${userID}/accesstoken`, { data: impersonateTokenRequest, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/users/${userID}/accesstoken`, impersonateTokenRequest, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -121,7 +121,7 @@ class Users {
     public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string,  options: { orders?: 'None' | 'Unsubmitted' | 'All' } = {}, accessToken?: string ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/users/${userID}/moveto/${newBuyerID}`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.post(`/buyers/${buyerID}/users/${userID}/moveto/${newBuyerID}`, { params: { ...options,  accessToken, impersonating } } );
     }
 
     /**

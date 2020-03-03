@@ -36,7 +36,7 @@ class PriceSchedules {
     public async List<TPriceSchedule extends PriceSchedule>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/priceschedules`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/priceschedules`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -46,7 +46,7 @@ class PriceSchedules {
     public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule, accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/priceschedules`, { data: priceSchedule, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/priceschedules`, priceSchedule, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -56,7 +56,7 @@ class PriceSchedules {
     public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string,  accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/priceschedules/${priceScheduleID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/priceschedules/${priceScheduleID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -67,7 +67,7 @@ class PriceSchedules {
     public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule, accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/priceschedules/${priceScheduleID}`, { data: priceSchedule, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/priceschedules/${priceScheduleID}`, priceSchedule, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -77,7 +77,7 @@ class PriceSchedules {
     public async Delete(priceScheduleID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/priceschedules/${priceScheduleID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/priceschedules/${priceScheduleID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -88,7 +88,7 @@ class PriceSchedules {
     public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>,  accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/priceschedules/${priceScheduleID}`, { data: priceSchedule, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/priceschedules/${priceScheduleID}`, priceSchedule, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -99,7 +99,7 @@ class PriceSchedules {
     public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak, accessToken?: string ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, { data: priceBreak, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, priceBreak, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -110,7 +110,7 @@ class PriceSchedules {
     public async DeletePriceBreak(priceScheduleID: string,  options: { quantity?: number } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { params: { ...options,  accessToken, impersonating } } );
     }
 
     /**

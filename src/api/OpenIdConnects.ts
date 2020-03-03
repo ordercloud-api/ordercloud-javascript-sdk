@@ -33,7 +33,7 @@ class OpenIdConnects {
     public async List<TOpenIdConnect extends OpenIdConnect>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/openidconnects`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/openidconnects`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -43,7 +43,7 @@ class OpenIdConnects {
     public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect, accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/openidconnects`, { data: openIdConnect, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/openidconnects`, openIdConnect, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -53,7 +53,7 @@ class OpenIdConnects {
     public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string,  accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/openidconnects/${openidconnectID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/openidconnects/${openidconnectID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -64,7 +64,7 @@ class OpenIdConnects {
     public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect, accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/openidconnects/${openidconnectID}`, { data: openIdConnect, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/openidconnects/${openidconnectID}`, openIdConnect, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -74,7 +74,7 @@ class OpenIdConnects {
     public async Delete(openidconnectID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/openidconnects/${openidconnectID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/openidconnects/${openidconnectID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -85,7 +85,7 @@ class OpenIdConnects {
     public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>,  accessToken?: string ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/openidconnects/${openidconnectID}`, { data: openIdConnect, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/openidconnects/${openidconnectID}`, openIdConnect, { params: {  accessToken, impersonating } } );
     }
 
     /**

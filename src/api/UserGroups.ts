@@ -38,7 +38,7 @@ class UserGroups {
     public async List<TUserGroup extends UserGroup>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/usergroups`, { params: { ...options, filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/usergroups`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
     }
 
    /**
@@ -49,7 +49,7 @@ class UserGroups {
     public async Create<TUserGroup extends UserGroup>(buyerID: string, userGroup: UserGroup, accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/usergroups`, { data: userGroup, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/usergroups`, userGroup, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -60,7 +60,7 @@ class UserGroups {
     public async Get<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string,  accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/usergroups/${userGroupID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/usergroups/${userGroupID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -72,7 +72,7 @@ class UserGroups {
     public async Save<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: UserGroup, accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/usergroups/${userGroupID}`, { data: userGroup, params: { accessToken, impersonating } }  );
+        return await httpClient.put(`/buyers/${buyerID}/usergroups/${userGroupID}`, userGroup, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -83,7 +83,7 @@ class UserGroups {
     public async Delete(buyerID: string, userGroupID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/usergroups/${userGroupID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/usergroups/${userGroupID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -95,7 +95,7 @@ class UserGroups {
     public async Patch<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>,  accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/usergroups/${userGroupID}`, { data: userGroup, params: { accessToken, impersonating } }  );
+        return await httpClient.patch(`/buyers/${buyerID}/usergroups/${userGroupID}`, userGroup, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -107,7 +107,7 @@ class UserGroups {
     public async DeleteUserAssignment(buyerID: string, userGroupID: string, userID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/usergroups/${userGroupID}/assignments/${userID}`, { params: { accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/usergroups/${userGroupID}/assignments/${userID}`, { params: {  accessToken, impersonating } } );
     }
 
    /**
@@ -121,7 +121,7 @@ class UserGroups {
     public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(buyerID: string,  options: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/usergroups/assignments`, { params: { ...options, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/usergroups/assignments`, { params: { ...options,  accessToken, impersonating } } );
     }
 
    /**
@@ -132,7 +132,7 @@ class UserGroups {
     public async SaveUserAssignment(buyerID: string, userGroupAssignment: UserGroupAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/usergroups/assignments`, { data: userGroupAssignment, params: { accessToken, impersonating } }  );
+        return await httpClient.post(`/buyers/${buyerID}/usergroups/assignments`, userGroupAssignment, { params: {  accessToken, impersonating } } );
     }
 
     /**
