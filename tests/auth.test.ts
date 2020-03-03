@@ -47,7 +47,7 @@ test('can auth with elevated login', async () => {
     testdata.scope as SecurityProfile['Roles'][]
   )
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=client_credentials&scope=${urlencode(
+  const body = `grant_type=password&scope=${urlencode(
     testdata.scope.join(' ')
   )}&client_id=${testdata.clientID}&username=${urlencode(
     testdata.username
@@ -66,7 +66,7 @@ test('can auth with client credentials', async () => {
     testdata.scope as SecurityProfile['Roles'][]
   )
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=password&scope=${urlencode(
+  const body = `grant_type=client_credentials&scope=${urlencode(
     testdata.scope.join(' ')
   )}&client_id=${testdata.clientID}&client_secret=${testdata.clientSecret}`
   expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {

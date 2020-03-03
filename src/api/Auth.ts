@@ -73,7 +73,7 @@ class Auth {
     scope: Array<SecurityProfile['Roles']>
   ): Promise<AccessToken> {
     const body = {
-      grant_type: 'client_credentials',
+      grant_type: 'password',
       scope: scope.join(' '),
       client_id: clientID,
       username,
@@ -109,7 +109,7 @@ class Auth {
     scope: Array<SecurityProfile['Roles']>
   ): Promise<AccessToken> {
     const body = {
-      grant_type: 'password',
+      grant_type: 'client_credentials',
       scope: scope.join(' '),
       client_id: clientID,
       client_secret: clientSecret,
