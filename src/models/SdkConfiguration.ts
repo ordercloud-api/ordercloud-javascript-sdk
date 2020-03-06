@@ -50,4 +50,9 @@ export interface CookieOptions {
    * in first or third party contexts https://adzerk.com/blog/chrome-samesite/
    */
   samesite?: 'none' | 'lax' | 'strict'
+
+  /**
+   * prefixed to all cookies set by ordercloud
+   */
+  prefix: string
 }

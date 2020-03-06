@@ -10,6 +10,7 @@ class Configuration {
       samesite: 'lax', // browser default
       secure: false,
       domain: null,
+      prefix: 'ordercloud',
     },
   }
 

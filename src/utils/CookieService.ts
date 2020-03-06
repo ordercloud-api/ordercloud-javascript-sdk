@@ -12,7 +12,9 @@ class CookieService {
     this.remove = this.remove.bind(this)
   }
 
-  public get(cookieName: string): string {
+  public get(name: string): string {
+    const configuration = Configuration.Get()
+    const cookieName = configuration.cookieOptions.prefix + name
     const rows = document.cookie.split(';')
     for (const row of rows) {
       const [key, val] = row.split('=')
@@ -24,16 +26,20 @@ class CookieService {
     return ''
   }
 
-  public set(cookieName: string, cookieVal: string): void {
+  public set(name: string, cookieVal: string): void {
+    const configuration = Configuration.Get()
+    const cookieName = configuration.cookieOptions.prefix + name
     document.cookie = this.buildCookieString(cookieName, cookieVal)
   }
 
-  public remove(cookieName: string): void {
+  public remove(name: string): void {
+    const configuration = Configuration.Get()
+    const cookieName = configuration.cookieOptions.prefix + name
     document.cookie = this.buildCookieString(cookieName, undefined)
   }
 
   private buildCookieString(name: string, value?: string) {
-    const options = Configuration.Get().cookieOptions || {}
+    const options = Configuration.Get().cookieOptions
     let expires
     if (!value) {
       expires = new Date('Thu, 01 Jan 1970 00:00:00 GMT')

@@ -5,9 +5,9 @@ const isNode = new Function(
   'try {return this===global;}catch(e){return false;}'
 )
 class Tokens {
-  private accessTokenCookieName = `ordercloud.access-token`
-  private impersonationTokenCookieName = 'ordercloud.impersonation-token'
-  private refreshTokenCookieName = 'ordercloud.refresh-token'
+  private accessTokenCookieName = `.access-token`
+  private impersonationTokenCookieName = '.impersonation-token'
+  private refreshTokenCookieName = '.refresh-token'
 
   private accessToken?: string = null
   private impersonationToken?: string = null
