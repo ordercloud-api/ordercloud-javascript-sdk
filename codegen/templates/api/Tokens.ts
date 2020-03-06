@@ -33,7 +33,7 @@ class Tokens {
    * Manage Access Tokens
    */
 
-  public GetAccessToken(): string {
+  public GetAccessToken(): string | undefined {
     return isNode() ? this.accessToken : cookies.get(this.accessTokenCookieName)
   }
 
@@ -54,7 +54,7 @@ class Tokens {
    * Manage Impersonation Tokens
    */
 
-  public GetImpersonationToken(): string {
+  public GetImpersonationToken(): string | undefined {
     return isNode()
       ? this.impersonationToken
       : cookies.get(this.impersonationTokenCookieName)
@@ -77,7 +77,7 @@ class Tokens {
    * Manage Refresh Tokens
    */
 
-  public GetRefreshToken(): string {
+  public GetRefreshToken(): string | undefined {
     return isNode()
       ? this.refreshToken
       : cookies.get(this.refreshTokenCookieName)
