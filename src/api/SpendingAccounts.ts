@@ -5,6 +5,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class SpendingAccounts {
     private impersonating:boolean = false;
@@ -38,7 +39,13 @@ class SpendingAccounts {
     public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -49,7 +56,13 @@ class SpendingAccounts {
     public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts`, spendingAccount, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts`, spendingAccount, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -60,7 +73,13 @@ class SpendingAccounts {
     public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string,  accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -72,7 +91,13 @@ class SpendingAccounts {
     public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -83,7 +108,13 @@ class SpendingAccounts {
     public async Delete(buyerID: string, spendingAccountID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -95,7 +126,13 @@ class SpendingAccounts {
     public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>,  accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -108,7 +145,13 @@ class SpendingAccounts {
     public async DeleteAssignment(buyerID: string, spendingAccountID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -124,7 +167,13 @@ class SpendingAccounts {
     public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -135,7 +184,13 @@ class SpendingAccounts {
     public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts/assignments`, spendingAccountAssignment, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts/assignments`, spendingAccountAssignment, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

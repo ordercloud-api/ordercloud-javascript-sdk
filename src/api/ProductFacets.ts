@@ -4,6 +4,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class ProductFacets {
     private impersonating:boolean = false;
@@ -33,7 +34,13 @@ class ProductFacets {
     public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TProductFacet>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/productfacets`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -43,7 +50,13 @@ class ProductFacets {
     public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/productfacets`, productFacet, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/productfacets`, productFacet, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -53,7 +66,13 @@ class ProductFacets {
     public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -64,7 +83,13 @@ class ProductFacets {
     public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -74,7 +99,13 @@ class ProductFacets {
     public async Delete(productFacetID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -85,7 +116,13 @@ class ProductFacets {
     public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

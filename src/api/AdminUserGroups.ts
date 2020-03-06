@@ -5,6 +5,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class AdminUserGroups {
     private impersonating:boolean = false;
@@ -37,7 +38,13 @@ class AdminUserGroups {
     public async List<TUserGroup extends UserGroup>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/usergroups`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/usergroups`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -47,7 +54,13 @@ class AdminUserGroups {
     public async Create<TUserGroup extends UserGroup>(userGroup: UserGroup, accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/usergroups`, userGroup, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/usergroups`, userGroup, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -57,7 +70,13 @@ class AdminUserGroups {
     public async Get<TUserGroup extends UserGroup>(userGroupID: string,  accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/usergroups/${userGroupID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/usergroups/${userGroupID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -68,7 +87,13 @@ class AdminUserGroups {
     public async Save<TUserGroup extends UserGroup>(userGroupID: string, userGroup: UserGroup, accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/usergroups/${userGroupID}`, userGroup, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/usergroups/${userGroupID}`, userGroup, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -78,7 +103,13 @@ class AdminUserGroups {
     public async Delete(userGroupID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/usergroups/${userGroupID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/usergroups/${userGroupID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -89,7 +120,13 @@ class AdminUserGroups {
     public async Patch<TUserGroup extends UserGroup>(userGroupID: string, userGroup: PartialDeep<UserGroup>,  accessToken?: string ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/usergroups/${userGroupID}`, userGroup, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/usergroups/${userGroupID}`, userGroup, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -100,7 +137,13 @@ class AdminUserGroups {
     public async DeleteUserAssignment(userGroupID: string, userID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/usergroups/${userGroupID}/assignments/${userID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/usergroups/${userGroupID}/assignments/${userID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -113,7 +156,13 @@ class AdminUserGroups {
     public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>( options: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/usergroups/assignments`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.get(`/usergroups/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -123,7 +172,13 @@ class AdminUserGroups {
     public async SaveUserAssignment(userGroupAssignment: UserGroupAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/usergroups/assignments`, userGroupAssignment, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/usergroups/assignments`, userGroupAssignment, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

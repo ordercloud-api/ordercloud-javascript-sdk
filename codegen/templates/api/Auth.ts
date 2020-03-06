@@ -3,6 +3,7 @@ import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
 import { SecurityProfile } from '../models/SecurityProfile'
 import serialize from '../utils/ParamsSerializer'
+import OrderCloudError from '../utils/OrderCloudError'
 
 class Auth {
   private _http: AxiosInstance
@@ -51,16 +52,19 @@ class Auth {
       scope: scope.join(' '),
     }
     const configuration = Configuration.Get()
-    const response = await this._http.post(
-      configuration.baseAuthUrl,
-      serialize(body),
-      {
+    const response = await this._http
+      .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-      }
-    )
+      })
+      .catch(e => {
+        if (e.response) {
+          throw new OrderCloudError(e)
+        }
+        throw e
+      })
     return response.data
   }
 
@@ -91,16 +95,19 @@ class Auth {
       client_secret: clientSecret,
     }
     const configuration = Configuration.Get()
-    const response = await this._http.post(
-      configuration.baseAuthUrl,
-      serialize(body),
-      {
+    const response = await this._http
+      .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-      }
-    )
+      })
+      .catch(e => {
+        if (e.response) {
+          throw new OrderCloudError(e)
+        }
+        throw e
+      })
     return response.data
   }
 
@@ -125,16 +132,19 @@ class Auth {
       client_secret: clientSecret,
     }
     const configuration = Configuration.Get()
-    const response = await this._http.post(
-      configuration.baseAuthUrl,
-      serialize(body),
-      {
+    const response = await this._http
+      .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-      }
-    )
+      })
+      .catch(e => {
+        if (e.response) {
+          throw new OrderCloudError(e)
+        }
+        throw e
+      })
     return response.data
   }
 
@@ -156,16 +166,19 @@ class Auth {
       refresh_token: refreshToken,
     }
     const configuration = Configuration.Get()
-    const response = await this._http.post(
-      configuration.baseAuthUrl,
-      serialize(body),
-      {
+    const response = await this._http
+      .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-      }
-    )
+      })
+      .catch(e => {
+        if (e.response) {
+          throw new OrderCloudError(e)
+        }
+        throw e
+      })
     return response.data
   }
 
@@ -187,16 +200,19 @@ class Auth {
       scope: scope.join(' '),
     }
     const configuration = Configuration.Get()
-    const response = await this._http.post(
-      configuration.baseAuthUrl,
-      serialize(body),
-      {
+    const response = await this._http
+      .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-      }
-    )
+      })
+      .catch(e => {
+        if (e.response) {
+          throw new OrderCloudError(e)
+        }
+        throw e
+      })
     return response.data
   }
 }

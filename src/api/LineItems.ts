@@ -5,6 +5,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class LineItems {
     private impersonating:boolean = false;
@@ -38,7 +39,13 @@ class LineItems {
     public async List<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TLineItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -50,7 +57,13 @@ class LineItems {
     public async Create<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItem: LineItem, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/lineitems`, lineItem, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/orders/${direction}/${orderID}/lineitems`, lineItem, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -62,7 +75,13 @@ class LineItems {
     public async Get<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string,  accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -75,7 +94,13 @@ class LineItems {
     public async Save<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, lineItem: LineItem, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -87,7 +112,13 @@ class LineItems {
     public async Delete(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -100,7 +131,13 @@ class LineItems {
     public async Patch<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, lineItem: PartialDeep<LineItem>,  accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -113,7 +150,13 @@ class LineItems {
     public async SetShippingAddress<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -126,7 +169,13 @@ class LineItems {
     public async PatchShippingAddress<TLineItem extends LineItem>(direction: 'Incoming' | 'Outgoing', orderID: string, lineItemID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

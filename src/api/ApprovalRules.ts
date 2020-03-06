@@ -4,6 +4,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class ApprovalRules {
     private impersonating:boolean = false;
@@ -34,7 +35,13 @@ class ApprovalRules {
     public async List<TApprovalRule extends ApprovalRule>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TApprovalRule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/approvalrules`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/approvalrules`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -45,7 +52,13 @@ class ApprovalRules {
     public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule, accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/approvalrules`, approvalRule, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/buyers/${buyerID}/approvalrules`, approvalRule, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -56,7 +69,13 @@ class ApprovalRules {
     public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string,  accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -68,7 +87,13 @@ class ApprovalRules {
     public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule, accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, approvalRule, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, approvalRule, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -79,7 +104,13 @@ class ApprovalRules {
     public async Delete(buyerID: string, approvalRuleID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -91,7 +122,13 @@ class ApprovalRules {
     public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>,  accessToken?: string ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, approvalRule, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, approvalRule, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

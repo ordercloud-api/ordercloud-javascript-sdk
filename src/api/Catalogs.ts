@@ -6,6 +6,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class Catalogs {
     private impersonating:boolean = false;
@@ -41,7 +42,13 @@ class Catalogs {
     public async List<TCatalog extends Catalog>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCatalog>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -51,7 +58,13 @@ class Catalogs {
     public async Create<TCatalog extends Catalog>(catalog: Catalog, accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/catalogs`, catalog, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/catalogs`, catalog, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -61,7 +74,13 @@ class Catalogs {
     public async Get<TCatalog extends Catalog>(catalogID: string,  accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs/${catalogID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs/${catalogID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -72,7 +91,13 @@ class Catalogs {
     public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog, accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/catalogs/${catalogID}`, catalog, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/catalogs/${catalogID}`, catalog, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -82,7 +107,13 @@ class Catalogs {
     public async Delete(catalogID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/catalogs/${catalogID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/catalogs/${catalogID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -93,7 +124,13 @@ class Catalogs {
     public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>,  accessToken?: string ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/catalogs/${catalogID}`, catalog, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/catalogs/${catalogID}`, catalog, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -104,7 +141,13 @@ class Catalogs {
     public async DeleteAssignment(catalogID: string,  options: { buyerID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/catalogs/${catalogID}/assignments`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.delete(`/catalogs/${catalogID}/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -115,7 +158,13 @@ class Catalogs {
     public async DeleteProductAssignment(catalogID: string, productID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/catalogs/${catalogID}/productassignments/${productID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/catalogs/${catalogID}/productassignments/${productID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -128,7 +177,13 @@ class Catalogs {
     public async ListAssignments<TCatalogAssignment extends CatalogAssignment>( options: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs/assignments`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -138,7 +193,13 @@ class Catalogs {
     public async SaveAssignment(catalogAssignment: CatalogAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/catalogs/assignments`, catalogAssignment, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/catalogs/assignments`, catalogAssignment, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -151,7 +212,13 @@ class Catalogs {
     public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>( options: { catalogID?: string, productID?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/catalogs/productassignments`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.get(`/catalogs/productassignments`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -161,7 +228,13 @@ class Catalogs {
     public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/catalogs/productassignments`, productCatalogAssignment, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/catalogs/productassignments`, productCatalogAssignment, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

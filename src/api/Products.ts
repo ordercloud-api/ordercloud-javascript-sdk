@@ -9,6 +9,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class Products {
     private impersonating:boolean = false;
@@ -53,7 +54,13 @@ class Products {
     public async List<TProduct extends Product>( options: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProduct>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPageFacet<TProduct>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/products`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/products`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -63,7 +70,13 @@ class Products {
     public async Create<TProduct extends Product>(product: Product, accessToken?: string ): Promise<RequiredDeep<TProduct>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/products`, product, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/products`, product, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -73,7 +86,13 @@ class Products {
     public async Get<TProduct extends Product>(productID: string,  accessToken?: string ): Promise<RequiredDeep<TProduct>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/products/${productID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/products/${productID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -84,7 +103,13 @@ class Products {
     public async Save<TProduct extends Product>(productID: string, product: Product, accessToken?: string ): Promise<RequiredDeep<TProduct>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/products/${productID}`, product, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/products/${productID}`, product, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -94,7 +119,13 @@ class Products {
     public async Delete(productID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/products/${productID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/products/${productID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -105,7 +136,13 @@ class Products {
     public async Patch<TProduct extends Product>(productID: string, product: PartialDeep<Product>,  accessToken?: string ): Promise<RequiredDeep<TProduct>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/products/${productID}`, product, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/products/${productID}`, product, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -118,7 +155,13 @@ class Products {
     public async DeleteAssignment(productID: string, buyerID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/products/${productID}/assignments/${buyerID}`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.delete(`/products/${productID}/assignments/${buyerID}`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -134,7 +177,13 @@ class Products {
     public async ListSpecs<TSpec extends Spec>(productID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/products/${productID}/specs`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/products/${productID}/specs`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -150,7 +199,13 @@ class Products {
     public async ListSuppliers<TSupplier extends Supplier>(productID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSupplier>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/products/${productID}/suppliers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/products/${productID}/suppliers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -161,7 +216,13 @@ class Products {
     public async SaveSupplier(productID: string, supplierID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/products/${productID}/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/products/${productID}/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -172,7 +233,13 @@ class Products {
     public async RemoveSupplier(productID: string, supplierID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/products/${productID}/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/products/${productID}/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -188,7 +255,13 @@ class Products {
     public async ListVariants<TVariant extends Variant>(productID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TVariant>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TVariant>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/products/${productID}/variants`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/products/${productID}/variants`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -199,7 +272,13 @@ class Products {
     public async GetVariant<TVariant extends Variant>(productID: string, variantID: string,  accessToken?: string ): Promise<RequiredDeep<TVariant>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/products/${productID}/variants/${variantID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/products/${productID}/variants/${variantID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -211,7 +290,13 @@ class Products {
     public async SaveVariant<TVariant extends Variant>(productID: string, variantID: string, variant: Variant, accessToken?: string ): Promise<RequiredDeep<TVariant>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/products/${productID}/variants/${variantID}`, variant, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/products/${productID}/variants/${variantID}`, variant, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -223,7 +308,13 @@ class Products {
     public async PatchVariant<TVariant extends Variant>(productID: string, variantID: string, variant: Variant, accessToken?: string ): Promise<RequiredDeep<TVariant>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/products/${productID}/variants/${variantID}`, variant, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/products/${productID}/variants/${variantID}`, variant, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -234,7 +325,13 @@ class Products {
     public async GenerateVariants<TProduct extends Product>(productID: string,  options: { overwriteExisting?: boolean } = {}, accessToken?: string ): Promise<RequiredDeep<TProduct>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/products/${productID}/variants/generate`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.post(`/products/${productID}/variants/generate`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -251,7 +348,13 @@ class Products {
     public async ListAssignments<TProductAssignment extends ProductAssignment>( options: { productID?: string, priceScheduleID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/products/assignments`, { params: { ...options,  accessToken, impersonating } } );
+        return await httpClient.get(`/products/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -261,7 +364,13 @@ class Products {
     public async SaveAssignment(productAssignment: ProductAssignment, accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/products/assignments`, productAssignment, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/products/assignments`, productAssignment, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

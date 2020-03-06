@@ -4,6 +4,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class AdminAddresses {
     private impersonating:boolean = false;
@@ -33,7 +34,13 @@ class AdminAddresses {
     public async List<TAddress extends Address>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/addresses`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/addresses`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -43,7 +50,13 @@ class AdminAddresses {
     public async Create<TAddress extends Address>(address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/addresses`, address, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/addresses`, address, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -53,7 +66,13 @@ class AdminAddresses {
     public async Get<TAddress extends Address>(addressID: string,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/addresses/${addressID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/addresses/${addressID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -64,7 +83,13 @@ class AdminAddresses {
     public async Save<TAddress extends Address>(addressID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -74,7 +99,13 @@ class AdminAddresses {
     public async Delete(addressID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/addresses/${addressID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/addresses/${addressID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -85,7 +116,13 @@ class AdminAddresses {
     public async Patch<TAddress extends Address>(addressID: string, address: PartialDeep<Address>,  accessToken?: string ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/addresses/${addressID}`, address, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

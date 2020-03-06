@@ -4,6 +4,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class Suppliers {
     private impersonating:boolean = false;
@@ -33,7 +34,13 @@ class Suppliers {
     public async List<TSupplier extends Supplier>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSupplier>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/suppliers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -43,7 +50,13 @@ class Suppliers {
     public async Create<TSupplier extends Supplier>(supplier: Supplier, accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers`, supplier, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/suppliers`, supplier, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -53,7 +66,13 @@ class Suppliers {
     public async Get<TSupplier extends Supplier>(supplierID: string,  accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -64,7 +83,13 @@ class Suppliers {
     public async Save<TSupplier extends Supplier>(supplierID: string, supplier: Supplier, accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}`, supplier, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/suppliers/${supplierID}`, supplier, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -74,7 +99,13 @@ class Suppliers {
     public async Delete(supplierID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -85,7 +116,13 @@ class Suppliers {
     public async Patch<TSupplier extends Supplier>(supplierID: string, supplier: PartialDeep<Supplier>,  accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}`, supplier, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/suppliers/${supplierID}`, supplier, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**

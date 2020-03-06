@@ -18,7 +18,7 @@ class HttpClient {
     // a consumer of this SDK might use
     if (typeof axios === 'undefined') {
       throw new Error(
-        'Ordercloud is missing required peer dependency axios. This must be installed and loaded before the OrderCloud SDK'
+        'Missing required peer dependency axios. This must be installed and loaded before the OrderCloud SDK'
       )
     } else {
       this._session = axios.create({ paramsSerializer })

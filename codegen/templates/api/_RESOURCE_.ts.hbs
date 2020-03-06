@@ -5,6 +5,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class {{resource.id}} {
     private impersonating:boolean = false;
@@ -27,7 +28,13 @@ class {{resource.id}} {
     public async {{name}}{{#if hasReturnType}}{{#if isList}}<T{{baseType}} extends {{baseType}}>{{else}}<T{{returnType}} extends {{returnType}}>{{/if}}{{/if}}({{#allParams}}{{#unless isQueryParam}}{{#if isBodyParam}}{{#if ../isPatch}}{{name}}: PartialDeep<{{typescriptType}}>, {{else}}{{name}}: {{typescriptType}},{{/if}}{{else}}{{name}}: {{typescriptType}}, {{/if}}{{/unless}}{{/allParams}} {{#if hasQueryParams}}options: { {{#queryParams}}{{name}}?: {{typescriptType}}{{#unless @last}}, {{/unless}}{{/queryParams}} } = {}, {{/if}}accessToken?: string ): Promise<{{#if hasReturnType}}RequiredDeep<{{#if isList}}{{#if isFacetList}}ListPageFacet<T{{baseType}}>{{else}}ListPage<T{{baseType}}>{{/if}}{{else}}T{{returnType}}{{/if}}>{{else}}void{{/if}}> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.{{verb}}(`{{parameterizePath path}}`{{#if hasBodyParam}}, {{bodyParam.name}}{{/if}}, { params: { {{#if hasQueryParams}}...options, {{/if}} {{#if hasFilters}}filters: options.filters, {{/if}}accessToken, impersonating } } );
+        return await httpClient.{{verb}}(`{{parameterizePath path}}`{{#if hasBodyParam}}, {{bodyParam.name}}{{/if}}, { params: { {{#if hasQueryParams}}...options, {{/if}} {{#if hasFilters}}filters: options.filters, {{/if}}accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     {{/resource.operations}}

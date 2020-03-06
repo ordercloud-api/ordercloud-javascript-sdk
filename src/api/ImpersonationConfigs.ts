@@ -4,6 +4,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import httpClient from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
 
 class ImpersonationConfigs {
     private impersonating:boolean = false;
@@ -33,7 +34,13 @@ class ImpersonationConfigs {
     public async List<TImpersonationConfig extends ImpersonationConfig>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/impersonationconfig`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } );
+        return await httpClient.get(`/impersonationconfig`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -43,7 +50,13 @@ class ImpersonationConfigs {
     public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig, accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/impersonationconfig`, impersonationConfig, { params: {  accessToken, impersonating } } );
+        return await httpClient.post(`/impersonationconfig`, impersonationConfig, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -53,7 +66,13 @@ class ImpersonationConfigs {
     public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string,  accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/impersonationconfig/${impersonationConfigID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.get(`/impersonationconfig/${impersonationConfigID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -64,7 +83,13 @@ class ImpersonationConfigs {
     public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig, accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { params: {  accessToken, impersonating } } );
+        return await httpClient.put(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -74,7 +99,13 @@ class ImpersonationConfigs {
     public async Delete(impersonationConfigID: string,  accessToken?: string ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/impersonationconfig/${impersonationConfigID}`, { params: {  accessToken, impersonating } } );
+        return await httpClient.delete(`/impersonationconfig/${impersonationConfigID}`, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -85,7 +116,13 @@ class ImpersonationConfigs {
     public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>,  accessToken?: string ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { params: {  accessToken, impersonating } } );
+        return await httpClient.patch(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { params: {  accessToken, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
     /**
