@@ -27,6 +27,14 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 
 > Coming from an older version? Check out the [migration guide](./readmes/MIGRATION_GUIDE.md) so you can upgrade to the latest and greatest.
 
+## Requirements
+
+[Axios](https://www.npmjs.com/package/axios) is a peer dependency of the OrderCloudSDK.
+
+> Note: Peer dependencies are not installed automatically. They must be installed separately.
+
+Why isn't axios a dependency of OrderCloud SDK? Since axios is a fairly popular http library and may already exist as a dependency in your project it is considered best practice to have it defined as a peer dependency. This way, there isn't a potential for two versions of axios to be installed which could result in weird bugs, not to mention a bloated javascript bundle.
+
 ## ⚙️ Installation
 
 with npm:
@@ -77,11 +85,10 @@ const OrderCloudSDK = require('ordercloud-javascript-sdk');
 
 ## 🔐 Authentication
 
-We'll need to get a token before we can make any API calls. The platform offers five different ways of getting a token as part of the [Auth class](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/auth.html).
+We'll need to get a token before we can make any API calls. The SDK offers five different ways of getting a token as part of the [Auth class](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/auth.html).
 
 We'll use the login method this example.
 
-<!-- TODO: devcenter links will need to be updated -->
 ```javascript
 import { Auth, Tokens } from 'ordercloud-javascript-sdk';
 
@@ -93,8 +100,8 @@ const scope = ['FullAccess']; //string array of [roles](https://ordercloud.io/ma
 Auth.Login(username, password, clientID, scope)
   .then(response => {
       //store token, now any subsequent calls will automatically set this token in the headers for you
-      const token = response.oauth2.accessToken;
-      Tokens.SetAccess(token)
+      const token = response.access_token;
+      Tokens.setAccessToken(token)
   })
   .catch(err => console.log(err));
 ```
@@ -115,7 +122,7 @@ Me.ListProducts({ filters: { xp: { Featured: true } } })
 My orders submitted after April 20th, 2018
 
 ```javascript
-Me.ListOrders({ filters: { DateSubmitted: '>2018-04-20' } })
+Me.ListOrders({ filters: { DateSubmitted: '>2019-04-20' } })
   .then(orderList => console.log(orderList))
 ```
 
@@ -153,11 +160,11 @@ import { Tokens, Me } from 'ordercloud-javascript-sdk';
 
 // set regular token
 const myToken = 'YOUR_TOKEN';
-Tokens.SetAccess(myToken);
+Tokens.setAccessToken(myToken);
 
 // set impersonation token
 const myImpersonationToken = 'YOUR_IMPERSONATED_TOKEN'
-Tokens.SetImpersonation(myImpersonationToken);
+Tokens.setImpersonationToken(myImpersonationToken);
 
 // Get products for regular user
 Me.ListProducts()
@@ -197,7 +204,7 @@ While typescript is not required to use this project (we compile it down to java
 
 ### Strongly Typed xp
 
-Extended properties, or xp, is a platform feature that allows you to extend the OrderCloud data model. This is modeled in the SDK using (by default) a typescript [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) type:
+Extended properties, or xp, is a [platform feature](https://ordercloud.io/features/extended-properties) that allows you to extend the OrderCloud data model. This is modeled in the SDK using (by default) a typescript [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) type:
 
 ```typescript
 const category: Category = {};
@@ -257,7 +264,7 @@ Check out our [Contributing](./readmes/CONTRIBUTING.md) guide.
 
 ## 🆘 Getting Help
 
-If you're new to OrderCloud, exploring the [documentation](https://developer.ordercloud.io/documentation) is recommended, especially the [Intro to OrderCloud.io](https://developer.ordercloud.io/documentation/platform-guides/getting-started/introduction-to-ordercloud) and [Quick Start Guide](https://developer.ordercloud.io/documentation/platform-guides/getting-started/quick-start-guide). When you're ready to dive deeper, check out the [platform guides](https://developer.ordercloud.io/documentation/platform-guides) and [API reference](https://developer.ordercloud.io/documentation/api-reference).
+If you're new to OrderCloud, exploring the [documentation](https://ordercloud.io/) is recommended, especially the [Intro to OrderCloud](https://ordercloud.io/getting-started/intro-to-ordercloud).
 
 For programming questions, please [ask](https://stackoverflow.com/questions/ask?tags=ordercloud) on Stack Overflow.
 
