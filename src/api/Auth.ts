@@ -3,6 +3,7 @@ import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
 import { SecurityProfile } from '../models/SecurityProfile'
 import serialize from '../utils/ParamsSerializer'
+import { RequiredDeep } from '../models/RequiredDeep'
 import OrderCloudError from '../utils/OrderCloudError'
 
 class Auth {
@@ -43,7 +44,10 @@ class Auth {
     password: string,
     clientID: string,
     scope: Array<SecurityProfile['Roles']>
-  ): Promise<AccessToken> {
+  ): Promise<RequiredDeep<AccessToken>> {
+    if (!Array.isArray(scope)) {
+      throw new Error('scope must be a string array')
+    }
     const body = {
       grant_type: 'password',
       username,
@@ -85,7 +89,10 @@ class Auth {
     password: string,
     clientID: string,
     scope: Array<SecurityProfile['Roles']>
-  ): Promise<AccessToken> {
+  ): Promise<RequiredDeep<AccessToken>> {
+    if (!Array.isArray(scope)) {
+      throw new Error('scope must be a string array')
+    }
     const body = {
       grant_type: 'password',
       scope: scope.join(' '),
@@ -124,7 +131,10 @@ class Auth {
     clientSecret: string,
     clientID: string,
     scope: Array<SecurityProfile['Roles']>
-  ): Promise<AccessToken> {
+  ): Promise<RequiredDeep<AccessToken>> {
+    if (!Array.isArray(scope)) {
+      throw new Error('scope must be a string array')
+    }
     const body = {
       grant_type: 'client_credentials',
       scope: scope.join(' '),
@@ -159,7 +169,7 @@ class Auth {
   public async RefreshToken(
     refreshToken: string,
     clientID: string
-  ): Promise<AccessToken> {
+  ): Promise<RequiredDeep<AccessToken>> {
     const body = {
       grant_type: 'refresh_token',
       client_id: clientID,
@@ -193,7 +203,10 @@ class Auth {
   public async Anonymous(
     clientID: string,
     scope: Array<SecurityProfile['Roles']>
-  ): Promise<AccessToken> {
+  ): Promise<RequiredDeep<AccessToken>> {
+    if (!Array.isArray(scope)) {
+      throw new Error('scope must be a string array')
+    }
     const body = {
       grant_type: 'client_credentials',
       client_id: clientID,
