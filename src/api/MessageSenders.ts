@@ -5,6 +5,7 @@ import { MessageCCListenerAssignment } from '../models/MessageCCListenerAssignme
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -30,18 +31,19 @@ class MessageSenders {
     }
 
    /**
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TMessageSender extends MessageSender>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
+    public async List<TMessageSender extends MessageSender>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/messagesenders`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -52,12 +54,13 @@ class MessageSenders {
 
    /**
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender, accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
+    public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders`, messageSender, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/messagesenders`, messageSender, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -68,12 +71,13 @@ class MessageSenders {
 
    /**
     * @param messageSenderID ID of the message sender.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TMessageSender extends MessageSender>(messageSenderID: string,  accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
+    public async Get<TMessageSender extends MessageSender>(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/${messageSenderID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.get(`/messagesenders/${messageSenderID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -85,12 +89,13 @@ class MessageSenders {
    /**
     * @param messageSenderID ID of the message sender.
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender, accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
+    public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/messagesenders/${messageSenderID}`, messageSender, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/messagesenders/${messageSenderID}`, messageSender, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -101,12 +106,13 @@ class MessageSenders {
 
    /**
     * @param messageSenderID ID of the message sender.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(messageSenderID: string,  accessToken?: string ): Promise<void> {
+    public async Delete(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/messagesenders/${messageSenderID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.delete(`/messagesenders/${messageSenderID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -118,12 +124,13 @@ class MessageSenders {
    /**
     * @param messageSenderID ID of the message sender.
     * @param messageSender 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>,  accessToken?: string ): Promise<RequiredDeep<TMessageSender>> {
+    public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/messagesenders/${messageSenderID}`, messageSender, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/messagesenders/${messageSenderID}`, messageSender, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -134,16 +141,17 @@ class MessageSenders {
 
    /**
     * @param messageSenderID ID of the message sender.
-    * @param options.buyerID ID of the buyer.
-    * @param options.userID ID of the user.
-    * @param options.userGroupID ID of the user group.
-    * @param options.supplierID ID of the supplier.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.supplierID ID of the supplier.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(messageSenderID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(messageSenderID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/messagesenders/${messageSenderID}/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        return await httpClient.delete(`/messagesenders/${messageSenderID}/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -153,20 +161,21 @@ class MessageSenders {
     }
 
    /**
-    * @param options.buyerID ID of the buyer.
-    * @param options.messageSenderID ID of the message sender.
-    * @param options.userID ID of the user.
-    * @param options.userGroupID ID of the user group.
-    * @param options.level Level of the message sender assignment. Possible values: User, Group, Company.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.supplierID ID of the supplier.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.messageSenderID ID of the message sender.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.level Level of the message sender assignment. Possible values: User, Group, Company.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.supplierID ID of the supplier.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( options: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number, supplierID?: string } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>> {
+    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( options: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        return await httpClient.get(`/messagesenders/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -177,12 +186,13 @@ class MessageSenders {
 
    /**
     * @param messageSenderAssignment Required fields: MessageSenderID
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment, accessToken?: string ): Promise<void> {
+    public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders/assignments`, messageSenderAssignment, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/messagesenders/assignments`, messageSenderAssignment, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -192,18 +202,19 @@ class MessageSenders {
     }
 
    /**
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
+    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/CCListenerAssignments`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/messagesenders/CCListenerAssignments`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -214,12 +225,13 @@ class MessageSenders {
 
    /**
     * @param messageCCListenerAssignment 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment, accessToken?: string ): Promise<void> {
+    public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders/CCListenerAssignments`, messageCCListenerAssignment, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/messagesenders/CCListenerAssignments`, messageCCListenerAssignment, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

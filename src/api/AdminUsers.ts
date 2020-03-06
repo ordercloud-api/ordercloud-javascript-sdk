@@ -3,6 +3,7 @@ import { User } from '../models/User';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -23,18 +24,19 @@ class AdminUsers {
     }
 
    /**
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TUser extends User>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUser>>> {
+    public async List<TUser extends User>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/adminusers`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -45,12 +47,13 @@ class AdminUsers {
 
    /**
     * @param user Required fields: Username, FirstName, LastName, Email, Active
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TUser extends User>(user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
+    public async Create<TUser extends User>(user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/adminusers`, user, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/adminusers`, user, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,12 +64,13 @@ class AdminUsers {
 
    /**
     * @param userID ID of the user.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TUser extends User>(userID: string,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
+    public async Get<TUser extends User>(userID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers/${userID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.get(`/adminusers/${userID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -78,12 +82,13 @@ class AdminUsers {
    /**
     * @param userID ID of the user.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TUser extends User>(userID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TUser>> {
+    public async Save<TUser extends User>(userID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/adminusers/${userID}`, user, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/adminusers/${userID}`, user, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -94,12 +99,13 @@ class AdminUsers {
 
    /**
     * @param userID ID of the user.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(userID: string,  accessToken?: string ): Promise<void> {
+    public async Delete(userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/adminusers/${userID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.delete(`/adminusers/${userID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -111,12 +117,13 @@ class AdminUsers {
    /**
     * @param userID ID of the user.
     * @param user 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  accessToken?: string ): Promise<RequiredDeep<TUser>> {
+    public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/adminusers/${userID}`, user, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/adminusers/${userID}`, user, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -78,6 +78,8 @@ export * from './Authentication';
 export * from './DecodedToken';
 export * from './SdkConfiguration';
 export * from './PartialDeep';
+export * from './RequiredDeep';
 export * from './ListPage';
 export * from './ListPageFacet';
 export * from './Filters';
+export * from './RequestOptions';

@@ -10,6 +10,7 @@ import { Shipment } from '../models/Shipment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -50,22 +51,23 @@ class Orders {
 
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
-    * @param options.buyerID ID of the buyer.
-    * @param options.supplierID ID of the supplier.
-    * @param options.from Lower bound of date range that the order was created.
-    * @param options.to Upper bound of date range that the order was created.
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.supplierID ID of the supplier.
+    * @param listOptions.from Lower bound of date range that the order was created.
+    * @param listOptions.to Upper bound of date range that the order was created.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TOrder extends Order>(direction: 'Incoming' | 'Outgoing',  options: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TOrder>>> {
+    public async List<TOrder extends Order>(direction: 'Incoming' | 'Outgoing',  options: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/orders/${direction}`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -77,12 +79,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param order 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', order: Order, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Create<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', order: Order, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}`, order, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}`, order, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -94,47 +97,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Get<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}`, { params: {  accessToken, impersonating } } )
-        .catch(ex => {
-            if(ex.response) {
-                throw new OrderCloudError(ex)
-            }
-            throw ex;
-        })
-    }
-
-   /**
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
-    * @param orderID ID of the order.
-    * @param order 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    */
-    public async Save<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, order: Order, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
-        const impersonating = this.impersonating;
-        this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}`, order, { params: {  accessToken, impersonating } } )
-        .catch(ex => {
-            if(ex.response) {
-                throw new OrderCloudError(ex)
-            }
-            throw ex;
-        })
-    }
-
-   /**
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
-    * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    */
-    public async Delete(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<void> {
-        const impersonating = this.impersonating;
-        this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.get(`/orders/${direction}/${orderID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -147,12 +116,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param order 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, order: PartialDeep<Order>,  accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Save<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, order: Order, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}`, order, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/orders/${direction}/${orderID}`, order, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -164,18 +134,56 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListApprovals<TOrderApproval extends OrderApproval>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TOrderApproval>>> {
+    public async Delete(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/approvals`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.delete(`/orders/${direction}/${orderID}`, { params: {  ...requestOptions, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param order 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    */
+    public async Patch<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, order: PartialDeep<Order>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await httpClient.patch(`/orders/${direction}/${orderID}`, order, { params: {  ...requestOptions, impersonating } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    */
+    public async ListApprovals<TOrderApproval extends OrderApproval>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderApproval>>> {
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await httpClient.get(`/orders/${direction}/${orderID}/approvals`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -188,12 +196,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param orderApprovalInfo 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Approve<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, orderApprovalInfo: OrderApprovalInfo, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Approve<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, orderApprovalInfo: OrderApprovalInfo, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/approve`, orderApprovalInfo, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/approve`, orderApprovalInfo, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -206,12 +215,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address Required fields: Street1, City, State, Zip, Country
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SetBillingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async SetBillingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/billto`, address, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/orders/${direction}/${orderID}/billto`, address, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -224,12 +234,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async PatchBillingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async PatchBillingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/billto`, address, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/orders/${direction}/${orderID}/billto`, address, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -241,12 +252,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Cancel<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Cancel<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/cancel`, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/cancel`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -258,12 +270,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Complete<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Complete<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/complete`, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/complete`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -276,12 +289,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param orderApprovalInfo 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Decline<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, orderApprovalInfo: OrderApprovalInfo, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Decline<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, orderApprovalInfo: OrderApprovalInfo, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/decline`, orderApprovalInfo, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/decline`, orderApprovalInfo, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -293,18 +307,19 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListEligibleApprovers<TUser extends User>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TUser>>> {
+    public async ListEligibleApprovers<TUser extends User>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/eligibleapprovers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/orders/${direction}/${orderID}/eligibleapprovers`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -316,12 +331,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Forward<TOrderSplitResult extends OrderSplitResult>(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<RequiredDeep<TOrderSplitResult>> {
+    public async Forward<TOrderSplitResult extends OrderSplitResult>(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/forward`, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/forward`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -334,12 +350,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param user 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async PatchFromUser<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, user: User, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async PatchFromUser<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/fromuser`, user, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/orders/${direction}/${orderID}/fromuser`, user, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -351,18 +368,19 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TOrderPromotion>>> {
+    public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/promotions`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/orders/${direction}/${orderID}/promotions`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -375,12 +393,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param promoCode Promo code of the order promotion.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async AddPromotion<TOrderPromotion extends OrderPromotion>(direction: 'Incoming' | 'Outgoing', orderID: string, promoCode: string,  accessToken?: string ): Promise<RequiredDeep<TOrderPromotion>> {
+    public async AddPromotion<TOrderPromotion extends OrderPromotion>(direction: 'Incoming' | 'Outgoing', orderID: string, promoCode: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -393,12 +412,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param promoCode Promo code of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async RemovePromotion<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, promoCode: string,  accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async RemovePromotion<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, promoCode: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.delete(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -411,12 +431,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param shipment 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Ship<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, shipment: Shipment, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Ship<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, shipment: Shipment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/ship`, shipment, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/ship`, shipment, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -429,12 +450,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address Required fields: Street1, City, State, Zip, Country
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SetShippingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async SetShippingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/shipto`, address, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/orders/${direction}/${orderID}/shipto`, address, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -447,12 +469,13 @@ class Orders {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async PatchShippingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async PatchShippingAddress<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/shipto`, address, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/orders/${direction}/${orderID}/shipto`, address, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -464,12 +487,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Split<TOrderSplitResult extends OrderSplitResult>(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<RequiredDeep<TOrderSplitResult>> {
+    public async Split<TOrderSplitResult extends OrderSplitResult>(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/split`, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/split`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -481,12 +505,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Submit<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<RequiredDeep<TOrder>> {
+    public async Submit<TOrder extends Order>(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/submit`, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/submit`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -498,12 +523,13 @@ class Orders {
    /**
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Validate(direction: 'Incoming' | 'Outgoing', orderID: string,  accessToken?: string ): Promise<void> {
+    public async Validate(direction: 'Incoming' | 'Outgoing', orderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/validate`, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/validate`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

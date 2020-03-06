@@ -4,6 +4,7 @@ import { SpendingAccountAssignment } from '../models/SpendingAccountAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -28,18 +29,19 @@ class SpendingAccounts {
 
    /**
     * @param buyerID ID of the buyer.
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
+    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -51,12 +53,13 @@ class SpendingAccounts {
    /**
     * @param buyerID ID of the buyer.
     * @param spendingAccount Required fields: Name, Balance
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts`, spendingAccount, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts`, spendingAccount, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -68,12 +71,13 @@ class SpendingAccounts {
    /**
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string,  accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -86,12 +90,13 @@ class SpendingAccounts {
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
     * @param spendingAccount Required fields: Name, Balance
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount, accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -103,12 +108,13 @@ class SpendingAccounts {
    /**
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(buyerID: string, spendingAccountID: string,  accessToken?: string ): Promise<void> {
+    public async Delete(buyerID: string, spendingAccountID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -121,12 +127,13 @@ class SpendingAccounts {
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
     * @param spendingAccount 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>,  accessToken?: string ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -138,14 +145,15 @@ class SpendingAccounts {
    /**
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
-    * @param options.userID ID of the user.
-    * @param options.userGroupID ID of the user group.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(buyerID: string, spendingAccountID: string,  options: { userID?: string, userGroupID?: string } = {}, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, spendingAccountID: string,  options: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -156,18 +164,19 @@ class SpendingAccounts {
 
    /**
     * @param buyerID ID of the buyer.
-    * @param options.spendingAccountID ID of the spending account.
-    * @param options.userID ID of the user.
-    * @param options.userGroupID ID of the user group.
-    * @param options.level Level of the spending account assignment. Possible values: User, Group, Company.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.spendingAccountID ID of the spending account.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.level Level of the spending account assignment. Possible values: User, Group, Company.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>> {
+    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -179,12 +188,13 @@ class SpendingAccounts {
    /**
     * @param buyerID ID of the buyer.
     * @param spendingAccountAssignment Required fields: SpendingAccountID
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment, accessToken?: string ): Promise<void> {
+    public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts/assignments`, spendingAccountAssignment, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts/assignments`, spendingAccountAssignment, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

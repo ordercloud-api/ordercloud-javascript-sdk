@@ -5,6 +5,7 @@ import {
   Products,
   Configuration,
   AccessToken,
+  RequiredDeep,
 } from '../src/index'
 import { makeToken } from './utils'
 
@@ -67,7 +68,7 @@ describe('has expired access token', () => {
         const RefreshTokenSpy = jest
           .spyOn(Auth, 'RefreshToken')
           .mockImplementationOnce(() => {
-            const response: AccessToken = {
+            const response: RequiredDeep<AccessToken> = {
               access_token: testdata.accessTokenFromRefresh,
               expires_in: 32000000000,
               token_type: 'bearer',
@@ -105,7 +106,7 @@ describe('has expired access token', () => {
         const RefreshTokenSpy = jest
           .spyOn(Auth, 'RefreshToken')
           .mockImplementationOnce(() => {
-            const response: AccessToken = {
+            const response: RequiredDeep<AccessToken> = {
               access_token: testdata.accessTokenFromRefresh,
               expires_in: 32000000000,
               token_type: 'bearer',
@@ -167,7 +168,7 @@ describe('has no access token', () => {
         const RefreshTokenSpy = jest
           .spyOn(Auth, 'RefreshToken')
           .mockImplementationOnce(() => {
-            const response: AccessToken = {
+            const response: RequiredDeep<AccessToken> = {
               access_token: testdata.accessTokenFromRefresh,
               expires_in: 32000000000,
               token_type: 'bearer',

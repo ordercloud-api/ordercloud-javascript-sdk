@@ -176,7 +176,7 @@ Me.As().ListProducts()
   .then(impersonatedProductList => console.log(impersonatedProductList))
 ```
 
-As you can see this method makes it very easy to toggle between impersonated calls and non-impersonated calls. But what if you have more than two tokens to toggle between? To address that scenario we recommend using the optional `accessToken` parameter available as the last parameter on all sdk methods.
+As you can see this method makes it very easy to toggle between impersonated calls and non-impersonated calls. But what if you have more than two tokens to toggle between? To address that scenario we recommend using the optional `requestOptions.accessToken` parameter. `requestOptions` is available as the last parameter on all sdk methods.
 
 ```javascript
 import { Me } from 'ordercloud-javascript-sdk';
@@ -186,16 +186,39 @@ var token2 = 'USER2_TOKEN';
 var token3 = 'USER3_TOKEN';
 
 // Get products for user 1
-Me.ListProducts(null, token1)
+Me.ListProducts(null, { accessToken: token1 })
   .then(user1ProductList => console.log(user1ProductList))
 
 // Get products for user 2
-Me.ListProducts(null, token2)
+Me.ListProducts(null, { accessToken: token2 })
   .then(user2ProductList => console.log(user2ProductList))
 
 // Get products for user 3
-Me.ListProducts(null, token3)
+Me.ListProducts(null, { accessToken: token3 })
   .then(user3ProductList => console.log(user3ProductList))
+```
+
+## Cancelling Requests
+
+In addition to `requestOptions.accessToken` the sdk provides `requestOptions.cancelToken` which enables [axios request cancellation](https://github.com/axios/axios#cancellation). This option is useful for cleaning up outstanding requests when changes in your user experience no longer require the data requested. For instance, you could use the cancel token to clean up outstanding requests [when your react component unmounts](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup).
+
+```ts
+import axios from 'axios';
+import { Products } from 'ordercloud-javascript-sdk';
+
+const signal = axios.CancelToken.source();
+
+Products.List({search: 'Tennis balls'}, {cancelToken: signal.token})
+  .catch(ex => {
+    if (axios.isCancel(ex)) {
+      console.log(ex) // 'This request was cancelled!'
+    } else {
+      console.log(ex) // Normal ordercloud exception
+    }
+  })
+
+// Oops! I don't want to resolve this request anymore
+signal.cancel('This request was cancelled!')
 ```
 
 ## Typescript Support

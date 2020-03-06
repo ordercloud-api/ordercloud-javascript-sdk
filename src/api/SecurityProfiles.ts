@@ -4,6 +4,7 @@ import { SecurityProfileAssignment } from '../models/SecurityProfileAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -27,18 +28,19 @@ class SecurityProfiles {
     }
 
    /**
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSecurityProfile extends SecurityProfile>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
+    public async List<TSecurityProfile extends SecurityProfile>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/securityprofiles`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -49,12 +51,13 @@ class SecurityProfiles {
 
    /**
     * @param securityProfile Required fields: Name
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles`, securityProfile, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/securityprofiles`, securityProfile, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -65,12 +68,13 @@ class SecurityProfiles {
 
    /**
     * @param securityProfileID ID of the security profile.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/${securityProfileID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.get(`/securityprofiles/${securityProfileID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -82,12 +86,13 @@ class SecurityProfiles {
    /**
     * @param securityProfileID ID of the security profile.
     * @param securityProfile Required fields: Name
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -98,12 +103,13 @@ class SecurityProfiles {
 
    /**
     * @param securityProfileID ID of the security profile.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(securityProfileID: string,  accessToken?: string ): Promise<void> {
+    public async Delete(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.delete(`/securityprofiles/${securityProfileID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -115,12 +121,13 @@ class SecurityProfiles {
    /**
     * @param securityProfileID ID of the security profile.
     * @param securityProfile 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  accessToken?: string ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -131,16 +138,17 @@ class SecurityProfiles {
 
    /**
     * @param securityProfileID ID of the security profile.
-    * @param options.buyerID ID of the buyer.
-    * @param options.userID ID of the user.
-    * @param options.userGroupID ID of the user group.
-    * @param options.supplierID ID of the supplier.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.supplierID ID of the supplier.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(securityProfileID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, accessToken?: string ): Promise<void> {
+    public async DeleteAssignment(securityProfileID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        return await httpClient.delete(`/securityprofiles/${securityProfileID}/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -150,21 +158,22 @@ class SecurityProfiles {
     }
 
    /**
-    * @param options.buyerID ID of the buyer.
-    * @param options.supplierID ID of the supplier.
-    * @param options.securityProfileID ID of the security profile.
-    * @param options.userID ID of the user.
-    * @param options.userGroupID ID of the user group.
-    * @param options.commerceRole Commerce role of the security profile assignment. Possible values: Buyer, Seller, Supplier.
-    * @param options.level Level of the security profile assignment. Possible values: User, Group, Company.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.supplierID ID of the supplier.
+    * @param listOptions.securityProfileID ID of the security profile.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.commerceRole Commerce role of the security profile assignment. Possible values: Buyer, Seller, Supplier.
+    * @param listOptions.level Level of the security profile assignment. Possible values: User, Group, Company.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( options: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: string, level?: string, page?: number, pageSize?: number } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
+    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( options: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: string, level?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/assignments`, { params: { ...options,  accessToken, impersonating } } )
+        return await httpClient.get(`/securityprofiles/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -175,12 +184,13 @@ class SecurityProfiles {
 
    /**
     * @param securityProfileAssignment Required fields: SecurityProfileID
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment, accessToken?: string ): Promise<void> {
+    public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles/assignments`, securityProfileAssignment, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/securityprofiles/assignments`, securityProfileAssignment, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

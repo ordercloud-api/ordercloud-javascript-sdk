@@ -95,7 +95,7 @@
 					<a name="create" class="tsd-anchor"></a>
 					<h3>Create</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">Create&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroup<span class="tsd-signature-symbol">: </span><a href="../interfaces/usergroup.html" class="tsd-signature-type">UserGroup</a>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Create&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroup<span class="tsd-signature-symbol">: </span><a href="../interfaces/usergroup.html" class="tsd-signature-type">UserGroup</a>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -124,10 +124,7 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -138,7 +135,7 @@
 					<a name="delete" class="tsd-anchor"></a>
 					<h3>Delete</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">Delete<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Delete<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -161,10 +158,7 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -175,7 +169,7 @@
 					<a name="deleteuserassignment" class="tsd-anchor"></a>
 					<h3>Delete<wbr>User<wbr>Assignment</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">Delete<wbr>User<wbr>Assignment<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Delete<wbr>User<wbr>Assignment<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -204,10 +198,7 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -218,7 +209,7 @@
 					<a name="get" class="tsd-anchor"></a>
 					<h3>Get</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">Get&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Get&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -247,10 +238,7 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -261,7 +249,7 @@
 					<a name="list" class="tsd-anchor"></a>
 					<h3>List</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>filters<span class="tsd-signature-symbol">?: </span><a href="../globals.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>pageSize<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>searchOn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>sortBy<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>filters<span class="tsd-signature-symbol">?: </span><a href="../globals.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">; </span>page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>pageSize<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>searchOn<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">; </span>sortBy<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -288,47 +276,26 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../globals.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>An object whose keys match the model, and the values are the values to filter by</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Page of results to return. Default: 1</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Number of results to return per page. Default: 20, max: 100.</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Word or phrase to search for.</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Comma-delimited list of fields to search on.</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Comma-delimited list of fields to sort by.</p>
-											</div>
 										</li>
 									</ul>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -339,7 +306,7 @@
 					<a name="listuserassignments" class="tsd-anchor"></a>
 					<h3>List<wbr>User<wbr>Assignments</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List<wbr>User<wbr>Assignments&lt;TUserGroupAssignment&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>pageSize<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>userGroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroupAssignment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List<wbr>User<wbr>Assignments&lt;TUserGroupAssignment&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span>page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>pageSize<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span>userGroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> }</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroupAssignment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -366,35 +333,20 @@
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Page of results to return. Default: 1</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>Number of results to return per page. Default: 20, max: 100.</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> user<wbr>GroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>ID of the user group.</p>
-											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
-											<div class="tsd-comment tsd-typography">
-												<p>ID of the user.</p>
-											</div>
 										</li>
 									</ul>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroupAssignment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -405,7 +357,7 @@
 					<a name="patch" class="tsd-anchor"></a>
 					<h3>Patch</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">Patch&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroup<span class="tsd-signature-symbol">: </span><a href="../globals.html#partialdeep" class="tsd-signature-type">PartialDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/usergroup.html" class="tsd-signature-type">UserGroup</a><span class="tsd-signature-symbol">&gt;</span>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Patch&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroup<span class="tsd-signature-symbol">: </span><a href="../globals.html#partialdeep" class="tsd-signature-type">PartialDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/usergroup.html" class="tsd-signature-type">UserGroup</a><span class="tsd-signature-symbol">&gt;</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -437,10 +389,7 @@
 									<h5>userGroup: <a href="../globals.html#partialdeep" class="tsd-signature-type">PartialDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/usergroup.html" class="tsd-signature-type">UserGroup</a><span class="tsd-signature-symbol">&gt;</span></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -451,7 +400,7 @@
 					<a name="save" class="tsd-anchor"></a>
 					<h3>Save</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">Save&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroup<span class="tsd-signature-symbol">: </span><a href="../interfaces/usergroup.html" class="tsd-signature-type">UserGroup</a>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Save&lt;TUserGroup&gt;<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroup<span class="tsd-signature-symbol">: </span><a href="../interfaces/usergroup.html" class="tsd-signature-type">UserGroup</a>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -486,10 +435,7 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../globals.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUserGroup</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
@@ -500,7 +446,7 @@
 					<a name="saveuserassignment" class="tsd-anchor"></a>
 					<h3>Save<wbr>User<wbr>Assignment</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">Save<wbr>User<wbr>Assignment<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupAssignment<span class="tsd-signature-symbol">: </span><a href="../interfaces/usergroupassignment.html" class="tsd-signature-type">UserGroupAssignment</a>, accessToken<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Save<wbr>User<wbr>Assignment<span class="tsd-signature-symbol">(</span>buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, userGroupAssignment<span class="tsd-signature-symbol">: </span><a href="../interfaces/usergroupassignment.html" class="tsd-signature-type">UserGroupAssignment</a>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -520,10 +466,7 @@
 									<h5>userGroupAssignment: <a href="../interfaces/usergroupassignment.html" class="tsd-signature-type">UserGroupAssignment</a></h5>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> accessToken: <span class="tsd-signature-type">string</span></h5>
-									<div class="tsd-comment tsd-typography">
-										<p>Provide an alternative token to the one stored in the sdk instance (useful for impersonation).</p>
-									</div>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>

@@ -3,6 +3,7 @@ import { Supplier } from '../models/Supplier';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -23,18 +24,19 @@ class Suppliers {
     }
 
    /**
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSupplier extends Supplier>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TSupplier>>> {
+    public async List<TSupplier extends Supplier>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSupplier>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/suppliers`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -45,12 +47,13 @@ class Suppliers {
 
    /**
     * @param supplier Required fields: Name
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TSupplier extends Supplier>(supplier: Supplier, accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
+    public async Create<TSupplier extends Supplier>(supplier: Supplier, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers`, supplier, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/suppliers`, supplier, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,12 +64,13 @@ class Suppliers {
 
    /**
     * @param supplierID ID of the supplier.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TSupplier extends Supplier>(supplierID: string,  accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
+    public async Get<TSupplier extends Supplier>(supplierID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.get(`/suppliers/${supplierID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -78,12 +82,13 @@ class Suppliers {
    /**
     * @param supplierID ID of the supplier.
     * @param supplier Required fields: Name
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TSupplier extends Supplier>(supplierID: string, supplier: Supplier, accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
+    public async Save<TSupplier extends Supplier>(supplierID: string, supplier: Supplier, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}`, supplier, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/suppliers/${supplierID}`, supplier, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -94,12 +99,13 @@ class Suppliers {
 
    /**
     * @param supplierID ID of the supplier.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(supplierID: string,  accessToken?: string ): Promise<void> {
+    public async Delete(supplierID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.delete(`/suppliers/${supplierID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -111,12 +117,13 @@ class Suppliers {
    /**
     * @param supplierID ID of the supplier.
     * @param supplier 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TSupplier extends Supplier>(supplierID: string, supplier: PartialDeep<Supplier>,  accessToken?: string ): Promise<RequiredDeep<TSupplier>> {
+    public async Patch<TSupplier extends Supplier>(supplierID: string, supplier: PartialDeep<Supplier>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}`, supplier, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/suppliers/${supplierID}`, supplier, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

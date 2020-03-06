@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance, CancelToken } from 'axios'
 import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
 import { SecurityProfile } from '../models/SecurityProfile'
@@ -43,7 +43,10 @@ class Auth {
     username: string,
     password: string,
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>
+    scope: Array<SecurityProfile['Roles']>,
+    options: {
+      cancelToken?: CancelToken
+    } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
@@ -62,6 +65,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
+        ...options,
       })
       .catch(e => {
         if (e.response) {
@@ -88,7 +92,10 @@ class Auth {
     username: string,
     password: string,
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>
+    scope: Array<SecurityProfile['Roles']>,
+    options: {
+      cancelToken?: CancelToken
+    } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
@@ -108,6 +115,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
+        ...options,
       })
       .catch(e => {
         if (e.response) {
@@ -130,7 +138,10 @@ class Auth {
   public async ClientCredentials(
     clientSecret: string,
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>
+    scope: Array<SecurityProfile['Roles']>,
+    options: {
+      cancelToken?: CancelToken
+    } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
@@ -148,6 +159,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
+        ...options,
       })
       .catch(e => {
         if (e.response) {
@@ -168,7 +180,10 @@ class Auth {
    */
   public async RefreshToken(
     refreshToken: string,
-    clientID: string
+    clientID: string,
+    options: {
+      cancelToken?: CancelToken
+    } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     const body = {
       grant_type: 'refresh_token',
@@ -182,6 +197,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
+        ...options,
       })
       .catch(e => {
         if (e.response) {
@@ -202,7 +218,10 @@ class Auth {
    */
   public async Anonymous(
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>
+    scope: Array<SecurityProfile['Roles']>,
+    options: {
+      cancelToken?: CancelToken
+    } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
@@ -219,6 +238,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
+        ...options,
       })
       .catch(e => {
         if (e.response) {

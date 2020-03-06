@@ -33,7 +33,7 @@ test('should use impersonation token if call As method', async () => {
 
 test('should use passed in token if defined', async () => {
   const token = makeToken()
-  await Products.Delete(testdata.productID, token)
+  await Products.Delete(testdata.productID, { accessToken: token })
   expect(mockAxios.delete).toHaveBeenCalledTimes(1)
   expect(mockAxios.delete).toHaveBeenCalledWith(
     `${apiUrl}/products/${testdata.productID}`,
@@ -52,7 +52,7 @@ test('should prioritize passed in token', async () => {
   const impersonationToken = makeToken()
   Tokens.SetImpersonationToken(impersonationToken)
   const token = makeToken()
-  await Products.As().Delete(testdata.productID, token)
+  await Products.As().Delete(testdata.productID, { accessToken: token })
   expect(mockAxios.delete).toHaveBeenCalledTimes(1)
   expect(mockAxios.delete).toHaveBeenCalledWith(
     `${apiUrl}/products/${testdata.productID}`,

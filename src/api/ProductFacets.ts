@@ -3,6 +3,7 @@ import { ProductFacet } from '../models/ProductFacet';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -23,18 +24,19 @@ class ProductFacets {
     }
 
    /**
-    * @param options.search Word or phrase to search for.
-    * @param options.searchOn Comma-delimited list of fields to search on.
-    * @param options.sortBy Comma-delimited list of fields to sort by.
-    * @param options.page Page of results to return. Default: 1
-    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param options.filters An object whose keys match the model, and the values are the values to filter by
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, accessToken?: string ): Promise<RequiredDeep<ListPage<TProductFacet>>> {
+    public async List<TProductFacet extends ProductFacet>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductFacet>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets`, { params: { ...options,  filters: options.filters, accessToken, impersonating } } )
+        return await httpClient.get(`/productfacets`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -45,12 +47,13 @@ class ProductFacets {
 
    /**
     * @param productFacet Required fields: Name, MinCount
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
+    public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/productfacets`, productFacet, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/productfacets`, productFacet, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,12 +64,13 @@ class ProductFacets {
 
    /**
     * @param productFacetID ID of the product facet.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
+    public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.get(`/productfacets/${productFacetID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -78,12 +82,13 @@ class ProductFacets {
    /**
     * @param productFacetID ID of the product facet.
     * @param productFacet Required fields: Name, MinCount
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
+    public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/productfacets/${productFacetID}`, productFacet, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -94,12 +99,13 @@ class ProductFacets {
 
    /**
     * @param productFacetID ID of the product facet.
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(productFacetID: string,  accessToken?: string ): Promise<void> {
+    public async Delete(productFacetID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/productfacets/${productFacetID}`, { params: {  accessToken, impersonating } } )
+        return await httpClient.delete(`/productfacets/${productFacetID}`, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -111,12 +117,13 @@ class ProductFacets {
    /**
     * @param productFacetID ID of the product facet.
     * @param productFacet 
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  accessToken?: string ): Promise<RequiredDeep<TProductFacet>> {
+    public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/productfacets/${productFacetID}`, productFacet, { params: {  accessToken, impersonating } } )
+        return await httpClient.patch(`/productfacets/${productFacetID}`, productFacet, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

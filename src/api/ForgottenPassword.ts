@@ -3,6 +3,7 @@ import { PasswordReset } from '../models/PasswordReset';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
 import httpClient from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
@@ -20,12 +21,13 @@ class ForgottenPassword {
 
    /**
     * @param passwordResetRequest Required fields: ClientID
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest, accessToken?: string ): Promise<void> {
+    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/password/reset`, passwordResetRequest, { params: {  accessToken, impersonating } } )
+        return await httpClient.post(`/password/reset`, passwordResetRequest, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -37,12 +39,13 @@ class ForgottenPassword {
    /**
     * @param verificationCode Verification code of the password reset.
     * @param passwordReset Required fields: ClientID
-    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset, accessToken?: string ): Promise<void> {
+    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/password/reset/${verificationCode}`, passwordReset, { params: {  accessToken, impersonating } } )
+        return await httpClient.put(`/password/reset/${verificationCode}`, passwordReset, { params: {  ...requestOptions, impersonating } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
