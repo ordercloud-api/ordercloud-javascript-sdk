@@ -1,8 +1,9 @@
+import { PaymentType } from './PaymentType';
 import { PaymentTransaction } from './PaymentTransaction';
 
 export interface Payment<TPaymentXp = any, TTransactionsXp = any> {
     ID?: string
-    Type: 'PurchaseOrder' | 'CreditCard' | 'SpendingAccount'
+    Type: PaymentType
     readonly DateCreated?: string
     CreditCardID?: string
     SpendingAccountID?: string

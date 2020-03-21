@@ -2,8 +2,12 @@
 import { {{this}} } from './{{this}}';
 {{/model.fileImports}}
 
+{{#if model.isEnum}}
+export type {{model.name}} = {{#each model.enumValues}}'{{this}}'{{#unless @last}} | {{/unless}}
+{{/each}}
+{{else }}
 export interface {{model.name}}{{#if model.isList}}<T{{model.baseType}} extends {{model.baseType}}{{#if model.isFacetList}}, TFacetsXp = any{{/if}}>{{else}}{{#if model.hasTypeParams}}<{{commaSeparateWithDefaultAny model.typeParams}}>{{/if}}{{/if}} {
     {{#model.properties}}
     {{#if isReadOnly}}readonly {{/if}}{{name}}{{#if isRequired}}:{{else}}?:{{/if}} {{typescriptType}}
     {{/model.properties}}
-}
+}{{/if}}

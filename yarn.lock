@@ -454,10 +454,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@ordercloud/oc-codegen@0.0.1-12":
-  version "0.0.1-12"
-  resolved "https://registry.yarnpkg.com/@ordercloud/oc-codegen/-/oc-codegen-0.0.1-12.tgz#19ab837df250858af9e03ca3f12a8c78d08a8b6d"
-  integrity sha512-aNE9/Z2dgsub4yUlhextcCT0LyAe+aKPug2LtwL1oen/MulSfJ+YFN5TZZ5diE8gTMAZWELJiujGYCrn1Flv+A==
+"@ordercloud/oc-codegen@0.0.1-17":
+  version "0.0.1-17"
+  resolved "https://registry.yarnpkg.com/@ordercloud/oc-codegen/-/oc-codegen-0.0.1-17.tgz#2c62021c036abf09ce86bde58d0daf3fd3af9672"
+  integrity sha512-NHjcrXaHZLAAoaMC01Ii9BVZ+Th8QQA0N+jT6Vks6pcT0CTK32i7uwZn55b1P90ImFC/KtClYyfQUWa/OI7Asg==
   dependencies:
     "@types/lodash" "^4.14.149"
     chalk "^3.0.0"

@@ -33,7 +33,7 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TWebhook extends Webhook>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TWebhook>>> {
+    public async List<TWebhook extends Webhook>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'Description' | 'Url')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TWebhook>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/webhooks`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )

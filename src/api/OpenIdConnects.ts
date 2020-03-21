@@ -33,7 +33,7 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TOpenIdConnect extends OpenIdConnect>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
+    public async List<TOpenIdConnect extends OpenIdConnect>( options: { search?: string, searchOn?: ('ID')[], sortBy?: ('ID' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/openidconnects`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )

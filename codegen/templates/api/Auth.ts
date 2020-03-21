@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, CancelToken } from 'axios'
 import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
-import { SecurityProfile } from '../models/SecurityProfile'
+import { ApiRole } from '../models/ApiRole'
 import serialize from '../utils/ParamsSerializer'
 import { RequiredDeep } from '../models/RequiredDeep'
 import OrderCloudError from '../utils/OrderCloudError'
@@ -43,7 +43,7 @@ class Auth {
     username: string,
     password: string,
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>,
+    scope: ApiRole[],
     options: {
       cancelToken?: CancelToken
     } = {}
@@ -92,7 +92,7 @@ class Auth {
     username: string,
     password: string,
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>,
+    scope: ApiRole[],
     options: {
       cancelToken?: CancelToken
     } = {}
@@ -138,7 +138,7 @@ class Auth {
   public async ClientCredentials(
     clientSecret: string,
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>,
+    scope: ApiRole[],
     options: {
       cancelToken?: CancelToken
     } = {}
@@ -218,7 +218,7 @@ class Auth {
    */
   public async Anonymous(
     clientID: string,
-    scope: Array<SecurityProfile['Roles']>,
+    scope: ApiRole[],
     options: {
       cancelToken?: CancelToken
     } = {}

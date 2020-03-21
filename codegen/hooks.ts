@@ -4,16 +4,8 @@ import {
   Param,
   PostFormatModelHook,
   PostFormatOperationHook,
-  FilterModelsHook,
   Operation,
 } from '@ordercloud/oc-codegen'
-
-const filterModels: FilterModelsHook = function(model) {
-  // instead of the many similar list models that the spec spits out
-  // we're going to consolidate into two list types with type parameters ListPage and ListPageFacet
-  // for example ListCreditCard becomes ListPage<CreditCard>
-  return !model.isList
-}
 
 const postFormatModel: PostFormatModelHook = function(model, models) {
   // add model.typeParams and prop.typeParams
@@ -45,23 +37,11 @@ const postFormatOperation: PostFormatOperationHook = function(operation) {
   })
 
   if (operation.isList) {
-    // instead of the many similar list models that the spec spits out
-    // we're going to consolidate into two list types with type parameters ListPage and ListPageFacet
-    // for example ListCreditCard becomes ListPage<CreditCard>
-    let newImports = [...operation.fileImports]
-    operation.fileImports.forEach(fileImport => {
-      if (fileImport === operation.returnType) {
-        if (operation.isFacetList) {
-          newImports = [...newImports, 'ListPageFacet', operation.baseType]
-        } else {
-          newImports = [...newImports, 'ListPage', operation.baseType]
-        }
-        // remove the old list type
-        newImports = newImports.filter(i => i !== fileImport)
-      }
-      return fileImport
-    })
-    operation.fileImports = [...new Set(newImports)] // unique array
+    // add ListPage and ListPageWithFacets to fileImports
+    operation.fileImports = [
+      operation.isFacetList ? 'ListPageWithFacets' : 'ListPage',
+      ...operation.fileImports,
+    ]
   }
 
   // RETURN OPERATION - THIS IS IMPORTANT
@@ -69,7 +49,6 @@ const postFormatOperation: PostFormatOperationHook = function(operation) {
 }
 
 module.exports = {
-  filterModels,
   postFormatModel,
   postFormatOperation,
 }
@@ -97,12 +76,37 @@ function findTypeForOperationProps(prop: Param, operation: Operation) {
     // we will now expect { xp: { color: 'red' } }
     prop.description =
       'An object whose keys match the model, and the values are the values to filter by'
-    return `Filters<Required<T${operation.baseType}>>`
+    return `Filters<Required<T${operation.returnType}>>`
   }
 
-  if (prop.isEnum) {
-    // using backticks here so we can write quotes
-    return prop.enum.map(p => `'${p}'`).join(' | ')
+  if (prop.isEnum && !prop.isCustomType) {
+    let enumVals = prop.enumValues
+
+    // each sort field (ascending) can inverse sort (descending) by adding !
+    if (prop.name === 'sortBy') {
+      enumVals = [...enumVals, ...prop.enumValues.map(v => `!${v}`)]
+    }
+
+    // build enumString
+    let enumString = enumVals.map(v => `'${v}'`).join(' | ')
+
+    // enhanced search lets you search/sort by xp values
+    if (
+      operation.isFacetList &&
+      (prop.name === 'searchOn' || prop.name === 'sortBy')
+    ) {
+      // unfortunately adding type string to the union type
+      // widens type to simply type string which destroys type-inference
+      // at this time there is nothing in the language that can help us out
+      // might be worth keeping an eye on regex-validated string types:
+      // https://github.com/microsoft/TypeScript/issues/6579
+      enumString = `${enumString} | string`
+    }
+
+    if (prop.isArray) {
+      return `(${enumString})[]`
+    }
+    return enumString
   }
 
   const jsType = javascriptTypes[prop.type] || prop.type
@@ -128,12 +132,16 @@ function findTypeForModelProps(prop: Param, model: Model) {
   }
 
   if (model.isList && prop.name === 'Items') {
-    return `T${model.baseType}[]`
+    return `T${model.type}[]`
   }
 
-  if (prop.isEnum) {
-    // using backticks here so we can write quotes
-    return prop.enum.map(p => `'${p}'`).join(' | ')
+  if (prop.isEnum && !prop.isCustomType) {
+    const enumVals = prop.enumValues
+    const enumString = enumVals.map(v => `'${v}'`).join(' | ')
+    if (prop.isArray) {
+      return `(${enumString})[]`
+    }
+    return enumString
   }
 
   const typeParams = prop['hasTypeParams']

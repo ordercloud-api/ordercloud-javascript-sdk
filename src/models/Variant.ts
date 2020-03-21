@@ -1,4 +1,5 @@
 import { VariantInventory } from './VariantInventory';
+import { VariantSpec } from './VariantSpec';
 
 export interface Variant<TVariantXp = any> {
     ID?: string
@@ -10,5 +11,6 @@ export interface Variant<TVariantXp = any> {
     ShipWidth?: number
     ShipLength?: number
     Inventory?: VariantInventory
+    readonly Specs?: VariantSpec[]
     xp?: TVariantXp
 }

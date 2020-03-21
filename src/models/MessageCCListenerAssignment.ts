@@ -1,10 +1,11 @@
 import { MessageSenderAssignment } from './MessageSenderAssignment';
+import { MessageType } from './MessageType';
 
 export interface MessageCCListenerAssignment {
     MessageSenderAssignment?: MessageSenderAssignment
     readonly MessageConfigName?: string
     readonly MessageConfigDescription?: string
-    MessageType?: 'OrderDeclined' | 'OrderSubmitted' | 'ShipmentCreated' | 'ForgottenPassword' | 'OrderSubmittedForYourApproval' | 'OrderSubmittedForApproval' | 'OrderApproved' | 'OrderSubmittedForYourApprovalHasBeenApproved' | 'OrderSubmittedForYourApprovalHasBeenDeclined' | 'NewUserInvitation'
+    MessageType?: MessageType
     BuyerID?: string
     SupplierID?: string
     UserGroupID?: string

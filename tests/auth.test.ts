@@ -1,7 +1,19 @@
 import mockAxios from 'axios'
-import { Auth, SecurityProfile } from '../src/index'
+import { Auth, ApiRole } from '../src/index'
 
-const testdata = {
+interface TestData {
+  authUrl: string
+  username: string
+  password: string
+  clientSecret: string
+  clientID: string
+  scope: ApiRole[]
+  authHeaders: {
+    'Content-Type': string
+    Accept: string
+  }
+}
+const testdata: TestData = {
   authUrl: 'https://auth.ordercloud.io/oauth/token',
   username: '$crhistian', // handles special chars
   password: '87awesomesauce#$%^&', // handles special chars
@@ -25,7 +37,7 @@ test('can auth with login', async () => {
     testdata.username,
     testdata.password,
     testdata.clientID,
-    testdata.scope as SecurityProfile['Roles'][]
+    testdata.scope as ApiRole[]
   )
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
   const body = `grant_type=password&username=${urlencode(
@@ -44,7 +56,7 @@ test('can auth with elevated login', async () => {
     testdata.username,
     testdata.password,
     testdata.clientID,
-    testdata.scope as SecurityProfile['Roles'][]
+    testdata.scope
   )
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
   const body = `grant_type=password&scope=${urlencode(
@@ -63,7 +75,7 @@ test('can auth with client credentials', async () => {
   await Auth.ClientCredentials(
     testdata.clientSecret,
     testdata.clientID,
-    testdata.scope as SecurityProfile['Roles'][]
+    testdata.scope as ApiRole[]
   )
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
   const body = `grant_type=client_credentials&scope=${urlencode(
@@ -85,10 +97,7 @@ test('can auth with refresh token', async () => {
 })
 
 test('can auth anonymous', async () => {
-  await Auth.Anonymous(
-    testdata.clientID,
-    testdata.scope as SecurityProfile['Roles'][]
-  )
+  await Auth.Anonymous(testdata.clientID, testdata.scope)
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
 
   const body = `grant_type=client_credentials&client_id=${

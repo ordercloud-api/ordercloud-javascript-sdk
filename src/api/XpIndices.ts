@@ -1,5 +1,6 @@
 import { ListPage } from '../models/ListPage';
 import { XpIndex } from '../models/XpIndex';
+import { XpThingType } from '../models/XpThingType';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
@@ -30,7 +31,7 @@ class XpIndices {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TXpIndex extends XpIndex>( options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
+    public async List<TXpIndex extends XpIndex>( options: { search?: string, searchOn?: ('ThingType' | 'Key')[], sortBy?: ('ThingType' | 'Key' | '!ThingType' | '!Key')[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/xpindices`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
@@ -65,7 +66,7 @@ class XpIndices {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(thingType: 'Product' | 'Variant' | 'Order' | 'LineItem' | 'Address' | 'CostCenter' | 'CreditCard' | 'Payment' | 'Spec' | 'SpecOption' | 'UserGroup' | 'Company' | 'Category' | 'PriceSchedule' | 'Shipment' | 'SpendingAccount' | 'User' | 'Promotion' | 'ApprovalRule' | 'Catalog' | 'ProductFacet' | 'MessageSender', key: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(thingType: XpThingType, key: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/xpindices/${thingType}/${key}`, { params: {  ...requestOptions, impersonating } } )

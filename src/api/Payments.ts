@@ -1,5 +1,6 @@
 import { ListPage } from '../models/ListPage';
 import { Payment } from '../models/Payment';
+import { OrderDirection } from '../models/OrderDirection';
 import { PaymentTransaction } from '../models/PaymentTransaction';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -37,7 +38,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string,  options: { search?: string, searchOn?: string[], sortBy?: string[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>> {
+    public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string,  options: { search?: string, searchOn?: ('ID' | 'Description')[], sortBy?: ('DateCreated' | 'ID' | 'Type' | 'CreditCardID' | 'SpendingAccountID' | '!DateCreated' | '!ID' | '!Type' | '!CreditCardID' | '!SpendingAccountID')[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/payments`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
@@ -56,7 +57,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, payment: Payment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
+    public async Create<TPayment extends Payment>(direction: OrderDirection, orderID: string, payment: Payment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/orders/${direction}/${orderID}/payments`, payment, { params: {  ...requestOptions, impersonating } } )
@@ -75,7 +76,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
+    public async Get<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { params: {  ...requestOptions, impersonating } } )
@@ -94,7 +95,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(direction: OrderDirection, orderID: string, paymentID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}`, { params: {  ...requestOptions, impersonating } } )
@@ -114,7 +115,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, payment: PartialDeep<Payment>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
+    public async Patch<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, payment, { params: {  ...requestOptions, impersonating } } )
@@ -134,7 +135,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async CreateTransaction<TPayment extends Payment>(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, paymentTransaction: PaymentTransaction, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
+    public async CreateTransaction<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, paymentTransaction, { params: {  ...requestOptions, impersonating } } )
@@ -154,7 +155,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteTransaction(direction: 'Incoming' | 'Outgoing', orderID: string, paymentID: string, transactionID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions/${transactionID}`, { params: {  ...requestOptions, impersonating } } )

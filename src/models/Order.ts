@@ -1,5 +1,6 @@
 import { User } from './User';
 import { Address } from './Address';
+import { OrderStatus } from './OrderStatus';
 
 export interface Order<TOrderXp = any, TFromUserXp = any, TBillingAddressXp = any> {
     ID?: string
@@ -12,7 +13,7 @@ export interface Order<TOrderXp = any, TFromUserXp = any, TBillingAddressXp = an
     ShippingAddressID?: string
     Comments?: string
     readonly LineItemCount?: number
-    readonly Status?: 'Unsubmitted' | 'AwaitingApproval' | 'Declined' | 'Open' | 'Completed' | 'Canceled'
+    readonly Status?: OrderStatus
     readonly DateCreated?: string
     readonly DateSubmitted?: string
     readonly DateApproved?: string
