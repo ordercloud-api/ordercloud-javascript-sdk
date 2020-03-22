@@ -1,6 +1,10 @@
 import cookies from '../utils/CookieService'
 import parseJwt from '../utils/ParseJwt'
 
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
 const isNode = new Function(
   'try {return this===global;}catch(e){return false;}'
 )
