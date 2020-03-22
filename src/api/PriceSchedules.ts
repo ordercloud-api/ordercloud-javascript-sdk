@@ -27,6 +27,9 @@ class PriceSchedules {
     }
 
    /**
+    * Get a list of price schedules. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -49,6 +52,9 @@ class PriceSchedules {
     }
 
    /**
+    * Create a new price schedule. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/create|api docs} for more info 
+    * 
     * @param priceSchedule Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -66,6 +72,9 @@ class PriceSchedules {
     }
 
    /**
+    * Get a single price schedule. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/get|api docs} for more info 
+    * 
     * @param priceScheduleID ID of the price schedule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -83,6 +92,9 @@ class PriceSchedules {
     }
 
    /**
+    * Create or update a price schedule. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/save|api docs} for more info 
+    * 
     * @param priceScheduleID ID of the price schedule.
     * @param priceSchedule Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -101,6 +113,9 @@ class PriceSchedules {
     }
 
    /**
+    * Delete a price schedule. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/delete|api docs} for more info 
+    * 
     * @param priceScheduleID ID of the price schedule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -118,6 +133,9 @@ class PriceSchedules {
     }
 
    /**
+    * Partially update a price schedule. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/patch|api docs} for more info 
+    * 
     * @param priceScheduleID ID of the price schedule.
     * @param priceSchedule 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -136,6 +154,9 @@ class PriceSchedules {
     }
 
    /**
+    * Create or update a price schedule price break. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/save-price-break|api docs} for more info 
+    * 
     * @param priceScheduleID ID of the price schedule.
     * @param priceBreak Required fields: Quantity, Price
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -154,6 +175,9 @@ class PriceSchedules {
     }
 
    /**
+    * Delete a price schedule price break. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/delete-price-break|api docs} for more info 
+    * 
     * @param priceScheduleID ID of the price schedule.
     * @param listOptions.quantity Quantity of the price schedule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

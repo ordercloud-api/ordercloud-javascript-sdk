@@ -28,6 +28,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Get a list of admin user groups. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -50,6 +53,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Create a new admin user group. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/create|api docs} for more info 
+    * 
     * @param userGroup Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -67,6 +73,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Get a single admin user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/get|api docs} for more info 
+    * 
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -84,6 +93,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Create or update an admin user group. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/save|api docs} for more info 
+    * 
     * @param userGroupID ID of the user group.
     * @param userGroup Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -102,6 +114,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Delete an admin user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/delete|api docs} for more info 
+    * 
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -119,6 +134,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Partially update an admin user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/patch|api docs} for more info 
+    * 
     * @param userGroupID ID of the user group.
     * @param userGroup 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -137,6 +155,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Delete an admin user group user assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/delete-user-assignment|api docs} for more info 
+    * 
     * @param userGroupID ID of the user group.
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -155,6 +176,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Get a list of admin user group user assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/list-user-assignments|api docs} for more info 
+    * 
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.userID ID of the user.
     * @param listOptions.page Page of results to return. Default: 1
@@ -175,6 +199,9 @@ class AdminUserGroups {
     }
 
    /**
+    * Create or update an admin user group user assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/save-user-assignment|api docs} for more info 
+    * 
     * @param userGroupAssignment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

@@ -29,6 +29,9 @@ class Shipments {
     }
 
    /**
+    * Get a list of shipments. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/list|api docs} for more info 
+    * 
     * @param listOptions.orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -52,6 +55,9 @@ class Shipments {
     }
 
    /**
+    * Create a new shipment. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/create|api docs} for more info 
+    * 
     * @param shipment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -69,6 +75,9 @@ class Shipments {
     }
 
    /**
+    * Get a single shipment. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/get|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -86,6 +95,9 @@ class Shipments {
     }
 
    /**
+    * Create or update a shipment. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/save|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param shipment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -104,6 +116,9 @@ class Shipments {
     }
 
    /**
+    * Delete a shipment. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/delete|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -121,6 +136,9 @@ class Shipments {
     }
 
    /**
+    * Partially update a shipment. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/patch|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param shipment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -139,6 +157,9 @@ class Shipments {
     }
 
    /**
+    * Get a list of shipment items. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/list-items|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -162,6 +183,9 @@ class Shipments {
     }
 
    /**
+    * Create or update a shipment item. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/save-item|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param shipmentItem Required fields: OrderID, LineItemID, QuantityShipped
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -180,6 +204,9 @@ class Shipments {
     }
 
    /**
+    * Get a single shipment item. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/get-item|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
@@ -199,6 +226,9 @@ class Shipments {
     }
 
    /**
+    * Delete a shipment item. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/delete-item|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.

@@ -71,6 +71,9 @@ class Me {
     }
 
    /**
+    * Get the Current Authenticated User 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get|api docs} for more info 
+    * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
@@ -87,6 +90,9 @@ class Me {
     }
 
    /**
+    * Update the Currently Authenticated User If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save|api docs} for more info 
+    * 
     * @param meUser Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -104,6 +110,9 @@ class Me {
     }
 
    /**
+    * Patch the Currently Authenticated User. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch|api docs} for more info 
+    * 
     * @param meUser 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -121,6 +130,9 @@ class Me {
     }
 
    /**
+    * Get a list of addresses visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-addresses|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -143,6 +155,9 @@ class Me {
     }
 
    /**
+    * Create a new address. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-address|api docs} for more info 
+    * 
     * @param buyerAddress Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -160,6 +175,9 @@ class Me {
     }
 
    /**
+    * Get a single address. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-address|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -177,6 +195,9 @@ class Me {
     }
 
    /**
+    * Create or update an address. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-address|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param buyerAddress Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -195,6 +216,9 @@ class Me {
     }
 
    /**
+    * Delete an address. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-address|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -212,6 +236,9 @@ class Me {
     }
 
    /**
+    * Partially update an address. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-address|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param buyerAddress 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -230,6 +257,9 @@ class Me {
     }
 
    /**
+    * Get a list of catalogs visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-catalogs|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -252,6 +282,9 @@ class Me {
     }
 
    /**
+    * Get a single catalog. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-catalog|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -269,6 +302,9 @@ class Me {
     }
 
    /**
+    * Get a list of categories visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-categories|api docs} for more info 
+    * 
     * @param listOptions.depth Indicates how deep down the hierarchy to return results. Valid values are a number of 1 or greater, or 'all'. Relative to ParentID if specified. Default is 1.
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.productID ID of the product.
@@ -294,6 +330,9 @@ class Me {
     }
 
    /**
+    * Get a single category. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-category|api docs} for more info 
+    * 
     * @param categoryID ID of the category.
     * @param listOptions.catalogID ID of the catalog.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -312,6 +351,9 @@ class Me {
     }
 
    /**
+    * Get a list of cost centers visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-cost-centers|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -334,6 +376,9 @@ class Me {
     }
 
    /**
+    * Get a list of credit cards visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-credit-cards|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -356,6 +401,9 @@ class Me {
     }
 
    /**
+    * Create a new credit card. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-credit-card|api docs} for more info 
+    * 
     * @param buyerCreditCard 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -373,6 +421,9 @@ class Me {
     }
 
    /**
+    * Get a single credit card. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-credit-card|api docs} for more info 
+    * 
     * @param creditcardID ID of the creditcard.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -390,6 +441,9 @@ class Me {
     }
 
    /**
+    * Create or update a credit card. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-credit-card|api docs} for more info 
+    * 
     * @param creditcardID ID of the creditcard.
     * @param buyerCreditCard 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -408,6 +462,9 @@ class Me {
     }
 
    /**
+    * Delete a credit card. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-credit-card|api docs} for more info 
+    * 
     * @param creditcardID ID of the creditcard.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -425,6 +482,9 @@ class Me {
     }
 
    /**
+    * Partially update a credit card. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-credit-card|api docs} for more info 
+    * 
     * @param creditcardID ID of the creditcard.
     * @param buyerCreditCard 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -443,6 +503,9 @@ class Me {
     }
 
    /**
+    * Get a list of orders visible to this user. List orders created by this user.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-orders|api docs} for more info 
+    * 
     * @param listOptions.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
     * @param listOptions.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
     * @param listOptions.search Word or phrase to search for.
@@ -467,6 +530,9 @@ class Me {
     }
 
    /**
+    * Transfer an anon user order. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/transfer-anon-user-order|api docs} for more info 
+    * 
     * @param listOptions.anonUserToken Anon user token of the me.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -484,6 +550,9 @@ class Me {
     }
 
    /**
+    * Get a list of orders that this user can approve. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-approvable-orders|api docs} for more info 
+    * 
     * @param listOptions.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
     * @param listOptions.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
     * @param listOptions.search Word or phrase to search for.
@@ -508,6 +577,9 @@ class Me {
     }
 
    /**
+    * Reset a password by token. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/reset-password-by-token|api docs} for more info 
+    * 
     * @param tokenPasswordReset Required fields: NewPassword
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -525,6 +597,9 @@ class Me {
     }
 
    /**
+    * Get a list of products visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-products|api docs} for more info 
+    * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.categoryID ID of the category.
     * @param listOptions.depth Indicates how deep down the category hierarchy to return results. Valid values are a number of 1 or greater, or 'all'. Relative to CategoryID if specified, otherwise top level of the Catalog. Default is 'all'.
@@ -550,6 +625,9 @@ class Me {
     }
 
    /**
+    * Get a single product. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-product|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -567,6 +645,9 @@ class Me {
     }
 
    /**
+    * Get a list of specs visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-specs|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.search Word or phrase to search for.
@@ -591,6 +672,9 @@ class Me {
     }
 
    /**
+    * Get a single spec. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-spec|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param specID ID of the spec.
     * @param listOptions.catalogID ID of the catalog.
@@ -610,6 +694,9 @@ class Me {
     }
 
    /**
+    * Get a list of promotions visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-promotions|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -632,6 +719,9 @@ class Me {
     }
 
    /**
+    * Get a single promotion. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-promotion|api docs} for more info 
+    * 
     * @param promotionID ID of the promotion.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -649,6 +739,9 @@ class Me {
     }
 
    /**
+    * Register a register. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/register|api docs} for more info 
+    * 
     * @param listOptions.anonUserToken Anon user token of the user.
     * @param meUser Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -667,6 +760,9 @@ class Me {
     }
 
    /**
+    * Get a list of shipments visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-shipments|api docs} for more info 
+    * 
     * @param listOptions.orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -690,6 +786,9 @@ class Me {
     }
 
    /**
+    * Get a single shipment. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-shipment|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -707,6 +806,9 @@ class Me {
     }
 
    /**
+    * Get a list of shipment items visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-shipment-items|api docs} for more info 
+    * 
     * @param shipmentID ID of the shipment.
     * @param listOptions.orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
@@ -731,6 +833,9 @@ class Me {
     }
 
    /**
+    * Get a list of spending accounts visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-spending-accounts|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -753,6 +858,9 @@ class Me {
     }
 
    /**
+    * Get a single spending account. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-spending-account|api docs} for more info 
+    * 
     * @param spendingAccountID ID of the spending account.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -770,6 +878,9 @@ class Me {
     }
 
    /**
+    * Get a list of user groups visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-user-groups|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.

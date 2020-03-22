@@ -24,6 +24,9 @@ class SupplierAddresses {
     }
 
    /**
+    * Get a list of supplier addresses. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-addresses/list|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -47,6 +50,9 @@ class SupplierAddresses {
     }
 
    /**
+    * Create a new supplier address. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-addresses/create|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -65,6 +71,9 @@ class SupplierAddresses {
     }
 
    /**
+    * Get a single supplier address. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-addresses/get|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -83,6 +92,9 @@ class SupplierAddresses {
     }
 
    /**
+    * Create or update a supplier address. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-addresses/save|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param addressID ID of the address.
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -102,6 +114,9 @@ class SupplierAddresses {
     }
 
    /**
+    * Delete a supplier address. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-addresses/delete|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -120,6 +135,9 @@ class SupplierAddresses {
     }
 
    /**
+    * Partially update a supplier address. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-addresses/patch|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param addressID ID of the address.
     * @param address 

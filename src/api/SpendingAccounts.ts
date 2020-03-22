@@ -29,6 +29,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Get a list of spending accounts. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/list|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -52,6 +55,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Create a new spending account. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/create|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param spendingAccount Required fields: Name, Balance
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -70,6 +76,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Get a single spending account. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/get|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -88,6 +97,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Create or update a spending account. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/save|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
     * @param spendingAccount Required fields: Name, Balance
@@ -107,6 +119,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Delete a spending account. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/delete|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -125,6 +140,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Partially update a spending account. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/patch|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
     * @param spendingAccount 
@@ -144,6 +162,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Delete a spending account assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/delete-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
     * @param listOptions.userID ID of the user.
@@ -164,6 +185,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Get a list of spending account assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/list-assignments|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.spendingAccountID ID of the spending account.
     * @param listOptions.userID ID of the user.
@@ -187,6 +211,9 @@ class SpendingAccounts {
     }
 
    /**
+    * Create or update a spending account assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/save-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountAssignment Required fields: SpendingAccountID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

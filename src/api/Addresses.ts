@@ -29,6 +29,9 @@ class Addresses {
     }
 
    /**
+    * Get a list of addresses. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/list|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -52,6 +55,9 @@ class Addresses {
     }
 
    /**
+    * Create a new address. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/create|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -70,6 +76,9 @@ class Addresses {
     }
 
    /**
+    * Get a single address. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/get|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -88,6 +97,9 @@ class Addresses {
     }
 
    /**
+    * Create or update an address. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/save|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param addressID ID of the address.
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -107,6 +119,9 @@ class Addresses {
     }
 
    /**
+    * Delete an address. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/delete|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -125,6 +140,9 @@ class Addresses {
     }
 
    /**
+    * Partially update an address. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/patch|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param addressID ID of the address.
     * @param address 
@@ -144,6 +162,9 @@ class Addresses {
     }
 
    /**
+    * Delete an address assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/delete-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param addressID ID of the address.
     * @param listOptions.userID ID of the user.
@@ -164,6 +185,9 @@ class Addresses {
     }
 
    /**
+    * Get a list of address assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/list-assignments|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.addressID ID of the address.
     * @param listOptions.userID ID of the user.
@@ -189,6 +213,9 @@ class Addresses {
     }
 
    /**
+    * Create or update an address assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/addresses/save-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param addressAssignment Required fields: AddressID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

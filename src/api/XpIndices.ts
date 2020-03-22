@@ -22,6 +22,9 @@ class XpIndices {
     }
 
    /**
+    * Get a list of xp indices. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -44,6 +47,9 @@ class XpIndices {
     }
 
    /**
+    * Put a xp index put. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/put|api docs} for more info 
+    * 
     * @param xpIndex 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -61,6 +67,9 @@ class XpIndices {
     }
 
    /**
+    * Delete a xp index. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/delete|api docs} for more info 
+    * 
     * @param thingType Thing type of the xp index. Possible values: Product, Variant, Order, LineItem, Address, CostCenter, CreditCard, Payment, Spec, SpecOption, UserGroup, Company, Category, PriceSchedule, Shipment, SpendingAccount, User, Promotion, ApprovalRule, Catalog, ProductFacet, MessageSender.
     * @param key Key of the xp index.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

@@ -30,6 +30,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Get a list of security profiles. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -52,6 +55,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Create a new security profile. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/create|api docs} for more info 
+    * 
     * @param securityProfile Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -69,6 +75,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Get a single security profile. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/get|api docs} for more info 
+    * 
     * @param securityProfileID ID of the security profile.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -86,6 +95,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Create or update a security profile. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/save|api docs} for more info 
+    * 
     * @param securityProfileID ID of the security profile.
     * @param securityProfile Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -104,6 +116,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Delete a security profile. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/delete|api docs} for more info 
+    * 
     * @param securityProfileID ID of the security profile.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -121,6 +136,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Partially update a security profile. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/patch|api docs} for more info 
+    * 
     * @param securityProfileID ID of the security profile.
     * @param securityProfile 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -139,6 +157,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Delete a security profile assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/delete-assignment|api docs} for more info 
+    * 
     * @param securityProfileID ID of the security profile.
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.userID ID of the user.
@@ -160,6 +181,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Get a list of security profile assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/list-assignments|api docs} for more info 
+    * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.supplierID ID of the supplier.
     * @param listOptions.securityProfileID ID of the security profile.
@@ -185,6 +209,9 @@ class SecurityProfiles {
     }
 
    /**
+    * Create or update a security profile assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/security-profiles/save-assignment|api docs} for more info 
+    * 
     * @param securityProfileAssignment Required fields: SecurityProfileID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

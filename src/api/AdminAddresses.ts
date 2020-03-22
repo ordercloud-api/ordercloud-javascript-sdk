@@ -24,6 +24,9 @@ class AdminAddresses {
     }
 
    /**
+    * Get a list of admin addresses. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -46,6 +49,9 @@ class AdminAddresses {
     }
 
    /**
+    * Create a new admin address. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/create|api docs} for more info 
+    * 
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,6 +69,9 @@ class AdminAddresses {
     }
 
    /**
+    * Get a single admin address. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/get|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -80,6 +89,9 @@ class AdminAddresses {
     }
 
    /**
+    * Create or update an admin address. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/save|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -98,6 +110,9 @@ class AdminAddresses {
     }
 
    /**
+    * Delete an admin address. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/delete|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -115,6 +130,9 @@ class AdminAddresses {
     }
 
    /**
+    * Partially update an admin address. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/patch|api docs} for more info 
+    * 
     * @param addressID ID of the address.
     * @param address 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

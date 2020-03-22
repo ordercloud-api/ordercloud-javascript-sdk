@@ -28,6 +28,9 @@ class Users {
     }
 
    /**
+    * Get a list of users. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/list|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.search Word or phrase to search for.
@@ -52,6 +55,9 @@ class Users {
     }
 
    /**
+    * Create a new user. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/create|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -70,6 +76,9 @@ class Users {
     }
 
    /**
+    * Get a single user. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/get|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -88,6 +97,9 @@ class Users {
     }
 
    /**
+    * Create or update a user. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/save|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
@@ -107,6 +119,9 @@ class Users {
     }
 
    /**
+    * Delete a user. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/delete|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -125,6 +140,9 @@ class Users {
     }
 
    /**
+    * Partially update a user. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/patch|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
     * @param user 
@@ -144,6 +162,9 @@ class Users {
     }
 
    /**
+    * Get a single user access token. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/get-access-token|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
     * @param impersonateTokenRequest Required fields: ClientID, Roles
@@ -163,6 +184,9 @@ class Users {
     }
 
    /**
+    * Move a user to a different buyer 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/move|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
     * @param newBuyerID ID of the new buyer.

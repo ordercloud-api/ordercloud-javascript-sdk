@@ -24,6 +24,9 @@ class ApprovalRules {
     }
 
    /**
+    * Get a list of approval rules. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/list|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -47,6 +50,9 @@ class ApprovalRules {
     }
 
    /**
+    * Create a new approval rule. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/create|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param approvalRule Required fields: ApprovingGroupID, RuleExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -65,6 +71,9 @@ class ApprovalRules {
     }
 
    /**
+    * Get a single approval rule. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/get|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -83,6 +92,9 @@ class ApprovalRules {
     }
 
    /**
+    * Create or update an approval rule. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/save|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
     * @param approvalRule Required fields: ApprovingGroupID, RuleExpression
@@ -102,6 +114,9 @@ class ApprovalRules {
     }
 
    /**
+    * Delete an approval rule. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/delete|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -120,6 +135,9 @@ class ApprovalRules {
     }
 
    /**
+    * Partially update an approval rule. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/patch|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
     * @param approvalRule 

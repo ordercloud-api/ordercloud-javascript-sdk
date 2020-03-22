@@ -24,6 +24,9 @@ class AdminUsers {
     }
 
    /**
+    * Get a list of admin users. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -46,6 +49,9 @@ class AdminUsers {
     }
 
    /**
+    * Create a new admin user. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/create|api docs} for more info 
+    * 
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,6 +69,9 @@ class AdminUsers {
     }
 
    /**
+    * Get a single admin user. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/get|api docs} for more info 
+    * 
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -80,6 +89,9 @@ class AdminUsers {
     }
 
    /**
+    * Create or update an admin user. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/save|api docs} for more info 
+    * 
     * @param userID ID of the user.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -98,6 +110,9 @@ class AdminUsers {
     }
 
    /**
+    * Delete an admin user. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/delete|api docs} for more info 
+    * 
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -115,6 +130,9 @@ class AdminUsers {
     }
 
    /**
+    * Partially update an admin user. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/patch|api docs} for more info 
+    * 
     * @param userID ID of the user.
     * @param user 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

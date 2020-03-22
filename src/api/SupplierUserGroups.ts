@@ -28,6 +28,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Get a list of supplier user groups. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/list|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -51,6 +54,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Create a new supplier user group. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/create|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userGroup Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -69,6 +75,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Get a single supplier user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/get|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -87,6 +96,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Create or update a supplier user group. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/save|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userGroupID ID of the user group.
     * @param userGroup Required fields: Name
@@ -106,6 +118,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Delete a supplier user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/delete|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -124,6 +139,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Partially update a supplier user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/patch|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userGroupID ID of the user group.
     * @param userGroup 
@@ -143,6 +161,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Delete a supplier user group user assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/delete-user-assignment|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userGroupID ID of the user group.
     * @param userID ID of the user.
@@ -162,6 +183,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Get a list of supplier user group user assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/list-user-assignments|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.userID ID of the user.
@@ -183,6 +207,9 @@ class SupplierUserGroups {
     }
 
    /**
+    * Create or update a supplier user group user assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-user-groups/save-user-assignment|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userGroupAssignment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

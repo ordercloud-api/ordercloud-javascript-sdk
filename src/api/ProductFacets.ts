@@ -24,6 +24,9 @@ class ProductFacets {
     }
 
    /**
+    * Get a list of product facets. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -46,6 +49,9 @@ class ProductFacets {
     }
 
    /**
+    * Create a new product facet. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/create|api docs} for more info 
+    * 
     * @param productFacet Required fields: Name, MinCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,6 +69,9 @@ class ProductFacets {
     }
 
    /**
+    * Get a single product facet. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/get|api docs} for more info 
+    * 
     * @param productFacetID ID of the product facet.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -80,6 +89,9 @@ class ProductFacets {
     }
 
    /**
+    * Create or update a product facet. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/save|api docs} for more info 
+    * 
     * @param productFacetID ID of the product facet.
     * @param productFacet Required fields: Name, MinCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -98,6 +110,9 @@ class ProductFacets {
     }
 
    /**
+    * Delete a product facet. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/delete|api docs} for more info 
+    * 
     * @param productFacetID ID of the product facet.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -115,6 +130,9 @@ class ProductFacets {
     }
 
    /**
+    * Partially update a product facet. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/patch|api docs} for more info 
+    * 
     * @param productFacetID ID of the product facet.
     * @param productFacet 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

@@ -35,6 +35,9 @@ class Specs {
     }
 
    /**
+    * Get a list of specs. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -57,6 +60,9 @@ class Specs {
     }
 
    /**
+    * Create a new spec. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/create|api docs} for more info 
+    * 
     * @param spec Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -74,6 +80,9 @@ class Specs {
     }
 
    /**
+    * Get a single spec. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/get|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -91,6 +100,9 @@ class Specs {
     }
 
    /**
+    * Create or update a spec. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/save|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param spec Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -109,6 +121,9 @@ class Specs {
     }
 
    /**
+    * Delete a spec. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/delete|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -126,6 +141,9 @@ class Specs {
     }
 
    /**
+    * Partially update a spec. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/patch|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param spec 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -144,6 +162,9 @@ class Specs {
     }
 
    /**
+    * Get a list of spec options. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/list-options|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -167,6 +188,9 @@ class Specs {
     }
 
    /**
+    * Create a new spec option. A Spec can have multiple Options-- for example, if the spec is called 'Color', the options might be 'Blue', 'Red', and 'Green'. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/create-option|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param specOption Required fields: Value
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -185,6 +209,9 @@ class Specs {
     }
 
    /**
+    * Get a single spec option. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/get-option|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param optionID ID of the option.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -203,6 +230,9 @@ class Specs {
     }
 
    /**
+    * Create or update a spec option. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/save-option|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param optionID ID of the option.
     * @param specOption Required fields: Value
@@ -222,6 +252,9 @@ class Specs {
     }
 
    /**
+    * Delete a spec option. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/delete-option|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param optionID ID of the option.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -240,6 +273,9 @@ class Specs {
     }
 
    /**
+    * Partially update a spec option. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/patch-option|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param optionID ID of the option.
     * @param specOption 
@@ -259,6 +295,9 @@ class Specs {
     }
 
    /**
+    * Delete a spec product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/delete-product-assignment|api docs} for more info 
+    * 
     * @param specID ID of the spec.
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -277,6 +316,9 @@ class Specs {
     }
 
    /**
+    * Get a list of spec product assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/list-product-assignments|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -299,6 +341,9 @@ class Specs {
     }
 
    /**
+    * Create or update a spec product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/save-product-assignment|api docs} for more info 
+    * 
     * @param specProductAssignment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

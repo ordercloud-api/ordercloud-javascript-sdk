@@ -22,7 +22,10 @@ class {{resource.id}} {
     }
 
     {{#resource.operations}}
-   /**{{#allParams}}
+   /**
+    * {{summary}}{{#if hasSummary}} {{/if}}{{description}}
+    * Check out the {@link https://ordercloud.io/api-reference/{{kebabCase @root.resource.sectionID}}/{{kebabCase @root.resource.id}}/{{kebabCase name}}|api docs} for more info 
+    * {{#allParams}}
     * @param {{#if isQueryParam}}listOptions.{{name}} {{description}}{{else}}{{name}} {{description}}{{#if isBodyParam}}{{#if hasRequiredFields}}Required fields: {{commaSeparate requiredFields}}{{/if}}{{/if}}{{/if}}{{/allParams}}
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

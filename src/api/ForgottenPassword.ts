@@ -20,6 +20,9 @@ class ForgottenPassword {
     }
 
    /**
+    * Send a verification code. Sends a temporary verification code via email, which must subsequently be passed in a Reset Password call.
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-password/send-verification-code|api docs} for more info 
+    * 
     * @param passwordResetRequest Required fields: ClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -37,6 +40,9 @@ class ForgottenPassword {
     }
 
    /**
+    * Reset a password by verification code. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-password/reset-password-by-verification-code|api docs} for more info 
+    * 
     * @param verificationCode Verification code of the password reset.
     * @param passwordReset Required fields: ClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

@@ -24,6 +24,9 @@ class Incrementors {
     }
 
    /**
+    * Get a list of incrementors. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -46,6 +49,9 @@ class Incrementors {
     }
 
    /**
+    * Create a new incrementor. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/create|api docs} for more info 
+    * 
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,6 +69,9 @@ class Incrementors {
     }
 
    /**
+    * Get a single incrementor. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/get|api docs} for more info 
+    * 
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -80,6 +89,9 @@ class Incrementors {
     }
 
    /**
+    * Create or update an incrementor. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/save|api docs} for more info 
+    * 
     * @param incrementorID ID of the incrementor.
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -98,6 +110,9 @@ class Incrementors {
     }
 
    /**
+    * Delete an incrementor. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/delete|api docs} for more info 
+    * 
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -115,6 +130,9 @@ class Incrementors {
     }
 
    /**
+    * Partially update an incrementor. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/patch|api docs} for more info 
+    * 
     * @param incrementorID ID of the incrementor.
     * @param incrementor 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

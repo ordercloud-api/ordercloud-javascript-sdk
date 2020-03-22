@@ -52,6 +52,9 @@ class Orders {
     }
 
    /**
+    * Get a list of orders. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/list|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.supplierID ID of the supplier.
@@ -79,6 +82,9 @@ class Orders {
     }
 
    /**
+    * Create a new order. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/create|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param order 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -97,6 +103,9 @@ class Orders {
     }
 
    /**
+    * Get a single order. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/get|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -115,6 +124,9 @@ class Orders {
     }
 
    /**
+    * Create or update an order. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/save|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param order 
@@ -134,6 +146,9 @@ class Orders {
     }
 
    /**
+    * Delete an order. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/delete|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -152,6 +167,9 @@ class Orders {
     }
 
    /**
+    * Partially update an order. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/patch|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param order 
@@ -171,6 +189,9 @@ class Orders {
     }
 
    /**
+    * Get a list of order approvals. Returns all Approvals associated with the Order.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/list-approvals|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
@@ -195,6 +216,9 @@ class Orders {
     }
 
    /**
+    * Approve an order approve. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/approve|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param orderApprovalInfo 
@@ -214,6 +238,9 @@ class Orders {
     }
 
    /**
+    * Set a billing address. Use only when the address is not to be saved/reused.<br/></br>To use a saved address (i.e. from the Addresses resource), PATCH the order's BillingAddressID property instead.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/set-billing-address|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -233,6 +260,9 @@ class Orders {
     }
 
    /**
+    * Partially update an order billing address. Not allowed on unsubmitted orders where BillingAddressID has been set. In that case, use the Addresses resource to update the saved address.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/patch-billing-address|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address 
@@ -252,6 +282,9 @@ class Orders {
     }
 
    /**
+    * Cancel an order cancel. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/cancel|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -270,6 +303,9 @@ class Orders {
     }
 
    /**
+    * Complete an order Use only when an order doesn't need a shipment. You will not be able to ship or reopen an order after completing it.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/complete|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -288,6 +324,9 @@ class Orders {
     }
 
    /**
+    * Decline an order decline. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/decline|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param orderApprovalInfo 
@@ -307,6 +346,9 @@ class Orders {
     }
 
    /**
+    * Get a list of order eligible approvers. Returns all Users who can approve or decline this order (but have not done so).
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/list-eligible-approvers|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
@@ -331,6 +373,9 @@ class Orders {
     }
 
    /**
+    * Forward an order forward. Creates and submits 0 or more outgoing Orders to Suppliers, one for each unique Product.DefaultSupplierID on this Order.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/forward|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -349,6 +394,9 @@ class Orders {
     }
 
    /**
+    * Override order creator details. Only FirstName, LastName, and Email can be updated.<br/></br>Primarily used to facilitate guest checkout scenarios.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/patch-from-user|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param user 
@@ -368,6 +416,9 @@ class Orders {
     }
 
    /**
+    * Get a list of order promotions. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/list-promotions|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
@@ -392,6 +443,9 @@ class Orders {
     }
 
    /**
+    * Add a promotion to an order 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/add-promotion|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param promoCode Promo code of the order promotion.
@@ -411,6 +465,9 @@ class Orders {
     }
 
    /**
+    * Remove a promotion from an order 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/remove-promotion|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param promoCode Promo code of the order.
@@ -430,6 +487,9 @@ class Orders {
     }
 
    /**
+    * Create a new shipment containing all items on an order. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/ship|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param shipment 
@@ -449,6 +509,9 @@ class Orders {
     }
 
    /**
+    * List shipments for an order 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/list-shipments|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
@@ -473,6 +536,9 @@ class Orders {
     }
 
    /**
+    * Set a shipping address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the order's ShippingAddressID property instead.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/set-shipping-address|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -492,6 +558,9 @@ class Orders {
     }
 
    /**
+    * Partially update an order shipping address. Not allowed on unsubmitted orders where ShippingAddressID has been set. In that case, use the Addresses resource to update the saved address.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/patch-shipping-address|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param address 
@@ -511,6 +580,9 @@ class Orders {
     }
 
    /**
+    * Split an order split. Creates, but does not submit, 0 or more outgoing Orders to Suppliers, one for each unique Product.DefaultSupplierID on this Order.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/split|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -529,6 +601,9 @@ class Orders {
     }
 
    /**
+    * Submit an order submit. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/submit|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -547,6 +622,9 @@ class Orders {
     }
 
    /**
+    * Validate an order in its current state 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/validate|api docs} for more info 
+    * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

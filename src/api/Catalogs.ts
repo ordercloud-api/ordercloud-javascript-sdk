@@ -32,6 +32,9 @@ class Catalogs {
     }
 
    /**
+    * Get a list of catalogs. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -54,6 +57,9 @@ class Catalogs {
     }
 
    /**
+    * Create a new catalog. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/create|api docs} for more info 
+    * 
     * @param catalog Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -71,6 +77,9 @@ class Catalogs {
     }
 
    /**
+    * Get a single catalog. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/get|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -88,6 +97,9 @@ class Catalogs {
     }
 
    /**
+    * Create or update a catalog. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param catalog Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -106,6 +118,9 @@ class Catalogs {
     }
 
    /**
+    * Delete a catalog. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -123,6 +138,9 @@ class Catalogs {
     }
 
    /**
+    * Partially update a catalog. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/patch|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param catalog 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -141,6 +159,9 @@ class Catalogs {
     }
 
    /**
+    * Delete a catalog assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete-assignment|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param listOptions.buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -159,6 +180,9 @@ class Catalogs {
     }
 
    /**
+    * Delete a catalog product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete-product-assignment|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -177,6 +201,9 @@ class Catalogs {
     }
 
    /**
+    * Get a list of catalog assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list-assignments|api docs} for more info 
+    * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.page Page of results to return. Default: 1
@@ -197,6 +224,9 @@ class Catalogs {
     }
 
    /**
+    * Create or update a catalog assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save-assignment|api docs} for more info 
+    * 
     * @param catalogAssignment Required fields: CatalogID, BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -214,6 +244,9 @@ class Catalogs {
     }
 
    /**
+    * Get a list of catalog product assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list-product-assignments|api docs} for more info 
+    * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.productID ID of the product.
     * @param listOptions.page Page of results to return. Default: 1
@@ -234,6 +267,9 @@ class Catalogs {
     }
 
    /**
+    * Create or update a catalog product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save-product-assignment|api docs} for more info 
+    * 
     * @param productCatalogAssignment Required fields: CatalogID, ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

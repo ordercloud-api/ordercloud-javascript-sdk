@@ -24,6 +24,9 @@ class Webhooks {
     }
 
    /**
+    * Get a list of webhooks. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -46,6 +49,9 @@ class Webhooks {
     }
 
    /**
+    * Create a new webhook. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/create|api docs} for more info 
+    * 
     * @param webhook Required fields: Name, Url, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,6 +69,9 @@ class Webhooks {
     }
 
    /**
+    * Get a single webhook. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/get|api docs} for more info 
+    * 
     * @param webhookID ID of the webhook.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -80,6 +89,9 @@ class Webhooks {
     }
 
    /**
+    * Create or update a webhook. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/save|api docs} for more info 
+    * 
     * @param webhookID ID of the webhook.
     * @param webhook Required fields: Name, Url, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -98,6 +110,9 @@ class Webhooks {
     }
 
    /**
+    * Delete a webhook. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/delete|api docs} for more info 
+    * 
     * @param webhookID ID of the webhook.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -115,6 +130,9 @@ class Webhooks {
     }
 
    /**
+    * Partially update a webhook. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/patch|api docs} for more info 
+    * 
     * @param webhookID ID of the webhook.
     * @param webhook 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

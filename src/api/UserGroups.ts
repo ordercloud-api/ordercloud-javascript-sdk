@@ -28,6 +28,9 @@ class UserGroups {
     }
 
    /**
+    * Get a list of user groups. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/list|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -51,6 +54,9 @@ class UserGroups {
     }
 
    /**
+    * Create a new user group. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/create|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userGroup Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -69,6 +75,9 @@ class UserGroups {
     }
 
    /**
+    * Get a single user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/get|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -87,6 +96,9 @@ class UserGroups {
     }
 
    /**
+    * Create or update a user group. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/save|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
     * @param userGroup Required fields: Name
@@ -106,6 +118,9 @@ class UserGroups {
     }
 
    /**
+    * Delete a user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/delete|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -124,6 +139,9 @@ class UserGroups {
     }
 
    /**
+    * Partially update a user group. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/patch|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
     * @param userGroup 
@@ -143,6 +161,9 @@ class UserGroups {
     }
 
    /**
+    * Delete a user group user assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/delete-user-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
     * @param userID ID of the user.
@@ -162,6 +183,9 @@ class UserGroups {
     }
 
    /**
+    * Get a list of user group user assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/list-user-assignments|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.userID ID of the user.
@@ -183,6 +207,9 @@ class UserGroups {
     }
 
    /**
+    * Create or update a user group user assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/save-user-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param userGroupAssignment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

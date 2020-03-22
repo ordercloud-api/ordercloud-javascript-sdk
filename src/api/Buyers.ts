@@ -24,6 +24,9 @@ class Buyers {
     }
 
    /**
+    * Get a list of buyers. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/buyers/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -46,6 +49,9 @@ class Buyers {
     }
 
    /**
+    * Create a new buyer. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/buyers/create|api docs} for more info 
+    * 
     * @param buyer Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,6 +69,9 @@ class Buyers {
     }
 
    /**
+    * Get a single buyer. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/buyers/get|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -80,6 +89,9 @@ class Buyers {
     }
 
    /**
+    * Create or update a buyer. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/buyers/save|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param buyer Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -98,6 +110,9 @@ class Buyers {
     }
 
    /**
+    * Delete a buyer. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/buyers/delete|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -115,6 +130,9 @@ class Buyers {
     }
 
    /**
+    * Partially update a buyer. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/buyers/patch|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param buyer 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

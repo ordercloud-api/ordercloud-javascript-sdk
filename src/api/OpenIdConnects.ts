@@ -24,6 +24,9 @@ class OpenIdConnects {
     }
 
    /**
+    * Get a list of open id connects. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -46,6 +49,9 @@ class OpenIdConnects {
     }
 
    /**
+    * Create a new open id connect. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/create|api docs} for more info 
+    * 
     * @param openIdConnect Required fields: OrderCloudApiClientID, ConnectClientID, ConnectClientSecret, AppStartUrl, AuthorizationEndpoint, TokenEndpoint
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,6 +69,9 @@ class OpenIdConnects {
     }
 
    /**
+    * Get a single open id connect. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/get|api docs} for more info 
+    * 
     * @param openidconnectID ID of the openidconnect.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -80,6 +89,9 @@ class OpenIdConnects {
     }
 
    /**
+    * Create or update an open id connect. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/save|api docs} for more info 
+    * 
     * @param openidconnectID ID of the openidconnect.
     * @param openIdConnect Required fields: OrderCloudApiClientID, ConnectClientID, ConnectClientSecret, AppStartUrl, AuthorizationEndpoint, TokenEndpoint
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -98,6 +110,9 @@ class OpenIdConnects {
     }
 
    /**
+    * Delete an open id connect. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/delete|api docs} for more info 
+    * 
     * @param openidconnectID ID of the openidconnect.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -115,6 +130,9 @@ class OpenIdConnects {
     }
 
    /**
+    * Partially update an open id connect. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/patch|api docs} for more info 
+    * 
     * @param openidconnectID ID of the openidconnect.
     * @param openIdConnect 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

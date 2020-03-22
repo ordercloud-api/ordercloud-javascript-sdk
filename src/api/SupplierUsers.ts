@@ -27,6 +27,9 @@ class SupplierUsers {
     }
 
    /**
+    * Get a list of supplier users. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/list|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.search Word or phrase to search for.
@@ -51,6 +54,9 @@ class SupplierUsers {
     }
 
    /**
+    * Create a new supplier user. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/create|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -69,6 +75,9 @@ class SupplierUsers {
     }
 
    /**
+    * Get a single supplier user. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/get|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -87,6 +96,9 @@ class SupplierUsers {
     }
 
    /**
+    * Create or update a supplier user. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/save|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
@@ -106,6 +118,9 @@ class SupplierUsers {
     }
 
    /**
+    * Delete a supplier user. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/delete|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -124,6 +139,9 @@ class SupplierUsers {
     }
 
    /**
+    * Partially update a supplier user. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/patch|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
     * @param user 
@@ -143,6 +161,9 @@ class SupplierUsers {
     }
 
    /**
+    * Get a single supplier user access token. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/get-access-token|api docs} for more info 
+    * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
     * @param impersonateTokenRequest Required fields: ClientID, Roles

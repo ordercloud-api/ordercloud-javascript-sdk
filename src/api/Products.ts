@@ -42,6 +42,9 @@ class Products {
     }
 
    /**
+    * Get a list of products. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list|api docs} for more info 
+    * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.categoryID ID of the category.
     * @param listOptions.supplierID ID of the supplier.
@@ -67,6 +70,9 @@ class Products {
     }
 
    /**
+    * Create a new product. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/create|api docs} for more info 
+    * 
     * @param product Required fields: Name, QuantityMultiplier
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -84,6 +90,9 @@ class Products {
     }
 
    /**
+    * Get a single product. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/get|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -101,6 +110,9 @@ class Products {
     }
 
    /**
+    * Create or update a product. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param product Required fields: Name, QuantityMultiplier
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -119,6 +131,9 @@ class Products {
     }
 
    /**
+    * Delete a product. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/delete|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -136,6 +151,9 @@ class Products {
     }
 
    /**
+    * Partially update a product. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/patch|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param product 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -154,6 +172,9 @@ class Products {
     }
 
    /**
+    * Delete a product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/delete-assignment|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param buyerID ID of the buyer.
     * @param listOptions.userID ID of the user.
@@ -174,6 +195,9 @@ class Products {
     }
 
    /**
+    * Get a list of product specs. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-specs|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -197,6 +221,9 @@ class Products {
     }
 
    /**
+    * Get a list of product suppliers. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-suppliers|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -220,6 +247,9 @@ class Products {
     }
 
    /**
+    * Create or update a product supplier. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-supplier|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -238,6 +268,9 @@ class Products {
     }
 
    /**
+    * Remove a supplier. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/remove-supplier|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -256,6 +289,9 @@ class Products {
     }
 
    /**
+    * Get a list of product variants. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-variants|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -279,6 +315,9 @@ class Products {
     }
 
    /**
+    * Get a single product variant. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/get-variant|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param variantID ID of the variant.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -297,6 +336,9 @@ class Products {
     }
 
    /**
+    * Create or update a product variant. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-variant|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param variantID ID of the variant.
     * @param variant 
@@ -316,6 +358,9 @@ class Products {
     }
 
    /**
+    * Partially update a product variant. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/patch-variant|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param variantID ID of the variant.
     * @param variant 
@@ -335,6 +380,9 @@ class Products {
     }
 
    /**
+    * Generate a variants. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/generate-variants|api docs} for more info 
+    * 
     * @param productID ID of the product.
     * @param listOptions.overwriteExisting Overwrite existing of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -353,6 +401,9 @@ class Products {
     }
 
    /**
+    * Get a list of product assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-assignments|api docs} for more info 
+    * 
     * @param listOptions.productID ID of the product.
     * @param listOptions.priceScheduleID ID of the price schedule.
     * @param listOptions.buyerID ID of the buyer.
@@ -377,6 +428,9 @@ class Products {
     }
 
    /**
+    * Create or update a product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-assignment|api docs} for more info 
+    * 
     * @param productAssignment Required fields: ProductID, BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

@@ -12,9 +12,11 @@ type Primitive = string | boolean | number
  * https://ordercloud.io/features/advanced-querying#filtering
  */
 export type Filters<T> = T extends object
-  ? {
-      -readonly [prop in keyof T]?: Filters<T[prop]>
-    }
+  ? FiltersObj<T>
   : T extends Primitive
   ? FilterProp
   : any
+
+type FiltersObj<T extends object> = {
+  -readonly [prop in keyof T]?: Filters<T[prop]>
+}

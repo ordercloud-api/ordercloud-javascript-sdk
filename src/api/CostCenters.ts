@@ -29,6 +29,9 @@ class CostCenters {
     }
 
    /**
+    * Get a list of cost centers. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/list|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -52,6 +55,9 @@ class CostCenters {
     }
 
    /**
+    * Create a new cost center. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/create|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param costCenter Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -70,6 +76,9 @@ class CostCenters {
     }
 
    /**
+    * Get a single cost center. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/get|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param costCenterID ID of the cost center.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -88,6 +97,9 @@ class CostCenters {
     }
 
    /**
+    * Create or update a cost center. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/save|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param costCenterID ID of the cost center.
     * @param costCenter Required fields: Name
@@ -107,6 +119,9 @@ class CostCenters {
     }
 
    /**
+    * Delete a cost center. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/delete|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param costCenterID ID of the cost center.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -125,6 +140,9 @@ class CostCenters {
     }
 
    /**
+    * Partially update a cost center. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/patch|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param costCenterID ID of the cost center.
     * @param costCenter 
@@ -144,6 +162,9 @@ class CostCenters {
     }
 
    /**
+    * Delete a cost center assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/delete-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param costCenterID ID of the cost center.
     * @param listOptions.userID ID of the user.
@@ -164,6 +185,9 @@ class CostCenters {
     }
 
    /**
+    * Get a list of cost center assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/list-assignments|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param listOptions.costCenterID ID of the cost center.
     * @param listOptions.userID ID of the user.
@@ -187,6 +211,9 @@ class CostCenters {
     }
 
    /**
+    * Create or update a cost center assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/cost-centers/save-assignment|api docs} for more info 
+    * 
     * @param buyerID ID of the buyer.
     * @param costCenterAssignment Required fields: CostCenterID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

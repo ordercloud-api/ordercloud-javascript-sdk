@@ -29,6 +29,9 @@ class Promotions {
     }
 
    /**
+    * Get a list of promotions. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/list|api docs} for more info 
+    * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
@@ -51,6 +54,9 @@ class Promotions {
     }
 
    /**
+    * Create a new promotion. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/create|api docs} for more info 
+    * 
     * @param promotion Required fields: Code, EligibleExpression, ValueExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -68,6 +74,9 @@ class Promotions {
     }
 
    /**
+    * Get a single promotion. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/get|api docs} for more info 
+    * 
     * @param promotionID ID of the promotion.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -85,6 +94,9 @@ class Promotions {
     }
 
    /**
+    * Create or update a promotion. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/save|api docs} for more info 
+    * 
     * @param promotionID ID of the promotion.
     * @param promotion Required fields: Code, EligibleExpression, ValueExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -103,6 +115,9 @@ class Promotions {
     }
 
    /**
+    * Delete a promotion. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/delete|api docs} for more info 
+    * 
     * @param promotionID ID of the promotion.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -120,6 +135,9 @@ class Promotions {
     }
 
    /**
+    * Partially update a promotion. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/patch|api docs} for more info 
+    * 
     * @param promotionID ID of the promotion.
     * @param promotion 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -138,6 +156,9 @@ class Promotions {
     }
 
    /**
+    * Delete a promotion assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/delete-assignment|api docs} for more info 
+    * 
     * @param promotionID ID of the promotion.
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.userID ID of the user.
@@ -158,6 +179,9 @@ class Promotions {
     }
 
    /**
+    * Get a list of promotion assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/list-assignments|api docs} for more info 
+    * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.promotionID ID of the promotion.
     * @param listOptions.userID ID of the user.
@@ -181,6 +205,9 @@ class Promotions {
     }
 
    /**
+    * Create or update a promotion assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/save-assignment|api docs} for more info 
+    * 
     * @param promotionAssignment Required fields: PromotionID, BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

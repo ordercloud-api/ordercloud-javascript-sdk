@@ -33,6 +33,9 @@ class Categories {
     }
 
    /**
+    * Get a list of categories. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/list|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param listOptions.depth Depth of the category.
     * @param listOptions.search Word or phrase to search for.
@@ -57,6 +60,9 @@ class Categories {
     }
 
    /**
+    * Create a new category. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/create|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param category Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -75,6 +81,9 @@ class Categories {
     }
 
    /**
+    * Get a single category. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/get|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -93,6 +102,9 @@ class Categories {
     }
 
    /**
+    * Create or update a category. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
     * @param category Required fields: Name
@@ -112,6 +124,9 @@ class Categories {
     }
 
    /**
+    * Delete a category. Deleting a parent category will also delete all of that category's children.
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/delete|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -130,6 +145,9 @@ class Categories {
     }
 
    /**
+    * Partially update a category. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/patch|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
     * @param category 
@@ -149,6 +167,9 @@ class Categories {
     }
 
    /**
+    * Delete a category assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/delete-assignment|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
     * @param listOptions.buyerID ID of the buyer.
@@ -170,6 +191,9 @@ class Categories {
     }
 
    /**
+    * Delete a category product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/delete-product-assignment|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
     * @param productID ID of the product.
@@ -189,6 +213,9 @@ class Categories {
     }
 
    /**
+    * Get a list of category assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/list-assignments|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param listOptions.categoryID ID of the category.
     * @param listOptions.buyerID ID of the buyer.
@@ -213,6 +240,9 @@ class Categories {
     }
 
    /**
+    * Create or update a category assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save-assignment|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryAssignment Required fields: CategoryID, BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -231,6 +261,9 @@ class Categories {
     }
 
    /**
+    * Get a list of category product assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/list-product-assignments|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param listOptions.categoryID ID of the category.
     * @param listOptions.productID ID of the product.
@@ -252,6 +285,9 @@ class Categories {
     }
 
    /**
+    * Create or update a category product assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save-product-assignment|api docs} for more info 
+    * 
     * @param catalogID ID of the catalog.
     * @param categoryProductAssignment Required fields: CategoryID, ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
