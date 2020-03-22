@@ -87,10 +87,6 @@ function getMessage(ex, error?: ApiError | AuthError): string {
   }
 }
 
-/**
- * @ignore
- * not part of public api, don't include in generated docs
- */
 function getErrorCode(error?: ApiError | AuthError): string {
   if (!error) {
     return 'OrderCloudError'

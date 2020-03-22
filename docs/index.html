@@ -98,7 +98,9 @@
 								<li class="tsd-kind-interface"><a href="interfaces/addressassignment.html" class="tsd-kind-icon">Address<wbr>Assignment</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/apiclient.html" class="tsd-kind-icon">Api<wbr>Client</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/apiclientassignment.html" class="tsd-kind-icon">Api<wbr>Client<wbr>Assignment</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/apierror.html" class="tsd-kind-icon">Api<wbr>Error</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/approvalrule.html" class="tsd-kind-icon">Approval<wbr>Rule</a></li>
+								<li class="tsd-kind-interface"><a href="interfaces/autherror.html" class="tsd-kind-icon">Auth<wbr>Error</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/authentication.html" class="tsd-kind-icon">Authentication</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/buyer.html" class="tsd-kind-icon">Buyer</a></li>
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/buyeraddress.html" class="tsd-kind-icon">Buyer<wbr>Address</a></li>
@@ -115,7 +117,6 @@
 								<li class="tsd-kind-interface tsd-has-type-parameter"><a href="interfaces/creditcard.html" class="tsd-kind-icon">Credit<wbr>Card</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/creditcardassignment.html" class="tsd-kind-icon">Credit<wbr>Card<wbr>Assignment</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/decodedtoken.html" class="tsd-kind-icon">Decoded<wbr>Token</a></li>
-								<li class="tsd-kind-interface"><a href="interfaces/errordetails.html" class="tsd-kind-icon">Error<wbr>Details</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/impersonatetokenrequest.html" class="tsd-kind-icon">Impersonate<wbr>Token<wbr>Request</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/impersonationconfig.html" class="tsd-kind-icon">Impersonation<wbr>Config</a></li>
 								<li class="tsd-kind-interface"><a href="interfaces/incrementor.html" class="tsd-kind-icon">Incrementor</a></li>
@@ -183,34 +184,28 @@
 						<section class="tsd-index-section ">
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-type-alias"><a href="globals.html#apirole" class="tsd-kind-icon">Api<wbr>Role</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#approvalstatus" class="tsd-kind-icon">Approval<wbr>Status</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#commercerole" class="tsd-kind-icon">Commerce<wbr>Role</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#filterprop" class="tsd-kind-icon">Filter<wbr>Prop</a></li>
-								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#filters" class="tsd-kind-icon">Filters</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#messagetype" class="tsd-kind-icon">Message<wbr>Type</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#orderdirection" class="tsd-kind-icon">Order<wbr>Direction</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#orderstatus" class="tsd-kind-icon">Order<wbr>Status</a></li>
-								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#partialdeep" class="tsd-kind-icon">Partial<wbr>Deep</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#partytype" class="tsd-kind-icon">Party<wbr>Type</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#paymenttype" class="tsd-kind-icon">Payment<wbr>Type</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#pricemarkuptype" class="tsd-kind-icon">Price<wbr>Markup<wbr>Type</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#primitive" class="tsd-kind-icon">Primitive</a></li>
-								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="globals.html#requireddeep" class="tsd-kind-icon">Required<wbr>Deep</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#userordermoveoption" class="tsd-kind-icon">User<wbr>Order<wbr>Move<wbr>Option</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#xpthingtype" class="tsd-kind-icon">Xp<wbr>Thing<wbr>Type</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
-							<h3>Variables</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-variable"><a href="globals.html#isnode" class="tsd-kind-icon">is<wbr>Node</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#apirole" class="tsd-kind-icon">Api<wbr>Role</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#approvalstatus" class="tsd-kind-icon">Approval<wbr>Status</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#commercerole" class="tsd-kind-icon">Commerce<wbr>Role</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#filterprop" class="tsd-kind-icon">Filter<wbr>Prop</a></li>
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="index.html#filters" class="tsd-kind-icon">Filters</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#messagetype" class="tsd-kind-icon">Message<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#orderdirection" class="tsd-kind-icon">Order<wbr>Direction</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#orderstatus" class="tsd-kind-icon">Order<wbr>Status</a></li>
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="index.html#partialdeep" class="tsd-kind-icon">Partial<wbr>Deep</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#partytype" class="tsd-kind-icon">Party<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#paymenttype" class="tsd-kind-icon">Payment<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#pricemarkuptype" class="tsd-kind-icon">Price<wbr>Markup<wbr>Type</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#primitive" class="tsd-kind-icon">Primitive</a></li>
+								<li class="tsd-kind-type-alias tsd-has-type-parameter"><a href="index.html#requireddeep" class="tsd-kind-icon">Required<wbr>Deep</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#userordermoveoption" class="tsd-kind-icon">User<wbr>Order<wbr>Move<wbr>Option</a></li>
+								<li class="tsd-kind-type-alias"><a href="index.html#xpthingtype" class="tsd-kind-icon">Xp<wbr>Thing<wbr>Type</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
 							<h3>Functions</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-function"><a href="globals.html#getmessage" class="tsd-kind-icon">get<wbr>Message</a></li>
+								<li class="tsd-kind-function"><a href="globals.html#geterrorcode" class="tsd-kind-icon">get<wbr>Error<wbr>Code</a></li>
 							</ul>
 						</section>
 					</div>
@@ -221,28 +216,28 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="apirole" class="tsd-anchor"></a>
 					<h3>Api<wbr>Role</h3>
-					<div class="tsd-signature tsd-kind-icon">Api<wbr>Role<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"ApiClientAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApiClientReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AddressReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminAddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminAddressReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserGroupAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserGroupReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApprovalRuleAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApprovalRuleReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerImpersonation"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerUserAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerUserReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CatalogAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CatalogReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CategoryAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CategoryReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CostCenterAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CostCenterReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCardAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCardReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FullAccess"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IncrementorAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IncrementorReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"InventoryAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeAddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeCreditCardAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageConfigAssignmentAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeXpAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OverrideShipping"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OverrideTax"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OverrideUnitPrice"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PasswordReset"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PriceScheduleAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PriceScheduleReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductAssignmentAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductFacetAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductFacetReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SecurityProfileAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SecurityProfileReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SetSecurityProfile"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShipmentAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShipmentReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Shopper"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccountAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccountReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierAddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierAddressReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserGroupAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserGroupReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UnsubmittedOrderReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UserGroupAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UserGroupReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OpenIDConnectReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OpenIDConnectAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageSenderReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageSenderAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"XpIndexAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"WebhookReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"WebhookAdmin"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Api<wbr>Role<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"ApiClientAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApiClientReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AddressReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminAddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminAddressReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserGroupAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserGroupReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AdminUserReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApprovalRuleAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApprovalRuleReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerImpersonation"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerUserAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"BuyerUserReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CatalogAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CatalogReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CategoryAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CategoryReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CostCenterAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CostCenterReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCardAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCardReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FullAccess"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IncrementorAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IncrementorReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"InventoryAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeAddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeCreditCardAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageConfigAssignmentAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MeXpAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OverrideShipping"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OverrideTax"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OverrideUnitPrice"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PasswordReset"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PriceScheduleAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PriceScheduleReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductAssignmentAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductFacetAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductFacetReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SecurityProfileAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SecurityProfileReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SetSecurityProfile"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShipmentAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShipmentReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Shopper"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccountAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccountReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierAddressAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierAddressReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserGroupAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserGroupReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SupplierUserReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UnsubmittedOrderReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UserGroupAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UserGroupReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OpenIDConnectReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OpenIDConnectAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageSenderReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageSenderAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"XpIndexAdmin"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"WebhookReader"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"WebhookAdmin"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="approvalstatus" class="tsd-anchor"></a>
 					<h3>Approval<wbr>Status</h3>
-					<div class="tsd-signature tsd-kind-icon">Approval<wbr>Status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Pending"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Approved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Declined"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Approval<wbr>Status<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"Pending"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Approved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Declined"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="commercerole" class="tsd-anchor"></a>
 					<h3>Commerce<wbr>Role</h3>
-					<div class="tsd-signature tsd-kind-icon">Commerce<wbr>Role<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Buyer"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Seller"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Supplier"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Commerce<wbr>Role<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"Buyer"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Seller"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Supplier"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="filterprop" class="tsd-anchor"></a>
 					<h3>Filter<wbr>Prop</h3>
-					<div class="tsd-signature tsd-kind-icon">Filter<wbr>Prop<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
+					<div class="tsd-signature tsd-kind-icon">Filter<wbr>Prop<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">undefined</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -257,7 +252,7 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
 					<a name="filters" class="tsd-anchor"></a>
 					<h3>Filters</h3>
-					<div class="tsd-signature tsd-kind-icon">Filters&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">Primitive</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-type">FilterProp</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">any</span></div>
+					<div class="tsd-signature tsd-kind-icon">Filters&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T extends object ? object : T extends Primitive ? FilterProp : any</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -276,28 +271,28 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="messagetype" class="tsd-anchor"></a>
 					<h3>Message<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Message<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"OrderDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShipmentCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ForgottenPassword"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForYourApproval"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForApproval"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForYourApprovalHasBeenApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForYourApprovalHasBeenDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"NewUserInvitation"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Message<wbr>Type<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"OrderDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShipmentCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ForgottenPassword"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForYourApproval"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForApproval"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForYourApprovalHasBeenApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"OrderSubmittedForYourApprovalHasBeenDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"NewUserInvitation"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="orderdirection" class="tsd-anchor"></a>
 					<h3>Order<wbr>Direction</h3>
-					<div class="tsd-signature tsd-kind-icon">Order<wbr>Direction<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Incoming"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Outgoing"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Order<wbr>Direction<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"Incoming"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Outgoing"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="orderstatus" class="tsd-anchor"></a>
 					<h3>Order<wbr>Status</h3>
-					<div class="tsd-signature tsd-kind-icon">Order<wbr>Status<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Unsubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AwaitingApproval"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Declined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Open"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Completed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Canceled"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Order<wbr>Status<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"Unsubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AwaitingApproval"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Declined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Open"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Completed"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Canceled"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
 					<a name="partialdeep" class="tsd-anchor"></a>
 					<h3>Partial<wbr>Deep</h3>
-					<div class="tsd-signature tsd-kind-icon">Partial<wbr>Deep&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">T</span></div>
+					<div class="tsd-signature tsd-kind-icon">Partial<wbr>Deep&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T extends object ? object : T</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -310,35 +305,35 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="partytype" class="tsd-anchor"></a>
 					<h3>Party<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Party<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"User"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Group"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Company"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Party<wbr>Type<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"User"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Group"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Company"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="paymenttype" class="tsd-anchor"></a>
 					<h3>Payment<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Payment<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"PurchaseOrder"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCard"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccount"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Payment<wbr>Type<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"PurchaseOrder"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCard"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccount"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="pricemarkuptype" class="tsd-anchor"></a>
 					<h3>Price<wbr>Markup<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Price<wbr>Markup<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"NoMarkup"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AmountPerQuantity"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AmountTotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Percentage"</span></div>
+					<div class="tsd-signature tsd-kind-icon">Price<wbr>Markup<wbr>Type<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"NoMarkup"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AmountPerQuantity"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"AmountTotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Percentage"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="primitive" class="tsd-anchor"></a>
 					<h3>Primitive</h3>
-					<div class="tsd-signature tsd-kind-icon">Primitive<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
+					<div class="tsd-signature tsd-kind-icon">Primitive<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter">
 					<a name="requireddeep" class="tsd-anchor"></a>
 					<h3>Required<wbr>Deep</h3>
-					<div class="tsd-signature tsd-kind-icon">Required<wbr>Deep&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> extends </span><span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> ? </span><span class="tsd-signature-symbol">{}</span><span class="tsd-signature-symbol"> : </span><span class="tsd-signature-type">T</span></div>
+					<div class="tsd-signature tsd-kind-icon">Required<wbr>Deep&lt;T&gt;<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">T extends object ? object : T</span></div>
 					<aside class="tsd-sources">
 					</aside>
 					<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -351,24 +346,14 @@
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="userordermoveoption" class="tsd-anchor"></a>
 					<h3>User<wbr>Order<wbr>Move<wbr>Option</h3>
-					<div class="tsd-signature tsd-kind-icon">User<wbr>Order<wbr>Move<wbr>Option<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"None"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Unsubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"All"</span></div>
+					<div class="tsd-signature tsd-kind-icon">User<wbr>Order<wbr>Move<wbr>Option<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"None"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Unsubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"All"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="xpthingtype" class="tsd-anchor"></a>
 					<h3>Xp<wbr>Thing<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Xp<wbr>Thing<wbr>Type<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"Product"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Variant"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Order"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"LineItem"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Address"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CostCenter"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCard"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Payment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Spec"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpecOption"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UserGroup"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Company"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Category"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PriceSchedule"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Shipment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"User"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Promotion"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApprovalRule"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Catalog"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductFacet"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageSender"</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Variables</h2>
-				<section class="tsd-panel tsd-member tsd-kind-variable">
-					<a name="isnode" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> is<wbr>Node</h3>
-					<div class="tsd-signature tsd-kind-icon">is<wbr>Node<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Function</span><span class="tsd-signature-symbol"> = new Function(&#x27;try {return this&#x3D;&#x3D;&#x3D;global;}catch(e){return false;}&#x27;)</span></div>
+					<div class="tsd-signature tsd-kind-icon">Xp<wbr>Thing<wbr>Type<span class="tsd-signature-symbol">:</span>             type<span class="tsd-signature-type">"Product"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Variant"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Order"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"LineItem"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Address"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CostCenter"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"CreditCard"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Payment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Spec"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpecOption"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"UserGroup"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Company"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Category"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PriceSchedule"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Shipment"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"SpendingAccount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"User"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Promotion"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ApprovalRule"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Catalog"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ProductFacet"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"MessageSender"</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
@@ -376,10 +361,10 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
 				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="getmessage" class="tsd-anchor"></a>
-					<h3>get<wbr>Message</h3>
+					<a name="geterrorcode" class="tsd-anchor"></a>
+					<h3>get<wbr>Error<wbr>Code</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">get<wbr>Message<span class="tsd-signature-symbol">(</span>ex<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span>, firstError<span class="tsd-signature-symbol">?: </span><a href="interfaces/errordetails.html" class="tsd-signature-type">ErrorDetails</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Error<wbr>Code<span class="tsd-signature-symbol">(</span>error<span class="tsd-signature-symbol">?: </span>type<a href="interfaces/apierror.html" class="tsd-signature-type">ApiError</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/autherror.html" class="tsd-signature-type">AuthError</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -388,13 +373,10 @@
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5>ex: <span class="tsd-signature-type">any</span></h5>
-								</li>
-								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> firstError: <a href="interfaces/errordetails.html" class="tsd-signature-type">ErrorDetails</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> error: type<a href="interfaces/apierror.html" class="tsd-signature-type">ApiError</a><span class="tsd-signature-symbol"> | </span><a href="interfaces/autherror.html" class="tsd-signature-type">AuthError</a></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -545,8 +527,14 @@
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/apiclientassignment.html" class="tsd-kind-icon">Api<wbr>Client<wbr>Assignment</a>
 					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/apierror.html" class="tsd-kind-icon">Api<wbr>Error</a>
+					</li>
 					<li class=" tsd-kind-interface tsd-has-type-parameter">
 						<a href="interfaces/approvalrule.html" class="tsd-kind-icon">Approval<wbr>Rule</a>
+					</li>
+					<li class=" tsd-kind-interface">
+						<a href="interfaces/autherror.html" class="tsd-kind-icon">Auth<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/authentication.html" class="tsd-kind-icon">Authentication</a>
@@ -595,9 +583,6 @@
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/decodedtoken.html" class="tsd-kind-icon">Decoded<wbr>Token</a>
-					</li>
-					<li class=" tsd-kind-interface">
-						<a href="interfaces/errordetails.html" class="tsd-kind-icon">Error<wbr>Details</a>
 					</li>
 					<li class=" tsd-kind-interface">
 						<a href="interfaces/impersonatetokenrequest.html" class="tsd-kind-icon">Impersonate<wbr>Token<wbr>Request</a>
@@ -786,58 +771,55 @@
 						<a href="interfaces/xpindex.html" class="tsd-kind-icon">Xp<wbr>Index</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#apirole" class="tsd-kind-icon">Api<wbr>Role</a>
+						<a href="index.html#apirole" class="tsd-kind-icon">Api<wbr>Role</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#approvalstatus" class="tsd-kind-icon">Approval<wbr>Status</a>
+						<a href="index.html#approvalstatus" class="tsd-kind-icon">Approval<wbr>Status</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#commercerole" class="tsd-kind-icon">Commerce<wbr>Role</a>
+						<a href="index.html#commercerole" class="tsd-kind-icon">Commerce<wbr>Role</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#filterprop" class="tsd-kind-icon">Filter<wbr>Prop</a>
+						<a href="index.html#filterprop" class="tsd-kind-icon">Filter<wbr>Prop</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#filters" class="tsd-kind-icon">Filters</a>
+						<a href="index.html#filters" class="tsd-kind-icon">Filters</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#messagetype" class="tsd-kind-icon">Message<wbr>Type</a>
+						<a href="index.html#messagetype" class="tsd-kind-icon">Message<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#orderdirection" class="tsd-kind-icon">Order<wbr>Direction</a>
+						<a href="index.html#orderdirection" class="tsd-kind-icon">Order<wbr>Direction</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#orderstatus" class="tsd-kind-icon">Order<wbr>Status</a>
+						<a href="index.html#orderstatus" class="tsd-kind-icon">Order<wbr>Status</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#partialdeep" class="tsd-kind-icon">Partial<wbr>Deep</a>
+						<a href="index.html#partialdeep" class="tsd-kind-icon">Partial<wbr>Deep</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#partytype" class="tsd-kind-icon">Party<wbr>Type</a>
+						<a href="index.html#partytype" class="tsd-kind-icon">Party<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#paymenttype" class="tsd-kind-icon">Payment<wbr>Type</a>
+						<a href="index.html#paymenttype" class="tsd-kind-icon">Payment<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#pricemarkuptype" class="tsd-kind-icon">Price<wbr>Markup<wbr>Type</a>
+						<a href="index.html#pricemarkuptype" class="tsd-kind-icon">Price<wbr>Markup<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#primitive" class="tsd-kind-icon">Primitive</a>
+						<a href="index.html#primitive" class="tsd-kind-icon">Primitive</a>
 					</li>
 					<li class=" tsd-kind-type-alias tsd-has-type-parameter">
-						<a href="globals.html#requireddeep" class="tsd-kind-icon">Required<wbr>Deep</a>
+						<a href="index.html#requireddeep" class="tsd-kind-icon">Required<wbr>Deep</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#userordermoveoption" class="tsd-kind-icon">User<wbr>Order<wbr>Move<wbr>Option</a>
+						<a href="index.html#userordermoveoption" class="tsd-kind-icon">User<wbr>Order<wbr>Move<wbr>Option</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#xpthingtype" class="tsd-kind-icon">Xp<wbr>Thing<wbr>Type</a>
-					</li>
-					<li class=" tsd-kind-variable">
-						<a href="globals.html#isnode" class="tsd-kind-icon">is<wbr>Node</a>
+						<a href="index.html#xpthingtype" class="tsd-kind-icon">Xp<wbr>Thing<wbr>Type</a>
 					</li>
 					<li class=" tsd-kind-function">
-						<a href="globals.html#getmessage" class="tsd-kind-icon">get<wbr>Message</a>
+						<a href="globals.html#geterrorcode" class="tsd-kind-icon">get<wbr>Error<wbr>Code</a>
 					</li>
 				</ul>
 			</nav>
