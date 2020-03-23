@@ -2,20 +2,20 @@
 
 The OrderCloud SDK for Javascript is a modern client library for building solutions targeting the [Ordercloud eCommerce API](https://developer.ordercloud.io/documentation). The SDK aims to greatly improve developer productivity and reduce errors.
 
-- [Features](#✨-features)
-- [Installation](#⚙️-installation)
-- [Adding it to your project](#➕-adding-it-to-your-project)
-  - [using import](#using-import)
-  - [using selective import](#using-selective-import)
+- [Features](#-features)
+- [Installation](#%EF%B8%8F-installation)
+- [Adding it to your project](#-adding-it-to-your-project)
+  - [using named imports](#using-named-imports)
+  - [using default import](#using-default-import)
   - [using require](#using-require)
-- [Authentication](#🔐-authentication)
-- [Filtering](#🔍-filtering)
-- [Impersonation](#👬-impersonation)
+- [Authentication](#-authentication)
+- [Filtering](#-filtering)
+- [Impersonation](#-impersonation)
 - [Typescript Support](#typescript-support)
-- [Handling Errors](#handling-errors-🐛)
-- [License](#📄-license)
-- [Contributing](#🤝-contributing)
-- [Getting Help](#🆘-getting-help)
+- [Handling Errors](#handling-errors-)
+- [License](#-license)
+- [Contributing](#-contributing)
+- [Getting Help](#-getting-help)
 
 ## ✨ Features
 
