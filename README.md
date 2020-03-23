@@ -88,7 +88,7 @@ const OrderCloudSDK = require('ordercloud-javascript-sdk');
 
 We'll need to get a token before we can make any API calls. The SDK offers five different ways of getting a token as part of the [Auth class](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/auth.html).
 
-We'll use the login method this example.
+We'll use the login method for this example.
 
 ```javascript
 import { Auth, Tokens } from 'ordercloud-javascript-sdk';
