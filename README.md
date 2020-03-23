@@ -12,6 +12,7 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 - [Filtering](#🔍-filtering)
 - [Impersonation](#👬-impersonation)
 - [Typescript Support](#typescript-support)
+- [Handling Errors](#handling-errors-🐛)
 - [License](#📄-license)
 - [Contributing](#🤝-contributing)
 - [Getting Help](#🆘-getting-help)
@@ -276,6 +277,30 @@ Categories.List<MyCategory>('mock-catalog-id')
 ```
 
 This is nicer and especially preferable for models like `Order` which have many nested models each with their own `xp` fields that must be defined at the top level. For example: `Order<OrderXp, FromUserXp, BillingAddressXp>`. Declaring those 3 xp types once on a custom `MyOrder` class is far cleaner than declaring them on every call to `Orders.Get` or `Orders.List`.
+
+## Handling Errors 🐛
+
+The SDK uses a custom error ([`OrderCloudError`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror.html)) to provide rich and useful information in the case of an error.
+
+```typescript
+Products.Get('my-product')
+  .catch(error => {
+    if(error.isOrderCloudError) {
+      // the request was made and the API responded with a status code
+      // that falls outside of the range of 2xx, the error will be of type OrderCloudError
+      // https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror.html
+      console.log(error.message);
+      console.log(error.errors);
+    } else if (error.request) {
+      // the request was made but no response received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+  })
+```
 
 ## 📄 License
 

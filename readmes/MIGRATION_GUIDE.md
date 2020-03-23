@@ -65,6 +65,8 @@ The objective of this guide is to document the breaking changes and updates requ
     Me.ListProducts({filters: { xp: { Color: 'red' } } })
     ```
 
+* The schema for errors has changed. Please refer to the [error handling section](../README.md#handling-errors-🐛) in the readme.
+
 ## version 2.x.x to version 3.x.x
 
 * `ApiClient` renamed to `Sdk` to prevent name clash with new API resource [ApiClient](https://ordercloud.io/api-reference/seller/api-clients).

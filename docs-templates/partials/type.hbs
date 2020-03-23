@@ -31,7 +31,6 @@
             {{/with}}
         {{else}}
             {{#if types}}
-            type
                 {{#each types}}
                     {{#if @index}}
                         <span class="tsd-signature-symbol"> {{#ifCond ../type '==' 'intersection'}}&amp;{{else}}|{{/ifCond}} </span>
@@ -39,7 +38,6 @@
                 {{/each}}
             {{else}}
                 {{#if elements}}
-                elements
                     {{#compact}}
                         <span class="tsd-signature-symbol">[</span>
 
