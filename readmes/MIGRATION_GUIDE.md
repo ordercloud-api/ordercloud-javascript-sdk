@@ -29,7 +29,7 @@ The objective of this guide is to document the breaking changes and updates requ
         baseAuthUrl: 'https://auth.ordercloud.io/oauth/token'
     })
 
-    Tokens.SetAccess('my-token');
+    Tokens.SetAccessToken('my-token');
     ```
 
 * The `As()` method used for impersonation has been moved from being accessible from the sdk *to* each resource.
