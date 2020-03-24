@@ -65,6 +65,20 @@ The objective of this guide is to document the breaking changes and updates requ
     Me.ListProducts({filters: { xp: { Color: 'red' } } })
     ```
 
+* `searchOn` and `sortBy` now accept an array of strings instead of a single comma delimited string
+
+    Before:
+
+    ```javascript
+    Me.ListProducts({searchOn: 'ID,Name', sortBy: 'ID,Name'})
+    ```
+
+    After:
+
+    ```javascript
+    Me.ListProducts({searchOn: ['ID', 'Name'], sortBy: ['ID', 'Name']})
+    ```
+
 * The schema for errors has changed. Please refer to the [error handling section](../README.md#handling-errors-) in the readme.
 
 ## version 2.x.x to version 3.x.x
