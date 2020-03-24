@@ -81,6 +81,40 @@ The objective of this guide is to document the breaking changes and updates requ
 
 * The schema for errors has changed. Please refer to the [error handling section](../README.md#handling-errors-) in the readme.
 
+> The following are Typescript breaking changes. If you are not using Typescript you can ignore them.
+
+* The minimum compatible typescript version is now 3.5
+
+* List models have been replaced with a generic `ListPage` model that takes a type parameter for the item.
+
+    Before:
+
+    ```typescript
+    const orderList: ListOrder
+    const ccList: ListCreditCard
+    ```
+
+    After:
+
+    ```typescript
+    const orderList: ListPage<Order>
+    const ccList: ListPage<CreditCard>
+    ```
+
+* OrderDirection must be either `Incoming` or `Outgoing` case-sensitive.
+
+    Before:
+
+    ```typescript
+    Orders.List('incoming')
+    ```
+
+    After:
+
+    ```typescript
+    Orders.List('Incoming')
+    ```
+
 ## version 2.x.x to version 3.x.x
 
 * `ApiClient` renamed to `Sdk` to prevent name clash with new API resource [ApiClient](https://ordercloud.io/api-reference/seller/api-clients).
