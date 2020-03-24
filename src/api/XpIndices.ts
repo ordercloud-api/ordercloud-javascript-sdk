@@ -34,10 +34,10 @@ class XpIndices {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TXpIndex extends XpIndex>( options: { search?: string, searchOn?: ('ThingType' | 'Key')[], sortBy?: ('ThingType' | 'Key' | '!ThingType' | '!Key')[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
+    public async List<TXpIndex extends XpIndex>( listOptions: { search?: string, searchOn?: ('ThingType' | 'Key')[], sortBy?: ('ThingType' | 'Key' | '!ThingType' | '!Key')[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/xpindices`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/xpindices`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -57,7 +57,7 @@ class XpIndices {
     public async Put(xpIndex: XpIndex, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/xpindices`, xpIndex, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/xpindices`, xpIndex, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -78,7 +78,7 @@ class XpIndices {
     public async Delete(thingType: XpThingType, key: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/xpindices/${thingType}/${key}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/xpindices/${thingType}/${key}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

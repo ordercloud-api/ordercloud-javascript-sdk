@@ -36,10 +36,10 @@ class Suppliers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSupplier extends Supplier>( options: { search?: string, searchOn?: ('Name' | 'ID')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSupplier>>> {
+    public async List<TSupplier extends Supplier>( listOptions: { search?: string, searchOn?: ('Name' | 'ID')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSupplier>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/suppliers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -59,7 +59,7 @@ class Suppliers {
     public async Create<TSupplier extends Supplier>(supplier: Supplier, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers`, supplier, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/suppliers`, supplier, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -79,7 +79,7 @@ class Suppliers {
     public async Get<TSupplier extends Supplier>(supplierID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/suppliers/${supplierID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -100,7 +100,7 @@ class Suppliers {
     public async Save<TSupplier extends Supplier>(supplierID: string, supplier: Supplier, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}`, supplier, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/suppliers/${supplierID}`, supplier, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,7 +120,7 @@ class Suppliers {
     public async Delete(supplierID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/suppliers/${supplierID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -141,7 +141,7 @@ class Suppliers {
     public async Patch<TSupplier extends Supplier>(supplierID: string, supplier: PartialDeep<Supplier>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSupplier>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}`, supplier, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/suppliers/${supplierID}`, supplier, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

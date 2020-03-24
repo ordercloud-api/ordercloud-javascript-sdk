@@ -80,7 +80,7 @@ class Me {
     public async Get<TMeUser extends MeUser>( requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMeUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -100,7 +100,7 @@ class Me {
     public async Save<TMeUser extends MeUser>(meUser: MeUser, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMeUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/me`, meUser, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/me`, meUser, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,7 +120,7 @@ class Me {
     public async Patch<TMeUser extends MeUser>(meUser: PartialDeep<MeUser>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMeUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/me`, meUser, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/me`, meUser, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -142,10 +142,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAddresses<TBuyerAddress extends BuyerAddress>( options: { search?: string, searchOn?: ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[], sortBy?: ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerAddress>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyerAddress>>> {
+    public async ListAddresses<TBuyerAddress extends BuyerAddress>( listOptions: { search?: string, searchOn?: ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[], sortBy?: ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerAddress>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyerAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/addresses`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/addresses`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -165,7 +165,7 @@ class Me {
     public async CreateAddress<TBuyerAddress extends BuyerAddress>(buyerAddress: BuyerAddress, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/me/addresses`, buyerAddress, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/me/addresses`, buyerAddress, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -185,7 +185,7 @@ class Me {
     public async GetAddress<TBuyerAddress extends BuyerAddress>(addressID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/addresses/${addressID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -206,7 +206,7 @@ class Me {
     public async SaveAddress<TBuyerAddress extends BuyerAddress>(addressID: string, buyerAddress: BuyerAddress, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/me/addresses/${addressID}`, buyerAddress, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/me/addresses/${addressID}`, buyerAddress, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -226,7 +226,7 @@ class Me {
     public async DeleteAddress(addressID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/me/addresses/${addressID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/me/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -247,7 +247,7 @@ class Me {
     public async PatchAddress(addressID: string, buyerAddress: BuyerAddress, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/me/addresses/${addressID}`, buyerAddress, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/me/addresses/${addressID}`, buyerAddress, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -269,10 +269,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCatalogs<TCatalog extends Catalog>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>> {
+    public async ListCatalogs<TCatalog extends Catalog>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/catalogs`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/catalogs`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -292,7 +292,7 @@ class Me {
     public async GetCatalog<TCatalog extends Catalog>(catalogID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/catalogs/${catalogID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/catalogs/${catalogID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -317,10 +317,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCategories<TCategory extends Category>( options: { depth?: string, catalogID?: string, productID?: string, search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCategory>>> {
+    public async ListCategories<TCategory extends Category>( listOptions: { depth?: string, catalogID?: string, productID?: string, search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCategory>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/categories`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/categories`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -338,10 +338,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async GetCategory<TCategory extends Category>(categoryID: string,  options: { catalogID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>> {
+    public async GetCategory<TCategory extends Category>(categoryID: string,  listOptions: { catalogID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/categories/${categoryID}`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/categories/${categoryID}`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -363,10 +363,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCostCenters<TCostCenter extends CostCenter>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenter>>> {
+    public async ListCostCenters<TCostCenter extends CostCenter>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenter>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/costcenters`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/costcenters`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -388,10 +388,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCreditCards<TBuyerCreditCard extends BuyerCreditCard>( options: { search?: string, searchOn?: ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate')[], sortBy?: ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate' | 'DateCreated' | '!ID' | '!CardholderName' | '!CardType' | '!ExpirationDate' | '!DateCreated')[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerCreditCard>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyerCreditCard>>> {
+    public async ListCreditCards<TBuyerCreditCard extends BuyerCreditCard>( listOptions: { search?: string, searchOn?: ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate')[], sortBy?: ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate' | 'DateCreated' | '!ID' | '!CardholderName' | '!CardType' | '!ExpirationDate' | '!DateCreated')[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerCreditCard>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyerCreditCard>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/creditcards`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/creditcards`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -411,7 +411,7 @@ class Me {
     public async CreateCreditCard<TBuyerCreditCard extends BuyerCreditCard>(buyerCreditCard: BuyerCreditCard, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/me/creditcards`, buyerCreditCard, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/me/creditcards`, buyerCreditCard, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -431,7 +431,7 @@ class Me {
     public async GetCreditCard<TBuyerCreditCard extends BuyerCreditCard>(creditcardID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/creditcards/${creditcardID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/creditcards/${creditcardID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -452,7 +452,7 @@ class Me {
     public async SaveCreditCard<TBuyerCreditCard extends BuyerCreditCard>(creditcardID: string, buyerCreditCard: BuyerCreditCard, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerCreditCard>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/me/creditcards/${creditcardID}`, buyerCreditCard, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/me/creditcards/${creditcardID}`, buyerCreditCard, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -472,7 +472,7 @@ class Me {
     public async DeleteCreditCard(creditcardID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/me/creditcards/${creditcardID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/me/creditcards/${creditcardID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -493,7 +493,7 @@ class Me {
     public async PatchCreditCard(creditcardID: string, buyerCreditCard: BuyerCreditCard, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/me/creditcards/${creditcardID}`, buyerCreditCard, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/me/creditcards/${creditcardID}`, buyerCreditCard, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -517,10 +517,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListOrders<TOrder extends Order>( options: { from?: string, to?: string, search?: string, searchOn?: ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[], sortBy?: ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromUser' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromUser' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>> {
+    public async ListOrders<TOrder extends Order>( listOptions: { from?: string, to?: string, search?: string, searchOn?: ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[], sortBy?: ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromUser' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromUser' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/orders`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/orders`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -537,10 +537,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async TransferAnonUserOrder( options: { anonUserToken?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async TransferAnonUserOrder( listOptions: { anonUserToken?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/me/orders`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/me/orders`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -564,10 +564,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListApprovableOrders<TOrder extends Order>( options: { from?: string, to?: string, search?: string, searchOn?: ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[], sortBy?: ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromUser' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromUser' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>> {
+    public async ListApprovableOrders<TOrder extends Order>( listOptions: { from?: string, to?: string, search?: string, searchOn?: ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[], sortBy?: ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromUser' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromUser' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[], page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/orders/approvable`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/orders/approvable`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -587,7 +587,7 @@ class Me {
     public async ResetPasswordByToken(tokenPasswordReset: TokenPasswordReset, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/me/password`, tokenPasswordReset, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/me/password`, tokenPasswordReset, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -612,10 +612,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListProducts<TBuyerProduct extends BuyerProduct>( options: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: ('ID' | 'Name' | 'Description' | string)[], sortBy?: ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID' | string)[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerProduct>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TBuyerProduct>>> {
+    public async ListProducts<TBuyerProduct extends BuyerProduct>( listOptions: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: ('ID' | 'Name' | 'Description' | string)[], sortBy?: ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID' | string)[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyerProduct>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TBuyerProduct>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/products`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/products`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -635,7 +635,7 @@ class Me {
     public async GetProduct<TBuyerProduct extends BuyerProduct>(productID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerProduct>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/products/${productID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/products/${productID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -659,10 +659,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListSpecs<TSpec extends Spec>(productID: string,  options: { catalogID?: string, search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>> {
+    public async ListSpecs<TSpec extends Spec>(productID: string,  listOptions: { catalogID?: string, search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/products/${productID}/specs`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/products/${productID}/specs`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -681,10 +681,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async GetSpec<TSpec extends Spec>(productID: string, specID: string,  options: { catalogID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>> {
+    public async GetSpec<TSpec extends Spec>(productID: string, specID: string,  listOptions: { catalogID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/products/${productID}/specs/${specID}`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/products/${productID}/specs/${specID}`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -706,10 +706,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListPromotions<TPromotion extends Promotion>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[], sortBy?: ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>> {
+    public async ListPromotions<TPromotion extends Promotion>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[], sortBy?: ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/promotions`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/promotions`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -729,7 +729,7 @@ class Me {
     public async GetPromotion<TPromotion extends Promotion>(promotionID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/promotions/${promotionID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/promotions/${promotionID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -747,10 +747,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Register<TAccessTokenBasic extends AccessTokenBasic>(meUser: MeUser, options: { anonUserToken?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAccessTokenBasic>> {
+    public async Register<TAccessTokenBasic extends AccessTokenBasic>(meUser: MeUser, listOptions: { anonUserToken?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAccessTokenBasic>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/me/register`, meUser, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/me/register`, meUser, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -773,10 +773,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListShipments<TShipment extends Shipment>( options: { orderID?: string, search?: string, searchOn?: ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[], sortBy?: ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipment>>> {
+    public async ListShipments<TShipment extends Shipment>( listOptions: { orderID?: string, search?: string, searchOn?: ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[], sortBy?: ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[], page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/shipments`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/shipments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -796,7 +796,7 @@ class Me {
     public async GetShipment<TShipment extends Shipment>(shipmentID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/shipments/${shipmentID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/shipments/${shipmentID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -820,10 +820,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListShipmentItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  options: { orderID?: string, search?: string, searchOn?: ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[], sortBy?: ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>> {
+    public async ListShipmentItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  listOptions: { orderID?: string, search?: string, searchOn?: ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[], sortBy?: ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[], page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/shipments/${shipmentID}/items`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/shipments/${shipmentID}/items`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -845,10 +845,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListSpendingAccounts<TSpendingAccount extends SpendingAccount>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'RedemptionCode')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
+    public async ListSpendingAccounts<TSpendingAccount extends SpendingAccount>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'RedemptionCode')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/spendingAccounts`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/spendingAccounts`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -868,7 +868,7 @@ class Me {
     public async GetSpendingAccount<TSpendingAccount extends SpendingAccount>(spendingAccountID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/spendingaccounts/${spendingAccountID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/spendingaccounts/${spendingAccountID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -890,10 +890,10 @@ class Me {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListUserGroups<TUserGroup extends UserGroup>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
+    public async ListUserGroups<TUserGroup extends UserGroup>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/me/usergroups`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/me/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

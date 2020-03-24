@@ -36,10 +36,10 @@ class Buyers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TBuyer extends Buyer>( options: { search?: string, searchOn?: ('Name' | 'ID')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyer>>> {
+    public async List<TBuyer extends Buyer>( listOptions: { search?: string, searchOn?: ('Name' | 'ID')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyer>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/buyers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -59,7 +59,7 @@ class Buyers {
     public async Create<TBuyer extends Buyer>(buyer: Buyer, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers`, buyer, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/buyers`, buyer, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -79,7 +79,7 @@ class Buyers {
     public async Get<TBuyer extends Buyer>(buyerID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/buyers/${buyerID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -100,7 +100,7 @@ class Buyers {
     public async Save<TBuyer extends Buyer>(buyerID: string, buyer: Buyer, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}`, buyer, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/buyers/${buyerID}`, buyer, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,7 +120,7 @@ class Buyers {
     public async Delete(buyerID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/buyers/${buyerID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -141,7 +141,7 @@ class Buyers {
     public async Patch<TBuyer extends Buyer>(buyerID: string, buyer: PartialDeep<Buyer>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}`, buyer, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/buyers/${buyerID}`, buyer, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

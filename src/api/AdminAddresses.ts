@@ -36,10 +36,10 @@ class AdminAddresses {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TAddress extends Address>( options: { search?: string, searchOn?: ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[], sortBy?: ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TAddress>>> {
+    public async List<TAddress extends Address>( listOptions: { search?: string, searchOn?: ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[], sortBy?: ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[], page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/addresses`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/addresses`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -59,7 +59,7 @@ class AdminAddresses {
     public async Create<TAddress extends Address>(address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/addresses`, address, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/addresses`, address, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -79,7 +79,7 @@ class AdminAddresses {
     public async Get<TAddress extends Address>(addressID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/addresses/${addressID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -100,7 +100,7 @@ class AdminAddresses {
     public async Save<TAddress extends Address>(addressID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/addresses/${addressID}`, address, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/addresses/${addressID}`, address, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,7 +120,7 @@ class AdminAddresses {
     public async Delete(addressID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/addresses/${addressID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -141,7 +141,7 @@ class AdminAddresses {
     public async Patch<TAddress extends Address>(addressID: string, address: PartialDeep<Address>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/addresses/${addressID}`, address, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/addresses/${addressID}`, address, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

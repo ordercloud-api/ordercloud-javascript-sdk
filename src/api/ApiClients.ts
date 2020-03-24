@@ -41,10 +41,10 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TApiClient extends ApiClient>( options: { search?: string, searchOn?: ('ID' | 'AppName' | 'DefaultContextUserName')[], sortBy?: ('ID' | 'AppName' | 'DefaultContextUserName' | '!ID' | '!AppName' | '!DefaultContextUserName')[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>> {
+    public async List<TApiClient extends ApiClient>( listOptions: { search?: string, searchOn?: ('ID' | 'AppName' | 'DefaultContextUserName')[], sortBy?: ('ID' | 'AppName' | 'DefaultContextUserName' | '!ID' | '!AppName' | '!DefaultContextUserName')[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/apiclients`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -64,7 +64,7 @@ class ApiClients {
     public async Create<TApiClient extends ApiClient>(apiClient: ApiClient, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/apiclients`, apiClient, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/apiclients`, apiClient, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -84,7 +84,7 @@ class ApiClients {
     public async Get<TApiClient extends ApiClient>(apiClientID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients/${apiClientID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -105,7 +105,7 @@ class ApiClients {
     public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/apiclients/${apiClientID}`, apiClient, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/apiclients/${apiClientID}`, apiClient, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -125,7 +125,7 @@ class ApiClients {
     public async Delete(apiClientID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/apiclients/${apiClientID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -146,7 +146,7 @@ class ApiClients {
     public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/apiclients/${apiClientID}`, apiClient, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/apiclients/${apiClientID}`, apiClient, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -167,10 +167,10 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( options: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>> {
+    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( listOptions: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/apiclients/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -190,7 +190,7 @@ class ApiClients {
     public async SaveAssignment(apiClientAssignment: ApiClientAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/apiclients/assignments`, apiClientAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/apiclients/assignments`, apiClientAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -211,7 +211,7 @@ class ApiClients {
     public async DeleteBuyerAssignment(apiClientID: string, buyerID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/ApiClients/Assignments/${apiClientID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/buyers/${buyerID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -232,7 +232,7 @@ class ApiClients {
     public async DeleteSupplierAssignment(apiClientID: string, supplierID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/ApiClients/Assignments/${apiClientID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/suppliers/${supplierID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

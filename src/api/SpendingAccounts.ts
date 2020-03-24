@@ -42,10 +42,10 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  options: { search?: string, searchOn?: ('ID' | 'Name' | 'RedemptionCode')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
+    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'RedemptionCode')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -66,7 +66,7 @@ class SpendingAccounts {
     public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts`, spendingAccount, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts`, spendingAccount, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -87,7 +87,7 @@ class SpendingAccounts {
     public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -109,7 +109,7 @@ class SpendingAccounts {
     public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -130,7 +130,7 @@ class SpendingAccounts {
     public async Delete(buyerID: string, spendingAccountID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -152,7 +152,7 @@ class SpendingAccounts {
     public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, spendingAccount, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -172,10 +172,10 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(buyerID: string, spendingAccountID: string,  options: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, spendingAccountID: string,  listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -198,10 +198,10 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  options: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>> {
+    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  listOptions: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -222,7 +222,7 @@ class SpendingAccounts {
     public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts/assignments`, spendingAccountAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/buyers/${buyerID}/spendingaccounts/assignments`, spendingAccountAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

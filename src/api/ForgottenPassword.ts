@@ -30,7 +30,7 @@ class ForgottenPassword {
     public async SendVerificationCode(passwordResetRequest: PasswordResetRequest, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/password/reset`, passwordResetRequest, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/password/reset`, passwordResetRequest, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -51,7 +51,7 @@ class ForgottenPassword {
     public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/password/reset/${verificationCode}`, passwordReset, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/password/reset/${verificationCode}`, passwordReset, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

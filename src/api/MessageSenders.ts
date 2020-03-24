@@ -44,10 +44,10 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TMessageSender extends MessageSender>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'URL')[], sortBy?: ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
+    public async List<TMessageSender extends MessageSender>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'URL')[], sortBy?: ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/messagesenders`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -67,7 +67,7 @@ class MessageSenders {
     public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders`, messageSender, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/messagesenders`, messageSender, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -87,7 +87,7 @@ class MessageSenders {
     public async Get<TMessageSender extends MessageSender>(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/${messageSenderID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -108,7 +108,7 @@ class MessageSenders {
     public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/messagesenders/${messageSenderID}`, messageSender, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/messagesenders/${messageSenderID}`, messageSender, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -128,7 +128,7 @@ class MessageSenders {
     public async Delete(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/messagesenders/${messageSenderID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -149,7 +149,7 @@ class MessageSenders {
     public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/messagesenders/${messageSenderID}`, messageSender, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/messagesenders/${messageSenderID}`, messageSender, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -170,10 +170,10 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(messageSenderID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(messageSenderID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/messagesenders/${messageSenderID}/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/messagesenders/${messageSenderID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -197,10 +197,10 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( options: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>> {
+    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( listOptions: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/messagesenders/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -220,7 +220,7 @@ class MessageSenders {
     public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders/assignments`, messageSenderAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/messagesenders/assignments`, messageSenderAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -242,10 +242,10 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'URL')[], sortBy?: ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
+    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'URL')[], sortBy?: ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/CCListenerAssignments`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/messagesenders/CCListenerAssignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -265,7 +265,7 @@ class MessageSenders {
     public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders/CCListenerAssignments`, messageCCListenerAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/messagesenders/CCListenerAssignments`, messageCCListenerAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

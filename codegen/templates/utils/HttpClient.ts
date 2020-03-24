@@ -9,6 +9,11 @@ import parseJwt from './ParseJwt'
  * @ignore
  * not part of public api, don't include in generated docs
  */
+
+interface OcRequestConfig extends AxiosRequestConfig {
+  impersonating?: boolean
+  accessToken?: string
+}
 class HttpClient {
   private _session: AxiosInstance
 
@@ -36,10 +41,7 @@ class HttpClient {
     this._tryRefreshToken = this._tryRefreshToken.bind(this)
   }
 
-  public get = async (
-    path: string,
-    config?: AxiosRequestConfig
-  ): Promise<any> => {
+  public get = async (path: string, config?: OcRequestConfig): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
     const response = await this._session.get(
       `${Configuration.Get().baseApiUrl}${path}`,
@@ -51,7 +53,7 @@ class HttpClient {
   public post = async (
     path: string,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: OcRequestConfig
   ): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
     const response = await this._session.post(
@@ -65,7 +67,7 @@ class HttpClient {
   public put = async (
     path: string,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: OcRequestConfig
   ): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
     const response = await this._session.put(
@@ -79,7 +81,7 @@ class HttpClient {
   public patch = async (
     path: string,
     data?: any,
-    config?: AxiosRequestConfig
+    config?: OcRequestConfig
   ): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
     const response = await this._session.patch(
@@ -90,7 +92,7 @@ class HttpClient {
     return response.data
   }
 
-  public delete = async (path: string, config: AxiosRequestConfig) => {
+  public delete = async (path: string, config: OcRequestConfig) => {
     const requestConfig = await this._buildRequestConfig(config)
     const response = await this._session.delete(
       `${Configuration.Get().baseApiUrl}${path}`,
@@ -102,8 +104,8 @@ class HttpClient {
   // sets the token on every outgoing request, will attempt to
   // refresh the token if the token is expired and there is a refresh token set
   private async _tokenInterceptor(
-    config: AxiosRequestConfig
-  ): Promise<AxiosRequestConfig> {
+    config: OcRequestConfig
+  ): Promise<OcRequestConfig> {
     let token = this._getToken(config)
     if (this._isTokenExpired(token)) {
       token = await this._tryRefreshToken(token)
@@ -112,19 +114,20 @@ class HttpClient {
     return config
   }
 
-  private _getToken(config: AxiosRequestConfig): string {
+  private _getToken(config: OcRequestConfig): string {
     let token
-    if (config.params.accessToken) {
-      token = config.params.accessToken
-    } else if (config.params.impersonating) {
+    if (config['accessToken']) {
+      token = config['accessToken']
+    } else if (config['impersonating']) {
       token = tokenService.GetImpersonationToken()
     } else {
       token = tokenService.GetAccessToken()
     }
 
-    // strip out axios params that we'vee hijacked for our own nefarious purposes
-    delete config.params.accessToken
-    delete config.params.impersonating
+    // remove these custom parameters that axios doesn't understand
+    // we were storing on the axios config for simplicity
+    delete config['accessToken']
+    delete config['impersonating']
     return token
   }
 
@@ -160,8 +163,8 @@ class HttpClient {
   }
 
   private _buildRequestConfig(
-    config?: AxiosRequestConfig
-  ): Promise<AxiosRequestConfig> {
+    config?: OcRequestConfig
+  ): Promise<OcRequestConfig> {
     const sdkConfig = Configuration.Get()
     const requestConfig = {
       ...config,

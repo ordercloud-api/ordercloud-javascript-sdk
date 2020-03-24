@@ -41,10 +41,10 @@ class SupplierUserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TUserGroup extends UserGroup>(supplierID: string,  options: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
+    public async List<TUserGroup extends UserGroup>(supplierID: string,  listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/usergroups`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/suppliers/${supplierID}/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -65,7 +65,7 @@ class SupplierUserGroups {
     public async Create<TUserGroup extends UserGroup>(supplierID: string, userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/usergroups`, userGroup, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/suppliers/${supplierID}/usergroups`, userGroup, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -86,7 +86,7 @@ class SupplierUserGroups {
     public async Get<TUserGroup extends UserGroup>(supplierID: string, userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -108,7 +108,7 @@ class SupplierUserGroups {
     public async Save<TUserGroup extends UserGroup>(supplierID: string, userGroupID: string, userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}/usergroups/${userGroupID}`, userGroup, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/suppliers/${supplierID}/usergroups/${userGroupID}`, userGroup, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -129,7 +129,7 @@ class SupplierUserGroups {
     public async Delete(supplierID: string, userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -151,7 +151,7 @@ class SupplierUserGroups {
     public async Patch<TUserGroup extends UserGroup>(supplierID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}/usergroups/${userGroupID}`, userGroup, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/suppliers/${supplierID}/usergroups/${userGroupID}`, userGroup, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -173,7 +173,7 @@ class SupplierUserGroups {
     public async DeleteUserAssignment(supplierID: string, userGroupID: string, userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}/assignments/${userID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}/assignments/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -194,10 +194,10 @@ class SupplierUserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(supplierID: string,  options: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
+    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(supplierID: string,  listOptions: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/usergroups/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/suppliers/${supplierID}/usergroups/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -218,7 +218,7 @@ class SupplierUserGroups {
     public async SaveUserAssignment(supplierID: string, userGroupAssignment: UserGroupAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/usergroups/assignments`, userGroupAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/suppliers/${supplierID}/usergroups/assignments`, userGroupAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

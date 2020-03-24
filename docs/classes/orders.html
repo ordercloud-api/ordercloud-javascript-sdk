@@ -511,7 +511,7 @@
 					<a name="list" class="tsd-anchor"></a>
 					<h3>List</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List&lt;TOrder&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrder</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List&lt;TOrder&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrder</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -538,37 +538,67 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> buyerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>ID of the buyer.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../index.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrder</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>An object whose keys match the model, and the values are the values to filter by</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> from<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Lower bound of date range that the order was created.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Page of results to return. Default: 1</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Number of results to return per page. Default: 20, max: 100.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Word or phrase to search for.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Comments"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to search on.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IsSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!IsSubmitted"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to sort by.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> supplierID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>ID of the supplier.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> to<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Upper bound of date range that the order was created.</p>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -584,7 +614,7 @@
 					<a name="listapprovals" class="tsd-anchor"></a>
 					<h3>List<wbr>Approvals</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List<wbr>Approvals&lt;TOrderApproval&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderApproval</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List<wbr>Approvals&lt;TOrderApproval&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderApproval</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -617,25 +647,43 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../index.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderApproval</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>An object whose keys match the model, and the values are the values to filter by</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Page of results to return. Default: 1</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Number of results to return per page. Default: 20, max: 100.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Word or phrase to search for.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Comments"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to search on.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IsSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!IsSubmitted"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to sort by.</p>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -651,7 +699,7 @@
 					<a name="listeligibleapprovers" class="tsd-anchor"></a>
 					<h3>List<wbr>Eligible<wbr>Approvers</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List<wbr>Eligible<wbr>Approvers&lt;TUser&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUser</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List<wbr>Eligible<wbr>Approvers&lt;TUser&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUser</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -684,25 +732,43 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../index.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TUser</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>An object whose keys match the model, and the values are the values to filter by</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Page of results to return. Default: 1</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Number of results to return per page. Default: 20, max: 100.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Word or phrase to search for.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Comments"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to search on.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IsSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!IsSubmitted"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to sort by.</p>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -718,7 +784,7 @@
 					<a name="listpromotions" class="tsd-anchor"></a>
 					<h3>List<wbr>Promotions</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List<wbr>Promotions&lt;TOrderPromotion&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderPromotion</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List<wbr>Promotions&lt;TOrderPromotion&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderPromotion</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -751,25 +817,43 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../index.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderPromotion</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>An object whose keys match the model, and the values are the values to filter by</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Page of results to return. Default: 1</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Number of results to return per page. Default: 20, max: 100.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Word or phrase to search for.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Comments"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to search on.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IsSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!IsSubmitted"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to sort by.</p>
+											</div>
 										</li>
 									</ul>
 								</li>
@@ -785,7 +869,7 @@
 					<a name="listshipments" class="tsd-anchor"></a>
 					<h3>List<wbr>Shipments</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List<wbr>Shipments&lt;TShipment&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, options<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TShipment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List<wbr>Shipments&lt;TShipment&gt;<span class="tsd-signature-symbol">(</span>direction<span class="tsd-signature-symbol">: </span><a href="../index.html#orderdirection" class="tsd-signature-type">OrderDirection</a>, orderID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TShipment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -818,25 +902,43 @@
 									</div>
 								</li>
 								<li>
-									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> options: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
 									<ul class="tsd-parameters">
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../index.html#filters" class="tsd-signature-type">Filters</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/spec.html#required" class="tsd-signature-type">Required</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TShipment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>An object whose keys match the model, and the values are the values to filter by</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Page of results to return. Default: 1</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Number of results to return per page. Default: 20, max: 100.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Word or phrase to search for.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Comments"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to search on.</p>
+											</div>
 										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-type">"ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCreated"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"IsSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateSubmitted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUser"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ToCompanyID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!FromUserID"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Status"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateApproved"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateDeclined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCanceled"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!DateCompleted"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Subtotal"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!ShippingCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!TaxCost"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!PromotionDiscount"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!Total"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"!IsSubmitted"</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to sort by.</p>
+											</div>
 										</li>
 									</ul>
 								</li>

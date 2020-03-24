@@ -36,10 +36,10 @@ class AdminUsers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TUser extends User>( options: { search?: string, searchOn?: ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[], sortBy?: ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
+    public async List<TUser extends User>( listOptions: { search?: string, searchOn?: ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[], sortBy?: ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[], page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/adminusers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -59,7 +59,7 @@ class AdminUsers {
     public async Create<TUser extends User>(user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/adminusers`, user, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/adminusers`, user, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -79,7 +79,7 @@ class AdminUsers {
     public async Get<TUser extends User>(userID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers/${userID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -100,7 +100,7 @@ class AdminUsers {
     public async Save<TUser extends User>(userID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/adminusers/${userID}`, user, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/adminusers/${userID}`, user, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,7 +120,7 @@ class AdminUsers {
     public async Delete(userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/adminusers/${userID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -141,7 +141,7 @@ class AdminUsers {
     public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/adminusers/${userID}`, user, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/adminusers/${userID}`, user, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

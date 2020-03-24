@@ -47,10 +47,10 @@ class Specs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSpec extends Spec>( options: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>> {
+    public async List<TSpec extends Spec>( listOptions: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/specs`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -70,7 +70,7 @@ class Specs {
     public async Create<TSpec extends Spec>(spec: Spec, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/specs`, spec, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/specs`, spec, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -90,7 +90,7 @@ class Specs {
     public async Get<TSpec extends Spec>(specID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/${specID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/specs/${specID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -111,7 +111,7 @@ class Specs {
     public async Save<TSpec extends Spec>(specID: string, spec: Spec, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/specs/${specID}`, spec, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/specs/${specID}`, spec, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -131,7 +131,7 @@ class Specs {
     public async Delete(specID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/specs/${specID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/specs/${specID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -152,7 +152,7 @@ class Specs {
     public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/specs/${specID}`, spec, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/specs/${specID}`, spec, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -175,10 +175,10 @@ class Specs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  options: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecOption>>> {
+    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  listOptions: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecOption>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/${specID}/options`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/specs/${specID}/options`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -199,7 +199,7 @@ class Specs {
     public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/specs/${specID}/options`, specOption, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/specs/${specID}/options`, specOption, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -220,7 +220,7 @@ class Specs {
     public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/${specID}/options/${optionID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/specs/${specID}/options/${optionID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -242,7 +242,7 @@ class Specs {
     public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/specs/${specID}/options/${optionID}`, specOption, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/specs/${specID}/options/${optionID}`, specOption, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -263,7 +263,7 @@ class Specs {
     public async DeleteOption(specID: string, optionID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/specs/${specID}/options/${optionID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/specs/${specID}/options/${optionID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -285,7 +285,7 @@ class Specs {
     public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/specs/${specID}/options/${optionID}`, specOption, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/specs/${specID}/options/${optionID}`, specOption, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -306,7 +306,7 @@ class Specs {
     public async DeleteProductAssignment(specID: string, productID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/specs/${specID}/productassignments/${productID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/specs/${specID}/productassignments/${productID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -328,10 +328,10 @@ class Specs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( options: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>> {
+    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( listOptions: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/specs/productassignments`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/specs/productassignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -351,7 +351,7 @@ class Specs {
     public async SaveProductAssignment(specProductAssignment: SpecProductAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/specs/productassignments`, specProductAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/specs/productassignments`, specProductAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

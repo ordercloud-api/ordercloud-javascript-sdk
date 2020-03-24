@@ -39,10 +39,10 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TPriceSchedule extends PriceSchedule>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'ApplyTax')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
+    public async List<TPriceSchedule extends PriceSchedule>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'ApplyTax')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/priceschedules`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/priceschedules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -62,7 +62,7 @@ class PriceSchedules {
     public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/priceschedules`, priceSchedule, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/priceschedules`, priceSchedule, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -82,7 +82,7 @@ class PriceSchedules {
     public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/priceschedules/${priceScheduleID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -103,7 +103,7 @@ class PriceSchedules {
     public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/priceschedules/${priceScheduleID}`, priceSchedule, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/priceschedules/${priceScheduleID}`, priceSchedule, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -123,7 +123,7 @@ class PriceSchedules {
     public async Delete(priceScheduleID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/priceschedules/${priceScheduleID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -144,7 +144,7 @@ class PriceSchedules {
     public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/priceschedules/${priceScheduleID}`, priceSchedule, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/priceschedules/${priceScheduleID}`, priceSchedule, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -165,7 +165,7 @@ class PriceSchedules {
     public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, priceBreak, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, priceBreak, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -183,10 +183,10 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeletePriceBreak(priceScheduleID: string,  options: { quantity?: number } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeletePriceBreak(priceScheduleID: string,  listOptions: { quantity?: number } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

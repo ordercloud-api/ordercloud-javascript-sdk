@@ -42,10 +42,10 @@ class LineItems {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TLineItem extends LineItem>(direction: OrderDirection, orderID: string,  options: { search?: string, searchOn?: ('ID' | 'ProductID')[], sortBy?: ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TLineItem>>> {
+    public async List<TLineItem extends LineItem>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: ('ID' | 'ProductID')[], sortBy?: ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TLineItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -67,7 +67,7 @@ class LineItems {
     public async Create<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItem: LineItem, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/lineitems`, lineItem, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/orders/${direction}/${orderID}/lineitems`, lineItem, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -89,7 +89,7 @@ class LineItems {
     public async Get<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -112,7 +112,7 @@ class LineItems {
     public async Save<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, lineItem: LineItem, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -134,7 +134,7 @@ class LineItems {
     public async Delete(direction: OrderDirection, orderID: string, lineItemID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -157,7 +157,7 @@ class LineItems {
     public async Patch<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, lineItem: PartialDeep<LineItem>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -180,7 +180,7 @@ class LineItems {
     public async SetShippingAddress<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -203,7 +203,7 @@ class LineItems {
     public async PatchShippingAddress<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

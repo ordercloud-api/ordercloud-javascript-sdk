@@ -42,10 +42,10 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSecurityProfile extends SecurityProfile>( options: { search?: string, searchOn?: ('ID' | 'Name')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
+    public async List<TSecurityProfile extends SecurityProfile>( listOptions: { search?: string, searchOn?: ('ID' | 'Name')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/securityprofiles`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -65,7 +65,7 @@ class SecurityProfiles {
     public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles`, securityProfile, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/securityprofiles`, securityProfile, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -85,7 +85,7 @@ class SecurityProfiles {
     public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/${securityProfileID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -106,7 +106,7 @@ class SecurityProfiles {
     public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/securityprofiles/${securityProfileID}`, securityProfile, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -126,7 +126,7 @@ class SecurityProfiles {
     public async Delete(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -147,7 +147,7 @@ class SecurityProfiles {
     public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/securityprofiles/${securityProfileID}`, securityProfile, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/securityprofiles/${securityProfileID}`, securityProfile, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -168,10 +168,10 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(securityProfileID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(securityProfileID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/securityprofiles/${securityProfileID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -196,10 +196,10 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( options: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
+    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( listOptions: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/securityprofiles/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -219,7 +219,7 @@ class SecurityProfiles {
     public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles/assignments`, securityProfileAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/securityprofiles/assignments`, securityProfileAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -41,10 +41,10 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TPromotion extends Promotion>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[], sortBy?: ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>> {
+    public async List<TPromotion extends Promotion>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[], sortBy?: ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[], page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/promotions`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/promotions`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -64,7 +64,7 @@ class Promotions {
     public async Create<TPromotion extends Promotion>(promotion: Promotion, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/promotions`, promotion, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/promotions`, promotion, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -84,7 +84,7 @@ class Promotions {
     public async Get<TPromotion extends Promotion>(promotionID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/promotions/${promotionID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/promotions/${promotionID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -105,7 +105,7 @@ class Promotions {
     public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/promotions/${promotionID}`, promotion, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/promotions/${promotionID}`, promotion, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -125,7 +125,7 @@ class Promotions {
     public async Delete(promotionID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/promotions/${promotionID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/promotions/${promotionID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -146,7 +146,7 @@ class Promotions {
     public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/promotions/${promotionID}`, promotion, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/promotions/${promotionID}`, promotion, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -166,10 +166,10 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(promotionID: string,  options: { buyerID?: string, userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(promotionID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/promotions/${promotionID}/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/promotions/${promotionID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -192,10 +192,10 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TPromotionAssignment extends PromotionAssignment>( options: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>> {
+    public async ListAssignments<TPromotionAssignment extends PromotionAssignment>( listOptions: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/promotions/assignments`, { params: { ...options,  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/promotions/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -215,7 +215,7 @@ class Promotions {
     public async SaveAssignment(promotionAssignment: PromotionAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/promotions/assignments`, promotionAssignment, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/promotions/assignments`, promotionAssignment, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -36,10 +36,10 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TImpersonationConfig extends ImpersonationConfig>( options: { search?: string, searchOn?: ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID')[], sortBy?: ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>> {
+    public async List<TImpersonationConfig extends ImpersonationConfig>( listOptions: { search?: string, searchOn?: ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID')[], sortBy?: ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/impersonationconfig`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/impersonationconfig`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -59,7 +59,7 @@ class ImpersonationConfigs {
     public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/impersonationconfig`, impersonationConfig, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/impersonationconfig`, impersonationConfig, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -79,7 +79,7 @@ class ImpersonationConfigs {
     public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/impersonationconfig/${impersonationConfigID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/impersonationconfig/${impersonationConfigID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -100,7 +100,7 @@ class ImpersonationConfigs {
     public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,7 +120,7 @@ class ImpersonationConfigs {
     public async Delete(impersonationConfigID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/impersonationconfig/${impersonationConfigID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/impersonationconfig/${impersonationConfigID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -141,7 +141,7 @@ class ImpersonationConfigs {
     public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/impersonationconfig/${impersonationConfigID}`, impersonationConfig, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -36,10 +36,10 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TWebhook extends Webhook>( options: { search?: string, searchOn?: ('ID' | 'Name' | 'Description' | 'Url')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TWebhook>>> {
+    public async List<TWebhook extends Webhook>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Description' | 'Url')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TWebhook>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/webhooks`, { params: { ...options,  filters: options.filters, ...requestOptions, impersonating } } )
+        return await httpClient.get(`/webhooks`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -59,7 +59,7 @@ class Webhooks {
     public async Create<TWebhook extends Webhook>(webhook: Webhook, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/webhooks`, webhook, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.post(`/webhooks`, webhook, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -79,7 +79,7 @@ class Webhooks {
     public async Get<TWebhook extends Webhook>(webhookID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/webhooks/${webhookID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.get(`/webhooks/${webhookID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -100,7 +100,7 @@ class Webhooks {
     public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/webhooks/${webhookID}`, webhook, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.put(`/webhooks/${webhookID}`, webhook, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,7 +120,7 @@ class Webhooks {
     public async Delete(webhookID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/webhooks/${webhookID}`, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.delete(`/webhooks/${webhookID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -141,7 +141,7 @@ class Webhooks {
     public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/webhooks/${webhookID}`, webhook, { params: {  ...requestOptions, impersonating } } )
+        return await httpClient.patch(`/webhooks/${webhookID}`, webhook, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
