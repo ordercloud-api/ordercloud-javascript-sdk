@@ -8,7 +8,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class Addresses {
@@ -47,7 +47,7 @@ class Addresses {
     public async List<TAddress extends Address>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'Addresses.List'>, sortBy?: Sortable<'Addresses.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/addresses`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/buyers/${buyerID}/addresses`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -68,7 +68,7 @@ class Addresses {
     public async Create<TAddress extends Address>(buyerID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/addresses`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/buyers/${buyerID}/addresses`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -89,7 +89,7 @@ class Addresses {
     public async Get<TAddress extends Address>(buyerID: string, addressID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/buyers/${buyerID}/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -111,7 +111,7 @@ class Addresses {
     public async Save<TAddress extends Address>(buyerID: string, addressID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/addresses/${addressID}`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/buyers/${buyerID}/addresses/${addressID}`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -132,7 +132,7 @@ class Addresses {
     public async Delete(buyerID: string, addressID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/buyers/${buyerID}/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -154,7 +154,7 @@ class Addresses {
     public async Patch<TAddress extends Address>(buyerID: string, addressID: string, address: PartialDeep<Address>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/addresses/${addressID}`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/buyers/${buyerID}/addresses/${addressID}`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -177,7 +177,7 @@ class Addresses {
     public async DeleteAssignment(buyerID: string, addressID: string,  listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/addresses/${addressID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.delete(`/buyers/${buyerID}/addresses/${addressID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -205,7 +205,7 @@ class Addresses {
     public async ListAssignments<TAddressAssignment extends AddressAssignment>(buyerID: string,  listOptions: { addressID?: string, userID?: string, userGroupID?: string, level?: PartyType, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TAddressAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/addresses/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/buyers/${buyerID}/addresses/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -226,7 +226,7 @@ class Addresses {
     public async SaveAssignment(buyerID: string, addressAssignment: AddressAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/addresses/assignments`, addressAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/buyers/${buyerID}/addresses/assignments`, { ...requestOptions, data: addressAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -8,7 +8,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class Payments {
@@ -46,7 +46,7 @@ class Payments {
     public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -68,7 +68,7 @@ class Payments {
     public async Create<TPayment extends Payment>(direction: OrderDirection, orderID: string, payment: Payment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/payments`, payment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, data: payment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -90,7 +90,7 @@ class Payments {
     public async Get<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -112,7 +112,7 @@ class Payments {
     public async Delete(direction: OrderDirection, orderID: string, paymentID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -135,7 +135,7 @@ class Payments {
     public async Patch<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, payment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, data: payment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -158,7 +158,7 @@ class Payments {
     public async CreateTransaction<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, paymentTransaction, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, { ...requestOptions, data: paymentTransaction, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -181,7 +181,7 @@ class Payments {
     public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions/${transactionID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions/${transactionID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

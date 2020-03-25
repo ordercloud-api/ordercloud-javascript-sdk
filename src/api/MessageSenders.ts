@@ -9,7 +9,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class MessageSenders {
@@ -49,7 +49,7 @@ class MessageSenders {
     public async List<TMessageSender extends MessageSender>( listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/messagesenders`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -69,7 +69,7 @@ class MessageSenders {
     public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders`, messageSender, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/messagesenders`, { ...requestOptions, data: messageSender, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -89,7 +89,7 @@ class MessageSenders {
     public async Get<TMessageSender extends MessageSender>(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -110,7 +110,7 @@ class MessageSenders {
     public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/messagesenders/${messageSenderID}`, messageSender, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/messagesenders/${messageSenderID}`, { ...requestOptions, data: messageSender, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -130,7 +130,7 @@ class MessageSenders {
     public async Delete(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -151,7 +151,7 @@ class MessageSenders {
     public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/messagesenders/${messageSenderID}`, messageSender, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/messagesenders/${messageSenderID}`, { ...requestOptions, data: messageSender, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -175,7 +175,7 @@ class MessageSenders {
     public async DeleteAssignment(messageSenderID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/messagesenders/${messageSenderID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.delete(`/messagesenders/${messageSenderID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -202,7 +202,7 @@ class MessageSenders {
     public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( listOptions: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/messagesenders/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -222,7 +222,7 @@ class MessageSenders {
     public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders/assignments`, messageSenderAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/messagesenders/assignments`, { ...requestOptions, data: messageSenderAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -247,7 +247,7 @@ class MessageSenders {
     public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/messagesenders/CCListenerAssignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/messagesenders/CCListenerAssignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -267,7 +267,7 @@ class MessageSenders {
     public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/messagesenders/CCListenerAssignments`, messageCCListenerAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/messagesenders/CCListenerAssignments`, { ...requestOptions, data: messageCCListenerAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

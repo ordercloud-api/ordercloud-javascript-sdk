@@ -14,7 +14,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class Orders {
@@ -74,7 +74,7 @@ class Orders {
     public async List<TOrder extends Order>(direction: OrderDirection,  listOptions: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'Orders.List'>, sortBy?: Sortable<'Orders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -95,7 +95,7 @@ class Orders {
     public async Create<TOrder extends Order>(direction: OrderDirection, order: Order, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}`, order, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}`, { ...requestOptions, data: order, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -116,7 +116,7 @@ class Orders {
     public async Get<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/orders/${direction}/${orderID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -138,7 +138,7 @@ class Orders {
     public async Save<TOrder extends Order>(direction: OrderDirection, orderID: string, order: Order, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}`, order, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/orders/${direction}/${orderID}`, { ...requestOptions, data: order, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -159,7 +159,7 @@ class Orders {
     public async Delete(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/orders/${direction}/${orderID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -181,7 +181,7 @@ class Orders {
     public async Patch<TOrder extends Order>(direction: OrderDirection, orderID: string, order: PartialDeep<Order>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}`, order, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}`, { ...requestOptions, data: order, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -208,7 +208,7 @@ class Orders {
     public async ListApprovals<TOrderApproval extends OrderApproval>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListApprovals'>, sortBy?: Sortable<'Orders.ListApprovals'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderApproval>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/approvals`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}/${orderID}/approvals`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -230,7 +230,7 @@ class Orders {
     public async Approve<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/approve`, orderApprovalInfo, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/approve`, { ...requestOptions, data: orderApprovalInfo, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -252,7 +252,7 @@ class Orders {
     public async SetBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/billto`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/orders/${direction}/${orderID}/billto`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -274,7 +274,7 @@ class Orders {
     public async PatchBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/billto`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}/billto`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -295,7 +295,7 @@ class Orders {
     public async Cancel<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/cancel`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/cancel`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -316,7 +316,7 @@ class Orders {
     public async Complete<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/complete`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/complete`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -338,7 +338,7 @@ class Orders {
     public async Decline<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/decline`, orderApprovalInfo, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/decline`, { ...requestOptions, data: orderApprovalInfo, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -365,7 +365,7 @@ class Orders {
     public async ListEligibleApprovers<TUser extends User>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListEligibleApprovers'>, sortBy?: Sortable<'Orders.ListEligibleApprovers'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/eligibleapprovers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}/${orderID}/eligibleapprovers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -386,7 +386,7 @@ class Orders {
     public async Forward<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/forward`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/forward`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -408,7 +408,7 @@ class Orders {
     public async PatchFromUser<TOrder extends Order>(direction: OrderDirection, orderID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/fromuser`, user, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}/fromuser`, { ...requestOptions, data: user, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -435,7 +435,7 @@ class Orders {
     public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListPromotions'>, sortBy?: Sortable<'Orders.ListPromotions'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderPromotion>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/promotions`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}/${orderID}/promotions`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -457,7 +457,7 @@ class Orders {
     public async AddPromotion<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string, promoCode: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderPromotion>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -479,7 +479,7 @@ class Orders {
     public async RemovePromotion<TOrder extends Order>(direction: OrderDirection, orderID: string, promoCode: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -501,7 +501,7 @@ class Orders {
     public async Ship<TOrder extends Order>(direction: OrderDirection, orderID: string, shipment: Shipment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/ship`, shipment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/ship`, { ...requestOptions, data: shipment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -528,7 +528,7 @@ class Orders {
     public async ListShipments<TShipment extends Shipment>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListShipments'>, sortBy?: Sortable<'Orders.ListShipments'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/shipments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}/${orderID}/shipments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -550,7 +550,7 @@ class Orders {
     public async SetShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/shipto`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/orders/${direction}/${orderID}/shipto`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -572,7 +572,7 @@ class Orders {
     public async PatchShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/shipto`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}/shipto`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -593,7 +593,7 @@ class Orders {
     public async Split<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/split`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/split`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -614,7 +614,7 @@ class Orders {
     public async Submit<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/submit`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/submit`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -635,7 +635,7 @@ class Orders {
     public async Validate(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/validate`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/validate`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

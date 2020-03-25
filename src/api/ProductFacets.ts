@@ -6,7 +6,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class ProductFacets {
@@ -41,7 +41,7 @@ class ProductFacets {
     public async List<TProductFacet extends ProductFacet>( listOptions: { search?: string, searchOn?: Searchable<'ProductFacets.List'>, sortBy?: Sortable<'ProductFacets.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductFacet>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/productfacets`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,7 +61,7 @@ class ProductFacets {
     public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/productfacets`, productFacet, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/productfacets`, { ...requestOptions, data: productFacet, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -81,7 +81,7 @@ class ProductFacets {
     public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/productfacets/${productFacetID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/productfacets/${productFacetID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -102,7 +102,7 @@ class ProductFacets {
     public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/productfacets/${productFacetID}`, productFacet, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/productfacets/${productFacetID}`, { ...requestOptions, data: productFacet, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -122,7 +122,7 @@ class ProductFacets {
     public async Delete(productFacetID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/productfacets/${productFacetID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/productfacets/${productFacetID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -143,7 +143,7 @@ class ProductFacets {
     public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/productfacets/${productFacetID}`, productFacet, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/productfacets/${productFacetID}`, { ...requestOptions, data: productFacet, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -6,7 +6,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class AdminUsers {
@@ -41,7 +41,7 @@ class AdminUsers {
     public async List<TUser extends User>( listOptions: { search?: string, searchOn?: Searchable<'AdminUsers.List'>, sortBy?: Sortable<'AdminUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/adminusers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,7 +61,7 @@ class AdminUsers {
     public async Create<TUser extends User>(user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/adminusers`, user, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/adminusers`, { ...requestOptions, data: user, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -81,7 +81,7 @@ class AdminUsers {
     public async Get<TUser extends User>(userID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -102,7 +102,7 @@ class AdminUsers {
     public async Save<TUser extends User>(userID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/adminusers/${userID}`, user, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/adminusers/${userID}`, { ...requestOptions, data: user, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -122,7 +122,7 @@ class AdminUsers {
     public async Delete(userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -143,7 +143,7 @@ class AdminUsers {
     public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/adminusers/${userID}`, user, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/adminusers/${userID}`, { ...requestOptions, data: user, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

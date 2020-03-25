@@ -4,7 +4,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class ForgottenPassword {
@@ -30,7 +30,7 @@ class ForgottenPassword {
     public async SendVerificationCode(passwordResetRequest: PasswordResetRequest, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/password/reset`, passwordResetRequest, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/password/reset`, { ...requestOptions, data: passwordResetRequest, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -51,7 +51,7 @@ class ForgottenPassword {
     public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/password/reset/${verificationCode}`, passwordReset, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/password/reset/${verificationCode}`, { ...requestOptions, data: passwordReset, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

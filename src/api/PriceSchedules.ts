@@ -7,7 +7,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class PriceSchedules {
@@ -44,7 +44,7 @@ class PriceSchedules {
     public async List<TPriceSchedule extends PriceSchedule>( listOptions: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/priceschedules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/priceschedules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -64,7 +64,7 @@ class PriceSchedules {
     public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/priceschedules`, priceSchedule, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/priceschedules`, { ...requestOptions, data: priceSchedule, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -84,7 +84,7 @@ class PriceSchedules {
     public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -105,7 +105,7 @@ class PriceSchedules {
     public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/priceschedules/${priceScheduleID}`, priceSchedule, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/priceschedules/${priceScheduleID}`, { ...requestOptions, data: priceSchedule, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -125,7 +125,7 @@ class PriceSchedules {
     public async Delete(priceScheduleID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -146,7 +146,7 @@ class PriceSchedules {
     public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/priceschedules/${priceScheduleID}`, priceSchedule, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/priceschedules/${priceScheduleID}`, { ...requestOptions, data: priceSchedule, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -167,7 +167,7 @@ class PriceSchedules {
     public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, priceBreak, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, { ...requestOptions, data: priceBreak, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -188,7 +188,7 @@ class PriceSchedules {
     public async DeletePriceBreak(priceScheduleID: string,  listOptions: { quantity?: number } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

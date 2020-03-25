@@ -8,7 +8,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class SupplierUsers {
@@ -46,7 +46,7 @@ class SupplierUsers {
     public async List<TUser extends User>(supplierID: string,  listOptions: { userGroupID?: string, search?: string, searchOn?: Searchable<'SupplierUsers.List'>, sortBy?: Sortable<'SupplierUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/users`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/suppliers/${supplierID}/users`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -67,7 +67,7 @@ class SupplierUsers {
     public async Create<TUser extends User>(supplierID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/users`, user, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/suppliers/${supplierID}/users`, { ...requestOptions, data: user, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -88,7 +88,7 @@ class SupplierUsers {
     public async Get<TUser extends User>(supplierID: string, userID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/users/${userID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/suppliers/${supplierID}/users/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -110,7 +110,7 @@ class SupplierUsers {
     public async Save<TUser extends User>(supplierID: string, userID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}/users/${userID}`, user, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/suppliers/${supplierID}/users/${userID}`, { ...requestOptions, data: user, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -131,7 +131,7 @@ class SupplierUsers {
     public async Delete(supplierID: string, userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/users/${userID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/suppliers/${supplierID}/users/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -153,7 +153,7 @@ class SupplierUsers {
     public async Patch<TUser extends User>(supplierID: string, userID: string, user: PartialDeep<User>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}/users/${userID}`, user, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/suppliers/${supplierID}/users/${userID}`, { ...requestOptions, data: user, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -175,7 +175,7 @@ class SupplierUsers {
     public async GetAccessToken<TAccessToken extends AccessToken>(supplierID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAccessToken>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/users/${userID}/accesstoken`, impersonateTokenRequest, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/suppliers/${supplierID}/users/${userID}/accesstoken`, { ...requestOptions, data: impersonateTokenRequest, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

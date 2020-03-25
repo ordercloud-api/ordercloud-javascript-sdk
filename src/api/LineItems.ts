@@ -8,7 +8,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class LineItems {
@@ -47,7 +47,7 @@ class LineItems {
     public async List<TLineItem extends LineItem>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'LineItems.List'>, sortBy?: Sortable<'LineItems.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TLineItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}/${orderID}/lineitems`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -69,7 +69,7 @@ class LineItems {
     public async Create<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItem: LineItem, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/orders/${direction}/${orderID}/lineitems`, lineItem, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/lineitems`, { ...requestOptions, data: lineItem, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -91,7 +91,7 @@ class LineItems {
     public async Get<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -114,7 +114,7 @@ class LineItems {
     public async Save<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, lineItem: LineItem, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, data: lineItem, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -136,7 +136,7 @@ class LineItems {
     public async Delete(direction: OrderDirection, orderID: string, lineItemID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -159,7 +159,7 @@ class LineItems {
     public async Patch<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, lineItem: PartialDeep<LineItem>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, lineItem, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}`, { ...requestOptions, data: lineItem, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -182,7 +182,7 @@ class LineItems {
     public async SetShippingAddress<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -205,7 +205,7 @@ class LineItems {
     public async PatchShippingAddress<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

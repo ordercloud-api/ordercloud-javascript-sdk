@@ -6,7 +6,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class Buyers {
@@ -41,7 +41,7 @@ class Buyers {
     public async List<TBuyer extends Buyer>( listOptions: { search?: string, searchOn?: Searchable<'Buyers.List'>, sortBy?: Sortable<'Buyers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyer>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/buyers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,7 +61,7 @@ class Buyers {
     public async Create<TBuyer extends Buyer>(buyer: Buyer, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers`, buyer, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/buyers`, { ...requestOptions, data: buyer, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -81,7 +81,7 @@ class Buyers {
     public async Get<TBuyer extends Buyer>(buyerID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/buyers/${buyerID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -102,7 +102,7 @@ class Buyers {
     public async Save<TBuyer extends Buyer>(buyerID: string, buyer: Buyer, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}`, buyer, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/buyers/${buyerID}`, { ...requestOptions, data: buyer, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -122,7 +122,7 @@ class Buyers {
     public async Delete(buyerID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/buyers/${buyerID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -143,7 +143,7 @@ class Buyers {
     public async Patch<TBuyer extends Buyer>(buyerID: string, buyer: PartialDeep<Buyer>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyer>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}`, buyer, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/buyers/${buyerID}`, { ...requestOptions, data: buyer, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

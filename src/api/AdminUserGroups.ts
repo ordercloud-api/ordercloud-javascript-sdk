@@ -7,7 +7,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class AdminUserGroups {
@@ -45,7 +45,7 @@ class AdminUserGroups {
     public async List<TUserGroup extends UserGroup>( listOptions: { search?: string, searchOn?: Searchable<'AdminUserGroups.List'>, sortBy?: Sortable<'AdminUserGroups.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -65,7 +65,7 @@ class AdminUserGroups {
     public async Create<TUserGroup extends UserGroup>(userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/usergroups`, userGroup, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/usergroups`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -85,7 +85,7 @@ class AdminUserGroups {
     public async Get<TUserGroup extends UserGroup>(userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -106,7 +106,7 @@ class AdminUserGroups {
     public async Save<TUserGroup extends UserGroup>(userGroupID: string, userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/usergroups/${userGroupID}`, userGroup, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/usergroups/${userGroupID}`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -126,7 +126,7 @@ class AdminUserGroups {
     public async Delete(userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -147,7 +147,7 @@ class AdminUserGroups {
     public async Patch<TUserGroup extends UserGroup>(userGroupID: string, userGroup: PartialDeep<UserGroup>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/usergroups/${userGroupID}`, userGroup, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/usergroups/${userGroupID}`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -168,7 +168,7 @@ class AdminUserGroups {
     public async DeleteUserAssignment(userGroupID: string, userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/usergroups/${userGroupID}/assignments/${userID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/usergroups/${userGroupID}/assignments/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -191,7 +191,7 @@ class AdminUserGroups {
     public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>( listOptions: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/usergroups/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/usergroups/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -211,7 +211,7 @@ class AdminUserGroups {
     public async SaveUserAssignment(userGroupAssignment: UserGroupAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/usergroups/assignments`, userGroupAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/usergroups/assignments`, { ...requestOptions, data: userGroupAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

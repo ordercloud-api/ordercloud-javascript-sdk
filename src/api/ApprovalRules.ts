@@ -6,7 +6,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class ApprovalRules {
@@ -42,7 +42,7 @@ class ApprovalRules {
     public async List<TApprovalRule extends ApprovalRule>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApprovalRule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/approvalrules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/buyers/${buyerID}/approvalrules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -63,7 +63,7 @@ class ApprovalRules {
     public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/approvalrules`, approvalRule, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/buyers/${buyerID}/approvalrules`, { ...requestOptions, data: approvalRule, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -84,7 +84,7 @@ class ApprovalRules {
     public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -106,7 +106,7 @@ class ApprovalRules {
     public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, approvalRule, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, data: approvalRule, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -127,7 +127,7 @@ class ApprovalRules {
     public async Delete(buyerID: string, approvalRuleID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -149,7 +149,7 @@ class ApprovalRules {
     public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, approvalRule, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, data: approvalRule, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

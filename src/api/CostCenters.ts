@@ -8,7 +8,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class CostCenters {
@@ -47,7 +47,7 @@ class CostCenters {
     public async List<TCostCenter extends CostCenter>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'CostCenters.List'>, sortBy?: Sortable<'CostCenters.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenter>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/costcenters`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/buyers/${buyerID}/costcenters`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -68,7 +68,7 @@ class CostCenters {
     public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/costcenters`, costCenter, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/buyers/${buyerID}/costcenters`, { ...requestOptions, data: costCenter, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -89,7 +89,7 @@ class CostCenters {
     public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -111,7 +111,7 @@ class CostCenters {
     public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/buyers/${buyerID}/costcenters/${costCenterID}`, costCenter, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, data: costCenter, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -132,7 +132,7 @@ class CostCenters {
     public async Delete(buyerID: string, costCenterID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -154,7 +154,7 @@ class CostCenters {
     public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/buyers/${buyerID}/costcenters/${costCenterID}`, costCenter, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, data: costCenter, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -177,7 +177,7 @@ class CostCenters {
     public async DeleteAssignment(buyerID: string, costCenterID: string,  listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/costcenters/${costCenterID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.delete(`/buyers/${buyerID}/costcenters/${costCenterID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -203,7 +203,7 @@ class CostCenters {
     public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string,  listOptions: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/buyers/${buyerID}/costcenters/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/buyers/${buyerID}/costcenters/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -224,7 +224,7 @@ class CostCenters {
     public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/buyers/${buyerID}/costcenters/assignments`, costCenterAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/buyers/${buyerID}/costcenters/assignments`, { ...requestOptions, data: costCenterAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

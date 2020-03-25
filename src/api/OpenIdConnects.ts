@@ -6,7 +6,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class OpenIdConnects {
@@ -41,7 +41,7 @@ class OpenIdConnects {
     public async List<TOpenIdConnect extends OpenIdConnect>( listOptions: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/openidconnects`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/openidconnects`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,7 +61,7 @@ class OpenIdConnects {
     public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/openidconnects`, openIdConnect, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/openidconnects`, { ...requestOptions, data: openIdConnect, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -81,7 +81,7 @@ class OpenIdConnects {
     public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/openidconnects/${openidconnectID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/openidconnects/${openidconnectID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -102,7 +102,7 @@ class OpenIdConnects {
     public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/openidconnects/${openidconnectID}`, openIdConnect, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/openidconnects/${openidconnectID}`, { ...requestOptions, data: openIdConnect, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -122,7 +122,7 @@ class OpenIdConnects {
     public async Delete(openidconnectID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/openidconnects/${openidconnectID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/openidconnects/${openidconnectID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -143,7 +143,7 @@ class OpenIdConnects {
     public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/openidconnects/${openidconnectID}`, openIdConnect, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/openidconnects/${openidconnectID}`, { ...requestOptions, data: openIdConnect, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

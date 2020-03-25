@@ -7,7 +7,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class ApiClients {
@@ -46,7 +46,7 @@ class ApiClients {
     public async List<TApiClient extends ApiClient>( listOptions: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/apiclients`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -66,7 +66,7 @@ class ApiClients {
     public async Create<TApiClient extends ApiClient>(apiClient: ApiClient, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/apiclients`, apiClient, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/apiclients`, { ...requestOptions, data: apiClient, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -86,7 +86,7 @@ class ApiClients {
     public async Get<TApiClient extends ApiClient>(apiClientID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -107,7 +107,7 @@ class ApiClients {
     public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/apiclients/${apiClientID}`, apiClient, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/apiclients/${apiClientID}`, { ...requestOptions, data: apiClient, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -127,7 +127,7 @@ class ApiClients {
     public async Delete(apiClientID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -148,7 +148,7 @@ class ApiClients {
     public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/apiclients/${apiClientID}`, apiClient, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/apiclients/${apiClientID}`, { ...requestOptions, data: apiClient, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -172,7 +172,7 @@ class ApiClients {
     public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( listOptions: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/apiclients/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/apiclients/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -192,7 +192,7 @@ class ApiClients {
     public async SaveAssignment(apiClientAssignment: ApiClientAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/apiclients/assignments`, apiClientAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/apiclients/assignments`, { ...requestOptions, data: apiClientAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -213,7 +213,7 @@ class ApiClients {
     public async DeleteBuyerAssignment(apiClientID: string, buyerID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/buyers/${buyerID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/buyers/${buyerID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -234,7 +234,7 @@ class ApiClients {
     public async DeleteSupplierAssignment(apiClientID: string, supplierID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/suppliers/${supplierID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

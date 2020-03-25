@@ -7,7 +7,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class XpIndices {
@@ -39,7 +39,7 @@ class XpIndices {
     public async List<TXpIndex extends XpIndex>( listOptions: { search?: string, searchOn?: Searchable<'XpIndices.List'>, sortBy?: Sortable<'XpIndices.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/xpindices`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/xpindices`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -59,7 +59,7 @@ class XpIndices {
     public async Put(xpIndex: XpIndex, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/xpindices`, xpIndex, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/xpindices`, { ...requestOptions, data: xpIndex, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -80,7 +80,7 @@ class XpIndices {
     public async Delete(thingType: XpThingType, key: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/xpindices/${thingType}/${key}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/xpindices/${thingType}/${key}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

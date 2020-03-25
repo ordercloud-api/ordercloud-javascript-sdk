@@ -6,7 +6,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class AdminAddresses {
@@ -41,7 +41,7 @@ class AdminAddresses {
     public async List<TAddress extends Address>( listOptions: { search?: string, searchOn?: Searchable<'AdminAddresses.List'>, sortBy?: Sortable<'AdminAddresses.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TAddress>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/addresses`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/addresses`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -61,7 +61,7 @@ class AdminAddresses {
     public async Create<TAddress extends Address>(address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/addresses`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/addresses`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -81,7 +81,7 @@ class AdminAddresses {
     public async Get<TAddress extends Address>(addressID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -102,7 +102,7 @@ class AdminAddresses {
     public async Save<TAddress extends Address>(addressID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/addresses/${addressID}`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/addresses/${addressID}`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -122,7 +122,7 @@ class AdminAddresses {
     public async Delete(addressID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/addresses/${addressID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -143,7 +143,7 @@ class AdminAddresses {
     public async Patch<TAddress extends Address>(addressID: string, address: PartialDeep<Address>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAddress>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/addresses/${addressID}`, address, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/addresses/${addressID}`, { ...requestOptions, data: address, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

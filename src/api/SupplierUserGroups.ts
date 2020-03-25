@@ -7,7 +7,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class SupplierUserGroups {
@@ -46,7 +46,7 @@ class SupplierUserGroups {
     public async List<TUserGroup extends UserGroup>(supplierID: string,  listOptions: { search?: string, searchOn?: Searchable<'SupplierUserGroups.List'>, sortBy?: Sortable<'SupplierUserGroups.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/suppliers/${supplierID}/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -67,7 +67,7 @@ class SupplierUserGroups {
     public async Create<TUserGroup extends UserGroup>(supplierID: string, userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/usergroups`, userGroup, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/suppliers/${supplierID}/usergroups`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -88,7 +88,7 @@ class SupplierUserGroups {
     public async Get<TUserGroup extends UserGroup>(supplierID: string, userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -110,7 +110,7 @@ class SupplierUserGroups {
     public async Save<TUserGroup extends UserGroup>(supplierID: string, userGroupID: string, userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/suppliers/${supplierID}/usergroups/${userGroupID}`, userGroup, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -131,7 +131,7 @@ class SupplierUserGroups {
     public async Delete(supplierID: string, userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -153,7 +153,7 @@ class SupplierUserGroups {
     public async Patch<TUserGroup extends UserGroup>(supplierID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/suppliers/${supplierID}/usergroups/${userGroupID}`, userGroup, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/suppliers/${supplierID}/usergroups/${userGroupID}`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -175,7 +175,7 @@ class SupplierUserGroups {
     public async DeleteUserAssignment(supplierID: string, userGroupID: string, userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}/assignments/${userID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/suppliers/${supplierID}/usergroups/${userGroupID}/assignments/${userID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -199,7 +199,7 @@ class SupplierUserGroups {
     public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(supplierID: string,  listOptions: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/suppliers/${supplierID}/usergroups/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/suppliers/${supplierID}/usergroups/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -220,7 +220,7 @@ class SupplierUserGroups {
     public async SaveUserAssignment(supplierID: string, userGroupAssignment: UserGroupAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/suppliers/${supplierID}/usergroups/assignments`, userGroupAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/suppliers/${supplierID}/usergroups/assignments`, { ...requestOptions, data: userGroupAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -9,7 +9,7 @@ import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
-import httpClient from '../utils/HttpClient';
+import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
 
 class SecurityProfiles {
@@ -47,7 +47,7 @@ class SecurityProfiles {
     public async List<TSecurityProfile extends SecurityProfile>( listOptions: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/securityprofiles`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -67,7 +67,7 @@ class SecurityProfiles {
     public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles`, securityProfile, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/securityprofiles`, { ...requestOptions, data: securityProfile, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -87,7 +87,7 @@ class SecurityProfiles {
     public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -108,7 +108,7 @@ class SecurityProfiles {
     public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.put(`/securityprofiles/${securityProfileID}`, securityProfile, { ...requestOptions, impersonating, params: {   } } )
+        return await http.put(`/securityprofiles/${securityProfileID}`, { ...requestOptions, data: securityProfile, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -128,7 +128,7 @@ class SecurityProfiles {
     public async Delete(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -149,7 +149,7 @@ class SecurityProfiles {
     public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.patch(`/securityprofiles/${securityProfileID}`, securityProfile, { ...requestOptions, impersonating, params: {   } } )
+        return await http.patch(`/securityprofiles/${securityProfileID}`, { ...requestOptions, data: securityProfile, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -173,7 +173,7 @@ class SecurityProfiles {
     public async DeleteAssignment(securityProfileID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.delete(`/securityprofiles/${securityProfileID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.delete(`/securityprofiles/${securityProfileID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -201,7 +201,7 @@ class SecurityProfiles {
     public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( listOptions: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.get(`/securityprofiles/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/securityprofiles/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -221,7 +221,7 @@ class SecurityProfiles {
     public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await httpClient.post(`/securityprofiles/assignments`, securityProfileAssignment, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/securityprofiles/assignments`, { ...requestOptions, data: securityProfileAssignment, impersonating, params: {   } } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

@@ -38,59 +38,38 @@ class HttpClient {
   }
 
   public get = async (path: string, config?: OcRequestConfig): Promise<any> => {
-    const requestConfig = await this._buildRequestConfig(config)
-    const response = await axios.get(
-      `${Configuration.Get().baseApiUrl}${path}`,
-      requestConfig
-    )
-    return response.data
+    return await this.makeApiCall('get', path, config)
   }
 
   public post = async (
     path: string,
-    data?: any,
     config?: OcRequestConfig
   ): Promise<any> => {
-    const requestConfig = await this._buildRequestConfig(config)
-    const response = await axios.post(
-      `${Configuration.Get().baseApiUrl}${path}`,
-      data,
-      requestConfig
-    )
-    return response.data
+    return await this.makeApiCall('post', path, config)
   }
 
-  public put = async (
-    path: string,
-    data?: any,
-    config?: OcRequestConfig
-  ): Promise<any> => {
-    const requestConfig = await this._buildRequestConfig(config)
-    const response = await axios.put(
-      `${Configuration.Get().baseApiUrl}${path}`,
-      data,
-      requestConfig
-    )
-    return response.data
+  public put = async (path: string, config?: OcRequestConfig): Promise<any> => {
+    return await this.makeApiCall('put', path, config)
   }
 
   public patch = async (
     path: string,
-    data?: any,
     config?: OcRequestConfig
   ): Promise<any> => {
-    const requestConfig = await this._buildRequestConfig(config)
-    const response = await axios.patch(
-      `${Configuration.Get().baseApiUrl}${path}`,
-      data,
-      requestConfig
-    )
-    return response.data
+    return await this.makeApiCall('patch', path, config)
   }
 
   public delete = async (path: string, config: OcRequestConfig) => {
+    return await this.makeApiCall('delete', path, config)
+  }
+
+  private async makeApiCall(
+    verb: 'get' | 'put' | 'post' | 'patch' | 'delete',
+    path,
+    config
+  ) {
     const requestConfig = await this._buildRequestConfig(config)
-    const response = await axios.delete(
+    const response = await axios[verb as string](
       `${Configuration.Get().baseApiUrl}${path}`,
       requestConfig
     )
