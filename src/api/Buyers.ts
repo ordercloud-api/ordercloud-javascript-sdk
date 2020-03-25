@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { Buyer } from '../models/Buyer';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -36,7 +38,7 @@ class Buyers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TBuyer extends Buyer>( listOptions: { search?: string, searchOn?: ('Name' | 'ID')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyer>>> {
+    public async List<TBuyer extends Buyer>( listOptions: { search?: string, searchOn?: Searchable<'Buyers.List'>, sortBy?: Sortable<'Buyers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyer>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

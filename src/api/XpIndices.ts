@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { XpIndex } from '../models/XpIndex';
 import { XpThingType } from '../models/XpThingType';
 import { PartialDeep } from '../models/PartialDeep';
@@ -34,7 +36,7 @@ class XpIndices {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TXpIndex extends XpIndex>( listOptions: { search?: string, searchOn?: ('ThingType' | 'Key')[], sortBy?: ('ThingType' | 'Key' | '!ThingType' | '!Key')[], page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
+    public async List<TXpIndex extends XpIndex>( listOptions: { search?: string, searchOn?: Searchable<'XpIndices.List'>, sortBy?: Sortable<'XpIndices.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/xpindices`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

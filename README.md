@@ -12,6 +12,9 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 - [Filtering](#-filtering)
 - [Impersonation](#-impersonation)
 - [Typescript Support](#typescript-support)
+  - [Understanding OrderCloud's models](#understanding-orderclouds-models)
+  - [Strongly Typed xp](#strongly-typed-xp)
+  - [Typescript utilities](#typescript-utilities)
 - [Handling Errors](#handling-errors-)
 - [License](#-license)
 - [Contributing](#-contributing)
@@ -22,9 +25,9 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 - Works both on the **browser** and **node.js**
 - **UMD compatible** you can use it with any module loader
 - ESM module available for bundlers that support it. This enables tree shaking - use only what you import.
-- Built-in typescript support, no additional types package necessary
+- Built-in Typescript support, no additional types package necessary
 - Full feature parity with API
-- Auto-generated [API reference](TODO:link-to-api-referencething)
+- Auto-generated [API reference](https://ordercloud-api.github.io/ordercloud-javascript-sdk/)
 
 > Coming from an older version? Check out the [migration guide](./readmes/MIGRATION_GUIDE.md) so you can upgrade to the latest and greatest.
 
@@ -72,10 +75,10 @@ This is the preferred method of importing the sdk as it allows modern bundlers l
 import { Products } from 'ordercloud-javascript-sdk';
 ```
 
-### Using default import
+### Using wildcard import
 
 ```javascript
-import OrderCloudSDK from 'ordercloud-javascript-sdk';
+import * as OrderCloudSDK from 'ordercloud-javascript-sdk';
 ```
 
 ### Using require
@@ -86,7 +89,7 @@ const OrderCloudSDK = require('ordercloud-javascript-sdk');
 
 ## 🔐 Authentication
 
-We'll need to get a token before we can make any API calls. The SDK offers five different ways of getting a token as part of the [Auth class](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/auth.html).
+We'll need to get a token before we can make any API calls. The SDK offers five different ways of getting a token as part of the [Auth class](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/auth).
 
 We'll use the login method for this example.
 
@@ -171,7 +174,6 @@ Tokens.setImpersonationToken(myImpersonationToken);
 Me.ListProducts()
   .then(productList => console.log(productList))
 
-
 // Get products for the impersonated user
 Me.As().ListProducts()
   .then(impersonatedProductList => console.log(impersonatedProductList))
@@ -199,11 +201,35 @@ Me.ListProducts(null, { accessToken: token3 })
   .then(user3ProductList => console.log(user3ProductList))
 ```
 
+## Handling Errors 🐛
+
+The SDK uses a custom error ([`OrderCloudError`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror)) to provide rich and useful information in the case of an error.
+
+```javascript
+Products.Get('my-product')
+  .catch(error => {
+    if(error.isOrderCloudError) {
+      // the request was made and the API responded with a status code
+      // that falls outside of the range of 2xx, the error will be of type OrderCloudError
+      // https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror
+      console.log(error.message);
+      console.log(error.errors);
+    } else if (error.request) {
+      // the request was made but no response received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+  })
+```
+
 ## Cancelling Requests
 
 In addition to `requestOptions.accessToken` the sdk provides `requestOptions.cancelToken` which enables [axios request cancellation](https://github.com/axios/axios#cancellation). This option is useful for cleaning up outstanding requests when changes in your user experience no longer require the data requested. For instance, you could use the cancel token to clean up outstanding requests [when your react component unmounts](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup).
 
-```ts
+```javascript
 import axios from 'axios';
 import { Products } from 'ordercloud-javascript-sdk';
 
@@ -224,11 +250,37 @@ signal.cancel('This request was cancelled!')
 
 ## Typescript Support
 
-While typescript is not required to use this project (we compile it down to javascript for you), it does mean there are some added benefits for our typescript users.
+While Typescript is not required to use this project (we compile it down to javascript for you), it does mean there are some added benefits for our Typescript users. You will need a minimum of typescript version 3.5 for all features to work correctly.
+
+### Understanding OrderCloud's models
+
+By default properties of ordercloud models are required if their Create or Save operation requires them. For example the [`LineItem` model](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/lineitem) has the properties `ProductID` and `Quantity` required. This is important to know if you need to define an object by type before using it.
+
+```typescript
+import { LineItems, LineItem } from 'ordercloud-javascript-sdk';
+
+const lineItem: LineItem = {
+  ProductID: 'my-awesome-product', // if this field is missing you get a type error!
+  Quantity: 2 // if this field is missing you get a type error!
+}
+LineItems.Create('Outgoing', 'my-order-id', lineItem)
+```
+
+This works as expected and ensures a create or save always has the correct required parameters. However, if for example you need to perform a patch operation (partial update), then you want all of the fields to be optional. To accomplish this you should use Typescript's built-in utility type [`Partial<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt)
+
+```typescript
+import { LineItems, LineItem } from 'ordercloud-javascript-sdk';
+
+const lineItem: Partial<LineItem> = {
+  // no type errors even though Quantity and ProductID are missing
+  ShippingAddressID: 'my-shipping-address-id'
+}
+LineItems.Patch('Outgoing', 'my-order-id', 'my-lineitem-id', lineItem)
+```
 
 ### Strongly Typed xp
 
-Extended properties, or xp, is a [platform feature](https://ordercloud.io/features/extended-properties) that allows you to extend the OrderCloud data model. This is modeled in the SDK using (by default) a typescript [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) type:
+Extended properties, or xp, is a [platform feature](https://ordercloud.io/features/extended-properties) that allows you to extend the OrderCloud data model. This is modeled in the SDK using (by default) a Typescript [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) type:
 
 ```typescript
 const category: Category = {};
@@ -278,29 +330,20 @@ Categories.List<MyCategory>('mock-catalog-id')
 
 This is nicer and especially preferable for models like `Order` which have many nested models each with their own `xp` fields that must be defined at the top level. For example: `Order<OrderXp, FromUserXp, BillingAddressXp>`. Declaring those 3 xp types once on a custom `MyOrder` class is far cleaner than declaring them on every call to `Orders.Get` or `Orders.List`.
 
-## Handling Errors 🐛
+### Typescript utilities
 
-The SDK uses a custom error ([`OrderCloudError`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror.html)) to provide rich and useful information in the case of an error.
+Various helpers and utilities that may be useful. We also recommend using [Typescript's built-in utilities](https://www.typescriptlang.org/docs/handbook/utility-types.html) when possible.
 
-```typescript
-Products.Get('my-product')
-  .catch(error => {
-    if(error.isOrderCloudError) {
-      // the request was made and the API responded with a status code
-      // that falls outside of the range of 2xx, the error will be of type OrderCloudError
-      // https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror.html
-      console.log(error.message);
-      console.log(error.errors);
-    } else if (error.request) {
-      // the request was made but no response received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
-      console.log(error.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log('Error', error.message);
-    }
-  })
-```
+| Utility                                                                                                               | Description                                                                                                                                                                                                                          |
+|-----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [`ListPage<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/listpage)                       | Takes in a type for the item in the list. For example `ListPage<Order>` will be the type for an order list page.                                                                                                                     |
+| [`ListPageWithFacets<T>`]( https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/listpagewithfacets ) | Similar to `ListPage` but for [premium search](https://ordercloud.io/blog/introducing-premium-search) models. For example `ListPageWithFacets<Product>` will be the type for a product list page.                                              |
+| [`Searchable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#searchable)                              | Takes in a [`SearchableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#searchableendpoint) and returns the type for a valid `searchOn` field on list calls. For example `Searchable<'Orders.List'>`.           |
+| [`Sortable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#sortable)                                  | Takes in a [`SortableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#sortableendpoint) and returns the type for a valid `sortBy` field on list calls. For example `Sortable<'Orders.List'>`.                   |
+| [`Filters<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#filters)                                    | Takes in an ordercloud model and returns the type for a valid `filter` field on list calls. For example `Filters<Product>`. This also works for any custom models that extend an OrderCloud model, for example `Filters<MyProduct>`. |
+| [`PartialDeep<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#partialdeep)                            | Similar to Typescript's [`Partial<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt) except works on nested properties as well.                                                                          |
+| [`RequiredDeep<T>`]( https://ordercloud-api.github.io/ordercloud-javascript-sdk#requireddeep )                        | Similar to Typescript's [`Required<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredt) except works on nested properties as well.                                                                        |
+| [`DecodedToken`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/decodedtoken)                  | A type representing a decoded OrderCloud token                                                                                                                                                                                       |                                                                                                                                                                         |
 
 ## 📄 License
 

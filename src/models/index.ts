@@ -95,3 +95,5 @@ export * from './ListPage';
 export * from './ListPageWithFacets';
 export * from './Filters';
 export * from './RequestOptions';
+export * from './Searchable';
+export * from './Sortable';

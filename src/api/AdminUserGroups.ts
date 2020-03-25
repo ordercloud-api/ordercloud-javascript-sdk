@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { UserGroup } from '../models/UserGroup';
 import { UserGroupAssignment } from '../models/UserGroupAssignment';
 import { PartialDeep } from '../models/PartialDeep';
@@ -40,7 +42,7 @@ class AdminUserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TUserGroup extends UserGroup>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
+    public async List<TUserGroup extends UserGroup>( listOptions: { search?: string, searchOn?: Searchable<'AdminUserGroups.List'>, sortBy?: Sortable<'AdminUserGroups.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

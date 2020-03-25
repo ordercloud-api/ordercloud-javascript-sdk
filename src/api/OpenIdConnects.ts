@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { OpenIdConnect } from '../models/OpenIdConnect';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -36,7 +38,7 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TOpenIdConnect extends OpenIdConnect>( listOptions: { search?: string, searchOn?: ('ID')[], sortBy?: ('ID' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
+    public async List<TOpenIdConnect extends OpenIdConnect>( listOptions: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/openidconnects`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

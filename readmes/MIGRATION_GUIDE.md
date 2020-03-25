@@ -81,9 +81,11 @@ The objective of this guide is to document the breaking changes and updates requ
 
 * The schema for errors has changed. Please refer to the [error handling section](../README.md#handling-errors-) in the readme.
 
-> The following are Typescript breaking changes. If you are not using Typescript you can ignore them.
+> The following are Typescript breaking changes. If you are not using Typescript you can safely ignore them.
 
 * The minimum compatible typescript version is now 3.5
+
+* Models previously were defined such that all properties were required. Now, properties are only required if the Create/Update operation requires them. Please see [understanding ordercloud's models](../README.md#understanding-orderclouds-models) for more information.
 
 * List models have been replaced with a generic `ListPage` model that takes a type parameter for the item.
 

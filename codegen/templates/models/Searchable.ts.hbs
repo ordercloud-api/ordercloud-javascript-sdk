@@ -1,0 +1,9 @@
+export type Searchable<TSearchableEndpoint extends SearchableEndpoint> = SearchableMap[TSearchableEndpoint]
+
+interface SearchableMap {
+{{#each searchOnModels}}'{{id}}': {{type}}
+{{/each}}
+}
+
+type SearchableEndpoint = {{#each searchOnModels}}'{{id}}'{{#unless @last}} | {{/unless}}
+{{/each}}

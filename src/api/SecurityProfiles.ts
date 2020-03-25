@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { SecurityProfile } from '../models/SecurityProfile';
 import { SecurityProfileAssignment } from '../models/SecurityProfileAssignment';
 import { CommerceRole } from '../models/CommerceRole';
@@ -42,7 +44,7 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSecurityProfile extends SecurityProfile>( listOptions: { search?: string, searchOn?: ('ID' | 'Name')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
+    public async List<TSecurityProfile extends SecurityProfile>( listOptions: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/securityprofiles`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { Payment } from '../models/Payment';
 import { OrderDirection } from '../models/OrderDirection';
 import { PaymentTransaction } from '../models/PaymentTransaction';
@@ -41,7 +43,7 @@ class Payments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: ('ID' | 'Description')[], sortBy?: ('DateCreated' | 'ID' | 'Type' | 'CreditCardID' | 'SpendingAccountID' | '!DateCreated' | '!ID' | '!Type' | '!CreditCardID' | '!SpendingAccountID')[], page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>> {
+    public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { ApiClient } from '../models/ApiClient';
 import { ApiClientAssignment } from '../models/ApiClientAssignment';
 import { PartialDeep } from '../models/PartialDeep';
@@ -41,7 +43,7 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TApiClient extends ApiClient>( listOptions: { search?: string, searchOn?: ('ID' | 'AppName' | 'DefaultContextUserName')[], sortBy?: ('ID' | 'AppName' | 'DefaultContextUserName' | '!ID' | '!AppName' | '!DefaultContextUserName')[], page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>> {
+    public async List<TApiClient extends ApiClient>( listOptions: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/apiclients`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

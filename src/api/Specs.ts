@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { Spec } from '../models/Spec';
 import { SpecOption } from '../models/SpecOption';
 import { SpecProductAssignment } from '../models/SpecProductAssignment';
@@ -47,7 +49,7 @@ class Specs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSpec extends Spec>( listOptions: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>> {
+    public async List<TSpec extends Spec>( listOptions: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -175,7 +177,7 @@ class Specs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  listOptions: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecOption>>> {
+    public async ListOptions<TSpecOption extends SpecOption>(specID: string,  listOptions: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecOption>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/${specID}/options`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -328,7 +330,7 @@ class Specs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( listOptions: { search?: string, searchOn?: ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[], sortBy?: ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>> {
+    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>( listOptions: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/specs/productassignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

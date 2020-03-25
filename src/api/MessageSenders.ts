@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { MessageSender } from '../models/MessageSender';
 import { MessageSenderAssignment } from '../models/MessageSenderAssignment';
 import { PartyType } from '../models/PartyType';
@@ -44,7 +46,7 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TMessageSender extends MessageSender>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'URL')[], sortBy?: ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
+    public async List<TMessageSender extends MessageSender>( listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -242,7 +244,7 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'URL')[], sortBy?: ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[], page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
+    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/messagesenders/CCListenerAssignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

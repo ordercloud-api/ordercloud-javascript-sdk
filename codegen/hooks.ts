@@ -4,6 +4,7 @@ import {
   Param,
   PostFormatModelHook,
   PostFormatOperationHook,
+  PostFormatTemplateDataHook,
   Operation,
 } from '@ordercloud/oc-codegen'
 
@@ -22,7 +23,7 @@ const postFormatModel: PostFormatModelHook = function(model, models) {
     prop['typescriptType'] = findTypeForModelProps(prop, model)
   })
 
-  // RETURN MODEL - THIS IS IMPORTANT
+  // RETURN MODIFIED MODEL - THIS IS IMPORTANT
   return model
 }
 
@@ -40,17 +41,67 @@ const postFormatOperation: PostFormatOperationHook = function(operation) {
     // add ListPage and ListPageWithFacets to fileImports
     operation.fileImports = [
       operation.isFacetList ? 'ListPageWithFacets' : 'ListPage',
+      'Searchable',
+      'Sortable',
       ...operation.fileImports,
     ]
   }
 
-  // RETURN OPERATION - THIS IS IMPORTANT
+  // RETURN MODIFIED OPERATION - THIS IS IMPORTANT
   return operation
+}
+
+const postFormatTemplateData: PostFormatTemplateDataHook = function(
+  templateData
+) {
+  const sortByModels = templateData.operations
+    .filter(o => o.queryParams?.some(p => p.name === 'sortBy'))
+    .map(op => {
+      const prop = op.queryParams.find(p => p.name === 'sortBy')
+      let enumVals = prop?.enumValues
+
+      // each sort field (ascending) can inverse sort (descending) by adding !
+      enumVals = [...enumVals, ...prop?.enumValues.map(v => `!${v}`)]
+
+      // enhanced search lets you searchOn by xp values
+      // so we have to use string[] which unfortunately destroys type inference
+      const enumString = op.isFacetList
+        ? `string[]`
+        : `${enumVals.map(v => `'${v}'`).join(' | ')}[]`
+
+      return {
+        id: op.id,
+        type: enumString,
+      }
+    })
+  templateData['sortByModels'] = sortByModels
+
+  const searchOnModels = templateData.operations
+    .filter(o => o.queryParams?.some(p => p.name === 'searchOn'))
+    .map(op => {
+      const prop = op.queryParams.find(p => p.name === 'searchOn')
+
+      // enhanced search lets you searchOn by xp values
+      // so we have to use string[] which unfortunately destroys type inference
+      const enumString = op.isFacetList
+        ? `string[]`
+        : `${prop?.enumValues.map(v => `'${v}'`).join(' | ')}[]`
+
+      return {
+        id: op.id,
+        type: enumString,
+      }
+    })
+  templateData['searchOnModels'] = searchOnModels
+
+  // RETURN MODIFIED TEMPLATE DATA - THIS IS IMPORTANT
+  return templateData
 }
 
 module.exports = {
   postFormatModel,
   postFormatOperation,
+  postFormatTemplateData,
 }
 
 /******************
@@ -80,29 +131,15 @@ function findTypeForOperationProps(prop: Param, operation: Operation) {
   }
 
   if (prop.isEnum && !prop.isCustomType) {
-    let enumVals = prop.enumValues
-
-    // each sort field (ascending) can inverse sort (descending) by adding !
+    if (prop.name === 'searchOn') {
+      return `Searchable<'${operation.id}'>`
+    }
     if (prop.name === 'sortBy') {
-      enumVals = [...enumVals, ...prop.enumValues.map(v => `!${v}`)]
+      return `Sortable<'${operation.id}'>`
     }
 
-    // build enumString
-    let enumString = enumVals.map(v => `'${v}'`).join(' | ')
-
-    // enhanced search lets you search/sort by xp values
-    if (
-      operation.isFacetList &&
-      (prop.name === 'searchOn' || prop.name === 'sortBy')
-    ) {
-      // unfortunately adding type string to the union type
-      // widens type to simply type string which destroys type-inference
-      // at this time there is nothing in the language that can help us out
-      // might be worth keeping an eye on regex-validated string types:
-      // https://github.com/microsoft/TypeScript/issues/6579
-      enumString = `${enumString} | string`
-    }
-
+    const enumVals = prop.enumValues
+    const enumString = enumVals.map(v => `'${v}'`).join(' | ')
     if (prop.isArray) {
       return `(${enumString})[]`
     }

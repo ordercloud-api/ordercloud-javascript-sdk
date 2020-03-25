@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { ApprovalRule } from '../models/ApprovalRule';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -37,7 +39,7 @@ class ApprovalRules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TApprovalRule extends ApprovalRule>(buyerID: string,  listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'Description' | 'RuleExpression')[], sortBy?: ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[], page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApprovalRule>>> {
+    public async List<TApprovalRule extends ApprovalRule>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApprovalRule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/buyers/${buyerID}/approvalrules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { ImpersonationConfig } from '../models/ImpersonationConfig';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -36,7 +38,7 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TImpersonationConfig extends ImpersonationConfig>( listOptions: { search?: string, searchOn?: ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID')[], sortBy?: ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>> {
+    public async List<TImpersonationConfig extends ImpersonationConfig>( listOptions: { search?: string, searchOn?: Searchable<'ImpersonationConfigs.List'>, sortBy?: Sortable<'ImpersonationConfigs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/impersonationconfig`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

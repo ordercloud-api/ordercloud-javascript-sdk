@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { LineItem } from '../models/LineItem';
 import { OrderDirection } from '../models/OrderDirection';
 import { Address } from '../models/Address';
@@ -42,7 +44,7 @@ class LineItems {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TLineItem extends LineItem>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: ('ID' | 'ProductID')[], sortBy?: ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[], page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TLineItem>>> {
+    public async List<TLineItem extends LineItem>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'LineItems.List'>, sortBy?: Sortable<'LineItems.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TLineItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TLineItem>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/orders/${direction}/${orderID}/lineitems`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

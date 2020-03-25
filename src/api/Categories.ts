@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { Category } from '../models/Category';
 import { CategoryAssignment } from '../models/CategoryAssignment';
 import { PartyType } from '../models/PartyType';
@@ -47,7 +49,7 @@ class Categories {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TCategory extends Category>(catalogID: string,  listOptions: { depth?: string, search?: string, searchOn?: ('ID' | 'Name' | 'Description')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCategory>>> {
+    public async List<TCategory extends Category>(catalogID: string,  listOptions: { depth?: string, search?: string, searchOn?: Searchable<'Categories.List'>, sortBy?: Sortable<'Categories.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCategory>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCategory>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/catalogs/${catalogID}/categories`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

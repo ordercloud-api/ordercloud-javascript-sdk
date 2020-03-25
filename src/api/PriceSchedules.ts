@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { PriceSchedule } from '../models/PriceSchedule';
 import { PriceBreak } from '../models/PriceBreak';
 import { PartialDeep } from '../models/PartialDeep';
@@ -39,7 +41,7 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TPriceSchedule extends PriceSchedule>( listOptions: { search?: string, searchOn?: ('ID' | 'Name' | 'ApplyTax')[], sortBy?: ('Name' | 'ID' | '!Name' | '!ID')[], page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
+    public async List<TPriceSchedule extends PriceSchedule>( listOptions: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/priceschedules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

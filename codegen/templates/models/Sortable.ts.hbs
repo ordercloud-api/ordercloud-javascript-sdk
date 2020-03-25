@@ -1,0 +1,9 @@
+export type Sortable<TSortableEndpoint extends SortableEndpoint> = SortableMap[TSortableEndpoint]
+
+interface SortableMap {
+{{#each sortByModels}}'{{id}}': {{type}}
+{{/each}}
+}
+
+type SortableEndpoint = {{#each sortByModels}}'{{id}}'{{#unless @last}} | {{/unless}}
+{{/each}}

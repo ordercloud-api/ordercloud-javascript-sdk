@@ -1,4 +1,6 @@
 import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
 import { Incrementor } from '../models/Incrementor';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -36,7 +38,7 @@ class Incrementors {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TIncrementor extends Incrementor>( listOptions: { search?: string, searchOn?: ('ID' | 'Name')[], sortBy?: ('ID' | 'Name' | '!ID' | '!Name')[], page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIncrementor>>> {
+    public async List<TIncrementor extends Incrementor>( listOptions: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIncrementor>>> {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await httpClient.get(`/incrementors`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
