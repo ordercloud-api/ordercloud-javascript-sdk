@@ -49,6 +49,30 @@ The objective of this guide is to document the breaking changes and updates requ
     Me.As().ListProducts
     ```
 
+* The `PasswordResets` service has been renamed to `ForgottenPassword`.
+
+    Before:
+
+    ```javascript
+    const resetRequest = {
+        ClientID: 'my-client-id',
+        Email: 'test@test.com',
+        Username: 'test'
+    }
+    PasswordResets.SendVerificationCode(resetRequest)
+    ```
+
+    After:
+
+    ```javascript
+    const resetRequest = {
+        ClientID: 'my-client-id',
+        Email: 'test@test.com',
+        Username: 'test'
+    }
+    ForgottenPassword.SendVerificationCode(resetRequest)
+    ```
+
 * Sending filters on list calls has changed in order to provide better type support.
 
     Before:
@@ -63,6 +87,13 @@ The objective of this guide is to document the breaking changes and updates requ
 
     ```javascript
     Me.ListProducts({filters: { xp: { Color: 'red' } } })
+    ```
+
+* `Auth.PasswordResets` has been renamed to `Auth.ForgottenPassword`
+    Before
+
+    ```javascript
+    Auth.PasswordResets()
     ```
 
 * `searchOn` and `sortBy` now accept an array of strings instead of a single comma delimited string
@@ -115,6 +146,20 @@ The objective of this guide is to document the breaking changes and updates requ
 
     ```typescript
     Orders.List('Incoming')
+    ```
+
+* `Auth.RefreshToken` no longer takes in a `scope` parameter. This parameter didn't actually do anything, when you refresh a token you get a new access token with the same roles as the first one had.
+
+    Before
+
+    ```javascript
+    Auth.RefreshToken('my-refresh-token', 'my-client-id', ['Shopper'])
+    ```
+
+    After
+
+    ```javascript
+    Auth.RefreshToken('my-refresh-token', 'my-client-id')
     ```
 
 ## version 2.x.x to version 3.x.x
