@@ -22,6 +22,7 @@ test('should use impersonation token if call As method', async () => {
     `${apiUrl}/products/${testdata.productID}`,
     {
       params: {},
+      paramsSerializer: expect.any(Function),
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -39,6 +40,7 @@ test('should use passed in token if defined', async () => {
     `${apiUrl}/products/${testdata.productID}`,
     {
       params: {},
+      paramsSerializer: expect.any(Function),
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -58,6 +60,7 @@ test('should prioritize passed in token', async () => {
     `${apiUrl}/products/${testdata.productID}`,
     {
       params: {},
+      paramsSerializer: expect.any(Function),
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',

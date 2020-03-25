@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, CancelToken } from 'axios'
+import axios, { CancelToken } from 'axios'
 import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
 import { ApiRole } from '../models/ApiRole'
@@ -7,7 +7,6 @@ import { RequiredDeep } from '../models/RequiredDeep'
 import OrderCloudError from '../utils/OrderCloudError'
 
 class Auth {
-  private _http: AxiosInstance
   constructor() {
     // create a new instance so we avoid clashes with any
     // configurations done on default axios instance that
@@ -16,8 +15,6 @@ class Auth {
       throw new Error(
         'Ordercloud is missing required peer dependency axios. This must be installed and loaded before the OrderCloud SDK'
       )
-    } else {
-      this._http = axios.create()
     }
 
     /**
@@ -59,7 +56,7 @@ class Auth {
       scope: scope.join(' '),
     }
     const configuration = Configuration.Get()
-    const response = await this._http
+    const response = await axios
       .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -109,7 +106,7 @@ class Auth {
       client_secret: clientSecret,
     }
     const configuration = Configuration.Get()
-    const response = await this._http
+    const response = await axios
       .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -153,7 +150,7 @@ class Auth {
       client_secret: clientSecret,
     }
     const configuration = Configuration.Get()
-    const response = await this._http
+    const response = await axios
       .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -191,7 +188,7 @@ class Auth {
       refresh_token: refreshToken,
     }
     const configuration = Configuration.Get()
-    const response = await this._http
+    const response = await axios
       .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -232,7 +229,7 @@ class Auth {
       scope: scope.join(' '),
     }
     const configuration = Configuration.Get()
-    const response = await this._http
+    const response = await axios
       .post(configuration.baseAuthUrl, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',

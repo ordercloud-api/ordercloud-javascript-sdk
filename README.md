@@ -225,6 +225,10 @@ Products.Get('my-product')
   })
 ```
 
+## Interceptors
+
+You can use [axios interceptors](https://github.com/axios/axios#interceptors) to intercept a request before it goes out to the API or to intercept a response before it gets handled by the SDK. This enables you to log, rewrite, or even retry calls.
+
 ## Cancelling Requests
 
 In addition to `requestOptions.accessToken` the sdk provides `requestOptions.cancelToken` which enables [axios request cancellation](https://github.com/axios/axios#cancellation). This option is useful for cleaning up outstanding requests when changes in your user experience no longer require the data requested. For instance, you could use the cancel token to clean up outstanding requests [when your react component unmounts](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup).

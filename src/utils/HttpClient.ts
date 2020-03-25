@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import tokenService from '../api/Tokens'
 import Configuration from '../Configuration'
 import Auth from '../api/Auth'
@@ -15,8 +15,6 @@ interface OcRequestConfig extends AxiosRequestConfig {
   accessToken?: string
 }
 class HttpClient {
-  private _session: AxiosInstance
-
   constructor() {
     // create a new instance so we avoid clashes with any
     // configurations done on default axios instance that
@@ -25,8 +23,6 @@ class HttpClient {
       throw new Error(
         'Missing required peer dependency axios. This must be installed and loaded before the OrderCloud SDK'
       )
-    } else {
-      this._session = axios.create({ paramsSerializer })
     }
 
     this.get = this.get.bind(this)
@@ -43,7 +39,7 @@ class HttpClient {
 
   public get = async (path: string, config?: OcRequestConfig): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
-    const response = await this._session.get(
+    const response = await axios.get(
       `${Configuration.Get().baseApiUrl}${path}`,
       requestConfig
     )
@@ -56,7 +52,7 @@ class HttpClient {
     config?: OcRequestConfig
   ): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
-    const response = await this._session.post(
+    const response = await axios.post(
       `${Configuration.Get().baseApiUrl}${path}`,
       data,
       requestConfig
@@ -70,7 +66,7 @@ class HttpClient {
     config?: OcRequestConfig
   ): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
-    const response = await this._session.put(
+    const response = await axios.put(
       `${Configuration.Get().baseApiUrl}${path}`,
       data,
       requestConfig
@@ -84,7 +80,7 @@ class HttpClient {
     config?: OcRequestConfig
   ): Promise<any> => {
     const requestConfig = await this._buildRequestConfig(config)
-    const response = await this._session.patch(
+    const response = await axios.patch(
       `${Configuration.Get().baseApiUrl}${path}`,
       data,
       requestConfig
@@ -94,7 +90,7 @@ class HttpClient {
 
   public delete = async (path: string, config: OcRequestConfig) => {
     const requestConfig = await this._buildRequestConfig(config)
-    const response = await this._session.delete(
+    const response = await axios.delete(
       `${Configuration.Get().baseApiUrl}${path}`,
       requestConfig
     )
@@ -168,6 +164,7 @@ class HttpClient {
     const sdkConfig = Configuration.Get()
     const requestConfig = {
       ...config,
+      paramsSerializer,
       timeout: sdkConfig.timeoutInMilliseconds,
       headers: {
         'Content-Type': 'application/json',

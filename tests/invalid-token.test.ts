@@ -49,6 +49,7 @@ describe('has expired access token', () => {
         `${apiUrl}/products/${testdata.productID}`,
         {
           params: {},
+          paramsSerializer: expect.any(Function),
           timeout: 10000,
           headers: {
             'Content-Type': 'application/json',
@@ -90,6 +91,7 @@ describe('has expired access token', () => {
           `${apiUrl}/products/${testdata.productID}`,
           {
             params: {},
+            paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -128,6 +130,7 @@ describe('has expired access token', () => {
           `${apiUrl}/products/${testdata.productID}`,
           {
             params: {},
+            paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -149,6 +152,7 @@ describe('has no access token', () => {
         `${apiUrl}/products/${testdata.productID}`,
         {
           params: {},
+          paramsSerializer: expect.any(Function),
           timeout: 10000,
           headers: {
             'Content-Type': 'application/json',
@@ -190,6 +194,7 @@ describe('has no access token', () => {
           `${apiUrl}/products/${testdata.productID}`,
           {
             params: {},
+            paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -210,6 +215,7 @@ describe('has no access token', () => {
           `${apiUrl}/products/${testdata.productID}`,
           {
             params: {},
+            paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -233,6 +239,7 @@ describe('has valid access token', () => {
       `${apiUrl}/products/${testdata.productID}`,
       {
         params: {},
+        paramsSerializer: expect.any(Function),
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json',

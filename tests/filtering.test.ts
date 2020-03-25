@@ -22,6 +22,7 @@ test('can filter call with boolean', async () => {
         },
       },
     },
+    paramsSerializer: expect.any(Function),
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
@@ -36,6 +37,7 @@ test('can filter call with comparison operator', async () => {
   expect(mockAxios.get).toHaveBeenCalledTimes(1)
   expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/me/orders`, {
     params: { filters: { DateSubmitted: '>2018-04-20' } },
+    paramsSerializer: expect.any(Function),
     timeout: 10000,
     headers: {
       'Content-Type': 'application/json',
@@ -52,6 +54,7 @@ test('can filter call with wildcard operator', async () => {
     `${apiUrl}/buyers/my-mock-buyerid/users`,
     {
       params: { filters: { LastName: 'Smith*' } },
+      paramsSerializer: expect.any(Function),
       timeout: 10000,
       headers: {
         'Content-Type': 'application/json',
@@ -74,6 +77,7 @@ test('can filter with logical OR operator', async () => {
         filters: { LastName: 'Smith*|*Jones' },
       },
       timeout: 10000,
+      paramsSerializer: expect.any(Function),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${validToken}`,
@@ -95,6 +99,7 @@ test('can filter with logical AND operator', async () => {
       },
     },
     timeout: 10000,
+    paramsSerializer: expect.any(Function),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${validToken}`,
