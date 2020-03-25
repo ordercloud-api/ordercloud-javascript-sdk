@@ -125,6 +125,7 @@ function findTypeForOperationProps(prop: Param, operation: Operation) {
     // we're updating the behavior of filters so that we get better type inference
     // instead of accepting dot-referenced xp values such as { 'xp.color': 'red' }
     // we will now expect { xp: { color: 'red' } }
+    prop['isFilter'] = true
     prop.description =
       'An object whose keys match the model, and the values are the values to filter by'
     return `Filters<Required<T${operation.returnType}>>`

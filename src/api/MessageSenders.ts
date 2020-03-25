@@ -46,7 +46,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TMessageSender extends MessageSender>( listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<MessageSender>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<MessageSender>>>;
+    public async List<TMessageSender extends MessageSender>(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TMessageSender>>>;
+    public async List<TMessageSender extends MessageSender>(listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSender>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/messagesenders`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -66,7 +68,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
+    public async Create(messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
+    public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
+    public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/messagesenders`, { ...requestOptions, data: messageSender, impersonating, params: {   } } )
@@ -86,7 +90,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TMessageSender extends MessageSender>(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
+    public async Get(messageSenderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
+    public async Get<TMessageSender extends MessageSender>(messageSenderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
+    public async Get<TMessageSender extends MessageSender>(messageSenderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -107,7 +113,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
+    public async Save(messageSenderID: string, messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
+    public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
+    public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/messagesenders/${messageSenderID}`, { ...requestOptions, data: messageSender, impersonating, params: {   } } )
@@ -127,7 +135,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(messageSenderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(messageSenderID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(messageSenderID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(messageSenderID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/messagesenders/${messageSenderID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -148,7 +158,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>> {
+    public async Patch(messageSenderID: string, messageSender: PartialDeep<MessageSender>, requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
+    public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
+    public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TMessageSender>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/messagesenders/${messageSenderID}`, { ...requestOptions, data: messageSender, impersonating, params: {   } } )
@@ -172,7 +184,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(messageSenderID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(messageSenderID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(messageSenderID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(messageSenderID: string, listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/messagesenders/${messageSenderID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -199,7 +213,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>( listOptions: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>> {
+    public async ListAssignments(listOptions?: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<MessageSenderAssignment>>>;
+    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>(listOptions?: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>>;
+    public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>(listOptions: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/messagesenders/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -219,7 +235,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/messagesenders/assignments`, { ...requestOptions, data: messageSenderAssignment, impersonating, params: {   } } )
@@ -244,7 +262,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>( listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>> {
+    public async ListCCListenerAssignments(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<MessageCCListenerAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<MessageCCListenerAssignment>>>;
+    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>>;
+    public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>(listOptions: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/messagesenders/CCListenerAssignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -264,7 +284,9 @@ class MessageSenders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/messagesenders/CCListenerAssignments`, { ...requestOptions, data: messageCCListenerAssignment, impersonating, params: {   } } )

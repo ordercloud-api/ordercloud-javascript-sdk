@@ -38,7 +38,9 @@ class ProductFacets {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TProductFacet extends ProductFacet>( listOptions: { search?: string, searchOn?: Searchable<'ProductFacets.List'>, sortBy?: Sortable<'ProductFacets.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductFacet>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'ProductFacets.List'>, sortBy?: Sortable<'ProductFacets.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ProductFacet>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ProductFacet>>>;
+    public async List<TProductFacet extends ProductFacet>(listOptions?: { search?: string, searchOn?: Searchable<'ProductFacets.List'>, sortBy?: Sortable<'ProductFacets.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TProductFacet>>>;
+    public async List<TProductFacet extends ProductFacet>(listOptions: { search?: string, searchOn?: Searchable<'ProductFacets.List'>, sortBy?: Sortable<'ProductFacets.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductFacet>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/productfacets`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -58,7 +60,9 @@ class ProductFacets {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
+    public async Create(productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
+    public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;
+    public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/productfacets`, { ...requestOptions, data: productFacet, impersonating, params: {   } } )
@@ -78,7 +82,9 @@ class ProductFacets {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TProductFacet extends ProductFacet>(productFacetID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
+    public async Get(productFacetID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
+    public async Get<TProductFacet extends ProductFacet>(productFacetID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;
+    public async Get<TProductFacet extends ProductFacet>(productFacetID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/productfacets/${productFacetID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -99,7 +105,9 @@ class ProductFacets {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
+    public async Save(productFacetID: string, productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
+    public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;
+    public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/productfacets/${productFacetID}`, { ...requestOptions, data: productFacet, impersonating, params: {   } } )
@@ -119,7 +127,9 @@ class ProductFacets {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(productFacetID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(productFacetID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(productFacetID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(productFacetID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/productfacets/${productFacetID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -140,7 +150,9 @@ class ProductFacets {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>> {
+    public async Patch(productFacetID: string, productFacet: PartialDeep<ProductFacet>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
+    public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;
+    public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductFacet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/productfacets/${productFacetID}`, { ...requestOptions, data: productFacet, impersonating, params: {   } } )

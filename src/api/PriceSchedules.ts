@@ -41,7 +41,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TPriceSchedule extends PriceSchedule>( listOptions: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPriceSchedule>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<PriceSchedule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<PriceSchedule>>>;
+    public async List<TPriceSchedule extends PriceSchedule>(listOptions?: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPriceSchedule>>>;
+    public async List<TPriceSchedule extends PriceSchedule>(listOptions: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPriceSchedule>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/priceschedules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -61,7 +63,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
+    public async Create(priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
+    public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
+    public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/priceschedules`, { ...requestOptions, data: priceSchedule, impersonating, params: {   } } )
@@ -81,7 +85,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
+    public async Get(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
+    public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
+    public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -102,7 +108,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
+    public async Save(priceScheduleID: string, priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
+    public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
+    public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/priceschedules/${priceScheduleID}`, { ...requestOptions, data: priceSchedule, impersonating, params: {   } } )
@@ -122,7 +130,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(priceScheduleID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(priceScheduleID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/priceschedules/${priceScheduleID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -143,7 +153,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
+    public async Patch(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
+    public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
+    public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/priceschedules/${priceScheduleID}`, { ...requestOptions, data: priceSchedule, impersonating, params: {   } } )
@@ -164,7 +176,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>> {
+    public async SavePriceBreak(priceScheduleID: string, priceBreak: PriceBreak,requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
+    public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
+    public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPriceSchedule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/priceschedules/${priceScheduleID}/PriceBreaks`, { ...requestOptions, data: priceBreak, impersonating, params: {   } } )
@@ -185,7 +199,9 @@ class PriceSchedules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeletePriceBreak(priceScheduleID: string,  listOptions: { quantity?: number } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeletePriceBreak(priceScheduleID: string, listOptions?: { quantity?: number }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeletePriceBreak(priceScheduleID: string, listOptions?: { quantity?: number }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeletePriceBreak(priceScheduleID: string, listOptions: { quantity?: number } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/priceschedules/${priceScheduleID}/PriceBreaks`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )

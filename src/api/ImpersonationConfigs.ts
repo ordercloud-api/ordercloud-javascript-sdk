@@ -38,7 +38,9 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TImpersonationConfig extends ImpersonationConfig>( listOptions: { search?: string, searchOn?: Searchable<'ImpersonationConfigs.List'>, sortBy?: Sortable<'ImpersonationConfigs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'ImpersonationConfigs.List'>, sortBy?: Sortable<'ImpersonationConfigs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ImpersonationConfig>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ImpersonationConfig>>>;
+    public async List<TImpersonationConfig extends ImpersonationConfig>(listOptions?: { search?: string, searchOn?: Searchable<'ImpersonationConfigs.List'>, sortBy?: Sortable<'ImpersonationConfigs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>>;
+    public async List<TImpersonationConfig extends ImpersonationConfig>(listOptions: { search?: string, searchOn?: Searchable<'ImpersonationConfigs.List'>, sortBy?: Sortable<'ImpersonationConfigs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/impersonationconfig`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -58,7 +60,9 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
+    public async Create(impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
+    public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;
+    public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/impersonationconfig`, { ...requestOptions, data: impersonationConfig, impersonating, params: {   } } )
@@ -78,7 +82,9 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
+    public async Get(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
+    public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;
+    public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/impersonationconfig/${impersonationConfigID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -99,7 +105,9 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
+    public async Save(impersonationConfigID: string, impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
+    public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;
+    public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/impersonationconfig/${impersonationConfigID}`, { ...requestOptions, data: impersonationConfig, impersonating, params: {   } } )
@@ -119,7 +127,9 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(impersonationConfigID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(impersonationConfigID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/impersonationconfig/${impersonationConfigID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -140,7 +150,9 @@ class ImpersonationConfigs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>> {
+    public async Patch(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
+    public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;
+    public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TImpersonationConfig>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/impersonationconfig/${impersonationConfigID}`, { ...requestOptions, data: impersonationConfig, impersonating, params: {   } } )

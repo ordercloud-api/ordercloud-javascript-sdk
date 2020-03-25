@@ -38,7 +38,9 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TOpenIdConnect extends OpenIdConnect>( listOptions: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<OpenIdConnect>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<OpenIdConnect>>>;
+    public async List<TOpenIdConnect extends OpenIdConnect>(listOptions?: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>>;
+    public async List<TOpenIdConnect extends OpenIdConnect>(listOptions: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/openidconnects`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -58,7 +60,9 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
+    public async Create(openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
+    public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;
+    public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/openidconnects`, { ...requestOptions, data: openIdConnect, impersonating, params: {   } } )
@@ -78,7 +82,9 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
+    public async Get(openidconnectID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
+    public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;
+    public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/openidconnects/${openidconnectID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -99,7 +105,9 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
+    public async Save(openidconnectID: string, openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
+    public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;
+    public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/openidconnects/${openidconnectID}`, { ...requestOptions, data: openIdConnect, impersonating, params: {   } } )
@@ -119,7 +127,9 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(openidconnectID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(openidconnectID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(openidconnectID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(openidconnectID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/openidconnects/${openidconnectID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -140,7 +150,9 @@ class OpenIdConnects {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>> {
+    public async Patch(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>, requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
+    public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;
+    public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOpenIdConnect>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/openidconnects/${openidconnectID}`, { ...requestOptions, data: openIdConnect, impersonating, params: {   } } )

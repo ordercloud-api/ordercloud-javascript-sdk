@@ -43,7 +43,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TUserGroup extends UserGroup>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'UserGroups.List'>, sortBy?: Sortable<'UserGroups.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>> {
+    public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'UserGroups.List'>, sortBy?: Sortable<'UserGroups.List'>, page?: number, pageSize?: number, filters?: Filters<Required<UserGroup>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<UserGroup>>>;
+    public async List<TUserGroup extends UserGroup>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'UserGroups.List'>, sortBy?: Sortable<'UserGroups.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TUserGroup>>>;
+    public async List<TUserGroup extends UserGroup>(buyerID: string, listOptions: { search?: string, searchOn?: Searchable<'UserGroups.List'>, sortBy?: Sortable<'UserGroups.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUserGroup>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroup>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/usergroups`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -64,7 +66,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TUserGroup extends UserGroup>(buyerID: string, userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
+    public async Create(buyerID: string, userGroup: UserGroup,requestOptions?: RequestOptions ): Promise<RequiredDeep<UserGroup>>;
+    public async Create<TUserGroup extends UserGroup>(buyerID: string, userGroup: UserGroup,requestOptions?: RequestOptions ): Promise<RequiredDeep<TUserGroup>>;
+    public async Create<TUserGroup extends UserGroup>(buyerID: string, userGroup: UserGroup,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/usergroups`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
@@ -85,7 +89,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
+    public async Get(buyerID: string, userGroupID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<UserGroup>>;
+    public async Get<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUserGroup>>;
+    public async Get<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -107,7 +113,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: UserGroup, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
+    public async Save(buyerID: string, userGroupID: string, userGroup: UserGroup,requestOptions?: RequestOptions ): Promise<RequiredDeep<UserGroup>>;
+    public async Save<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: UserGroup,requestOptions?: RequestOptions ): Promise<RequiredDeep<TUserGroup>>;
+    public async Save<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: UserGroup,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/buyers/${buyerID}/usergroups/${userGroupID}`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
@@ -128,7 +136,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(buyerID: string, userGroupID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(buyerID: string, userGroupID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, userGroupID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, userGroupID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/usergroups/${userGroupID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -150,7 +160,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>> {
+    public async Patch(buyerID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>, requestOptions?: RequestOptions ): Promise<RequiredDeep<UserGroup>>;
+    public async Patch<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUserGroup>>;
+    public async Patch<TUserGroup extends UserGroup>(buyerID: string, userGroupID: string, userGroup: PartialDeep<UserGroup>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUserGroup>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/buyers/${buyerID}/usergroups/${userGroupID}`, { ...requestOptions, data: userGroup, impersonating, params: {   } } )
@@ -172,7 +184,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteUserAssignment(buyerID: string, userGroupID: string, userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteUserAssignment(buyerID: string, userGroupID: string, userID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteUserAssignment(buyerID: string, userGroupID: string, userID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteUserAssignment(buyerID: string, userGroupID: string, userID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/usergroups/${userGroupID}/assignments/${userID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -196,7 +210,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(buyerID: string,  listOptions: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>> {
+    public async ListUserAssignments(buyerID: string, listOptions?: { userGroupID?: string, userID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<UserGroupAssignment>>>;
+    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(buyerID: string, listOptions?: { userGroupID?: string, userID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>>;
+    public async ListUserAssignments<TUserGroupAssignment extends UserGroupAssignment>(buyerID: string, listOptions: { userGroupID?: string, userID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUserGroupAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/usergroups/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -217,7 +233,9 @@ class UserGroups {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveUserAssignment(buyerID: string, userGroupAssignment: UserGroupAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveUserAssignment(buyerID: string, userGroupAssignment: UserGroupAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveUserAssignment(buyerID: string, userGroupAssignment: UserGroupAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveUserAssignment(buyerID: string, userGroupAssignment: UserGroupAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/usergroups/assignments`, { ...requestOptions, data: userGroupAssignment, impersonating, params: {   } } )

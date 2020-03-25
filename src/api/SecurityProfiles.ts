@@ -44,7 +44,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSecurityProfile extends SecurityProfile>( listOptions: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<SecurityProfile>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SecurityProfile>>>;
+    public async List<TSecurityProfile extends SecurityProfile>(listOptions?: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSecurityProfile>>>;
+    public async List<TSecurityProfile extends SecurityProfile>(listOptions: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfile>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/securityprofiles`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -64,7 +66,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Create(securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
+    public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
+    public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/securityprofiles`, { ...requestOptions, data: securityProfile, impersonating, params: {   } } )
@@ -84,7 +88,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Get(securityProfileID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
+    public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
+    public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -105,7 +111,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Save(securityProfileID: string, securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
+    public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
+    public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/securityprofiles/${securityProfileID}`, { ...requestOptions, data: securityProfile, impersonating, params: {   } } )
@@ -125,7 +133,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(securityProfileID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(securityProfileID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(securityProfileID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(securityProfileID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/securityprofiles/${securityProfileID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -146,7 +156,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>> {
+    public async Patch(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>, requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
+    public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
+    public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSecurityProfile>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/securityprofiles/${securityProfileID}`, { ...requestOptions, data: securityProfile, impersonating, params: {   } } )
@@ -170,7 +182,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(securityProfileID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(securityProfileID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(securityProfileID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(securityProfileID: string, listOptions: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/securityprofiles/${securityProfileID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -198,7 +212,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>( listOptions: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>> {
+    public async ListAssignments(listOptions?: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SecurityProfileAssignment>>>;
+    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>(listOptions?: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>>;
+    public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>(listOptions: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/securityprofiles/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -218,7 +234,9 @@ class SecurityProfiles {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/securityprofiles/assignments`, { ...requestOptions, data: securityProfileAssignment, impersonating, params: {   } } )

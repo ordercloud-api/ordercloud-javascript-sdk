@@ -44,7 +44,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TCostCenter extends CostCenter>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'CostCenters.List'>, sortBy?: Sortable<'CostCenters.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenter>>> {
+    public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CostCenters.List'>, sortBy?: Sortable<'CostCenters.List'>, page?: number, pageSize?: number, filters?: Filters<Required<CostCenter>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CostCenter>>>;
+    public async List<TCostCenter extends CostCenter>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CostCenters.List'>, sortBy?: Sortable<'CostCenters.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCostCenter>>>;
+    public async List<TCostCenter extends CostCenter>(buyerID: string, listOptions: { search?: string, searchOn?: Searchable<'CostCenters.List'>, sortBy?: Sortable<'CostCenters.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenter>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/costcenters`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -65,7 +67,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
+    public async Create(buyerID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
+    public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
+    public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/costcenters`, { ...requestOptions, data: costCenter, impersonating, params: {   } } )
@@ -86,7 +90,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
+    public async Get(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
+    public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
+    public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -108,7 +114,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
+    public async Save(buyerID: string, costCenterID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
+    public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
+    public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, data: costCenter, impersonating, params: {   } } )
@@ -129,7 +137,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(buyerID: string, costCenterID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, costCenterID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -151,7 +161,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>> {
+    public async Patch(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>, requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
+    public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
+    public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCostCenter>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/buyers/${buyerID}/costcenters/${costCenterID}`, { ...requestOptions, data: costCenter, impersonating, params: {   } } )
@@ -174,7 +186,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(buyerID: string, costCenterID: string,  listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, costCenterID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(buyerID: string, costCenterID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(buyerID: string, costCenterID: string, listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/costcenters/${costCenterID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -200,7 +214,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string,  listOptions: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>> {
+    public async ListAssignments(buyerID: string, listOptions?: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CostCenterAssignment>>>;
+    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string, listOptions?: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>>;
+    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string, listOptions: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/costcenters/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -221,7 +237,9 @@ class CostCenters {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/costcenters/assignments`, { ...requestOptions, data: costCenterAssignment, impersonating, params: {   } } )

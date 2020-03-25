@@ -44,7 +44,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TCreditCard extends CreditCard>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCreditCard>>> {
+    public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<CreditCard>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CreditCard>>>;
+    public async List<TCreditCard extends CreditCard>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCreditCard>>>;
+    public async List<TCreditCard extends CreditCard>(buyerID: string, listOptions: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCreditCard>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/creditcards`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -65,7 +67,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>> {
+    public async Create(buyerID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
+    public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
+    public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/creditcards`, { ...requestOptions, data: creditCard, impersonating, params: {   } } )
@@ -86,7 +90,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>> {
+    public async Get(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
+    public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
+    public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -108,7 +114,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>> {
+    public async Save(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
+    public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
+    public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, data: creditCard, impersonating, params: {   } } )
@@ -129,7 +137,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(buyerID: string, creditCardID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, creditCardID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -151,7 +161,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>> {
+    public async Patch(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
+    public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
+    public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, data: creditCard, impersonating, params: {   } } )
@@ -174,7 +186,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(buyerID: string, creditCardID: string,  listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/creditcards/${creditCardID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -200,7 +214,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string,  listOptions: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>> {
+    public async ListAssignments(buyerID: string, listOptions?: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CreditCardAssignment>>>;
+    public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string, listOptions?: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>>;
+    public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string, listOptions: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/creditcards/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -221,7 +237,9 @@ class CreditCards {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/creditcards/assignments`, { ...requestOptions, data: creditCardAssignment, impersonating, params: {   } } )

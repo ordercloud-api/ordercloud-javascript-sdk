@@ -27,7 +27,9 @@ class ForgottenPassword {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions?: RequestOptions ): Promise<void>;
+    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions?: RequestOptions ): Promise<void>;
+    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/password/reset`, { ...requestOptions, data: passwordResetRequest, impersonating, params: {   } } )
@@ -48,7 +50,9 @@ class ForgottenPassword {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions?: RequestOptions ): Promise<void>;
+    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions?: RequestOptions ): Promise<void>;
+    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/password/reset/${verificationCode}`, { ...requestOptions, data: passwordReset, impersonating, params: {   } } )

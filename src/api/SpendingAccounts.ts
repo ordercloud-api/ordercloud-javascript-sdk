@@ -44,7 +44,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'SpendingAccounts.List'>, sortBy?: Sortable<'SpendingAccounts.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccount>>> {
+    public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'SpendingAccounts.List'>, sortBy?: Sortable<'SpendingAccounts.List'>, page?: number, pageSize?: number, filters?: Filters<Required<SpendingAccount>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpendingAccount>>>;
+    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'SpendingAccounts.List'>, sortBy?: Sortable<'SpendingAccounts.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpendingAccount>>>;
+    public async List<TSpendingAccount extends SpendingAccount>(buyerID: string, listOptions: { search?: string, searchOn?: Searchable<'SpendingAccounts.List'>, sortBy?: Sortable<'SpendingAccounts.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccount>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/spendingaccounts`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -65,7 +67,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Create(buyerID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
+    public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
+    public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/spendingaccounts`, { ...requestOptions, data: spendingAccount, impersonating, params: {   } } )
@@ -86,7 +90,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Get(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
+    public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
+    public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -108,7 +114,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Save(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
+    public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
+    public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { ...requestOptions, data: spendingAccount, impersonating, params: {   } } )
@@ -129,7 +137,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(buyerID: string, spendingAccountID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, spendingAccountID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -151,7 +161,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>> {
+    public async Patch(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>, requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
+    public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
+    public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpendingAccount>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}`, { ...requestOptions, data: spendingAccount, impersonating, params: {   } } )
@@ -174,7 +186,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(buyerID: string, spendingAccountID: string,  listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(buyerID: string, spendingAccountID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(buyerID: string, spendingAccountID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(buyerID: string, spendingAccountID: string, listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/spendingaccounts/${spendingAccountID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -200,7 +214,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string,  listOptions: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>> {
+    public async ListAssignments(buyerID: string, listOptions?: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpendingAccountAssignment>>>;
+    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string, listOptions?: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>>;
+    public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string, listOptions: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/spendingaccounts/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -221,7 +237,9 @@ class SpendingAccounts {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/spendingaccounts/assignments`, { ...requestOptions, data: spendingAccountAssignment, impersonating, params: {   } } )

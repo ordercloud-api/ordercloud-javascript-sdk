@@ -38,7 +38,9 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TWebhook extends Webhook>( listOptions: { search?: string, searchOn?: Searchable<'Webhooks.List'>, sortBy?: Sortable<'Webhooks.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TWebhook>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'Webhooks.List'>, sortBy?: Sortable<'Webhooks.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Webhook>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Webhook>>>;
+    public async List<TWebhook extends Webhook>(listOptions?: { search?: string, searchOn?: Searchable<'Webhooks.List'>, sortBy?: Sortable<'Webhooks.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TWebhook>>>;
+    public async List<TWebhook extends Webhook>(listOptions: { search?: string, searchOn?: Searchable<'Webhooks.List'>, sortBy?: Sortable<'Webhooks.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TWebhook>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/webhooks`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -58,7 +60,9 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TWebhook extends Webhook>(webhook: Webhook, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
+    public async Create(webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
+    public async Create<TWebhook extends Webhook>(webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;
+    public async Create<TWebhook extends Webhook>(webhook: Webhook,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/webhooks`, { ...requestOptions, data: webhook, impersonating, params: {   } } )
@@ -78,7 +82,9 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TWebhook extends Webhook>(webhookID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
+    public async Get(webhookID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
+    public async Get<TWebhook extends Webhook>(webhookID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;
+    public async Get<TWebhook extends Webhook>(webhookID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/webhooks/${webhookID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -99,7 +105,9 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
+    public async Save(webhookID: string, webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
+    public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;
+    public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/webhooks/${webhookID}`, { ...requestOptions, data: webhook, impersonating, params: {   } } )
@@ -119,7 +127,9 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(webhookID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(webhookID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(webhookID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(webhookID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/webhooks/${webhookID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -140,7 +150,9 @@ class Webhooks {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>> {
+    public async Patch(webhookID: string, webhook: PartialDeep<Webhook>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
+    public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;
+    public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TWebhook>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/webhooks/${webhookID}`, { ...requestOptions, data: webhook, impersonating, params: {   } } )

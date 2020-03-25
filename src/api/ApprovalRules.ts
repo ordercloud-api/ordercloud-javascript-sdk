@@ -39,7 +39,9 @@ class ApprovalRules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TApprovalRule extends ApprovalRule>(buyerID: string,  listOptions: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApprovalRule>>> {
+    public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ApprovalRule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ApprovalRule>>>;
+    public async List<TApprovalRule extends ApprovalRule>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TApprovalRule>>>;
+    public async List<TApprovalRule extends ApprovalRule>(buyerID: string, listOptions: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApprovalRule>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/approvalrules`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -60,7 +62,9 @@ class ApprovalRules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
+    public async Create(buyerID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
+    public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;
+    public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/approvalrules`, { ...requestOptions, data: approvalRule, impersonating, params: {   } } )
@@ -81,7 +85,9 @@ class ApprovalRules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
+    public async Get(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
+    public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;
+    public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -103,7 +109,9 @@ class ApprovalRules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
+    public async Save(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
+    public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;
+    public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, data: approvalRule, impersonating, params: {   } } )
@@ -124,7 +132,9 @@ class ApprovalRules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(buyerID: string, approvalRuleID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(buyerID: string, approvalRuleID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -146,7 +156,9 @@ class ApprovalRules {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>> {
+    public async Patch(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
+    public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;
+    public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApprovalRule>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/buyers/${buyerID}/approvalrules/${approvalRuleID}`, { ...requestOptions, data: approvalRule, impersonating, params: {   } } )

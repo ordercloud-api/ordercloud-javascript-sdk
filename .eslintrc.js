@@ -28,6 +28,9 @@ module.exports = {
         "@typescript-eslint/member-delimiter-style": "off",
         "@typescript-eslint/type-annotation-spacing": "off",
 
+        // we need in order to define overloads
+        'no-dupe-class-members': 'off',
+
         // kind of noisy and low value
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-use-before-define": "off",

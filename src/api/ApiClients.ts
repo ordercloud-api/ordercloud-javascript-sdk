@@ -43,7 +43,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TApiClient extends ApiClient>( listOptions: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ApiClient>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ApiClient>>>;
+    public async List<TApiClient extends ApiClient>(listOptions?: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TApiClient>>>;
+    public async List<TApiClient extends ApiClient>(listOptions: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/apiclients`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -63,7 +65,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TApiClient extends ApiClient>(apiClient: ApiClient, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
+    public async Create(apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
+    public async Create<TApiClient extends ApiClient>(apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
+    public async Create<TApiClient extends ApiClient>(apiClient: ApiClient,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/apiclients`, { ...requestOptions, data: apiClient, impersonating, params: {   } } )
@@ -83,7 +87,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TApiClient extends ApiClient>(apiClientID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
+    public async Get(apiClientID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
+    public async Get<TApiClient extends ApiClient>(apiClientID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
+    public async Get<TApiClient extends ApiClient>(apiClientID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -104,7 +110,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
+    public async Save(apiClientID: string, apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
+    public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
+    public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/apiclients/${apiClientID}`, { ...requestOptions, data: apiClient, impersonating, params: {   } } )
@@ -124,7 +132,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(apiClientID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(apiClientID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(apiClientID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(apiClientID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/apiclients/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -145,7 +155,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>> {
+    public async Patch(apiClientID: string, apiClient: PartialDeep<ApiClient>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
+    public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
+    public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/apiclients/${apiClientID}`, { ...requestOptions, data: apiClient, impersonating, params: {   } } )
@@ -169,7 +181,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>( listOptions: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>> {
+    public async ListAssignments(listOptions?: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ApiClientAssignment>>>;
+    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>(listOptions?: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>>;
+    public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>(listOptions: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/apiclients/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -189,7 +203,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(apiClientAssignment: ApiClientAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(apiClientAssignment: ApiClientAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(apiClientAssignment: ApiClientAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(apiClientAssignment: ApiClientAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/apiclients/assignments`, { ...requestOptions, data: apiClientAssignment, impersonating, params: {   } } )
@@ -210,7 +226,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteBuyerAssignment(apiClientID: string, buyerID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteBuyerAssignment(apiClientID: string, buyerID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteBuyerAssignment(apiClientID: string, buyerID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteBuyerAssignment(apiClientID: string, buyerID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/buyers/${buyerID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -231,7 +249,9 @@ class ApiClients {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteSupplierAssignment(apiClientID: string, supplierID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteSupplierAssignment(apiClientID: string, supplierID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteSupplierAssignment(apiClientID: string, supplierID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteSupplierAssignment(apiClientID: string, supplierID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/suppliers/${supplierID}/ApiClients/Assignments/${apiClientID}`, { ...requestOptions, impersonating, params: {   } } )

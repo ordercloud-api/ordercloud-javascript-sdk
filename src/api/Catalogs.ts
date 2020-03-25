@@ -46,7 +46,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TCatalog extends Catalog>( listOptions: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Catalog>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Catalog>>>;
+    public async List<TCatalog extends Catalog>(listOptions?: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCatalog>>>;
+    public async List<TCatalog extends Catalog>(listOptions: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/catalogs`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -66,7 +68,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TCatalog extends Catalog>(catalog: Catalog, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>> {
+    public async Create(catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
+    public async Create<TCatalog extends Catalog>(catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
+    public async Create<TCatalog extends Catalog>(catalog: Catalog,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/catalogs`, { ...requestOptions, data: catalog, impersonating, params: {   } } )
@@ -86,7 +90,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TCatalog extends Catalog>(catalogID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>> {
+    public async Get(catalogID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
+    public async Get<TCatalog extends Catalog>(catalogID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
+    public async Get<TCatalog extends Catalog>(catalogID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/catalogs/${catalogID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -107,7 +113,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>> {
+    public async Save(catalogID: string, catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
+    public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
+    public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/catalogs/${catalogID}`, { ...requestOptions, data: catalog, impersonating, params: {   } } )
@@ -127,7 +135,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(catalogID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(catalogID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(catalogID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(catalogID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/catalogs/${catalogID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -148,7 +158,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>> {
+    public async Patch(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
+    public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
+    public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/catalogs/${catalogID}`, { ...requestOptions, data: catalog, impersonating, params: {   } } )
@@ -169,7 +181,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(catalogID: string,  listOptions: { buyerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(catalogID: string, listOptions?: { buyerID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(catalogID: string, listOptions?: { buyerID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(catalogID: string, listOptions: { buyerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/catalogs/${catalogID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -190,7 +204,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteProductAssignment(catalogID: string, productID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/catalogs/${catalogID}/productassignments/${productID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -213,7 +229,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>( listOptions: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>> {
+    public async ListAssignments(listOptions?: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CatalogAssignment>>>;
+    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>(listOptions?: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>>;
+    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>(listOptions: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/catalogs/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -233,7 +251,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(catalogAssignment: CatalogAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/catalogs/assignments`, { ...requestOptions, data: catalogAssignment, impersonating, params: {   } } )
@@ -256,7 +276,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>( listOptions: { catalogID?: string, productID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>> {
+    public async ListProductAssignments(listOptions?: { catalogID?: string, productID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ProductCatalogAssignment>>>;
+    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>(listOptions?: { catalogID?: string, productID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>>;
+    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>(listOptions: { catalogID?: string, productID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/catalogs/productassignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -276,7 +298,9 @@ class Catalogs {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/catalogs/productassignments`, { ...requestOptions, data: productCatalogAssignment, impersonating, params: {   } } )

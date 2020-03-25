@@ -43,7 +43,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TPromotion extends Promotion>( listOptions: { search?: string, searchOn?: Searchable<'Promotions.List'>, sortBy?: Sortable<'Promotions.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'Promotions.List'>, sortBy?: Sortable<'Promotions.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Promotion>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Promotion>>>;
+    public async List<TPromotion extends Promotion>(listOptions?: { search?: string, searchOn?: Searchable<'Promotions.List'>, sortBy?: Sortable<'Promotions.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPromotion>>>;
+    public async List<TPromotion extends Promotion>(listOptions: { search?: string, searchOn?: Searchable<'Promotions.List'>, sortBy?: Sortable<'Promotions.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/promotions`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -63,7 +65,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TPromotion extends Promotion>(promotion: Promotion, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
+    public async Create(promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
+    public async Create<TPromotion extends Promotion>(promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
+    public async Create<TPromotion extends Promotion>(promotion: Promotion,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/promotions`, { ...requestOptions, data: promotion, impersonating, params: {   } } )
@@ -83,7 +87,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TPromotion extends Promotion>(promotionID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
+    public async Get(promotionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
+    public async Get<TPromotion extends Promotion>(promotionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
+    public async Get<TPromotion extends Promotion>(promotionID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/promotions/${promotionID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -104,7 +110,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
+    public async Save(promotionID: string, promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
+    public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
+    public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/promotions/${promotionID}`, { ...requestOptions, data: promotion, impersonating, params: {   } } )
@@ -124,7 +132,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(promotionID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(promotionID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(promotionID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(promotionID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/promotions/${promotionID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -145,7 +155,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>> {
+    public async Patch(promotionID: string, promotion: PartialDeep<Promotion>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
+    public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
+    public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPromotion>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/promotions/${promotionID}`, { ...requestOptions, data: promotion, impersonating, params: {   } } )
@@ -168,7 +180,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteAssignment(promotionID: string,  listOptions: { buyerID?: string, userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteAssignment(promotionID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(promotionID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteAssignment(promotionID: string, listOptions: { buyerID?: string, userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/promotions/${promotionID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -194,7 +208,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListAssignments<TPromotionAssignment extends PromotionAssignment>( listOptions: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>> {
+    public async ListAssignments(listOptions?: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<PromotionAssignment>>>;
+    public async ListAssignments<TPromotionAssignment extends PromotionAssignment>(listOptions?: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>>;
+    public async ListAssignments<TPromotionAssignment extends PromotionAssignment>(listOptions: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/promotions/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
@@ -214,7 +230,9 @@ class Promotions {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveAssignment(promotionAssignment: PromotionAssignment, requestOptions: RequestOptions = {} ): Promise<void> {
+    public async SaveAssignment(promotionAssignment: PromotionAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(promotionAssignment: PromotionAssignment,requestOptions?: RequestOptions ): Promise<void>;
+    public async SaveAssignment(promotionAssignment: PromotionAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/promotions/assignments`, { ...requestOptions, data: promotionAssignment, impersonating, params: {   } } )

@@ -38,7 +38,9 @@ class Incrementors {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TIncrementor extends Incrementor>( listOptions: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIncrementor>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Incrementor>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Incrementor>>>;
+    public async List<TIncrementor extends Incrementor>(listOptions?: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TIncrementor>>>;
+    public async List<TIncrementor extends Incrementor>(listOptions: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIncrementor>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/incrementors`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -58,7 +60,9 @@ class Incrementors {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>> {
+    public async Create(incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
+    public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;
+    public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/incrementors`, { ...requestOptions, data: incrementor, impersonating, params: {   } } )
@@ -78,7 +82,9 @@ class Incrementors {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TIncrementor extends Incrementor>(incrementorID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>> {
+    public async Get(incrementorID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
+    public async Get<TIncrementor extends Incrementor>(incrementorID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;
+    public async Get<TIncrementor extends Incrementor>(incrementorID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/incrementors/${incrementorID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -99,7 +105,9 @@ class Incrementors {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>> {
+    public async Save(incrementorID: string, incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
+    public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;
+    public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/incrementors/${incrementorID}`, { ...requestOptions, data: incrementor, impersonating, params: {   } } )
@@ -119,7 +127,9 @@ class Incrementors {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(incrementorID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(incrementorID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(incrementorID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(incrementorID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/incrementors/${incrementorID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -140,7 +150,9 @@ class Incrementors {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>> {
+    public async Patch(incrementorID: string, incrementor: PartialDeep<Incrementor>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
+    public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;
+    public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/incrementors/${incrementorID}`, { ...requestOptions, data: incrementor, impersonating, params: {   } } )

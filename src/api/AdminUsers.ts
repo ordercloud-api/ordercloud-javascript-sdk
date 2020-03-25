@@ -38,7 +38,9 @@ class AdminUsers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TUser extends User>( listOptions: { search?: string, searchOn?: Searchable<'AdminUsers.List'>, sortBy?: Sortable<'AdminUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'AdminUsers.List'>, sortBy?: Sortable<'AdminUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<User>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<User>>>;
+    public async List<TUser extends User>(listOptions?: { search?: string, searchOn?: Searchable<'AdminUsers.List'>, sortBy?: Sortable<'AdminUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TUser>>>;
+    public async List<TUser extends User>(listOptions: { search?: string, searchOn?: Searchable<'AdminUsers.List'>, sortBy?: Sortable<'AdminUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/adminusers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -58,7 +60,9 @@ class AdminUsers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TUser extends User>(user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
+    public async Create(user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
+    public async Create<TUser extends User>(user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
+    public async Create<TUser extends User>(user: User,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/adminusers`, { ...requestOptions, data: user, impersonating, params: {   } } )
@@ -78,7 +82,9 @@ class AdminUsers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TUser extends User>(userID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
+    public async Get(userID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
+    public async Get<TUser extends User>(userID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
+    public async Get<TUser extends User>(userID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -99,7 +105,9 @@ class AdminUsers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TUser extends User>(userID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
+    public async Save(userID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
+    public async Save<TUser extends User>(userID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
+    public async Save<TUser extends User>(userID: string, user: User,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/adminusers/${userID}`, { ...requestOptions, data: user, impersonating, params: {   } } )
@@ -119,7 +127,9 @@ class AdminUsers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(userID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(userID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(userID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(userID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/adminusers/${userID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -140,7 +150,9 @@ class AdminUsers {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>> {
+    public async Patch(userID: string, user: PartialDeep<User>, requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
+    public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
+    public async Patch<TUser extends User>(userID: string, user: PartialDeep<User>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/adminusers/${userID}`, { ...requestOptions, data: user, impersonating, params: {   } } )

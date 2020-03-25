@@ -71,7 +71,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TOrder extends Order>(direction: OrderDirection,  listOptions: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'Orders.List'>, sortBy?: Sortable<'Orders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>> {
+    public async List(direction: OrderDirection, listOptions?: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'Orders.List'>, sortBy?: Sortable<'Orders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Order>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Order>>>;
+    public async List<TOrder extends Order>(direction: OrderDirection, listOptions?: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'Orders.List'>, sortBy?: Sortable<'Orders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TOrder>>>;
+    public async List<TOrder extends Order>(direction: OrderDirection, listOptions: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'Orders.List'>, sortBy?: Sortable<'Orders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrder>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -92,7 +94,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TOrder extends Order>(direction: OrderDirection, order: Order, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Create(direction: OrderDirection, order: Order,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Create<TOrder extends Order>(direction: OrderDirection, order: Order,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Create<TOrder extends Order>(direction: OrderDirection, order: Order,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}`, { ...requestOptions, data: order, impersonating, params: {   } } )
@@ -113,7 +117,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Get(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Get<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Get<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}/${orderID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -135,7 +141,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TOrder extends Order>(direction: OrderDirection, orderID: string, order: Order, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Save(direction: OrderDirection, orderID: string, order: Order,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Save<TOrder extends Order>(direction: OrderDirection, orderID: string, order: Order,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Save<TOrder extends Order>(direction: OrderDirection, orderID: string, order: Order,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/orders/${direction}/${orderID}`, { ...requestOptions, data: order, impersonating, params: {   } } )
@@ -156,7 +164,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/orders/${direction}/${orderID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -178,7 +188,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TOrder extends Order>(direction: OrderDirection, orderID: string, order: PartialDeep<Order>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Patch(direction: OrderDirection, orderID: string, order: PartialDeep<Order>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Patch<TOrder extends Order>(direction: OrderDirection, orderID: string, order: PartialDeep<Order>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Patch<TOrder extends Order>(direction: OrderDirection, orderID: string, order: PartialDeep<Order>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}`, { ...requestOptions, data: order, impersonating, params: {   } } )
@@ -205,7 +217,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListApprovals<TOrderApproval extends OrderApproval>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListApprovals'>, sortBy?: Sortable<'Orders.ListApprovals'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderApproval>>> {
+    public async ListApprovals(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListApprovals'>, sortBy?: Sortable<'Orders.ListApprovals'>, page?: number, pageSize?: number, filters?: Filters<Required<OrderApproval>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<OrderApproval>>>;
+    public async ListApprovals<TOrderApproval extends OrderApproval>(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListApprovals'>, sortBy?: Sortable<'Orders.ListApprovals'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TOrderApproval>>>;
+    public async ListApprovals<TOrderApproval extends OrderApproval>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Orders.ListApprovals'>, sortBy?: Sortable<'Orders.ListApprovals'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderApproval>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderApproval>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}/${orderID}/approvals`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -227,7 +241,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Approve<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Approve(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Approve<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Approve<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/approve`, { ...requestOptions, data: orderApprovalInfo, impersonating, params: {   } } )
@@ -249,7 +265,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SetBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async SetBillingAddress(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async SetBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async SetBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/orders/${direction}/${orderID}/billto`, { ...requestOptions, data: address, impersonating, params: {   } } )
@@ -271,7 +289,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async PatchBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async PatchBillingAddress(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async PatchBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async PatchBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}/billto`, { ...requestOptions, data: address, impersonating, params: {   } } )
@@ -292,7 +312,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Cancel<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Cancel(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Cancel<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Cancel<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/cancel`, { ...requestOptions, impersonating, params: {   } } )
@@ -313,7 +335,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Complete<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Complete(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Complete<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Complete<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/complete`, { ...requestOptions, impersonating, params: {   } } )
@@ -335,7 +359,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Decline<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Decline(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Decline<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Decline<TOrder extends Order>(direction: OrderDirection, orderID: string, orderApprovalInfo: OrderApprovalInfo,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/decline`, { ...requestOptions, data: orderApprovalInfo, impersonating, params: {   } } )
@@ -362,7 +388,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListEligibleApprovers<TUser extends User>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListEligibleApprovers'>, sortBy?: Sortable<'Orders.ListEligibleApprovers'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>> {
+    public async ListEligibleApprovers(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListEligibleApprovers'>, sortBy?: Sortable<'Orders.ListEligibleApprovers'>, page?: number, pageSize?: number, filters?: Filters<Required<User>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<User>>>;
+    public async ListEligibleApprovers<TUser extends User>(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListEligibleApprovers'>, sortBy?: Sortable<'Orders.ListEligibleApprovers'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TUser>>>;
+    public async ListEligibleApprovers<TUser extends User>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Orders.ListEligibleApprovers'>, sortBy?: Sortable<'Orders.ListEligibleApprovers'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}/${orderID}/eligibleapprovers`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -383,7 +411,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Forward<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>> {
+    public async Forward(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderSplitResult>>;
+    public async Forward<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderSplitResult>>;
+    public async Forward<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/forward`, { ...requestOptions, impersonating, params: {   } } )
@@ -405,7 +435,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async PatchFromUser<TOrder extends Order>(direction: OrderDirection, orderID: string, user: User, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async PatchFromUser(direction: OrderDirection, orderID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async PatchFromUser<TOrder extends Order>(direction: OrderDirection, orderID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async PatchFromUser<TOrder extends Order>(direction: OrderDirection, orderID: string, user: User,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}/fromuser`, { ...requestOptions, data: user, impersonating, params: {   } } )
@@ -432,7 +464,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListPromotions'>, sortBy?: Sortable<'Orders.ListPromotions'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderPromotion>>> {
+    public async ListPromotions(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListPromotions'>, sortBy?: Sortable<'Orders.ListPromotions'>, page?: number, pageSize?: number, filters?: Filters<Required<OrderPromotion>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<OrderPromotion>>>;
+    public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListPromotions'>, sortBy?: Sortable<'Orders.ListPromotions'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TOrderPromotion>>>;
+    public async ListPromotions<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Orders.ListPromotions'>, sortBy?: Sortable<'Orders.ListPromotions'>, page?: number, pageSize?: number, filters?: Filters<Required<TOrderPromotion>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderPromotion>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}/${orderID}/promotions`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -454,7 +488,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async AddPromotion<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string, promoCode: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderPromotion>> {
+    public async AddPromotion(direction: OrderDirection, orderID: string, promoCode: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderPromotion>>;
+    public async AddPromotion<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string, promoCode: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderPromotion>>;
+    public async AddPromotion<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string, promoCode: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderPromotion>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { ...requestOptions, impersonating, params: {   } } )
@@ -476,7 +512,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async RemovePromotion<TOrder extends Order>(direction: OrderDirection, orderID: string, promoCode: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async RemovePromotion(direction: OrderDirection, orderID: string, promoCode: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async RemovePromotion<TOrder extends Order>(direction: OrderDirection, orderID: string, promoCode: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async RemovePromotion<TOrder extends Order>(direction: OrderDirection, orderID: string, promoCode: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { ...requestOptions, impersonating, params: {   } } )
@@ -498,7 +536,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Ship<TOrder extends Order>(direction: OrderDirection, orderID: string, shipment: Shipment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Ship(direction: OrderDirection, orderID: string, shipment: Shipment,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Ship<TOrder extends Order>(direction: OrderDirection, orderID: string, shipment: Shipment,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Ship<TOrder extends Order>(direction: OrderDirection, orderID: string, shipment: Shipment,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/ship`, { ...requestOptions, data: shipment, impersonating, params: {   } } )
@@ -525,7 +565,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListShipments<TShipment extends Shipment>(direction: OrderDirection, orderID: string,  listOptions: { search?: string, searchOn?: Searchable<'Orders.ListShipments'>, sortBy?: Sortable<'Orders.ListShipments'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipment>>> {
+    public async ListShipments(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListShipments'>, sortBy?: Sortable<'Orders.ListShipments'>, page?: number, pageSize?: number, filters?: Filters<Required<Shipment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Shipment>>>;
+    public async ListShipments<TShipment extends Shipment>(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Orders.ListShipments'>, sortBy?: Sortable<'Orders.ListShipments'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TShipment>>>;
+    public async ListShipments<TShipment extends Shipment>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Orders.ListShipments'>, sortBy?: Sortable<'Orders.ListShipments'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}/${orderID}/shipments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -547,7 +589,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SetShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async SetShippingAddress(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async SetShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async SetShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/orders/${direction}/${orderID}/shipto`, { ...requestOptions, data: address, impersonating, params: {   } } )
@@ -569,7 +613,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async PatchShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async PatchShippingAddress(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async PatchShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async PatchShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}/shipto`, { ...requestOptions, data: address, impersonating, params: {   } } )
@@ -590,7 +636,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Split<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>> {
+    public async Split(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderSplitResult>>;
+    public async Split<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderSplitResult>>;
+    public async Split<TOrderSplitResult extends OrderSplitResult>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSplitResult>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/split`, { ...requestOptions, impersonating, params: {   } } )
@@ -611,7 +659,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Submit<TOrder extends Order>(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>> {
+    public async Submit(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Order>>;
+    public async Submit<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrder>>;
+    public async Submit<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/submit`, { ...requestOptions, impersonating, params: {   } } )
@@ -632,7 +682,9 @@ class Orders {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Validate(direction: OrderDirection, orderID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Validate(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Validate(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Validate(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/validate`, { ...requestOptions, impersonating, params: {   } } )

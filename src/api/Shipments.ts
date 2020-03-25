@@ -44,7 +44,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async List<TShipment extends Shipment>( listOptions: { orderID?: string, search?: string, searchOn?: Searchable<'Shipments.List'>, sortBy?: Sortable<'Shipments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipment>>> {
+    public async List(listOptions?: { orderID?: string, search?: string, searchOn?: Searchable<'Shipments.List'>, sortBy?: Sortable<'Shipments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Shipment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Shipment>>>;
+    public async List<TShipment extends Shipment>(listOptions?: { orderID?: string, search?: string, searchOn?: Searchable<'Shipments.List'>, sortBy?: Sortable<'Shipments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TShipment>>>;
+    public async List<TShipment extends Shipment>(listOptions: { orderID?: string, search?: string, searchOn?: Searchable<'Shipments.List'>, sortBy?: Sortable<'Shipments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/shipments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -64,7 +66,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Create<TShipment extends Shipment>(shipment: Shipment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>> {
+    public async Create(shipment: Shipment,requestOptions?: RequestOptions ): Promise<RequiredDeep<Shipment>>;
+    public async Create<TShipment extends Shipment>(shipment: Shipment,requestOptions?: RequestOptions ): Promise<RequiredDeep<TShipment>>;
+    public async Create<TShipment extends Shipment>(shipment: Shipment,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/shipments`, { ...requestOptions, data: shipment, impersonating, params: {   } } )
@@ -84,7 +88,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Get<TShipment extends Shipment>(shipmentID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>> {
+    public async Get(shipmentID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Shipment>>;
+    public async Get<TShipment extends Shipment>(shipmentID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TShipment>>;
+    public async Get<TShipment extends Shipment>(shipmentID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/shipments/${shipmentID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -105,7 +111,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Save<TShipment extends Shipment>(shipmentID: string, shipment: Shipment, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>> {
+    public async Save(shipmentID: string, shipment: Shipment,requestOptions?: RequestOptions ): Promise<RequiredDeep<Shipment>>;
+    public async Save<TShipment extends Shipment>(shipmentID: string, shipment: Shipment,requestOptions?: RequestOptions ): Promise<RequiredDeep<TShipment>>;
+    public async Save<TShipment extends Shipment>(shipmentID: string, shipment: Shipment,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/shipments/${shipmentID}`, { ...requestOptions, data: shipment, impersonating, params: {   } } )
@@ -125,7 +133,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Delete(shipmentID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async Delete(shipmentID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(shipmentID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(shipmentID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/shipments/${shipmentID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -146,7 +156,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async Patch<TShipment extends Shipment>(shipmentID: string, shipment: PartialDeep<Shipment>,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>> {
+    public async Patch(shipmentID: string, shipment: PartialDeep<Shipment>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Shipment>>;
+    public async Patch<TShipment extends Shipment>(shipmentID: string, shipment: PartialDeep<Shipment>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TShipment>>;
+    public async Patch<TShipment extends Shipment>(shipmentID: string, shipment: PartialDeep<Shipment>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/shipments/${shipmentID}`, { ...requestOptions, data: shipment, impersonating, params: {   } } )
@@ -172,7 +184,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string,  listOptions: { search?: string, searchOn?: Searchable<'Shipments.ListItems'>, sortBy?: Sortable<'Shipments.ListItems'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>> {
+    public async ListItems(shipmentID: string, listOptions?: { search?: string, searchOn?: Searchable<'Shipments.ListItems'>, sortBy?: Sortable<'Shipments.ListItems'>, page?: number, pageSize?: number, filters?: Filters<Required<ShipmentItem>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ShipmentItem>>>;
+    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string, listOptions?: { search?: string, searchOn?: Searchable<'Shipments.ListItems'>, sortBy?: Sortable<'Shipments.ListItems'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TShipmentItem>>>;
+    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string, listOptions: { search?: string, searchOn?: Searchable<'Shipments.ListItems'>, sortBy?: Sortable<'Shipments.ListItems'>, page?: number, pageSize?: number, filters?: Filters<Required<TShipmentItem>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/shipments/${shipmentID}/items`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
@@ -193,7 +207,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async SaveItem<TShipmentItem extends ShipmentItem>(shipmentID: string, shipmentItem: ShipmentItem, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipmentItem>> {
+    public async SaveItem(shipmentID: string, shipmentItem: ShipmentItem,requestOptions?: RequestOptions ): Promise<RequiredDeep<ShipmentItem>>;
+    public async SaveItem<TShipmentItem extends ShipmentItem>(shipmentID: string, shipmentItem: ShipmentItem,requestOptions?: RequestOptions ): Promise<RequiredDeep<TShipmentItem>>;
+    public async SaveItem<TShipmentItem extends ShipmentItem>(shipmentID: string, shipmentItem: ShipmentItem,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipmentItem>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/shipments/${shipmentID}/items`, { ...requestOptions, data: shipmentItem, impersonating, params: {   } } )
@@ -215,7 +231,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async GetItem<TShipmentItem extends ShipmentItem>(shipmentID: string, orderID: string, lineItemID: string,  requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipmentItem>> {
+    public async GetItem(shipmentID: string, orderID: string, lineItemID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ShipmentItem>>;
+    public async GetItem<TShipmentItem extends ShipmentItem>(shipmentID: string, orderID: string, lineItemID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TShipmentItem>>;
+    public async GetItem<TShipmentItem extends ShipmentItem>(shipmentID: string, orderID: string, lineItemID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipmentItem>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/shipments/${shipmentID}/items/${orderID}/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
@@ -237,7 +255,9 @@ class Shipments {
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     */
-    public async DeleteItem(shipmentID: string, orderID: string, lineItemID: string,  requestOptions: RequestOptions = {} ): Promise<void> {
+    public async DeleteItem(shipmentID: string, orderID: string, lineItemID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteItem(shipmentID: string, orderID: string, lineItemID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async DeleteItem(shipmentID: string, orderID: string, lineItemID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/shipments/${shipmentID}/items/${orderID}/${lineItemID}`, { ...requestOptions, impersonating, params: {   } } )
