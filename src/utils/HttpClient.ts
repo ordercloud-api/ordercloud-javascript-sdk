@@ -69,11 +69,22 @@ class HttpClient {
     config
   ) {
     const requestConfig = await this._buildRequestConfig(config)
-    const response = await axios[verb as string](
-      `${Configuration.Get().baseApiUrl}${path}`,
-      requestConfig
-    )
-    return response.data
+    if (verb === 'put' || verb === 'post' || verb === 'patch') {
+      const requestBody = requestConfig.data
+      delete requestConfig.data
+      const response = await axios[verb as string](
+        `${Configuration.Get().baseApiUrl}${path}`,
+        requestBody,
+        requestConfig
+      )
+      return response.data
+    } else {
+      const response = await axios[verb as string](
+        `${Configuration.Get().baseApiUrl}${path}`,
+        requestConfig
+      )
+      return response.data
+    }
   }
 
   // sets the token on every outgoing request, will attempt to

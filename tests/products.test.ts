@@ -18,11 +18,10 @@ test('can create product', async () => {
   }
   await Products.Create(product)
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  expect(mockAxios.post).toHaveBeenCalledWith(`${apiUrl}/products`, {
+  expect(mockAxios.post).toHaveBeenCalledWith(`${apiUrl}/products`, product, {
     params: {},
     paramsSerializer: expect.any(Function),
     timeout: 10000,
-    data: product,
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${validToken}`,
@@ -40,9 +39,9 @@ test('can patch product', async () => {
   expect(mockAxios.patch).toHaveBeenCalledTimes(1)
   expect(mockAxios.patch).toHaveBeenCalledWith(
     `${apiUrl}/products/${productID}`,
+    partialProduct,
     {
       params: {},
-      data: partialProduct,
       paramsSerializer: expect.any(Function),
       timeout: 10000,
       headers: {
@@ -64,9 +63,9 @@ test('can update product', async () => {
   expect(mockAxios.put).toHaveBeenCalledTimes(1)
   expect(mockAxios.put).toHaveBeenCalledWith(
     `${apiUrl}/products/${productID}`,
+    product,
     {
       params: {},
-      data: product,
       paramsSerializer: expect.any(Function),
       timeout: 10000,
       headers: {
