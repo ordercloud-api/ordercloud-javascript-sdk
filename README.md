@@ -201,6 +201,29 @@ Me.ListProducts(null, { accessToken: token3 })
   .then(user3ProductList => console.log(user3ProductList))
 ```
 
+## Configuration
+
+The [`Configuration`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/configuration) service can be used to set sdk level [options](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/sdkconfiguration).
+
+Simply set the options you need to override and the SDK will merge it with the default options object.
+
+```javascript
+import { Configuration } from 'ordercloud-javascript-sdk';
+
+Configuration.Set({
+  timeoutInMilliseconds: 20 * 1000
+})
+```
+
+Similarly, you can see what the current options are by using the getter.
+
+```javascript
+import { Configuration } from 'ordercloud-javascript-sdk';
+
+const configuration = Configuration.Get();
+console.log(configuration); // the current sdk configuration
+```
+
 ## Handling Errors 🐛
 
 The SDK uses a custom error ([`OrderCloudError`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror)) to provide rich and useful information in the case of an error.
@@ -229,6 +252,30 @@ Products.Get('my-product')
 
 You can use [axios interceptors](https://github.com/axios/axios#interceptors) to intercept a request before it goes out to the API or to intercept a response before it gets handled by the SDK. This enables you to log, rewrite, or even retry calls.
 
+The SDK does not use a custom axios instance, so you can set up your interceptors right off of axios.
+
+```javascript
+// Add a request interceptor
+axios.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    return config;
+  }, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+  });
+
+// Add a response interceptor
+axios.interceptors.response.use(function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  }, function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+  });
+```
+
 ## Cancelling Requests
 
 In addition to `requestOptions.accessToken` the sdk provides `requestOptions.cancelToken` which enables [axios request cancellation](https://github.com/axios/axios#cancellation). This option is useful for cleaning up outstanding requests when changes in your user experience no longer require the data requested. For instance, you could use the cancel token to clean up outstanding requests [when your react component unmounts](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup).
@@ -254,11 +301,11 @@ signal.cancel('This request was cancelled!')
 
 ## Typescript Support
 
-While Typescript is not required to use this project (we compile it down to javascript for you), it does mean there are some added benefits for our Typescript users. You will need a minimum of typescript version 3.5 for all features to work correctly.
+While Typescript is not required to use this project (we compile it down to ES5 javascript for you), it does mean there are some added benefits for our Typescript users. You will need a minimum of typescript version 3.5 for all features to work correctly.
 
 ### Understanding OrderCloud's models
 
-By default properties of ordercloud models are required if their Create or Save operation requires them. For example the [`LineItem` model](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/lineitem) has the properties `ProductID` and `Quantity` required. This is important to know if you need to define an object by type before using it.
+By default, properties of ordercloud models are required if their Create or Save operation requires them. For example the [`LineItem` model](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/lineitem) has the properties `ProductID` and `Quantity` required. This is important to know if you need to define an object by type before using it.
 
 ```typescript
 import { LineItems, LineItem } from 'ordercloud-javascript-sdk';
@@ -270,7 +317,7 @@ const lineItem: LineItem = {
 LineItems.Create('Outgoing', 'my-order-id', lineItem)
 ```
 
-This works as expected and ensures a create or save always has the correct required parameters. However, if for example you need to perform a patch operation (partial update), then you want all of the fields to be optional. To accomplish this you should use Typescript's built-in utility type [`Partial<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt)
+This works as expected and ensures a create or save always has the correct required parameters. However, if for example you need to perform a Patch operation (partial update), then you want all of the fields to be optional. To accomplish this you should use Typescript's built-in utility type [`Partial<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt)
 
 ```typescript
 import { LineItems, LineItem } from 'ordercloud-javascript-sdk';
