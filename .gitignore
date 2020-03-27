@@ -5,3 +5,4 @@ templateData.json
 yarn-error.log
 codegen/handlebars-extensions.js
 codegen/hooks.js
+openapi.json

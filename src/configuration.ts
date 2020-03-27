@@ -4,7 +4,7 @@ class Configuration {
   private config: SdkConfiguration = {
     baseApiUrl: 'https://api.ordercloud.io/v1',
     baseAuthUrl: 'https://auth.ordercloud.io/oauth/token',
-    timeoutInMilliseconds: 10 * 1000,
+    timeoutInMilliseconds: 60 * 1000, // 60 seconds by default
     clientID: null,
     cookieOptions: {
       samesite: 'lax', // browser default
