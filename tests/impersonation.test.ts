@@ -23,7 +23,7 @@ test('should use impersonation token if call As method', async () => {
     {
       params: {},
       paramsSerializer: expect.any(Function),
-      timeout: 10000,
+      timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${impersonationToken}`,
@@ -41,7 +41,7 @@ test('should use passed in token if defined', async () => {
     {
       params: {},
       paramsSerializer: expect.any(Function),
-      timeout: 10000,
+      timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
@@ -61,7 +61,7 @@ test('should prioritize passed in token', async () => {
     {
       params: {},
       paramsSerializer: expect.any(Function),
-      timeout: 10000,
+      timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,

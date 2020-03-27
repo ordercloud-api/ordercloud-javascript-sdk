@@ -40,6 +40,7 @@ class PriceSchedules {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<PriceSchedule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<PriceSchedule>>>;
     public async List<TPriceSchedule extends PriceSchedule>(listOptions?: { search?: string, searchOn?: Searchable<'PriceSchedules.List'>, sortBy?: Sortable<'PriceSchedules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPriceSchedule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPriceSchedule>>>;
@@ -62,6 +63,7 @@ class PriceSchedules {
     * @param priceSchedule Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
     public async Create<TPriceSchedule extends PriceSchedule>(priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
@@ -84,6 +86,7 @@ class PriceSchedules {
     * @param priceScheduleID ID of the price schedule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
     public async Get<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
@@ -107,6 +110,7 @@ class PriceSchedules {
     * @param priceSchedule Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(priceScheduleID: string, priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
     public async Save<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PriceSchedule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
@@ -129,6 +133,7 @@ class PriceSchedules {
     * @param priceScheduleID ID of the price schedule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(priceScheduleID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -152,6 +157,7 @@ class PriceSchedules {
     * @param priceSchedule 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
     public async Patch<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceSchedule: PartialDeep<PriceSchedule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
@@ -175,6 +181,7 @@ class PriceSchedules {
     * @param priceBreak Required fields: Quantity, Price
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SavePriceBreak(priceScheduleID: string, priceBreak: PriceBreak,requestOptions?: RequestOptions ): Promise<RequiredDeep<PriceSchedule>>;
     public async SavePriceBreak<TPriceSchedule extends PriceSchedule>(priceScheduleID: string, priceBreak: PriceBreak,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPriceSchedule>>;
@@ -198,6 +205,7 @@ class PriceSchedules {
     * @param listOptions.quantity Quantity of the price schedule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeletePriceBreak(priceScheduleID: string, listOptions?: { quantity?: number }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeletePriceBreak(priceScheduleID: string, listOptions?: { quantity?: number }, requestOptions?: RequestOptions ): Promise<void>;

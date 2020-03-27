@@ -37,6 +37,7 @@ class ImpersonationConfigs {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'ImpersonationConfigs.List'>, sortBy?: Sortable<'ImpersonationConfigs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ImpersonationConfig>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ImpersonationConfig>>>;
     public async List<TImpersonationConfig extends ImpersonationConfig>(listOptions?: { search?: string, searchOn?: Searchable<'ImpersonationConfigs.List'>, sortBy?: Sortable<'ImpersonationConfigs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TImpersonationConfig>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TImpersonationConfig>>>;
@@ -59,6 +60,7 @@ class ImpersonationConfigs {
     * @param impersonationConfig Required fields: BuyerID, SecurityProfileID, ClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
     public async Create<TImpersonationConfig extends ImpersonationConfig>(impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;
@@ -81,6 +83,7 @@ class ImpersonationConfigs {
     * @param impersonationConfigID ID of the impersonation config.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
     public async Get<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;
@@ -104,6 +107,7 @@ class ImpersonationConfigs {
     * @param impersonationConfig Required fields: BuyerID, SecurityProfileID, ClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(impersonationConfigID: string, impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
     public async Save<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: ImpersonationConfig,requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;
@@ -126,6 +130,7 @@ class ImpersonationConfigs {
     * @param impersonationConfigID ID of the impersonation config.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(impersonationConfigID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -149,6 +154,7 @@ class ImpersonationConfigs {
     * @param impersonationConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ImpersonationConfig>>;
     public async Patch<TImpersonationConfig extends ImpersonationConfig>(impersonationConfigID: string, impersonationConfig: PartialDeep<ImpersonationConfig>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TImpersonationConfig>>;

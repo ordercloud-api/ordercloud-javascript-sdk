@@ -43,6 +43,7 @@ class CreditCards {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<CreditCard>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CreditCard>>>;
     public async List<TCreditCard extends CreditCard>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCreditCard>>>;
@@ -66,6 +67,7 @@ class CreditCards {
     * @param creditCard 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(buyerID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
     public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
@@ -89,6 +91,7 @@ class CreditCards {
     * @param creditCardID ID of the credit card.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
     public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
@@ -113,6 +116,7 @@ class CreditCards {
     * @param creditCard 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
     public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
@@ -136,6 +140,7 @@ class CreditCards {
     * @param creditCardID ID of the credit card.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -160,6 +165,7 @@ class CreditCards {
     * @param creditCard 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
     public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
@@ -185,6 +191,7 @@ class CreditCards {
     * @param listOptions.userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -213,6 +220,7 @@ class CreditCards {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(buyerID: string, listOptions?: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CreditCardAssignment>>>;
     public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string, listOptions?: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>>;
@@ -236,6 +244,7 @@ class CreditCards {
     * @param creditCardAssignment Required fields: CreditCardID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions?: RequestOptions ): Promise<void>;

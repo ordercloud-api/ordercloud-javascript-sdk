@@ -46,8 +46,8 @@
     "test:browser": "jest --config tests/config/browser.config.js",
     "test:server": "jest --config tests/config/server.config.js",
     "beautify": "prettier --write codegen/**/*.ts --loglevel silent",
-    "generate-sdk": "npm run buildCodegen && oc-codegen -t codegen/templates -o ./src -b codegen/handlebars-extensions -k codegen/hooks.js -c -i openapi.json",
-    "debug-template-data": "npm run buildCodegen && oc-codegen -d -k codegen/hooks.js -i openapi.json > templateData.json",
+    "generate-sdk": "npm run buildCodegen && oc-codegen -t codegen/templates -o ./src -b codegen/handlebars-extensions -k codegen/hooks.js -c",
+    "debug-template-data": "npm run buildCodegen && oc-codegen -d -k codegen/hooks.js > templateData.json",
     "publish-please": "publish-please",
     "prepublishOnly": "publish-please guard",
     "buildCodegen": "tsc --p codegen/tsconfig.json"

@@ -45,6 +45,7 @@ class Catalogs {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Catalog>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Catalog>>>;
     public async List<TCatalog extends Catalog>(listOptions?: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCatalog>>>;
@@ -67,6 +68,7 @@ class Catalogs {
     * @param catalog Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
     public async Create<TCatalog extends Catalog>(catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
@@ -89,6 +91,7 @@ class Catalogs {
     * @param catalogID ID of the catalog.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(catalogID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
     public async Get<TCatalog extends Catalog>(catalogID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
@@ -112,6 +115,7 @@ class Catalogs {
     * @param catalog Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(catalogID: string, catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
     public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
@@ -134,6 +138,7 @@ class Catalogs {
     * @param catalogID ID of the catalog.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(catalogID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(catalogID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -157,6 +162,7 @@ class Catalogs {
     * @param catalog 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
     public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
@@ -180,6 +186,7 @@ class Catalogs {
     * @param listOptions.buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(catalogID: string, listOptions?: { buyerID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(catalogID: string, listOptions?: { buyerID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -203,6 +210,7 @@ class Catalogs {
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -228,6 +236,7 @@ class Catalogs {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(listOptions?: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CatalogAssignment>>>;
     public async ListAssignments<TCatalogAssignment extends CatalogAssignment>(listOptions?: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>>;
@@ -250,6 +259,7 @@ class Catalogs {
     * @param catalogAssignment Required fields: CatalogID, BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
@@ -275,6 +285,7 @@ class Catalogs {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListProductAssignments(listOptions?: { catalogID?: string, productID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ProductCatalogAssignment>>>;
     public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>(listOptions?: { catalogID?: string, productID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>>;
@@ -297,6 +308,7 @@ class Catalogs {
     * @param productCatalogAssignment Required fields: CatalogID, ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;

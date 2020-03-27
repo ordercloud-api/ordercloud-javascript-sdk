@@ -37,6 +37,7 @@ class ProductFacets {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'ProductFacets.List'>, sortBy?: Sortable<'ProductFacets.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ProductFacet>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ProductFacet>>>;
     public async List<TProductFacet extends ProductFacet>(listOptions?: { search?: string, searchOn?: Searchable<'ProductFacets.List'>, sortBy?: Sortable<'ProductFacets.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProductFacet>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TProductFacet>>>;
@@ -59,6 +60,7 @@ class ProductFacets {
     * @param productFacet Required fields: Name, MinCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
     public async Create<TProductFacet extends ProductFacet>(productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;
@@ -81,6 +83,7 @@ class ProductFacets {
     * @param productFacetID ID of the product facet.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(productFacetID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
     public async Get<TProductFacet extends ProductFacet>(productFacetID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;
@@ -104,6 +107,7 @@ class ProductFacets {
     * @param productFacet Required fields: Name, MinCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(productFacetID: string, productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
     public async Save<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: ProductFacet,requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;
@@ -126,6 +130,7 @@ class ProductFacets {
     * @param productFacetID ID of the product facet.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(productFacetID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(productFacetID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -149,6 +154,7 @@ class ProductFacets {
     * @param productFacet 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(productFacetID: string, productFacet: PartialDeep<ProductFacet>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ProductFacet>>;
     public async Patch<TProductFacet extends ProductFacet>(productFacetID: string, productFacet: PartialDeep<ProductFacet>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TProductFacet>>;

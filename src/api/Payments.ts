@@ -42,6 +42,7 @@ class Payments {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Payment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Payment>>>;
     public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPayment>>>;
@@ -66,6 +67,7 @@ class Payments {
     * @param payment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(direction: OrderDirection, orderID: string, payment: Payment,requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
     public async Create<TPayment extends Payment>(direction: OrderDirection, orderID: string, payment: Payment,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
@@ -90,6 +92,7 @@ class Payments {
     * @param paymentID ID of the payment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
     public async Get<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
@@ -114,6 +117,7 @@ class Payments {
     * @param paymentID ID of the payment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -139,6 +143,7 @@ class Payments {
     * @param payment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
     public async Patch<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
@@ -164,6 +169,7 @@ class Payments {
     * @param paymentTransaction Required fields: Type, DateExecuted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async CreateTransaction(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction,requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
     public async CreateTransaction<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
@@ -189,6 +195,7 @@ class Payments {
     * @param transactionID ID of the transaction.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string, requestOptions?: RequestOptions ): Promise<void>;

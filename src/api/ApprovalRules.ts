@@ -38,6 +38,7 @@ class ApprovalRules {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ApprovalRule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ApprovalRule>>>;
     public async List<TApprovalRule extends ApprovalRule>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'ApprovalRules.List'>, sortBy?: Sortable<'ApprovalRules.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApprovalRule>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TApprovalRule>>>;
@@ -61,6 +62,7 @@ class ApprovalRules {
     * @param approvalRule Required fields: ApprovingGroupID, RuleExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(buyerID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
     public async Create<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;
@@ -84,6 +86,7 @@ class ApprovalRules {
     * @param approvalRuleID ID of the approval rule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
     public async Get<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;
@@ -108,6 +111,7 @@ class ApprovalRules {
     * @param approvalRule Required fields: ApprovingGroupID, RuleExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
     public async Save<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: ApprovalRule,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;
@@ -131,6 +135,7 @@ class ApprovalRules {
     * @param approvalRuleID ID of the approval rule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(buyerID: string, approvalRuleID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -155,6 +160,7 @@ class ApprovalRules {
     * @param approvalRule 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApprovalRule>>;
     public async Patch<TApprovalRule extends ApprovalRule>(buyerID: string, approvalRuleID: string, approvalRule: PartialDeep<ApprovalRule>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApprovalRule>>;

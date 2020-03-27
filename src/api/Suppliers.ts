@@ -37,6 +37,7 @@ class Suppliers {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'Suppliers.List'>, sortBy?: Sortable<'Suppliers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Supplier>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Supplier>>>;
     public async List<TSupplier extends Supplier>(listOptions?: { search?: string, searchOn?: Searchable<'Suppliers.List'>, sortBy?: Sortable<'Suppliers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSupplier>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSupplier>>>;
@@ -59,6 +60,7 @@ class Suppliers {
     * @param supplier Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(supplier: Supplier,requestOptions?: RequestOptions ): Promise<RequiredDeep<Supplier>>;
     public async Create<TSupplier extends Supplier>(supplier: Supplier,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSupplier>>;
@@ -81,6 +83,7 @@ class Suppliers {
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(supplierID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Supplier>>;
     public async Get<TSupplier extends Supplier>(supplierID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSupplier>>;
@@ -104,6 +107,7 @@ class Suppliers {
     * @param supplier Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(supplierID: string, supplier: Supplier,requestOptions?: RequestOptions ): Promise<RequiredDeep<Supplier>>;
     public async Save<TSupplier extends Supplier>(supplierID: string, supplier: Supplier,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSupplier>>;
@@ -126,6 +130,7 @@ class Suppliers {
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(supplierID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(supplierID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -149,6 +154,7 @@ class Suppliers {
     * @param supplier 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(supplierID: string, supplier: PartialDeep<Supplier>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Supplier>>;
     public async Patch<TSupplier extends Supplier>(supplierID: string, supplier: PartialDeep<Supplier>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSupplier>>;

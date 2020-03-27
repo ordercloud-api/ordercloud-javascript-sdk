@@ -37,6 +37,7 @@ class Webhooks {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'Webhooks.List'>, sortBy?: Sortable<'Webhooks.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Webhook>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Webhook>>>;
     public async List<TWebhook extends Webhook>(listOptions?: { search?: string, searchOn?: Searchable<'Webhooks.List'>, sortBy?: Sortable<'Webhooks.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TWebhook>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TWebhook>>>;
@@ -59,6 +60,7 @@ class Webhooks {
     * @param webhook Required fields: Name, Url, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
     public async Create<TWebhook extends Webhook>(webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;
@@ -81,6 +83,7 @@ class Webhooks {
     * @param webhookID ID of the webhook.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(webhookID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
     public async Get<TWebhook extends Webhook>(webhookID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;
@@ -104,6 +107,7 @@ class Webhooks {
     * @param webhook Required fields: Name, Url, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(webhookID: string, webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
     public async Save<TWebhook extends Webhook>(webhookID: string, webhook: Webhook,requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;
@@ -126,6 +130,7 @@ class Webhooks {
     * @param webhookID ID of the webhook.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(webhookID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(webhookID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -149,6 +154,7 @@ class Webhooks {
     * @param webhook 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(webhookID: string, webhook: PartialDeep<Webhook>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Webhook>>;
     public async Patch<TWebhook extends Webhook>(webhookID: string, webhook: PartialDeep<Webhook>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TWebhook>>;

@@ -42,6 +42,7 @@ class ApiClients {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<ApiClient>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ApiClient>>>;
     public async List<TApiClient extends ApiClient>(listOptions?: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TApiClient>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TApiClient>>>;
@@ -64,6 +65,7 @@ class ApiClients {
     * @param apiClient Required fields: AccessTokenDuration, AppName
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
     public async Create<TApiClient extends ApiClient>(apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
@@ -86,6 +88,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(apiClientID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
     public async Get<TApiClient extends ApiClient>(apiClientID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
@@ -109,6 +112,7 @@ class ApiClients {
     * @param apiClient Required fields: AccessTokenDuration, AppName
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(apiClientID: string, apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
     public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient,requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
@@ -131,6 +135,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(apiClientID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(apiClientID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -154,6 +159,7 @@ class ApiClients {
     * @param apiClient 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(apiClientID: string, apiClient: PartialDeep<ApiClient>, requestOptions?: RequestOptions ): Promise<RequiredDeep<ApiClient>>;
     public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TApiClient>>;
@@ -180,6 +186,7 @@ class ApiClients {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(listOptions?: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ApiClientAssignment>>>;
     public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>(listOptions?: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>>;
@@ -202,6 +209,7 @@ class ApiClients {
     * @param apiClientAssignment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(apiClientAssignment: ApiClientAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(apiClientAssignment: ApiClientAssignment,requestOptions?: RequestOptions ): Promise<void>;
@@ -225,6 +233,7 @@ class ApiClients {
     * @param buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteBuyerAssignment(apiClientID: string, buyerID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteBuyerAssignment(apiClientID: string, buyerID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -248,6 +257,7 @@ class ApiClients {
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteSupplierAssignment(apiClientID: string, supplierID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteSupplierAssignment(apiClientID: string, supplierID: string, requestOptions?: RequestOptions ): Promise<void>;

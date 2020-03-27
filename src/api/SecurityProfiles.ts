@@ -43,6 +43,7 @@ class SecurityProfiles {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<SecurityProfile>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SecurityProfile>>>;
     public async List<TSecurityProfile extends SecurityProfile>(listOptions?: { search?: string, searchOn?: Searchable<'SecurityProfiles.List'>, sortBy?: Sortable<'SecurityProfiles.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSecurityProfile>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSecurityProfile>>>;
@@ -65,6 +66,7 @@ class SecurityProfiles {
     * @param securityProfile Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
     public async Create<TSecurityProfile extends SecurityProfile>(securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
@@ -87,6 +89,7 @@ class SecurityProfiles {
     * @param securityProfileID ID of the security profile.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(securityProfileID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
     public async Get<TSecurityProfile extends SecurityProfile>(securityProfileID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
@@ -110,6 +113,7 @@ class SecurityProfiles {
     * @param securityProfile Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(securityProfileID: string, securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
     public async Save<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: SecurityProfile,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
@@ -132,6 +136,7 @@ class SecurityProfiles {
     * @param securityProfileID ID of the security profile.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(securityProfileID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(securityProfileID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -155,6 +160,7 @@ class SecurityProfiles {
     * @param securityProfile 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>, requestOptions?: RequestOptions ): Promise<RequiredDeep<SecurityProfile>>;
     public async Patch<TSecurityProfile extends SecurityProfile>(securityProfileID: string, securityProfile: PartialDeep<SecurityProfile>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSecurityProfile>>;
@@ -181,6 +187,7 @@ class SecurityProfiles {
     * @param listOptions.supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(securityProfileID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(securityProfileID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -211,6 +218,7 @@ class SecurityProfiles {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(listOptions?: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SecurityProfileAssignment>>>;
     public async ListAssignments<TSecurityProfileAssignment extends SecurityProfileAssignment>(listOptions?: { buyerID?: string, supplierID?: string, securityProfileID?: string, userID?: string, userGroupID?: string, commerceRole?: CommerceRole, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSecurityProfileAssignment>>>;
@@ -233,6 +241,7 @@ class SecurityProfiles {
     * @param securityProfileAssignment Required fields: SecurityProfileID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(securityProfileAssignment: SecurityProfileAssignment,requestOptions?: RequestOptions ): Promise<void>;

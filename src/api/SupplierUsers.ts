@@ -42,6 +42,7 @@ class SupplierUsers {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(supplierID: string, listOptions?: { userGroupID?: string, search?: string, searchOn?: Searchable<'SupplierUsers.List'>, sortBy?: Sortable<'SupplierUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<User>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<User>>>;
     public async List<TUser extends User>(supplierID: string, listOptions?: { userGroupID?: string, search?: string, searchOn?: Searchable<'SupplierUsers.List'>, sortBy?: Sortable<'SupplierUsers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TUser>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TUser>>>;
@@ -65,6 +66,7 @@ class SupplierUsers {
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(supplierID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
     public async Create<TUser extends User>(supplierID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
@@ -88,6 +90,7 @@ class SupplierUsers {
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(supplierID: string, userID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
     public async Get<TUser extends User>(supplierID: string, userID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
@@ -112,6 +115,7 @@ class SupplierUsers {
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(supplierID: string, userID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
     public async Save<TUser extends User>(supplierID: string, userID: string, user: User,requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
@@ -135,6 +139,7 @@ class SupplierUsers {
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(supplierID: string, userID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(supplierID: string, userID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -159,6 +164,7 @@ class SupplierUsers {
     * @param user 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(supplierID: string, userID: string, user: PartialDeep<User>, requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
     public async Patch<TUser extends User>(supplierID: string, userID: string, user: PartialDeep<User>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
@@ -183,6 +189,7 @@ class SupplierUsers {
     * @param impersonateTokenRequest Required fields: ClientID, Roles
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetAccessToken(supplierID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest,requestOptions?: RequestOptions ): Promise<RequiredDeep<AccessToken>>;
     public async GetAccessToken<TAccessToken extends AccessToken>(supplierID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest,requestOptions?: RequestOptions ): Promise<RequiredDeep<TAccessToken>>;

@@ -42,6 +42,7 @@ class Promotions {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'Promotions.List'>, sortBy?: Sortable<'Promotions.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Promotion>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Promotion>>>;
     public async List<TPromotion extends Promotion>(listOptions?: { search?: string, searchOn?: Searchable<'Promotions.List'>, sortBy?: Sortable<'Promotions.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPromotion>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPromotion>>>;
@@ -64,6 +65,7 @@ class Promotions {
     * @param promotion Required fields: Code, EligibleExpression, ValueExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
     public async Create<TPromotion extends Promotion>(promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
@@ -86,6 +88,7 @@ class Promotions {
     * @param promotionID ID of the promotion.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(promotionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
     public async Get<TPromotion extends Promotion>(promotionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
@@ -109,6 +112,7 @@ class Promotions {
     * @param promotion Required fields: Code, EligibleExpression, ValueExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(promotionID: string, promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
     public async Save<TPromotion extends Promotion>(promotionID: string, promotion: Promotion,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
@@ -131,6 +135,7 @@ class Promotions {
     * @param promotionID ID of the promotion.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(promotionID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(promotionID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -154,6 +159,7 @@ class Promotions {
     * @param promotion 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(promotionID: string, promotion: PartialDeep<Promotion>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Promotion>>;
     public async Patch<TPromotion extends Promotion>(promotionID: string, promotion: PartialDeep<Promotion>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPromotion>>;
@@ -179,6 +185,7 @@ class Promotions {
     * @param listOptions.userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(promotionID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(promotionID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -207,6 +214,7 @@ class Promotions {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(listOptions?: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<PromotionAssignment>>>;
     public async ListAssignments<TPromotionAssignment extends PromotionAssignment>(listOptions?: { buyerID?: string, promotionID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPromotionAssignment>>>;
@@ -229,6 +237,7 @@ class Promotions {
     * @param promotionAssignment Required fields: PromotionID, BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(promotionAssignment: PromotionAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(promotionAssignment: PromotionAssignment,requestOptions?: RequestOptions ): Promise<void>;

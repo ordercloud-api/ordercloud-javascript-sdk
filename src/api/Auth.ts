@@ -35,14 +35,17 @@ class Auth {
    * @param password of the user logging in
    * @param client_id of the application the user is logging into
    * @param scope roles being requested - space delimited string or array
+   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async Login(
     username: string,
     password: string,
     clientID: string,
     scope: ApiRole[],
-    options: {
+    requestOptions: {
       cancelToken?: CancelToken
+      requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
@@ -62,7 +65,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-        ...options,
+        ...requestOptions,
       })
       .catch(e => {
         if (e.response) {
@@ -83,6 +86,8 @@ class Auth {
    * @param scope roles being requested - space delimited string or array
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
+   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async ElevatedLogin(
     clientSecret: string,
@@ -90,8 +95,9 @@ class Auth {
     password: string,
     clientID: string,
     scope: ApiRole[],
-    options: {
+    requestOptions: {
       cancelToken?: CancelToken
+      requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
@@ -112,7 +118,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-        ...options,
+        ...requestOptions,
       })
       .catch(e => {
         if (e.response) {
@@ -131,13 +137,16 @@ class Auth {
    * @param scope roles being requested - space delimited string or array
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
+   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async ClientCredentials(
     clientSecret: string,
     clientID: string,
     scope: ApiRole[],
-    options: {
+    requestOptions: {
       cancelToken?: CancelToken
+      requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
@@ -156,7 +165,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-        ...options,
+        ...requestOptions,
       })
       .catch(e => {
         if (e.response) {
@@ -172,14 +181,15 @@ class Auth {
    *
    * @param refreshToken of the application
    * @param clientID of the application the user is logging into
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
+   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async RefreshToken(
     refreshToken: string,
     clientID: string,
-    options: {
+    requestOptions: {
       cancelToken?: CancelToken
+      requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     const body = {
@@ -194,7 +204,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-        ...options,
+        ...requestOptions,
       })
       .catch(e => {
         if (e.response) {
@@ -210,14 +220,15 @@ class Auth {
    *
    * @param clientID of the application the user is logging into
    * @param scope roles being requested - space delimited string or array
-   * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-   * @param reportProgress flag to report request and response progress.
+   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async Anonymous(
     clientID: string,
     scope: ApiRole[],
-    options: {
+    requestOptions: {
       cancelToken?: CancelToken
+      requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
     if (!Array.isArray(scope)) {
@@ -235,7 +246,7 @@ class Auth {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
         },
-        ...options,
+        ...requestOptions,
       })
       .catch(e => {
         if (e.response) {

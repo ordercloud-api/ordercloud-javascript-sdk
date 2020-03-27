@@ -43,6 +43,7 @@ class Addresses {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'Addresses.List'>, sortBy?: Sortable<'Addresses.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Address>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Address>>>;
     public async List<TAddress extends Address>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'Addresses.List'>, sortBy?: Sortable<'Addresses.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TAddress>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TAddress>>>;
@@ -66,6 +67,7 @@ class Addresses {
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(buyerID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<Address>>;
     public async Create<TAddress extends Address>(buyerID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<TAddress>>;
@@ -89,6 +91,7 @@ class Addresses {
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(buyerID: string, addressID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Address>>;
     public async Get<TAddress extends Address>(buyerID: string, addressID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TAddress>>;
@@ -113,6 +116,7 @@ class Addresses {
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(buyerID: string, addressID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<Address>>;
     public async Save<TAddress extends Address>(buyerID: string, addressID: string, address: Address,requestOptions?: RequestOptions ): Promise<RequiredDeep<TAddress>>;
@@ -136,6 +140,7 @@ class Addresses {
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(buyerID: string, addressID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(buyerID: string, addressID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -160,6 +165,7 @@ class Addresses {
     * @param address 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(buyerID: string, addressID: string, address: PartialDeep<Address>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Address>>;
     public async Patch<TAddress extends Address>(buyerID: string, addressID: string, address: PartialDeep<Address>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TAddress>>;
@@ -185,6 +191,7 @@ class Addresses {
     * @param listOptions.userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(buyerID: string, addressID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(buyerID: string, addressID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -215,6 +222,7 @@ class Addresses {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(buyerID: string, listOptions?: { addressID?: string, userID?: string, userGroupID?: string, level?: PartyType, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<AddressAssignment>>>;
     public async ListAssignments<TAddressAssignment extends AddressAssignment>(buyerID: string, listOptions?: { addressID?: string, userID?: string, userGroupID?: string, level?: PartyType, isShipping?: boolean, isBilling?: boolean, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TAddressAssignment>>>;
@@ -238,6 +246,7 @@ class Addresses {
     * @param addressAssignment Required fields: AddressID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(buyerID: string, addressAssignment: AddressAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(buyerID: string, addressAssignment: AddressAssignment,requestOptions?: RequestOptions ): Promise<void>;

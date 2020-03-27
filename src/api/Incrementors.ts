@@ -37,6 +37,7 @@ class Incrementors {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Incrementor>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Incrementor>>>;
     public async List<TIncrementor extends Incrementor>(listOptions?: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIncrementor>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TIncrementor>>>;
@@ -59,6 +60,7 @@ class Incrementors {
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
     public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;
@@ -81,6 +83,7 @@ class Incrementors {
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(incrementorID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
     public async Get<TIncrementor extends Incrementor>(incrementorID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;
@@ -104,6 +107,7 @@ class Incrementors {
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(incrementorID: string, incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
     public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;
@@ -126,6 +130,7 @@ class Incrementors {
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(incrementorID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(incrementorID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -149,6 +154,7 @@ class Incrementors {
     * @param incrementor 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(incrementorID: string, incrementor: PartialDeep<Incrementor>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Incrementor>>;
     public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIncrementor>>;

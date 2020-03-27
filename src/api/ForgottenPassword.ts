@@ -26,6 +26,7 @@ class ForgottenPassword {
     * @param passwordResetRequest Required fields: ClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions?: RequestOptions ): Promise<void>;
     public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions?: RequestOptions ): Promise<void>;
@@ -49,6 +50,7 @@ class ForgottenPassword {
     * @param passwordReset Required fields: ClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions?: RequestOptions ): Promise<void>;
     public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions?: RequestOptions ): Promise<void>;

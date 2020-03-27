@@ -37,6 +37,7 @@ class Buyers {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'Buyers.List'>, sortBy?: Sortable<'Buyers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Buyer>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Buyer>>>;
     public async List<TBuyer extends Buyer>(listOptions?: { search?: string, searchOn?: Searchable<'Buyers.List'>, sortBy?: Sortable<'Buyers.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TBuyer>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TBuyer>>>;
@@ -59,6 +60,7 @@ class Buyers {
     * @param buyer Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(buyer: Buyer,requestOptions?: RequestOptions ): Promise<RequiredDeep<Buyer>>;
     public async Create<TBuyer extends Buyer>(buyer: Buyer,requestOptions?: RequestOptions ): Promise<RequiredDeep<TBuyer>>;
@@ -81,6 +83,7 @@ class Buyers {
     * @param buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(buyerID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Buyer>>;
     public async Get<TBuyer extends Buyer>(buyerID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TBuyer>>;
@@ -104,6 +107,7 @@ class Buyers {
     * @param buyer Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(buyerID: string, buyer: Buyer,requestOptions?: RequestOptions ): Promise<RequiredDeep<Buyer>>;
     public async Save<TBuyer extends Buyer>(buyerID: string, buyer: Buyer,requestOptions?: RequestOptions ): Promise<RequiredDeep<TBuyer>>;
@@ -126,6 +130,7 @@ class Buyers {
     * @param buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(buyerID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(buyerID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -149,6 +154,7 @@ class Buyers {
     * @param buyer 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(buyerID: string, buyer: PartialDeep<Buyer>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Buyer>>;
     public async Patch<TBuyer extends Buyer>(buyerID: string, buyer: PartialDeep<Buyer>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TBuyer>>;

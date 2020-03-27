@@ -37,6 +37,7 @@ class OpenIdConnects {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<OpenIdConnect>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<OpenIdConnect>>>;
     public async List<TOpenIdConnect extends OpenIdConnect>(listOptions?: { search?: string, searchOn?: Searchable<'OpenIdConnects.List'>, sortBy?: Sortable<'OpenIdConnects.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TOpenIdConnect>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TOpenIdConnect>>>;
@@ -59,6 +60,7 @@ class OpenIdConnects {
     * @param openIdConnect Required fields: OrderCloudApiClientID, ConnectClientID, ConnectClientSecret, AppStartUrl, AuthorizationEndpoint, TokenEndpoint
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
     public async Create<TOpenIdConnect extends OpenIdConnect>(openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;
@@ -81,6 +83,7 @@ class OpenIdConnects {
     * @param openidconnectID ID of the openidconnect.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(openidconnectID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
     public async Get<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;
@@ -104,6 +107,7 @@ class OpenIdConnects {
     * @param openIdConnect Required fields: OrderCloudApiClientID, ConnectClientID, ConnectClientSecret, AppStartUrl, AuthorizationEndpoint, TokenEndpoint
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(openidconnectID: string, openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
     public async Save<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: OpenIdConnect,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;
@@ -126,6 +130,7 @@ class OpenIdConnects {
     * @param openidconnectID ID of the openidconnect.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(openidconnectID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(openidconnectID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -149,6 +154,7 @@ class OpenIdConnects {
     * @param openIdConnect 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>, requestOptions?: RequestOptions ): Promise<RequiredDeep<OpenIdConnect>>;
     public async Patch<TOpenIdConnect extends OpenIdConnect>(openidconnectID: string, openIdConnect: PartialDeep<OpenIdConnect>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOpenIdConnect>>;

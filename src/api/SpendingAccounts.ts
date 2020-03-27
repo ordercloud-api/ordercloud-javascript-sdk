@@ -43,6 +43,7 @@ class SpendingAccounts {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'SpendingAccounts.List'>, sortBy?: Sortable<'SpendingAccounts.List'>, page?: number, pageSize?: number, filters?: Filters<Required<SpendingAccount>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpendingAccount>>>;
     public async List<TSpendingAccount extends SpendingAccount>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'SpendingAccounts.List'>, sortBy?: Sortable<'SpendingAccounts.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpendingAccount>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpendingAccount>>>;
@@ -66,6 +67,7 @@ class SpendingAccounts {
     * @param spendingAccount Required fields: Name, Balance
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(buyerID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
     public async Create<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
@@ -89,6 +91,7 @@ class SpendingAccounts {
     * @param spendingAccountID ID of the spending account.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
     public async Get<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
@@ -113,6 +116,7 @@ class SpendingAccounts {
     * @param spendingAccount Required fields: Name, Balance
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
     public async Save<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: SpendingAccount,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
@@ -136,6 +140,7 @@ class SpendingAccounts {
     * @param spendingAccountID ID of the spending account.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(buyerID: string, spendingAccountID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -160,6 +165,7 @@ class SpendingAccounts {
     * @param spendingAccount 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>, requestOptions?: RequestOptions ): Promise<RequiredDeep<SpendingAccount>>;
     public async Patch<TSpendingAccount extends SpendingAccount>(buyerID: string, spendingAccountID: string, spendingAccount: PartialDeep<SpendingAccount>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpendingAccount>>;
@@ -185,6 +191,7 @@ class SpendingAccounts {
     * @param listOptions.userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(buyerID: string, spendingAccountID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(buyerID: string, spendingAccountID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -213,6 +220,7 @@ class SpendingAccounts {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(buyerID: string, listOptions?: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpendingAccountAssignment>>>;
     public async ListAssignments<TSpendingAccountAssignment extends SpendingAccountAssignment>(buyerID: string, listOptions?: { spendingAccountID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpendingAccountAssignment>>>;
@@ -236,6 +244,7 @@ class SpendingAccounts {
     * @param spendingAccountAssignment Required fields: SpendingAccountID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(buyerID: string, spendingAccountAssignment: SpendingAccountAssignment,requestOptions?: RequestOptions ): Promise<void>;

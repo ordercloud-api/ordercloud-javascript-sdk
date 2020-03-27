@@ -48,6 +48,7 @@ class Specs {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Spec>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Spec>>>;
     public async List<TSpec extends Spec>(listOptions?: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpec>>>;
@@ -70,6 +71,7 @@ class Specs {
     * @param spec Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
     public async Create<TSpec extends Spec>(spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
@@ -92,6 +94,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(specID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
     public async Get<TSpec extends Spec>(specID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
@@ -115,6 +118,7 @@ class Specs {
     * @param spec Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(specID: string, spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
     public async Save<TSpec extends Spec>(specID: string, spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
@@ -137,6 +141,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(specID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(specID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -160,6 +165,7 @@ class Specs {
     * @param spec 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(specID: string, spec: PartialDeep<Spec>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
     public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
@@ -188,6 +194,7 @@ class Specs {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListOptions(specID: string, listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters<Required<SpecOption>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpecOption>>>;
     public async ListOptions<TSpecOption extends SpecOption>(specID: string, listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpecOption>>>;
@@ -211,6 +218,7 @@ class Specs {
     * @param specOption Required fields: Value
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async CreateOption(specID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
     public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
@@ -234,6 +242,7 @@ class Specs {
     * @param optionID ID of the option.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetOption(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
     public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
@@ -258,6 +267,7 @@ class Specs {
     * @param specOption Required fields: Value
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveOption(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
     public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
@@ -281,6 +291,7 @@ class Specs {
     * @param optionID ID of the option.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteOption(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteOption(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -305,6 +316,7 @@ class Specs {
     * @param specOption 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchOption(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
     public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
@@ -328,6 +340,7 @@ class Specs {
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteProductAssignment(specID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteProductAssignment(specID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -355,6 +368,7 @@ class Specs {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListProductAssignments(listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<SpecProductAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpecProductAssignment>>>;
     public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>(listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>>;
@@ -377,6 +391,7 @@ class Specs {
     * @param specProductAssignment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveProductAssignment(specProductAssignment: SpecProductAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveProductAssignment(specProductAssignment: SpecProductAssignment,requestOptions?: RequestOptions ): Promise<void>;

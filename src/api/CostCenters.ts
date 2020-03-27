@@ -43,6 +43,7 @@ class CostCenters {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CostCenters.List'>, sortBy?: Sortable<'CostCenters.List'>, page?: number, pageSize?: number, filters?: Filters<Required<CostCenter>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CostCenter>>>;
     public async List<TCostCenter extends CostCenter>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CostCenters.List'>, sortBy?: Sortable<'CostCenters.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCostCenter>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCostCenter>>>;
@@ -66,6 +67,7 @@ class CostCenters {
     * @param costCenter Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(buyerID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
     public async Create<TCostCenter extends CostCenter>(buyerID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
@@ -89,6 +91,7 @@ class CostCenters {
     * @param costCenterID ID of the cost center.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
     public async Get<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
@@ -113,6 +116,7 @@ class CostCenters {
     * @param costCenter Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(buyerID: string, costCenterID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
     public async Save<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: CostCenter,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
@@ -136,6 +140,7 @@ class CostCenters {
     * @param costCenterID ID of the cost center.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(buyerID: string, costCenterID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -160,6 +165,7 @@ class CostCenters {
     * @param costCenter 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>, requestOptions?: RequestOptions ): Promise<RequiredDeep<CostCenter>>;
     public async Patch<TCostCenter extends CostCenter>(buyerID: string, costCenterID: string, costCenter: PartialDeep<CostCenter>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCostCenter>>;
@@ -185,6 +191,7 @@ class CostCenters {
     * @param listOptions.userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(buyerID: string, costCenterID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(buyerID: string, costCenterID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -213,6 +220,7 @@ class CostCenters {
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(buyerID: string, listOptions?: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CostCenterAssignment>>>;
     public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string, listOptions?: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>>;
@@ -236,6 +244,7 @@ class CostCenters {
     * @param costCenterAssignment Required fields: CostCenterID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(buyerID: string, costCenterAssignment: CostCenterAssignment,requestOptions?: RequestOptions ): Promise<void>;

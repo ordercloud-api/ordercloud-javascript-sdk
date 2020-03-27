@@ -45,6 +45,7 @@ class MessageSenders {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<MessageSender>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<MessageSender>>>;
     public async List<TMessageSender extends MessageSender>(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.List'>, sortBy?: Sortable<'MessageSenders.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageSender>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TMessageSender>>>;
@@ -67,6 +68,7 @@ class MessageSenders {
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create(messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
     public async Create<TMessageSender extends MessageSender>(messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
@@ -89,6 +91,7 @@ class MessageSenders {
     * @param messageSenderID ID of the message sender.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get(messageSenderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
     public async Get<TMessageSender extends MessageSender>(messageSenderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
@@ -112,6 +115,7 @@ class MessageSenders {
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save(messageSenderID: string, messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
     public async Save<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: MessageSender,requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
@@ -134,6 +138,7 @@ class MessageSenders {
     * @param messageSenderID ID of the message sender.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(messageSenderID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(messageSenderID: string, requestOptions?: RequestOptions ): Promise<void>;
@@ -157,6 +162,7 @@ class MessageSenders {
     * @param messageSender 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch(messageSenderID: string, messageSender: PartialDeep<MessageSender>, requestOptions?: RequestOptions ): Promise<RequiredDeep<MessageSender>>;
     public async Patch<TMessageSender extends MessageSender>(messageSenderID: string, messageSender: PartialDeep<MessageSender>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TMessageSender>>;
@@ -183,6 +189,7 @@ class MessageSenders {
     * @param listOptions.supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAssignment(messageSenderID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(messageSenderID: string, listOptions?: { buyerID?: string, userID?: string, userGroupID?: string, supplierID?: string }, requestOptions?: RequestOptions ): Promise<void>;
@@ -212,6 +219,7 @@ class MessageSenders {
     * @param listOptions.supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments(listOptions?: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<MessageSenderAssignment>>>;
     public async ListAssignments<TMessageSenderAssignment extends MessageSenderAssignment>(listOptions?: { buyerID?: string, messageSenderID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number, supplierID?: string }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TMessageSenderAssignment>>>;
@@ -234,6 +242,7 @@ class MessageSenders {
     * @param messageSenderAssignment Required fields: MessageSenderID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(messageSenderAssignment: MessageSenderAssignment,requestOptions?: RequestOptions ): Promise<void>;
@@ -261,6 +270,7 @@ class MessageSenders {
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListCCListenerAssignments(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<MessageCCListenerAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<MessageCCListenerAssignment>>>;
     public async ListCCListenerAssignments<TMessageCCListenerAssignment extends MessageCCListenerAssignment>(listOptions?: { search?: string, searchOn?: Searchable<'MessageSenders.ListCCListenerAssignments'>, sortBy?: Sortable<'MessageSenders.ListCCListenerAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TMessageCCListenerAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TMessageCCListenerAssignment>>>;
@@ -283,6 +293,7 @@ class MessageSenders {
     * @param messageCCListenerAssignment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveCCListenerAssignment(messageCCListenerAssignment: MessageCCListenerAssignment,requestOptions?: RequestOptions ): Promise<void>;
