@@ -23,7 +23,6 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 ## ✨ Features
 
 - Works both on the **browser** and **node.js**
-- **UMD compatible** you can use it with any module loader
 - ESM module available for bundlers that support it. This enables tree shaking - use only what you import.
 - Built-in Typescript support, no additional types package necessary
 - Full feature parity with API
