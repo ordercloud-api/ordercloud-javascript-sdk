@@ -2,6 +2,7 @@ import { ListPageWithFacets } from '../models/ListPageWithFacets';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Product } from '../models/Product';
+import { SearchType } from '../models/SearchType';
 import { ListPage } from '../models/ListPage';
 import { Spec } from '../models/Spec';
 import { Supplier } from '../models/Supplier';
@@ -56,13 +57,14 @@ class Products {
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.searchType Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List(listOptions?: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: Searchable<'Products.List'>, sortBy?: Sortable<'Products.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Product>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPageWithFacets<Product>>>;
-    public async List<TProduct extends Product>(listOptions?: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: Searchable<'Products.List'>, sortBy?: Sortable<'Products.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProduct>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPageWithFacets<TProduct>>>;
-    public async List<TProduct extends Product>(listOptions: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: Searchable<'Products.List'>, sortBy?: Sortable<'Products.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProduct>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TProduct>>>{
+    public async List(listOptions?: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: Searchable<'Products.List'>, sortBy?: Sortable<'Products.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Product>>, searchType?: SearchType }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPageWithFacets<Product>>>;
+    public async List<TProduct extends Product>(listOptions?: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: Searchable<'Products.List'>, sortBy?: Sortable<'Products.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProduct>>, searchType?: SearchType }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPageWithFacets<TProduct>>>;
+    public async List<TProduct extends Product>(listOptions: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: Searchable<'Products.List'>, sortBy?: Sortable<'Products.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TProduct>>, searchType?: SearchType } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TProduct>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/products`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )

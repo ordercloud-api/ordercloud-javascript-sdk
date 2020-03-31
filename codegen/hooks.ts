@@ -58,16 +58,14 @@ const postFormatTemplateData: PostFormatTemplateDataHook = function(
     .filter(o => o.queryParams?.some(p => p.name === 'sortBy'))
     .map(op => {
       const prop = op.queryParams.find(p => p.name === 'sortBy')
-      let enumVals = prop?.enumValues
-
-      // each sort field (ascending) can inverse sort (descending) by adding !
-      enumVals = [...enumVals, ...prop?.enumValues.map(v => `!${v}`)]
+      const enumVals = prop?.enumValues
 
       // enhanced search lets you searchOn by xp values
       // so we have to use string[] which unfortunately destroys type inference
-      const enumString = op.isFacetList
-        ? `string[]`
-        : `${enumVals.map(v => `'${v}'`).join(' | ')}[]`
+      const enumString =
+        op.isFacetList || !enumVals?.length
+          ? `string[]`
+          : `${enumVals.map(v => `'${v}'`).join(' | ')}[]`
 
       return {
         id: op.id,

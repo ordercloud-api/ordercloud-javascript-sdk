@@ -4,6 +4,7 @@ import { Sortable } from '../models/Sortable';
 import { User } from '../models/User';
 import { ImpersonateTokenRequest } from '../models/ImpersonateTokenRequest';
 import { AccessToken } from '../models/AccessToken';
+import { UserOrderMoveOption } from '../models/UserOrderMoveOption';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { Filters } from '../models/Filters';
@@ -218,9 +219,9 @@ class Users {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Move(buyerID: string, userID: string, newBuyerID: string, listOptions?: { orders?: 'None' | 'Unsubmitted' | 'All' }, requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
-    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string, listOptions?: { orders?: 'None' | 'Unsubmitted' | 'All' }, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
-    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string, listOptions: { orders?: 'None' | 'Unsubmitted' | 'All' } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>>{
+    public async Move(buyerID: string, userID: string, newBuyerID: string, listOptions?: { orders?: UserOrderMoveOption }, requestOptions?: RequestOptions ): Promise<RequiredDeep<User>>;
+    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string, listOptions?: { orders?: UserOrderMoveOption }, requestOptions?: RequestOptions ): Promise<RequiredDeep<TUser>>;
+    public async Move<TUser extends User>(buyerID: string, userID: string, newBuyerID: string, listOptions: { orders?: UserOrderMoveOption } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TUser>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/users/${userID}/moveto/${newBuyerID}`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )

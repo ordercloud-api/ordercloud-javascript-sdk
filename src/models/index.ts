@@ -64,6 +64,7 @@ export * from './ProductCatalogAssignment';
 export * from './ProductFacet';
 export * from './Promotion';
 export * from './PromotionAssignment';
+export * from './SearchType';
 export * from './SecurityProfile';
 export * from './SecurityProfileAssignment';
 export * from './Shipment';
