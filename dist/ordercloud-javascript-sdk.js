@@ -2119,14 +2119,24 @@ stringify.stable = deterministicStringify
 stringify.stableStringify = deterministicStringify
 
 var arr = []
+var replacerStack = []
 
 // Regular stringify
 function stringify (obj, replacer, spacer) {
   decirc(obj, '', [], undefined)
-  var res = JSON.stringify(obj, replacer, spacer)
+  var res
+  if (replacerStack.length === 0) {
+    res = JSON.stringify(obj, replacer, spacer)
+  } else {
+    res = JSON.stringify(obj, replaceGetterValues(replacer), spacer)
+  }
   while (arr.length !== 0) {
     var part = arr.pop()
-    part[0][part[1]] = part[2]
+    if (part.length === 4) {
+      Object.defineProperty(part[0], part[1], part[3])
+    } else {
+      part[0][part[1]] = part[2]
+    }
   }
   return res
 }
@@ -2135,8 +2145,18 @@ function decirc (val, k, stack, parent) {
   if (typeof val === 'object' && val !== null) {
     for (i = 0; i < stack.length; i++) {
       if (stack[i] === val) {
-        parent[k] = '[Circular]'
-        arr.push([parent, k, val])
+        var propertyDescriptor = Object.getOwnPropertyDescriptor(parent, k)
+        if (propertyDescriptor.get !== undefined) {
+          if (propertyDescriptor.configurable) {
+            Object.defineProperty(parent, k, { value: '[Circular]' })
+            arr.push([parent, k, val, propertyDescriptor])
+          } else {
+            replacerStack.push([val, k])
+          }
+        } else {
+          parent[k] = '[Circular]'
+          arr.push([parent, k, val])
+        }
         return
       }
     }
@@ -2170,10 +2190,19 @@ function compareFunction (a, b) {
 
 function deterministicStringify (obj, replacer, spacer) {
   var tmp = deterministicDecirc(obj, '', [], undefined) || obj
-  var res = JSON.stringify(tmp, replacer, spacer)
+  var res
+  if (replacerStack.length === 0) {
+    res = JSON.stringify(tmp, replacer, spacer)
+  } else {
+    res = JSON.stringify(tmp, replaceGetterValues(replacer), spacer)
+  }
   while (arr.length !== 0) {
     var part = arr.pop()
-    part[0][part[1]] = part[2]
+    if (part.length === 4) {
+      Object.defineProperty(part[0], part[1], part[3])
+    } else {
+      part[0][part[1]] = part[2]
+    }
   }
   return res
 }
@@ -2183,8 +2212,18 @@ function deterministicDecirc (val, k, stack, parent) {
   if (typeof val === 'object' && val !== null) {
     for (i = 0; i < stack.length; i++) {
       if (stack[i] === val) {
-        parent[k] = '[Circular]'
-        arr.push([parent, k, val])
+        var propertyDescriptor = Object.getOwnPropertyDescriptor(parent, k)
+        if (propertyDescriptor.get !== undefined) {
+          if (propertyDescriptor.configurable) {
+            Object.defineProperty(parent, k, { value: '[Circular]' })
+            arr.push([parent, k, val, propertyDescriptor])
+          } else {
+            replacerStack.push([val, k])
+          }
+        } else {
+          parent[k] = '[Circular]'
+          arr.push([parent, k, val])
+        }
         return
       }
     }
@@ -2214,6 +2253,25 @@ function deterministicDecirc (val, k, stack, parent) {
       }
     }
     stack.pop()
+  }
+}
+
+// wraps replacer function to handle values we couldn't replace
+// and mark them as [Circular]
+function replaceGetterValues (replacer) {
+  replacer = replacer !== undefined ? replacer : function (k, v) { return v }
+  return function (key, val) {
+    if (replacerStack.length > 0) {
+      for (var i = 0; i < replacerStack.length; i++) {
+        var part = replacerStack[i]
+        if (part[1] === key && part[0] === val) {
+          val = '[Circular]'
+          replacerStack.splice(i, 1)
+          break
+        }
+      }
+    }
+    return replacer.call(this, key, val)
   }
 }
 
@@ -2504,7 +2562,7 @@ function Agent() {
   this._defaults = [];
 }
 
-['use', 'on', 'once', 'set', 'query', 'type', 'accept', 'auth', 'withCredentials', 'sortQuery', 'retry', 'ok', 'redirects', 'timeout', 'buffer', 'serialize', 'parse', 'ca', 'key', 'pfx', 'cert'].forEach(function (fn) {
+['use', 'on', 'once', 'set', 'query', 'type', 'accept', 'auth', 'withCredentials', 'sortQuery', 'retry', 'ok', 'redirects', 'timeout', 'buffer', 'serialize', 'parse', 'ca', 'key', 'pfx', 'cert', 'disableTLSCerts'].forEach(function (fn) {
   // Default setting for all requests from this agent
   Agent.prototype[fn] = function () {
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -2527,6 +2585,7 @@ Agent.prototype._setDefaults = function (req) {
 };
 
 module.exports = Agent;
+
 },{}],9:[function(require,module,exports){
 "use strict";
 
@@ -2599,19 +2658,19 @@ request.getXHR = function () {
 
   try {
     return new ActiveXObject('Microsoft.XMLHTTP');
-  } catch (err) {}
+  } catch (_unused) {}
 
   try {
     return new ActiveXObject('Msxml2.XMLHTTP.6.0');
-  } catch (err) {}
+  } catch (_unused2) {}
 
   try {
     return new ActiveXObject('Msxml2.XMLHTTP.3.0');
-  } catch (err) {}
+  } catch (_unused3) {}
 
   try {
     return new ActiveXObject('Msxml2.XMLHTTP');
-  } catch (err) {}
+  } catch (_unused4) {}
 
   throw new Error('Browser-only version of superagent could not find XHR');
 };
@@ -2661,7 +2720,7 @@ function pushEncodedKeyValuePair(pairs, key, val) {
   if (val === undefined) return;
 
   if (val === null) {
-    pairs.push(encodeURIComponent(key));
+    pairs.push(encodeURI(key));
     return;
   }
 
@@ -2674,7 +2733,7 @@ function pushEncodedKeyValuePair(pairs, key, val) {
       if (Object.prototype.hasOwnProperty.call(val, subkey)) pushEncodedKeyValuePair(pairs, "".concat(key, "[").concat(subkey, "]"), val[subkey]);
     }
   } else {
-    pairs.push(encodeURIComponent(key) + '=' + encodeURIComponent(val));
+    pairs.push(encodeURI(key) + '=' + encodeURIComponent(val));
   }
 }
 /**
@@ -2955,10 +3014,10 @@ function Request(method, url) {
 
     try {
       res = new Response(self);
-    } catch (err2) {
+    } catch (err_) {
       err = new Error('Parser is unable to parse the response');
       err.parse = true;
-      err.original = err2; // issue #675: return the raw response if the response parsing fails
+      err.original = err_; // issue #675: return the raw response if the response parsing fails
 
       if (self.xhr) {
         // ie9 doesn't have 'response' property
@@ -2979,10 +3038,10 @@ function Request(method, url) {
 
     try {
       if (!self._isResponseOK(res)) {
-        new_err = new Error(res.statusText || 'Unsuccessful HTTP response');
+        new_err = new Error(res.statusText || res.text || 'Unsuccessful HTTP response');
       }
-    } catch (err2) {
-      new_err = err2; // ok() callback can throw
+    } catch (err_) {
+      new_err = err_; // ok() callback can throw
     } // #1000 don't catch errors from the callback to avoid double calling it
 
 
@@ -3196,8 +3255,8 @@ Request.prototype.agent = function () {
   return this;
 };
 
-Request.prototype.buffer = Request.prototype.ca;
-Request.prototype.ca = Request.prototype.agent; // This throws, because it can't send/receive data as expected
+Request.prototype.ca = Request.prototype.agent;
+Request.prototype.buffer = Request.prototype.ca; // This throws, because it can't send/receive data as expected
 
 Request.prototype.write = function () {
   throw new Error('Streaming is not supported in browser version of superagent');
@@ -3279,7 +3338,7 @@ Request.prototype._end = function () {
 
     try {
       status = xhr.status;
-    } catch (err) {
+    } catch (_unused5) {
       status = 0;
     }
 
@@ -3312,7 +3371,7 @@ Request.prototype._end = function () {
       if (xhr.upload) {
         xhr.upload.addEventListener('progress', handleProgress.bind(null, 'upload'));
       }
-    } catch (err) {// Accessing xhr.upload fails in IE from a web worker, so just pretend it doesn't exist.
+    } catch (_unused6) {// Accessing xhr.upload fails in IE from a web worker, so just pretend it doesn't exist.
       // Reported here:
       // https://connect.microsoft.com/IE/feedback/details/837245/xmlhttprequest-upload-throws-invalid-argument-when-used-from-web-worker-context
     }
@@ -3547,6 +3606,7 @@ request.put = function (url, data, fn) {
   if (fn) req.end(fn);
   return req;
 };
+
 },{"./agent-base":8,"./is-object":10,"./request-base":11,"./response-base":12,"component-emitter":4,"fast-safe-stringify":5}],10:[function(require,module,exports){
 "use strict";
 
@@ -3564,6 +3624,7 @@ function isObject(obj) {
 }
 
 module.exports = isObject;
+
 },{}],11:[function(require,module,exports){
 "use strict";
 
@@ -3761,15 +3822,15 @@ RequestBase.prototype._shouldRetry = function (err, res) {
 
       if (override === true) return true;
       if (override === false) return false; // undefined falls back to defaults
-    } catch (err2) {
-      console.error(err2);
+    } catch (err_) {
+      console.error(err_);
     }
   }
 
   if (res && res.status && res.status >= 500 && res.status !== 501) return true;
 
   if (err) {
-    if (err.code && ERROR_CODES.indexOf(err.code) !== -1) return true; // Superagent timeout
+    if (err.code && ERROR_CODES.includes(err.code)) return true; // Superagent timeout
 
     if (err.timeout && err.code === 'ECONNABORTED') return true;
     if (err.crossDomain) return true;
@@ -3795,6 +3856,7 @@ RequestBase.prototype._retry = function () {
 
   this._aborted = false;
   this.timedout = false;
+  this.timedoutError = null;
   return this._end();
 };
 /**
@@ -3818,6 +3880,11 @@ RequestBase.prototype.then = function (resolve, reject) {
 
     this._fullfilledPromise = new Promise(function (resolve, reject) {
       self.on('abort', function () {
+        if (_this.timedout && _this.timedoutError) {
+          reject(_this.timedoutError);
+          return;
+        }
+
         var err = new Error('Aborted');
         err.code = 'ABORTED';
         err.status = _this.status;
@@ -3924,8 +3991,7 @@ RequestBase.prototype.set = function (field, val) {
   this._header[field.toLowerCase()] = val;
   this.header[field] = val;
   return this;
-}; // eslint-disable-next-line valid-jsdoc
-
+};
 /**
  * Remove header `field`.
  * Case-insensitive.
@@ -4248,7 +4314,7 @@ RequestBase.prototype._finalizeQueryString = function () {
   var query = this._query.join('&');
 
   if (query) {
-    this.url += (this.url.indexOf('?') >= 0 ? '&' : '?') + query;
+    this.url += (this.url.includes('?') ? '&' : '?') + query;
   }
 
   this._query.length = 0; // Makes the call idempotent
@@ -4257,7 +4323,7 @@ RequestBase.prototype._finalizeQueryString = function () {
     var index = this.url.indexOf('?');
 
     if (index >= 0) {
-      var queryArr = this.url.substring(index + 1).split('&');
+      var queryArr = this.url.slice(index + 1).split('&');
 
       if (typeof this._sort === 'function') {
         queryArr.sort(this._sort);
@@ -4265,7 +4331,7 @@ RequestBase.prototype._finalizeQueryString = function () {
         queryArr.sort();
       }
 
-      this.url = this.url.substring(0, index) + '?' + queryArr.join('&');
+      this.url = this.url.slice(0, index) + '?' + queryArr.join('&');
     }
   }
 }; // For backwards compat only
@@ -4291,6 +4357,7 @@ RequestBase.prototype._timeoutError = function (reason, timeout, errno) {
   err.code = 'ECONNABORTED';
   err.errno = errno;
   this.timedout = true;
+  this.timedoutError = err;
   this.abort();
   this.callback(err);
 };
@@ -4311,6 +4378,7 @@ RequestBase.prototype._setTimeouts = function () {
     }, this._responseTimeout);
   }
 };
+
 },{"./is-object":10}],12:[function(require,module,exports){
 "use strict";
 
@@ -4393,7 +4461,7 @@ ResponseBase.prototype._setHeaderProperties = function (header) {
     if (header.link) {
       this.links = utils.parseLinks(header.link);
     }
-  } catch (err) {// ignore
+  } catch (_unused) {// ignore
   }
 };
 /**
@@ -4442,6 +4510,7 @@ ResponseBase.prototype._setStatusProperties = function (status) {
   this.notFound = status === 404;
   this.unprocessableEntity = status === 422;
 };
+
 },{"./utils":13}],13:[function(require,module,exports){
 "use strict";
 
@@ -4513,6 +4582,7 @@ exports.cleanHeader = function (header, changesOrigin) {
 
   return header;
 };
+
 },{}],14:[function(require,module,exports){
 (function (process,Buffer){
 /**

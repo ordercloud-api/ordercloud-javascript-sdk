@@ -20,7 +20,7 @@
     "url": "https://github.com/ordercloud-api/OrderCloud-JavaScript-SDK"
   },
   "dependencies": {
-    "superagent": "5.1.0"
+    "superagent": "5.2.2"
   },
   "devDependencies": {
     "browserify": "^16.5.1",
