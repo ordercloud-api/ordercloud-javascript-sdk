@@ -7,5 +7,7 @@ Name | Type | Description | Notes
 **name** | **String** |  | [optional] 
 **optionID** | **String** |  | [optional] 
 **value** | **String** |  | [optional] 
+**priceMarkupType** | **String** |  | [optional] 
+**priceMarkup** | **Number** |  | [optional] 
 
 

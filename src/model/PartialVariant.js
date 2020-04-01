@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/VariantInventory'], factory);
+    define(['Sdk', 'model/VariantInventory', 'model/VariantSpec'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./VariantInventory'));
+    module.exports = factory(require('../Sdk'), require('./VariantInventory'), require('./VariantSpec'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialVariant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory);
+    root.OrderCloud.PartialVariant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory, root.OrderCloud.VariantSpec);
   }
-}(this, function(Sdk, VariantInventory) {
+}(this, function(Sdk, VariantInventory, VariantSpec) {
   'use strict';
 
 
@@ -43,6 +43,7 @@
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -94,6 +95,9 @@
       if (data.hasOwnProperty('Inventory')) {
         obj['Inventory'] = VariantInventory.constructFromObject(data['Inventory']);
       }
+      if (data.hasOwnProperty('Specs')) {
+        obj['Specs'] = Sdk.convertToType(data['Specs'], [VariantSpec]);
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
@@ -137,6 +141,10 @@
    * @member {module:model/VariantInventory} Inventory
    */
   exports.prototype['Inventory'] = undefined;
+  /**
+   * @member {Array.<module:model/VariantSpec>} Specs
+   */
+  exports.prototype['Specs'] = undefined;
   /**
    * @member {Object} xp
    */

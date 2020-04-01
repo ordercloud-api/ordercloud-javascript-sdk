@@ -275,6 +275,8 @@ export interface LineItemSpec {
     Name: string;
     OptionID: string;
     Value: string;
+    PriceMarkupType: string;
+    PriceMarkup: number;
 }
 
 export interface LineItemVariant {
@@ -981,12 +983,22 @@ export interface Variant {
     ShipWidth: number;
     ShipLength: number;
     Inventory: VariantInventory;
+    Specs: VariantSpec[];
     xp: any;
 }
 
 export interface VariantInventory {
     QuantityAvailable: number;
     LastUpdated: string;
+}
+
+export interface VariantSpec {
+    SpecID: string;
+    Name: string;
+    OptionID: string;
+    Value: string;
+    PriceMarkupType: string;
+    PriceMarkup: number;
 }
 
 export interface Webhook {
@@ -2276,9 +2288,10 @@ export namespace Me {
     * @param options.page Page of results to return. Default: 1
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+    * @param options.searchType Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function ListProducts(options?: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListBuyerProduct>    
+    export function ListProducts(options?: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]}, searchType?: string }, accessToken?: string): Promise<ListBuyerProduct>    
     
     /**
     * @param options.search Word or phrase to search for.
@@ -2678,6 +2691,19 @@ export namespace Orders {
     /**
     * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
     * @param orderID ID of the order.
+    * @param options.search Word or phrase to search for.
+    * @param options.searchOn Comma-delimited list of fields to search on.
+    * @param options.sortBy Comma-delimited list of fields to sort by.
+    * @param options.page Page of results to return. Default: 1
+    * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+    * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
+    */
+    export function ListShipments(direction: string, orderID: string, options?: { search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListShipment>    
+    
+    /**
+    * @param direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
     * @param partialOrder 
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
@@ -2969,9 +2995,10 @@ export namespace Products {
     * @param options.page Page of results to return. Default: 1
     * @param options.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param options.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+    * @param options.searchType Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
     * @param accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation)
     */
-    export function List(options?: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]} }, accessToken?: string): Promise<ListProduct>    
+    export function List(options?: { catalogID?: string, categoryID?: string, supplierID?: string, search?: string, searchOn?: string, sortBy?: string, page?: number, pageSize?: number, filters?: {[key:string]: string | string[]}, searchType?: string }, accessToken?: string): Promise<ListProduct>    
     
     /**
     * @param options.productID ID of the product.

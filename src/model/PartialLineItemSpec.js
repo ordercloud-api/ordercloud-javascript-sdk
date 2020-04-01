@@ -48,6 +48,8 @@
 
 
 
+
+
   };
 
   /**
@@ -73,6 +75,12 @@
       if (data.hasOwnProperty('Value')) {
         obj['Value'] = Sdk.convertToType(data['Value'], 'String');
       }
+      if (data.hasOwnProperty('PriceMarkupType')) {
+        obj['PriceMarkupType'] = Sdk.convertToType(data['PriceMarkupType'], 'String');
+      }
+      if (data.hasOwnProperty('PriceMarkup')) {
+        obj['PriceMarkup'] = Sdk.convertToType(data['PriceMarkup'], 'Number');
+      }
     }
     return obj;
   }
@@ -93,6 +101,14 @@
    * @member {String} Value
    */
   exports.prototype['Value'] = undefined;
+  /**
+   * @member {String} PriceMarkupType
+   */
+  exports.prototype['PriceMarkupType'] = undefined;
+  /**
+   * @member {Number} PriceMarkup
+   */
+  exports.prototype['PriceMarkup'] = undefined;
 
 
 

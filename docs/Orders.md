@@ -17,6 +17,7 @@ Method | HTTP request | Description
 [**ListApprovals**](Orders.md#ListApprovals) | **GET** /orders/{direction}/{orderID}/approvals | 
 [**ListEligibleApprovers**](Orders.md#ListEligibleApprovers) | **GET** /orders/{direction}/{orderID}/eligibleapprovers | 
 [**ListPromotions**](Orders.md#ListPromotions) | **GET** /orders/{direction}/{orderID}/promotions | 
+[**ListShipments**](Orders.md#ListShipments) | **GET** /orders/{direction}/{orderID}/shipments | 
 [**Patch**](Orders.md#Patch) | **PATCH** /orders/{direction}/{orderID} | 
 [**PatchBillingAddress**](Orders.md#PatchBillingAddress) | **PATCH** /orders/{direction}/{orderID}/billto | 
 [**PatchFromUser**](Orders.md#PatchFromUser) | **PATCH** /orders/{direction}/{orderID}/fromuser | 
@@ -752,6 +753,71 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ListOrderPromotion**](ListOrderPromotion.md)
+
+### Authorization
+
+
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json, text/plain; charset=utf-8
+ - **Accept**: application/json
+
+<a name="ListShipments"></a>
+# **ListShipments**
+> ListShipment ListShipments(direction, orderID, opts)
+
+
+
+### Example
+```javascript
+var OrderCloud = require('OrderCloud');
+var defaultClient = OrderCloud.Sdk.default;
+
+// Configure OAuth2 access token for authorization: oauth2
+var oauth2 = defaultClient.authentications['oauth2'];
+oauth2.accessToken = 'YOUR ACCESS TOKEN';
+
+var apiInstance = new OrderCloud.Orders();
+
+var direction = "direction_example"; // String | Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+
+var orderID = "orderID_example"; // String | ID of the order.
+
+var opts = { 
+  'search': "search_example", // String | Word or phrase to search for.
+  'searchOn': "searchOn_example", // String | Comma-delimited list of fields to search on.
+  'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
+  'page': 56, // Number | Page of results to return. Default: 1
+  'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
+  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+};
+apiInstance.ListShipments(direction, orderID, opts).then(function(data) {
+  console.log('API called successfully. Returned data: ' + data);
+}, function(error) {
+  console.error(error);
+});
+
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **direction** | **String**| Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing. | 
+ **orderID** | **String**| ID of the order. | 
+ **search** | **String**| Word or phrase to search for. | [optional] 
+ **searchOn** | **String**| Comma-delimited list of fields to search on. | [optional] 
+ **sortBy** | **String**| Comma-delimited list of fields to sort by. | [optional] 
+ **page** | **Number**| Page of results to return. Default: 1 | [optional] 
+ **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
+ **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+
+### Return type
+
+[**ListShipment**](ListShipment.md)
 
 ### Authorization
 

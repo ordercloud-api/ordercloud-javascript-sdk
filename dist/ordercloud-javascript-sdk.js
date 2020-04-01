@@ -1,6 +1,4 @@
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.OrderCloudSDK = f()}})(function(){var define,module,exports;return (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
-
-},{}],2:[function(require,module,exports){
 'use strict'
 
 exports.byteLength = byteLength
@@ -68,7 +66,8 @@ function toByteArray (b64) {
     ? validLen - 4
     : validLen
 
-  for (var i = 0; i < len; i += 4) {
+  var i
+  for (i = 0; i < len; i += 4) {
     tmp =
       (revLookup[b64.charCodeAt(i)] << 18) |
       (revLookup[b64.charCodeAt(i + 1)] << 12) |
@@ -153,7 +152,10 @@ function fromByteArray (uint8) {
   return parts.join('')
 }
 
+},{}],2:[function(require,module,exports){
+
 },{}],3:[function(require,module,exports){
+(function (Buffer){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -1932,7 +1934,290 @@ function numberIsNaN (obj) {
   return obj !== obj // eslint-disable-line no-self-compare
 }
 
-},{"base64-js":2,"ieee754":4}],4:[function(require,module,exports){
+}).call(this,require("buffer").Buffer)
+},{"base64-js":1,"buffer":3,"ieee754":6}],4:[function(require,module,exports){
+
+/**
+ * Expose `Emitter`.
+ */
+
+if (typeof module !== 'undefined') {
+  module.exports = Emitter;
+}
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on =
+Emitter.prototype.addEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  function on() {
+    this.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  on.fn = fn;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners =
+Emitter.prototype.removeEventListener = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks['$' + event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks['$' + event];
+    return this;
+  }
+
+  // remove specific handler
+  var cb;
+  for (var i = 0; i < callbacks.length; i++) {
+    cb = callbacks[i];
+    if (cb === fn || cb.fn === fn) {
+      callbacks.splice(i, 1);
+      break;
+    }
+  }
+
+  // Remove event specific arrays for event types that no
+  // one is subscribed for to avoid memory leak.
+  if (callbacks.length === 0) {
+    delete this._callbacks['$' + event];
+  }
+
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+
+  var args = new Array(arguments.length - 1)
+    , callbacks = this._callbacks['$' + event];
+
+  for (var i = 1; i < arguments.length; i++) {
+    args[i - 1] = arguments[i];
+  }
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks['$' + event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+},{}],5:[function(require,module,exports){
+module.exports = stringify
+stringify.default = stringify
+stringify.stable = deterministicStringify
+stringify.stableStringify = deterministicStringify
+
+var arr = []
+
+// Regular stringify
+function stringify (obj, replacer, spacer) {
+  decirc(obj, '', [], undefined)
+  var res = JSON.stringify(obj, replacer, spacer)
+  while (arr.length !== 0) {
+    var part = arr.pop()
+    part[0][part[1]] = part[2]
+  }
+  return res
+}
+function decirc (val, k, stack, parent) {
+  var i
+  if (typeof val === 'object' && val !== null) {
+    for (i = 0; i < stack.length; i++) {
+      if (stack[i] === val) {
+        parent[k] = '[Circular]'
+        arr.push([parent, k, val])
+        return
+      }
+    }
+    stack.push(val)
+    // Optimize for Arrays. Big arrays could kill the performance otherwise!
+    if (Array.isArray(val)) {
+      for (i = 0; i < val.length; i++) {
+        decirc(val[i], i, stack, val)
+      }
+    } else {
+      var keys = Object.keys(val)
+      for (i = 0; i < keys.length; i++) {
+        var key = keys[i]
+        decirc(val[key], key, stack, val)
+      }
+    }
+    stack.pop()
+  }
+}
+
+// Stable-stringify
+function compareFunction (a, b) {
+  if (a < b) {
+    return -1
+  }
+  if (a > b) {
+    return 1
+  }
+  return 0
+}
+
+function deterministicStringify (obj, replacer, spacer) {
+  var tmp = deterministicDecirc(obj, '', [], undefined) || obj
+  var res = JSON.stringify(tmp, replacer, spacer)
+  while (arr.length !== 0) {
+    var part = arr.pop()
+    part[0][part[1]] = part[2]
+  }
+  return res
+}
+
+function deterministicDecirc (val, k, stack, parent) {
+  var i
+  if (typeof val === 'object' && val !== null) {
+    for (i = 0; i < stack.length; i++) {
+      if (stack[i] === val) {
+        parent[k] = '[Circular]'
+        arr.push([parent, k, val])
+        return
+      }
+    }
+    if (typeof val.toJSON === 'function') {
+      return
+    }
+    stack.push(val)
+    // Optimize for Arrays. Big arrays could kill the performance otherwise!
+    if (Array.isArray(val)) {
+      for (i = 0; i < val.length; i++) {
+        deterministicDecirc(val[i], i, stack, val)
+      }
+    } else {
+      // Create a temporary object in the required way
+      var tmp = {}
+      var keys = Object.keys(val).sort(compareFunction)
+      for (i = 0; i < keys.length; i++) {
+        var key = keys[i]
+        deterministicDecirc(val[key], key, stack, val)
+        tmp[key] = val[key]
+      }
+      if (parent !== undefined) {
+        arr.push([parent, k, val])
+        parent[k] = tmp
+      } else {
+        return tmp
+      }
+    }
+    stack.pop()
+  }
+}
+
+},{}],6:[function(require,module,exports){
 exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m
   var eLen = (nBytes * 8) - mLen - 1
@@ -2018,7 +2303,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   buffer[offset + i - d] |= s * 128
 }
 
-},{}],5:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2203,288 +2488,6 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 process.umask = function() { return 0; };
-
-},{}],6:[function(require,module,exports){
-
-/**
- * Expose `Emitter`.
- */
-
-if (typeof module !== 'undefined') {
-  module.exports = Emitter;
-}
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks['$' + event] = this._callbacks['$' + event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  function on() {
-    this.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks['$' + event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks['$' + event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-
-  // Remove event specific arrays for event types that no
-  // one is subscribed for to avoid memory leak.
-  if (callbacks.length === 0) {
-    delete this._callbacks['$' + event];
-  }
-
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-
-  var args = new Array(arguments.length - 1)
-    , callbacks = this._callbacks['$' + event];
-
-  for (var i = 1; i < arguments.length; i++) {
-    args[i - 1] = arguments[i];
-  }
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
-    }
-  }
-
-  return this;
-};
-
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
-
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks['$' + event] || [];
-};
-
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-},{}],7:[function(require,module,exports){
-module.exports = stringify
-stringify.default = stringify
-stringify.stable = deterministicStringify
-stringify.stableStringify = deterministicStringify
-
-var arr = []
-
-// Regular stringify
-function stringify (obj, replacer, spacer) {
-  decirc(obj, '', [], undefined)
-  var res = JSON.stringify(obj, replacer, spacer)
-  while (arr.length !== 0) {
-    var part = arr.pop()
-    part[0][part[1]] = part[2]
-  }
-  return res
-}
-function decirc (val, k, stack, parent) {
-  var i
-  if (typeof val === 'object' && val !== null) {
-    for (i = 0; i < stack.length; i++) {
-      if (stack[i] === val) {
-        parent[k] = '[Circular]'
-        arr.push([parent, k, val])
-        return
-      }
-    }
-    stack.push(val)
-    // Optimize for Arrays. Big arrays could kill the performance otherwise!
-    if (Array.isArray(val)) {
-      for (i = 0; i < val.length; i++) {
-        decirc(val[i], i, stack, val)
-      }
-    } else {
-      var keys = Object.keys(val)
-      for (i = 0; i < keys.length; i++) {
-        var key = keys[i]
-        decirc(val[key], key, stack, val)
-      }
-    }
-    stack.pop()
-  }
-}
-
-// Stable-stringify
-function compareFunction (a, b) {
-  if (a < b) {
-    return -1
-  }
-  if (a > b) {
-    return 1
-  }
-  return 0
-}
-
-function deterministicStringify (obj, replacer, spacer) {
-  var tmp = deterministicDecirc(obj, '', [], undefined) || obj
-  var res = JSON.stringify(tmp, replacer, spacer)
-  while (arr.length !== 0) {
-    var part = arr.pop()
-    part[0][part[1]] = part[2]
-  }
-  return res
-}
-
-function deterministicDecirc (val, k, stack, parent) {
-  var i
-  if (typeof val === 'object' && val !== null) {
-    for (i = 0; i < stack.length; i++) {
-      if (stack[i] === val) {
-        parent[k] = '[Circular]'
-        arr.push([parent, k, val])
-        return
-      }
-    }
-    if (typeof val.toJSON === 'function') {
-      return
-    }
-    stack.push(val)
-    // Optimize for Arrays. Big arrays could kill the performance otherwise!
-    if (Array.isArray(val)) {
-      for (i = 0; i < val.length; i++) {
-        deterministicDecirc(val[i], i, stack, val)
-      }
-    } else {
-      // Create a temporary object in the required way
-      var tmp = {}
-      var keys = Object.keys(val).sort(compareFunction)
-      for (i = 0; i < keys.length; i++) {
-        var key = keys[i]
-        deterministicDecirc(val[key], key, stack, val)
-        tmp[key] = val[key]
-      }
-      if (parent !== undefined) {
-        arr.push([parent, k, val])
-        parent[k] = tmp
-      } else {
-        return tmp
-      }
-    }
-    stack.pop()
-  }
-}
 
 },{}],8:[function(require,module,exports){
 "use strict";
@@ -3544,7 +3547,7 @@ request.put = function (url, data, fn) {
   if (fn) req.end(fn);
   return req;
 };
-},{"./agent-base":8,"./is-object":10,"./request-base":11,"./response-base":12,"component-emitter":6,"fast-safe-stringify":7}],10:[function(require,module,exports){
+},{"./agent-base":8,"./is-object":10,"./request-base":11,"./response-base":12,"component-emitter":4,"fast-safe-stringify":5}],10:[function(require,module,exports){
 "use strict";
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -5127,7 +5130,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 }));
 
 }).call(this,require('_process'),require("buffer").Buffer)
-},{"_process":5,"buffer":3,"fs":1,"superagent":9}],15:[function(require,module,exports){
+},{"_process":7,"buffer":3,"fs":2,"superagent":9}],15:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5590,7 +5593,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Address":55,"../model/AddressAssignment":56,"../model/ListAddress":82,"../model/ListAddressAssignment":83}],16:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/AddressAssignment":56,"../model/ListAddress":81,"../model/ListAddressAssignment":82}],16:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -5869,7 +5872,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Address":55,"../model/ListAddress":82}],17:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/ListAddress":81}],17:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6262,7 +6265,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListUserGroup":132,"../model/ListUserGroupAssignment":133,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],18:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUserGroup":130,"../model/ListUserGroupAssignment":131,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],18:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6541,7 +6544,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListUser":131,"../model/User":217}],19:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUser":129,"../model/User":217}],19:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -6978,7 +6981,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ApiClient":57,"../model/ApiClientAssignment":58,"../model/ListApiClient":84,"../model/ListApiClientAssignment":85}],20:[function(require,module,exports){
+},{"../Sdk":14,"../model/ApiClient":57,"../model/ApiClientAssignment":58,"../model/ListApiClient":83,"../model/ListApiClientAssignment":84}],20:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -7299,7 +7302,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ApprovalRule":59,"../model/ListApprovalRule":86}],21:[function(require,module,exports){
+},{"../Sdk":14,"../model/ApprovalRule":59,"../model/ListApprovalRule":85}],21:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -7818,7 +7821,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Buyer":60,"../model/ListBuyer":87}],23:[function(require,module,exports){
+},{"../Sdk":14,"../model/Buyer":60,"../model/ListBuyer":86}],23:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -8325,7 +8328,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Catalog":65,"../model/CatalogAssignment":66,"../model/ListCatalog":92,"../model/ListCatalogAssignment":93,"../model/ListProductCatalogAssignment":117,"../model/ProductCatalogAssignment":202}],24:[function(require,module,exports){
+},{"../Sdk":14,"../model/Catalog":64,"../model/CatalogAssignment":65,"../model/ListCatalog":90,"../model/ListCatalogAssignment":91,"../model/ListProductCatalogAssignment":115,"../model/ProductCatalogAssignment":202}],24:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -8930,7 +8933,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Category":67,"../model/CategoryAssignment":68,"../model/CategoryProductAssignment":69,"../model/ListCategory":94,"../model/ListCategoryAssignment":95,"../model/ListCategoryProductAssignment":96}],25:[function(require,module,exports){
+},{"../Sdk":14,"../model/Category":66,"../model/CategoryAssignment":67,"../model/CategoryProductAssignment":68,"../model/ListCategory":92,"../model/ListCategoryAssignment":93,"../model/ListCategoryProductAssignment":94}],25:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -9389,7 +9392,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/CostCenter":70,"../model/CostCenterAssignment":71,"../model/ListCostCenter":97,"../model/ListCostCenterAssignment":98}],26:[function(require,module,exports){
+},{"../Sdk":14,"../model/CostCenter":69,"../model/CostCenterAssignment":70,"../model/ListCostCenter":95,"../model/ListCostCenterAssignment":96}],26:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -9848,7 +9851,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/CreditCard":72,"../model/CreditCardAssignment":73,"../model/ListCreditCard":99,"../model/ListCreditCardAssignment":100}],27:[function(require,module,exports){
+},{"../Sdk":14,"../model/CreditCard":71,"../model/CreditCardAssignment":72,"../model/ListCreditCard":97,"../model/ListCreditCardAssignment":98}],27:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10127,7 +10130,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ImpersonationConfig":75,"../model/ListImpersonationConfig":103}],28:[function(require,module,exports){
+},{"../Sdk":14,"../model/ImpersonationConfig":74,"../model/ListImpersonationConfig":101}],28:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10406,7 +10409,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Incrementor":76,"../model/ListIncrementor":104}],29:[function(require,module,exports){
+},{"../Sdk":14,"../model/Incrementor":75,"../model/ListIncrementor":102}],29:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10879,7 +10882,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Address":55,"../model/LineItem":78,"../model/ListLineItem":105}],30:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/LineItem":77,"../model/ListLineItem":103}],30:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -10896,18 +10899,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/AccessTokenBasic', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/Category', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/Shipment', 'model/SpendingAccount', 'model/TokenPasswordReset'], factory);
+    define(['Sdk', 'model/AccessTokenBasic', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/Catalog', 'model/Category', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListCatalog', 'model/ListCategory', 'model/ListCostCenter', 'model/ListOrder', 'model/ListPromotion', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpendingAccount', 'model/ListUserGroup', 'model/MeUser', 'model/Promotion', 'model/Shipment', 'model/Spec', 'model/SpendingAccount', 'model/TokenPasswordReset'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('../model/AccessTokenBasic'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/BuyerSpec'), require('../model/Catalog'), require('../model/Category'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListBuyerSpec'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/Shipment'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'));
+    module.exports = factory(require('../Sdk'), require('../model/AccessTokenBasic'), require('../model/BuyerAddress'), require('../model/BuyerCreditCard'), require('../model/BuyerProduct'), require('../model/Catalog'), require('../model/Category'), require('../model/ListBuyerAddress'), require('../model/ListBuyerCreditCard'), require('../model/ListBuyerProduct'), require('../model/ListCatalog'), require('../model/ListCategory'), require('../model/ListCostCenter'), require('../model/ListOrder'), require('../model/ListPromotion'), require('../model/ListShipment'), require('../model/ListShipmentItem'), require('../model/ListSpec'), require('../model/ListSpendingAccount'), require('../model/ListUserGroup'), require('../model/MeUser'), require('../model/Promotion'), require('../model/Shipment'), require('../model/Spec'), require('../model/SpendingAccount'), require('../model/TokenPasswordReset'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Me = factory(root.OrderCloud.Sdk, root.OrderCloud.AccessTokenBasic, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.BuyerSpec, root.OrderCloud.Catalog, root.OrderCloud.Category, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListBuyerSpec, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset);
+    root.OrderCloud.Me = factory(root.OrderCloud.Sdk, root.OrderCloud.AccessTokenBasic, root.OrderCloud.BuyerAddress, root.OrderCloud.BuyerCreditCard, root.OrderCloud.BuyerProduct, root.OrderCloud.Catalog, root.OrderCloud.Category, root.OrderCloud.ListBuyerAddress, root.OrderCloud.ListBuyerCreditCard, root.OrderCloud.ListBuyerProduct, root.OrderCloud.ListCatalog, root.OrderCloud.ListCategory, root.OrderCloud.ListCostCenter, root.OrderCloud.ListOrder, root.OrderCloud.ListPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListShipmentItem, root.OrderCloud.ListSpec, root.OrderCloud.ListSpendingAccount, root.OrderCloud.ListUserGroup, root.OrderCloud.MeUser, root.OrderCloud.Promotion, root.OrderCloud.Shipment, root.OrderCloud.Spec, root.OrderCloud.SpendingAccount, root.OrderCloud.TokenPasswordReset);
   }
-}(this, function(Sdk, AccessTokenBasic, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, Category, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipment, ListShipmentItem, ListSpendingAccount, ListUserGroup, MeUser, Promotion, Shipment, SpendingAccount, TokenPasswordReset) {
+}(this, function(Sdk, AccessTokenBasic, BuyerAddress, BuyerCreditCard, BuyerProduct, Catalog, Category, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListCatalog, ListCategory, ListCostCenter, ListOrder, ListPromotion, ListShipment, ListShipmentItem, ListSpec, ListSpendingAccount, ListUserGroup, MeUser, Promotion, Shipment, Spec, SpendingAccount, TokenPasswordReset) {
   'use strict';
 
   /**
@@ -11350,7 +11353,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {String} specID ID of the spec.
      * @param {Object} opts Optional parameters
      * @param {String} opts.catalogID ID of the catalog.
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/BuyerSpec}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Spec}
      */
     this.GetSpec = function(productID, specID, opts, accessToken ) {
       opts = opts || {};
@@ -11381,7 +11384,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = BuyerSpec;
+      var returnType = Spec;
 
       return this.sdk.callApi(
         '/me/products/{productID}/specs/{specID}', 'GET',
@@ -11745,6 +11748,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.searchType Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerProduct}
      */
     this.ListProducts = function(opts, accessToken ) {
@@ -11763,7 +11767,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
-        'filters': opts['filters']
+        'filters': opts['filters'],
+        'searchType': opts['searchType']
       };
       var headerParams = {
       };
@@ -11929,7 +11934,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
-     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListBuyerSpec}
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
      */
     this.ListSpecs = function(productID, opts, accessToken ) {
       opts = opts || {};
@@ -11960,7 +11965,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
       var accepts = ['application/json'];
-      var returnType = ListBuyerSpec;
+      var returnType = ListSpec;
 
       return this.sdk.callApi(
         '/me/products/{productID}/specs', 'GET',
@@ -12399,7 +12404,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/AccessTokenBasic":54,"../model/BuyerAddress":61,"../model/BuyerCreditCard":62,"../model/BuyerProduct":63,"../model/BuyerSpec":64,"../model/Catalog":65,"../model/Category":67,"../model/ListBuyerAddress":88,"../model/ListBuyerCreditCard":89,"../model/ListBuyerProduct":90,"../model/ListBuyerSpec":91,"../model/ListCatalog":92,"../model/ListCategory":94,"../model/ListCostCenter":97,"../model/ListOrder":110,"../model/ListPromotion":119,"../model/ListShipment":123,"../model/ListShipmentItem":124,"../model/ListSpendingAccount":128,"../model/ListUserGroup":132,"../model/MeUser":139,"../model/Promotion":204,"../model/Shipment":208,"../model/SpendingAccount":213,"../model/TokenPasswordReset":216}],31:[function(require,module,exports){
+},{"../Sdk":14,"../model/AccessTokenBasic":54,"../model/BuyerAddress":61,"../model/BuyerCreditCard":62,"../model/BuyerProduct":63,"../model/Catalog":64,"../model/Category":66,"../model/ListBuyerAddress":87,"../model/ListBuyerCreditCard":88,"../model/ListBuyerProduct":89,"../model/ListCatalog":90,"../model/ListCategory":92,"../model/ListCostCenter":95,"../model/ListOrder":108,"../model/ListPromotion":117,"../model/ListShipment":121,"../model/ListShipmentItem":122,"../model/ListSpec":123,"../model/ListSpendingAccount":126,"../model/ListUserGroup":130,"../model/MeUser":137,"../model/Promotion":204,"../model/Shipment":208,"../model/Spec":210,"../model/SpendingAccount":213,"../model/TokenPasswordReset":216}],31:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -12879,7 +12884,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListMessageCCListenerAssignment":106,"../model/ListMessageSender":107,"../model/ListMessageSenderAssignment":108,"../model/MessageCCListenerAssignment":140,"../model/MessageSender":141,"../model/MessageSenderAssignment":142}],32:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListMessageCCListenerAssignment":104,"../model/ListMessageSender":105,"../model/ListMessageSenderAssignment":106,"../model/MessageCCListenerAssignment":138,"../model/MessageSender":139,"../model/MessageSenderAssignment":140}],32:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -13158,7 +13163,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListOpenIdConnect":109,"../model/OpenIdConnect":145}],33:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListOpenIdConnect":107,"../model/OpenIdConnect":143}],33:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -13175,18 +13180,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/Shipment', 'model/User'], factory);
+    define(['Sdk', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListShipment', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/OrderSplitResult', 'model/Shipment', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/Shipment'), require('../model/User'));
+    module.exports = factory(require('../Sdk'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListShipment'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/OrderSplitResult'), require('../model/Shipment'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Orders = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.Shipment, root.OrderCloud.User);
+    root.OrderCloud.Orders = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.OrderSplitResult, root.OrderCloud.Shipment, root.OrderCloud.User);
   }
-}(this, function(Sdk, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, OrderPromotion, Shipment, User) {
+}(this, function(Sdk, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListShipment, ListUser, Order, OrderApprovalInfo, OrderPromotion, OrderSplitResult, Shipment, User) {
   'use strict';
 
   /**
@@ -13347,6 +13352,48 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
     /**
      * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
+     */
+    this.Complete = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Complete");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Complete");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = Order;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/complete', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {module:model/Order} order 
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
@@ -13470,6 +13517,48 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}', 'DELETE',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderSplitResult}
+     */
+    this.Forward = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Forward");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Forward");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = OrderSplitResult;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/forward', 'POST',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );
@@ -13737,6 +13826,62 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
+     */
+    this.ListShipments = function(direction, orderID, opts, accessToken ) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling ListShipments");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling ListShipments");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+        'search': opts['search'],
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListShipment;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );
@@ -14179,6 +14324,48 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     /**
      * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
      * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/OrderSplitResult}
+     */
+    this.Split = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Split");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Split");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = OrderSplitResult;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/split', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/Order}
      */
     this.Submit = function(direction, orderID, accessToken ) {
@@ -14216,12 +14403,54 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         contentTypes, accepts, returnType, accessToken
       );
     }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}
+     */
+    this.Validate = function(direction, orderID, accessToken ) {
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling Validate");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling Validate");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = null;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/validate', 'POST',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
   };
 
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Address":55,"../model/ListOrder":110,"../model/ListOrderApproval":111,"../model/ListOrderPromotion":112,"../model/ListUser":131,"../model/Order":146,"../model/OrderApprovalInfo":148,"../model/OrderPromotion":149,"../model/Shipment":208,"../model/User":217}],34:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/ListOrder":108,"../model/ListOrderApproval":109,"../model/ListOrderPromotion":110,"../model/ListShipment":121,"../model/ListUser":129,"../model/Order":144,"../model/OrderApprovalInfo":146,"../model/OrderPromotion":147,"../model/OrderSplitResult":148,"../model/Shipment":208,"../model/User":217}],34:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -14766,7 +14995,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListPayment":113,"../model/Payment":196,"../model/PaymentTransaction":197}],36:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListPayment":111,"../model/Payment":196,"../model/PaymentTransaction":197}],36:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15128,7 +15357,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListPriceSchedule":114,"../model/PriceBreak":198,"../model/PriceSchedule":199}],37:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListPriceSchedule":112,"../model/PriceBreak":198,"../model/PriceSchedule":199}],37:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15407,7 +15636,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListProductFacet":118,"../model/ProductFacet":203}],38:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListProductFacet":116,"../model/ProductFacet":203}],38:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -15424,18 +15653,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
+    define(['Sdk', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListSpec', 'model/ListSupplier', 'model/ListVariant', 'model/Product', 'model/ProductAssignment', 'model/Variant'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
+    module.exports = factory(require('../Sdk'), require('../model/ListProduct'), require('../model/ListProductAssignment'), require('../model/ListSpec'), require('../model/ListSupplier'), require('../model/ListVariant'), require('../model/Product'), require('../model/ProductAssignment'), require('../model/Variant'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Products = factory(root.OrderCloud.Sdk, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
+    root.OrderCloud.Products = factory(root.OrderCloud.Sdk, root.OrderCloud.ListProduct, root.OrderCloud.ListProductAssignment, root.OrderCloud.ListSpec, root.OrderCloud.ListSupplier, root.OrderCloud.ListVariant, root.OrderCloud.Product, root.OrderCloud.ProductAssignment, root.OrderCloud.Variant);
   }
-}(this, function(Sdk, ListProduct, ListProductAssignment, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
+}(this, function(Sdk, ListProduct, ListProductAssignment, ListSpec, ListSupplier, ListVariant, Product, ProductAssignment, Variant) {
   'use strict';
 
   /**
@@ -15699,6 +15928,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.searchType Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
     this.List = function(opts, accessToken ) {
@@ -15717,7 +15947,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
-        'filters': opts['filters']
+        'filters': opts['filters'],
+        'searchType': opts['searchType']
       };
       var headerParams = {
       };
@@ -15776,6 +16007,55 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       return this.sdk.callApi(
         '/products/assignments', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} productID ID of the product.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListSpec}
+     */
+    this.ListSpecs = function(productID, opts, accessToken ) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'productID' is set
+      if (productID == undefined || productID == null) {
+        throw new Error("Missing the required parameter 'productID' when calling ListSpecs");
+      }
+
+
+      var pathParams = {
+        'productID': productID
+      };
+      var queryParams = {
+        'search': opts['search'],
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListSpec;
+
+      return this.sdk.callApi(
+        '/products/{productID}/specs', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );
@@ -16179,7 +16459,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListProduct":115,"../model/ListProductAssignment":116,"../model/ListSupplier":130,"../model/ListVariant":134,"../model/Product":200,"../model/ProductAssignment":201,"../model/Variant":220}],39:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListProduct":113,"../model/ListProductAssignment":114,"../model/ListSpec":123,"../model/ListSupplier":128,"../model/ListVariant":132,"../model/Product":200,"../model/ProductAssignment":201,"../model/Variant":220}],39:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16584,7 +16864,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListPromotion":119,"../model/ListPromotionAssignment":120,"../model/Promotion":204,"../model/PromotionAssignment":205}],40:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListPromotion":117,"../model/ListPromotionAssignment":118,"../model/Promotion":204,"../model/PromotionAssignment":205}],40:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -16990,7 +17270,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListSecurityProfile":121,"../model/ListSecurityProfileAssignment":122,"../model/SecurityProfile":206,"../model/SecurityProfileAssignment":207}],41:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSecurityProfile":119,"../model/ListSecurityProfileAssignment":120,"../model/SecurityProfile":206,"../model/SecurityProfileAssignment":207}],41:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -17459,7 +17739,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListShipment":123,"../model/ListShipmentItem":124,"../model/Shipment":208,"../model/ShipmentItem":209}],42:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListShipment":121,"../model/ListShipmentItem":122,"../model/Shipment":208,"../model/ShipmentItem":209}],42:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18126,7 +18406,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListSpec":125,"../model/ListSpecOption":126,"../model/ListSpecProductAssignment":127,"../model/Spec":210,"../model/SpecOption":211,"../model/SpecProductAssignment":212}],43:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSpec":123,"../model/ListSpecOption":124,"../model/ListSpecProductAssignment":125,"../model/Spec":210,"../model/SpecOption":211,"../model/SpecProductAssignment":212}],43:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18585,7 +18865,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListSpendingAccount":128,"../model/ListSpendingAccountAssignment":129,"../model/SpendingAccount":213,"../model/SpendingAccountAssignment":214}],44:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSpendingAccount":126,"../model/ListSpendingAccountAssignment":127,"../model/SpendingAccount":213,"../model/SpendingAccountAssignment":214}],44:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -18906,7 +19186,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/Address":55,"../model/ListAddress":82}],45:[function(require,module,exports){
+},{"../Sdk":14,"../model/Address":55,"../model/ListAddress":81}],45:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19362,7 +19642,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListUserGroup":132,"../model/ListUserGroupAssignment":133,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],46:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUserGroup":130,"../model/ListUserGroupAssignment":131,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],46:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -19733,7 +20013,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/AccessToken":53,"../model/ImpersonateTokenRequest":74,"../model/ListUser":131,"../model/User":217}],47:[function(require,module,exports){
+},{"../Sdk":14,"../model/AccessToken":53,"../model/ImpersonateTokenRequest":73,"../model/ListUser":129,"../model/User":217}],47:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20012,7 +20292,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListSupplier":130,"../model/Supplier":215}],48:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListSupplier":128,"../model/Supplier":215}],48:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20468,7 +20748,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListUserGroup":132,"../model/ListUserGroupAssignment":133,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],49:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListUserGroup":130,"../model/ListUserGroupAssignment":131,"../model/UserGroup":218,"../model/UserGroupAssignment":219}],49:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -20895,7 +21175,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/AccessToken":53,"../model/ImpersonateTokenRequest":74,"../model/ListUser":131,"../model/User":217}],50:[function(require,module,exports){
+},{"../Sdk":14,"../model/AccessToken":53,"../model/ImpersonateTokenRequest":73,"../model/ListUser":129,"../model/User":217}],50:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21174,7 +21454,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListWebhook":135,"../model/Webhook":222}],51:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListWebhook":133,"../model/Webhook":223}],51:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21343,7 +21623,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"../Sdk":14,"../model/ListXpIndex":136,"../model/XpIndex":224}],52:[function(require,module,exports){
+},{"../Sdk":14,"../model/ListXpIndex":134,"../model/XpIndex":225}],52:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -21360,12 +21640,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/AccessToken', 'model/AccessTokenBasic', 'model/Address', 'model/AddressAssignment', 'model/ApiClient', 'model/ApiClientAssignment', 'model/ApprovalRule', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/BuyerSpec', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/ImpersonationConfig', 'model/Incrementor', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/LineItemVariant', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListApiClient', 'model/ListApiClientAssignment', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListBuyerSpec', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListFacet', 'model/ListFacetValue', 'model/ListImpersonationConfig', 'model/ListIncrementor', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOpenIdConnect', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListProductCatalogAssignment', 'model/ListProductFacet', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListSupplier', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListWebhook', 'model/ListXpIndex', 'model/MeBuyer', 'model/MeSupplier', 'model/MeUser', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/MetaWithFacets', 'model/OpenIdConnect', 'model/Order', 'model/OrderApproval', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/PartialAddress', 'model/PartialApiClient', 'model/PartialApprovalRule', 'model/PartialBuyer', 'model/PartialBuyerAddress', 'model/PartialBuyerCreditCard', 'model/PartialCatalog', 'model/PartialCategory', 'model/PartialCostCenter', 'model/PartialCreditCard', 'model/PartialImpersonationConfig', 'model/PartialIncrementor', 'model/PartialInventory', 'model/PartialLineItem', 'model/PartialLineItemProduct', 'model/PartialLineItemSpec', 'model/PartialLineItemVariant', 'model/PartialMeBuyer', 'model/PartialMeSupplier', 'model/PartialMeUser', 'model/PartialMessageSender', 'model/PartialOpenIdConnect', 'model/PartialOrder', 'model/PartialPasswordConfig', 'model/PartialPayment', 'model/PartialPaymentTransaction', 'model/PartialPriceBreak', 'model/PartialPriceSchedule', 'model/PartialProduct', 'model/PartialProductFacet', 'model/PartialPromotion', 'model/PartialSecurityProfile', 'model/PartialShipment', 'model/PartialSpec', 'model/PartialSpecOption', 'model/PartialSpendingAccount', 'model/PartialSupplier', 'model/PartialUser', 'model/PartialUserGroup', 'model/PartialVariant', 'model/PartialVariantInventory', 'model/PartialWebhook', 'model/PartialWebhookRoute', 'model/PasswordConfig', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/ProductCatalogAssignment', 'model/ProductFacet', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/Supplier', 'model/TokenPasswordReset', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/VariantInventory', 'model/Webhook', 'model/WebhookRoute', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApiClients', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categories', 'api/CostCenters', 'api/CreditCards', 'api/ImpersonationConfigs', 'api/Incrementors', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/OpenIdConnects', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/ProductFacets', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Suppliers', 'api/SupplierAddresses', 'api/SupplierUsers', 'api/SupplierUserGroups', 'api/Users', 'api/UserGroups', 'api/Webhooks', 'api/XpIndexs', 'api/Auth'], factory);
+    define(['Sdk', 'model/AccessToken', 'model/AccessTokenBasic', 'model/Address', 'model/AddressAssignment', 'model/ApiClient', 'model/ApiClientAssignment', 'model/ApprovalRule', 'model/Buyer', 'model/BuyerAddress', 'model/BuyerCreditCard', 'model/BuyerProduct', 'model/Catalog', 'model/CatalogAssignment', 'model/Category', 'model/CategoryAssignment', 'model/CategoryProductAssignment', 'model/CostCenter', 'model/CostCenterAssignment', 'model/CreditCard', 'model/CreditCardAssignment', 'model/ImpersonateTokenRequest', 'model/ImpersonationConfig', 'model/Incrementor', 'model/Inventory', 'model/LineItem', 'model/LineItemProduct', 'model/LineItemSpec', 'model/LineItemVariant', 'model/ListAddress', 'model/ListAddressAssignment', 'model/ListApiClient', 'model/ListApiClientAssignment', 'model/ListApprovalRule', 'model/ListBuyer', 'model/ListBuyerAddress', 'model/ListBuyerCreditCard', 'model/ListBuyerProduct', 'model/ListCatalog', 'model/ListCatalogAssignment', 'model/ListCategory', 'model/ListCategoryAssignment', 'model/ListCategoryProductAssignment', 'model/ListCostCenter', 'model/ListCostCenterAssignment', 'model/ListCreditCard', 'model/ListCreditCardAssignment', 'model/ListFacet', 'model/ListFacetValue', 'model/ListImpersonationConfig', 'model/ListIncrementor', 'model/ListLineItem', 'model/ListMessageCCListenerAssignment', 'model/ListMessageSender', 'model/ListMessageSenderAssignment', 'model/ListOpenIdConnect', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListPayment', 'model/ListPriceSchedule', 'model/ListProduct', 'model/ListProductAssignment', 'model/ListProductCatalogAssignment', 'model/ListProductFacet', 'model/ListPromotion', 'model/ListPromotionAssignment', 'model/ListSecurityProfile', 'model/ListSecurityProfileAssignment', 'model/ListShipment', 'model/ListShipmentItem', 'model/ListSpec', 'model/ListSpecOption', 'model/ListSpecProductAssignment', 'model/ListSpendingAccount', 'model/ListSpendingAccountAssignment', 'model/ListSupplier', 'model/ListUser', 'model/ListUserGroup', 'model/ListUserGroupAssignment', 'model/ListVariant', 'model/ListWebhook', 'model/ListXpIndex', 'model/MeBuyer', 'model/MeSupplier', 'model/MeUser', 'model/MessageCCListenerAssignment', 'model/MessageSender', 'model/MessageSenderAssignment', 'model/Meta', 'model/MetaWithFacets', 'model/OpenIdConnect', 'model/Order', 'model/OrderApproval', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/OrderSplitResult', 'model/PartialAddress', 'model/PartialApiClient', 'model/PartialApprovalRule', 'model/PartialBuyer', 'model/PartialBuyerAddress', 'model/PartialBuyerCreditCard', 'model/PartialCatalog', 'model/PartialCategory', 'model/PartialCostCenter', 'model/PartialCreditCard', 'model/PartialImpersonationConfig', 'model/PartialIncrementor', 'model/PartialInventory', 'model/PartialLineItem', 'model/PartialLineItemProduct', 'model/PartialLineItemSpec', 'model/PartialLineItemVariant', 'model/PartialMeBuyer', 'model/PartialMeSupplier', 'model/PartialMeUser', 'model/PartialMessageSender', 'model/PartialOpenIdConnect', 'model/PartialOrder', 'model/PartialPasswordConfig', 'model/PartialPayment', 'model/PartialPaymentTransaction', 'model/PartialPriceBreak', 'model/PartialPriceSchedule', 'model/PartialProduct', 'model/PartialProductFacet', 'model/PartialPromotion', 'model/PartialSecurityProfile', 'model/PartialShipment', 'model/PartialSpec', 'model/PartialSpecOption', 'model/PartialSpendingAccount', 'model/PartialSupplier', 'model/PartialUser', 'model/PartialUserGroup', 'model/PartialVariant', 'model/PartialVariantInventory', 'model/PartialVariantSpec', 'model/PartialWebhook', 'model/PartialWebhookRoute', 'model/PasswordConfig', 'model/PasswordReset', 'model/PasswordResetRequest', 'model/Payment', 'model/PaymentTransaction', 'model/PriceBreak', 'model/PriceSchedule', 'model/Product', 'model/ProductAssignment', 'model/ProductCatalogAssignment', 'model/ProductFacet', 'model/Promotion', 'model/PromotionAssignment', 'model/SecurityProfile', 'model/SecurityProfileAssignment', 'model/Shipment', 'model/ShipmentItem', 'model/Spec', 'model/SpecOption', 'model/SpecProductAssignment', 'model/SpendingAccount', 'model/SpendingAccountAssignment', 'model/Supplier', 'model/TokenPasswordReset', 'model/User', 'model/UserGroup', 'model/UserGroupAssignment', 'model/Variant', 'model/VariantInventory', 'model/VariantSpec', 'model/Webhook', 'model/WebhookRoute', 'model/XpIndex', 'api/Addresses', 'api/AdminAddresses', 'api/AdminUsers', 'api/AdminUserGroups', 'api/ApiClients', 'api/ApprovalRules', 'api/Buyers', 'api/Catalogs', 'api/Categories', 'api/CostCenters', 'api/CreditCards', 'api/ImpersonationConfigs', 'api/Incrementors', 'api/LineItems', 'api/Me', 'api/MessageSenders', 'api/OpenIdConnects', 'api/Orders', 'api/PasswordResets', 'api/Payments', 'api/PriceSchedules', 'api/Products', 'api/ProductFacets', 'api/Promotions', 'api/SecurityProfiles', 'api/Shipments', 'api/Specs', 'api/SpendingAccounts', 'api/Suppliers', 'api/SupplierAddresses', 'api/SupplierUsers', 'api/SupplierUserGroups', 'api/Users', 'api/UserGroups', 'api/Webhooks', 'api/XpIndexs', 'api/Auth'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('./Sdk'), require('./model/AccessToken'), require('./model/AccessTokenBasic'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/ApiClient'), require('./model/ApiClientAssignment'), require('./model/ApprovalRule'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/BuyerSpec'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/ImpersonationConfig'), require('./model/Incrementor'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/LineItemVariant'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListApiClient'), require('./model/ListApiClientAssignment'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListBuyerSpec'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListFacet'), require('./model/ListFacetValue'), require('./model/ListImpersonationConfig'), require('./model/ListIncrementor'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOpenIdConnect'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListProductCatalogAssignment'), require('./model/ListProductFacet'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListShipmentItem'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListSupplier'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListWebhook'), require('./model/ListXpIndex'), require('./model/MeBuyer'), require('./model/MeSupplier'), require('./model/MeUser'), require('./model/MessageCCListenerAssignment'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/MetaWithFacets'), require('./model/OpenIdConnect'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderApprovalInfo'), require('./model/OrderPromotion'), require('./model/PartialAddress'), require('./model/PartialApiClient'), require('./model/PartialApprovalRule'), require('./model/PartialBuyer'), require('./model/PartialBuyerAddress'), require('./model/PartialBuyerCreditCard'), require('./model/PartialCatalog'), require('./model/PartialCategory'), require('./model/PartialCostCenter'), require('./model/PartialCreditCard'), require('./model/PartialImpersonationConfig'), require('./model/PartialIncrementor'), require('./model/PartialInventory'), require('./model/PartialLineItem'), require('./model/PartialLineItemProduct'), require('./model/PartialLineItemSpec'), require('./model/PartialLineItemVariant'), require('./model/PartialMeBuyer'), require('./model/PartialMeSupplier'), require('./model/PartialMeUser'), require('./model/PartialMessageSender'), require('./model/PartialOpenIdConnect'), require('./model/PartialOrder'), require('./model/PartialPasswordConfig'), require('./model/PartialPayment'), require('./model/PartialPaymentTransaction'), require('./model/PartialPriceBreak'), require('./model/PartialPriceSchedule'), require('./model/PartialProduct'), require('./model/PartialProductFacet'), require('./model/PartialPromotion'), require('./model/PartialSecurityProfile'), require('./model/PartialShipment'), require('./model/PartialSpec'), require('./model/PartialSpecOption'), require('./model/PartialSpendingAccount'), require('./model/PartialSupplier'), require('./model/PartialUser'), require('./model/PartialUserGroup'), require('./model/PartialVariant'), require('./model/PartialVariantInventory'), require('./model/PartialWebhook'), require('./model/PartialWebhookRoute'), require('./model/PasswordConfig'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/ProductCatalogAssignment'), require('./model/ProductFacet'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/Supplier'), require('./model/TokenPasswordReset'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/VariantInventory'), require('./model/Webhook'), require('./model/WebhookRoute'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApiClients'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categories'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/ImpersonationConfigs'), require('./api/Incrementors'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/OpenIdConnects'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/ProductFacets'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Suppliers'), require('./api/SupplierAddresses'), require('./api/SupplierUsers'), require('./api/SupplierUserGroups'), require('./api/Users'), require('./api/UserGroups'), require('./api/Webhooks'), require('./api/XpIndexs'), require('./api/Auth'));
+    module.exports = factory(require('./Sdk'), require('./model/AccessToken'), require('./model/AccessTokenBasic'), require('./model/Address'), require('./model/AddressAssignment'), require('./model/ApiClient'), require('./model/ApiClientAssignment'), require('./model/ApprovalRule'), require('./model/Buyer'), require('./model/BuyerAddress'), require('./model/BuyerCreditCard'), require('./model/BuyerProduct'), require('./model/Catalog'), require('./model/CatalogAssignment'), require('./model/Category'), require('./model/CategoryAssignment'), require('./model/CategoryProductAssignment'), require('./model/CostCenter'), require('./model/CostCenterAssignment'), require('./model/CreditCard'), require('./model/CreditCardAssignment'), require('./model/ImpersonateTokenRequest'), require('./model/ImpersonationConfig'), require('./model/Incrementor'), require('./model/Inventory'), require('./model/LineItem'), require('./model/LineItemProduct'), require('./model/LineItemSpec'), require('./model/LineItemVariant'), require('./model/ListAddress'), require('./model/ListAddressAssignment'), require('./model/ListApiClient'), require('./model/ListApiClientAssignment'), require('./model/ListApprovalRule'), require('./model/ListBuyer'), require('./model/ListBuyerAddress'), require('./model/ListBuyerCreditCard'), require('./model/ListBuyerProduct'), require('./model/ListCatalog'), require('./model/ListCatalogAssignment'), require('./model/ListCategory'), require('./model/ListCategoryAssignment'), require('./model/ListCategoryProductAssignment'), require('./model/ListCostCenter'), require('./model/ListCostCenterAssignment'), require('./model/ListCreditCard'), require('./model/ListCreditCardAssignment'), require('./model/ListFacet'), require('./model/ListFacetValue'), require('./model/ListImpersonationConfig'), require('./model/ListIncrementor'), require('./model/ListLineItem'), require('./model/ListMessageCCListenerAssignment'), require('./model/ListMessageSender'), require('./model/ListMessageSenderAssignment'), require('./model/ListOpenIdConnect'), require('./model/ListOrder'), require('./model/ListOrderApproval'), require('./model/ListOrderPromotion'), require('./model/ListPayment'), require('./model/ListPriceSchedule'), require('./model/ListProduct'), require('./model/ListProductAssignment'), require('./model/ListProductCatalogAssignment'), require('./model/ListProductFacet'), require('./model/ListPromotion'), require('./model/ListPromotionAssignment'), require('./model/ListSecurityProfile'), require('./model/ListSecurityProfileAssignment'), require('./model/ListShipment'), require('./model/ListShipmentItem'), require('./model/ListSpec'), require('./model/ListSpecOption'), require('./model/ListSpecProductAssignment'), require('./model/ListSpendingAccount'), require('./model/ListSpendingAccountAssignment'), require('./model/ListSupplier'), require('./model/ListUser'), require('./model/ListUserGroup'), require('./model/ListUserGroupAssignment'), require('./model/ListVariant'), require('./model/ListWebhook'), require('./model/ListXpIndex'), require('./model/MeBuyer'), require('./model/MeSupplier'), require('./model/MeUser'), require('./model/MessageCCListenerAssignment'), require('./model/MessageSender'), require('./model/MessageSenderAssignment'), require('./model/Meta'), require('./model/MetaWithFacets'), require('./model/OpenIdConnect'), require('./model/Order'), require('./model/OrderApproval'), require('./model/OrderApprovalInfo'), require('./model/OrderPromotion'), require('./model/OrderSplitResult'), require('./model/PartialAddress'), require('./model/PartialApiClient'), require('./model/PartialApprovalRule'), require('./model/PartialBuyer'), require('./model/PartialBuyerAddress'), require('./model/PartialBuyerCreditCard'), require('./model/PartialCatalog'), require('./model/PartialCategory'), require('./model/PartialCostCenter'), require('./model/PartialCreditCard'), require('./model/PartialImpersonationConfig'), require('./model/PartialIncrementor'), require('./model/PartialInventory'), require('./model/PartialLineItem'), require('./model/PartialLineItemProduct'), require('./model/PartialLineItemSpec'), require('./model/PartialLineItemVariant'), require('./model/PartialMeBuyer'), require('./model/PartialMeSupplier'), require('./model/PartialMeUser'), require('./model/PartialMessageSender'), require('./model/PartialOpenIdConnect'), require('./model/PartialOrder'), require('./model/PartialPasswordConfig'), require('./model/PartialPayment'), require('./model/PartialPaymentTransaction'), require('./model/PartialPriceBreak'), require('./model/PartialPriceSchedule'), require('./model/PartialProduct'), require('./model/PartialProductFacet'), require('./model/PartialPromotion'), require('./model/PartialSecurityProfile'), require('./model/PartialShipment'), require('./model/PartialSpec'), require('./model/PartialSpecOption'), require('./model/PartialSpendingAccount'), require('./model/PartialSupplier'), require('./model/PartialUser'), require('./model/PartialUserGroup'), require('./model/PartialVariant'), require('./model/PartialVariantInventory'), require('./model/PartialVariantSpec'), require('./model/PartialWebhook'), require('./model/PartialWebhookRoute'), require('./model/PasswordConfig'), require('./model/PasswordReset'), require('./model/PasswordResetRequest'), require('./model/Payment'), require('./model/PaymentTransaction'), require('./model/PriceBreak'), require('./model/PriceSchedule'), require('./model/Product'), require('./model/ProductAssignment'), require('./model/ProductCatalogAssignment'), require('./model/ProductFacet'), require('./model/Promotion'), require('./model/PromotionAssignment'), require('./model/SecurityProfile'), require('./model/SecurityProfileAssignment'), require('./model/Shipment'), require('./model/ShipmentItem'), require('./model/Spec'), require('./model/SpecOption'), require('./model/SpecProductAssignment'), require('./model/SpendingAccount'), require('./model/SpendingAccountAssignment'), require('./model/Supplier'), require('./model/TokenPasswordReset'), require('./model/User'), require('./model/UserGroup'), require('./model/UserGroupAssignment'), require('./model/Variant'), require('./model/VariantInventory'), require('./model/VariantSpec'), require('./model/Webhook'), require('./model/WebhookRoute'), require('./model/XpIndex'), require('./api/Addresses'), require('./api/AdminAddresses'), require('./api/AdminUsers'), require('./api/AdminUserGroups'), require('./api/ApiClients'), require('./api/ApprovalRules'), require('./api/Buyers'), require('./api/Catalogs'), require('./api/Categories'), require('./api/CostCenters'), require('./api/CreditCards'), require('./api/ImpersonationConfigs'), require('./api/Incrementors'), require('./api/LineItems'), require('./api/Me'), require('./api/MessageSenders'), require('./api/OpenIdConnects'), require('./api/Orders'), require('./api/PasswordResets'), require('./api/Payments'), require('./api/PriceSchedules'), require('./api/Products'), require('./api/ProductFacets'), require('./api/Promotions'), require('./api/SecurityProfiles'), require('./api/Shipments'), require('./api/Specs'), require('./api/SpendingAccounts'), require('./api/Suppliers'), require('./api/SupplierAddresses'), require('./api/SupplierUsers'), require('./api/SupplierUserGroups'), require('./api/Users'), require('./api/UserGroups'), require('./api/Webhooks'), require('./api/XpIndexs'), require('./api/Auth'));
   }
-}(function(Sdk, AccessToken, AccessTokenBasic, Address, AddressAssignment, ApiClient, ApiClientAssignment, ApprovalRule, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, BuyerSpec, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, ImpersonationConfig, Incrementor, Inventory, LineItem, LineItemProduct, LineItemSpec, LineItemVariant, ListAddress, ListAddressAssignment, ListApiClient, ListApiClientAssignment, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListBuyerSpec, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListFacet, ListFacetValue, ListImpersonationConfig, ListIncrementor, ListLineItem, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, ListOpenIdConnect, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListProductCatalogAssignment, ListProductFacet, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListShipmentItem, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListSupplier, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListWebhook, ListXpIndex, MeBuyer, MeSupplier, MeUser, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment, Meta, MetaWithFacets, OpenIdConnect, Order, OrderApproval, OrderApprovalInfo, OrderPromotion, PartialAddress, PartialApiClient, PartialApprovalRule, PartialBuyer, PartialBuyerAddress, PartialBuyerCreditCard, PartialCatalog, PartialCategory, PartialCostCenter, PartialCreditCard, PartialImpersonationConfig, PartialIncrementor, PartialInventory, PartialLineItem, PartialLineItemProduct, PartialLineItemSpec, PartialLineItemVariant, PartialMeBuyer, PartialMeSupplier, PartialMeUser, PartialMessageSender, PartialOpenIdConnect, PartialOrder, PartialPasswordConfig, PartialPayment, PartialPaymentTransaction, PartialPriceBreak, PartialPriceSchedule, PartialProduct, PartialProductFacet, PartialPromotion, PartialSecurityProfile, PartialShipment, PartialSpec, PartialSpecOption, PartialSpendingAccount, PartialSupplier, PartialUser, PartialUserGroup, PartialVariant, PartialVariantInventory, PartialWebhook, PartialWebhookRoute, PasswordConfig, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PriceBreak, PriceSchedule, Product, ProductAssignment, ProductCatalogAssignment, ProductFacet, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, Supplier, TokenPasswordReset, User, UserGroup, UserGroupAssignment, Variant, VariantInventory, Webhook, WebhookRoute, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApiClients, ApprovalRules, Buyers, Catalogs, Categories, CostCenters, CreditCards, ImpersonationConfigs, Incrementors, LineItems, Me, MessageSenders, OpenIdConnects, Orders, PasswordResets, Payments, PriceSchedules, Products, ProductFacets, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Suppliers, SupplierAddresses, SupplierUsers, SupplierUserGroups, Users, UserGroups, Webhooks, XpIndexs, Auth) {
+}(function(Sdk, AccessToken, AccessTokenBasic, Address, AddressAssignment, ApiClient, ApiClientAssignment, ApprovalRule, Buyer, BuyerAddress, BuyerCreditCard, BuyerProduct, Catalog, CatalogAssignment, Category, CategoryAssignment, CategoryProductAssignment, CostCenter, CostCenterAssignment, CreditCard, CreditCardAssignment, ImpersonateTokenRequest, ImpersonationConfig, Incrementor, Inventory, LineItem, LineItemProduct, LineItemSpec, LineItemVariant, ListAddress, ListAddressAssignment, ListApiClient, ListApiClientAssignment, ListApprovalRule, ListBuyer, ListBuyerAddress, ListBuyerCreditCard, ListBuyerProduct, ListCatalog, ListCatalogAssignment, ListCategory, ListCategoryAssignment, ListCategoryProductAssignment, ListCostCenter, ListCostCenterAssignment, ListCreditCard, ListCreditCardAssignment, ListFacet, ListFacetValue, ListImpersonationConfig, ListIncrementor, ListLineItem, ListMessageCCListenerAssignment, ListMessageSender, ListMessageSenderAssignment, ListOpenIdConnect, ListOrder, ListOrderApproval, ListOrderPromotion, ListPayment, ListPriceSchedule, ListProduct, ListProductAssignment, ListProductCatalogAssignment, ListProductFacet, ListPromotion, ListPromotionAssignment, ListSecurityProfile, ListSecurityProfileAssignment, ListShipment, ListShipmentItem, ListSpec, ListSpecOption, ListSpecProductAssignment, ListSpendingAccount, ListSpendingAccountAssignment, ListSupplier, ListUser, ListUserGroup, ListUserGroupAssignment, ListVariant, ListWebhook, ListXpIndex, MeBuyer, MeSupplier, MeUser, MessageCCListenerAssignment, MessageSender, MessageSenderAssignment, Meta, MetaWithFacets, OpenIdConnect, Order, OrderApproval, OrderApprovalInfo, OrderPromotion, OrderSplitResult, PartialAddress, PartialApiClient, PartialApprovalRule, PartialBuyer, PartialBuyerAddress, PartialBuyerCreditCard, PartialCatalog, PartialCategory, PartialCostCenter, PartialCreditCard, PartialImpersonationConfig, PartialIncrementor, PartialInventory, PartialLineItem, PartialLineItemProduct, PartialLineItemSpec, PartialLineItemVariant, PartialMeBuyer, PartialMeSupplier, PartialMeUser, PartialMessageSender, PartialOpenIdConnect, PartialOrder, PartialPasswordConfig, PartialPayment, PartialPaymentTransaction, PartialPriceBreak, PartialPriceSchedule, PartialProduct, PartialProductFacet, PartialPromotion, PartialSecurityProfile, PartialShipment, PartialSpec, PartialSpecOption, PartialSpendingAccount, PartialSupplier, PartialUser, PartialUserGroup, PartialVariant, PartialVariantInventory, PartialVariantSpec, PartialWebhook, PartialWebhookRoute, PasswordConfig, PasswordReset, PasswordResetRequest, Payment, PaymentTransaction, PriceBreak, PriceSchedule, Product, ProductAssignment, ProductCatalogAssignment, ProductFacet, Promotion, PromotionAssignment, SecurityProfile, SecurityProfileAssignment, Shipment, ShipmentItem, Spec, SpecOption, SpecProductAssignment, SpendingAccount, SpendingAccountAssignment, Supplier, TokenPasswordReset, User, UserGroup, UserGroupAssignment, Variant, VariantInventory, VariantSpec, Webhook, WebhookRoute, XpIndex, Addresses, AdminAddresses, AdminUsers, AdminUserGroups, ApiClients, ApprovalRules, Buyers, Catalogs, Categories, CostCenters, CreditCards, ImpersonationConfigs, Incrementors, LineItems, Me, MessageSenders, OpenIdConnects, Orders, PasswordResets, Payments, PriceSchedules, Products, ProductFacets, Promotions, SecurityProfiles, Shipments, Specs, SpendingAccounts, Suppliers, SupplierAddresses, SupplierUsers, SupplierUserGroups, Users, UserGroups, Webhooks, XpIndexs, Auth) {
   'use strict';
 
   /**
@@ -21397,7 +21677,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * </pre>
    * </p>
    * @module index
-   * @version 3.5.8
+   * @version 3.6.9
    */
   var exports = {
     /**
@@ -21473,11 +21753,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/BuyerProduct}
      */
     BuyerProduct: BuyerProduct,
-    /**
-     * The BuyerSpec model constructor.
-     * @property {module:model/BuyerSpec}
-     */
-    BuyerSpec: BuyerSpec,
     /**
      * The Catalog model constructor.
      * @property {module:model/Catalog}
@@ -21608,11 +21883,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/ListBuyerProduct}
      */
     ListBuyerProduct: ListBuyerProduct,
-    /**
-     * The ListBuyerSpec model constructor.
-     * @property {module:model/ListBuyerSpec}
-     */
-    ListBuyerSpec: ListBuyerSpec,
     /**
      * The ListCatalog model constructor.
      * @property {module:model/ListCatalog}
@@ -21904,6 +22174,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     OrderPromotion: OrderPromotion,
     /**
+     * The OrderSplitResult model constructor.
+     * @property {module:model/OrderSplitResult}
+     */
+    OrderSplitResult: OrderSplitResult,
+    /**
      * The PartialAddress model constructor.
      * @property {module:model/PartialAddress}
      */
@@ -22109,6 +22384,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      */
     PartialVariantInventory: PartialVariantInventory,
     /**
+     * The PartialVariantSpec model constructor.
+     * @property {module:model/PartialVariantSpec}
+     */
+    PartialVariantSpec: PartialVariantSpec,
+    /**
      * The PartialWebhook model constructor.
      * @property {module:model/PartialWebhook}
      */
@@ -22263,6 +22543,11 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
      * @property {module:model/VariantInventory}
      */
     VariantInventory: VariantInventory,
+    /**
+     * The VariantSpec model constructor.
+     * @property {module:model/VariantSpec}
+     */
+    VariantSpec: VariantSpec,
     /**
      * The Webhook model constructor.
      * @property {module:model/Webhook}
@@ -22463,7 +22748,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
   return exports;
 }));
 
-},{"./Sdk":14,"./api/Addresses":15,"./api/AdminAddresses":16,"./api/AdminUserGroups":17,"./api/AdminUsers":18,"./api/ApiClients":19,"./api/ApprovalRules":20,"./api/Auth":21,"./api/Buyers":22,"./api/Catalogs":23,"./api/Categories":24,"./api/CostCenters":25,"./api/CreditCards":26,"./api/ImpersonationConfigs":27,"./api/Incrementors":28,"./api/LineItems":29,"./api/Me":30,"./api/MessageSenders":31,"./api/OpenIdConnects":32,"./api/Orders":33,"./api/PasswordResets":34,"./api/Payments":35,"./api/PriceSchedules":36,"./api/ProductFacets":37,"./api/Products":38,"./api/Promotions":39,"./api/SecurityProfiles":40,"./api/Shipments":41,"./api/Specs":42,"./api/SpendingAccounts":43,"./api/SupplierAddresses":44,"./api/SupplierUserGroups":45,"./api/SupplierUsers":46,"./api/Suppliers":47,"./api/UserGroups":48,"./api/Users":49,"./api/Webhooks":50,"./api/XpIndexs":51,"./model/AccessToken":53,"./model/AccessTokenBasic":54,"./model/Address":55,"./model/AddressAssignment":56,"./model/ApiClient":57,"./model/ApiClientAssignment":58,"./model/ApprovalRule":59,"./model/Buyer":60,"./model/BuyerAddress":61,"./model/BuyerCreditCard":62,"./model/BuyerProduct":63,"./model/BuyerSpec":64,"./model/Catalog":65,"./model/CatalogAssignment":66,"./model/Category":67,"./model/CategoryAssignment":68,"./model/CategoryProductAssignment":69,"./model/CostCenter":70,"./model/CostCenterAssignment":71,"./model/CreditCard":72,"./model/CreditCardAssignment":73,"./model/ImpersonateTokenRequest":74,"./model/ImpersonationConfig":75,"./model/Incrementor":76,"./model/Inventory":77,"./model/LineItem":78,"./model/LineItemProduct":79,"./model/LineItemSpec":80,"./model/LineItemVariant":81,"./model/ListAddress":82,"./model/ListAddressAssignment":83,"./model/ListApiClient":84,"./model/ListApiClientAssignment":85,"./model/ListApprovalRule":86,"./model/ListBuyer":87,"./model/ListBuyerAddress":88,"./model/ListBuyerCreditCard":89,"./model/ListBuyerProduct":90,"./model/ListBuyerSpec":91,"./model/ListCatalog":92,"./model/ListCatalogAssignment":93,"./model/ListCategory":94,"./model/ListCategoryAssignment":95,"./model/ListCategoryProductAssignment":96,"./model/ListCostCenter":97,"./model/ListCostCenterAssignment":98,"./model/ListCreditCard":99,"./model/ListCreditCardAssignment":100,"./model/ListFacet":101,"./model/ListFacetValue":102,"./model/ListImpersonationConfig":103,"./model/ListIncrementor":104,"./model/ListLineItem":105,"./model/ListMessageCCListenerAssignment":106,"./model/ListMessageSender":107,"./model/ListMessageSenderAssignment":108,"./model/ListOpenIdConnect":109,"./model/ListOrder":110,"./model/ListOrderApproval":111,"./model/ListOrderPromotion":112,"./model/ListPayment":113,"./model/ListPriceSchedule":114,"./model/ListProduct":115,"./model/ListProductAssignment":116,"./model/ListProductCatalogAssignment":117,"./model/ListProductFacet":118,"./model/ListPromotion":119,"./model/ListPromotionAssignment":120,"./model/ListSecurityProfile":121,"./model/ListSecurityProfileAssignment":122,"./model/ListShipment":123,"./model/ListShipmentItem":124,"./model/ListSpec":125,"./model/ListSpecOption":126,"./model/ListSpecProductAssignment":127,"./model/ListSpendingAccount":128,"./model/ListSpendingAccountAssignment":129,"./model/ListSupplier":130,"./model/ListUser":131,"./model/ListUserGroup":132,"./model/ListUserGroupAssignment":133,"./model/ListVariant":134,"./model/ListWebhook":135,"./model/ListXpIndex":136,"./model/MeBuyer":137,"./model/MeSupplier":138,"./model/MeUser":139,"./model/MessageCCListenerAssignment":140,"./model/MessageSender":141,"./model/MessageSenderAssignment":142,"./model/Meta":143,"./model/MetaWithFacets":144,"./model/OpenIdConnect":145,"./model/Order":146,"./model/OrderApproval":147,"./model/OrderApprovalInfo":148,"./model/OrderPromotion":149,"./model/PartialAddress":150,"./model/PartialApiClient":151,"./model/PartialApprovalRule":152,"./model/PartialBuyer":153,"./model/PartialBuyerAddress":154,"./model/PartialBuyerCreditCard":155,"./model/PartialCatalog":156,"./model/PartialCategory":157,"./model/PartialCostCenter":158,"./model/PartialCreditCard":159,"./model/PartialImpersonationConfig":160,"./model/PartialIncrementor":161,"./model/PartialInventory":162,"./model/PartialLineItem":163,"./model/PartialLineItemProduct":164,"./model/PartialLineItemSpec":165,"./model/PartialLineItemVariant":166,"./model/PartialMeBuyer":167,"./model/PartialMeSupplier":168,"./model/PartialMeUser":169,"./model/PartialMessageSender":170,"./model/PartialOpenIdConnect":171,"./model/PartialOrder":172,"./model/PartialPasswordConfig":173,"./model/PartialPayment":174,"./model/PartialPaymentTransaction":175,"./model/PartialPriceBreak":176,"./model/PartialPriceSchedule":177,"./model/PartialProduct":178,"./model/PartialProductFacet":179,"./model/PartialPromotion":180,"./model/PartialSecurityProfile":181,"./model/PartialShipment":182,"./model/PartialSpec":183,"./model/PartialSpecOption":184,"./model/PartialSpendingAccount":185,"./model/PartialSupplier":186,"./model/PartialUser":187,"./model/PartialUserGroup":188,"./model/PartialVariant":189,"./model/PartialVariantInventory":190,"./model/PartialWebhook":191,"./model/PartialWebhookRoute":192,"./model/PasswordConfig":193,"./model/PasswordReset":194,"./model/PasswordResetRequest":195,"./model/Payment":196,"./model/PaymentTransaction":197,"./model/PriceBreak":198,"./model/PriceSchedule":199,"./model/Product":200,"./model/ProductAssignment":201,"./model/ProductCatalogAssignment":202,"./model/ProductFacet":203,"./model/Promotion":204,"./model/PromotionAssignment":205,"./model/SecurityProfile":206,"./model/SecurityProfileAssignment":207,"./model/Shipment":208,"./model/ShipmentItem":209,"./model/Spec":210,"./model/SpecOption":211,"./model/SpecProductAssignment":212,"./model/SpendingAccount":213,"./model/SpendingAccountAssignment":214,"./model/Supplier":215,"./model/TokenPasswordReset":216,"./model/User":217,"./model/UserGroup":218,"./model/UserGroupAssignment":219,"./model/Variant":220,"./model/VariantInventory":221,"./model/Webhook":222,"./model/WebhookRoute":223,"./model/XpIndex":224}],53:[function(require,module,exports){
+},{"./Sdk":14,"./api/Addresses":15,"./api/AdminAddresses":16,"./api/AdminUserGroups":17,"./api/AdminUsers":18,"./api/ApiClients":19,"./api/ApprovalRules":20,"./api/Auth":21,"./api/Buyers":22,"./api/Catalogs":23,"./api/Categories":24,"./api/CostCenters":25,"./api/CreditCards":26,"./api/ImpersonationConfigs":27,"./api/Incrementors":28,"./api/LineItems":29,"./api/Me":30,"./api/MessageSenders":31,"./api/OpenIdConnects":32,"./api/Orders":33,"./api/PasswordResets":34,"./api/Payments":35,"./api/PriceSchedules":36,"./api/ProductFacets":37,"./api/Products":38,"./api/Promotions":39,"./api/SecurityProfiles":40,"./api/Shipments":41,"./api/Specs":42,"./api/SpendingAccounts":43,"./api/SupplierAddresses":44,"./api/SupplierUserGroups":45,"./api/SupplierUsers":46,"./api/Suppliers":47,"./api/UserGroups":48,"./api/Users":49,"./api/Webhooks":50,"./api/XpIndexs":51,"./model/AccessToken":53,"./model/AccessTokenBasic":54,"./model/Address":55,"./model/AddressAssignment":56,"./model/ApiClient":57,"./model/ApiClientAssignment":58,"./model/ApprovalRule":59,"./model/Buyer":60,"./model/BuyerAddress":61,"./model/BuyerCreditCard":62,"./model/BuyerProduct":63,"./model/Catalog":64,"./model/CatalogAssignment":65,"./model/Category":66,"./model/CategoryAssignment":67,"./model/CategoryProductAssignment":68,"./model/CostCenter":69,"./model/CostCenterAssignment":70,"./model/CreditCard":71,"./model/CreditCardAssignment":72,"./model/ImpersonateTokenRequest":73,"./model/ImpersonationConfig":74,"./model/Incrementor":75,"./model/Inventory":76,"./model/LineItem":77,"./model/LineItemProduct":78,"./model/LineItemSpec":79,"./model/LineItemVariant":80,"./model/ListAddress":81,"./model/ListAddressAssignment":82,"./model/ListApiClient":83,"./model/ListApiClientAssignment":84,"./model/ListApprovalRule":85,"./model/ListBuyer":86,"./model/ListBuyerAddress":87,"./model/ListBuyerCreditCard":88,"./model/ListBuyerProduct":89,"./model/ListCatalog":90,"./model/ListCatalogAssignment":91,"./model/ListCategory":92,"./model/ListCategoryAssignment":93,"./model/ListCategoryProductAssignment":94,"./model/ListCostCenter":95,"./model/ListCostCenterAssignment":96,"./model/ListCreditCard":97,"./model/ListCreditCardAssignment":98,"./model/ListFacet":99,"./model/ListFacetValue":100,"./model/ListImpersonationConfig":101,"./model/ListIncrementor":102,"./model/ListLineItem":103,"./model/ListMessageCCListenerAssignment":104,"./model/ListMessageSender":105,"./model/ListMessageSenderAssignment":106,"./model/ListOpenIdConnect":107,"./model/ListOrder":108,"./model/ListOrderApproval":109,"./model/ListOrderPromotion":110,"./model/ListPayment":111,"./model/ListPriceSchedule":112,"./model/ListProduct":113,"./model/ListProductAssignment":114,"./model/ListProductCatalogAssignment":115,"./model/ListProductFacet":116,"./model/ListPromotion":117,"./model/ListPromotionAssignment":118,"./model/ListSecurityProfile":119,"./model/ListSecurityProfileAssignment":120,"./model/ListShipment":121,"./model/ListShipmentItem":122,"./model/ListSpec":123,"./model/ListSpecOption":124,"./model/ListSpecProductAssignment":125,"./model/ListSpendingAccount":126,"./model/ListSpendingAccountAssignment":127,"./model/ListSupplier":128,"./model/ListUser":129,"./model/ListUserGroup":130,"./model/ListUserGroupAssignment":131,"./model/ListVariant":132,"./model/ListWebhook":133,"./model/ListXpIndex":134,"./model/MeBuyer":135,"./model/MeSupplier":136,"./model/MeUser":137,"./model/MessageCCListenerAssignment":138,"./model/MessageSender":139,"./model/MessageSenderAssignment":140,"./model/Meta":141,"./model/MetaWithFacets":142,"./model/OpenIdConnect":143,"./model/Order":144,"./model/OrderApproval":145,"./model/OrderApprovalInfo":146,"./model/OrderPromotion":147,"./model/OrderSplitResult":148,"./model/PartialAddress":149,"./model/PartialApiClient":150,"./model/PartialApprovalRule":151,"./model/PartialBuyer":152,"./model/PartialBuyerAddress":153,"./model/PartialBuyerCreditCard":154,"./model/PartialCatalog":155,"./model/PartialCategory":156,"./model/PartialCostCenter":157,"./model/PartialCreditCard":158,"./model/PartialImpersonationConfig":159,"./model/PartialIncrementor":160,"./model/PartialInventory":161,"./model/PartialLineItem":162,"./model/PartialLineItemProduct":163,"./model/PartialLineItemSpec":164,"./model/PartialLineItemVariant":165,"./model/PartialMeBuyer":166,"./model/PartialMeSupplier":167,"./model/PartialMeUser":168,"./model/PartialMessageSender":169,"./model/PartialOpenIdConnect":170,"./model/PartialOrder":171,"./model/PartialPasswordConfig":172,"./model/PartialPayment":173,"./model/PartialPaymentTransaction":174,"./model/PartialPriceBreak":175,"./model/PartialPriceSchedule":176,"./model/PartialProduct":177,"./model/PartialProductFacet":178,"./model/PartialPromotion":179,"./model/PartialSecurityProfile":180,"./model/PartialShipment":181,"./model/PartialSpec":182,"./model/PartialSpecOption":183,"./model/PartialSpendingAccount":184,"./model/PartialSupplier":185,"./model/PartialUser":186,"./model/PartialUserGroup":187,"./model/PartialVariant":188,"./model/PartialVariantInventory":189,"./model/PartialVariantSpec":190,"./model/PartialWebhook":191,"./model/PartialWebhookRoute":192,"./model/PasswordConfig":193,"./model/PasswordReset":194,"./model/PasswordResetRequest":195,"./model/Payment":196,"./model/PaymentTransaction":197,"./model/PriceBreak":198,"./model/PriceSchedule":199,"./model/Product":200,"./model/ProductAssignment":201,"./model/ProductCatalogAssignment":202,"./model/ProductFacet":203,"./model/Promotion":204,"./model/PromotionAssignment":205,"./model/SecurityProfile":206,"./model/SecurityProfileAssignment":207,"./model/Shipment":208,"./model/ShipmentItem":209,"./model/Spec":210,"./model/SpecOption":211,"./model/SpecProductAssignment":212,"./model/SpendingAccount":213,"./model/SpendingAccountAssignment":214,"./model/Supplier":215,"./model/TokenPasswordReset":216,"./model/User":217,"./model/UserGroup":218,"./model/UserGroupAssignment":219,"./model/Variant":220,"./model/VariantInventory":221,"./model/VariantSpec":222,"./model/Webhook":223,"./model/WebhookRoute":224,"./model/XpIndex":225}],53:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -23916,9 +24201,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = Sdk.convertToType(data['SpecCount'], 'Number');
       }
-      if (data.hasOwnProperty('xp')) {
-        obj['xp'] = Sdk.convertToType(data['xp'], Object);
-      }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = Sdk.convertToType(data['VariantCount'], 'Number');
       }
@@ -23930,6 +24212,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('DefaultSupplierID')) {
         obj['DefaultSupplierID'] = Sdk.convertToType(data['DefaultSupplierID'], 'String');
+      }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
     }
     return obj;
@@ -23980,10 +24265,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['SpecCount'] = undefined;
   /**
-   * @member {Object} xp
-   */
-  exports.prototype['xp'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -23999,154 +24280,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} DefaultSupplierID
    */
   exports.prototype['DefaultSupplierID'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../Sdk":14,"./Inventory":77,"./PriceSchedule":199}],64:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/SpecOption'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./SpecOption'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.BuyerSpec = factory(root.OrderCloud.Sdk, root.OrderCloud.SpecOption);
-  }
-}(this, function(Sdk, SpecOption) {
-  'use strict';
-
-
-
-
-  /**
-   * The BuyerSpec model module.
-   * @module model/BuyerSpec
-   */
-
-  /**
-   * Constructs a new <code>BuyerSpec</code>.
-   * @alias module:model/BuyerSpec
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-
-
-
-
-
-
-
-
-  };
-
-  /**
-   * Constructs a <code>BuyerSpec</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/BuyerSpec} obj Optional instance to populate.
-   * @return {module:model/BuyerSpec} The populated <code>BuyerSpec</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('Options')) {
-        obj['Options'] = Sdk.convertToType(data['Options'], [SpecOption]);
-      }
-      if (data.hasOwnProperty('ID')) {
-        obj['ID'] = Sdk.convertToType(data['ID'], 'String');
-      }
-      if (data.hasOwnProperty('ListOrder')) {
-        obj['ListOrder'] = Sdk.convertToType(data['ListOrder'], 'Number');
-      }
-      if (data.hasOwnProperty('Name')) {
-        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
-      }
-      if (data.hasOwnProperty('DefaultValue')) {
-        obj['DefaultValue'] = Sdk.convertToType(data['DefaultValue'], 'String');
-      }
-      if (data.hasOwnProperty('Required')) {
-        obj['Required'] = Sdk.convertToType(data['Required'], 'Boolean');
-      }
-      if (data.hasOwnProperty('AllowOpenText')) {
-        obj['AllowOpenText'] = Sdk.convertToType(data['AllowOpenText'], 'Boolean');
-      }
-      if (data.hasOwnProperty('DefaultOptionID')) {
-        obj['DefaultOptionID'] = Sdk.convertToType(data['DefaultOptionID'], 'String');
-      }
-      if (data.hasOwnProperty('DefinesVariant')) {
-        obj['DefinesVariant'] = Sdk.convertToType(data['DefinesVariant'], 'Boolean');
-      }
-      if (data.hasOwnProperty('xp')) {
-        obj['xp'] = Sdk.convertToType(data['xp'], Object);
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {Array.<module:model/SpecOption>} Options
-   */
-  exports.prototype['Options'] = undefined;
-  /**
-   * @member {String} ID
-   */
-  exports.prototype['ID'] = undefined;
-  /**
-   * @member {Number} ListOrder
-   */
-  exports.prototype['ListOrder'] = undefined;
-  /**
-   * @member {String} Name
-   */
-  exports.prototype['Name'] = undefined;
-  /**
-   * @member {String} DefaultValue
-   */
-  exports.prototype['DefaultValue'] = undefined;
-  /**
-   * @member {Boolean} Required
-   */
-  exports.prototype['Required'] = undefined;
-  /**
-   * @member {Boolean} AllowOpenText
-   */
-  exports.prototype['AllowOpenText'] = undefined;
-  /**
-   * @member {String} DefaultOptionID
-   */
-  exports.prototype['DefaultOptionID'] = undefined;
-  /**
-   * @member {Boolean} DefinesVariant
-   */
-  exports.prototype['DefinesVariant'] = undefined;
   /**
    * @member {Object} xp
    */
@@ -24159,7 +24292,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./SpecOption":211}],65:[function(require,module,exports){
+},{"../Sdk":14,"./Inventory":76,"./PriceSchedule":199}],64:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24212,6 +24345,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -24227,6 +24361,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('OwnerID')) {
+        obj['OwnerID'] = Sdk.convertToType(data['OwnerID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
@@ -24251,6 +24388,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} OwnerID
+   */
+  exports.prototype['OwnerID'] = undefined;
   /**
    * @member {String} Name
    */
@@ -24279,7 +24420,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],66:[function(require,module,exports){
+},{"../Sdk":14}],65:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24383,7 +24524,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],67:[function(require,module,exports){
+},{"../Sdk":14}],66:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24519,7 +24660,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],68:[function(require,module,exports){
+},{"../Sdk":14}],67:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24631,7 +24772,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],69:[function(require,module,exports){
+},{"../Sdk":14}],68:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24727,7 +24868,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],70:[function(require,module,exports){
+},{"../Sdk":14}],69:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24831,7 +24972,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],71:[function(require,module,exports){
+},{"../Sdk":14}],70:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -24919,7 +25060,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],72:[function(require,module,exports){
+},{"../Sdk":14}],71:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25055,7 +25196,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],73:[function(require,module,exports){
+},{"../Sdk":14}],72:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25151,7 +25292,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],74:[function(require,module,exports){
+},{"../Sdk":14}],73:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25200,6 +25341,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -25219,6 +25361,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Roles')) {
         obj['Roles'] = Sdk.convertToType(data['Roles'], ['String']);
       }
+      if (data.hasOwnProperty('CustomRoles')) {
+        obj['CustomRoles'] = Sdk.convertToType(data['CustomRoles'], ['String']);
+      }
     }
     return obj;
   }
@@ -25231,6 +25376,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Array.<String>} Roles
    */
   exports.prototype['Roles'] = undefined;
+  /**
+   * @member {Array.<String>} CustomRoles
+   */
+  exports.prototype['CustomRoles'] = undefined;
 
 
 
@@ -25239,7 +25388,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],75:[function(require,module,exports){
+},{"../Sdk":14}],74:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25383,7 +25532,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],76:[function(require,module,exports){
+},{"../Sdk":14}],75:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25487,7 +25636,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],77:[function(require,module,exports){
+},{"../Sdk":14}],76:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25607,7 +25756,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],78:[function(require,module,exports){
+},{"../Sdk":14}],77:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25831,7 +25980,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Address":55,"./LineItemProduct":79,"./LineItemSpec":80,"./LineItemVariant":81}],79:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./LineItemProduct":78,"./LineItemSpec":79,"./LineItemVariant":80}],78:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -25975,7 +26124,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],80:[function(require,module,exports){
+},{"../Sdk":14}],79:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26026,6 +26175,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
+
   };
 
   /**
@@ -26051,6 +26202,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Value')) {
         obj['Value'] = Sdk.convertToType(data['Value'], 'String');
       }
+      if (data.hasOwnProperty('PriceMarkupType')) {
+        obj['PriceMarkupType'] = Sdk.convertToType(data['PriceMarkupType'], 'String');
+      }
+      if (data.hasOwnProperty('PriceMarkup')) {
+        obj['PriceMarkup'] = Sdk.convertToType(data['PriceMarkup'], 'Number');
+      }
     }
     return obj;
   }
@@ -26071,6 +26228,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Value
    */
   exports.prototype['Value'] = undefined;
+  /**
+   * @member {String} PriceMarkupType
+   */
+  exports.prototype['PriceMarkupType'] = undefined;
+  /**
+   * @member {Number} PriceMarkup
+   */
+  exports.prototype['PriceMarkup'] = undefined;
 
 
 
@@ -26079,7 +26244,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],81:[function(require,module,exports){
+},{"../Sdk":14}],80:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26215,7 +26380,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],82:[function(require,module,exports){
+},{"../Sdk":14}],81:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26303,7 +26468,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Address":55,"./Meta":143}],83:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./Meta":141}],82:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26391,7 +26556,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./AddressAssignment":56,"./Meta":143}],84:[function(require,module,exports){
+},{"../Sdk":14,"./AddressAssignment":56,"./Meta":141}],83:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26479,7 +26644,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./ApiClient":57,"./Meta":143}],85:[function(require,module,exports){
+},{"../Sdk":14,"./ApiClient":57,"./Meta":141}],84:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26567,7 +26732,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./ApiClientAssignment":58,"./Meta":143}],86:[function(require,module,exports){
+},{"../Sdk":14,"./ApiClientAssignment":58,"./Meta":141}],85:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26655,7 +26820,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./ApprovalRule":59,"./Meta":143}],87:[function(require,module,exports){
+},{"../Sdk":14,"./ApprovalRule":59,"./Meta":141}],86:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26743,7 +26908,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Buyer":60,"./Meta":143}],88:[function(require,module,exports){
+},{"../Sdk":14,"./Buyer":60,"./Meta":141}],87:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26831,7 +26996,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./BuyerAddress":61,"./Meta":143}],89:[function(require,module,exports){
+},{"../Sdk":14,"./BuyerAddress":61,"./Meta":141}],88:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -26919,7 +27084,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./BuyerCreditCard":62,"./Meta":143}],90:[function(require,module,exports){
+},{"../Sdk":14,"./BuyerCreditCard":62,"./Meta":141}],89:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27007,95 +27172,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./BuyerProduct":63,"./MetaWithFacets":144}],91:[function(require,module,exports){
-/**
- * OrderCloud
- * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
- *
- * OpenAPI spec version: 1.0
- * Contact: ordercloud@four51.com
- *
- * NOTE: This class is auto generated by the swagger code generator program.
- * https://github.com/swagger-api/swagger-codegen.git
- * Do not edit the class manually.
- *
- */
-
-(function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/BuyerSpec', 'model/Meta'], factory);
-  } else if (typeof module === 'object' && module.exports) {
-    // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./BuyerSpec'), require('./Meta'));
-  } else {
-    // Browser globals (root is window)
-    if (!root.OrderCloud) {
-      root.OrderCloud = {};
-    }
-    root.OrderCloud.ListBuyerSpec = factory(root.OrderCloud.Sdk, root.OrderCloud.BuyerSpec, root.OrderCloud.Meta);
-  }
-}(this, function(Sdk, BuyerSpec, Meta) {
-  'use strict';
-
-
-
-
-  /**
-   * The ListBuyerSpec model module.
-   * @module model/ListBuyerSpec
-   */
-
-  /**
-   * Constructs a new <code>ListBuyerSpec</code>.
-   * @alias module:model/ListBuyerSpec
-   * @class
-   */
-  var exports = function() {
-    var _this = this;
-
-
-
-  };
-
-  /**
-   * Constructs a <code>ListBuyerSpec</code> from a plain JavaScript object, optionally creating a new instance.
-   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
-   * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/ListBuyerSpec} obj Optional instance to populate.
-   * @return {module:model/ListBuyerSpec} The populated <code>ListBuyerSpec</code> instance.
-   */
-  exports.constructFromObject = function(data, obj) {
-    if (data) {
-      obj = obj || new exports();
-
-      if (data.hasOwnProperty('Items')) {
-        obj['Items'] = Sdk.convertToType(data['Items'], [BuyerSpec]);
-      }
-      if (data.hasOwnProperty('Meta')) {
-        obj['Meta'] = Meta.constructFromObject(data['Meta']);
-      }
-    }
-    return obj;
-  }
-
-  /**
-   * @member {Array.<module:model/BuyerSpec>} Items
-   */
-  exports.prototype['Items'] = undefined;
-  /**
-   * @member {module:model/Meta} Meta
-   */
-  exports.prototype['Meta'] = undefined;
-
-
-
-  return exports;
-}));
-
-
-
-},{"../Sdk":14,"./BuyerSpec":64,"./Meta":143}],92:[function(require,module,exports){
+},{"../Sdk":14,"./BuyerProduct":63,"./MetaWithFacets":142}],90:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27183,7 +27260,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Catalog":65,"./Meta":143}],93:[function(require,module,exports){
+},{"../Sdk":14,"./Catalog":64,"./Meta":141}],91:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27271,7 +27348,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./CatalogAssignment":66,"./Meta":143}],94:[function(require,module,exports){
+},{"../Sdk":14,"./CatalogAssignment":65,"./Meta":141}],92:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27359,7 +27436,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Category":67,"./Meta":143}],95:[function(require,module,exports){
+},{"../Sdk":14,"./Category":66,"./Meta":141}],93:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27447,7 +27524,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./CategoryAssignment":68,"./Meta":143}],96:[function(require,module,exports){
+},{"../Sdk":14,"./CategoryAssignment":67,"./Meta":141}],94:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27535,7 +27612,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./CategoryProductAssignment":69,"./Meta":143}],97:[function(require,module,exports){
+},{"../Sdk":14,"./CategoryProductAssignment":68,"./Meta":141}],95:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27623,7 +27700,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./CostCenter":70,"./Meta":143}],98:[function(require,module,exports){
+},{"../Sdk":14,"./CostCenter":69,"./Meta":141}],96:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27711,7 +27788,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./CostCenterAssignment":71,"./Meta":143}],99:[function(require,module,exports){
+},{"../Sdk":14,"./CostCenterAssignment":70,"./Meta":141}],97:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27799,7 +27876,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./CreditCard":72,"./Meta":143}],100:[function(require,module,exports){
+},{"../Sdk":14,"./CreditCard":71,"./Meta":141}],98:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27887,7 +27964,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./CreditCardAssignment":73,"./Meta":143}],101:[function(require,module,exports){
+},{"../Sdk":14,"./CreditCardAssignment":72,"./Meta":141}],99:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -27991,7 +28068,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./ListFacetValue":102}],102:[function(require,module,exports){
+},{"../Sdk":14,"./ListFacetValue":100}],100:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28079,7 +28156,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],103:[function(require,module,exports){
+},{"../Sdk":14}],101:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28167,7 +28244,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./ImpersonationConfig":75,"./Meta":143}],104:[function(require,module,exports){
+},{"../Sdk":14,"./ImpersonationConfig":74,"./Meta":141}],102:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28255,7 +28332,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Incrementor":76,"./Meta":143}],105:[function(require,module,exports){
+},{"../Sdk":14,"./Incrementor":75,"./Meta":141}],103:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28343,7 +28420,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./LineItem":78,"./Meta":143}],106:[function(require,module,exports){
+},{"../Sdk":14,"./LineItem":77,"./Meta":141}],104:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28431,7 +28508,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./MessageCCListenerAssignment":140,"./Meta":143}],107:[function(require,module,exports){
+},{"../Sdk":14,"./MessageCCListenerAssignment":138,"./Meta":141}],105:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28519,7 +28596,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./MessageSender":141,"./Meta":143}],108:[function(require,module,exports){
+},{"../Sdk":14,"./MessageSender":139,"./Meta":141}],106:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28607,7 +28684,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./MessageSenderAssignment":142,"./Meta":143}],109:[function(require,module,exports){
+},{"../Sdk":14,"./MessageSenderAssignment":140,"./Meta":141}],107:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28695,7 +28772,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./OpenIdConnect":145}],110:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./OpenIdConnect":143}],108:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28783,7 +28860,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Order":146}],111:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Order":144}],109:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28871,7 +28948,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./OrderApproval":147}],112:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./OrderApproval":145}],110:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -28959,7 +29036,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./OrderPromotion":149}],113:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./OrderPromotion":147}],111:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29047,7 +29124,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Payment":196}],114:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Payment":196}],112:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29135,7 +29212,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./PriceSchedule":199}],115:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./PriceSchedule":199}],113:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29152,18 +29229,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/Meta', 'model/Product'], factory);
+    define(['Sdk', 'model/MetaWithFacets', 'model/Product'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./Meta'), require('./Product'));
+    module.exports = factory(require('../Sdk'), require('./MetaWithFacets'), require('./Product'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.ListProduct = factory(root.OrderCloud.Sdk, root.OrderCloud.Meta, root.OrderCloud.Product);
+    root.OrderCloud.ListProduct = factory(root.OrderCloud.Sdk, root.OrderCloud.MetaWithFacets, root.OrderCloud.Product);
   }
-}(this, function(Sdk, Meta, Product) {
+}(this, function(Sdk, MetaWithFacets, Product) {
   'use strict';
 
 
@@ -29201,7 +29278,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
         obj['Items'] = Sdk.convertToType(data['Items'], [Product]);
       }
       if (data.hasOwnProperty('Meta')) {
-        obj['Meta'] = Meta.constructFromObject(data['Meta']);
+        obj['Meta'] = MetaWithFacets.constructFromObject(data['Meta']);
       }
     }
     return obj;
@@ -29212,7 +29289,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Items'] = undefined;
   /**
-   * @member {module:model/Meta} Meta
+   * @member {module:model/MetaWithFacets} Meta
    */
   exports.prototype['Meta'] = undefined;
 
@@ -29223,7 +29300,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Product":200}],116:[function(require,module,exports){
+},{"../Sdk":14,"./MetaWithFacets":142,"./Product":200}],114:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29311,7 +29388,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./ProductAssignment":201}],117:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./ProductAssignment":201}],115:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29399,7 +29476,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./ProductCatalogAssignment":202}],118:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./ProductCatalogAssignment":202}],116:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29487,7 +29564,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./ProductFacet":203}],119:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./ProductFacet":203}],117:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29575,7 +29652,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Promotion":204}],120:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Promotion":204}],118:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29663,7 +29740,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./PromotionAssignment":205}],121:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./PromotionAssignment":205}],119:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29751,7 +29828,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./SecurityProfile":206}],122:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./SecurityProfile":206}],120:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29839,7 +29916,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./SecurityProfileAssignment":207}],123:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./SecurityProfileAssignment":207}],121:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -29927,7 +30004,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Shipment":208}],124:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Shipment":208}],122:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30015,7 +30092,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./ShipmentItem":209}],125:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./ShipmentItem":209}],123:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30103,7 +30180,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Spec":210}],126:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Spec":210}],124:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30191,7 +30268,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./SpecOption":211}],127:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./SpecOption":211}],125:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30279,7 +30356,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./SpecProductAssignment":212}],128:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./SpecProductAssignment":212}],126:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30367,7 +30444,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./SpendingAccount":213}],129:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./SpendingAccount":213}],127:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30455,7 +30532,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./SpendingAccountAssignment":214}],130:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./SpendingAccountAssignment":214}],128:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30543,7 +30620,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Supplier":215}],131:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Supplier":215}],129:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30631,7 +30708,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./User":217}],132:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./User":217}],130:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30719,7 +30796,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./UserGroup":218}],133:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./UserGroup":218}],131:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30807,7 +30884,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./UserGroupAssignment":219}],134:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./UserGroupAssignment":219}],132:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30895,7 +30972,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Variant":220}],135:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Variant":220}],133:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -30983,7 +31060,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./Webhook":222}],136:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./Webhook":223}],134:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31071,7 +31148,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Meta":143,"./XpIndex":224}],137:[function(require,module,exports){
+},{"../Sdk":14,"./Meta":141,"./XpIndex":225}],135:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31159,7 +31236,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],138:[function(require,module,exports){
+},{"../Sdk":14}],136:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31239,7 +31316,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],139:[function(require,module,exports){
+},{"../Sdk":14}],137:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31431,7 +31508,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./MeBuyer":137,"./MeSupplier":138}],140:[function(require,module,exports){
+},{"../Sdk":14,"./MeBuyer":135,"./MeSupplier":136}],138:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31567,7 +31644,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./MessageSenderAssignment":142}],141:[function(require,module,exports){
+},{"../Sdk":14,"./MessageSenderAssignment":140}],139:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31703,7 +31780,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],142:[function(require,module,exports){
+},{"../Sdk":14}],140:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31823,7 +31900,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],143:[function(require,module,exports){
+},{"../Sdk":14}],141:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -31935,7 +32012,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],144:[function(require,module,exports){
+},{"../Sdk":14}],142:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32055,7 +32132,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./ListFacet":101}],145:[function(require,module,exports){
+},{"../Sdk":14,"./ListFacet":99}],143:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32109,6 +32186,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -32143,6 +32221,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('TokenEndpoint')) {
         obj['TokenEndpoint'] = Sdk.convertToType(data['TokenEndpoint'], 'String');
       }
+      if (data.hasOwnProperty('UrlEncoded')) {
+        obj['UrlEncoded'] = Sdk.convertToType(data['UrlEncoded'], 'Boolean');
+      }
     }
     return obj;
   }
@@ -32175,6 +32256,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} TokenEndpoint
    */
   exports.prototype['TokenEndpoint'] = undefined;
+  /**
+   * @member {Boolean} UrlEncoded
+   */
+  exports.prototype['UrlEncoded'] = undefined;
 
 
 
@@ -32183,7 +32268,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],146:[function(require,module,exports){
+},{"../Sdk":14}],144:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32253,6 +32338,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -32274,6 +32360,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('FromCompanyID')) {
         obj['FromCompanyID'] = Sdk.convertToType(data['FromCompanyID'], 'String');
+      }
+      if (data.hasOwnProperty('ToCompanyID')) {
+        obj['ToCompanyID'] = Sdk.convertToType(data['ToCompanyID'], 'String');
       }
       if (data.hasOwnProperty('FromUserID')) {
         obj['FromUserID'] = Sdk.convertToType(data['FromUserID'], 'String');
@@ -32351,6 +32440,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} FromCompanyID
    */
   exports.prototype['FromCompanyID'] = undefined;
+  /**
+   * @member {String} ToCompanyID
+   */
+  exports.prototype['ToCompanyID'] = undefined;
   /**
    * @member {String} FromUserID
    */
@@ -32439,7 +32532,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Address":55,"./User":217}],147:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./User":217}],145:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32575,7 +32668,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./User":217}],148:[function(require,module,exports){
+},{"../Sdk":14,"./User":217}],146:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32663,7 +32756,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],149:[function(require,module,exports){
+},{"../Sdk":14}],147:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -32863,7 +32956,95 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],150:[function(require,module,exports){
+},{"../Sdk":14}],148:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['Sdk', 'model/Order'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../Sdk'), require('./Order'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.OrderSplitResult = factory(root.OrderCloud.Sdk, root.OrderCloud.Order);
+  }
+}(this, function(Sdk, Order) {
+  'use strict';
+
+
+
+
+  /**
+   * The OrderSplitResult model module.
+   * @module model/OrderSplitResult
+   */
+
+  /**
+   * Constructs a new <code>OrderSplitResult</code>.
+   * @alias module:model/OrderSplitResult
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+  };
+
+  /**
+   * Constructs a <code>OrderSplitResult</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/OrderSplitResult} obj Optional instance to populate.
+   * @return {module:model/OrderSplitResult} The populated <code>OrderSplitResult</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('OutgoingOrders')) {
+        obj['OutgoingOrders'] = Sdk.convertToType(data['OutgoingOrders'], [Order]);
+      }
+      if (data.hasOwnProperty('RemainingLineItemIDs')) {
+        obj['RemainingLineItemIDs'] = Sdk.convertToType(data['RemainingLineItemIDs'], ['String']);
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {Array.<module:model/Order>} OutgoingOrders
+   */
+  exports.prototype['OutgoingOrders'] = undefined;
+  /**
+   * @member {Array.<String>} RemainingLineItemIDs
+   */
+  exports.prototype['RemainingLineItemIDs'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../Sdk":14,"./Order":144}],149:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33047,7 +33228,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],151:[function(require,module,exports){
+},{"../Sdk":14}],150:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33231,7 +33412,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],152:[function(require,module,exports){
+},{"../Sdk":14}],151:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33351,7 +33532,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],153:[function(require,module,exports){
+},{"../Sdk":14}],152:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33463,7 +33644,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],154:[function(require,module,exports){
+},{"../Sdk":14}],153:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33671,7 +33852,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],155:[function(require,module,exports){
+},{"../Sdk":14}],154:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33815,7 +33996,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],156:[function(require,module,exports){
+},{"../Sdk":14}],155:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -33868,6 +34049,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -33883,6 +34065,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
+      }
+      if (data.hasOwnProperty('OwnerID')) {
+        obj['OwnerID'] = Sdk.convertToType(data['OwnerID'], 'String');
       }
       if (data.hasOwnProperty('Name')) {
         obj['Name'] = Sdk.convertToType(data['Name'], 'String');
@@ -33907,6 +34092,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} ID
    */
   exports.prototype['ID'] = undefined;
+  /**
+   * @member {String} OwnerID
+   */
+  exports.prototype['OwnerID'] = undefined;
   /**
    * @member {String} Name
    */
@@ -33935,7 +34124,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],157:[function(require,module,exports){
+},{"../Sdk":14}],156:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34071,7 +34260,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],158:[function(require,module,exports){
+},{"../Sdk":14}],157:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34175,7 +34364,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],159:[function(require,module,exports){
+},{"../Sdk":14}],158:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34311,7 +34500,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],160:[function(require,module,exports){
+},{"../Sdk":14}],159:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34455,7 +34644,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],161:[function(require,module,exports){
+},{"../Sdk":14}],160:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34559,7 +34748,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],162:[function(require,module,exports){
+},{"../Sdk":14}],161:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34679,7 +34868,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],163:[function(require,module,exports){
+},{"../Sdk":14}],162:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -34903,7 +35092,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Address":55,"./LineItemProduct":79,"./LineItemSpec":80,"./LineItemVariant":81}],164:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./LineItemProduct":78,"./LineItemSpec":79,"./LineItemVariant":80}],163:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35047,7 +35236,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],165:[function(require,module,exports){
+},{"../Sdk":14}],164:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35098,6 +35287,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
+
   };
 
   /**
@@ -35123,6 +35314,12 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Value')) {
         obj['Value'] = Sdk.convertToType(data['Value'], 'String');
       }
+      if (data.hasOwnProperty('PriceMarkupType')) {
+        obj['PriceMarkupType'] = Sdk.convertToType(data['PriceMarkupType'], 'String');
+      }
+      if (data.hasOwnProperty('PriceMarkup')) {
+        obj['PriceMarkup'] = Sdk.convertToType(data['PriceMarkup'], 'Number');
+      }
     }
     return obj;
   }
@@ -35143,6 +35340,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} Value
    */
   exports.prototype['Value'] = undefined;
+  /**
+   * @member {String} PriceMarkupType
+   */
+  exports.prototype['PriceMarkupType'] = undefined;
+  /**
+   * @member {Number} PriceMarkup
+   */
+  exports.prototype['PriceMarkup'] = undefined;
 
 
 
@@ -35151,7 +35356,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],166:[function(require,module,exports){
+},{"../Sdk":14}],165:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35287,7 +35492,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],167:[function(require,module,exports){
+},{"../Sdk":14}],166:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35375,7 +35580,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],168:[function(require,module,exports){
+},{"../Sdk":14}],167:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35455,7 +35660,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],169:[function(require,module,exports){
+},{"../Sdk":14}],168:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35647,7 +35852,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./MeBuyer":137,"./MeSupplier":138}],170:[function(require,module,exports){
+},{"../Sdk":14,"./MeBuyer":135,"./MeSupplier":136}],169:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35783,7 +35988,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],171:[function(require,module,exports){
+},{"../Sdk":14}],170:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35837,6 +36042,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -35871,6 +36077,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('TokenEndpoint')) {
         obj['TokenEndpoint'] = Sdk.convertToType(data['TokenEndpoint'], 'String');
       }
+      if (data.hasOwnProperty('UrlEncoded')) {
+        obj['UrlEncoded'] = Sdk.convertToType(data['UrlEncoded'], 'Boolean');
+      }
     }
     return obj;
   }
@@ -35903,6 +36112,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} TokenEndpoint
    */
   exports.prototype['TokenEndpoint'] = undefined;
+  /**
+   * @member {Boolean} UrlEncoded
+   */
+  exports.prototype['UrlEncoded'] = undefined;
 
 
 
@@ -35911,7 +36124,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],172:[function(require,module,exports){
+},{"../Sdk":14}],171:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -35981,6 +36194,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -36002,6 +36216,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       }
       if (data.hasOwnProperty('FromCompanyID')) {
         obj['FromCompanyID'] = Sdk.convertToType(data['FromCompanyID'], 'String');
+      }
+      if (data.hasOwnProperty('ToCompanyID')) {
+        obj['ToCompanyID'] = Sdk.convertToType(data['ToCompanyID'], 'String');
       }
       if (data.hasOwnProperty('FromUserID')) {
         obj['FromUserID'] = Sdk.convertToType(data['FromUserID'], 'String');
@@ -36079,6 +36296,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} FromCompanyID
    */
   exports.prototype['FromCompanyID'] = undefined;
+  /**
+   * @member {String} ToCompanyID
+   */
+  exports.prototype['ToCompanyID'] = undefined;
   /**
    * @member {String} FromUserID
    */
@@ -36167,7 +36388,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Address":55,"./User":217}],173:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55,"./User":217}],172:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36247,7 +36468,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],174:[function(require,module,exports){
+},{"../Sdk":14}],173:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36399,7 +36620,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./PaymentTransaction":197}],175:[function(require,module,exports){
+},{"../Sdk":14,"./PaymentTransaction":197}],174:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36535,7 +36756,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],176:[function(require,module,exports){
+},{"../Sdk":14}],175:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36623,7 +36844,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],177:[function(require,module,exports){
+},{"../Sdk":14}],176:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36775,7 +36996,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./PriceBreak":198}],178:[function(require,module,exports){
+},{"../Sdk":14,"./PriceBreak":198}],177:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -36838,6 +37059,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
+
   };
 
   /**
@@ -36851,8 +37074,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('OwnerID')) {
+        obj['OwnerID'] = Sdk.convertToType(data['OwnerID'], 'String');
+      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
+      }
+      if (data.hasOwnProperty('AutoForward')) {
+        obj['AutoForward'] = Sdk.convertToType(data['AutoForward'], 'Boolean');
       }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
@@ -36884,9 +37113,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = Sdk.convertToType(data['SpecCount'], 'Number');
       }
-      if (data.hasOwnProperty('xp')) {
-        obj['xp'] = Sdk.convertToType(data['xp'], Object);
-      }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = Sdk.convertToType(data['VariantCount'], 'Number');
       }
@@ -36899,14 +37125,25 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('DefaultSupplierID')) {
         obj['DefaultSupplierID'] = Sdk.convertToType(data['DefaultSupplierID'], 'String');
       }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
 
   /**
+   * @member {String} OwnerID
+   */
+  exports.prototype['OwnerID'] = undefined;
+  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
+  /**
+   * @member {Boolean} AutoForward
+   */
+  exports.prototype['AutoForward'] = undefined;
   /**
    * @member {String} ID
    */
@@ -36948,10 +37185,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['SpecCount'] = undefined;
   /**
-   * @member {Object} xp
-   */
-  exports.prototype['xp'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -36967,6 +37200,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} DefaultSupplierID
    */
   exports.prototype['DefaultSupplierID'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -36975,7 +37212,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Inventory":77}],179:[function(require,module,exports){
+},{"../Sdk":14,"./Inventory":76}],178:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37095,7 +37332,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],180:[function(require,module,exports){
+},{"../Sdk":14}],179:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37287,7 +37524,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],181:[function(require,module,exports){
+},{"../Sdk":14}],180:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37399,7 +37636,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./PasswordConfig":193}],182:[function(require,module,exports){
+},{"../Sdk":14,"./PasswordConfig":193}],181:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37575,7 +37812,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Address":55}],183:[function(require,module,exports){
+},{"../Sdk":14,"./Address":55}],182:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37592,18 +37829,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk'], factory);
+    define(['Sdk', 'model/SpecOption'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'));
+    module.exports = factory(require('../Sdk'), require('./SpecOption'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialSpec = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.PartialSpec = factory(root.OrderCloud.Sdk, root.OrderCloud.SpecOption);
   }
-}(this, function(Sdk) {
+}(this, function(Sdk, SpecOption) {
   'use strict';
 
 
@@ -37632,6 +37869,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -37645,9 +37883,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('OptionCount')) {
-        obj['OptionCount'] = Sdk.convertToType(data['OptionCount'], 'Number');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
@@ -37675,14 +37910,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
+      if (data.hasOwnProperty('OptionCount')) {
+        obj['OptionCount'] = Sdk.convertToType(data['OptionCount'], 'Number');
+      }
+      if (data.hasOwnProperty('Options')) {
+        obj['Options'] = Sdk.convertToType(data['Options'], [SpecOption]);
+      }
     }
     return obj;
   }
 
-  /**
-   * @member {Number} OptionCount
-   */
-  exports.prototype['OptionCount'] = undefined;
   /**
    * @member {String} ID
    */
@@ -37719,6 +37956,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
+  /**
+   * @member {Number} OptionCount
+   */
+  exports.prototype['OptionCount'] = undefined;
+  /**
+   * @member {Array.<module:model/SpecOption>} Options
+   */
+  exports.prototype['Options'] = undefined;
 
 
 
@@ -37727,7 +37972,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],184:[function(require,module,exports){
+},{"../Sdk":14,"./SpecOption":211}],183:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37855,7 +38100,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],185:[function(require,module,exports){
+},{"../Sdk":14}],184:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -37991,7 +38236,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],186:[function(require,module,exports){
+},{"../Sdk":14}],185:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38095,7 +38340,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],187:[function(require,module,exports){
+},{"../Sdk":14}],186:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38271,7 +38516,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],188:[function(require,module,exports){
+},{"../Sdk":14}],187:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38375,7 +38620,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],189:[function(require,module,exports){
+},{"../Sdk":14}],188:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38392,18 +38637,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/VariantInventory'], factory);
+    define(['Sdk', 'model/VariantInventory', 'model/VariantSpec'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./VariantInventory'));
+    module.exports = factory(require('../Sdk'), require('./VariantInventory'), require('./VariantSpec'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.PartialVariant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory);
+    root.OrderCloud.PartialVariant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory, root.OrderCloud.VariantSpec);
   }
-}(this, function(Sdk, VariantInventory) {
+}(this, function(Sdk, VariantInventory, VariantSpec) {
   'use strict';
 
 
@@ -38421,6 +38666,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -38472,6 +38718,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Inventory')) {
         obj['Inventory'] = VariantInventory.constructFromObject(data['Inventory']);
       }
+      if (data.hasOwnProperty('Specs')) {
+        obj['Specs'] = Sdk.convertToType(data['Specs'], [VariantSpec]);
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
@@ -38516,6 +38765,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Inventory'] = undefined;
   /**
+   * @member {Array.<module:model/VariantSpec>} Specs
+   */
+  exports.prototype['Specs'] = undefined;
+  /**
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
@@ -38527,7 +38780,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./VariantInventory":221}],190:[function(require,module,exports){
+},{"../Sdk":14,"./VariantInventory":221,"./VariantSpec":222}],189:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -38607,6 +38860,126 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} LastUpdated
    */
   exports.prototype['LastUpdated'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../Sdk":14}],190:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['Sdk'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../Sdk'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.PartialVariantSpec = factory(root.OrderCloud.Sdk);
+  }
+}(this, function(Sdk) {
+  'use strict';
+
+
+
+
+  /**
+   * The PartialVariantSpec model module.
+   * @module model/PartialVariantSpec
+   */
+
+  /**
+   * Constructs a new <code>PartialVariantSpec</code>.
+   * @alias module:model/PartialVariantSpec
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>PartialVariantSpec</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/PartialVariantSpec} obj Optional instance to populate.
+   * @return {module:model/PartialVariantSpec} The populated <code>PartialVariantSpec</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('SpecID')) {
+        obj['SpecID'] = Sdk.convertToType(data['SpecID'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('OptionID')) {
+        obj['OptionID'] = Sdk.convertToType(data['OptionID'], 'String');
+      }
+      if (data.hasOwnProperty('Value')) {
+        obj['Value'] = Sdk.convertToType(data['Value'], 'String');
+      }
+      if (data.hasOwnProperty('PriceMarkupType')) {
+        obj['PriceMarkupType'] = Sdk.convertToType(data['PriceMarkupType'], 'String');
+      }
+      if (data.hasOwnProperty('PriceMarkup')) {
+        obj['PriceMarkup'] = Sdk.convertToType(data['PriceMarkup'], 'Number');
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} SpecID
+   */
+  exports.prototype['SpecID'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} OptionID
+   */
+  exports.prototype['OptionID'] = undefined;
+  /**
+   * @member {String} Value
+   */
+  exports.prototype['Value'] = undefined;
+  /**
+   * @member {String} PriceMarkupType
+   */
+  exports.prototype['PriceMarkupType'] = undefined;
+  /**
+   * @member {Number} PriceMarkup
+   */
+  exports.prototype['PriceMarkup'] = undefined;
 
 
 
@@ -38767,7 +39140,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./WebhookRoute":223}],192:[function(require,module,exports){
+},{"../Sdk":14,"./WebhookRoute":224}],192:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -39726,6 +40099,8 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
+
   };
 
   /**
@@ -39739,8 +40114,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
+      if (data.hasOwnProperty('OwnerID')) {
+        obj['OwnerID'] = Sdk.convertToType(data['OwnerID'], 'String');
+      }
       if (data.hasOwnProperty('DefaultPriceScheduleID')) {
         obj['DefaultPriceScheduleID'] = Sdk.convertToType(data['DefaultPriceScheduleID'], 'String');
+      }
+      if (data.hasOwnProperty('AutoForward')) {
+        obj['AutoForward'] = Sdk.convertToType(data['AutoForward'], 'Boolean');
       }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
@@ -39772,9 +40153,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('SpecCount')) {
         obj['SpecCount'] = Sdk.convertToType(data['SpecCount'], 'Number');
       }
-      if (data.hasOwnProperty('xp')) {
-        obj['xp'] = Sdk.convertToType(data['xp'], Object);
-      }
       if (data.hasOwnProperty('VariantCount')) {
         obj['VariantCount'] = Sdk.convertToType(data['VariantCount'], 'Number');
       }
@@ -39787,14 +40165,25 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('DefaultSupplierID')) {
         obj['DefaultSupplierID'] = Sdk.convertToType(data['DefaultSupplierID'], 'String');
       }
+      if (data.hasOwnProperty('xp')) {
+        obj['xp'] = Sdk.convertToType(data['xp'], Object);
+      }
     }
     return obj;
   }
 
   /**
+   * @member {String} OwnerID
+   */
+  exports.prototype['OwnerID'] = undefined;
+  /**
    * @member {String} DefaultPriceScheduleID
    */
   exports.prototype['DefaultPriceScheduleID'] = undefined;
+  /**
+   * @member {Boolean} AutoForward
+   */
+  exports.prototype['AutoForward'] = undefined;
   /**
    * @member {String} ID
    */
@@ -39836,10 +40225,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['SpecCount'] = undefined;
   /**
-   * @member {Object} xp
-   */
-  exports.prototype['xp'] = undefined;
-  /**
    * @member {Number} VariantCount
    */
   exports.prototype['VariantCount'] = undefined;
@@ -39855,6 +40240,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {String} DefaultSupplierID
    */
   exports.prototype['DefaultSupplierID'] = undefined;
+  /**
+   * @member {Object} xp
+   */
+  exports.prototype['xp'] = undefined;
 
 
 
@@ -39863,7 +40252,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./Inventory":77}],201:[function(require,module,exports){
+},{"../Sdk":14,"./Inventory":76}],201:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41015,7 +41404,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./LineItemProduct":79,"./LineItemSpec":80,"./LineItemVariant":81}],210:[function(require,module,exports){
+},{"../Sdk":14,"./LineItemProduct":78,"./LineItemSpec":79,"./LineItemVariant":80}],210:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -41032,18 +41421,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk'], factory);
+    define(['Sdk', 'model/SpecOption'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'));
+    module.exports = factory(require('../Sdk'), require('./SpecOption'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Spec = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.Spec = factory(root.OrderCloud.Sdk, root.OrderCloud.SpecOption);
   }
-}(this, function(Sdk) {
+}(this, function(Sdk, SpecOption) {
   'use strict';
 
 
@@ -41072,6 +41461,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
+
   };
 
   /**
@@ -41085,9 +41475,6 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
     if (data) {
       obj = obj || new exports();
 
-      if (data.hasOwnProperty('OptionCount')) {
-        obj['OptionCount'] = Sdk.convertToType(data['OptionCount'], 'Number');
-      }
       if (data.hasOwnProperty('ID')) {
         obj['ID'] = Sdk.convertToType(data['ID'], 'String');
       }
@@ -41115,14 +41502,16 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
+      if (data.hasOwnProperty('OptionCount')) {
+        obj['OptionCount'] = Sdk.convertToType(data['OptionCount'], 'Number');
+      }
+      if (data.hasOwnProperty('Options')) {
+        obj['Options'] = Sdk.convertToType(data['Options'], [SpecOption]);
+      }
     }
     return obj;
   }
 
-  /**
-   * @member {Number} OptionCount
-   */
-  exports.prototype['OptionCount'] = undefined;
   /**
    * @member {String} ID
    */
@@ -41159,6 +41548,14 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
+  /**
+   * @member {Number} OptionCount
+   */
+  exports.prototype['OptionCount'] = undefined;
+  /**
+   * @member {Array.<module:model/SpecOption>} Options
+   */
+  exports.prototype['Options'] = undefined;
 
 
 
@@ -41167,7 +41564,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],211:[function(require,module,exports){
+},{"../Sdk":14,"./SpecOption":211}],211:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42208,18 +42605,18 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/VariantInventory'], factory);
+    define(['Sdk', 'model/VariantInventory', 'model/VariantSpec'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('./VariantInventory'));
+    module.exports = factory(require('../Sdk'), require('./VariantInventory'), require('./VariantSpec'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Variant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory);
+    root.OrderCloud.Variant = factory(root.OrderCloud.Sdk, root.OrderCloud.VariantInventory, root.OrderCloud.VariantSpec);
   }
-}(this, function(Sdk, VariantInventory) {
+}(this, function(Sdk, VariantInventory, VariantSpec) {
   'use strict';
 
 
@@ -42237,6 +42634,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   var exports = function() {
     var _this = this;
+
 
 
 
@@ -42288,6 +42686,9 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
       if (data.hasOwnProperty('Inventory')) {
         obj['Inventory'] = VariantInventory.constructFromObject(data['Inventory']);
       }
+      if (data.hasOwnProperty('Specs')) {
+        obj['Specs'] = Sdk.convertToType(data['Specs'], [VariantSpec]);
+      }
       if (data.hasOwnProperty('xp')) {
         obj['xp'] = Sdk.convertToType(data['xp'], Object);
       }
@@ -42332,6 +42733,10 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
    */
   exports.prototype['Inventory'] = undefined;
   /**
+   * @member {Array.<module:model/VariantSpec>} Specs
+   */
+  exports.prototype['Specs'] = undefined;
+  /**
    * @member {Object} xp
    */
   exports.prototype['xp'] = undefined;
@@ -42343,7 +42748,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./VariantInventory":221}],221:[function(require,module,exports){
+},{"../Sdk":14,"./VariantInventory":221,"./VariantSpec":222}],221:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42432,6 +42837,126 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 },{"../Sdk":14}],222:[function(require,module,exports){
+/**
+ * OrderCloud
+ * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
+ *
+ * OpenAPI spec version: 1.0
+ * Contact: ordercloud@four51.com
+ *
+ * NOTE: This class is auto generated by the swagger code generator program.
+ * https://github.com/swagger-api/swagger-codegen.git
+ * Do not edit the class manually.
+ *
+ */
+
+(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['Sdk'], factory);
+  } else if (typeof module === 'object' && module.exports) {
+    // CommonJS-like environments that support module.exports, like Node.
+    module.exports = factory(require('../Sdk'));
+  } else {
+    // Browser globals (root is window)
+    if (!root.OrderCloud) {
+      root.OrderCloud = {};
+    }
+    root.OrderCloud.VariantSpec = factory(root.OrderCloud.Sdk);
+  }
+}(this, function(Sdk) {
+  'use strict';
+
+
+
+
+  /**
+   * The VariantSpec model module.
+   * @module model/VariantSpec
+   */
+
+  /**
+   * Constructs a new <code>VariantSpec</code>.
+   * @alias module:model/VariantSpec
+   * @class
+   */
+  var exports = function() {
+    var _this = this;
+
+
+
+
+
+
+
+  };
+
+  /**
+   * Constructs a <code>VariantSpec</code> from a plain JavaScript object, optionally creating a new instance.
+   * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+   * @param {Object} data The plain JavaScript object bearing properties of interest.
+   * @param {module:model/VariantSpec} obj Optional instance to populate.
+   * @return {module:model/VariantSpec} The populated <code>VariantSpec</code> instance.
+   */
+  exports.constructFromObject = function(data, obj) {
+    if (data) {
+      obj = obj || new exports();
+
+      if (data.hasOwnProperty('SpecID')) {
+        obj['SpecID'] = Sdk.convertToType(data['SpecID'], 'String');
+      }
+      if (data.hasOwnProperty('Name')) {
+        obj['Name'] = Sdk.convertToType(data['Name'], 'String');
+      }
+      if (data.hasOwnProperty('OptionID')) {
+        obj['OptionID'] = Sdk.convertToType(data['OptionID'], 'String');
+      }
+      if (data.hasOwnProperty('Value')) {
+        obj['Value'] = Sdk.convertToType(data['Value'], 'String');
+      }
+      if (data.hasOwnProperty('PriceMarkupType')) {
+        obj['PriceMarkupType'] = Sdk.convertToType(data['PriceMarkupType'], 'String');
+      }
+      if (data.hasOwnProperty('PriceMarkup')) {
+        obj['PriceMarkup'] = Sdk.convertToType(data['PriceMarkup'], 'Number');
+      }
+    }
+    return obj;
+  }
+
+  /**
+   * @member {String} SpecID
+   */
+  exports.prototype['SpecID'] = undefined;
+  /**
+   * @member {String} Name
+   */
+  exports.prototype['Name'] = undefined;
+  /**
+   * @member {String} OptionID
+   */
+  exports.prototype['OptionID'] = undefined;
+  /**
+   * @member {String} Value
+   */
+  exports.prototype['Value'] = undefined;
+  /**
+   * @member {String} PriceMarkupType
+   */
+  exports.prototype['PriceMarkupType'] = undefined;
+  /**
+   * @member {Number} PriceMarkup
+   */
+  exports.prototype['PriceMarkup'] = undefined;
+
+
+
+  return exports;
+}));
+
+
+
+},{"../Sdk":14}],223:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42583,7 +43108,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14,"./WebhookRoute":223}],223:[function(require,module,exports){
+},{"../Sdk":14,"./WebhookRoute":224}],224:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)
@@ -42671,7 +43196,7 @@ exports.prototype.callAuth = function callApi(path, httpMethod, pathParams,
 
 
 
-},{"../Sdk":14}],224:[function(require,module,exports){
+},{"../Sdk":14}],225:[function(require,module,exports){
 /**
  * OrderCloud
  * No description provided (generated by Swagger Codegen https://github.com/swagger-api/swagger-codegen)

@@ -23,7 +23,7 @@
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.LineItemSpec = factory(root.OrderCloud.Sdk);
+    root.OrderCloud.PartialVariantSpec = factory(root.OrderCloud.Sdk);
   }
 }(this, function(Sdk) {
   'use strict';
@@ -32,13 +32,13 @@
 
 
   /**
-   * The LineItemSpec model module.
-   * @module model/LineItemSpec
+   * The PartialVariantSpec model module.
+   * @module model/PartialVariantSpec
    */
 
   /**
-   * Constructs a new <code>LineItemSpec</code>.
-   * @alias module:model/LineItemSpec
+   * Constructs a new <code>PartialVariantSpec</code>.
+   * @alias module:model/PartialVariantSpec
    * @class
    */
   var exports = function() {
@@ -53,11 +53,11 @@
   };
 
   /**
-   * Constructs a <code>LineItemSpec</code> from a plain JavaScript object, optionally creating a new instance.
+   * Constructs a <code>PartialVariantSpec</code> from a plain JavaScript object, optionally creating a new instance.
    * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
    * @param {Object} data The plain JavaScript object bearing properties of interest.
-   * @param {module:model/LineItemSpec} obj Optional instance to populate.
-   * @return {module:model/LineItemSpec} The populated <code>LineItemSpec</code> instance.
+   * @param {module:model/PartialVariantSpec} obj Optional instance to populate.
+   * @return {module:model/PartialVariantSpec} The populated <code>PartialVariantSpec</code> instance.
    */
   exports.constructFromObject = function(data, obj) {
     if (data) {

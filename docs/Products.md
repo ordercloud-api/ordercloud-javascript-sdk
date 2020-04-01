@@ -354,7 +354,8 @@ var opts = {
   'sortBy': "sortBy_example", // String | Comma-delimited list of fields to sort by.
   'page': 56, // Number | Page of results to return. Default: 1
   'pageSize': 56, // Number | Number of results to return per page. Default: 20, max: 100.
-  'filters': {key: "filters_example"} // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'filters': {key: "filters_example"}, // {String: String} | Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+  'searchType': "searchType_example" // String | Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
 };
 apiInstance.List(opts).then(function(data) {
   console.log('API called successfully. Returned data: ' + data);
@@ -377,6 +378,7 @@ Name | Type | Description  | Notes
  **page** | **Number**| Page of results to return. Default: 1 | [optional] 
  **pageSize** | **Number**| Number of results to return per page. Default: 20, max: 100. | [optional] 
  **filters** | [**{String: String}**](String.md)| Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39; | [optional] 
+ **searchType** | **String**| Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix. | [optional] 
 
 ### Return type
 

@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **shipWidth** | **Number** |  | [optional] 
 **shipLength** | **Number** |  | [optional] 
 **inventory** | [**VariantInventory**](VariantInventory.md) |  | [optional] 
+**specs** | [**[VariantSpec]**](VariantSpec.md) |  | [optional] 
 **xp** | **Object** |  | [optional] 
 
 

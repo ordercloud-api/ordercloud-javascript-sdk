@@ -1,4 +1,4 @@
-# OrderCloud.LineItemSpec
+# OrderCloud.PartialVariantSpec
 
 ## Properties
 Name | Type | Description | Notes

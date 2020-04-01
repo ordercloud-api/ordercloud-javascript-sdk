@@ -289,6 +289,7 @@
      * @param {Number} opts.page Page of results to return. Default: 1
      * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
      * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @param {String} opts.searchType Search type of the product. Possible values: AnyTerm, AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
      * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListProduct}
      */
     this.List = function(opts, accessToken ) {
@@ -307,7 +308,8 @@
         'sortBy': opts['sortBy'],
         'page': opts['page'],
         'pageSize': opts['pageSize'],
-        'filters': opts['filters']
+        'filters': opts['filters'],
+        'searchType': opts['searchType']
       };
       var headerParams = {
       };

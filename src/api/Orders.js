@@ -14,18 +14,18 @@
 (function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
-    define(['Sdk', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/OrderSplitResult', 'model/Shipment', 'model/User'], factory);
+    define(['Sdk', 'model/Address', 'model/ListOrder', 'model/ListOrderApproval', 'model/ListOrderPromotion', 'model/ListShipment', 'model/ListUser', 'model/Order', 'model/OrderApprovalInfo', 'model/OrderPromotion', 'model/OrderSplitResult', 'model/Shipment', 'model/User'], factory);
   } else if (typeof module === 'object' && module.exports) {
     // CommonJS-like environments that support module.exports, like Node.
-    module.exports = factory(require('../Sdk'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/OrderSplitResult'), require('../model/Shipment'), require('../model/User'));
+    module.exports = factory(require('../Sdk'), require('../model/Address'), require('../model/ListOrder'), require('../model/ListOrderApproval'), require('../model/ListOrderPromotion'), require('../model/ListShipment'), require('../model/ListUser'), require('../model/Order'), require('../model/OrderApprovalInfo'), require('../model/OrderPromotion'), require('../model/OrderSplitResult'), require('../model/Shipment'), require('../model/User'));
   } else {
     // Browser globals (root is window)
     if (!root.OrderCloud) {
       root.OrderCloud = {};
     }
-    root.OrderCloud.Orders = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.OrderSplitResult, root.OrderCloud.Shipment, root.OrderCloud.User);
+    root.OrderCloud.Orders = factory(root.OrderCloud.Sdk, root.OrderCloud.Address, root.OrderCloud.ListOrder, root.OrderCloud.ListOrderApproval, root.OrderCloud.ListOrderPromotion, root.OrderCloud.ListShipment, root.OrderCloud.ListUser, root.OrderCloud.Order, root.OrderCloud.OrderApprovalInfo, root.OrderCloud.OrderPromotion, root.OrderCloud.OrderSplitResult, root.OrderCloud.Shipment, root.OrderCloud.User);
   }
-}(this, function(Sdk, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListUser, Order, OrderApprovalInfo, OrderPromotion, OrderSplitResult, Shipment, User) {
+}(this, function(Sdk, Address, ListOrder, ListOrderApproval, ListOrderPromotion, ListShipment, ListUser, Order, OrderApprovalInfo, OrderPromotion, OrderSplitResult, Shipment, User) {
   'use strict';
 
   /**
@@ -660,6 +660,62 @@
 
       return this.sdk.callApi(
         '/orders/{direction}/{orderID}/promotions', 'GET',
+        pathParams, queryParams, headerParams, formParams, postBody,
+        contentTypes, accepts, returnType, accessToken
+      );
+    }
+
+
+    /**
+     * @param {String} direction Direction of the order, from the current user&#39;s perspective. Possible values: incoming, outgoing.
+     * @param {String} orderID ID of the order.
+     * @param {Object} opts Optional parameters
+     * @param {String} opts.search Word or phrase to search for.
+     * @param {String} opts.searchOn Comma-delimited list of fields to search on.
+     * @param {String} opts.sortBy Comma-delimited list of fields to sort by.
+     * @param {Number} opts.page Page of results to return. Default: 1
+     * @param {Number} opts.pageSize Number of results to return per page. Default: 20, max: 100.
+     * @param {Object.<String, {String: String}>} opts.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;
+     * @return {Promise} a {@link https://www.promisejs.org/|Promise}, with data of type {@link module:model/ListShipment}
+     */
+    this.ListShipments = function(direction, orderID, opts, accessToken ) {
+      opts = opts || {};
+      var postBody = null;
+
+      // verify the required parameter 'direction' is set
+      if (direction == undefined || direction == null) {
+        throw new Error("Missing the required parameter 'direction' when calling ListShipments");
+      }
+
+      // verify the required parameter 'orderID' is set
+      if (orderID == undefined || orderID == null) {
+        throw new Error("Missing the required parameter 'orderID' when calling ListShipments");
+      }
+
+
+      var pathParams = {
+        'direction': direction,
+        'orderID': orderID
+      };
+      var queryParams = {
+        'search': opts['search'],
+        'searchOn': opts['searchOn'],
+        'sortBy': opts['sortBy'],
+        'page': opts['page'],
+        'pageSize': opts['pageSize'],
+        'filters': opts['filters']
+      };
+      var headerParams = {
+      };
+      var formParams = {
+      };
+
+      var contentTypes = ['application/json', 'text/plain; charset=utf-8'];
+      var accepts = ['application/json'];
+      var returnType = ListShipment;
+
+      return this.sdk.callApi(
+        '/orders/{direction}/{orderID}/shipments', 'GET',
         pathParams, queryParams, headerParams, formParams, postBody,
         contentTypes, accepts, returnType, accessToken
       );
