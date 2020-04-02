@@ -16,9 +16,6 @@ interface OcRequestConfig extends AxiosRequestConfig {
 }
 class HttpClient {
   constructor() {
-    // create a new instance so we avoid clashes with any
-    // configurations done on default axios instance that
-    // a consumer of this SDK might use
     if (typeof axios === 'undefined') {
       throw new Error(
         'Missing required peer dependency axios. This must be installed and loaded before the OrderCloud SDK'
