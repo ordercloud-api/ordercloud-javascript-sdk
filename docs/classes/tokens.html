@@ -53,6 +53,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tokens.html#getaccesstoken" class="tsd-kind-icon">Get<wbr>Access<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tokens.html#getimpersonationtoken" class="tsd-kind-icon">Get<wbr>Impersonation<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tokens.html#getrefreshtoken" class="tsd-kind-icon">Get<wbr>Refresh<wbr>Token</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tokens.html#getvalidtoken" class="tsd-kind-icon">Get<wbr>Valid<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tokens.html#removeaccesstoken" class="tsd-kind-icon">Remove<wbr>Access<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tokens.html#removeimpersonationtoken" class="tsd-kind-icon">Remove<wbr>Impersonation<wbr>Token</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="tokens.html#removerefreshtoken" class="tsd-kind-icon">Remove<wbr>Refresh<wbr>Token</a></li>
@@ -129,6 +130,33 @@
 								<span class="tsd-signature-symbol"> | </span>
 								<span class="tsd-signature-type">undefined</span>
 							</h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="getvalidtoken" class="tsd-anchor"></a>
+					<h3>Get<wbr>Valid<wbr>Token</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Get<wbr>Valid<wbr>Token<span class="tsd-signature-symbol">(</span>tokenToValidate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>If no token is provided will attempt to get and validate token
+										stored in sdk. If token is invalid or missing it will also attempt
+									to refresh the token if possible</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> tokenToValidate: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -256,6 +284,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="tokens.html#getrefreshtoken" class="tsd-kind-icon">Get<wbr>Refresh<wbr>Token</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="tokens.html#getvalidtoken" class="tsd-kind-icon">Get<wbr>Valid<wbr>Token</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="tokens.html#removeaccesstoken" class="tsd-kind-icon">Remove<wbr>Access<wbr>Token</a>

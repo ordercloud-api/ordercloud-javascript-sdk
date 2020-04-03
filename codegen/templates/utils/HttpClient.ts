@@ -1,9 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import tokenService from '../api/Tokens'
 import Configuration from '../Configuration'
-import Auth from '../api/Auth'
 import paramsSerializer from './ParamsSerializer'
-import parseJwt from './ParseJwt'
 
 /**
  * @ignore
@@ -27,11 +25,9 @@ class HttpClient {
     this.post = this.post.bind(this)
     this.patch = this.patch.bind(this)
     this.delete = this.delete.bind(this)
+    this._resolveToken = this._resolveToken.bind(this)
     this._buildRequestConfig = this._buildRequestConfig.bind(this)
-    this._getToken = this._getToken.bind(this)
-    this._isTokenExpired = this._isTokenExpired.bind(this)
-    this._tokenInterceptor = this._tokenInterceptor.bind(this)
-    this._tryRefreshToken = this._tryRefreshToken.bind(this)
+    this._addTokenToConfig = this._addTokenToConfig.bind(this)
   }
 
   public get = async (path: string, config?: OcRequestConfig): Promise<any> => {
@@ -86,18 +82,16 @@ class HttpClient {
 
   // sets the token on every outgoing request, will attempt to
   // refresh the token if the token is expired and there is a refresh token set
-  private async _tokenInterceptor(
+  private async _addTokenToConfig(
     config: OcRequestConfig
   ): Promise<OcRequestConfig> {
-    let token = this._getToken(config)
-    if (this._isTokenExpired(token)) {
-      token = await this._tryRefreshToken(token)
-    }
-    config.headers.Authorization = `Bearer ${token}`
+    const token = this._resolveToken(config)
+    const validToken = await tokenService.GetValidToken(token)
+    config.headers.Authorization = `Bearer ${validToken}`
     return config
   }
 
-  private _getToken(config: OcRequestConfig): string {
+  private _resolveToken(config: OcRequestConfig): string {
     let token
     if (config['accessToken']) {
       token = config['accessToken']
@@ -114,37 +108,6 @@ class HttpClient {
     return token
   }
 
-  private _isTokenExpired(token: string): boolean {
-    if (!token) {
-      return true
-    }
-    const decodedToken = parseJwt(token)
-    const currentSeconds = Date.now() / 1000
-    const currentSecondsWithBuffer = currentSeconds - 10
-    return decodedToken.exp < currentSecondsWithBuffer
-  }
-
-  private async _tryRefreshToken(accessToken: string): Promise<string> {
-    const refreshToken = tokenService.GetRefreshToken()
-    if (!refreshToken) {
-      return accessToken || ''
-    }
-    const sdkConfig = Configuration.Get()
-    if (!accessToken && !sdkConfig.clientID) {
-      return accessToken || ''
-    }
-    let clientID
-    if (accessToken) {
-      const decodedToken = parseJwt(accessToken)
-      clientID = decodedToken.cid
-    }
-    if (sdkConfig.clientID) {
-      clientID = sdkConfig.clientID
-    }
-    const refreshRequest = await Auth.RefreshToken(refreshToken, clientID)
-    return refreshRequest.access_token
-  }
-
   private _buildRequestConfig(
     config?: OcRequestConfig
   ): Promise<OcRequestConfig> {
@@ -157,7 +120,7 @@ class HttpClient {
         'Content-Type': 'application/json',
       },
     }
-    return this._tokenInterceptor(requestConfig)
+    return this._addTokenToConfig(requestConfig)
   }
 }
 
