@@ -12,15 +12,11 @@ beforeEach(() => {
 
 test('can filter call with boolean', async () => {
   Tokens.SetAccessToken(validToken)
-  await Me.ListProducts({ filters: { xp: { Featured: true } } })
+  await Me.ListProducts({ filters: { 'xp.Featued': true } })
   expect(mockAxios.get).toHaveBeenCalledTimes(1)
   expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/me/products`, {
     params: {
-      filters: {
-        xp: {
-          Featured: true,
-        },
-      },
+      filters: { 'xp.Featued': true },
     },
     paramsSerializer: expect.any(Function),
     timeout: 60000,
@@ -33,10 +29,10 @@ test('can filter call with boolean', async () => {
 
 test('can filter call with comparison operator', async () => {
   Tokens.SetAccessToken(validToken)
-  await Me.ListOrders({ filters: { DateSubmitted: '>2018-04-20' } })
+  await Me.ListOrders({ filters: { DateSubmitted: '>2020-04-20' } })
   expect(mockAxios.get).toHaveBeenCalledTimes(1)
   expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/me/orders`, {
-    params: { filters: { DateSubmitted: '>2018-04-20' } },
+    params: { filters: { DateSubmitted: '>2020-04-20' } },
     paramsSerializer: expect.any(Function),
     timeout: 60000,
     headers: {
@@ -88,15 +84,11 @@ test('can filter with logical OR operator', async () => {
 
 test('can filter with logical AND operator', async () => {
   Tokens.SetAccessToken(validToken)
-  await Products.List({ filters: { xp: { Color: ['!red', '!blue'] } } })
+  await Products.List({ filters: { 'xp.Color': ['!red', '!blue'] } })
   expect(mockAxios.get).toHaveBeenCalledTimes(1)
   expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/products`, {
     params: {
-      filters: {
-        xp: {
-          Color: ['!red', '!blue'],
-        },
-      },
+      filters: { 'xp.Color': ['!red', '!blue'] },
     },
     timeout: 60000,
     paramsSerializer: expect.any(Function),

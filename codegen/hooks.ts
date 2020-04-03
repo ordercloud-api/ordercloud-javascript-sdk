@@ -38,11 +38,12 @@ const postFormatOperation: PostFormatOperationHook = function(operation) {
   })
 
   if (operation.isList) {
-    // add ListPage and ListPageWithFacets to fileImports
+    // add list models to file imports
     operation.fileImports = [
       operation.isFacetList ? 'ListPageWithFacets' : 'ListPage',
       'Searchable',
       'Sortable',
+      'Filters',
       ...operation.fileImports,
     ]
   }
@@ -120,13 +121,7 @@ function findTypeForOperationProps(prop: Param, operation: Operation) {
   }
 
   if (prop.name === 'filters') {
-    // we're updating the behavior of filters so that we get better type inference
-    // instead of accepting dot-referenced xp values such as { 'xp.color': 'red' }
-    // we will now expect { xp: { color: 'red' } }
-    prop['isFilter'] = true
-    prop.description =
-      'An object whose keys match the model, and the values are the values to filter by'
-    return `Filters<Required<T${operation.returnType}>>`
+    return `Filters`
   }
 
   if (prop.isEnum && !prop.isCustomType) {

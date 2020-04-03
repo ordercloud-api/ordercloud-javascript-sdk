@@ -1,12 +1,12 @@
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
+import { Filters } from '../models/Filters';
 import { Catalog } from '../models/Catalog';
 import { CatalogAssignment } from '../models/CatalogAssignment';
 import { ProductCatalogAssignment } from '../models/ProductCatalogAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
-import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
 import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
@@ -42,17 +42,15 @@ class Catalogs {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List(listOptions?: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Catalog>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Catalog>>>;
-    public async List<TCatalog extends Catalog>(listOptions?: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCatalog>>>;
-    public async List<TCatalog extends Catalog>(listOptions: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCatalog>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>>{
+    public async List<TCatalog extends Catalog>(listOptions: { search?: string, searchOn?: Searchable<'Catalogs.List'>, sortBy?: Sortable<'Catalogs.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/catalogs`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/catalogs`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -70,12 +68,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Create(catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
-    public async Create<TCatalog extends Catalog>(catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
     public async Create<TCatalog extends Catalog>(catalog: Catalog,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/catalogs`, { ...requestOptions, data: catalog, impersonating, params: {   } } )
+        return await http.post(`/catalogs`, { ...requestOptions, data: catalog, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -93,12 +89,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Get(catalogID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
-    public async Get<TCatalog extends Catalog>(catalogID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
     public async Get<TCatalog extends Catalog>(catalogID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/catalogs/${catalogID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/catalogs/${catalogID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -117,12 +111,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Save(catalogID: string, catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
-    public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
     public async Save<TCatalog extends Catalog>(catalogID: string, catalog: Catalog,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/catalogs/${catalogID}`, { ...requestOptions, data: catalog, impersonating, params: {   } } )
+        return await http.put(`/catalogs/${catalogID}`, { ...requestOptions, data: catalog, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -140,12 +132,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Delete(catalogID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async Delete(catalogID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(catalogID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/catalogs/${catalogID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/catalogs/${catalogID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -164,12 +154,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Patch(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Catalog>>;
-    public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCatalog>>;
     public async Patch<TCatalog extends Catalog>(catalogID: string, catalog: PartialDeep<Catalog>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCatalog>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.patch(`/catalogs/${catalogID}`, { ...requestOptions, data: catalog, impersonating, params: {   } } )
+        return await http.patch(`/catalogs/${catalogID}`, { ...requestOptions, data: catalog, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -188,12 +176,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteAssignment(catalogID: string, listOptions?: { buyerID?: string }, requestOptions?: RequestOptions ): Promise<void>;
-    public async DeleteAssignment(catalogID: string, listOptions?: { buyerID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(catalogID: string, listOptions: { buyerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/catalogs/${catalogID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.delete(`/catalogs/${catalogID}/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -212,12 +198,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteProductAssignment(catalogID: string, productID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/catalogs/${catalogID}/productassignments/${productID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/catalogs/${catalogID}/productassignments/${productID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -238,12 +222,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListAssignments(listOptions?: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CatalogAssignment>>>;
-    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>(listOptions?: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>>;
     public async ListAssignments<TCatalogAssignment extends CatalogAssignment>(listOptions: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/catalogs/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/catalogs/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -261,12 +243,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
-    public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(catalogAssignment: CatalogAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/catalogs/assignments`, { ...requestOptions, data: catalogAssignment, impersonating, params: {   } } )
+        return await http.post(`/catalogs/assignments`, { ...requestOptions, data: catalogAssignment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -287,12 +267,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListProductAssignments(listOptions?: { catalogID?: string, productID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<ProductCatalogAssignment>>>;
-    public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>(listOptions?: { catalogID?: string, productID?: string, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>>;
     public async ListProductAssignments<TProductCatalogAssignment extends ProductCatalogAssignment>(listOptions: { catalogID?: string, productID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductCatalogAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/catalogs/productassignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/catalogs/productassignments`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -310,12 +288,10 @@ class Catalogs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
-    public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveProductAssignment(productCatalogAssignment: ProductCatalogAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/catalogs/productassignments`, { ...requestOptions, data: productCatalogAssignment, impersonating, params: {   } } )
+        return await http.post(`/catalogs/productassignments`, { ...requestOptions, data: productCatalogAssignment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

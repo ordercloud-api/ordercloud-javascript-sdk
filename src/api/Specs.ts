@@ -1,12 +1,12 @@
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
+import { Filters } from '../models/Filters';
 import { Spec } from '../models/Spec';
 import { SpecOption } from '../models/SpecOption';
 import { SpecProductAssignment } from '../models/SpecProductAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
-import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
 import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
@@ -45,17 +45,15 @@ class Specs {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List(listOptions?: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Spec>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Spec>>>;
-    public async List<TSpec extends Spec>(listOptions?: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpec>>>;
-    public async List<TSpec extends Spec>(listOptions: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpec>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>>{
+    public async List<TSpec extends Spec>(listOptions: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/specs`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/specs`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -73,12 +71,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Create(spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
-    public async Create<TSpec extends Spec>(spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
     public async Create<TSpec extends Spec>(spec: Spec,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/specs`, { ...requestOptions, data: spec, impersonating, params: {   } } )
+        return await http.post(`/specs`, { ...requestOptions, data: spec, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -96,12 +92,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Get(specID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
-    public async Get<TSpec extends Spec>(specID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
     public async Get<TSpec extends Spec>(specID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/specs/${specID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/specs/${specID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -120,12 +114,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Save(specID: string, spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
-    public async Save<TSpec extends Spec>(specID: string, spec: Spec,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
     public async Save<TSpec extends Spec>(specID: string, spec: Spec,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/specs/${specID}`, { ...requestOptions, data: spec, impersonating, params: {   } } )
+        return await http.put(`/specs/${specID}`, { ...requestOptions, data: spec, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -143,12 +135,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Delete(specID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async Delete(specID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(specID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/specs/${specID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/specs/${specID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -167,12 +157,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Patch(specID: string, spec: PartialDeep<Spec>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Spec>>;
-    public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpec>>;
     public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.patch(`/specs/${specID}`, { ...requestOptions, data: spec, impersonating, params: {   } } )
+        return await http.patch(`/specs/${specID}`, { ...requestOptions, data: spec, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -191,17 +179,15 @@ class Specs {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListOptions(specID: string, listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters<Required<SpecOption>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpecOption>>>;
-    public async ListOptions<TSpecOption extends SpecOption>(specID: string, listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpecOption>>>;
-    public async ListOptions<TSpecOption extends SpecOption>(specID: string, listOptions: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecOption>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecOption>>>{
+    public async ListOptions<TSpecOption extends SpecOption>(specID: string, listOptions: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecOption>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/specs/${specID}/options`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/specs/${specID}/options`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -220,12 +206,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async CreateOption(specID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
-    public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
     public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/specs/${specID}/options`, { ...requestOptions, data: specOption, impersonating, params: {   } } )
+        return await http.post(`/specs/${specID}/options`, { ...requestOptions, data: specOption, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -244,12 +228,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async GetOption(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
-    public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
     public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/specs/${specID}/options/${optionID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/specs/${specID}/options/${optionID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -269,12 +251,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SaveOption(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
-    public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
     public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/specs/${specID}/options/${optionID}`, { ...requestOptions, data: specOption, impersonating, params: {   } } )
+        return await http.put(`/specs/${specID}/options/${optionID}`, { ...requestOptions, data: specOption, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -293,12 +273,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteOption(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async DeleteOption(specID: string, optionID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteOption(specID: string, optionID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/specs/${specID}/options/${optionID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/specs/${specID}/options/${optionID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -318,12 +296,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchOption(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<SpecOption>>;
-    public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions?: RequestOptions ): Promise<RequiredDeep<TSpecOption>>;
     public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.patch(`/specs/${specID}/options/${optionID}`, { ...requestOptions, data: specOption, impersonating, params: {   } } )
+        return await http.patch(`/specs/${specID}/options/${optionID}`, { ...requestOptions, data: specOption, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -342,12 +318,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteProductAssignment(specID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async DeleteProductAssignment(specID: string, productID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteProductAssignment(specID: string, productID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/specs/${specID}/productassignments/${productID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/specs/${specID}/productassignments/${productID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -365,17 +339,15 @@ class Specs {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListProductAssignments(listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<SpecProductAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<SpecProductAssignment>>>;
-    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>(listOptions?: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>>;
-    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>(listOptions: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters<Required<TSpecProductAssignment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>>{
+    public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>(listOptions: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/specs/productassignments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/specs/productassignments`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -393,12 +365,10 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SaveProductAssignment(specProductAssignment: SpecProductAssignment,requestOptions?: RequestOptions ): Promise<void>;
-    public async SaveProductAssignment(specProductAssignment: SpecProductAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveProductAssignment(specProductAssignment: SpecProductAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/specs/productassignments`, { ...requestOptions, data: specProductAssignment, impersonating, params: {   } } )
+        return await http.post(`/specs/productassignments`, { ...requestOptions, data: specProductAssignment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

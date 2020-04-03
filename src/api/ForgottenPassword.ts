@@ -2,7 +2,6 @@ import { PasswordResetRequest } from '../models/PasswordResetRequest';
 import { PasswordReset } from '../models/PasswordReset';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
-import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
 import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
@@ -28,12 +27,10 @@ class ForgottenPassword {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions?: RequestOptions ): Promise<void>;
-    public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions?: RequestOptions ): Promise<void>;
     public async SendVerificationCode(passwordResetRequest: PasswordResetRequest,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/password/reset`, { ...requestOptions, data: passwordResetRequest, impersonating, params: {   } } )
+        return await http.post(`/password/reset`, { ...requestOptions, data: passwordResetRequest, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -52,12 +49,10 @@ class ForgottenPassword {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions?: RequestOptions ): Promise<void>;
-    public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions?: RequestOptions ): Promise<void>;
     public async ResetPasswordByVerificationCode(verificationCode: string, passwordReset: PasswordReset,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/password/reset/${verificationCode}`, { ...requestOptions, data: passwordReset, impersonating, params: {   } } )
+        return await http.put(`/password/reset/${verificationCode}`, { ...requestOptions, data: passwordReset, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

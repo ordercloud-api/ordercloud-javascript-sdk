@@ -1,12 +1,12 @@
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
+import { Filters } from '../models/Filters';
 import { Payment } from '../models/Payment';
 import { OrderDirection } from '../models/OrderDirection';
 import { PaymentTransaction } from '../models/PaymentTransaction';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
-import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
 import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
@@ -39,17 +39,15 @@ class Payments {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<Payment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<Payment>>>;
-    public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string, listOptions?: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TPayment>>>;
-    public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TPayment>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>>{
+    public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -69,12 +67,10 @@ class Payments {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Create(direction: OrderDirection, orderID: string, payment: Payment,requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
-    public async Create<TPayment extends Payment>(direction: OrderDirection, orderID: string, payment: Payment,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
     public async Create<TPayment extends Payment>(direction: OrderDirection, orderID: string, payment: Payment,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, data: payment, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/payments`, { ...requestOptions, data: payment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -94,12 +90,10 @@ class Payments {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Get(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
-    public async Get<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
     public async Get<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -119,12 +113,10 @@ class Payments {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Delete(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async Delete(direction: OrderDirection, orderID: string, paymentID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(direction: OrderDirection, orderID: string, paymentID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -145,12 +137,10 @@ class Payments {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Patch(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>, requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
-    public async Patch<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
     public async Patch<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, data: payment, impersonating, params: {   } } )
+        return await http.patch(`/orders/${direction}/${orderID}/payments/${paymentID}`, { ...requestOptions, data: payment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -171,12 +161,10 @@ class Payments {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async CreateTransaction(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction,requestOptions?: RequestOptions ): Promise<RequiredDeep<Payment>>;
-    public async CreateTransaction<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction,requestOptions?: RequestOptions ): Promise<RequiredDeep<TPayment>>;
     public async CreateTransaction<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, { ...requestOptions, data: paymentTransaction, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions`, { ...requestOptions, data: paymentTransaction, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -197,12 +185,10 @@ class Payments {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions/${transactionID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/orders/${direction}/${orderID}/payments/${paymentID}/transactions/${transactionID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

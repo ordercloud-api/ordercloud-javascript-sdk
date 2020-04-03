@@ -73,22 +73,6 @@ The objective of this guide is to document the breaking changes and updates requ
     ForgottenPassword.SendVerificationCode(resetRequest)
     ```
 
-* Sending filters on list calls has changed in order to provide better type support.
-
-    Before:
-    Filters were a shallow object where each key was the dot-referenced property to search on, and the value was the filter to apply.
-
-    ```javascript
-    Me.ListProducts({filters: { 'xp.Color': 'red' } })
-    ```
-
-    After:
-    Filters match the shape of the item being searched. Nested properties are represented with nested objects instead of using dot-notation.
-
-    ```javascript
-    Me.ListProducts({filters: { xp: { Color: 'red' } } })
-    ```
-
 * `Auth.PasswordResets` has been renamed to `Auth.ForgottenPassword`
     Before
 

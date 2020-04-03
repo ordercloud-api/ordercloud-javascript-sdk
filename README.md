@@ -118,14 +118,14 @@ Let's run through a couple scenarios and what the call will look like with the S
 My products where `xp.Featured` is `true`
 
 ```javascript
-Me.ListProducts({ filters: { xp: { Featured: true } } })
+Me.ListProducts({ filters: { 'xp.Featued': true } })
   .then(productList => console.log(productList));
 ```
 
 My orders submitted after April 20th, 2018
 
 ```javascript
-Me.ListOrders({ filters: { DateSubmitted: '>2019-04-20' } })
+Me.ListOrders({ filters: { DateSubmitted: '>2020-04-20' } })
   .then(orderList => console.log(orderList))
 ```
 
@@ -146,7 +146,7 @@ Users.List('my-mock-buyerid', { filters: { LastName: 'Smith*|*Jones' } })
 Products where xp.Color is not red *and* not blue
 
 ```javascript
-Products.List({ filters: { xp: { Color: ['!red', '!blue'] } } })
+Products.List({ filters: { 'xp.Color': ['!red', '!blue'] } })
     .then(productList => console.log(productList));
 ```
 

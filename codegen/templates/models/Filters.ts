@@ -4,19 +4,13 @@
  * ex: an order list call with { xp: { hasPaid: '!*' } } would return a list of orders where xp.hasPaid is null or undefined
  * https://ordercloud.io/features/advanced-querying#filtering
  */
-type FilterProp = string | string[] | boolean | undefined
-type Primitive = string | boolean | number
+type FilterProp = string | string[] | number | boolean | undefined
 
 /**
  * Used on list calls to filter a list of items
  * https://ordercloud.io/features/advanced-querying#filtering
  */
-export type Filters<T> = T extends object
-  ? FiltersObj<T>
-  : T extends Primitive
-  ? FilterProp
-  : any
 
-type FiltersObj<T extends object> = {
-  -readonly [prop in keyof T]?: Filters<T[prop]>
+export type Filters = {
+  [key: string]: FilterProp
 }

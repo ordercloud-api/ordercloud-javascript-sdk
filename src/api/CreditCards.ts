@@ -1,12 +1,12 @@
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
+import { Filters } from '../models/Filters';
 import { CreditCard } from '../models/CreditCard';
 import { CreditCardAssignment } from '../models/CreditCardAssignment';
 import { PartyType } from '../models/PartyType';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
-import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
 import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
@@ -40,17 +40,15 @@ class CreditCards {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<CreditCard>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CreditCard>>>;
-    public async List<TCreditCard extends CreditCard>(buyerID: string, listOptions?: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCreditCard>>>;
-    public async List<TCreditCard extends CreditCard>(buyerID: string, listOptions: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TCreditCard>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCreditCard>>>{
+    public async List<TCreditCard extends CreditCard>(buyerID: string, listOptions: { search?: string, searchOn?: Searchable<'CreditCards.List'>, sortBy?: Sortable<'CreditCards.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCreditCard>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/buyers/${buyerID}/creditcards`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/buyers/${buyerID}/creditcards`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -69,12 +67,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Create(buyerID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
-    public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
     public async Create<TCreditCard extends CreditCard>(buyerID: string, creditCard: CreditCard,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/buyers/${buyerID}/creditcards`, { ...requestOptions, data: creditCard, impersonating, params: {   } } )
+        return await http.post(`/buyers/${buyerID}/creditcards`, { ...requestOptions, data: creditCard, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -93,12 +89,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Get(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
-    public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
     public async Get<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -118,12 +112,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Save(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
-    public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
     public async Save<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: CreditCard,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, data: creditCard, impersonating, params: {   } } )
+        return await http.put(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, data: creditCard, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -142,12 +134,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Delete(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async Delete(buyerID: string, creditCardID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(buyerID: string, creditCardID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -167,12 +157,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Patch(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions?: RequestOptions ): Promise<RequiredDeep<CreditCard>>;
-    public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TCreditCard>>;
     public async Patch<TCreditCard extends CreditCard>(buyerID: string, creditCardID: string, creditCard: PartialDeep<CreditCard>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCreditCard>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.patch(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, data: creditCard, impersonating, params: {   } } )
+        return await http.patch(`/buyers/${buyerID}/creditcards/${creditCardID}`, { ...requestOptions, data: creditCard, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -193,12 +181,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
-    public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions?: { userID?: string, userGroupID?: string }, requestOptions?: RequestOptions ): Promise<void>;
     public async DeleteAssignment(buyerID: string, creditCardID: string, listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/buyers/${buyerID}/creditcards/${creditCardID}/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.delete(`/buyers/${buyerID}/creditcards/${creditCardID}/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -222,12 +208,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListAssignments(buyerID: string, listOptions?: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<CreditCardAssignment>>>;
-    public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string, listOptions?: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>>;
     public async ListAssignments<TCreditCardAssignment extends CreditCardAssignment>(buyerID: string, listOptions: { creditCardID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCreditCardAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/buyers/${buyerID}/creditcards/assignments`, { ...requestOptions, impersonating, params: { ...listOptions,   } } )
+        return await http.get(`/buyers/${buyerID}/creditcards/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -246,12 +230,10 @@ class CreditCards {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions?: RequestOptions ): Promise<void>;
-    public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions?: RequestOptions ): Promise<void>;
     public async SaveAssignment(buyerID: string, creditCardAssignment: CreditCardAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/buyers/${buyerID}/creditcards/assignments`, { ...requestOptions, data: creditCardAssignment, impersonating, params: {   } } )
+        return await http.post(`/buyers/${buyerID}/creditcards/assignments`, { ...requestOptions, data: creditCardAssignment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

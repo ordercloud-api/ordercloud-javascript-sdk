@@ -1,13 +1,13 @@
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
+import { Filters } from '../models/Filters';
 import { IntegrationEvent } from '../models/IntegrationEvent';
 import { OrderWorksheet } from '../models/OrderWorksheet';
 import { OrderDirection } from '../models/OrderDirection';
 import { OrderShipMethodSelection } from '../models/OrderShipMethodSelection';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
-import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
 import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
@@ -41,17 +41,15 @@ class IntegrationEvents {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List(listOptions?: { search?: string, searchOn?: Searchable<'IntegrationEvents.List'>, sortBy?: Sortable<'IntegrationEvents.List'>, page?: number, pageSize?: number, filters?: Filters<Required<IntegrationEvent>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<IntegrationEvent>>>;
-    public async List<TIntegrationEvent extends IntegrationEvent>(listOptions?: { search?: string, searchOn?: Searchable<'IntegrationEvents.List'>, sortBy?: Sortable<'IntegrationEvents.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIntegrationEvent>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TIntegrationEvent>>>;
-    public async List<TIntegrationEvent extends IntegrationEvent>(listOptions: { search?: string, searchOn?: Searchable<'IntegrationEvents.List'>, sortBy?: Sortable<'IntegrationEvents.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIntegrationEvent>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIntegrationEvent>>>{
+    public async List<TIntegrationEvent extends IntegrationEvent>(listOptions: { search?: string, searchOn?: Searchable<'IntegrationEvents.List'>, sortBy?: Sortable<'IntegrationEvents.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIntegrationEvent>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/integrationEvents`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/integrationEvents`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -69,12 +67,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Create(integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
-    public async Create<TIntegrationEvent extends IntegrationEvent>(integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
     public async Create<TIntegrationEvent extends IntegrationEvent>(integrationEvent: IntegrationEvent,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/integrationEvents`, { ...requestOptions, data: integrationEvent, impersonating, params: {   } } )
+        return await http.post(`/integrationEvents`, { ...requestOptions, data: integrationEvent, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -92,12 +88,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Get(integrationEventID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
-    public async Get<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
     public async Get<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/integrationEvents/${integrationEventID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/integrationEvents/${integrationEventID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -116,12 +110,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Save(integrationEventID: string, integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
-    public async Save<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
     public async Save<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: IntegrationEvent,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/integrationEvents/${integrationEventID}`, { ...requestOptions, data: integrationEvent, impersonating, params: {   } } )
+        return await http.put(`/integrationEvents/${integrationEventID}`, { ...requestOptions, data: integrationEvent, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -139,12 +131,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Delete(integrationEventID: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async Delete(integrationEventID: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(integrationEventID: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/integrationEvents/${integrationEventID}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/integrationEvents/${integrationEventID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -163,12 +153,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Patch(integrationEventID: string, integrationEvent: PartialDeep<IntegrationEvent>, requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
-    public async Patch<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: PartialDeep<IntegrationEvent>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
     public async Patch<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: PartialDeep<IntegrationEvent>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.patch(`/integrationEvents/${integrationEventID}`, { ...requestOptions, data: integrationEvent, impersonating, params: {   } } )
+        return await http.patch(`/integrationEvents/${integrationEventID}`, { ...requestOptions, data: integrationEvent, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -187,12 +175,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Calculate(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
-    public async Calculate<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
     public async Calculate<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/orders/${direction}/${orderID}/calculate`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/calculate`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -211,12 +197,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async EstimateShipping(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
-    public async EstimateShipping<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
     public async EstimateShipping<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/orders/${direction}/${orderID}/estimateshipping`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/estimateshipping`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -236,12 +220,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SelectShipmethods(direction: OrderDirection, orderID: string, orderShipMethodSelection: OrderShipMethodSelection,requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
-    public async SelectShipmethods<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, orderShipMethodSelection: OrderShipMethodSelection,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
     public async SelectShipmethods<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, orderShipMethodSelection: OrderShipMethodSelection,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/orders/${direction}/${orderID}/shipmethods`, { ...requestOptions, data: orderShipMethodSelection, impersonating, params: {   } } )
+        return await http.post(`/orders/${direction}/${orderID}/shipmethods`, { ...requestOptions, data: orderShipMethodSelection, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -260,12 +242,10 @@ class IntegrationEvents {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async GetWorksheet(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
-    public async GetWorksheet<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
     public async GetWorksheet<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/orders/${direction}/${orderID}/worksheet`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.get(`/orders/${direction}/${orderID}/worksheet`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

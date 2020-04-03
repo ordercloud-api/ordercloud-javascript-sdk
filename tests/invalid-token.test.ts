@@ -48,7 +48,6 @@ describe('has expired access token', () => {
       expect(mockAxios.delete).toHaveBeenCalledWith(
         `${apiUrl}/products/${testdata.productID}`,
         {
-          params: {},
           paramsSerializer: expect.any(Function),
           timeout: 10000,
           headers: {
@@ -90,7 +89,6 @@ describe('has expired access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            params: {},
             paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
@@ -129,7 +127,6 @@ describe('has expired access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            params: {},
             paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
@@ -151,7 +148,6 @@ describe('has no access token', () => {
       expect(mockAxios.delete).toHaveBeenCalledWith(
         `${apiUrl}/products/${testdata.productID}`,
         {
-          params: {},
           paramsSerializer: expect.any(Function),
           timeout: 10000,
           headers: {
@@ -193,7 +189,6 @@ describe('has no access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            params: {},
             paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
@@ -214,7 +209,6 @@ describe('has no access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            params: {},
             paramsSerializer: expect.any(Function),
             timeout: 10000,
             headers: {
@@ -238,7 +232,6 @@ describe('has valid access token', () => {
     expect(mockAxios.delete).toHaveBeenCalledWith(
       `${apiUrl}/products/${testdata.productID}`,
       {
-        params: {},
         paramsSerializer: expect.any(Function),
         timeout: 10000,
         headers: {

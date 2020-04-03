@@ -1,11 +1,11 @@
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
+import { Filters } from '../models/Filters';
 import { XpIndex } from '../models/XpIndex';
 import { XpThingType } from '../models/XpThingType';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
-import { Filters } from '../models/Filters';
 import { RequestOptions } from '../models/RequestOptions';
 import http from '../utils/HttpClient';
 import OrderCloudError from '../utils/OrderCloudError';
@@ -32,17 +32,15 @@ class XpIndices {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List(listOptions?: { search?: string, searchOn?: Searchable<'XpIndices.List'>, sortBy?: Sortable<'XpIndices.List'>, page?: number, pageSize?: number, filters?: Filters<Required<XpIndex>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<XpIndex>>>;
-    public async List<TXpIndex extends XpIndex>(listOptions?: { search?: string, searchOn?: Searchable<'XpIndices.List'>, sortBy?: Sortable<'XpIndices.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TXpIndex>>>;
-    public async List<TXpIndex extends XpIndex>(listOptions: { search?: string, searchOn?: Searchable<'XpIndices.List'>, sortBy?: Sortable<'XpIndices.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TXpIndex>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>>{
+    public async List<TXpIndex extends XpIndex>(listOptions: { search?: string, searchOn?: Searchable<'XpIndices.List'>, sortBy?: Sortable<'XpIndices.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TXpIndex>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/xpindices`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        return await http.get(`/xpindices`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -60,12 +58,10 @@ class XpIndices {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Put(xpIndex: XpIndex,requestOptions?: RequestOptions ): Promise<void>;
-    public async Put(xpIndex: XpIndex,requestOptions?: RequestOptions ): Promise<void>;
     public async Put(xpIndex: XpIndex,requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/xpindices`, { ...requestOptions, data: xpIndex, impersonating, params: {   } } )
+        return await http.put(`/xpindices`, { ...requestOptions, data: xpIndex, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -84,12 +80,10 @@ class XpIndices {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Delete(thingType: XpThingType, key: string, requestOptions?: RequestOptions ): Promise<void>;
-    public async Delete(thingType: XpThingType, key: string, requestOptions?: RequestOptions ): Promise<void>;
     public async Delete(thingType: XpThingType, key: string, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.delete(`/xpindices/${thingType}/${key}`, { ...requestOptions, impersonating, params: {   } } )
+        return await http.delete(`/xpindices/${thingType}/${key}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
