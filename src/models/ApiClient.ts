@@ -14,4 +14,6 @@ export interface ApiClient<TApiClientXp = any> {
     IsAnonBuyer?: boolean
     readonly AssignedBuyerCount?: number
     readonly AssignedSupplierCount?: number
+    OrderCheckoutIntegrationEventID?: string
+    readonly OrderCheckoutIntegrationEventName?: string
 }

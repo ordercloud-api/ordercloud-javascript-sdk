@@ -8,6 +8,7 @@ import AdminAddresses from './AdminAddresses';
 import MessageSenders from './MessageSenders';
 import ApiClients from './ApiClients';
 import Incrementors from './Incrementors';
+import IntegrationEvents from './IntegrationEvents';
 import Webhooks from './Webhooks';
 import XpIndices from './XpIndices';
 import Buyers from './Buyers';
@@ -48,6 +49,7 @@ export {
     MessageSenders,
     ApiClients,
     Incrementors,
+    IntegrationEvents,
     Webhooks,
     XpIndices,
     Buyers,

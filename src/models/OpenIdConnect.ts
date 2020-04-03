@@ -8,4 +8,7 @@ export interface OpenIdConnect {
     AuthorizationEndpoint: string
     TokenEndpoint: string
     UrlEncoded?: boolean
+    IntegrationEventID?: string
+    readonly IntegrationEventName?: string
+    AdditionalIdpScopes?: string[]
 }

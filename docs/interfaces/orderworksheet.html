@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>OpenIdConnect | ordercloud-javascript-sdk</title>
+	<title>OrderWorksheet | ordercloud-javascript-sdk</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -34,7 +34,7 @@
 					<a href="../index.html">OrderCloudSDK</a>
 				</li>
 				<li>
-					<a href="openidconnect.html">OpenIdConnect</a>
+					<a href="orderworksheet.html">OrderWorksheet</a>
 				</li>
 			</ul>
 		</div>
@@ -43,6 +43,47 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>TFromUserXp</h4>
+					</li>
+					<li>
+						<h4>TBillingAddressXp</h4>
+					</li>
+					<li>
+						<h4>TOrderXp</h4>
+					</li>
+					<li>
+						<h4>TProductXp</h4>
+					</li>
+					<li>
+						<h4>TVariantXp</h4>
+					</li>
+					<li>
+						<h4>TShippingAddressXp</h4>
+					</li>
+					<li>
+						<h4>TShipFromAddressXp</h4>
+					</li>
+					<li>
+						<h4>TLineItemsXp</h4>
+					</li>
+					<li>
+						<h4>TShipEstimatesXp</h4>
+					</li>
+					<li>
+						<h4>TShipEstimateResponseXp</h4>
+					</li>
+					<li>
+						<h4>TOrderCalculateResponseXp</h4>
+					</li>
+					<li>
+						<h4>TOrderSubmitResponseXp</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>API Reference</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -50,17 +91,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#additionalidpscopes" class="tsd-kind-icon">Additional<wbr>Idp<wbr>Scopes</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#appstarturl" class="tsd-kind-icon">App<wbr>Start<wbr>Url</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#authorizationendpoint" class="tsd-kind-icon">Authorization<wbr>Endpoint</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#connectclientid" class="tsd-kind-icon">Connect<wbr>ClientID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#connectclientsecret" class="tsd-kind-icon">Connect<wbr>Client<wbr>Secret</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#id" class="tsd-kind-icon">ID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#integrationeventid" class="tsd-kind-icon">Integration<wbr>EventID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#integrationeventname" class="tsd-kind-icon">Integration<wbr>Event<wbr>Name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#ordercloudapiclientid" class="tsd-kind-icon">Order<wbr>Cloud<wbr>Api<wbr>ClientID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#tokenendpoint" class="tsd-kind-icon">Token<wbr>Endpoint</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="openidconnect.html#urlencoded" class="tsd-kind-icon">Url<wbr>Encoded</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderworksheet.html#lineitems" class="tsd-kind-icon">Line<wbr>Items</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderworksheet.html#order" class="tsd-kind-icon">Order</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderworksheet.html#ordercalculateresponse" class="tsd-kind-icon">Order<wbr>Calculate<wbr>Response</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderworksheet.html#ordersubmitresponse" class="tsd-kind-icon">Order<wbr>Submit<wbr>Response</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderworksheet.html#shipestimateresponse" class="tsd-kind-icon">Ship<wbr>Estimate<wbr>Response</a></li>
 							</ul>
 						</section>
 					</div>
@@ -69,79 +104,37 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="additionalidpscopes" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Additional<wbr>Idp<wbr>Scopes</h3>
-					<div class="tsd-signature tsd-kind-icon">Additional<wbr>Idp<wbr>Scopes<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
+					<a name="lineitems" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Line<wbr>Items</h3>
+					<div class="tsd-signature tsd-kind-icon">Line<wbr>Items<span class="tsd-signature-symbol">:</span> <a href="lineitem.html" class="tsd-signature-type">LineItem</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TProductXp</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TVariantXp</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TShippingAddressXp</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TShipFromAddressXp</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TLineItemsXp</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="appstarturl" class="tsd-anchor"></a>
-					<h3>App<wbr>Start<wbr>Url</h3>
-					<div class="tsd-signature tsd-kind-icon">App<wbr>Start<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="order" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Order</h3>
+					<div class="tsd-signature tsd-kind-icon">Order<span class="tsd-signature-symbol">:</span> <a href="order.html" class="tsd-signature-type">Order</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TFromUserXp</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TBillingAddressXp</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TOrderXp</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="authorizationendpoint" class="tsd-anchor"></a>
-					<h3>Authorization<wbr>Endpoint</h3>
-					<div class="tsd-signature tsd-kind-icon">Authorization<wbr>Endpoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="ordercalculateresponse" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Order<wbr>Calculate<wbr>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">Order<wbr>Calculate<wbr>Response<span class="tsd-signature-symbol">:</span> <a href="ordercalculateresponse.html" class="tsd-signature-type">OrderCalculateResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderCalculateResponseXp</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="connectclientid" class="tsd-anchor"></a>
-					<h3>Connect<wbr>ClientID</h3>
-					<div class="tsd-signature tsd-kind-icon">Connect<wbr>ClientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="ordersubmitresponse" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Order<wbr>Submit<wbr>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">Order<wbr>Submit<wbr>Response<span class="tsd-signature-symbol">:</span> <a href="ordersubmitresponse.html" class="tsd-signature-type">OrderSubmitResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TOrderSubmitResponseXp</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="connectclientsecret" class="tsd-anchor"></a>
-					<h3>Connect<wbr>Client<wbr>Secret</h3>
-					<div class="tsd-signature tsd-kind-icon">Connect<wbr>Client<wbr>Secret<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="id" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ID</h3>
-					<div class="tsd-signature tsd-kind-icon">ID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="integrationeventid" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Integration<wbr>EventID</h3>
-					<div class="tsd-signature tsd-kind-icon">Integration<wbr>EventID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="integrationeventname" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Integration<wbr>Event<wbr>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">Integration<wbr>Event<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="ordercloudapiclientid" class="tsd-anchor"></a>
-					<h3>Order<wbr>Cloud<wbr>Api<wbr>ClientID</h3>
-					<div class="tsd-signature tsd-kind-icon">Order<wbr>Cloud<wbr>Api<wbr>ClientID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="tokenendpoint" class="tsd-anchor"></a>
-					<h3>Token<wbr>Endpoint</h3>
-					<div class="tsd-signature tsd-kind-icon">Token<wbr>Endpoint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="urlencoded" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Url<wbr>Encoded</h3>
-					<div class="tsd-signature tsd-kind-icon">Url<wbr>Encoded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="shipestimateresponse" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Ship<wbr>Estimate<wbr>Response</h3>
+					<div class="tsd-signature tsd-kind-icon">Ship<wbr>Estimate<wbr>Response<span class="tsd-signature-symbol">:</span> <a href="shipestimateresponse.html" class="tsd-signature-type">ShipEstimateResponse</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TShipEstimatesXp</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">TShipEstimateResponseXp</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
@@ -156,41 +149,23 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="openidconnect.html" class="tsd-kind-icon">Open<wbr>IdConnect</a>
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
+						<a href="orderworksheet.html" class="tsd-kind-icon">Order<wbr>Worksheet</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#additionalidpscopes" class="tsd-kind-icon">Additional<wbr>Idp<wbr>Scopes</a>
+								<a href="orderworksheet.html#lineitems" class="tsd-kind-icon">Line<wbr>Items</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#appstarturl" class="tsd-kind-icon">App<wbr>Start<wbr>Url</a>
+								<a href="orderworksheet.html#order" class="tsd-kind-icon">Order</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#authorizationendpoint" class="tsd-kind-icon">Authorization<wbr>Endpoint</a>
+								<a href="orderworksheet.html#ordercalculateresponse" class="tsd-kind-icon">Order<wbr>Calculate<wbr>Response</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#connectclientid" class="tsd-kind-icon">Connect<wbr>ClientID</a>
+								<a href="orderworksheet.html#ordersubmitresponse" class="tsd-kind-icon">Order<wbr>Submit<wbr>Response</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#connectclientsecret" class="tsd-kind-icon">Connect<wbr>Client<wbr>Secret</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#id" class="tsd-kind-icon">ID</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#integrationeventid" class="tsd-kind-icon">Integration<wbr>EventID</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#integrationeventname" class="tsd-kind-icon">Integration<wbr>Event<wbr>Name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#ordercloudapiclientid" class="tsd-kind-icon">Order<wbr>Cloud<wbr>Api<wbr>ClientID</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#tokenendpoint" class="tsd-kind-icon">Token<wbr>Endpoint</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="openidconnect.html#urlencoded" class="tsd-kind-icon">Url<wbr>Encoded</a>
+								<a href="orderworksheet.html#shipestimateresponse" class="tsd-kind-icon">Ship<wbr>Estimate<wbr>Response</a>
 							</li>
 						</ul>
 					</li>

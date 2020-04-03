@@ -73,4 +73,6 @@ export type ApiRole = 'ApiClientAdmin' |
 'MessageSenderAdmin' | 
 'XpIndexAdmin' | 
 'WebhookReader' | 
-'WebhookAdmin'
+'WebhookAdmin' | 
+'IntegrationEventReader' | 
+'IntegrationEventAdmin'

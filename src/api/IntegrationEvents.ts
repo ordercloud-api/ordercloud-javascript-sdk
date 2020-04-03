@@ -1,0 +1,290 @@
+import { ListPage } from '../models/ListPage';
+import { Searchable } from '../models/Searchable';
+import { Sortable } from '../models/Sortable';
+import { IntegrationEvent } from '../models/IntegrationEvent';
+import { OrderWorksheet } from '../models/OrderWorksheet';
+import { OrderDirection } from '../models/OrderDirection';
+import { OrderShipMethodSelection } from '../models/OrderShipMethodSelection';
+import { PartialDeep } from '../models/PartialDeep';
+import { RequiredDeep } from '../models/RequiredDeep';
+import { Filters } from '../models/Filters';
+import { RequestOptions } from '../models/RequestOptions';
+import http from '../utils/HttpClient';
+import OrderCloudError from '../utils/OrderCloudError';
+
+class IntegrationEvents {
+    private impersonating:boolean = false;
+
+    /**
+    * @ignore
+    * not part of public api, don't include in generated docs
+    */
+    constructor() {
+        this.List = this.List.bind(this);
+        this.Create = this.Create.bind(this);
+        this.Get = this.Get.bind(this);
+        this.Save = this.Save.bind(this);
+        this.Delete = this.Delete.bind(this);
+        this.Patch = this.Patch.bind(this);
+        this.Calculate = this.Calculate.bind(this);
+        this.EstimateShipping = this.EstimateShipping.bind(this);
+        this.SelectShipmethods = this.SelectShipmethods.bind(this);
+        this.GetWorksheet = this.GetWorksheet.bind(this);
+    }
+
+   /**
+    * Get a list of integration events. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/list|api docs} for more info 
+    * 
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object whose keys match the model, and the values are the values to filter by
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async List(listOptions?: { search?: string, searchOn?: Searchable<'IntegrationEvents.List'>, sortBy?: Sortable<'IntegrationEvents.List'>, page?: number, pageSize?: number, filters?: Filters<Required<IntegrationEvent>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<IntegrationEvent>>>;
+    public async List<TIntegrationEvent extends IntegrationEvent>(listOptions?: { search?: string, searchOn?: Searchable<'IntegrationEvents.List'>, sortBy?: Sortable<'IntegrationEvents.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIntegrationEvent>> }, requestOptions?: RequestOptions ): Promise<RequiredDeep<ListPage<TIntegrationEvent>>>;
+    public async List<TIntegrationEvent extends IntegrationEvent>(listOptions: { search?: string, searchOn?: Searchable<'IntegrationEvents.List'>, sortBy?: Sortable<'IntegrationEvents.List'>, page?: number, pageSize?: number, filters?: Filters<Required<TIntegrationEvent>> } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIntegrationEvent>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/integrationEvents`, { ...requestOptions, impersonating, params: { ...listOptions,  filters: listOptions.filters,  } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new integration event. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/create|api docs} for more info 
+    * 
+    * @param integrationEvent Required fields: ElevatedRoles, Name, HashKey
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Create(integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
+    public async Create<TIntegrationEvent extends IntegrationEvent>(integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
+    public async Create<TIntegrationEvent extends IntegrationEvent>(integrationEvent: IntegrationEvent,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/integrationEvents`, { ...requestOptions, data: integrationEvent, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single integration event. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/get|api docs} for more info 
+    * 
+    * @param integrationEventID ID of the integration event.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Get(integrationEventID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
+    public async Get<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
+    public async Get<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/integrationEvents/${integrationEventID}`, { ...requestOptions, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update an integration event. If an object with the same ID already exists, it will be overwritten.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/save|api docs} for more info 
+    * 
+    * @param integrationEventID ID of the integration event.
+    * @param integrationEvent Required fields: ElevatedRoles, Name, HashKey
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Save(integrationEventID: string, integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
+    public async Save<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: IntegrationEvent,requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
+    public async Save<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: IntegrationEvent,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/integrationEvents/${integrationEventID}`, { ...requestOptions, data: integrationEvent, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete an integration event. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/delete|api docs} for more info 
+    * 
+    * @param integrationEventID ID of the integration event.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Delete(integrationEventID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(integrationEventID: string, requestOptions?: RequestOptions ): Promise<void>;
+    public async Delete(integrationEventID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/integrationEvents/${integrationEventID}`, { ...requestOptions, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update an integration event. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/patch|api docs} for more info 
+    * 
+    * @param integrationEventID ID of the integration event.
+    * @param integrationEvent 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Patch(integrationEventID: string, integrationEvent: PartialDeep<IntegrationEvent>, requestOptions?: RequestOptions ): Promise<RequiredDeep<IntegrationEvent>>;
+    public async Patch<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: PartialDeep<IntegrationEvent>, requestOptions?: RequestOptions ): Promise<RequiredDeep<TIntegrationEvent>>;
+    public async Patch<TIntegrationEvent extends IntegrationEvent>(integrationEventID: string, integrationEvent: PartialDeep<IntegrationEvent>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIntegrationEvent>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/integrationEvents/${integrationEventID}`, { ...requestOptions, data: integrationEvent, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Calculate an integration event calculate. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/calculate|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Calculate(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
+    public async Calculate<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
+    public async Calculate<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/orders/${direction}/${orderID}/calculate`, { ...requestOptions, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Estimate a shipping. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/estimate-shipping|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async EstimateShipping(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
+    public async EstimateShipping<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
+    public async EstimateShipping<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/orders/${direction}/${orderID}/estimateshipping`, { ...requestOptions, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Select a shipmethods. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/select-shipmethods|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param orderShipMethodSelection 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SelectShipmethods(direction: OrderDirection, orderID: string, orderShipMethodSelection: OrderShipMethodSelection,requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
+    public async SelectShipmethods<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, orderShipMethodSelection: OrderShipMethodSelection,requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
+    public async SelectShipmethods<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, orderShipMethodSelection: OrderShipMethodSelection,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/orders/${direction}/${orderID}/shipmethods`, { ...requestOptions, data: orderShipMethodSelection, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single integration event worksheet. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/get-worksheet|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param orderID ID of the order.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetWorksheet(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<OrderWorksheet>>;
+    public async GetWorksheet<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions?: RequestOptions ): Promise<RequiredDeep<TOrderWorksheet>>;
+    public async GetWorksheet<TOrderWorksheet extends OrderWorksheet>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/orders/${direction}/${orderID}/worksheet`, { ...requestOptions, impersonating, params: {   } } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+    /**
+     * @description 
+     * enables impersonation by calling the subsequent method with the stored impersonation token
+     * 
+     * @example
+     * IntegrationEvents.As().List() // lists IntegrationEvents using the impersonated users' token
+     */
+    public As(): this {
+        this.impersonating = true;
+        return this;
+    }
+}
+
+export default new IntegrationEvents();

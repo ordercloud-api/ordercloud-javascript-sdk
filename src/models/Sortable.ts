@@ -16,6 +16,7 @@ interface SortableMap {
 'Categories.List': 'ID' | 'Name' | '!ID' | '!Name'[]
 'ImpersonationConfigs.List': 'ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID'[]
 'Incrementors.List': 'ID' | 'Name' | '!ID' | '!Name'[]
+'IntegrationEvents.List': 'ID' | 'EventType' | 'Name' | '!ID' | '!EventType' | '!Name'[]
 'Me.ListAddresses': 'AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone'[]
 'Me.ListCatalogs': 'OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID'[]
 'Me.ListCategories': 'ID' | 'Name' | '!ID' | '!Name'[]
@@ -77,6 +78,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Categories.List' | 
 'ImpersonationConfigs.List' | 
 'Incrementors.List' | 
+'IntegrationEvents.List' | 
 'Me.ListAddresses' | 
 'Me.ListCatalogs' | 
 'Me.ListCategories' | 

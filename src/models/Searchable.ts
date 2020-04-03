@@ -16,6 +16,7 @@ interface SearchableMap {
 'Categories.List': 'ID' | 'Name' | 'Description'[]
 'ImpersonationConfigs.List': 'ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID'[]
 'Incrementors.List': 'ID' | 'Name'[]
+'IntegrationEvents.List': 'ID' | 'EventType' | 'Name'[]
 'Me.ListAddresses': 'ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip'[]
 'Me.ListCatalogs': 'ID' | 'Name' | 'Description'[]
 'Me.ListCategories': 'ID' | 'Name' | 'Description'[]
@@ -77,6 +78,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Categories.List' | 
 'ImpersonationConfigs.List' | 
 'Incrementors.List' | 
+'IntegrationEvents.List' | 
 'Me.ListAddresses' | 
 'Me.ListCatalogs' | 
 'Me.ListCategories' | 
