@@ -1,19 +1,18 @@
 export interface SdkConfiguration {
   /**
-   * the path that will be used to talk to the ordercloud api.
-   * It may be useful to change this to interact with different
-   * environments or different versions of the api. At the time of writing
-   * there is only one version of the api.
+   * The apiurl that will be used to talk to the ordercloud API.
+   * It may be useful to change this to interact with different environments
+   *
+   * Defaults to: https://api.ordercloud.io
    */
   baseApiUrl?: string
 
   /**
-   * the path that will be used to authenticate into ordercloud api.
-   * It may be useful to change this to interact with different
-   * environments or different versions of the api. At the time of writing
-   * there is only one version of the api.
+   * At the time of writing there is only one version of the API
+   *
+   * Defaults to: v1
    */
-  baseAuthUrl?: string
+  apiVersion?: string
 
   /**
    * when set is used to call the refresh token endpoint to obtain a new access

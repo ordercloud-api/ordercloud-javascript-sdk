@@ -25,8 +25,8 @@ The objective of this guide is to document the breaking changes and updates requ
 
     ```javascript
     Configuration.Set({
-        baseApiUrl: 'https://api.ordercloud.io/v1',
-        baseAuthUrl: 'https://auth.ordercloud.io/oauth/token'
+        baseApiUrl: 'https://api.ordercloud.io',
+        apiVersion: 'v1'
     })
 
     Tokens.SetAccessToken('my-token');

@@ -28,8 +28,8 @@ beforeEach(() => {
   Tokens.RemoveRefreshToken()
   // reset defaults for configuration
   Configuration.Set({
-    baseApiUrl: 'https://api.ordercloud.io/v1',
-    baseAuthUrl: 'https://auth.ordercloud.io/oauth/token',
+    baseApiUrl: 'https://api.ordercloud.io',
+    apiVersion: 'v1',
     timeoutInMilliseconds: 10 * 1000,
     clientID: null,
   })

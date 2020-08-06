@@ -2,8 +2,8 @@ import { SdkConfiguration } from './models'
 
 class Configuration {
   private config: SdkConfiguration = {
-    baseApiUrl: 'https://api.ordercloud.io/v1',
-    baseAuthUrl: 'https://auth.ordercloud.io/oauth/token',
+    baseApiUrl: 'https://api.ordercloud.io',
+    apiVersion: 'v1',
     timeoutInMilliseconds: 60 * 1000, // 60 seconds by default
     clientID: null,
     cookieOptions: {

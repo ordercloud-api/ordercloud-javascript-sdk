@@ -66,14 +66,18 @@ class HttpClient {
       const requestBody = requestConfig.data
       delete requestConfig.data
       const response = await axios[verb as string](
-        `${Configuration.Get().baseApiUrl}${path}`,
+        `${Configuration.Get().baseApiUrl}/${
+          Configuration.Get().apiVersion
+        }${path}`,
         requestBody,
         requestConfig
       )
       return response.data
     } else {
       const response = await axios[verb as string](
-        `${Configuration.Get().baseApiUrl}${path}`,
+        `${Configuration.Get().baseApiUrl}/${
+          Configuration.Get().apiVersion
+        }${path}`,
         requestConfig
       )
       return response.data
