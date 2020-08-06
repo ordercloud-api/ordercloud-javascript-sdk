@@ -10,7 +10,9 @@ export interface LineItem<TLineItemXp = any, TProductXp = any, TVariantXp = any,
     readonly DateAdded?: string
     readonly QuantityShipped?: number
     UnitPrice?: number
+    readonly PromotionDiscount?: number
     readonly LineTotal?: number
+    readonly LineSubtotal?: number
     CostCenter?: string
     DateNeeded?: string
     ShippingAccount?: string

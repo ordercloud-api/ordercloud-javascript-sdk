@@ -1,6 +1,7 @@
 
 export interface Promotion<TPromotionXp = any> {
     ID?: string
+    LineItemLevel?: boolean
     Code: string
     Name?: string
     RedemptionLimit?: number

@@ -35,6 +35,7 @@ export * from './LineItemVariant';
 export * from './ListFacet';
 export * from './ListFacetValue';
 export * from './MeBuyer';
+export * from './MeSeller';
 export * from './MessageCCListenerAssignment';
 export * from './MessageSender';
 export * from './MessageSenderAssignment';

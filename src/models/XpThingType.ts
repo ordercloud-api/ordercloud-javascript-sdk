@@ -1,9 +1,8 @@
 
-export type XpThingType = 'Product' | 
+export type XpThingType = 'Address' | 
 'Variant' | 
 'Order' | 
 'LineItem' | 
-'Address' | 
 'CostCenter' | 
 'CreditCard' | 
 'Payment' | 

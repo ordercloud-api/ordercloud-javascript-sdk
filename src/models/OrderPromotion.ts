@@ -1,7 +1,9 @@
 
 export interface OrderPromotion<TOrderPromotionXp = any> {
     readonly Amount?: number
+    readonly LineItemID?: string
     ID?: string
+    LineItemLevel?: boolean
     Code?: string
     Name?: string
     RedemptionLimit?: number

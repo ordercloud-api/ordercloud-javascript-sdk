@@ -3,8 +3,6 @@ import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { User } from '../models/User';
-import { ImpersonateTokenRequest } from '../models/ImpersonateTokenRequest';
-import { AccessToken } from '../models/AccessToken';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { RequestOptions } from '../models/RequestOptions';
@@ -25,7 +23,6 @@ class SupplierUsers {
         this.Save = this.Save.bind(this);
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
-        this.GetAccessToken = this.GetAccessToken.bind(this);
     }
 
    /**
@@ -160,29 +157,6 @@ class SupplierUsers {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/suppliers/${supplierID}/users/${userID}`, { ...requestOptions, data: user, impersonating,  } )
-        .catch(ex => {
-            if(ex.response) {
-                throw new OrderCloudError(ex)
-            }
-            throw ex;
-        })
-    }
-
-   /**
-    * Get a single supplier user access token. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/get-access-token|api docs} for more info 
-    * 
-    * @param supplierID ID of the supplier.
-    * @param userID ID of the user.
-    * @param impersonateTokenRequest Required fields: ClientID, Roles
-    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
-    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
-    */
-    public async GetAccessToken<TAccessToken extends AccessToken>(supplierID: string, userID: string, impersonateTokenRequest: ImpersonateTokenRequest,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TAccessToken>>{
-        const impersonating = this.impersonating;
-        this.impersonating = false;
-        return await http.post(`/suppliers/${supplierID}/users/${userID}/accesstoken`, { ...requestOptions, data: impersonateTokenRequest, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

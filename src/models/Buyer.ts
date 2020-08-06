@@ -4,5 +4,6 @@ export interface Buyer<TBuyerXp = any> {
     Name: string
     DefaultCatalogID?: string
     Active?: boolean
+    readonly DateCreated?: string
     xp?: TBuyerXp
 }

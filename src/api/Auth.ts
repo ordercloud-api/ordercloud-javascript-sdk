@@ -57,7 +57,7 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(configuration.baseAuthUrl, serialize(body), {
+      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
@@ -110,7 +110,7 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(configuration.baseAuthUrl, serialize(body), {
+      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
@@ -157,7 +157,7 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(configuration.baseAuthUrl, serialize(body), {
+      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
@@ -196,7 +196,7 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(configuration.baseAuthUrl, serialize(body), {
+      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',
@@ -238,7 +238,7 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(configuration.baseAuthUrl, serialize(body), {
+      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Accept: 'application/json',

@@ -9,6 +9,7 @@ export interface OpenIdConnect {
     TokenEndpoint: string
     UrlEncoded?: boolean
     IntegrationEventID?: string
+    CallSyncUserIntegrationEvent?: boolean
     readonly IntegrationEventName?: string
     AdditionalIdpScopes?: string[]
 }
