@@ -5,7 +5,7 @@
     "gitTag": true,
     "vulnerableDependencies": false,
     "sensitiveData": false,
-    "branch": false,
+    "branch": false
   },
   "confirm": true,
   "publishCommand": "npm publish",
