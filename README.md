@@ -54,16 +54,6 @@ with yarn:
 yarn add ordercloud-javascript-sdk
 ```
 
-or
-
-with CDN:
-
-```html
-<script src="https://unpkg.com/ordercloud-javascript-sdk/dist/ordercloud-javascript-sdk.min.js"></script>
-```
-
-Access SDK on `window.OrderCloud`
-
 ## ➕ Adding it to your project
 
 ### Using named imports
