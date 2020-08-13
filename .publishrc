@@ -9,7 +9,7 @@
   },
   "confirm": true,
   "publishCommand": "npm publish",
-  "publishTag": "beta",
+  "publishTag": "latest",
   "prePublishScript": "npm run build",
   "postPublishScript": false
 }
