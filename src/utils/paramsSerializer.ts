@@ -2,9 +2,10 @@
  * @ignore
  * not part of public api, don't include in generated docs
  */
-export default function ParamSerializer(params: {
+export default function ParamSerializer(originalParams: {
   [key: string]: any
 }): string {
+  const params = JSON.parse(JSON.stringify(originalParams)) // don't mutate original object
   const valuesArray: string[] = []
 
   // serialize filters first, they are handled specially
