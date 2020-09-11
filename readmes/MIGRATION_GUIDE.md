@@ -80,6 +80,19 @@ The objective of this guide is to document the breaking changes and updates requ
     Auth.PasswordResets()
     ```
 
+* `XpIndexs` service has been renamed to `XpIndices`
+
+    Before:
+
+    ```javascript
+    XpIndexs.List()
+    ```
+
+    After:
+    ```javascript
+    XpIndices.List()
+    ```
+
 * `searchOn` and `sortBy` now accept an array of strings instead of a single comma delimited string
 
     Before:
