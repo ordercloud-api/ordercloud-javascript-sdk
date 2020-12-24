@@ -51,7 +51,13 @@ export interface CookieOptions {
   samesite?: 'none' | 'lax' | 'strict'
 
   /**
-   * prefixed to all cookies set by ordercloud
+   * prefix for all cookies set by ordercloud
    */
-  prefix: string
+  prefix?: string
+
+  /**
+   * defines which paths on the domain the cookie will be accessible on
+   * defaults to '/' which means it is available on all paths in the domain
+   */
+  path?: string
 }
