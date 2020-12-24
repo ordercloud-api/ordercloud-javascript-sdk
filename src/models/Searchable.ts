@@ -26,6 +26,7 @@ interface SearchableMap {
 'Me.ListApprovableOrders': 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments'[]
 'Me.ListProducts': string[]
 'Me.ListSpecs': 'ID' | 'Name' | 'Description'[]
+'Me.ListVariants': 'ID' | 'Name' | 'Description'[]
 'Me.ListPromotions': 'ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression'[]
 'Me.ListShipments': 'ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber'[]
 'Me.ListShipmentItems': 'ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber'[]
@@ -88,6 +89,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListApprovableOrders' | 
 'Me.ListProducts' | 
 'Me.ListSpecs' | 
+'Me.ListVariants' | 
 'Me.ListPromotions' | 
 'Me.ListShipments' | 
 'Me.ListShipmentItems' | 

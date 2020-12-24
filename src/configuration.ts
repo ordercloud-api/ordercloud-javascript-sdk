@@ -11,7 +11,7 @@ class Configuration {
       secure: false,
       domain: null,
       prefix: 'ordercloud',
-      path: '/' // accessible on any path in the domain
+      path: '/', // accessible on any path in the domain
     },
   }
 

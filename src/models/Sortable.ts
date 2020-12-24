@@ -26,6 +26,7 @@ interface SortableMap {
 'Me.ListApprovableOrders': 'DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted'[]
 'Me.ListProducts': string[]
 'Me.ListSpecs': 'OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID'[]
+'Me.ListVariants': 'OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID'[]
 'Me.ListPromotions': 'Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine'[]
 'Me.ListShipments': 'DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost'[]
 'Me.ListShipmentItems': 'DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost'[]
@@ -88,6 +89,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListApprovableOrders' | 
 'Me.ListProducts' | 
 'Me.ListSpecs' | 
+'Me.ListVariants' | 
 'Me.ListPromotions' | 
 'Me.ListShipments' | 
 'Me.ListShipmentItems' | 

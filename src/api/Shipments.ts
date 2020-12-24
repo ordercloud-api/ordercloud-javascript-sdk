@@ -4,6 +4,7 @@ import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { Shipment } from '../models/Shipment';
 import { ShipmentItem } from '../models/ShipmentItem';
+import { Address } from '../models/Address';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { RequestOptions } from '../models/RequestOptions';
@@ -28,6 +29,8 @@ class Shipments {
         this.SaveItem = this.SaveItem.bind(this);
         this.GetItem = this.GetItem.bind(this);
         this.DeleteItem = this.DeleteItem.bind(this);
+        this.SetShipFromAddress = this.SetShipFromAddress.bind(this);
+        this.SetShipToAddress = this.SetShipToAddress.bind(this);
     }
 
    /**
@@ -251,6 +254,50 @@ class Shipments {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/shipments/${shipmentID}/items/${orderID}/${lineItemID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Set a ship from address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the shipment's FromAddressID property instead.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/set-ship-from-address|api docs} for more info 
+    * 
+    * @param shipmentID ID of the shipment.
+    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SetShipFromAddress<TShipment extends Shipment>(shipmentID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/shipments/${shipmentID}/shipfrom`, { ...requestOptions, data: address, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Set a ship to address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the shipment's ToAddressID property instead.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/set-ship-to-address|api docs} for more info 
+    * 
+    * @param shipmentID ID of the shipment.
+    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SetShipToAddress<TShipment extends Shipment>(shipmentID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TShipment>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/shipments/${shipmentID}/shipto`, { ...requestOptions, data: address, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

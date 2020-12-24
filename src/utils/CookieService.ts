@@ -26,7 +26,7 @@ class CookieService {
 
   public remove(name: string): void {
     const configuration = Configuration.Get()
-    const cookieName = configuration.cookieOptions.prefix + name;
+    const cookieName = configuration.cookieOptions.prefix + name
     cookie.write(cookieName, undefined, configuration.cookieOptions)
   }
 }

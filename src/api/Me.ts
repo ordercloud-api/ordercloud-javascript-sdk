@@ -14,6 +14,7 @@ import { ListPageWithFacets } from '../models/ListPageWithFacets';
 import { BuyerProduct } from '../models/BuyerProduct';
 import { SearchType } from '../models/SearchType';
 import { Spec } from '../models/Spec';
+import { Variant } from '../models/Variant';
 import { Promotion } from '../models/Promotion';
 import { AccessTokenBasic } from '../models/AccessTokenBasic';
 import { Shipment } from '../models/Shipment';
@@ -62,6 +63,8 @@ class Me {
         this.GetProduct = this.GetProduct.bind(this);
         this.ListSpecs = this.ListSpecs.bind(this);
         this.GetSpec = this.GetSpec.bind(this);
+        this.ListVariants = this.ListVariants.bind(this);
+        this.GetVariant = this.GetVariant.bind(this);
         this.ListPromotions = this.ListPromotions.bind(this);
         this.GetPromotion = this.GetPromotion.bind(this);
         this.Register = this.Register.bind(this);
@@ -717,6 +720,55 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/products/${productID}/specs/${specID}`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of variants visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-variants|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListVariants<TVariant extends Variant>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListVariants'>, sortBy?: Sortable<'Me.ListVariants'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TVariant>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/products/${productID}/variants`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single variant. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-variant|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param variantID ID of the variant.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetVariant<TVariant extends Variant>(productID: string, variantID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TVariant>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/products/${productID}/variants/${variantID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
