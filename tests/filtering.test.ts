@@ -1,5 +1,5 @@
 import mockAxios from 'axios'
-import { Tokens, Me, Users, Products } from '../src/index'
+import { Tokens, Me, Users, Products, Buyers } from '../src/index'
 import { makeToken } from './utils'
 
 const apiUrl = 'https://api.ordercloud.io/v1'
@@ -89,6 +89,40 @@ test('can filter with logical AND operator', async () => {
   expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/products`, {
     params: {
       filters: { 'xp.Color': ['!red', '!blue'] },
+    },
+    timeout: 60000,
+    paramsSerializer: expect.any(Function),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${validToken}`,
+    },
+  })
+})
+
+test('can use multiple searchOn parameters', async () => {
+  Tokens.SetAccessToken(validToken)
+  await Buyers.List({ searchOn: ['Name', 'ID'] })
+  expect(mockAxios.get).toHaveBeenCalledTimes(1)
+  expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/buyers`, {
+    params: {
+      searchOn: ['Name', 'ID'],
+    },
+    timeout: 60000,
+    paramsSerializer: expect.any(Function),
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${validToken}`,
+    },
+  })
+})
+
+test('can use multiple sortBy parameters', async () => {
+  Tokens.SetAccessToken(validToken)
+  await Buyers.List({ sortBy: ['Name', 'ID'] })
+  expect(mockAxios.get).toHaveBeenCalledTimes(1)
+  expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/buyers`, {
+    params: {
+      sortBy: ['Name', 'ID'],
     },
     timeout: 60000,
     paramsSerializer: expect.any(Function),

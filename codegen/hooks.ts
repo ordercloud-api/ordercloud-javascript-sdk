@@ -61,12 +61,14 @@ const postFormatTemplateData: PostFormatTemplateDataHook = function(
       const prop = op.queryParams.find(p => p.name === 'sortBy')
       const enumVals = prop?.enumValues
 
-      // enhanced search lets you searchOn by xp values
-      // so we have to use string[] which unfortunately destroys type inference
-      const enumString =
-        op.isFacetList || !enumVals?.length
-          ? `string[]`
-          : `${enumVals.map(v => `'${v}'`).join(' | ')}[]`
+      let enumString
+      if (op.isFacetList || !enumVals) {
+        // enhanced search lets you searchOn by any xp value
+        // so we have to use string[] which unfortunately destroys type inference
+        enumString = 'string[]'
+      } else {
+        enumString = `(${enumVals.map(v => `'${v}'`).join(' | ')})[]`
+      }
 
       return {
         id: op.id,
@@ -79,12 +81,16 @@ const postFormatTemplateData: PostFormatTemplateDataHook = function(
     .filter(o => o.queryParams?.some(p => p.name === 'searchOn'))
     .map(op => {
       const prop = op.queryParams.find(p => p.name === 'searchOn')
+      const enumVals = prop?.enumValues
 
-      // enhanced search lets you searchOn by xp values
-      // so we have to use string[] which unfortunately destroys type inference
-      const enumString = op.isFacetList
-        ? `string[]`
-        : `${prop?.enumValues.map(v => `'${v}'`).join(' | ')}[]`
+      let enumString
+      if (op.isFacetList || !enumVals) {
+        // enhanced search lets you searchOn by any xp value
+        // so we have to use string[] which unfortunately destroys type inference
+        enumString = 'string[]'
+      } else {
+        enumString = `(${enumVals.map(v => `'${v}'`).join(' | ')})[]`
+      }
 
       return {
         id: op.id,
