@@ -25,7 +25,11 @@ class Configuration {
   }
 
   Set(config: SdkConfiguration): void {
-    this.config = { ...this.config, ...config }
+    this.config = { ...this.config, ...(config || {}) }
+    this.config.cookieOptions = {
+      ...this.config.cookieOptions,
+      ...(config?.cookieOptions || {}),
+    }
   }
 
   Get(): SdkConfiguration {

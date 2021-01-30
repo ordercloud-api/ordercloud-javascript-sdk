@@ -6,7 +6,7 @@ import {
   Configuration,
   AccessToken,
   RequiredDeep,
-} from '../src/index'
+} from '../src'
 import { makeToken } from './utils'
 
 const apiUrl = 'https://api.ordercloud.io/v1'

@@ -1,5 +1,5 @@
 import mockAxios from 'axios'
-import { Tokens, Products, Product } from '../src/index'
+import { Tokens, Products, Product } from '../src'
 import { makeToken } from './utils'
 
 const apiUrl = 'https://api.ordercloud.io/v1'
