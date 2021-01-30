@@ -3,6 +3,7 @@
 The OrderCloud SDK for Javascript is a modern client library for building solutions targeting the [Ordercloud eCommerce API](https://developer.ordercloud.io/documentation). The SDK aims to greatly improve developer productivity and reduce errors.
 
 - [Features](#-features)
+- [Requirements](#requirements)
 - [Installation](#%EF%B8%8F-installation)
 - [Adding it to your project](#-adding-it-to-your-project)
   - [Using named imports](#using-named-imports)
@@ -11,11 +12,15 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 - [Authentication](#-authentication)
 - [Filtering](#-filtering)
 - [Impersonation](#-impersonation)
+- [Configuration](#configuration)
+- [Handling Errors](#handling-errors-)
+- [Interceptors](#interceptors)
+- [Cancelling Requests](#cancelling-requests)
+- [Async/Await](#asyncawait)
 - [Typescript Support](#typescript-support)
   - [Understanding OrderCloud's models](#understanding-orderclouds-models)
   - [Strongly Typed xp](#strongly-typed-xp)
   - [Typescript utilities](#typescript-utilities)
-- [Handling Errors](#handling-errors-)
 - [License](#-license)
 - [Contributing](#-contributing)
 - [Getting Help](#-getting-help)
@@ -200,6 +205,7 @@ Simply set the options you need to override and the SDK will merge it with the d
 import { Configuration } from 'ordercloud-javascript-sdk';
 
 Configuration.Set({
+  baseApiUrl: 'https://sandboxapi.ordercloud.io',
   timeoutInMilliseconds: 20 * 1000
 })
 ```
@@ -225,7 +231,7 @@ Products.Get('my-product')
       // that falls outside of the range of 2xx, the error will be of type OrderCloudError
       // https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror
       console.log(error.message);
-      console.log(error.errors);
+      console.log(JSON.stringify(error.errors, null, 4));
     } else if (error.request) {
       // the request was made but no response received
       // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
@@ -287,6 +293,42 @@ Products.List({search: 'Tennis balls'}, {cancelToken: signal.token})
 // Oops! I don't want to resolve this request anymore
 signal.cancel('This request was cancelled!')
 ```
+
+## Async/Await
+Async/Await is a special syntax to work with promises in a more comfortable fashion. Because the SDK is built with promises the syntax works right out of the box - simply add the `async` keyword to your outer function method.
+
+```javascript
+// with normal promises
+(() => {
+  Auth.Login('myusername', 'mypassword', 'myclientID', ['FullAccess'])
+    .then(authResponse => {
+      Tokens.SetAccessToken(authResponse.access_token)
+      Me.ListOrders().then(orderList => {
+        const firstOrder = orderList.Items[0]
+        console.log(firstOrder.Total)
+      })
+    })
+    .catch(err => {
+      console.log(err)
+    })
+})()
+```
+
+```javascript
+// with async/await
+(async () => {
+  try {
+    const authResponse = await Auth.Login('myusername', 'mypassword', 'myclientID', ['FullAccess'])
+    Tokens.SetAccessToken(authResponse.access_token)
+    const myOrders = await Me.ListOrders()
+    const firstOrder = myOrders.Items[0]
+  } catch (err) {
+    console.error(err)
+  }
+})()
+```
+
+> NOTE: async/await is part of ECMAScript 2017 and is not supported in Internet Explorer and older browsers without first transpiling to ES5 so use with caution.
 
 ## Typescript Support
 
