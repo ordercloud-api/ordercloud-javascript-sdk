@@ -1,3 +1,4 @@
+import { ApiRole } from './ApiRole';
 
 export interface ApiClient<TApiClientXp = any> {
     readonly ID?: string
@@ -16,4 +17,8 @@ export interface ApiClient<TApiClientXp = any> {
     readonly AssignedSupplierCount?: number
     OrderCheckoutIntegrationEventID?: string
     readonly OrderCheckoutIntegrationEventName?: string
+    MinimumRequiredRoles?: ApiRole[]
+    MinimumRequiredCustomRoles?: string[]
+    MaximumGrantedRoles?: ApiRole[]
+    MaximumGrantedCustomRoles?: string[]
 }

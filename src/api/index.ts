@@ -1,6 +1,7 @@
 import SecurityProfiles from './SecurityProfiles';
 import ForgottenPassword from './ForgottenPassword';
 import ImpersonationConfigs from './ImpersonationConfigs';
+import Certs from './Certs';
 import OpenIdConnects from './OpenIdConnects';
 import AdminUsers from './AdminUsers';
 import AdminUserGroups from './AdminUserGroups';
@@ -42,6 +43,7 @@ export {
     SecurityProfiles,
     ForgottenPassword,
     ImpersonationConfigs,
+    Certs,
     OpenIdConnects,
     AdminUsers,
     AdminUserGroups,

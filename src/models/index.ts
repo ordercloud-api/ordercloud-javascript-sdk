@@ -75,6 +75,7 @@ export * from './ProductFacet';
 export * from './Promotion';
 export * from './PromotionAssignment';
 export * from './PromotionOverride';
+export * from './PublicKey';
 export * from './SearchType';
 export * from './SecurityProfile';
 export * from './SecurityProfileAssignment';
