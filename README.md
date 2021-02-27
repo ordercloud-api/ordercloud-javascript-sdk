@@ -393,7 +393,7 @@ Categories.List<Category<MyCategoryXp>>('mock-catalog-id')
   })
 ```
 
-A common alternative to the above example is to first define a custom class that extends `Category<MyCategoryXp>`
+A common alternative to the above example is to first define a custom interface that extends `Category<MyCategoryXp>`
 
 ```typescript
 interface MyCategoryXp {
