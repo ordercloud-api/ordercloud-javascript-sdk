@@ -20,6 +20,7 @@ export interface Order<TOrderXp = any, TFromUserXp = any, TBillingAddressXp = an
     readonly DateDeclined?: string
     readonly DateCanceled?: string
     readonly DateCompleted?: string
+    readonly LastUpdated?: string
     readonly Subtotal?: number
     ShippingCost?: number
     TaxCost?: number
