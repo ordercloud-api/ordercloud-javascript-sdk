@@ -159,11 +159,11 @@ import { Tokens, Me } from 'ordercloud-javascript-sdk';
 
 // set regular token
 const myToken = 'YOUR_TOKEN';
-Tokens.setAccessToken(myToken);
+Tokens.SetAccessToken(myToken);
 
 // set impersonation token
 const myImpersonationToken = 'YOUR_IMPERSONATED_TOKEN'
-Tokens.setImpersonationToken(myImpersonationToken);
+Tokens.SetImpersonationToken(myImpersonationToken);
 
 // Get products for regular user
 Me.ListProducts()
