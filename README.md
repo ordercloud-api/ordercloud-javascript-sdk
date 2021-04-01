@@ -100,7 +100,7 @@ Auth.Login(username, password, clientID, scope)
   .then(response => {
       //store token, now any subsequent calls will automatically set this token in the headers for you
       const token = response.access_token;
-      Tokens.setAccessToken(token)
+      Tokens.SetAccessToken(token)
   })
   .catch(err => console.log(err));
 ```
