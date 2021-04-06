@@ -100,7 +100,7 @@ Auth.Login(username, password, clientID, scope)
   .then(response => {
       //store token, now any subsequent calls will automatically set this token in the headers for you
       const token = response.access_token;
-      Tokens.setAccessToken(token)
+      Tokens.SetAccessToken(token)
   })
   .catch(err => console.log(err));
 ```
@@ -159,11 +159,11 @@ import { Tokens, Me } from 'ordercloud-javascript-sdk';
 
 // set regular token
 const myToken = 'YOUR_TOKEN';
-Tokens.setAccessToken(myToken);
+Tokens.SetAccessToken(myToken);
 
 // set impersonation token
 const myImpersonationToken = 'YOUR_IMPERSONATED_TOKEN'
-Tokens.setImpersonationToken(myImpersonationToken);
+Tokens.SetImpersonationToken(myImpersonationToken);
 
 // Get products for regular user
 Me.ListProducts()
