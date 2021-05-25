@@ -411,11 +411,11 @@ Categories.List<MyCategory>('mock-catalog-id')
   })
 ```
 
-This is nicer and especially preferable for models like `Order` which have many nested models each with their own `xp` fields that must be defined at the top level. For example: `Order<OrderXp, FromUserXp, BillingAddressXp>`. Declaring those 3 xp types once on a custom `MyOrder` class is far cleaner than declaring them on every call to `Orders.Get` or `Orders.List`.
+This is nicer and especially preferable for models like `Order` which have many nested models each with their own `xp` fields that must be defined at the top level. For example: `Order<OrderXp, FromUserXp, BillingAddressXp>`. Declaring those 3 xp types once on a custom `MyOrder` interface is far cleaner than declaring them on every call to `Orders.Get` or `Orders.List`.
 
 ### Typescript utilities
 
-Various helpers and utilities that may be useful. We also recommend using [Typescript's built-in utilities](https://www.typescriptlang.org/docs/handbook/utility-types.html) when possible.
+The sdk ships with various helpers and utilities that you may find useful. We also recommend using [Typescript's built-in utilities](https://www.typescriptlang.org/docs/handbook/utility-types.html) when possible.
 
 | Utility                                                                                                               | Description                                                                                                                                                                                                                          |
 |-----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
