@@ -114,7 +114,7 @@ Let's run through a couple scenarios and what the call will look like with the S
 My products where `xp.Featured` is `true`
 
 ```javascript
-Me.ListProducts({ filters: { 'xp.Featued': true } })
+Me.ListProducts({ filters: { 'xp.Featured': true } })
   .then(productList => console.log(productList));
 ```
 
