@@ -1,7 +1,7 @@
 <!-- omit in toc -->
 # OrderCloud
 
-The OrderCloud SDK for Javascript is a modern client library for building solutions targeting the [Ordercloud eCommerce API](https://developer.ordercloud.io/documentation). The SDK aims to greatly improve developer productivity and reduce errors.
+The OrderCloud SDK for Javascript is a modern client library for building solutions targeting the [Ordercloud eCommerce API](https://ordercloud.io/learn/ordercloud-basics/architecture). The SDK aims to greatly improve developer productivity and reduce errors.
 
 - [✨ Features](#-features)
 - [Requirements](#requirements)
@@ -94,7 +94,7 @@ import { Auth, Tokens } from 'ordercloud-javascript-sdk';
 const username = 'YOUR_USERNAME'; //username of the user logging in
 const password = 'YOUR_PASSWORD'; //password of the user logging in
 const clientID = 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'; //clientID of the application the user is logging in to ([sign up for free](https://portal.ordercloud.io/register)
-const scope = ['FullAccess']; //string array of [roles](https://ordercloud.io/main-concepts/security-profiles) the application has access to
+const scope = ['FullAccess']; //string array of [roles](https://ordercloud.io/knowledge-base/security-profiles) the application has access to
 
 Auth.Login(username, password, clientID, scope)
   .then(response => {
@@ -107,7 +107,7 @@ Auth.Login(username, password, clientID, scope)
 
 ## 🔍 Filtering
 
-All of the [filtering options](https://ordercloud.io/features/advanced-querying#filtering)  you love from the API are available through the SDK as well. Simply build an object that matches the model of the item you're filtering on where the `value` is the value you'd like to filter on.
+All of the [filtering options](https://ordercloud.io/knowledge-base/advanced-querying#filtering)  you love from the API are available through the SDK as well. Simply build an object that matches the model of the item you're filtering on where the `value` is the value you'd like to filter on.
 
 Let's run through a couple scenarios and what the call will look like with the SDK:
 
@@ -363,7 +363,7 @@ LineItems.Patch('Outgoing', 'my-order-id', 'my-lineitem-id', lineItem)
 
 ### Strongly Typed xp
 
-Extended properties, or xp, is a [platform feature](https://ordercloud.io/features/extended-properties) that allows you to extend the OrderCloud data model. This is modeled in the SDK using (by default) a Typescript [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) type:
+Extended properties, or xp, is a [platform feature](https://ordercloud.io/knowledge-base/extended-properties) that allows you to extend the OrderCloud data model. This is modeled in the SDK using (by default) a Typescript [`any`](https://www.typescriptlang.org/docs/handbook/basic-types.html#any) type:
 
 ```typescript
 const category: Category = {};
@@ -420,7 +420,7 @@ The sdk ships with various helpers and utilities that you may find useful. We al
 | Utility                                                                                                               | Description                                                                                                                                                                                                                          |
 |-----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [`ListPage<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/listpage)                       | Takes in a type for the item in the list. For example `ListPage<Order>` will be the type for an order list page.                                                                                                                     |
-| [`ListPageWithFacets<T>`]( https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/listpagewithfacets ) | Similar to `ListPage` but for [premium search](https://ordercloud.io/blog/introducing-premium-search) models. For example `ListPageWithFacets<Product>` will be the type for a product list page.                                              |
+| [`ListPageWithFacets<T>`]( https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/listpagewithfacets ) | Similar to `ListPage` but for [premium search](https://ordercloud.io/knowledge-base/introducing-premium-search) models. For example `ListPageWithFacets<Product>` will be the type for a product list page.                                              |
 | [`Searchable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#searchable)                              | Takes in a [`SearchableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#searchableendpoint) and returns the type for a valid `searchOn` field on list calls. For example `Searchable<'Orders.List'>`.           |
 | [`Sortable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#sortable)                                  | Takes in a [`SortableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#sortableendpoint) and returns the type for a valid `sortBy` field on list calls. For example `Sortable<'Orders.List'>`.                   |
 | [`Filters<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#filters)                                    | Takes in an ordercloud model and returns the type for a valid `filter` field on list calls. For example `Filters<Product>`. This also works for any custom models that extend an OrderCloud model, for example `Filters<MyProduct>`. |
