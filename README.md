@@ -64,7 +64,7 @@ yarn add ordercloud-javascript-sdk
 
 ### Using named imports
 
-This is the preferred method of importing the sdk as it allows modern bundlers like webpack to tree shake the parts of the SDK that you aren't using, making your project more lean.
+This is the preferred method of importing the sdk for browser projects as it allows modern bundlers like webpack to tree shake the parts of the SDK that you aren't using, making your project more lean.
 
 ```javascript
 import { Products } from 'ordercloud-javascript-sdk';
