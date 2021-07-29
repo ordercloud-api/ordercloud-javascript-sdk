@@ -1,7 +1,7 @@
 import { SdkConfiguration } from './models'
 
 class Configuration {
-  private config: SdkConfiguration = {
+  private defaultConfig: SdkConfiguration = {
     baseApiUrl: 'https://api.ordercloud.io',
     apiVersion: 'v1',
     timeoutInMilliseconds: 60 * 1000, // 60 seconds by default
@@ -14,6 +14,7 @@ class Configuration {
       path: '/', // accessible on any path in the domain
     },
   }
+  private config: SdkConfiguration = cloneDeep(this.defaultConfig)
 
   /**
    * @ignore
@@ -25,8 +26,9 @@ class Configuration {
   }
 
   Set(config: SdkConfiguration): void {
-    this.config = { ...this.config, ...(config || {}) }
+    this.config = { ...this.defaultConfig, ...this.config, ...(config || {}) }
     this.config.cookieOptions = {
+      ...this.defaultConfig.cookieOptions,
       ...this.config.cookieOptions,
       ...(config?.cookieOptions || {}),
     }
@@ -35,6 +37,12 @@ class Configuration {
   Get(): SdkConfiguration {
     return this.config
   }
+}
+
+// takes an object and creates a new one with same properties/values
+// useful so we don't mutate original object
+function cloneDeep(obj: any): any {
+  return JSON.parse(JSON.stringify(obj))
 }
 
 export default new Configuration()
