@@ -3,6 +3,7 @@ import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { Supplier } from '../models/Supplier';
+import { SupplierBuyer } from '../models/SupplierBuyer';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { RequestOptions } from '../models/RequestOptions';
@@ -23,6 +24,9 @@ class Suppliers {
         this.Save = this.Save.bind(this);
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
+        this.ListBuyers = this.ListBuyers.bind(this);
+        this.SaveBuyer = this.SaveBuyer.bind(this);
+        this.DeleteBuyer = this.DeleteBuyer.bind(this);
     }
 
    /**
@@ -150,6 +154,77 @@ class Suppliers {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/suppliers/${supplierID}`, { ...requestOptions, data: supplier, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of supplier buyers. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/list-buyers|api docs} for more info 
+    * 
+    * @param supplierID ID of the supplier.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListBuyers<TSupplierBuyer extends SupplierBuyer>(supplierID: string, listOptions: { search?: string, searchOn?: Searchable<'Suppliers.ListBuyers'>, sortBy?: Sortable<'Suppliers.ListBuyers'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSupplierBuyer>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/suppliers/${supplierID}/buyers`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update a supplier buyer. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/save-buyer|api docs} for more info 
+    * 
+    * @param supplierID ID of the supplier.
+    * @param buyerID ID of the buyer.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveBuyer(supplierID: string, buyerID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/suppliers/${supplierID}/buyers/${buyerID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a supplier buyer. 
+    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/delete-buyer|api docs} for more info 
+    * 
+    * @param supplierID ID of the supplier.
+    * @param buyerID ID of the buyer.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteBuyer(supplierID: string, buyerID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/suppliers/${supplierID}/buyers/${buyerID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

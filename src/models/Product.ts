@@ -1,7 +1,7 @@
 import { Inventory } from './Inventory';
 
 export interface Product<TProductXp = any> {
-    readonly OwnerID?: string
+    OwnerID?: string
     DefaultPriceScheduleID?: string
     AutoForward?: boolean
     ID?: string
@@ -18,5 +18,6 @@ export interface Product<TProductXp = any> {
     ShipFromAddressID?: string
     Inventory?: Inventory
     DefaultSupplierID?: string
+    AllSuppliersCanSell?: boolean
     xp?: TProductXp
 }

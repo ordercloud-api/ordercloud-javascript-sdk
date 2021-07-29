@@ -15,5 +15,6 @@ export interface Promotion<TPromotionXp = any> {
     ValueExpression: string
     CanCombine?: boolean
     AllowAllBuyers?: boolean
+    OwnerID?: string
     xp?: TPromotionXp
 }

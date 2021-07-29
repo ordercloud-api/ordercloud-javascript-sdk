@@ -28,8 +28,9 @@ interface SortableMap {
 'Me.ListSpecs': ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[]
 'Me.ListVariants': ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[]
 'Me.ListPromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[]
-'Me.ListShipments': ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
-'Me.ListShipmentItems': ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
+'Me.ListBuyerSellers': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
+'Me.ListShipments': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
+'Me.ListShipmentItems': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
 'Me.ListSpendingAccounts': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListUserGroups': ('Name' | 'ID' | '!Name' | '!ID')[]
 'MessageSenders.List': ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[]
@@ -42,7 +43,7 @@ interface SortableMap {
 'Payments.List': ('DateCreated' | 'ID' | 'Type' | 'CreditCardID' | 'SpendingAccountID' | '!DateCreated' | '!ID' | '!Type' | '!CreditCardID' | '!SpendingAccountID')[]
 'Orders.ListPromotions': ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[]
 'Orders.ListShipments': ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[]
-'PriceSchedules.List': ('Name' | 'ID' | '!Name' | '!ID')[]
+'PriceSchedules.List': ('Name' | 'ID' | 'OwnerID' | '!Name' | '!ID' | '!OwnerID')[]
 'ProductFacets.List': ('ListOrder' | 'ID' | 'Name' | 'XpPath' | '!ListOrder' | '!ID' | '!Name' | '!XpPath')[]
 'Products.List': string[]
 'Products.ListSpecs': ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[]
@@ -50,13 +51,14 @@ interface SortableMap {
 'Products.ListVariants': ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[]
 'Promotions.List': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[]
 'SecurityProfiles.List': ('ID' | 'Name' | '!ID' | '!Name')[]
-'Shipments.List': ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
-'Shipments.ListItems': ('DateShipped' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
+'Shipments.List': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
+'Shipments.ListItems': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
 'Specs.List': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
 'Specs.ListOptions': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
 'Specs.ListProductAssignments': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
 'Suppliers.List': ('ID' | 'Name' | 'DateCreated' | '!ID' | '!Name' | '!DateCreated')[]
 'SupplierAddresses.List': ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[]
+'Suppliers.ListBuyers': ('ID' | 'Name' | 'DateCreated' | '!ID' | '!Name' | '!DateCreated')[]
 'SupplierUserGroups.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'SupplierUsers.List': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
 'AdminUserGroups.List': ('Name' | 'ID' | '!Name' | '!ID')[]
@@ -91,6 +93,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListSpecs' | 
 'Me.ListVariants' | 
 'Me.ListPromotions' | 
+'Me.ListBuyerSellers' | 
 'Me.ListShipments' | 
 'Me.ListShipmentItems' | 
 'Me.ListSpendingAccounts' | 
@@ -120,6 +123,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Specs.ListProductAssignments' | 
 'Suppliers.List' | 
 'SupplierAddresses.List' | 
+'Suppliers.ListBuyers' | 
 'SupplierUserGroups.List' | 
 'SupplierUsers.List' | 
 'AdminUserGroups.List' | 

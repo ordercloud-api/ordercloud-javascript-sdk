@@ -17,5 +17,6 @@ export interface BuyerProduct<TBuyerProductXp = any, TPriceScheduleXp = any> {
     ShipFromAddressID?: string
     Inventory?: Inventory
     DefaultSupplierID?: string
+    AllSuppliersCanSell?: boolean
     xp?: TBuyerProductXp
 }

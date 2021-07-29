@@ -4,5 +4,6 @@ export interface Supplier<TSupplierXp = any> {
     Name: string
     Active?: boolean
     readonly DateCreated?: string
+    AllBuyersCanOrder?: boolean
     xp?: TSupplierXp
 }

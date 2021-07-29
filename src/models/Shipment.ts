@@ -8,6 +8,7 @@ export interface Shipment<TShipmentXp = any, TFromAddressXp = any, TToAddressXp 
     DateDelivered?: string
     TrackingNumber?: string
     Cost?: number
+    OwnerID?: string
     xp?: TShipmentXp
     Account?: string
     FromAddressID?: string

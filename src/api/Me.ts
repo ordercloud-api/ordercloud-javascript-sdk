@@ -17,6 +17,7 @@ import { Spec } from '../models/Spec';
 import { Variant } from '../models/Variant';
 import { Promotion } from '../models/Promotion';
 import { AccessTokenBasic } from '../models/AccessTokenBasic';
+import { BuyerSupplier } from '../models/BuyerSupplier';
 import { Shipment } from '../models/Shipment';
 import { ShipmentItem } from '../models/ShipmentItem';
 import { SpendingAccount } from '../models/SpendingAccount';
@@ -68,6 +69,7 @@ class Me {
         this.ListPromotions = this.ListPromotions.bind(this);
         this.GetPromotion = this.GetPromotion.bind(this);
         this.Register = this.Register.bind(this);
+        this.ListBuyerSellers = this.ListBuyerSellers.bind(this);
         this.ListShipments = this.ListShipments.bind(this);
         this.GetShipment = this.GetShipment.bind(this);
         this.ListShipmentItems = this.ListShipmentItems.bind(this);
@@ -165,7 +167,7 @@ class Me {
     }
 
    /**
-    * Create a new address. Only available to Buyer Users.
+    * Create a new address. Only available to Buyer Users. Addresses created using this endpoint are considered private, and only accessible to the user who created them.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-address|api docs} for more info 
     * 
     * @param buyerAddress Required fields: Street1, City, State, Zip, Country
@@ -207,7 +209,7 @@ class Me {
     }
 
    /**
-    * Create or update an address. Only available to Buyer Users.
+    * Update an address. Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-address|api docs} for more info 
     * 
     * @param addressID ID of the address.
@@ -281,11 +283,12 @@ class Me {
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListCatalogs<TCatalog extends Catalog>(listOptions: { search?: string, searchOn?: Searchable<'Me.ListCatalogs'>, sortBy?: Sortable<'Me.ListCatalogs'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>>{
+    public async ListCatalogs<TCatalog extends Catalog>(listOptions: { search?: string, searchOn?: Searchable<'Me.ListCatalogs'>, sortBy?: Sortable<'Me.ListCatalogs'>, page?: number, pageSize?: number, filters?: Filters, sellerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalog>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/catalogs`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -422,7 +425,7 @@ class Me {
     }
 
    /**
-    * Create a new credit card. Only available to Buyer Users.
+    * Create a new credit card. Only available to Buyer Users. Credit Cards created using this endpoint are considered private, and only accessible to the user who created them.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-credit-card|api docs} for more info 
     * 
     * @param buyerCreditCard 
@@ -464,7 +467,7 @@ class Me {
     }
 
    /**
-    * Create or update a credit card. Only available to Buyer Users.
+    * Update a credit card. Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-credit-card|api docs} for more info 
     * 
     * @param creditcardID ID of the creditcard.
@@ -557,7 +560,7 @@ class Me {
     }
 
    /**
-    * Transfer an anon user order. 
+    * Transfer an order. If a user begins an order as the anonymous shopper and later logs in, use this endpoint to transfer that order to them.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/transfer-anon-user-order|api docs} for more info 
     * 
     * @param listOptions.anonUserToken Anon user token of the me.
@@ -640,11 +643,12 @@ class Me {
     * @param listOptions.page Page of results to return. Default: 1
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListProducts<TBuyerProduct extends BuyerProduct>(listOptions: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: Searchable<'Me.ListProducts'>, searchType?: SearchType, sortBy?: Sortable<'Me.ListProducts'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TBuyerProduct>>>{
+    public async ListProducts<TBuyerProduct extends BuyerProduct>(listOptions: { catalogID?: string, categoryID?: string, depth?: string, search?: string, searchOn?: Searchable<'Me.ListProducts'>, searchType?: SearchType, sortBy?: Sortable<'Me.ListProducts'>, page?: number, pageSize?: number, filters?: Filters, sellerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TBuyerProduct>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/products`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -661,14 +665,15 @@ class Me {
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-product|api docs} for more info 
     * 
     * @param productID ID of the product.
+    * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async GetProduct<TBuyerProduct extends BuyerProduct>(productID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerProduct>>{
+    public async GetProduct<TBuyerProduct extends BuyerProduct>(productID: string, listOptions: { sellerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerProduct>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.get(`/me/products/${productID}`, { ...requestOptions, impersonating,  } )
+        return await http.get(`/me/products/${productID}`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -838,6 +843,32 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.put(`/me/register`, { ...requestOptions, data: meUser, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of buyer sellers visible to this user. Organizations you can place orders directly to.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-buyer-sellers|api docs} for more info 
+    * 
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListBuyerSellers<TBuyerSupplier extends BuyerSupplier>(listOptions: { search?: string, searchOn?: Searchable<'Me.ListBuyerSellers'>, sortBy?: Sortable<'Me.ListBuyerSellers'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyerSupplier>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/sellers`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

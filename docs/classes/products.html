@@ -127,7 +127,7 @@
 								<li>
 									<h5>product: <a href="../interfaces/product.html" class="tsd-signature-type">Product</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Required fields: Name, QuantityMultiplier</p>
+										<p>Required fields: Name</p>
 									</div>
 								</li>
 								<li>
@@ -203,6 +203,12 @@
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
 									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sellerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>ID of the seller.</p>
+											</div>
+										</li>
 										<li class="tsd-parameter">
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> user<wbr>GroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
 											<div class="tsd-comment tsd-typography">
@@ -621,7 +627,7 @@
 					<a name="listsuppliers" class="tsd-anchor"></a>
 					<h3>List<wbr>Suppliers</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">List<wbr>Suppliers&lt;TSupplier&gt;<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSupplier</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">List<wbr>Suppliers&lt;TProductSupplier&gt;<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TProductSupplier</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -636,7 +642,7 @@
 							<h4 class="tsd-type-parameters-title">Type parameters</h4>
 							<ul class="tsd-type-parameters">
 								<li>
-									<h4>TSupplier<span class="tsd-signature-symbol">: </span><a href="../interfaces/supplier.html" class="tsd-signature-type">Supplier</a></h4>
+									<h4>TProductSupplier<span class="tsd-signature-symbol">: </span><a href="../interfaces/productsupplier.html" class="tsd-signature-type">ProductSupplier</a></h4>
 								</li>
 							</ul>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -692,7 +698,7 @@
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSupplier</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TProductSupplier</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
 						</li>
 					</ul>
 				</section>
@@ -875,7 +881,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Remove a supplier.
+									<p>Remove a product supplier.
 									Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/products/remove-supplier" class="external">api docs</a> for more info</p>
 								</div>
 							</div>
@@ -934,7 +940,7 @@
 								<li>
 									<h5>product: <a href="../interfaces/product.html" class="tsd-signature-type">Product</a></h5>
 									<div class="tsd-comment tsd-typography">
-										<p>Required fields: Name, QuantityMultiplier</p>
+										<p>Required fields: Name</p>
 									</div>
 								</li>
 								<li>
@@ -981,7 +987,7 @@
 					<a name="savesupplier" class="tsd-anchor"></a>
 					<h3>Save<wbr>Supplier</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">Save<wbr>Supplier<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, supplierID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Save<wbr>Supplier<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, supplierID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -1008,6 +1014,17 @@
 									</div>
 								</li>
 								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> default<wbr>Price<wbr>ScheduleID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>ID of the default price schedule.</p>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
 								</li>
 							</ul>
@@ -1027,7 +1044,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create or update a product variant.
+									<p>Create or update a product variant. Update a product variant.
 									Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/products/save-variant" class="external">api docs</a> for more info</p>
 								</div>
 							</div>

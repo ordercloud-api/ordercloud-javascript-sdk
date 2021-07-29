@@ -32,7 +32,7 @@ class Payments {
     * Get a list of payments. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/payments/list|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -60,7 +60,7 @@ class Payments {
     * Create a new payment. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/payments/create|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param payment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -83,7 +83,7 @@ class Payments {
     * Get a single payment. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/payments/get|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param paymentID ID of the payment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -106,7 +106,7 @@ class Payments {
     * Delete a payment. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/payments/delete|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param paymentID ID of the payment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -129,7 +129,7 @@ class Payments {
     * Partially update a payment. PUT is not a supported method for payments due to the implications associated with modifying certain properties. Patch is only permitted on certain properties that vary depending on order status
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/payments/patch|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param paymentID ID of the payment.
     * @param payment 
@@ -153,7 +153,7 @@ class Payments {
     * Create a new payment transaction. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/payments/create-transaction|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param paymentID ID of the payment.
     * @param paymentTransaction Required fields: Type, DateExecuted
@@ -177,7 +177,7 @@ class Payments {
     * Delete a payment transaction. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/payments/delete-transaction|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing.
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param paymentID ID of the payment.
     * @param transactionID ID of the transaction.

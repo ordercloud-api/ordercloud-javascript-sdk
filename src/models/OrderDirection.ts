@@ -1,3 +1,4 @@
 
 export type OrderDirection = 'Incoming' | 
-'Outgoing'
+'Outgoing' | 
+'All'

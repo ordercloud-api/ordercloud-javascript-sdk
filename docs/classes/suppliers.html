@@ -53,10 +53,13 @@
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="suppliers.html#as" class="tsd-kind-icon">As</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="suppliers.html#create" class="tsd-kind-icon">Create</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class"><a href="suppliers.html#delete" class="tsd-kind-icon">Delete</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="suppliers.html#deletebuyer" class="tsd-kind-icon">Delete<wbr>Buyer</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="suppliers.html#get" class="tsd-kind-icon">Get</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="suppliers.html#list" class="tsd-kind-icon">List</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="suppliers.html#listbuyers" class="tsd-kind-icon">List<wbr>Buyers</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="suppliers.html#patch" class="tsd-kind-icon">Patch</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="suppliers.html#save" class="tsd-kind-icon">Save</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="suppliers.html#savebuyer" class="tsd-kind-icon">Save<wbr>Buyer</a></li>
 							</ul>
 						</section>
 					</div>
@@ -148,6 +151,44 @@
 									<h5>supplierID: <span class="tsd-signature-type">string</span></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>ID of the supplier.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="deletebuyer" class="tsd-anchor"></a>
+					<h3>Delete<wbr>Buyer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Delete<wbr>Buyer<span class="tsd-signature-symbol">(</span>supplierID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Delete a supplier buyer.
+									Check out the <a href="https://ordercloud.io/api-reference/suppliers/suppliers/delete-buyer" class="external">api docs</a> for more info</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>supplierID: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>ID of the supplier.</p>
+									</div>
+								</li>
+								<li>
+									<h5>buyerID: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>ID of the buyer.</p>
 									</div>
 								</li>
 								<li>
@@ -270,6 +311,85 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="listbuyers" class="tsd-anchor"></a>
+					<h3>List<wbr>Buyers</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">List<wbr>Buyers&lt;TSupplierBuyer&gt;<span class="tsd-signature-symbol">(</span>supplierID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSupplierBuyer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get a list of supplier buyers.
+									Check out the <a href="https://ordercloud.io/api-reference/suppliers/suppliers/list-buyers" class="external">api docs</a> for more info</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>TSupplierBuyer<span class="tsd-signature-symbol">: </span><a href="../interfaces/supplierbuyer.html" class="tsd-signature-type">SupplierBuyer</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>supplierID: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>ID of the supplier.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../index.html#filters" class="tsd-signature-type">Filters</a></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Page of results to return. Default: 1</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Number of results to return per page. Default: 20, max: 100.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Word or phrase to search for.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><a href="../index.html#searchable" class="tsd-signature-type">Searchable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">"Suppliers.ListBuyers"</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to search on.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><a href="../index.html#sortable" class="tsd-signature-type">Sortable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">"Suppliers.ListBuyers"</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to sort by.</p>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TSupplierBuyer</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="patch" class="tsd-anchor"></a>
 					<h3>Patch</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
@@ -354,6 +474,44 @@
 						</li>
 					</ul>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+					<a name="savebuyer" class="tsd-anchor"></a>
+					<h3>Save<wbr>Buyer</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon">Save<wbr>Buyer<span class="tsd-signature-symbol">(</span>supplierID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, buyerID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create or update a supplier buyer.
+									Check out the <a href="https://ordercloud.io/api-reference/suppliers/suppliers/save-buyer" class="external">api docs</a> for more info</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>supplierID: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>ID of the supplier.</p>
+									</div>
+								</li>
+								<li>
+									<h5>buyerID: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>ID of the buyer.</p>
+									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
 			</section>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -377,6 +535,9 @@
 							<li class=" tsd-kind-method tsd-parent-kind-class">
 								<a href="suppliers.html#delete" class="tsd-kind-icon">Delete</a>
 							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="suppliers.html#deletebuyer" class="tsd-kind-icon">Delete<wbr>Buyer</a>
+							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="suppliers.html#get" class="tsd-kind-icon">Get</a>
 							</li>
@@ -384,10 +545,16 @@
 								<a href="suppliers.html#list" class="tsd-kind-icon">List</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="suppliers.html#listbuyers" class="tsd-kind-icon">List<wbr>Buyers</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="suppliers.html#patch" class="tsd-kind-icon">Patch</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="suppliers.html#save" class="tsd-kind-icon">Save</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="suppliers.html#savebuyer" class="tsd-kind-icon">Save<wbr>Buyer</a>
 							</li>
 						</ul>
 					</li>

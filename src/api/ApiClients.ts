@@ -31,7 +31,7 @@ class ApiClients {
     }
 
    /**
-    * Get a list of api clients. 
+    * Get a list of API clients. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
@@ -57,7 +57,7 @@ class ApiClients {
     }
 
    /**
-    * Create a new api client. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a new API client. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/create|api docs} for more info 
     * 
     * @param apiClient Required fields: AccessTokenDuration, AppName
@@ -78,7 +78,7 @@ class ApiClients {
     }
 
    /**
-    * Get a single api client. 
+    * Get a single API client. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/get|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -99,7 +99,7 @@ class ApiClients {
     }
 
    /**
-    * Create or update an api client. If an object with the same ID already exists, it will be overwritten.
+    * Update an API client. If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/save|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -121,7 +121,7 @@ class ApiClients {
     }
 
    /**
-    * Delete an api client. 
+    * Delete a API client. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -142,7 +142,7 @@ class ApiClients {
     }
 
    /**
-    * Partially update an api client. 
+    * Partially update a API client. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/patch|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -164,7 +164,7 @@ class ApiClients {
     }
 
    /**
-    * Get a list of api client assignments. 
+    * Get a list of API client assignments. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list-assignments|api docs} for more info 
     * 
     * @param listOptions.apiClientID ID of the api client.
@@ -189,7 +189,7 @@ class ApiClients {
     }
 
    /**
-    * Create or update an api client assignment. 
+    * Create or update a API client assignment. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/save-assignment|api docs} for more info 
     * 
     * @param apiClientAssignment 
@@ -210,7 +210,7 @@ class ApiClients {
     }
 
    /**
-    * Delete an api client buyer assignment. 
+    * Delete a API client buyer assignment. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-buyer-assignment|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -232,7 +232,7 @@ class ApiClients {
     }
 
    /**
-    * Delete an api client supplier assignment. 
+    * Delete a API client supplier assignment. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-supplier-assignment|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.

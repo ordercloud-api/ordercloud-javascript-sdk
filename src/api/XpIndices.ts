@@ -24,7 +24,7 @@ class XpIndices {
     }
 
    /**
-    * Get a list of xp indices. 
+    * Get a list of XP indices. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
@@ -50,7 +50,7 @@ class XpIndices {
     }
 
    /**
-    * Put a xp index put. 
+    * Create or Update an XP index. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/put|api docs} for more info 
     * 
     * @param xpIndex 
@@ -71,7 +71,7 @@ class XpIndices {
     }
 
    /**
-    * Delete a xp index. 
+    * Delete a XP index. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/delete|api docs} for more info 
     * 
     * @param thingType Thing type of the xp index. Possible values: Address, Variant, Order, LineItem, CostCenter, CreditCard, Payment, Spec, SpecOption, UserGroup, Company, Category, PriceSchedule, Shipment, SpendingAccount, User, Promotion, ApprovalRule, Catalog, ProductFacet, MessageSender.

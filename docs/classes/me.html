@@ -68,6 +68,7 @@
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="me.html#getvariant" class="tsd-kind-icon">Get<wbr>Variant</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="me.html#listaddresses" class="tsd-kind-icon">List<wbr>Addresses</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="me.html#listapprovableorders" class="tsd-kind-icon">List<wbr>Approvable<wbr>Orders</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="me.html#listbuyersellers" class="tsd-kind-icon">List<wbr>Buyer<wbr>Sellers</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="me.html#listcatalogs" class="tsd-kind-icon">List<wbr>Catalogs</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="me.html#listcategories" class="tsd-kind-icon">List<wbr>Categories</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="me.html#listcostcenters" class="tsd-kind-icon">List<wbr>Cost<wbr>Centers</a></li>
@@ -133,7 +134,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a new address. Only available to Buyer Users.
+									<p>Create a new address. Only available to Buyer Users. Addresses created using this endpoint are considered private, and only accessible to the user who created them.
 									Check out the <a href="https://ordercloud.io/api-reference/me-and-my-stuff/me/create-address" class="external">api docs</a> for more info</p>
 								</div>
 							</div>
@@ -171,7 +172,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create a new credit card. Only available to Buyer Users.
+									<p>Create a new credit card. Only available to Buyer Users. Credit Cards created using this endpoint are considered private, and only accessible to the user who created them.
 									Check out the <a href="https://ordercloud.io/api-reference/me-and-my-stuff/me/create-credit-card" class="external">api docs</a> for more info</p>
 								</div>
 							</div>
@@ -457,7 +458,7 @@
 					<a name="getproduct" class="tsd-anchor"></a>
 					<h3>Get<wbr>Product</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-						<li class="tsd-signature tsd-kind-icon">Get<wbr>Product&lt;TBuyerProduct&gt;<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TBuyerProduct</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+						<li class="tsd-signature tsd-kind-icon">Get<wbr>Product&lt;TBuyerProduct&gt;<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TBuyerProduct</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
@@ -482,6 +483,17 @@
 									<div class="tsd-comment tsd-typography">
 										<p>ID of the product.</p>
 									</div>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sellerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>ID of the seller.</p>
+											</div>
+										</li>
+									</ul>
 								</li>
 								<li>
 									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
@@ -863,6 +875,79 @@
 					</ul>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+					<a name="listbuyersellers" class="tsd-anchor"></a>
+					<h3>List<wbr>Buyer<wbr>Sellers</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+						<li class="tsd-signature tsd-kind-icon">List<wbr>Buyer<wbr>Sellers&lt;TBuyerSupplier&gt;<span class="tsd-signature-symbol">(</span>listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">object</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TBuyerSupplier</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Get a list of buyer sellers visible to this user. Organizations you can place orders directly to.
+									Check out the <a href="https://ordercloud.io/api-reference/me-and-my-stuff/me/list-buyer-sellers" class="external">api docs</a> for more info</p>
+								</div>
+							</div>
+							<h4 class="tsd-type-parameters-title">Type parameters</h4>
+							<ul class="tsd-type-parameters">
+								<li>
+									<h4>TBuyerSupplier<span class="tsd-signature-symbol">: </span><a href="../interfaces/buyersupplier.html" class="tsd-signature-type">BuyerSupplier</a></h4>
+								</li>
+							</ul>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> listOptions: <span class="tsd-signature-type">object</span><span class="tsd-signature-symbol"> = {}</span></h5>
+									<ul class="tsd-parameters">
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> filters<span class="tsd-signature-symbol">?: </span><a href="../index.html#filters" class="tsd-signature-type">Filters</a></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or &#39;xp.???&#39;</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Page of results to return. Default: 1</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> page<wbr>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Number of results to return per page. Default: 20, max: 100.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Word or phrase to search for.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><a href="../index.html#searchable" class="tsd-signature-type">Searchable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">"Me.ListBuyerSellers"</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to search on.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sort<wbr>By<span class="tsd-signature-symbol">?: </span><a href="../index.html#sortable" class="tsd-signature-type">Sortable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">"Me.ListBuyerSellers"</span><span class="tsd-signature-symbol">&gt;</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>Comma-delimited list of fields to sort by.</p>
+											</div>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<h5><span class="tsd-flag ts-flagDefault value">Default value</span> requestOptions: <a href="../interfaces/requestoptions.html" class="tsd-signature-type">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../index.html#requireddeep" class="tsd-signature-type">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/listpage.html" class="tsd-signature-type">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TBuyerSupplier</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 					<a name="listcatalogs" class="tsd-anchor"></a>
 					<h3>List<wbr>Catalogs</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
@@ -917,6 +1002,12 @@
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>On<span class="tsd-signature-symbol">?: </span><a href="../index.html#searchable" class="tsd-signature-type">Searchable</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">"Me.ListCatalogs"</span><span class="tsd-signature-symbol">&gt;</span></h5>
 											<div class="tsd-comment tsd-typography">
 												<p>Comma-delimited list of fields to search on.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sellerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>ID of the seller.</p>
 											</div>
 										</li>
 										<li class="tsd-parameter">
@@ -1336,6 +1427,12 @@
 											<h5><span class="tsd-flag ts-flagOptional">Optional</span> search<wbr>Type<span class="tsd-signature-symbol">?: </span><a href="../index.html#searchtype" class="tsd-signature-type">SearchType</a></h5>
 											<div class="tsd-comment tsd-typography">
 												<p>Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.</p>
+											</div>
+										</li>
+										<li class="tsd-parameter">
+											<h5><span class="tsd-flag ts-flagOptional">Optional</span> sellerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+											<div class="tsd-comment tsd-typography">
+												<p>ID of the seller.</p>
 											</div>
 										</li>
 										<li class="tsd-parameter">
@@ -2137,7 +2234,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create or update an address. Only available to Buyer Users.
+									<p>Update an address. Only available to Buyer Users.
 									Check out the <a href="https://ordercloud.io/api-reference/me-and-my-stuff/me/save-address" class="external">api docs</a> for more info</p>
 								</div>
 							</div>
@@ -2181,7 +2278,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Create or update a credit card. Only available to Buyer Users.
+									<p>Update a credit card. Only available to Buyer Users.
 									Check out the <a href="https://ordercloud.io/api-reference/me-and-my-stuff/me/save-credit-card" class="external">api docs</a> for more info</p>
 								</div>
 							</div>
@@ -2222,7 +2319,7 @@
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Transfer an anon user order.
+									<p>Transfer an order. If a user begins an order as the anonymous shopper and later logs in, use this endpoint to transfer that order to them.
 									Check out the <a href="https://ordercloud.io/api-reference/me-and-my-stuff/me/transfer-anon-user-order" class="external">api docs</a> for more info</p>
 								</div>
 							</div>
@@ -2314,6 +2411,9 @@
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="me.html#listapprovableorders" class="tsd-kind-icon">List<wbr>Approvable<wbr>Orders</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
+								<a href="me.html#listbuyersellers" class="tsd-kind-icon">List<wbr>Buyer<wbr>Sellers</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
 								<a href="me.html#listcatalogs" class="tsd-kind-icon">List<wbr>Catalogs</a>

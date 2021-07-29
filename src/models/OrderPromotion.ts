@@ -17,5 +17,6 @@ export interface OrderPromotion<TOrderPromotionXp = any> {
     ValueExpression?: string
     CanCombine?: boolean
     AllowAllBuyers?: boolean
+    OwnerID?: string
     xp?: TOrderPromotionXp
 }

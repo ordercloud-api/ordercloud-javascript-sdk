@@ -1,6 +1,7 @@
 import { SpecOption } from './SpecOption';
 
 export interface Spec<TSpecXp = any, TOptionsXp = any> {
+    OwnerID?: string
     ID?: string
     ListOrder?: number
     Name: string

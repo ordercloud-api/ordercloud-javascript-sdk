@@ -6,7 +6,7 @@ import { Product } from '../models/Product';
 import { SearchType } from '../models/SearchType';
 import { ListPage } from '../models/ListPage';
 import { Spec } from '../models/Spec';
-import { Supplier } from '../models/Supplier';
+import { ProductSupplier } from '../models/ProductSupplier';
 import { Variant } from '../models/Variant';
 import { ProductAssignment } from '../models/ProductAssignment';
 import { PartyType } from '../models/PartyType';
@@ -78,7 +78,7 @@ class Products {
     * Create a new product. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/create|api docs} for more info 
     * 
-    * @param product Required fields: Name, QuantityMultiplier
+    * @param product Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -121,7 +121,7 @@ class Products {
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save|api docs} for more info 
     * 
     * @param productID ID of the product.
-    * @param product Required fields: Name, QuantityMultiplier
+    * @param product Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -189,11 +189,12 @@ class Products {
     * @param buyerID ID of the buyer.
     * @param listOptions.userID ID of the user.
     * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteAssignment(productID: string, buyerID: string, listOptions: { userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
+    public async DeleteAssignment(productID: string, buyerID: string, listOptions: { userID?: string, userGroupID?: string, sellerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/products/${productID}/assignments/${buyerID}`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -247,7 +248,7 @@ class Products {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListSuppliers<TSupplier extends Supplier>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'Products.ListSuppliers'>, sortBy?: Sortable<'Products.ListSuppliers'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSupplier>>>{
+    public async ListSuppliers<TProductSupplier extends ProductSupplier>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'Products.ListSuppliers'>, sortBy?: Sortable<'Products.ListSuppliers'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductSupplier>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/products/${productID}/suppliers`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -265,14 +266,15 @@ class Products {
     * 
     * @param productID ID of the product.
     * @param supplierID ID of the supplier.
+    * @param listOptions.defaultPriceScheduleID ID of the default price schedule.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async SaveSupplier(productID: string, supplierID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+    public async SaveSupplier(productID: string, supplierID: string, listOptions: { defaultPriceScheduleID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/products/${productID}/suppliers/${supplierID}`, { ...requestOptions, impersonating,  } )
+        return await http.put(`/products/${productID}/suppliers/${supplierID}`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -282,7 +284,7 @@ class Products {
     }
 
    /**
-    * Remove a supplier. 
+    * Remove a product supplier. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/remove-supplier|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -353,7 +355,7 @@ class Products {
     }
 
    /**
-    * Create or update a product variant. 
+    * Create or update a product variant. Update a product variant.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-variant|api docs} for more info 
     * 
     * @param productID ID of the product.

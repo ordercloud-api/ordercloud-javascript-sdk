@@ -1,7 +1,7 @@
 
 export interface Catalog<TCatalogXp = any> {
     ID?: string
-    readonly OwnerID?: string
+    OwnerID?: string
     Name: string
     Description?: string
     Active?: boolean

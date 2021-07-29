@@ -28,6 +28,7 @@ interface SearchableMap {
 'Me.ListSpecs': ('ID' | 'Name' | 'Description')[]
 'Me.ListVariants': ('ID' | 'Name' | 'Description')[]
 'Me.ListPromotions': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
+'Me.ListBuyerSellers': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
 'Me.ListShipments': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
 'Me.ListShipmentItems': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
 'Me.ListSpendingAccounts': ('ID' | 'Name' | 'RedemptionCode')[]
@@ -57,6 +58,7 @@ interface SearchableMap {
 'Specs.ListProductAssignments': ('Name' | 'ListOrder' | 'ID' | 'Required' | 'AllowOpenText')[]
 'Suppliers.List': ('Name' | 'ID')[]
 'SupplierAddresses.List': ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[]
+'Suppliers.ListBuyers': ('Name' | 'ID')[]
 'SupplierUserGroups.List': ('ID' | 'Name' | 'Description')[]
 'SupplierUsers.List': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
 'AdminUserGroups.List': ('ID' | 'Name' | 'Description')[]
@@ -91,6 +93,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListSpecs' | 
 'Me.ListVariants' | 
 'Me.ListPromotions' | 
+'Me.ListBuyerSellers' | 
 'Me.ListShipments' | 
 'Me.ListShipmentItems' | 
 'Me.ListSpendingAccounts' | 
@@ -120,6 +123,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Specs.ListProductAssignments' | 
 'Suppliers.List' | 
 'SupplierAddresses.List' | 
+'Suppliers.ListBuyers' | 
 'SupplierUserGroups.List' | 
 'SupplierUsers.List' | 
 'AdminUserGroups.List' | 
