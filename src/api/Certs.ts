@@ -17,7 +17,7 @@ class Certs {
     }
 
    /**
-    * Get a single cert public key. 
+    * Get a single cert public key. Returns a JSON Web Key (JWK). Can be used for validating the token was signed by OrderCloud.
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/certs/get-public-key|api docs} for more info 
     * 
     * @param ID ID of the public key.

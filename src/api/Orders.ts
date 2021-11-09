@@ -65,7 +65,7 @@ class Orders {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -205,7 +205,7 @@ class Orders {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -369,7 +369,7 @@ class Orders {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -442,7 +442,7 @@ class Orders {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -539,7 +539,7 @@ class Orders {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -559,7 +559,7 @@ class Orders {
     }
 
    /**
-    * Set a shipping address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the order's ShippingAddressID property instead.
+    * Set a shipping address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the order's ShippingAddressID property instead. The address used will be populated on the ShippingAddress property of each LineItem.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/set-shipping-address|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.

@@ -10,6 +10,7 @@ import MessageSenders from './MessageSenders';
 import ApiClients from './ApiClients';
 import Incrementors from './Incrementors';
 import IntegrationEvents from './IntegrationEvents';
+import Locales from './Locales';
 import Webhooks from './Webhooks';
 import XpIndices from './XpIndices';
 import Buyers from './Buyers';
@@ -52,6 +53,7 @@ export {
     ApiClients,
     Incrementors,
     IntegrationEvents,
+    Locales,
     Webhooks,
     XpIndices,
     Buyers,

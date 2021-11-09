@@ -1,3 +1,4 @@
+import { Locale } from './Locale';
 
 export interface User<TUserXp = any> {
     ID?: string
@@ -11,6 +12,7 @@ export interface User<TUserXp = any> {
     Active: boolean
     xp?: TUserXp
     readonly AvailableRoles?: string[]
+    readonly Locale?: Locale
     readonly DateCreated?: string
     readonly PasswordLastSetDate?: string
 }
