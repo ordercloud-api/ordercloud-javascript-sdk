@@ -8,6 +8,7 @@ export interface Payment<TPaymentXp = any, TTransactionsXp = any> {
     CreditCardID?: string
     SpendingAccountID?: string
     Description?: string
+    readonly Currency?: string
     Amount?: number
     Accepted?: boolean
     xp?: TPaymentXp

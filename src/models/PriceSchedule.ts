@@ -11,5 +11,6 @@ export interface PriceSchedule<TPriceScheduleXp = any> {
     UseCumulativeQuantity?: boolean
     RestrictedQuantity?: boolean
     PriceBreaks?: PriceBreak[]
+    Currency?: string
     xp?: TPriceScheduleXp
 }

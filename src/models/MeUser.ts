@@ -1,6 +1,7 @@
 import { MeBuyer } from './MeBuyer';
 import { MeSupplier } from './MeSupplier';
 import { MeSeller } from './MeSeller';
+import { Locale } from './Locale';
 
 export interface MeUser<TMeUserXp = any> {
     readonly Buyer?: MeBuyer
@@ -17,6 +18,7 @@ export interface MeUser<TMeUserXp = any> {
     Active?: boolean
     xp?: TMeUserXp
     readonly AvailableRoles?: string[]
+    readonly Locale?: Locale
     readonly DateCreated?: string
     readonly PasswordLastSetDate?: string
 }

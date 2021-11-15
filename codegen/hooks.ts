@@ -69,6 +69,11 @@ const postFormatTemplateData: PostFormatTemplateDataHook = function(
       } else {
         enumString = `(${enumVals.map(v => `'${v}'`).join(' | ')})[]`
       }
+      // List Shipment Items, for example, has zero sortable properties
+      if (enumVals?.length === 0) {
+        // sortBy should always be any empty array
+        enumString = '[]'
+      }
 
       return {
         id: op.id,
@@ -90,6 +95,11 @@ const postFormatTemplateData: PostFormatTemplateDataHook = function(
         enumString = 'string[]'
       } else {
         enumString = `(${enumVals.map(v => `'${v}'`).join(' | ')})[]`
+      }
+      // List Shipment Items, for example, has zero searchable properties
+      if (enumVals?.length === 0) {
+        // searchOn should always be any empty array
+        enumString = '[]'
       }
 
       return {

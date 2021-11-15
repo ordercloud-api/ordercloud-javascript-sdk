@@ -28,6 +28,8 @@ export type ApiRole = 'ApiClientAdmin' |
 'IncrementorAdmin' | 
 'IncrementorReader' | 
 'InventoryAdmin' | 
+'LocaleReader' | 
+'LocaleAdmin' | 
 'MeAddressAdmin' | 
 'MeAdmin' | 
 'MeCreditCardAdmin' | 
