@@ -6,7 +6,7 @@ export interface IntegrationEvent {
     ID?: string
     ConfigData?: any
     EventType?: IntegrationEventType
-    CustomImplementationUrl?: string
+    CustomImplementationUrl: string
     Name: string
     HashKey: string
 }

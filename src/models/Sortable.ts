@@ -9,6 +9,7 @@ interface SortableMap {
 'ApprovalRules.List': ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[]
 'CostCenters.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'CreditCards.List': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate' | 'DateCreated' | '!ID' | '!CardholderName' | '!CardType' | '!ExpirationDate' | '!DateCreated')[]
+'Buyers.ListBuyerSellers': ('Name' | 'ID' | '!Name' | '!ID')[]
 'SpendingAccounts.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'UserGroups.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Users.List': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
@@ -47,9 +48,11 @@ interface SortableMap {
 'PriceSchedules.List': ('Name' | 'ID' | 'OwnerID' | '!Name' | '!ID' | '!OwnerID')[]
 'ProductFacets.List': ('ListOrder' | 'ID' | 'Name' | 'XpPath' | '!ListOrder' | '!ID' | '!Name' | '!XpPath')[]
 'Products.List': string[]
+'InventoryRecords.List': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
 'Products.ListSpecs': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
 'Products.ListSuppliers': ('ID' | 'Name' | 'DateCreated' | '!ID' | '!Name' | '!DateCreated')[]
 'Products.ListVariants': ('ID' | 'Name' | '!ID' | '!Name')[]
+'InventoryRecords.ListVariant': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
 'Promotions.List': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[]
 'SecurityProfiles.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'Shipments.List': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
@@ -75,6 +78,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'ApprovalRules.List' | 
 'CostCenters.List' | 
 'CreditCards.List' | 
+'Buyers.ListBuyerSellers' | 
 'SpendingAccounts.List' | 
 'UserGroups.List' | 
 'Users.List' | 
@@ -113,9 +117,11 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'PriceSchedules.List' | 
 'ProductFacets.List' | 
 'Products.List' | 
+'InventoryRecords.List' | 
 'Products.ListSpecs' | 
 'Products.ListSuppliers' | 
 'Products.ListVariants' | 
+'InventoryRecords.ListVariant' | 
 'Promotions.List' | 
 'SecurityProfiles.List' | 
 'Shipments.List' | 

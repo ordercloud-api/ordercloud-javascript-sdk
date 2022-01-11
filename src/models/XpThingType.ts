@@ -19,4 +19,5 @@ export type XpThingType = 'Address' |
 'ApprovalRule' | 
 'Catalog' | 
 'ProductFacet' | 
-'MessageSender'
+'MessageSender' | 
+'InventoryRecord'

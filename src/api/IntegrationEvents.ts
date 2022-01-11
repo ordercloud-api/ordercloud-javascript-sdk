@@ -62,7 +62,7 @@ class IntegrationEvents {
     * Create a new integration event. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
     * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/create|api docs} for more info 
     * 
-    * @param integrationEvent Required fields: ElevatedRoles, Name, HashKey
+    * @param integrationEvent Required fields: ElevatedRoles, CustomImplementationUrl, Name, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -105,7 +105,7 @@ class IntegrationEvents {
     * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/save|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
-    * @param integrationEvent Required fields: ElevatedRoles, Name, HashKey
+    * @param integrationEvent Required fields: ElevatedRoles, CustomImplementationUrl, Name, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

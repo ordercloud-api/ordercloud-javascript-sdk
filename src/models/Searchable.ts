@@ -9,6 +9,7 @@ interface SearchableMap {
 'ApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
 'CostCenters.List': ('ID' | 'Name' | 'Description')[]
 'CreditCards.List': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate')[]
+'Buyers.ListBuyerSellers': ('ID' | 'Name')[]
 'SpendingAccounts.List': ('ID' | 'Name' | 'RedemptionCode')[]
 'UserGroups.List': ('ID' | 'Name' | 'Description')[]
 'Users.List': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
@@ -47,9 +48,11 @@ interface SearchableMap {
 'PriceSchedules.List': ('ID' | 'Name' | 'ApplyTax' | 'Currency')[]
 'ProductFacets.List': ('ID' | 'Name' | 'XpPath')[]
 'Products.List': string[]
+'InventoryRecords.List': ('ID' | 'AddressID')[]
 'Products.ListSpecs': ('Name' | 'ID')[]
 'Products.ListSuppliers': ('Name' | 'ID')[]
 'Products.ListVariants': ('ID' | 'Name' | 'Description')[]
+'InventoryRecords.ListVariant': ('ID' | 'AddressID')[]
 'Promotions.List': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
 'SecurityProfiles.List': ('ID' | 'Name')[]
 'Shipments.List': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
@@ -75,6 +78,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'ApprovalRules.List' | 
 'CostCenters.List' | 
 'CreditCards.List' | 
+'Buyers.ListBuyerSellers' | 
 'SpendingAccounts.List' | 
 'UserGroups.List' | 
 'Users.List' | 
@@ -113,9 +117,11 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'PriceSchedules.List' | 
 'ProductFacets.List' | 
 'Products.List' | 
+'InventoryRecords.List' | 
 'Products.ListSpecs' | 
 'Products.ListSuppliers' | 
 'Products.ListVariants' | 
+'InventoryRecords.ListVariant' | 
 'Promotions.List' | 
 'SecurityProfiles.List' | 
 'Shipments.List' | 

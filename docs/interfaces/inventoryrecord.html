@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>IntegrationEvent | ordercloud-javascript-sdk</title>
+	<title>InventoryRecord | ordercloud-javascript-sdk</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -34,7 +34,7 @@
 					<a href="../index.html">OrderCloudSDK</a>
 				</li>
 				<li>
-					<a href="integrationevent.html">IntegrationEvent</a>
+					<a href="inventoryrecord.html">InventoryRecord</a>
 				</li>
 			</ul>
 		</div>
@@ -43,6 +43,17 @@
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-type-parameters">
+				<h3>Type parameters</h3>
+				<ul class="tsd-type-parameters">
+					<li>
+						<h4>TInventoryRecordXp</h4>
+					</li>
+					<li>
+						<h4>TAddressXp</h4>
+					</li>
+				</ul>
+			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>API Reference</h2>
 				<section class="tsd-panel tsd-index-panel">
@@ -50,13 +61,14 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="integrationevent.html#configdata" class="tsd-kind-icon">Config<wbr>Data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="integrationevent.html#customimplementationurl" class="tsd-kind-icon">Custom<wbr>Implementation<wbr>Url</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="integrationevent.html#elevatedroles" class="tsd-kind-icon">Elevated<wbr>Roles</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="integrationevent.html#eventtype" class="tsd-kind-icon">Event<wbr>Type</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="integrationevent.html#hashkey" class="tsd-kind-icon">Hash<wbr>Key</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="integrationevent.html#id" class="tsd-kind-icon">ID</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="integrationevent.html#name" class="tsd-kind-icon">Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#address" class="tsd-kind-icon">Address</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#addressid" class="tsd-kind-icon">AddressID</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#id" class="tsd-kind-icon">ID</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#lastupdated" class="tsd-kind-icon">Last<wbr>Updated</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#ordercanexceed" class="tsd-kind-icon">Order<wbr>Can<wbr>Exceed</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#ownerid" class="tsd-kind-icon">OwnerID</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#quantityavailable" class="tsd-kind-icon">Quantity<wbr>Available</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="inventoryrecord.html#xp" class="tsd-kind-icon">xp</a></li>
 							</ul>
 						</section>
 					</div>
@@ -65,37 +77,16 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="configdata" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Config<wbr>Data</h3>
-					<div class="tsd-signature tsd-kind-icon">Config<wbr>Data<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span></div>
+					<a name="address" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Address</h3>
+					<div class="tsd-signature tsd-kind-icon">Address<span class="tsd-signature-symbol">:</span> <a href="address.html" class="tsd-signature-type">Address</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">TAddressXp</span><span class="tsd-signature-symbol">&gt;</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="customimplementationurl" class="tsd-anchor"></a>
-					<h3>Custom<wbr>Implementation<wbr>Url</h3>
-					<div class="tsd-signature tsd-kind-icon">Custom<wbr>Implementation<wbr>Url<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="elevatedroles" class="tsd-anchor"></a>
-					<h3>Elevated<wbr>Roles</h3>
-					<div class="tsd-signature tsd-kind-icon">Elevated<wbr>Roles<span class="tsd-signature-symbol">:</span> <a href="../index.html#apirole" class="tsd-signature-type">ApiRole</a><span class="tsd-signature-symbol">[]</span></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="eventtype" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Event<wbr>Type</h3>
-					<div class="tsd-signature tsd-kind-icon">Event<wbr>Type<span class="tsd-signature-symbol">:</span> <a href="../index.html#integrationeventtype" class="tsd-signature-type">IntegrationEventType</a></div>
-					<aside class="tsd-sources">
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="hashkey" class="tsd-anchor"></a>
-					<h3>Hash<wbr>Key</h3>
-					<div class="tsd-signature tsd-kind-icon">Hash<wbr>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="addressid" class="tsd-anchor"></a>
+					<h3>AddressID</h3>
+					<div class="tsd-signature tsd-kind-icon">AddressID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
@@ -107,9 +98,37 @@
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="name" class="tsd-anchor"></a>
-					<h3>Name</h3>
-					<div class="tsd-signature tsd-kind-icon">Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="lastupdated" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Last<wbr>Updated</h3>
+					<div class="tsd-signature tsd-kind-icon">Last<wbr>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="ordercanexceed" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Order<wbr>Can<wbr>Exceed</h3>
+					<div class="tsd-signature tsd-kind-icon">Order<wbr>Can<wbr>Exceed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="ownerid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> OwnerID</h3>
+					<div class="tsd-signature tsd-kind-icon">OwnerID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="quantityavailable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Quantity<wbr>Available</h3>
+					<div class="tsd-signature tsd-kind-icon">Quantity<wbr>Available<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="xp" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> xp</h3>
+					<div class="tsd-signature tsd-kind-icon">xp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TInventoryRecordXp</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
@@ -124,29 +143,32 @@
 				<ul class="before-current">
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-interface">
-						<a href="integrationevent.html" class="tsd-kind-icon">Integration<wbr>Event</a>
+					<li class="current tsd-kind-interface tsd-has-type-parameter">
+						<a href="inventoryrecord.html" class="tsd-kind-icon">Inventory<wbr>Record</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="integrationevent.html#configdata" class="tsd-kind-icon">Config<wbr>Data</a>
+								<a href="inventoryrecord.html#address" class="tsd-kind-icon">Address</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="integrationevent.html#customimplementationurl" class="tsd-kind-icon">Custom<wbr>Implementation<wbr>Url</a>
+								<a href="inventoryrecord.html#addressid" class="tsd-kind-icon">AddressID</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="integrationevent.html#elevatedroles" class="tsd-kind-icon">Elevated<wbr>Roles</a>
+								<a href="inventoryrecord.html#id" class="tsd-kind-icon">ID</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="integrationevent.html#eventtype" class="tsd-kind-icon">Event<wbr>Type</a>
+								<a href="inventoryrecord.html#lastupdated" class="tsd-kind-icon">Last<wbr>Updated</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="integrationevent.html#hashkey" class="tsd-kind-icon">Hash<wbr>Key</a>
+								<a href="inventoryrecord.html#ordercanexceed" class="tsd-kind-icon">Order<wbr>Can<wbr>Exceed</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="integrationevent.html#id" class="tsd-kind-icon">ID</a>
+								<a href="inventoryrecord.html#ownerid" class="tsd-kind-icon">OwnerID</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="integrationevent.html#name" class="tsd-kind-icon">Name</a>
+								<a href="inventoryrecord.html#quantityavailable" class="tsd-kind-icon">Quantity<wbr>Available</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="inventoryrecord.html#xp" class="tsd-kind-icon">xp</a>
 							</li>
 						</ul>
 					</li>

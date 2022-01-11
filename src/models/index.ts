@@ -28,6 +28,7 @@ export * from './Incrementor';
 export * from './IntegrationEvent';
 export * from './IntegrationEventType';
 export * from './Inventory';
+export * from './InventoryRecord';
 export * from './LineItem';
 export * from './LineItemOverride';
 export * from './LineItemProduct';

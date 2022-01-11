@@ -23,6 +23,7 @@ export interface LineItem<TLineItemXp = any, TProductXp = any, TVariantXp = any,
     readonly ShippingAddress?: Address<TShippingAddressXp>
     readonly ShipFromAddress?: Address<TShipFromAddressXp>
     readonly SupplierID?: string
+    InventoryRecordID?: string
     Specs?: LineItemSpec[]
     xp?: TLineItemXp
 }

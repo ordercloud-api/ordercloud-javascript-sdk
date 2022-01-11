@@ -4,6 +4,7 @@ import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { Order } from '../models/Order';
 import { OrderDirection } from '../models/OrderDirection';
+import { SearchType } from '../models/SearchType';
 import { OrderApproval } from '../models/OrderApproval';
 import { OrderApprovalInfo } from '../models/OrderApprovalInfo';
 import { Address } from '../models/Address';
@@ -64,6 +65,7 @@ class Orders {
     * @param listOptions.to Upper bound of date range that the order was created.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
@@ -72,7 +74,7 @@ class Orders {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List<TOrder extends Order>(direction: OrderDirection, listOptions: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'Orders.List'>, sortBy?: Sortable<'Orders.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>>{
+    public async List<TOrder extends Order>(direction: OrderDirection, listOptions: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'Orders.List'>, searchType?: SearchType, sortBy?: Sortable<'Orders.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}`, { ...requestOptions, impersonating, params: listOptions  } )

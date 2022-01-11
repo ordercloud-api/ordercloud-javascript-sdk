@@ -31,6 +31,7 @@ import Products from './Products';
 import PriceSchedules from './PriceSchedules';
 import Specs from './Specs';
 import ProductFacets from './ProductFacets';
+import InventoryRecords from './InventoryRecords';
 import Orders from './Orders';
 import LineItems from './LineItems';
 import Promotions from './Promotions';
@@ -74,6 +75,7 @@ export {
     PriceSchedules,
     Specs,
     ProductFacets,
+    InventoryRecords,
     Orders,
     LineItems,
     Promotions,
