@@ -438,7 +438,7 @@ Check out our [Contributing](./CONTRIBUTING.md) guide.
 
 ## 🆘 Getting Help
 
-If you're new to OrderCloud, exploring the [documentation](https://ordercloud.io/) is recommended, especially the [Intro to OrderCloud](https://ordercloud.io/getting-started/intro-to-ordercloud).
+If you're new to OrderCloud, exploring the [documentation](https://ordercloud.io/) is recommended, especially the [Welcome to OrderCloud tutorial](https://ordercloud.io/learn/getting-started/welcome-to-ordercloud).
 
 For programming questions, please [ask](https://stackoverflow.com/questions/ask?tags=ordercloud) on Stack Overflow.
 
