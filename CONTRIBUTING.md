@@ -32,7 +32,7 @@ npm run generate-sdk
 4. Make your changes. Note: all of your changes should be to files in `/codegen` and not directly to any of the files in `src/` as those files get overwritten when the code is generated.
 5. Run `npm run build` to regenerate the sdk, compile the code, run the tests, and generate the docs
 6. Verify your changes work as expected. Run `npm install /path/to/this/folder` in a different project to install locally and test
-7. Update the [changelog](../CHANGELOG.md)
+7. Update the [changelog](./CHANGELOG.md)
 8. Commit your changes. We adhere to the [gitmoji](https://github.com/carloscuesta/gitmoji/) standard
 9. Update the sdk version in the [package.json](../package.json) and make a separate version commit in the format `:bookmark: v{newVersionHere}`
 10. Create a pull request
@@ -43,7 +43,7 @@ npm run generate-sdk
 Assuming you or a contributor followed the instructions for [submitting a pull request](#✨-submitting-a-pull-request) and are a maintainer you can follow these instructions to release a new version of the sdk.
 
 1. Verify the version has been bumped and adheres to [semantic versioning](https://semver.org/)
-2. Verify the [changelog](../CHANGELOG.md) has been updated
+2. Verify the [changelog](./CHANGELOG.md) has been updated
 3. Create a publish a new release on github
 4. Publish on npm by running `npm run publish-please`
    - Defaults to pre-release. It is recommended to do a pre-release first to vet changes
