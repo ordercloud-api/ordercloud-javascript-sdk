@@ -223,6 +223,8 @@ function inspectModelForTypeParams(
     }
     if (prop.isXp) {
       if (!rootProp) {
+        // first level of properties, only the xp for that resource will exist
+        // move it to front for convention where first xp is always that resource's xp
         const typeParam = `T${inspectModel.name}Xp`
         rootModel['typeParams'].unshift(typeParam)
         prop['typeParams'].unshift(typeParam)
@@ -260,4 +262,20 @@ function inspectModelForTypeParams(
       }
     }
   })
+
+  // This is a little hacky but basically we want the first type parameter to be the type for the xp of the model
+  // for example ShipEstimate<ShipEstimateXp...> otherwise, the xp type would be at the end of the list
+  // lke so: ShipEstimate<SomeXp, SomeOtherXp...ShipEstimateXp>
+  if (
+    rootProp &&
+    rootProp['typeParams'] &&
+    rootProp['typeParams'].length > 1 &&
+    rootProp['typeParams'].includes(`T${rootProp.name}Xp`)
+  ) {
+    const toMoveIndex = rootProp['typeParams'].findIndex(
+      p => p === `T${rootProp.name}Xp`
+    )
+    const toMove = rootProp['typeParams'].splice(toMoveIndex, 1)
+    rootProp['typeParams'].unshift(toMove[0])
+  }
 }

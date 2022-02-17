@@ -8,5 +8,6 @@ export interface LineItemProduct<TLineItemProductXp = any> {
     ShipHeight?: number
     ShipWidth?: number
     ShipLength?: number
+    DefaultSupplierID?: string
     xp?: TLineItemProductXp
 }

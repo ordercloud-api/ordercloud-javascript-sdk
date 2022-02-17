@@ -9,10 +9,10 @@ import { Category } from '../models/Category';
 import { CostCenter } from '../models/CostCenter';
 import { BuyerCreditCard } from '../models/BuyerCreditCard';
 import { Order } from '../models/Order';
+import { SearchType } from '../models/SearchType';
 import { TokenPasswordReset } from '../models/TokenPasswordReset';
 import { ListPageWithFacets } from '../models/ListPageWithFacets';
 import { BuyerProduct } from '../models/BuyerProduct';
-import { SearchType } from '../models/SearchType';
 import { Spec } from '../models/Spec';
 import { Variant } from '../models/Variant';
 import { Promotion } from '../models/Promotion';
@@ -539,6 +539,7 @@ class Me {
     * @param listOptions.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
@@ -547,7 +548,7 @@ class Me {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListOrders<TOrder extends Order>(listOptions: { from?: string, to?: string, search?: string, searchOn?: Searchable<'Me.ListOrders'>, sortBy?: Sortable<'Me.ListOrders'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>>{
+    public async ListOrders<TOrder extends Order>(listOptions: { from?: string, to?: string, search?: string, searchOn?: Searchable<'Me.ListOrders'>, searchType?: SearchType, sortBy?: Sortable<'Me.ListOrders'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrder>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/orders`, { ...requestOptions, impersonating, params: listOptions  } )
