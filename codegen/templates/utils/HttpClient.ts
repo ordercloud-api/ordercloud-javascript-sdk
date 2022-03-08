@@ -62,24 +62,23 @@ class HttpClient {
     config
   ) {
     const requestConfig = await this._buildRequestConfig(config)
+    // oauth endpoints unlike the rest don't have /{apiVersion}/ appended to them
+    const baseApiUrl = path.includes('oauth/')
+      ? `${Configuration.Get().baseApiUrl}/${path}`
+      : `${Configuration.Get().baseApiUrl}/${
+          Configuration.Get().apiVersion
+        }${path}`
     if (verb === 'put' || verb === 'post' || verb === 'patch') {
       const requestBody = requestConfig.data
       delete requestConfig.data
       const response = await axios[verb as string](
-        `${Configuration.Get().baseApiUrl}/${
-          Configuration.Get().apiVersion
-        }${path}`,
+        baseApiUrl,
         requestBody,
         requestConfig
       )
       return response.data
     } else {
-      const response = await axios[verb as string](
-        `${Configuration.Get().baseApiUrl}/${
-          Configuration.Get().apiVersion
-        }${path}`,
-        requestConfig
-      )
+      const response = await axios[verb as string](baseApiUrl, requestConfig)
       return response.data
     }
   }
