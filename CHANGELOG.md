@@ -5,6 +5,16 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.3.4] - 2022-03-07
+
+### Fixed
+- bug where methods for the Cert resource were using the wrong url
+
+## [4.3.3] - 2022-02-17
+
+### Fixed
+- bug where type parameters on certain complex models are wrong due to being ordered incorrectly. Affects model `OrderWorksheet` and `OrderSplitResult`
+
 ## [4.3.2] - 2022-01-11
 
 ### Added
