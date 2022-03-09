@@ -12,5 +12,8 @@ export interface PriceSchedule<TPriceScheduleXp = any> {
     RestrictedQuantity?: boolean
     PriceBreaks?: PriceBreak[]
     Currency?: string
+    SaleStart?: string
+    SaleEnd?: string
+    readonly IsOnSale?: boolean
     xp?: TPriceScheduleXp
 }
