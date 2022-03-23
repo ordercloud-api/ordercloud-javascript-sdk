@@ -2,8 +2,10 @@ import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
-import { LineItem } from '../models/LineItem';
+import { ExtendedLineItem } from '../models/ExtendedLineItem';
 import { OrderDirection } from '../models/OrderDirection';
+import { SearchType } from '../models/SearchType';
+import { LineItem } from '../models/LineItem';
 import { Address } from '../models/Address';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -19,6 +21,7 @@ class LineItems {
     * not part of public api, don't include in generated docs
     */
     constructor() {
+        this.ListAcrossOrders = this.ListAcrossOrders.bind(this);
         this.List = this.List.bind(this);
         this.Create = this.Create.bind(this);
         this.Get = this.Get.bind(this);
@@ -27,6 +30,38 @@ class LineItems {
         this.Patch = this.Patch.bind(this);
         this.SetShippingAddress = this.SetShippingAddress.bind(this);
         this.PatchShippingAddress = this.PatchShippingAddress.bind(this);
+    }
+
+   /**
+    * Get a list of line item across orders. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/list-across-orders|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.supplierID ID of the supplier.
+    * @param listOptions.from Lower bound of date range that the order was created.
+    * @param listOptions.to Upper bound of date range that the order was created.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListAcrossOrders<TExtendedLineItem extends ExtendedLineItem>(direction: OrderDirection, listOptions: { buyerID?: string, supplierID?: string, from?: string, to?: string, search?: string, searchOn?: Searchable<'LineItems.ListAcrossOrders'>, searchType?: SearchType, sortBy?: Sortable<'LineItems.ListAcrossOrders'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TExtendedLineItem>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/lineitems/${direction}`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**
@@ -40,7 +75,7 @@ class LineItems {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

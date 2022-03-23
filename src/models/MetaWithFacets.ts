@@ -7,4 +7,5 @@ export interface MetaWithFacets<TFacetsXp = any> {
     TotalCount?: number
     TotalPages?: number
     ItemRange?: number[]
+    NextPageKey?: string
 }

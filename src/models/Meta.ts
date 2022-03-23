@@ -5,4 +5,5 @@ export interface Meta {
     TotalCount?: number
     TotalPages?: number
     ItemRange?: number[]
+    NextPageKey?: string
 }
