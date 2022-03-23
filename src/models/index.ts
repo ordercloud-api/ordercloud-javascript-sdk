@@ -22,6 +22,8 @@ export * from './CostCenter';
 export * from './CostCenterAssignment';
 export * from './CreditCard';
 export * from './CreditCardAssignment';
+export * from './ExtendedLineItem';
+export * from './ExtendedOrder';
 export * from './ImpersonateTokenRequest';
 export * from './ImpersonationConfig';
 export * from './Incrementor';

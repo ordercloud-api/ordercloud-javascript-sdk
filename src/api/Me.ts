@@ -149,7 +149,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -282,7 +282,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -333,7 +333,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -381,7 +381,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -407,7 +407,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -543,7 +543,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -592,7 +592,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -643,7 +643,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -694,7 +694,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -744,7 +744,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -792,7 +792,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -861,7 +861,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -888,7 +888,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -937,7 +937,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -963,7 +963,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -1010,7 +1010,7 @@ class Me {
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
-    * @param listOptions.filters Any additional key/value pairs passed in the query string are interpretted as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

@@ -18,6 +18,7 @@ interface SearchableMap {
 'ImpersonationConfigs.List': ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID')[]
 'Incrementors.List': ('ID' | 'Name')[]
 'IntegrationEvents.List': ('ID' | 'EventType' | 'Name')[]
+'LineItems.ListAcrossOrders': ('ID' | 'ProductID')[]
 'Locales.List': ('ID' | 'Currency')[]
 'Me.ListAddresses': ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[]
 'Me.ListCatalogs': ('ID' | 'Name' | 'Description')[]
@@ -87,6 +88,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'ImpersonationConfigs.List' | 
 'Incrementors.List' | 
 'IntegrationEvents.List' | 
+'LineItems.ListAcrossOrders' | 
 'Locales.List' | 
 'Me.ListAddresses' | 
 'Me.ListCatalogs' | 
