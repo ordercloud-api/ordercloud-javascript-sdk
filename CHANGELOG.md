@@ -5,6 +5,10 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.5.5] - 2022-04-07
+### Fixed
+- bug where filter with boolean false was being dropped ([#66](https://github.com/ordercloud-api/ordercloud-javascript-sdk/issues/66))
+
 ## [4.5.4] - 2022-03-23
 ### Added
 - SDK up to date with API v1.0.233
