@@ -10,13 +10,30 @@ beforeEach(() => {
   Tokens.RemoveImpersonationToken()
 })
 
-test('can filter call with boolean', async () => {
+test('can filter call with boolean (true)', async () => {
   Tokens.SetAccessToken(validToken)
-  await Me.ListProducts({ filters: { 'xp.Featued': true } })
+  await Me.ListProducts({ filters: { 'xp.Featured': true } })
   expect(mockAxios.get).toHaveBeenCalledTimes(1)
   expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/me/products`, {
     params: {
-      filters: { 'xp.Featued': true },
+      filters: { 'xp.Featured': true },
+    },
+    paramsSerializer: expect.any(Function),
+    timeout: 60000,
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${validToken}`,
+    },
+  })
+})
+
+test('can filter call with boolean (false)', async () => {
+  Tokens.SetAccessToken(validToken)
+  await Me.ListProducts({ filters: { IsSubmitted: false } })
+  expect(mockAxios.get).toHaveBeenCalledTimes(1)
+  expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/me/products`, {
+    params: {
+      filters: { IsSubmitted: false },
     },
     paramsSerializer: expect.any(Function),
     timeout: 60000,

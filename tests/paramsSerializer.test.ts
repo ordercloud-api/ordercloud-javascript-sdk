@@ -58,3 +58,23 @@ test('should ignore undefined values', () => {
   }
   expect(serialize(params)).toBe('FirstName=Bob&xp.FavoriteColor=red')
 })
+
+test('should allow false boolean', () => {
+  const params = {
+    filters: {
+      FirstName: 'Bob',
+      IsSubmitted: false,
+    },
+  }
+  expect(serialize(params)).toBe('FirstName=Bob&IsSubmitted=false')
+})
+
+test('should allow true boolean', () => {
+  const params = {
+    filters: {
+      FirstName: 'Bob',
+      IsSubmitted: true,
+    },
+  }
+  expect(serialize(params)).toBe('FirstName=Bob&IsSubmitted=true')
+})

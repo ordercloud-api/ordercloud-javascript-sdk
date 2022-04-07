@@ -17,7 +17,9 @@ export default function ParamSerializer(originalParams: {
         filterVal.forEach(val =>
           valuesArray.push(`${key}=${encodeURIComponent(val)}`)
         )
-      } else if (filterVal) {
+      }
+      // exclude null, undefined, or empty string but permit boolean false to be serialized
+      else if (typeof filterVal === 'boolean' || filterVal) {
         valuesArray.push(`${key}=${encodeURIComponent(filterVal)}`)
       }
     }
