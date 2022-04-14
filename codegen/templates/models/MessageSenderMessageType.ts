@@ -1,0 +1,11 @@
+export type MessageSenderMessageType =
+  | 'NewUserInvitation'
+  | 'ForgottenPassword'
+  | 'OrderSubmitted'
+  | 'OrderSubmittedForApproval'
+  | 'OrderApproved'
+  | 'OrderDeclined'
+  | 'OrderSubmittedForYourApproval'
+  | 'OrderSubmittedForYourApprovalHasBeenApproved'
+  | 'OrderSubmittedForYourApprovalHasBeenDeclined'
+  | 'ShipmentCreated'
