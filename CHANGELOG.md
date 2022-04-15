@@ -5,6 +5,12 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.6.5] - 2022-04-14
+### Added
+- new models for message sender payloads
+- new models for integration event payloads
+- new models for oidc payloads and response [#67](https://github.com/ordercloud-api/ordercloud-javascript-sdk/issues/67)
+
 ## [4.5.5] - 2022-04-07
 ### Fixed
 - bug where filter with boolean false was being dropped ([#66](https://github.com/ordercloud-api/ordercloud-javascript-sdk/issues/66))
