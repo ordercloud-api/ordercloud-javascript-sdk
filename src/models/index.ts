@@ -119,7 +119,6 @@ export * from './Filters';
 export * from './ListPage';
 export * from './ListPageWithFacets';
 export * from './MessageSenderForgottenPasswordPayload';
-export * from './MessageSenderMessageType';
 export * from './MessageSenderNewUserInvitationPayload';
 export * from './MessageSenderOrderApprovedPayload';
 export * from './MessageSenderOrderDeclinedPayload';

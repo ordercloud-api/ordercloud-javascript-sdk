@@ -37,7 +37,8 @@
   },
   "scripts": {
     "build": "run-s build:sdk build:docs test",
-    "prebuild:sdk": "npm run generate-sdk && npm run beautify",
+    "clean:dist": "rm -rf dist",
+    "prebuild:sdk": "npm run clean:dist && npm run generate-sdk && npm run beautify",
     "build:sdk": "rollup --config",
     "postbuild:sdk": "shx cp dist/index.d.ts dist/index.esm.d.ts",
     "build:docs": "typedoc src/",

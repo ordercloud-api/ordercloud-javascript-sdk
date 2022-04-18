@@ -1,5 +1,5 @@
-import { Environment } from '../../codegen/templates/models/Environment'
-import { MessageSenderMessageType } from './MessageSenderMessageType'
+import { Environment } from './Environment'
+import { MessageType } from './MessageType'
 import { User } from './User'
 
 export interface MessageSenderPayload<TConfigData = any, TEventBody = any> {
@@ -10,6 +10,6 @@ export interface MessageSenderPayload<TConfigData = any, TEventBody = any> {
   Recipient?: User
   CCList?: string
   EventBody?: TEventBody
-  MessageType?: MessageSenderMessageType
+  MessageType?: MessageType
   ConfigData?: TConfigData
 }

@@ -1,5 +1,5 @@
 import { MessageSenderForgottenPasswordPayload } from './MessageSenderForgottenPasswordPayload'
-import { MessageSenderMessageType } from './MessageSenderMessageType'
+import { MessageType } from './MessageType'
 import { MessageSenderNewUserInvitationPayload } from './MessageSenderNewUserInvitationPayload'
 import { MessageSenderOrderApprovedPayload } from './MessageSenderOrderApprovedPayload'
 import { MessageSenderOrderDeclinedPayload } from './MessageSenderOrderDeclinedPayload'
@@ -11,7 +11,7 @@ import { MessageSenderOrderSubmittedPayload } from './MessageSenderOrderSubmitte
 import { MessageSenderShipmentCreatedPayload } from './MessageSenderShipmentCreatedPayload'
 
 export type MessageSenderPayloads<
-  TMessageType extends MessageSenderMessageType
+  TMessageType extends MessageType
 > = PayloadMap[TMessageType]
 
 interface PayloadMap {
