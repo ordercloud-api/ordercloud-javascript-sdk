@@ -22,7 +22,7 @@ export interface DecodedToken {
    * has access to, read more about security profile roles
    * [here](https://developer.ordercloud.io/documentation/platform-guides/authentication/security-profiles)
    */
-  role: Array<SecurityProfile['Roles']>
+  role: Array<SecurityProfile['Roles']> | SecurityProfile['Roles']
 
   /**
    * the issuer of the token - should always be https://auth.ordercloud.io

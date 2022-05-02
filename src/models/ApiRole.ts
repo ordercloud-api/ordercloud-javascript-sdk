@@ -27,7 +27,6 @@ export type ApiRole = 'ApiClientAdmin' |
 'FullAccess' | 
 'IncrementorAdmin' | 
 'IncrementorReader' | 
-'InventoryAdmin' | 
 'LocaleReader' | 
 'LocaleAdmin' | 
 'MeAddressAdmin' | 

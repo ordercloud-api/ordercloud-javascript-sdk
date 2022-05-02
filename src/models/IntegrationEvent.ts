@@ -2,7 +2,7 @@ import { ApiRole } from './ApiRole';
 import { IntegrationEventType } from './IntegrationEventType';
 
 export interface IntegrationEvent {
-    ElevatedRoles: ApiRole[]
+    ElevatedRoles?: ApiRole[]
     ID?: string
     ConfigData?: any
     EventType?: IntegrationEventType
