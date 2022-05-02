@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.6.7] - 2022-04-27
 ### Fixed
-- bug where decoded token did not account for singular returned role
+- DecodedToken.role was not properly typed. It is now (ApiRole[] | ApiRole | undefined)
 ### Added
 - SDK up to date with API v1.0.235
 
