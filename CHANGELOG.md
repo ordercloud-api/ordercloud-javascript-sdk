@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [4.6.8] - 2022-05-02
 ### Fixed
 - Docs now up to date with API v1.0.235 and previous changes to DecodedToken.role
+### Removed
+- The ApiRole `InventoryAdmin` was removed from the OrderCloud API and is now considered a custom role.  This role was removed from the `ApiRole` type definition.  This could be a breaking change if your application uses the role `InventoryAdmin`.  In this case, we recommend making this role a custom role.
 ## [4.6.7] - 2022-04-27
 ### Fixed
 - DecodedToken.role was not properly typed. It is now (ApiRole[] | ApiRole | undefined)
