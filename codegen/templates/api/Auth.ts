@@ -32,6 +32,7 @@ class Auth {
    * @param password of the user logging in
    * @param client_id of the application the user is logging into
    * @param scope roles being requested - space delimited string or array
+   * @param customRoles optional custom roles being requested - string array
    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
@@ -40,6 +41,7 @@ class Auth {
     password: string,
     clientID: string,
     scope: ApiRole[],
+    customRoles?: string[],
     requestOptions: {
       cancelToken?: CancelToken
       requestType?: string
@@ -48,12 +50,18 @@ class Auth {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
+    if (customRoles != null && !Array.isArray(customRoles)) {
+      throw new Error('custom roles must be defined as a string array')
+    }
+    var _scope = customRoles?.length
+      ? `${scope.join(' ')} ${customRoles.join(' ')}`
+      : scope.join(' ')
     const body = {
       grant_type: 'password',
       username,
       password,
       client_id: clientID,
-      scope: scope.join(' '),
+      scope: _scope,
     }
     const configuration = Configuration.Get()
     const response = await axios
@@ -81,6 +89,7 @@ class Auth {
    * @param password of the user logging in
    * @param clientID of the application the user is logging into
    * @param scope roles being requested - space delimited string or array
+   * @param customRoles optional custom roles being requested - string array
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -92,6 +101,7 @@ class Auth {
     password: string,
     clientID: string,
     scope: ApiRole[],
+    customRoles?: string[],
     requestOptions: {
       cancelToken?: CancelToken
       requestType?: string
@@ -100,9 +110,15 @@ class Auth {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
+    if (customRoles != null && !Array.isArray(customRoles)) {
+      throw new Error('custom roles must be defined as a string array')
+    }
+    var _scope = customRoles?.length
+      ? `${scope.join(' ')} ${customRoles.join(' ')}`
+      : scope.join(' ')
     const body = {
       grant_type: 'password',
-      scope: scope.join(' '),
+      scope: _scope,
       client_id: clientID,
       username,
       password,
@@ -132,6 +148,7 @@ class Auth {
    * @param clientSecret of the application
    * @param clientID of the application the user is logging into
    * @param scope roles being requested - space delimited string or array
+   * @param customRoles optional custom roles being requested - string array
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -141,6 +158,7 @@ class Auth {
     clientSecret: string,
     clientID: string,
     scope: ApiRole[],
+    customRoles?: string[],
     requestOptions: {
       cancelToken?: CancelToken
       requestType?: string
@@ -149,9 +167,15 @@ class Auth {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
+    if (customRoles != null && !Array.isArray(customRoles)) {
+      throw new Error('custom roles must be defined as a string array')
+    }
+    var _scope = customRoles?.length
+      ? `${scope.join(' ')} ${customRoles.join(' ')}`
+      : scope.join(' ')
     const body = {
       grant_type: 'client_credentials',
-      scope: scope.join(' '),
+      scope: _scope,
       client_id: clientID,
       client_secret: clientSecret,
     }
@@ -217,12 +241,14 @@ class Auth {
    *
    * @param clientID of the application the user is logging into
    * @param scope roles being requested - space delimited string or array
+   * @param customRoles optional custom roles being requested - string array
    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async Anonymous(
     clientID: string,
     scope: ApiRole[],
+    customRoles?: string[],
     requestOptions: {
       cancelToken?: CancelToken
       requestType?: string
@@ -231,10 +257,16 @@ class Auth {
     if (!Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
+    if (customRoles != null && !Array.isArray(customRoles)) {
+      throw new Error('custom roles must be defined as a string array')
+    }
+    var _scope = customRoles?.length
+      ? `${scope.join(' ')} ${customRoles.join(' ')}`
+      : scope.join(' ')
     const body = {
       grant_type: 'client_credentials',
       client_id: clientID,
-      scope: scope.join(' '),
+      scope: _scope,
     }
     const configuration = Configuration.Get()
     const response = await axios
