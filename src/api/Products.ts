@@ -355,7 +355,7 @@ class Products {
     }
 
    /**
-    * Create or update a product variant. Update a product variant.
+    * Update a product variant. Update a product variant.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-variant|api docs} for more info 
     * 
     * @param productID ID of the product.

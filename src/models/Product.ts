@@ -19,5 +19,6 @@ export interface Product<TProductXp = any> {
     Inventory?: Inventory
     DefaultSupplierID?: string
     AllSuppliersCanSell?: boolean
+    Returnable?: boolean
     xp?: TProductXp
 }

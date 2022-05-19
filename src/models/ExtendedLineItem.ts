@@ -27,6 +27,8 @@ export interface ExtendedLineItem<TExtendedLineItemXp = any, TFromUserXp = any, 
     readonly ShipFromAddress?: Address<TShipFromAddressXp>
     readonly SupplierID?: string
     InventoryRecordID?: string
+    readonly PriceScheduleID?: string
+    readonly PriceOverridden?: boolean
     Specs?: LineItemSpec[]
     xp?: TExtendedLineItemXp
 }

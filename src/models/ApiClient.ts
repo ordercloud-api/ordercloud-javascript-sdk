@@ -17,6 +17,8 @@ export interface ApiClient<TApiClientXp = any> {
     readonly AssignedSupplierCount?: number
     OrderCheckoutIntegrationEventID?: string
     readonly OrderCheckoutIntegrationEventName?: string
+    OrderReturnIntegrationEventID?: string
+    readonly OrderReturnIntegrationEventName?: string
     MinimumRequiredRoles?: ApiRole[]
     MinimumRequiredCustomRoles?: string[]
     MaximumGrantedRoles?: ApiRole[]

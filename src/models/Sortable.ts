@@ -4,6 +4,7 @@ interface SortableMap {
 'AdminAddresses.List': ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[]
 'AdminUsers.List': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
 'ApiClients.List': ('ID' | 'AppName' | 'DefaultContextUserName' | '!ID' | '!AppName' | '!DefaultContextUserName')[]
+'SellerApprovalRules.List': ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[]
 'Buyers.List': ('ID' | 'Name' | 'DateCreated' | '!ID' | '!Name' | '!DateCreated')[]
 'Addresses.List': ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[]
 'ApprovalRules.List': ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[]
@@ -39,8 +40,11 @@ interface SortableMap {
 'MessageSenders.List': ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[]
 'MessageSenders.ListCCListenerAssignments': ('BuyerID' | 'UserGroupID' | 'UserID' | 'MessageConfigName' | 'SupplierID' | '!BuyerID' | '!UserGroupID' | '!UserID' | '!MessageConfigName' | '!SupplierID')[]
 'OpenIdConnects.List': ('ID' | '!ID')[]
+'OrderReturns.List': ('DateSubmitted' | 'DateCreated' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | '!DateSubmitted' | '!DateCreated' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated')[]
+'OrderReturns.ListApprovals': ('DateCreated' | 'ApprovalRuleID' | 'ApprovingGroupID' | 'Status' | 'DateCompleted' | 'Approver' | '!DateCreated' | '!ApprovalRuleID' | '!ApprovingGroupID' | '!Status' | '!DateCompleted' | '!Approver')[]
+'OrderReturns.ListEligibleApprovers': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
 'Orders.List': ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[]
-'Orders.ListApprovals': ('DateCreated' | 'ApprovalRuleID' | 'ApprovingGroupID' | 'Status' | 'AllowResubmit' | 'DateCompleted' | 'Approver' | '!DateCreated' | '!ApprovalRuleID' | '!ApprovingGroupID' | '!Status' | '!AllowResubmit' | '!DateCompleted' | '!Approver')[]
+'Orders.ListApprovals': ('DateCreated' | 'AllowResubmit' | 'ApprovalRuleID' | 'ApprovingGroupID' | 'Status' | 'DateCompleted' | 'Approver' | '!DateCreated' | '!AllowResubmit' | '!ApprovalRuleID' | '!ApprovingGroupID' | '!Status' | '!DateCompleted' | '!Approver')[]
 'Orders.ListEligibleApprovers': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
 'LineItems.List': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Payments.List': ('DateCreated' | 'ID' | 'Type' | 'CreditCardID' | 'SpendingAccountID' | '!DateCreated' | '!ID' | '!Type' | '!CreditCardID' | '!SpendingAccountID')[]
@@ -74,6 +78,7 @@ interface SortableMap {
 type SortableEndpoint = 'AdminAddresses.List' | 
 'AdminUsers.List' | 
 'ApiClients.List' | 
+'SellerApprovalRules.List' | 
 'Buyers.List' | 
 'Addresses.List' | 
 'ApprovalRules.List' | 
@@ -109,6 +114,9 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'MessageSenders.List' | 
 'MessageSenders.ListCCListenerAssignments' | 
 'OpenIdConnects.List' | 
+'OrderReturns.List' | 
+'OrderReturns.ListApprovals' | 
+'OrderReturns.ListEligibleApprovers' | 
 'Orders.List' | 
 'Orders.ListApprovals' | 
 'Orders.ListEligibleApprovers' | 

@@ -9,6 +9,14 @@ import { MessageSenderOrderSubmittedForYourApprovalHasBeenDeclinedPayload } from
 import { MessageSenderOrderSubmittedForYourApprovalPayload } from './MessageSenderOrderSubmittedForYourApprovalPayload'
 import { MessageSenderOrderSubmittedPayload } from './MessageSenderOrderSubmittedPayload'
 import { MessageSenderShipmentCreatedPayload } from './MessageSenderShipmentCreatedPayload'
+import { MessageSenderOrderReturnDeclinedPayload } from './MessageSenderOrderReturnDeclinedPayload'
+import { MessageSenderOrderReturnSubmittedPayload } from './MessageSenderOrderReturnSubmittedPayload'
+import { MessageSenderOrderReturnSubmittedForYourApprovalPayload } from './MessageSenderOrderReturnSubmittedForYourApprovalPayload'
+import { MessageSenderOrderReturnApprovedPayload } from './MessageSenderOrderReturnApprovedPayload'
+import { MessageSenderOrderReturnSubmittedForYourApprovalHasBeenApprovedPayload } from './MessageSenderOrderReturnSubmittedForYourApprovalHasBeenApprovedPayload'
+import { MessageSenderOrderReturnSubmittedForYourApprovalHasBeenDeclinedPayload } from './MessageSenderOrderReturnSubmittedForYourApprovalHasBeenDeclinedPayload'
+import { MessageSenderOrderReturnCompletedPayload } from './MessageSenderOrderReturnCompletedPayload'
+import { MessageSenderOrderReturnSubmittedForApprovalPayload } from './MessageSenderOrderReturnSubmittedForApprovalPayload'
 
 export type MessageSenderPayloads<
   TMessageType extends MessageType
@@ -25,4 +33,12 @@ interface PayloadMap {
   'OrderSubmittedForYourApprovalHasBeenApproved': MessageSenderOrderSubmittedForYourApprovalHasBeenApprovedPayload
   'OrderSubmittedForYourApprovalHasBeenDeclined': MessageSenderOrderSubmittedForYourApprovalHasBeenDeclinedPayload
   'ShipmentCreated': MessageSenderShipmentCreatedPayload
+  'OrderReturnDeclined': MessageSenderOrderReturnDeclinedPayload
+  'OrderReturnSubmitted': MessageSenderOrderReturnSubmittedPayload
+  'OrderReturnSubmittedForYourApproval': MessageSenderOrderReturnSubmittedForYourApprovalPayload
+  'OrderReturnSubmittedForApproval': MessageSenderOrderReturnSubmittedForApprovalPayload
+  'OrderReturnApproved': MessageSenderOrderReturnApprovedPayload
+  'OrderReturnSubmittedForYourApprovalHasBeenApproved': MessageSenderOrderReturnSubmittedForYourApprovalHasBeenApprovedPayload
+  'OrderReturnSubmittedForYourApprovalHasBeenDeclined': MessageSenderOrderReturnSubmittedForYourApprovalHasBeenDeclinedPayload
+  'OrderReturnCompleted': MessageSenderOrderReturnCompletedPayload
 }

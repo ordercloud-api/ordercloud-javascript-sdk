@@ -11,6 +11,7 @@ export interface Payment<TPaymentXp = any, TTransactionsXp = any> {
     readonly Currency?: string
     Amount?: number
     Accepted?: boolean
+    OrderReturnID?: string
     xp?: TPaymentXp
     readonly Transactions?: PaymentTransaction<TTransactionsXp>[]
 }

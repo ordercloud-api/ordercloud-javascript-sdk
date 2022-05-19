@@ -37,6 +37,8 @@ import LineItems from './LineItems';
 import Promotions from './Promotions';
 import Payments from './Payments';
 import Shipments from './Shipments';
+import OrderReturns from './OrderReturns';
+import SellerApprovalRules from './SellerApprovalRules';
 import Me from './Me';
 import Auth from './Auth';
 import Tokens from './Tokens';
@@ -81,6 +83,8 @@ export {
     Promotions,
     Payments,
     Shipments,
+    OrderReturns,
+    SellerApprovalRules,
     Me,
     Auth,
     Tokens
