@@ -8,4 +8,12 @@ export type MessageType = 'OrderDeclined' |
 'OrderApproved' | 
 'OrderSubmittedForYourApprovalHasBeenApproved' | 
 'OrderSubmittedForYourApprovalHasBeenDeclined' | 
-'NewUserInvitation'
+'NewUserInvitation' | 
+'OrderReturnDeclined' | 
+'OrderReturnSubmitted' | 
+'OrderReturnSubmittedForYourApproval' | 
+'OrderReturnSubmittedForApproval' | 
+'OrderReturnApproved' | 
+'OrderReturnSubmittedForYourApprovalHasBeenApproved' | 
+'OrderReturnSubmittedForYourApprovalHasBeenDeclined' | 
+'OrderReturnCompleted'

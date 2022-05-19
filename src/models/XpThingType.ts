@@ -2,6 +2,7 @@
 export type XpThingType = 'Address' | 
 'Variant' | 
 'Order' | 
+'OrderReturn' | 
 'LineItem' | 
 'CostCenter' | 
 'CreditCard' | 
@@ -17,6 +18,7 @@ export type XpThingType = 'Address' |
 'User' | 
 'Promotion' | 
 'ApprovalRule' | 
+'SellerApprovalRule' | 
 'Catalog' | 
 'ProductFacet' | 
 'MessageSender' | 

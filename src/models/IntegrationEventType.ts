@@ -1,3 +1,4 @@
 
 export type IntegrationEventType = 'OrderCheckout' | 
-'OpenIDConnect'
+'OpenIDConnect' | 
+'OrderReturn'

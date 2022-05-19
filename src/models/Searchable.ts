@@ -4,6 +4,7 @@ interface SearchableMap {
 'AdminAddresses.List': ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[]
 'AdminUsers.List': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
 'ApiClients.List': ('ID' | 'AppName' | 'DefaultContextUserName')[]
+'SellerApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
 'Buyers.List': ('Name' | 'ID')[]
 'Addresses.List': ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[]
 'ApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
@@ -39,6 +40,9 @@ interface SearchableMap {
 'MessageSenders.List': ('ID' | 'Name' | 'URL')[]
 'MessageSenders.ListCCListenerAssignments': ('BuyerID' | 'UserGroupID' | 'UserID' | 'MessageConfigName' | 'SupplierID')[]
 'OpenIdConnects.List': ('ID')[]
+'OrderReturns.List': []
+'OrderReturns.ListApprovals': ('ApprovalRuleID' | 'ApprovingGroupID' | 'Approver' | 'Comments')[]
+'OrderReturns.ListEligibleApprovers': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
 'Orders.List': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Orders.ListApprovals': ('ApprovalRuleID' | 'ApprovingGroupID' | 'Approver' | 'Comments')[]
 'Orders.ListEligibleApprovers': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
@@ -74,6 +78,7 @@ interface SearchableMap {
 type SearchableEndpoint = 'AdminAddresses.List' | 
 'AdminUsers.List' | 
 'ApiClients.List' | 
+'SellerApprovalRules.List' | 
 'Buyers.List' | 
 'Addresses.List' | 
 'ApprovalRules.List' | 
@@ -109,6 +114,9 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'MessageSenders.List' | 
 'MessageSenders.ListCCListenerAssignments' | 
 'OpenIdConnects.List' | 
+'OrderReturns.List' | 
+'OrderReturns.ListApprovals' | 
+'OrderReturns.ListEligibleApprovers' | 
 'Orders.List' | 
 'Orders.ListApprovals' | 
 'Orders.ListEligibleApprovers' | 
