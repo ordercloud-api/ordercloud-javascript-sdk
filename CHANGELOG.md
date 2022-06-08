@@ -5,6 +5,10 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.9.8] - 2022-06-08
+### Added
+- SDK up to date with [API v1.0.241](https://ordercloud.io/release-notes/v1.0.241)
+- Introduces [Product Collections](https://ordercloud.io/knowledge-base/product-collections)
 ## [4.8.8] - 2022-05-19
 ### Added
 - SDK up to date with [API v1.0.238](https://ordercloud.io/release-notes/v1.0.238)
