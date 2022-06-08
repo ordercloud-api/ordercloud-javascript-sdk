@@ -28,6 +28,8 @@ interface SearchableMap {
 'Me.ListCreditCards': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate')[]
 'Me.ListOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Me.ListApprovableOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
+'Me.ListProductCollections': ('ID' | 'Name')[]
+'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
 'Me.ListSpecs': ('ID' | 'Name' | 'Description')[]
 'Me.ListVariants': ('ID' | 'Name' | 'Description')[]
@@ -102,6 +104,8 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListCreditCards' | 
 'Me.ListOrders' | 
 'Me.ListApprovableOrders' | 
+'Me.ListProductCollections' | 
+'Me.ListProductCollectionEntries' | 
 'Me.ListProducts' | 
 'Me.ListSpecs' | 
 'Me.ListVariants' | 

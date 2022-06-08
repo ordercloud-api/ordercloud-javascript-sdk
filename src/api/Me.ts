@@ -11,6 +11,7 @@ import { BuyerCreditCard } from '../models/BuyerCreditCard';
 import { Order } from '../models/Order';
 import { SearchType } from '../models/SearchType';
 import { TokenPasswordReset } from '../models/TokenPasswordReset';
+import { ProductCollection } from '../models/ProductCollection';
 import { ListPageWithFacets } from '../models/ListPageWithFacets';
 import { BuyerProduct } from '../models/BuyerProduct';
 import { Spec } from '../models/Spec';
@@ -60,6 +61,15 @@ class Me {
         this.TransferAnonUserOrder = this.TransferAnonUserOrder.bind(this);
         this.ListApprovableOrders = this.ListApprovableOrders.bind(this);
         this.ResetPasswordByToken = this.ResetPasswordByToken.bind(this);
+        this.ListProductCollections = this.ListProductCollections.bind(this);
+        this.CreateProductCollection = this.CreateProductCollection.bind(this);
+        this.GetProductCollection = this.GetProductCollection.bind(this);
+        this.SaveProductCollection = this.SaveProductCollection.bind(this);
+        this.DeleteProductCollection = this.DeleteProductCollection.bind(this);
+        this.PatchProductCollection = this.PatchProductCollection.bind(this);
+        this.CreateProductCollectionEntry = this.CreateProductCollectionEntry.bind(this);
+        this.DeleteProductCollectionEntry = this.DeleteProductCollectionEntry.bind(this);
+        this.ListProductCollectionEntries = this.ListProductCollectionEntries.bind(this);
         this.ListProducts = this.ListProducts.bind(this);
         this.GetProduct = this.GetProduct.bind(this);
         this.ListSpecs = this.ListSpecs.bind(this);
@@ -622,6 +632,211 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/me/password`, { ...requestOptions, data: tokenPasswordReset, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of product collections visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-collections|api docs} for more info 
+    * 
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListProductCollections<TProductCollection extends ProductCollection>(listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductCollections'>, sortBy?: Sortable<'Me.ListProductCollections'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductCollection>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/productcollections`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new product collection. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-product-collection|api docs} for more info 
+    * 
+    * @param productCollection Required fields: Name
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateProductCollection<TProductCollection extends ProductCollection>(productCollection: ProductCollection,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollection>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/productcollections`, { ...requestOptions, data: productCollection, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single product collection. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-product-collection|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetProductCollection<TProductCollection extends ProductCollection>(productCollectionID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollection>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/productcollections/${productCollectionID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update a product collection. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-product-collection|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param productCollection Required fields: Name
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveProductCollection<TProductCollection extends ProductCollection>(productCollectionID: string, productCollection: ProductCollection,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollection>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/me/productcollections/${productCollectionID}`, { ...requestOptions, data: productCollection, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a product collection. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-product-collection|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteProductCollection(productCollectionID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/productcollections/${productCollectionID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a product collection. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-product-collection|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param productCollection 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchProductCollection<TProductCollection extends ProductCollection>(productCollectionID: string, productCollection: ProductCollection,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollection>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/me/productcollections/${productCollectionID}`, { ...requestOptions, data: productCollection, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new product collection entry. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-product-collection-entry|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param productID ID of the product.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateProductCollectionEntry(productCollectionID: string, productID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/me/productcollections/${productCollectionID}/${productID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a product collection entry. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-product-collection-entry|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param productID ID of the product.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteProductCollectionEntry(productCollectionID: string, productID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/productcollections/${productCollectionID}/${productID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of product collection entries visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-collection-entries|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListProductCollectionEntries<TBuyerProduct extends BuyerProduct>(productCollectionID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductCollectionEntries'>, searchType?: SearchType, sortBy?: Sortable<'Me.ListProductCollectionEntries'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TBuyerProduct>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/productcollections/${productCollectionID}/products`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

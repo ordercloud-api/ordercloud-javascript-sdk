@@ -82,6 +82,7 @@ export * from './PriceSchedule';
 export * from './Product';
 export * from './ProductAssignment';
 export * from './ProductCatalogAssignment';
+export * from './ProductCollection';
 export * from './ProductFacet';
 export * from './ProductSupplier';
 export * from './Promotion';
