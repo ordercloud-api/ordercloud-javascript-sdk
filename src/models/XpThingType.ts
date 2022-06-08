@@ -22,4 +22,5 @@ export type XpThingType = 'Address' |
 'Catalog' | 
 'ProductFacet' | 
 'MessageSender' | 
-'InventoryRecord'
+'InventoryRecord' | 
+'ProductCollection'
