@@ -18,8 +18,8 @@ export default function ParamSerializer(originalParams: {
           valuesArray.push(`${key}=${encodeURIComponent(val)}`)
         )
       }
-      // exclude null, undefined, or empty string but permit boolean false to be serialized
-      else if (typeof filterVal === 'boolean' || filterVal) {
+      // exclude null, undefined, or empty string but permit boolean false, and 0 to be serialized
+      else if (typeof filterVal === 'boolean' || filterVal === 0 || filterVal) {
         valuesArray.push(`${key}=${encodeURIComponent(filterVal)}`)
       }
     }

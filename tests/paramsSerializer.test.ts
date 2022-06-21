@@ -78,3 +78,21 @@ test('should allow true boolean', () => {
   }
   expect(serialize(params)).toBe('FirstName=Bob&IsSubmitted=true')
 })
+
+test('should allow number filters', () => {
+  const params = {
+    filters: {
+      SpecCount: 3,
+    },
+  }
+  expect(serialize(params)).toBe('SpecCount=3')
+})
+
+test('should not drop 0 filters', () => {
+  const params = {
+    filters: {
+      SpecCount: 0,
+    },
+  }
+  expect(serialize(params)).toBe('SpecCount=0')
+})
