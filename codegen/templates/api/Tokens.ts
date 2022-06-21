@@ -153,7 +153,9 @@ class Tokens {
     if (clientID) {
       try {
         const refreshRequest = await Auth.RefreshToken(refreshToken, clientID)
-        return refreshRequest.access_token
+        const accessToken = refreshRequest.access_token
+        this.SetAccessToken(accessToken)
+        return accessToken
       } catch (e) {
         return ''
       }

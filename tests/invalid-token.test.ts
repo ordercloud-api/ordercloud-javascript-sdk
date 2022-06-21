@@ -31,7 +31,7 @@ beforeEach(() => {
     baseApiUrl: 'https://api.ordercloud.io',
     apiVersion: 'v1',
     timeoutInMilliseconds: 10 * 1000,
-    clientID: null,
+    clientID: undefined,
   })
 })
 
@@ -72,7 +72,7 @@ describe('has expired access token', () => {
               access_token: testdata.accessTokenFromRefresh,
               expires_in: 32000000000,
               token_type: 'bearer',
-              refresh_token: undefined,
+              refresh_token: 'mockAccessToken',
             }
             return Promise.resolve(response)
           })
@@ -110,7 +110,7 @@ describe('has expired access token', () => {
               access_token: testdata.accessTokenFromRefresh,
               expires_in: 32000000000,
               token_type: 'bearer',
-              refresh_token: undefined,
+              refresh_token: 'mockAccessToken',
             }
             return Promise.resolve(response)
           })
@@ -165,6 +165,7 @@ describe('has no access token', () => {
         Configuration.Set({ clientID: testdata.clientID })
 
         const GetRefreshTokenSpy = jest.spyOn(Tokens, 'GetRefreshToken')
+        const SetAccessTokenSpy = jest.spyOn(Tokens, 'SetAccessToken')
         const RefreshTokenSpy = jest
           .spyOn(Auth, 'RefreshToken')
           .mockImplementationOnce(() => {
@@ -172,7 +173,7 @@ describe('has no access token', () => {
               access_token: testdata.accessTokenFromRefresh,
               expires_in: 32000000000,
               token_type: 'bearer',
-              refresh_token: undefined,
+              refresh_token: 'mockAccessToken',
             }
             return Promise.resolve(response)
           })
@@ -185,6 +186,10 @@ describe('has no access token', () => {
         expect(RefreshTokenSpy).toHaveBeenCalledWith(
           testdata.refreshToken,
           testdata.clientID
+        )
+        expect(SetAccessTokenSpy).toHaveBeenCalledTimes(1)
+        expect(SetAccessTokenSpy).toHaveBeenCalledWith(
+          testdata.accessTokenFromRefresh
         )
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
