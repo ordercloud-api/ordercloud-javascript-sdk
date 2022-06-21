@@ -4,24 +4,32 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [4.9.9] - 2022-06-21
+### Fixed
+- Filters set with 0 are dropped [#73](https://github.com/ordercloud-api/ordercloud-javascript-sdk/issues/73)
+- Access token not saved after refresh [#74](https://github.com/ordercloud-api/ordercloud-javascript-sdk/issues/74)
 
 ## [4.9.8] - 2022-06-08
 ### Added
 - SDK up to date with [API v1.0.241](https://ordercloud.io/release-notes/v1.0.241)
 - Introduces [Product Collections](https://ordercloud.io/knowledge-base/product-collections)
+
 ## [4.8.8] - 2022-05-19
 ### Added
 - SDK up to date with [API v1.0.238](https://ordercloud.io/release-notes/v1.0.238)
 - Introduces Order Returns and adds Message Sender templates
 - PriceScheduleID added to LineItems
+
 ## [4.7.8] - 2022-05-04
 ### Added
 - Added an optional `customRoles` array to the authentication methods to support authenticating with custom roles, in addition to standard ApiRoles.
+
 ## [4.6.8] - 2022-05-02
 ### Fixed
 - Docs now up to date with API v1.0.235 and previous changes to DecodedToken.role
 ### Removed
 - The ApiRole `InventoryAdmin` was removed from the OrderCloud API and is now considered a custom role.  This role was removed from the `ApiRole` type definition.  This could be a breaking change if your application uses the role `InventoryAdmin`.  In this case, we recommend making this role a custom role.
+
 ## [4.6.7] - 2022-04-27
 ### Fixed
 - DecodedToken.role was not properly typed. It is now (ApiRole[] | ApiRole | undefined)
