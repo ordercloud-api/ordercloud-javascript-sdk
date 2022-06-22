@@ -19,6 +19,8 @@ export interface ApiClient<TApiClientXp = any> {
     readonly OrderCheckoutIntegrationEventName?: string
     OrderReturnIntegrationEventID?: string
     readonly OrderReturnIntegrationEventName?: string
+    AddToCartIntegrationEventID?: string
+    readonly AddToCartIntegrationEventName?: string
     MinimumRequiredRoles?: ApiRole[]
     MinimumRequiredCustomRoles?: string[]
     MaximumGrantedRoles?: ApiRole[]

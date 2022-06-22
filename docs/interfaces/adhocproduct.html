@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>OrderApprovedResponse | ordercloud-javascript-sdk</title>
+	<title>AdHocProduct | ordercloud-javascript-sdk</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -34,7 +34,7 @@
 					<a href="../index.html">OrderCloudSDK</a>
 				</li>
 				<li>
-					<a href="orderapprovedresponse.html">OrderApprovedResponse</a>
+					<a href="adhocproduct.html">AdHocProduct</a>
 				</li>
 			</ul>
 		</div>
@@ -47,7 +47,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>TOrderApprovedResponseXp</h4>
+						<h4>TAdHocProductXp</h4>
 					</li>
 				</ul>
 			</section>
@@ -58,10 +58,17 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderapprovedresponse.html#httpstatuscode" class="tsd-kind-icon">Http<wbr>Status<wbr>Code</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderapprovedresponse.html#succeeded" class="tsd-kind-icon">Succeeded</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderapprovedresponse.html#unhandlederrorbody" class="tsd-kind-icon">Unhandled<wbr>Error<wbr>Body</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="orderapprovedresponse.html#xp" class="tsd-kind-icon">xp</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#defaultsupplierid" class="tsd-kind-icon">Default<wbr>SupplierID</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#description" class="tsd-kind-icon">Description</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#id" class="tsd-kind-icon">ID</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#name" class="tsd-kind-icon">Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#quantitymultiplier" class="tsd-kind-icon">Quantity<wbr>Multiplier</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#returnable" class="tsd-kind-icon">Returnable</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#shipheight" class="tsd-kind-icon">Ship<wbr>Height</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#shiplength" class="tsd-kind-icon">Ship<wbr>Length</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#shipweight" class="tsd-kind-icon">Ship<wbr>Weight</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#shipwidth" class="tsd-kind-icon">Ship<wbr>Width</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="adhocproduct.html#xp" class="tsd-kind-icon">xp</a></li>
 							</ul>
 						</section>
 					</div>
@@ -70,30 +77,79 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="httpstatuscode" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Http<wbr>Status<wbr>Code</h3>
-					<div class="tsd-signature tsd-kind-icon">Http<wbr>Status<wbr>Code<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<a name="defaultsupplierid" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Default<wbr>SupplierID</h3>
+					<div class="tsd-signature tsd-kind-icon">Default<wbr>SupplierID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="succeeded" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Succeeded</h3>
-					<div class="tsd-signature tsd-kind-icon">Succeeded<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<a name="description" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Description</h3>
+					<div class="tsd-signature tsd-kind-icon">Description<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
-					<a name="unhandlederrorbody" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Unhandled<wbr>Error<wbr>Body</h3>
-					<div class="tsd-signature tsd-kind-icon">Unhandled<wbr>Error<wbr>Body<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<a name="id" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> ID</h3>
+					<div class="tsd-signature tsd-kind-icon">ID<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Name</h3>
+					<div class="tsd-signature tsd-kind-icon">Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="quantitymultiplier" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Quantity<wbr>Multiplier</h3>
+					<div class="tsd-signature tsd-kind-icon">Quantity<wbr>Multiplier<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="returnable" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Returnable</h3>
+					<div class="tsd-signature tsd-kind-icon">Returnable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="shipheight" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Ship<wbr>Height</h3>
+					<div class="tsd-signature tsd-kind-icon">Ship<wbr>Height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="shiplength" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Ship<wbr>Length</h3>
+					<div class="tsd-signature tsd-kind-icon">Ship<wbr>Length<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="shipweight" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Ship<wbr>Weight</h3>
+					<div class="tsd-signature tsd-kind-icon">Ship<wbr>Weight<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+					</aside>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="shipwidth" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> Ship<wbr>Width</h3>
+					<div class="tsd-signature tsd-kind-icon">Ship<wbr>Width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="xp" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagOptional">Optional</span> xp</h3>
-					<div class="tsd-signature tsd-kind-icon">xp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TOrderApprovedResponseXp</span></div>
+					<div class="tsd-signature tsd-kind-icon">xp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">TAdHocProductXp</span></div>
 					<aside class="tsd-sources">
 					</aside>
 				</section>
@@ -109,19 +165,40 @@
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-interface tsd-has-type-parameter">
-						<a href="orderapprovedresponse.html" class="tsd-kind-icon">Order<wbr>Approved<wbr>Response</a>
+						<a href="adhocproduct.html" class="tsd-kind-icon">Ad<wbr>Hoc<wbr>Product</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="orderapprovedresponse.html#httpstatuscode" class="tsd-kind-icon">Http<wbr>Status<wbr>Code</a>
+								<a href="adhocproduct.html#defaultsupplierid" class="tsd-kind-icon">Default<wbr>SupplierID</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="orderapprovedresponse.html#succeeded" class="tsd-kind-icon">Succeeded</a>
+								<a href="adhocproduct.html#description" class="tsd-kind-icon">Description</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="orderapprovedresponse.html#unhandlederrorbody" class="tsd-kind-icon">Unhandled<wbr>Error<wbr>Body</a>
+								<a href="adhocproduct.html#id" class="tsd-kind-icon">ID</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
-								<a href="orderapprovedresponse.html#xp" class="tsd-kind-icon">xp</a>
+								<a href="adhocproduct.html#name" class="tsd-kind-icon">Name</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="adhocproduct.html#quantitymultiplier" class="tsd-kind-icon">Quantity<wbr>Multiplier</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="adhocproduct.html#returnable" class="tsd-kind-icon">Returnable</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="adhocproduct.html#shipheight" class="tsd-kind-icon">Ship<wbr>Height</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="adhocproduct.html#shiplength" class="tsd-kind-icon">Ship<wbr>Length</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="adhocproduct.html#shipweight" class="tsd-kind-icon">Ship<wbr>Weight</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="adhocproduct.html#shipwidth" class="tsd-kind-icon">Ship<wbr>Width</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="adhocproduct.html#xp" class="tsd-kind-icon">xp</a>
 							</li>
 						</ul>
 					</li>
