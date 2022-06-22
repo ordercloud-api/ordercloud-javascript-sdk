@@ -5,4 +5,5 @@ export interface ShipEstimateResponse<TShipEstimateResponseXp = any, TShipEstima
     HttpStatusCode?: number
     UnhandledErrorBody?: string
     xp?: TShipEstimateResponseXp
+    Succeeded?: boolean
 }

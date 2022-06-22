@@ -3,4 +3,5 @@ export interface OrderSubmitForApprovalResponse<TOrderSubmitForApprovalResponseX
     HttpStatusCode?: number
     UnhandledErrorBody?: string
     xp?: TOrderSubmitForApprovalResponseXp
+    Succeeded?: boolean
 }

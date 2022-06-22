@@ -2,6 +2,7 @@ export * from './AccessToken';
 export * from './AccessTokenBasic';
 export * from './Address';
 export * from './AddressAssignment';
+export * from './AdHocProduct';
 export * from './ApiClient';
 export * from './ApiClientAssignment';
 export * from './ApiRole';
