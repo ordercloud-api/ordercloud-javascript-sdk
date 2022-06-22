@@ -4,6 +4,12 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [4.10.0] - 2022-06-22
+### Added
+- New Feature: [Ad-Hoc Products](https://ordercloud.io/knowledge-base/ad-hoc-products)
+- Ad-Hoc Products enables adding products from an external system directly to an OrderCloud order
+
 ## [4.9.9] - 2022-06-21
 ### Fixed
 - Filters set with 0 are dropped [#73](https://github.com/ordercloud-api/ordercloud-javascript-sdk/issues/73)
