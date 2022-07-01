@@ -1,5 +1,3 @@
-import { SecurityProfile } from './SecurityProfile'
-
 export interface DecodedToken {
   /**
    * the ordercloud username
@@ -19,10 +17,10 @@ export interface DecodedToken {
 
   /**
    * list of security profile roles that this user
-   * has access to, read more about security profile roles
-   * [here](https://developer.ordercloud.io/documentation/platform-guides/authentication/security-profiles)
+   * has access to. This may include OrderCloud roles or custom roles. read more about security profile roles
+   * [here](https://ordercloud.io/knowledge-base/security-profiles)
    */
-  role: Array<SecurityProfile['Roles']> | SecurityProfile['Roles']
+  role: string[] | string // if only one role exists then it is encoded as a string
 
   /**
    * the issuer of the token - should always be https://auth.ordercloud.io
