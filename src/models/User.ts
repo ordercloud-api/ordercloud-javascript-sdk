@@ -2,6 +2,7 @@ import { Locale } from './Locale';
 
 export interface User<TUserXp = any> {
     ID?: string
+    readonly CompanyID?: string
     Username: string
     Password?: string
     FirstName: string

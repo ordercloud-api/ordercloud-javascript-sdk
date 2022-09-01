@@ -14,6 +14,10 @@ interface SortableMap {
 'SpendingAccounts.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'UserGroups.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Users.List': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
+'Users.ListAcrossBuyers': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
+'Cart.ListLineItems': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
+'Cart.ListPayments': ('DateCreated' | 'ID' | 'Type' | 'CreditCardID' | 'SpendingAccountID' | '!DateCreated' | '!ID' | '!Type' | '!CreditCardID' | '!SpendingAccountID')[]
+'Cart.ListPromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine')[]
 'Catalogs.List': ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[]
 'Categories.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'ImpersonationConfigs.List': ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID')[]
@@ -90,6 +94,10 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'SpendingAccounts.List' | 
 'UserGroups.List' | 
 'Users.List' | 
+'Users.ListAcrossBuyers' | 
+'Cart.ListLineItems' | 
+'Cart.ListPayments' | 
+'Cart.ListPromotions' | 
 'Catalogs.List' | 
 'Categories.List' | 
 'ImpersonationConfigs.List' | 
