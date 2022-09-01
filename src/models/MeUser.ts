@@ -8,6 +8,7 @@ export interface MeUser<TMeUserXp = any> {
     readonly Supplier?: MeSupplier
     readonly Seller?: MeSeller
     ID?: string
+    readonly CompanyID?: string
     Username?: string
     Password?: string
     FirstName?: string

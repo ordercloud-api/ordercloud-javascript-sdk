@@ -28,6 +28,7 @@ class Users {
         this.Patch = this.Patch.bind(this);
         this.GetAccessToken = this.GetAccessToken.bind(this);
         this.Move = this.Move.bind(this);
+        this.ListAcrossBuyers = this.ListAcrossBuyers.bind(this);
     }
 
    /**
@@ -209,6 +210,32 @@ class Users {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/users/${userID}/moveto/${newBuyerID}`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of user across buyers. 
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/list-across-buyers|api docs} for more info 
+    * 
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListAcrossBuyers<TUser extends User>(listOptions: { search?: string, searchOn?: Searchable<'Users.ListAcrossBuyers'>, sortBy?: Sortable<'Users.ListAcrossBuyers'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/buyerusers`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

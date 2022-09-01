@@ -14,6 +14,10 @@ interface SearchableMap {
 'SpendingAccounts.List': ('ID' | 'Name' | 'RedemptionCode')[]
 'UserGroups.List': ('ID' | 'Name' | 'Description')[]
 'Users.List': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
+'Users.ListAcrossBuyers': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
+'Cart.ListLineItems': ('ID' | 'ProductID')[]
+'Cart.ListPayments': ('ID' | 'Description')[]
+'Cart.ListPromotions': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
 'Catalogs.List': ('ID' | 'Name' | 'Description')[]
 'Categories.List': ('ID' | 'Name' | 'Description')[]
 'ImpersonationConfigs.List': ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID')[]
@@ -90,6 +94,10 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'SpendingAccounts.List' | 
 'UserGroups.List' | 
 'Users.List' | 
+'Users.ListAcrossBuyers' | 
+'Cart.ListLineItems' | 
+'Cart.ListPayments' | 
+'Cart.ListPromotions' | 
 'Catalogs.List' | 
 'Categories.List' | 
 'ImpersonationConfigs.List' | 

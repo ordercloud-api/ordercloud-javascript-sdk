@@ -33,6 +33,7 @@ import Specs from './Specs';
 import ProductFacets from './ProductFacets';
 import InventoryRecords from './InventoryRecords';
 import Orders from './Orders';
+import Cart from './Cart';
 import LineItems from './LineItems';
 import Promotions from './Promotions';
 import Payments from './Payments';
@@ -79,6 +80,7 @@ export {
     ProductFacets,
     InventoryRecords,
     Orders,
+    Cart,
     LineItems,
     Promotions,
     Payments,
