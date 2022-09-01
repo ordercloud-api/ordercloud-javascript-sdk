@@ -5,6 +5,10 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.11.0] - 2022-09-01
+### Added
+- SDK up to date with [API v1.0.251](https://ordercloud.io/release-notes/v1.0.251)
+- Introduces [Cart API Endpoints](https://ordercloud.io/knowledge-base/cart)
 ## [4.10.1] - 2022-07-01
 ### Fixed
 - Incorrect model type on DecodedToken.role [#76](https://github.com/ordercloud-api/ordercloud-javascript-sdk/issues/76)
