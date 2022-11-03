@@ -5,6 +5,9 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.11.1] - 2022-11-03
+- Updated acceptable version range for axios dependency (v1.0.0 and up won't work)
+
 ## [4.11.0] - 2022-09-01
 ### Added
 - SDK up to date with [API v1.0.251](https://ordercloud.io/release-notes/v1.0.251)
