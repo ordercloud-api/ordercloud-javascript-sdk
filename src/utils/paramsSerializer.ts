@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-escape */
 /**
  * @ignore
  * not part of public api, don't include in generated docs

@@ -4,29 +4,24 @@ interface ApiError {
   Data: any
 }
 
-interface AuthError {
-  error: string
-  error_description: string
-}
-
 export default class OrderCloudError extends Error {
   isOrderCloudError: true
   request?: any
   response: any
-  errors?: ApiError[] | AuthError
+  errors?: ApiError[]
   status: number
   errorCode: string
   statusText: string
 
   constructor(ex) {
     const errors = safeParseErrors(ex) // extract ordercloud errors from response
-    const error = errors?.[0] ?? errors // most of the time there is just one error
+    const firstError = errors?.[0] // most of the time there is just one error
 
-    super(getMessage(ex, error))
+    super(getMessage(ex, firstError))
     this.isOrderCloudError = true
     this.errors = errors
     this.name = 'OrderCloudError'
-    this.errorCode = getErrorCode(error)
+    this.errorCode = getErrorCode(firstError)
     this.status = ex.response.status
     this.statusText = ex.response.statusText
     this.response = ex.response
@@ -38,11 +33,11 @@ export default class OrderCloudError extends Error {
  * @ignore
  * not part of public api, don't include in generated docs
  */
-function safeParseErrors(ex): ApiError[] | AuthError | null {
+function safeParseErrors(ex): ApiError[] {
   try {
     let str = ex?.response?.data
     if (!str) {
-      return null
+      return []
     }
     if (typeof str === 'object') {
       // auth error
@@ -56,7 +51,7 @@ function safeParseErrors(ex): ApiError[] | AuthError | null {
     const data = JSON.parse(str)
     return data.Errors
   } catch (e) {
-    return null
+    return []
   }
 }
 
@@ -64,36 +59,25 @@ function safeParseErrors(ex): ApiError[] | AuthError | null {
  * @ignore
  * not part of public api, don't include in generated docs
  */
-const isApiError = (error: any): error is ApiError =>
-  (error as ApiError).Data !== undefined
-
-/**
- * @ignore
- * not part of public api, don't include in generated docs
- */
-function getMessage(ex, error?: ApiError | AuthError): string {
+function getMessage(ex, error?: ApiError): string {
   if (!error) {
     return ex.response.statusText
   }
-  if (isApiError(error)) {
-    switch (error.ErrorCode) {
-      case 'NotFound':
-        return `${error.Data.ObjectType} ${error.Data.ObjectID} not found`
-      default:
-        return error.Message
-    }
-  } else {
-    return error.error_description
+  switch (error.ErrorCode) {
+    case 'NotFound':
+      return `${error.Data.ObjectType} ${error.Data.ObjectID} not found`
+    default:
+      return error.Message
   }
 }
 
-function getErrorCode(error?: ApiError | AuthError): string {
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
+function getErrorCode(error?: ApiError): string {
   if (!error) {
     return 'OrderCloudError'
   }
-  if (isApiError(error)) {
-    return error.ErrorCode
-  } else {
-    return error.error
-  }
+  return error.ErrorCode
 }
