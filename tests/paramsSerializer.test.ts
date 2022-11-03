@@ -1,12 +1,12 @@
-import serialize from '../src/utils/paramsSerializer'
+import paramsSerializer from '../src/utils/paramsSerializer'
 
-test('should serialize top-level params', () => {
+test('should paramsSerializer.serialize top-level params', () => {
   const params = {
     filters: {
       DateSubmitted: '>2018-04-20',
     },
   }
-  expect(serialize(params)).toBe('DateSubmitted=%3E2018-04-20')
+  expect(paramsSerializer.serialize(params)).toBe('DateSubmitted=%3E2018-04-20')
 })
 
 test('should handle filters', () => {
@@ -15,7 +15,7 @@ test('should handle filters', () => {
       LastName: 'Smith*',
     },
   }
-  expect(serialize(params)).toBe('LastName=Smith*')
+  expect(paramsSerializer.serialize(params)).toBe('LastName=Smith*')
 })
 
 test('should handle arrays on filters', () => {
@@ -24,7 +24,9 @@ test('should handle arrays on filters', () => {
       'xp.Color': ['!red', '!blue'],
     },
   }
-  expect(serialize(params)).toBe('xp.Color=!red&xp.Color=!blue')
+  expect(paramsSerializer.serialize(params)).toBe(
+    'xp.Color=!red&xp.Color=!blue'
+  )
 })
 
 test('should handle mixed arrays and values filters', () => {
@@ -34,7 +36,9 @@ test('should handle mixed arrays and values filters', () => {
       'xp.Color': ['!red', '!blue'],
     },
   }
-  expect(serialize(params)).toBe('FirstName=Bob&xp.Color=!red&xp.Color=!blue')
+  expect(paramsSerializer.serialize(params)).toBe(
+    'FirstName=Bob&xp.Color=!red&xp.Color=!blue'
+  )
 })
 
 test('should throw if value is null', () => {
@@ -43,7 +47,7 @@ test('should throw if value is null', () => {
       FirstName: null,
     },
   }
-  expect(() => serialize(params)).toThrow(
+  expect(() => paramsSerializer.serialize(params)).toThrow(
     `Null is not a valid filter prop. Use negative filter "!" combined with wildcard filter "*" to define a filter for the absence of a value. \nex: an order list call with { xp: { hasPaid: '!*' } } would return a list of orders where xp.hasPaid is null or undefined\nhttps://ordercloud.io/features/advanced-querying#filtering`
   )
 })
@@ -56,7 +60,9 @@ test('should ignore undefined values', () => {
       'xp.FavoriteColor': 'red',
     },
   }
-  expect(serialize(params)).toBe('FirstName=Bob&xp.FavoriteColor=red')
+  expect(paramsSerializer.serialize(params)).toBe(
+    'FirstName=Bob&xp.FavoriteColor=red'
+  )
 })
 
 test('should allow false boolean', () => {
@@ -66,7 +72,9 @@ test('should allow false boolean', () => {
       IsSubmitted: false,
     },
   }
-  expect(serialize(params)).toBe('FirstName=Bob&IsSubmitted=false')
+  expect(paramsSerializer.serialize(params)).toBe(
+    'FirstName=Bob&IsSubmitted=false'
+  )
 })
 
 test('should allow true boolean', () => {
@@ -76,7 +84,9 @@ test('should allow true boolean', () => {
       IsSubmitted: true,
     },
   }
-  expect(serialize(params)).toBe('FirstName=Bob&IsSubmitted=true')
+  expect(paramsSerializer.serialize(params)).toBe(
+    'FirstName=Bob&IsSubmitted=true'
+  )
 })
 
 test('should allow number filters', () => {
@@ -85,7 +95,7 @@ test('should allow number filters', () => {
       SpecCount: 3,
     },
   }
-  expect(serialize(params)).toBe('SpecCount=3')
+  expect(paramsSerializer.serialize(params)).toBe('SpecCount=3')
 })
 
 test('should not drop 0 filters', () => {
@@ -94,5 +104,5 @@ test('should not drop 0 filters', () => {
       SpecCount: 0,
     },
   }
-  expect(serialize(params)).toBe('SpecCount=0')
+  expect(paramsSerializer.serialize(params)).toBe('SpecCount=0')
 })

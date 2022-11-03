@@ -1,8 +1,9 @@
+/* eslint-disable no-var */
 import axios, { CancelToken } from 'axios'
 import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
 import { ApiRole } from '../models/ApiRole'
-import serialize from '../utils/ParamsSerializer'
+import paramsSerializer from '../utils/ParamsSerializer'
 import { RequiredDeep } from '../models/RequiredDeep'
 import OrderCloudError from '../utils/OrderCloudError'
 
@@ -65,13 +66,17 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
-        ...requestOptions,
-      })
+      .post(
+        `${configuration.baseApiUrl}/oauth/token`,
+        paramsSerializer.serialize(body),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
+          ...requestOptions,
+        }
+      )
       .catch(e => {
         if (e.response) {
           throw new OrderCloudError(e)
@@ -126,13 +131,17 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
-        ...requestOptions,
-      })
+      .post(
+        `${configuration.baseApiUrl}/oauth/token`,
+        paramsSerializer.serialize(body),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
+          ...requestOptions,
+        }
+      )
       .catch(e => {
         if (e.response) {
           throw new OrderCloudError(e)
@@ -181,13 +190,17 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
-        ...requestOptions,
-      })
+      .post(
+        `${configuration.baseApiUrl}/oauth/token`,
+        paramsSerializer.serialize(body),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
+          ...requestOptions,
+        }
+      )
       .catch(e => {
         if (e.response) {
           throw new OrderCloudError(e)
@@ -220,13 +233,17 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
-        ...requestOptions,
-      })
+      .post(
+        `${configuration.baseApiUrl}/oauth/token`,
+        paramsSerializer.serialize(body),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
+          ...requestOptions,
+        }
+      )
       .catch(e => {
         if (e.response) {
           throw new OrderCloudError(e)
@@ -270,13 +287,17 @@ class Auth {
     }
     const configuration = Configuration.Get()
     const response = await axios
-      .post(`${configuration.baseApiUrl}/oauth/token`, serialize(body), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-          Accept: 'application/json',
-        },
-        ...requestOptions,
-      })
+      .post(
+        `${configuration.baseApiUrl}/oauth/token`,
+        paramsSerializer.serialize(body),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Accept: 'application/json',
+          },
+          ...requestOptions,
+        }
+      )
       .catch(e => {
         if (e.response) {
           throw new OrderCloudError(e)

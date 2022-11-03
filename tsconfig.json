@@ -14,12 +14,12 @@
     "src/**/*"
   ],
   "typedocOptions": {
-    "mode": "file",
+    "entryPoints": ["src/index.ts"],
+    "excludeExternals": true,
     "out": "docs",
     "name": "ordercloud-javascript-sdk",
-    "excludeExternals": true,
-    "excludePrivate": true,
-    "excludeProtected": true,
-    "theme": "docs-templates"
+    "theme": "default",
+    "internalModule": "Resources",
+    "readme": "none"
   }
 }

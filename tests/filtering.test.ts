@@ -18,7 +18,7 @@ test('can filter call with boolean (true)', async () => {
     params: {
       filters: { 'xp.Featured': true },
     },
-    paramsSerializer: expect.any(Function),
+    paramsSerializer: expect.any(Object),
     timeout: 60000,
     headers: {
       'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ test('can filter call with boolean (false)', async () => {
     params: {
       filters: { IsSubmitted: false },
     },
-    paramsSerializer: expect.any(Function),
+    paramsSerializer: expect.any(Object),
     timeout: 60000,
     headers: {
       'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ test('can filter call with comparison operator', async () => {
   expect(mockAxios.get).toHaveBeenCalledTimes(1)
   expect(mockAxios.get).toHaveBeenCalledWith(`${apiUrl}/me/orders`, {
     params: { filters: { DateSubmitted: '>2020-04-20' } },
-    paramsSerializer: expect.any(Function),
+    paramsSerializer: expect.any(Object),
     timeout: 60000,
     headers: {
       'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ test('can filter call with wildcard operator', async () => {
     `${apiUrl}/buyers/my-mock-buyerid/users`,
     {
       params: { filters: { LastName: 'Smith*' } },
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ test('can filter with logical OR operator', async () => {
         filters: { LastName: 'Smith*|*Jones' },
       },
       timeout: 60000,
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${validToken}`,
@@ -108,7 +108,7 @@ test('can filter with logical AND operator', async () => {
       filters: { 'xp.Color': ['!red', '!blue'] },
     },
     timeout: 60000,
-    paramsSerializer: expect.any(Function),
+    paramsSerializer: expect.any(Object),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${validToken}`,
@@ -125,7 +125,7 @@ test('can use multiple searchOn parameters', async () => {
       searchOn: ['Name', 'ID'],
     },
     timeout: 60000,
-    paramsSerializer: expect.any(Function),
+    paramsSerializer: expect.any(Object),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${validToken}`,
@@ -142,7 +142,7 @@ test('can use multiple sortBy parameters', async () => {
       sortBy: ['Name', 'ID'],
     },
     timeout: 60000,
-    paramsSerializer: expect.any(Function),
+    paramsSerializer: expect.any(Object),
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${validToken}`,

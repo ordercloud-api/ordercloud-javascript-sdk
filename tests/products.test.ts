@@ -19,7 +19,7 @@ test('can create product', async () => {
   await Products.Create(product)
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
   expect(mockAxios.post).toHaveBeenCalledWith(`${apiUrl}/products`, product, {
-    paramsSerializer: expect.any(Function),
+    paramsSerializer: expect.any(Object),
     timeout: 60000,
     headers: {
       'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ test('can patch product', async () => {
     `${apiUrl}/products/${productID}`,
     partialProduct,
     {
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ test('can update product', async () => {
     `${apiUrl}/products/${productID}`,
     product,
     {
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ test('can delete product', async () => {
   expect(mockAxios.delete).toHaveBeenCalledWith(
     `${apiUrl}/products/${productID}`,
     {
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',

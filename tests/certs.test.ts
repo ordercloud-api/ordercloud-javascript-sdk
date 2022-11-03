@@ -19,7 +19,7 @@ test('can get cert', async () => {
   expect(mockAxios.get).toHaveBeenCalledWith(
     `${apiUrl}/oauth/certs/${mockKid}`,
     {
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',

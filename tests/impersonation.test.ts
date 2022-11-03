@@ -21,7 +21,7 @@ test('should use impersonation token if call As method', async () => {
   expect(mockAxios.delete).toHaveBeenCalledWith(
     `${apiUrl}/products/${testdata.productID}`,
     {
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ test('should use passed in token if defined', async () => {
   expect(mockAxios.delete).toHaveBeenCalledWith(
     `${apiUrl}/products/${testdata.productID}`,
     {
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ test('should prioritize passed in token', async () => {
   expect(mockAxios.delete).toHaveBeenCalledWith(
     `${apiUrl}/products/${testdata.productID}`,
     {
-      paramsSerializer: expect.any(Function),
+      paramsSerializer: expect.any(Object),
       timeout: 60000,
       headers: {
         'Content-Type': 'application/json',

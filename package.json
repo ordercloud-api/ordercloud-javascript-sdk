@@ -41,8 +41,7 @@
     "prebuild:sdk": "npm run clean:dist && npm run generate-sdk && npm run beautify",
     "build:sdk": "rollup --config",
     "postbuild:sdk": "shx cp dist/index.d.ts dist/index.esm.d.ts",
-    "build:docs": "typedoc src/",
-    "postbuild:docs": "shx rm docs/index.html && shx mv docs/globals.html docs/index.html",
+    "build:docs": "typedoc",
     "test": "npm run test:browser && npm run test:server",
     "test:browser": "jest --config tests/config/browser.config.js",
     "test:server": "jest --config tests/config/server.config.js",
@@ -59,7 +58,7 @@
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "add": "^2.0.6",
-    "axios": "^0.21.1",
+    "axios": "^1.1.3",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-jest": "^23.8.1",
@@ -75,12 +74,12 @@
     "rollup-plugin-typescript2": "^0.26.0",
     "shx": "^0.3.2",
     "ts-jest": "^25.2.1",
-    "typedoc": "^0.16.10",
-    "typescript": "^3.8.2",
+    "typedoc": "^0.23.19",
+    "typedoc-plugin-missing-exports": "^1.0.0",
+    "typescript": "^4.6.0",
     "yarn": "^1.22.0"
   },
-  "dependencies": {},
   "peerDependencies": {
-    "axios": "^0.19.2"
+    "axios": "^1.1.0"
   }
 }

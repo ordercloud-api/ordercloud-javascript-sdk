@@ -48,7 +48,7 @@ describe('has expired access token', () => {
       expect(mockAxios.delete).toHaveBeenCalledWith(
         `${apiUrl}/products/${testdata.productID}`,
         {
-          paramsSerializer: expect.any(Function),
+          paramsSerializer: expect.any(Object),
           timeout: 10000,
           headers: {
             'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ describe('has expired access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            paramsSerializer: expect.any(Function),
+            paramsSerializer: expect.any(Object),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ describe('has expired access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            paramsSerializer: expect.any(Function),
+            paramsSerializer: expect.any(Object),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -148,7 +148,7 @@ describe('has no access token', () => {
       expect(mockAxios.delete).toHaveBeenCalledWith(
         `${apiUrl}/products/${testdata.productID}`,
         {
-          paramsSerializer: expect.any(Function),
+          paramsSerializer: expect.any(Object),
           timeout: 10000,
           headers: {
             'Content-Type': 'application/json',
@@ -194,7 +194,7 @@ describe('has no access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            paramsSerializer: expect.any(Function),
+            paramsSerializer: expect.any(Object),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -214,7 +214,7 @@ describe('has no access token', () => {
         expect(mockAxios.delete).toHaveBeenCalledWith(
           `${apiUrl}/products/${testdata.productID}`,
           {
-            paramsSerializer: expect.any(Function),
+            paramsSerializer: expect.any(Object),
             timeout: 10000,
             headers: {
               'Content-Type': 'application/json',
@@ -237,7 +237,7 @@ describe('has valid access token', () => {
     expect(mockAxios.delete).toHaveBeenCalledWith(
       `${apiUrl}/products/${testdata.productID}`,
       {
-        paramsSerializer: expect.any(Function),
+        paramsSerializer: expect.any(Object),
         timeout: 10000,
         headers: {
           'Content-Type': 'application/json',
