@@ -90,6 +90,9 @@ class HttpClient {
   ): Promise<OcRequestConfig> {
     const token = this._resolveToken(config)
     const validToken = await tokenService.GetValidToken(token)
+    if (!config.headers) {
+      config.headers = {}
+    }
     config.headers.Authorization = `Bearer ${validToken}`
     return config
   }

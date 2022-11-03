@@ -19,7 +19,7 @@ class ForgottenPassword {
     }
 
    /**
-    * Send a verification code. Sends a temporary verification code via email, which must subsequently be passed in a Reset Password call.
+    * Send a verification code. Sends a temporary verification code via email, which must subsequently be passed in a Reset Password call. The verification code expires in 120 minutes.
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-password/send-verification-code|api docs} for more info 
     * 
     * @param passwordResetRequest Required fields: ClientID
