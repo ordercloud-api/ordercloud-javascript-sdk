@@ -2,6 +2,20 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 4.x.x to version 5.x.x
+* [Axios](https://www.npmjs.com/package/axios) less than version 1.0.0 is no longer supported
+* The type for the `errors` property on the class `OrderCloudError` has changed
+
+    Before:
+    ```typescript
+    errors?: ApiError[] | AuthError[]
+    ```
+
+    After:
+    ```typescript
+    errors?: ApiError[]
+    ```
+
 ## version 3.x.x to version 4.x.x
 
 * [Axios](https://www.npmjs.com/package/axios) is now a peer dependency. Peer dependencies are not installed automatically, they must be installed separately.
