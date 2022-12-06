@@ -20,6 +20,7 @@
     "name": "ordercloud-javascript-sdk",
     "theme": "default",
     "internalModule": "Resources",
-    "readme": "none"
+    "readme": "none",
+    "gitRevision": "master"
   }
 }
