@@ -4,6 +4,6 @@ export interface ProductFacet<TProductFacetXp = any> {
     Name: string
     XpPath?: string
     ListOrder?: number
-    MinCount: number
+    MinCount?: number
     xp?: TProductFacetXp
 }

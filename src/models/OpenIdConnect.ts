@@ -12,4 +12,5 @@ export interface OpenIdConnect {
     CallSyncUserIntegrationEvent?: boolean
     readonly IntegrationEventName?: string
     AdditionalIdpScopes?: string[]
+    CustomErrorUrl?: string
 }

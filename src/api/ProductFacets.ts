@@ -55,7 +55,7 @@ class ProductFacets {
     * Create a new product facet. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/create|api docs} for more info 
     * 
-    * @param productFacet Required fields: Name, MinCount
+    * @param productFacet Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -98,7 +98,7 @@ class ProductFacets {
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/save|api docs} for more info 
     * 
     * @param productFacetID ID of the product facet.
-    * @param productFacet Required fields: Name, MinCount
+    * @param productFacet Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

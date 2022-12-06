@@ -46,7 +46,7 @@ interface SearchableMap {
 'MessageSenders.List': ('ID' | 'Name' | 'URL')[]
 'MessageSenders.ListCCListenerAssignments': ('BuyerID' | 'UserGroupID' | 'UserID' | 'MessageConfigName' | 'SupplierID')[]
 'OpenIdConnects.List': ('ID')[]
-'OrderReturns.List': []
+'OrderReturns.List': ('ID' | 'OrderID')[]
 'OrderReturns.ListApprovals': ('ApprovalRuleID' | 'ApprovingGroupID' | 'Approver' | 'Comments')[]
 'OrderReturns.ListEligibleApprovers': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
 'Orders.List': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]

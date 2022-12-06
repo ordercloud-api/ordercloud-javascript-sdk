@@ -98,7 +98,7 @@ class LineItems {
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
-    * @param lineItem Required fields: ProductID, Quantity
+    * @param lineItem Required fields: ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -145,7 +145,7 @@ class LineItems {
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
-    * @param lineItem Required fields: ProductID, Quantity
+    * @param lineItem Required fields: ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

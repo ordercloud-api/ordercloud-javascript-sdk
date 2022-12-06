@@ -227,7 +227,7 @@ class Cart {
     * Create a new cart line item. Adds a line item to the cart
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/create-line-item|api docs} for more info 
     * 
-    * @param lineItem Required fields: ProductID, Quantity
+    * @param lineItem Required fields: ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -270,7 +270,7 @@ class Cart {
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/save-line-item|api docs} for more info 
     * 
     * @param lineItemID ID of the line item.
-    * @param lineItem Required fields: ProductID, Quantity
+    * @param lineItem Required fields: ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
