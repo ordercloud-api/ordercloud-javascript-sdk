@@ -35,21 +35,24 @@ export default class OrderCloudError extends Error {
  */
 function safeParseErrors(ex): ApiError[] {
   try {
-    let str = ex?.response?.data
-    if (!str) {
+    let value = ex?.response?.data
+    if (!value) {
       return []
     }
-    if (typeof str === 'object') {
-      // auth error
-      return str
+    if (typeof value === 'object') {
+      return value.Errors
     }
-    if (str && str.charCodeAt(0) === 65279) {
-      // there seems to be a BOM character at the beginning
-      // of this string that causes json parsing to fail
-      str = str.substr(1)
+    if (typeof value === 'string') {
+      // axios sometimes returns a string, so we must deserialize it ourselves
+      if (value && value.charCodeAt(0) === 65279) {
+        // there seems to be a BOM character at the beginning
+        // of this string that causes json parsing to fail
+        value = value.substring(1)
+      }
+      const data = JSON.parse(value)
+      return data.Errors
     }
-    const data = JSON.parse(str)
-    return data.Errors
+    return value
   } catch (e) {
     return []
   }

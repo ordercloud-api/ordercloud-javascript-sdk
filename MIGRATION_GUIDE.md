@@ -15,6 +15,21 @@ The objective of this guide is to document the breaking changes and updates requ
     ```typescript
     errors?: ApiError[]
     ```
+* There was a bug where ordercloud errors were incorrectly nested under an additional `Errors` property. This has been fixed to match the type above
+
+    Before:
+    ```typescript
+    catch(exception) {
+        const ordercloudErrors = exception.errors.Errors;
+    }
+    ```
+
+    After:
+    ```typescript
+    catch(exception) {
+        const ordercloudErrors = exception.errors;
+    }
+    ```
 
 ## version 3.x.x to version 4.x.x
 
