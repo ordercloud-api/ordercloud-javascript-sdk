@@ -143,6 +143,8 @@ export * from './OpenIdConnectResponse';
 export * from './OpenIdConnectTokenResponse';
 export * from './OrderApprovedPayload';
 export * from './OrderCalculatePayload';
+export * from './OrderReturnCalculatePayload';
+export * from './OrderReturnCalculateResponse';
 export * from './OrderSubmitForApprovalPayload';
 export * from './OrderSubmitPayload';
 export * from './PartialDeep';
