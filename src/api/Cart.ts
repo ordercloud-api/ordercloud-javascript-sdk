@@ -1,10 +1,11 @@
 import { Order } from '../models/Order';
 import { OrderWorksheet } from '../models/OrderWorksheet';
-import { User } from '../models/User';
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
+import { Promotion } from '../models/Promotion';
+import { User } from '../models/User';
 import { LineItem } from '../models/LineItem';
 import { Payment } from '../models/Payment';
 import { PaymentTransaction } from '../models/PaymentTransaction';
@@ -29,6 +30,9 @@ class Cart {
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
         this.SetActiveCart = this.SetActiveCart.bind(this);
+        this.ApplyPromotions = this.ApplyPromotions.bind(this);
+        this.Calculate = this.Calculate.bind(this);
+        this.ListEligiblePromotions = this.ListEligiblePromotions.bind(this);
         this.EstimateShipping = this.EstimateShipping.bind(this);
         this.PatchFromUser = this.PatchFromUser.bind(this);
         this.ListLineItems = this.ListLineItems.bind(this);
@@ -74,7 +78,7 @@ class Cart {
     }
 
    /**
-    * Create or update a cart. If an object with the same ID already exists, it will be overwritten.<br/></br>The recommended way to initiate a new cart is to add a line item. If there is a specific reason an order needs to exist prior to adding a line item, this method can be used to initiate a new cart. It can also be used for updates.
+    * Create or update a cart. If an object with the same ID already exists, it will be overwritten.<br/></br>The recommended way to initiate a new cart is to add a line item. If there is a specific reason an order needs to exist prior to adding a line item, this method can be used to initiate a new cart.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/save|api docs} for more info 
     * 
     * @param order 
@@ -157,7 +161,73 @@ class Cart {
     }
 
    /**
-    * Estimate a shipping. 
+    * AutoApply eligible promotions. Apply up to 100 eligible promotions to the cart.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/apply-promotions|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ApplyPromotions<TOrder extends Order>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/cart/applypromotions`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Calculate the cart. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/calculate|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Calculate<TOrderWorksheet extends OrderWorksheet>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderWorksheet>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/cart/calculate`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * List eligible promotions. Get a list of promotions eligible for the cart.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/list-eligible-promotions|api docs} for more info 
+    * 
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListEligiblePromotions<TPromotion extends Promotion>(listOptions: { search?: string, searchOn?: Searchable<'Cart.ListEligiblePromotions'>, sortBy?: Sortable<'Cart.ListEligiblePromotions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/cart/eligiblepromotions`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Estimate shipping cost. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/estimate-shipping|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -177,7 +247,7 @@ class Cart {
     }
 
    /**
-    * Partially update a cart from user. 
+    * Update cart FromUser. Only FirstName, LastName, and Email can be updated.<br/></br>Primarily used to facilitate guest checkout scenarios.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-from-user|api docs} for more info 
     * 
     * @param user 
@@ -554,7 +624,7 @@ class Cart {
     }
 
    /**
-    * Select a ship methods. 
+    * Select a ship method. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/select-ship-methods|api docs} for more info 
     * 
     * @param orderShipMethodSelection 
@@ -575,7 +645,7 @@ class Cart {
     }
 
    /**
-    * Submit a cart submit. 
+    * Submit the cart. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/submit|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

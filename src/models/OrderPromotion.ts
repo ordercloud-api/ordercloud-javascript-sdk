@@ -18,5 +18,8 @@ export interface OrderPromotion<TOrderPromotionXp = any> {
     CanCombine?: boolean
     AllowAllBuyers?: boolean
     OwnerID?: string
+    AutoApply?: boolean
+    Active?: boolean
+    Priority?: number
     xp?: TOrderPromotionXp
 }

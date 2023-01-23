@@ -15,6 +15,7 @@ interface SearchableMap {
 'UserGroups.List': ('ID' | 'Name' | 'Description')[]
 'Users.List': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
 'Users.ListAcrossBuyers': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
+'Cart.ListEligiblePromotions': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
 'Cart.ListLineItems': ('ID' | 'ProductID')[]
 'Cart.ListPayments': ('ID' | 'Description')[]
 'Cart.ListPromotions': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
@@ -52,6 +53,7 @@ interface SearchableMap {
 'Orders.List': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Orders.ListApprovals': ('ApprovalRuleID' | 'ApprovingGroupID' | 'Approver' | 'Comments')[]
 'Orders.ListEligibleApprovers': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
+'Orders.ListEligiblePromotions': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
 'LineItems.List': ('ID' | 'ProductID')[]
 'Payments.List': ('ID' | 'Description')[]
 'Orders.ListPromotions': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
@@ -95,6 +97,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'UserGroups.List' | 
 'Users.List' | 
 'Users.ListAcrossBuyers' | 
+'Cart.ListEligiblePromotions' | 
 'Cart.ListLineItems' | 
 'Cart.ListPayments' | 
 'Cart.ListPromotions' | 
@@ -132,6 +135,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Orders.List' | 
 'Orders.ListApprovals' | 
 'Orders.ListEligibleApprovers' | 
+'Orders.ListEligiblePromotions' | 
 'LineItems.List' | 
 'Payments.List' | 
 'Orders.ListPromotions' | 
