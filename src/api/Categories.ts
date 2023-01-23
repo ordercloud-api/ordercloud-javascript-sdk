@@ -63,19 +63,20 @@ class Categories {
     }
 
    /**
-    * Create a new category. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a new category. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.<br/></br>Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/create|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
+    * @param listOptions.adjustListOrders Adjust list orders of the category.
     * @param category Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Create<TCategory extends Category>(catalogID: string, category: Category,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>>{
+    public async Create<TCategory extends Category>(catalogID: string, category: Category,listOptions: { adjustListOrders?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/catalogs/${catalogID}/categories`, { ...requestOptions, data: category, impersonating,  } )
+        return await http.post(`/catalogs/${catalogID}/categories`, { ...requestOptions, data: category, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -107,20 +108,21 @@ class Categories {
     }
 
    /**
-    * Create or update a category. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a category. If an object with the same ID already exists, it will be overwritten.<br/></br>Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
+    * @param listOptions.adjustListOrders Adjust list orders of the category.
     * @param category Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Save<TCategory extends Category>(catalogID: string, categoryID: string, category: Category,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>>{
+    public async Save<TCategory extends Category>(catalogID: string, categoryID: string, category: Category,listOptions: { adjustListOrders?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.put(`/catalogs/${catalogID}/categories/${categoryID}`, { ...requestOptions, data: category, impersonating,  } )
+        return await http.put(`/catalogs/${catalogID}/categories/${categoryID}`, { ...requestOptions, data: category, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -152,20 +154,21 @@ class Categories {
     }
 
    /**
-    * Partially update a category. 
+    * Partially update a category. Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/patch|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
     * @param categoryID ID of the category.
+    * @param listOptions.adjustListOrders Adjust list orders of the partial 1.
     * @param category 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async Patch<TCategory extends Category>(catalogID: string, categoryID: string, category: PartialDeep<Category>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>>{
+    public async Patch<TCategory extends Category>(catalogID: string, categoryID: string, category: PartialDeep<Category>, listOptions: { adjustListOrders?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TCategory>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.patch(`/catalogs/${catalogID}/categories/${categoryID}`, { ...requestOptions, data: category, impersonating,  } )
+        return await http.patch(`/catalogs/${catalogID}/categories/${categoryID}`, { ...requestOptions, data: category, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

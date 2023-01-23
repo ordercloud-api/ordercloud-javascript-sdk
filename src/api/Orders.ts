@@ -9,6 +9,7 @@ import { OrderApproval } from '../models/OrderApproval';
 import { OrderApprovalInfo } from '../models/OrderApprovalInfo';
 import { Address } from '../models/Address';
 import { User } from '../models/User';
+import { Promotion } from '../models/Promotion';
 import { OrderSplitResult } from '../models/OrderSplitResult';
 import { OrderPromotion } from '../models/OrderPromotion';
 import { Shipment } from '../models/Shipment';
@@ -32,6 +33,7 @@ class Orders {
         this.Save = this.Save.bind(this);
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
+        this.ApplyPromotions = this.ApplyPromotions.bind(this);
         this.ListApprovals = this.ListApprovals.bind(this);
         this.Approve = this.Approve.bind(this);
         this.SetBillingAddress = this.SetBillingAddress.bind(this);
@@ -40,6 +42,7 @@ class Orders {
         this.Complete = this.Complete.bind(this);
         this.Decline = this.Decline.bind(this);
         this.ListEligibleApprovers = this.ListEligibleApprovers.bind(this);
+        this.ListEligiblePromotions = this.ListEligiblePromotions.bind(this);
         this.Forward = this.Forward.bind(this);
         this.PatchFromUser = this.PatchFromUser.bind(this);
         this.ListPromotions = this.ListPromotions.bind(this);
@@ -190,6 +193,28 @@ class Orders {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}`, { ...requestOptions, data: order, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * AutoApply eligible promotions. Apply up to 100 eligible promotions to an order.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/apply-promotions|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param orderID ID of the order.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ApplyPromotions<TOrder extends Order>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/orders/${direction}/${orderID}/applypromotions`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -391,6 +416,34 @@ class Orders {
     }
 
    /**
+    * List eligible promotions. Get a list of promotions eligible for an order.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/list-eligible-promotions|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param orderID ID of the order.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListEligiblePromotions<TPromotion extends Promotion>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Orders.ListEligiblePromotions'>, sortBy?: Sortable<'Orders.ListEligiblePromotions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/orders/${direction}/${orderID}/eligiblepromotions`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
     * Forward an order. Creates and submits 0 or more outgoing Orders to Suppliers, one for each unique Product.DefaultSupplierID on this Order.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/forward|api docs} for more info 
     * 
@@ -413,7 +466,7 @@ class Orders {
     }
 
    /**
-    * Override order creator details. Only FirstName, LastName, and Email can be updated.<br/></br>Primarily used to facilitate guest checkout scenarios.
+    * Update order FromUser. Only FirstName, LastName, and Email can be updated.<br/></br>Primarily used to facilitate guest checkout scenarios.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/patch-from-user|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.

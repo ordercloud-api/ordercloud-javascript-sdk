@@ -16,5 +16,8 @@ export interface Promotion<TPromotionXp = any> {
     CanCombine?: boolean
     AllowAllBuyers?: boolean
     OwnerID?: string
+    AutoApply?: boolean
+    Active?: boolean
+    Priority?: number
     xp?: TPromotionXp
 }
