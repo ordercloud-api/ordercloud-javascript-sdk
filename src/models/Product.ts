@@ -5,6 +5,8 @@ export interface Product<TProductXp = any> {
     DefaultPriceScheduleID?: string
     AutoForward?: boolean
     ID?: string
+    ParentID?: string
+    IsParent?: boolean
     Name: string
     Description?: string
     QuantityMultiplier?: number
