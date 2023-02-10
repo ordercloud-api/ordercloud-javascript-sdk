@@ -4,6 +4,8 @@ import { Inventory } from './Inventory';
 export interface BuyerProduct<TBuyerProductXp = any, TPriceScheduleXp = any> {
     readonly PriceSchedule?: PriceSchedule<TPriceScheduleXp>
     ID?: string
+    ParentID?: string
+    IsParent?: boolean
     Name?: string
     Description?: string
     QuantityMultiplier?: number
