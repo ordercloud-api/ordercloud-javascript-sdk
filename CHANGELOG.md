@@ -4,6 +4,9 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [5.0.2] - 2023-02-27
+- Add missed changes for Tracking Events
+
 ## [5.0.1] - 2023-02-27
 - SDK up to date with [API v1.0.267](https://ordercloud.io/release-notes/v1.0.267), adding support for Tracking Events
 
