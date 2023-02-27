@@ -76,4 +76,6 @@ export type ApiRole = 'ApiClientAdmin' |
 'WebhookReader' | 
 'WebhookAdmin' | 
 'IntegrationEventReader' | 
-'IntegrationEventAdmin'
+'IntegrationEventAdmin' | 
+'TrackingEventReader' | 
+'TrackingEventAdmin'

@@ -109,6 +109,8 @@ export * from './SpendingAccountAssignment';
 export * from './Supplier';
 export * from './SupplierBuyer';
 export * from './TokenPasswordReset';
+export * from './TrackingEvent';
+export * from './TrackingEventType';
 export * from './User';
 export * from './UserGroup';
 export * from './UserGroupAssignment';

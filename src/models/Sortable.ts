@@ -24,6 +24,7 @@ interface SortableMap {
 'ImpersonationConfigs.List': ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID')[]
 'Incrementors.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'IntegrationEvents.List': ('ID' | 'EventType' | 'Name' | '!ID' | '!EventType' | '!Name')[]
+'TrackingEvents.List': ('ID' | 'EventType' | '!ID' | '!EventType')[]
 'LineItems.ListAcrossOrders': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Locales.List': ('ID' | '!ID')[]
 'Me.ListAddresses': ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[]
@@ -106,6 +107,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'ImpersonationConfigs.List' | 
 'Incrementors.List' | 
 'IntegrationEvents.List' | 
+'TrackingEvents.List' | 
 'LineItems.ListAcrossOrders' | 
 'Locales.List' | 
 'Me.ListAddresses' | 

@@ -41,6 +41,7 @@ import Shipments from './Shipments';
 import OrderReturns from './OrderReturns';
 import SellerApprovalRules from './SellerApprovalRules';
 import Me from './Me';
+import TrackingEvents from './TrackingEvents';
 import Auth from './Auth';
 import Tokens from './Tokens';
 
@@ -88,6 +89,7 @@ export {
     OrderReturns,
     SellerApprovalRules,
     Me,
+    TrackingEvents,
     Auth,
     Tokens
 }
