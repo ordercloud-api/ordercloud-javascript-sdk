@@ -259,6 +259,7 @@ class Auth {
    * @param clientID of the application the user is logging into
    * @param scope roles being requested - space delimited string or array
    * @param customRoles optional custom roles being requested - string array
+   * @param requestOptions.anonuserid Provide an externally generated id to track this user session, used specifically for the tracking events feature for integrating with Send and Discover
    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
@@ -267,6 +268,7 @@ class Auth {
     scope: ApiRole[],
     customRoles?: string[],
     requestOptions: {
+      anonuserid?: string
       cancelToken?: CancelToken
       requestType?: string
     } = {}
@@ -284,6 +286,10 @@ class Auth {
       grant_type: 'client_credentials',
       client_id: clientID,
       scope: _scope,
+    }
+    if (requestOptions.anonuserid) {
+      body['anonuserid'] = requestOptions.anonuserid
+      delete requestOptions['anonuserid']
     }
     const configuration = Configuration.Get()
     const response = await axios
