@@ -84,7 +84,7 @@ const OrderCloudSDK = require('ordercloud-javascript-sdk');
 
 ## 🔐 Authentication
 
-We'll need to get a token before we can make any API calls. The SDK offers five different ways of getting a token as part of the [Auth class](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/auth).
+We'll need to get a token before we can make any API calls. The SDK offers five different ways of getting a token as part of the [Auth Resource](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/Resources.Auth.html).
 
 We'll use the login method for this example.
 
@@ -198,7 +198,7 @@ Me.ListProducts(null, { accessToken: token3 })
 
 ## Configuration
 
-The [`Configuration`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/configuration) service can be used to set sdk level [options](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/sdkconfiguration).
+The [`Configuration`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/Resources.Configuration.html) service can be used to set sdk level [options](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/sdkconfiguration).
 
 Simply set the options you need to override and the SDK will merge it with the default options object.
 
@@ -421,13 +421,13 @@ The sdk ships with various helpers and utilities that you may find useful. We al
 |-----------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [`ListPage<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/listpage)                       | Takes in a type for the item in the list. For example `ListPage<Order>` will be the type for an order list page.                                                                                                                     |
 | [`ListPageWithFacets<T>`]( https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/listpagewithfacets ) | Similar to `ListPage` but for [premium search](https://ordercloud.io/knowledge-base/introducing-premium-search) models. For example `ListPageWithFacets<Product>` will be the type for a product list page.                          |
-| [`Searchable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#searchable)                              | Takes in a [`SearchableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#searchableendpoint) and returns the type for a valid `searchOn` field on list calls. For example `Searchable<'Orders.List'>`.           |
-| [`Sortable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#sortable)                                  | Takes in a [`SortableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#sortableendpoint) and returns the type for a valid `sortBy` field on list calls. For example `Sortable<'Orders.List'>`.                   |
-| [`Filters<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#filters)                                    | Takes in an ordercloud model and returns the type for a valid `filter` field on list calls. For example `Filters<Product>`. This also works for any custom models that extend an OrderCloud model, for example `Filters<MyProduct>`. |
-| [`PartialDeep<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#partialdeep)                            | Similar to Typescript's [`Partial<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt) except works on nested properties as well.                                                                          |
-| [`RequiredDeep<T>`]( https://ordercloud-api.github.io/ordercloud-javascript-sdk#requireddeep )                        | Similar to Typescript's [`Required<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredt) except works on nested properties as well.                                                                        |
+| [`Searchable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/Searchable.html)                              | Takes in a [`SearchableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/Searchable.html) and returns the type for a valid `searchOn` field on list calls. For example `Searchable<'Orders.List'>`.           |
+| [`Sortable<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/Sortable.html)                                  | Takes in a [`SortableEndpoint`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/Resources.SortableEndpoint.html) and returns the type for a valid `sortBy` field on list calls. For example `Sortable<'Orders.List'>`.                   |
+| [`Filters<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/Filters.html)                                    | Takes in an ordercloud model and returns the type for a valid `filter` field on list calls. For example `Filters<Product>`. This also works for any custom models that extend an OrderCloud model, for example `Filters<MyProduct>`. |
+| [`PartialDeep<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/PartialDeep.html)                            | Similar to Typescript's [`Partial<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#partialt) except works on nested properties as well.                                                                          |
+| [`RequiredDeep<T>`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/RequiredDeep.html)                        | Similar to Typescript's [`Required<T>`](https://www.typescriptlang.org/docs/handbook/utility-types.html#requiredt) except works on nested properties as well.                                                                        |
 | [`DecodedToken`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/interfaces/decodedtoken)                  | A type representing a decoded OrderCloud token                                                                                                                                                                                       |                                                                                                                                                                         |
-| [`MessageSenderPayloads`](https://ordercloud-api.github.io/ordercloud-javascript-sdk#messagesenderpayloads)           | Takes in a type argument for the message type and resolves to the type for the message sender payload                                                                                                                                |
+| [`MessageSenderPayloads`](https://ordercloud-api.github.io/ordercloud-javascript-sdk/types/MessageSenderPayloads.html)           | Takes in a type argument for the message type and resolves to the type for the message sender payload                                                                                                                                |
 ## 📄 License
 
 OrderCloud's Javascript SDK is an open-sourced software licensed under the [MIT license](./LICENSE).
