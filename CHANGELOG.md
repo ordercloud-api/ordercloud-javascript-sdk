@@ -5,6 +5,10 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.4] - 2023-03-17
+- Update axios peer dependency version from ^1.0.0 to ^1.1.3
+    - A bug in axios was causing a filtering issue in our sdk
+
 ## [5.0.3] - 2023-03-02
 - Add new optional param anonuserid to Auth.Anonymous (part of new tracking events feature)
 
