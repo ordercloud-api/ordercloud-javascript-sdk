@@ -6,5 +6,6 @@ export interface LineItemOverride<TProductXp = any> {
     UnitPrice?: number
     Product?: AdHocProduct<TProductXp>
     PromotionOverrides?: PromotionOverride[]
+    InventoryRecordID?: string
     Remove?: boolean
 }

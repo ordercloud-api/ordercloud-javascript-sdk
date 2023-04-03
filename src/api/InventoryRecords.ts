@@ -3,6 +3,8 @@ import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { InventoryRecord } from '../models/InventoryRecord';
+import { InventoryRecordAssignment } from '../models/InventoryRecordAssignment';
+import { PartyType } from '../models/PartyType';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { RequestOptions } from '../models/RequestOptions';
@@ -23,6 +25,9 @@ class InventoryRecords {
         this.Save = this.Save.bind(this);
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
+        this.DeleteAssignment = this.DeleteAssignment.bind(this);
+        this.ListAssignments = this.ListAssignments.bind(this);
+        this.SaveAssignment = this.SaveAssignment.bind(this);
         this.ListVariant = this.ListVariant.bind(this);
         this.CreateVariant = this.CreateVariant.bind(this);
         this.GetVariant = this.GetVariant.bind(this);
@@ -162,6 +167,81 @@ class InventoryRecords {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/products/${productID}/inventoryrecords/${inventoryRecordID}`, { ...requestOptions, data: inventoryRecord, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete an inventory record assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete-assignment|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param inventoryRecordID ID of the inventory record.
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteAssignment(productID: string, inventoryRecordID: string, listOptions: { buyerID?: string, userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/products/${productID}/inventoryrecords/${inventoryRecordID}/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of inventory record assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/list-assignments|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.inventoryRecordInteropID ID of the inventory record interop.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.level Level of the inventory record assignment. Possible values: User, Group, Company.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListAssignments<TInventoryRecordAssignment extends InventoryRecordAssignment>(productID: string, listOptions: { buyerID?: string, inventoryRecordInteropID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecordAssignment>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/products/${productID}/inventoryrecords/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update an inventory record assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/save-assignment|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param inventoryRecordAssignment Required fields: InventoryRecordID, BuyerID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveAssignment(productID: string, inventoryRecordAssignment: InventoryRecordAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/products/${productID}/inventoryrecords/assignments`, { ...requestOptions, data: inventoryRecordAssignment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
