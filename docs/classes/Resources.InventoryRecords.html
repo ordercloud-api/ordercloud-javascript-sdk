@@ -21,7 +21,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">InventoryRecords</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L12">api/InventoryRecords.ts:12</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L14">api/InventoryRecords.ts:14</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -37,14 +37,17 @@
 <a href="Resources.InventoryRecords.html#Create" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Create</span></a>
 <a href="Resources.InventoryRecords.html#CreateVariant" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Create<wbr/>Variant</span></a>
 <a href="Resources.InventoryRecords.html#Delete" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Delete</span></a>
+<a href="Resources.InventoryRecords.html#DeleteAssignment" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Delete<wbr/>Assignment</span></a>
 <a href="Resources.InventoryRecords.html#DeleteVariant" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Delete<wbr/>Variant</span></a>
 <a href="Resources.InventoryRecords.html#Get" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Get</span></a>
 <a href="Resources.InventoryRecords.html#GetVariant" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Get<wbr/>Variant</span></a>
 <a href="Resources.InventoryRecords.html#List" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>List</span></a>
+<a href="Resources.InventoryRecords.html#ListAssignments" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>List<wbr/>Assignments</span></a>
 <a href="Resources.InventoryRecords.html#ListVariant" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>List<wbr/>Variant</span></a>
 <a href="Resources.InventoryRecords.html#Patch" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Patch</span></a>
 <a href="Resources.InventoryRecords.html#PatchVariant" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Patch<wbr/>Variant</span></a>
 <a href="Resources.InventoryRecords.html#Save" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Save</span></a>
+<a href="Resources.InventoryRecords.html#SaveAssignment" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Save<wbr/>Assignment</span></a>
 <a href="Resources.InventoryRecords.html#SaveVariant" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>Save<wbr/>Variant</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
@@ -53,7 +56,7 @@
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagPrivate">Private</code> <span>impersonating</span><a href="#impersonating" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <div class="tsd-signature">impersonating<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L13">api/InventoryRecords.ts:13</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L15">api/InventoryRecords.ts:15</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="As" class="tsd-anchor"></a>
@@ -69,7 +72,7 @@
 </div>
 <h4 class="tsd-returns-title">Returns <a href="Resources.InventoryRecords.html" class="tsd-signature-type" data-tsd-kind="Class">InventoryRecords</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L325">api/InventoryRecords.ts:325</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L405">api/InventoryRecords.ts:405</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="Create" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Create</span><a href="#Create" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -98,7 +101,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L71">api/InventoryRecords.ts:71</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L76">api/InventoryRecords.ts:76</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="CreateVariant" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Create<wbr/>Variant</span><a href="#CreateVariant" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -131,7 +134,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L212">api/InventoryRecords.ts:212</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L292">api/InventoryRecords.ts:292</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="Delete" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Delete</span><a href="#Delete" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -155,7 +158,46 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L138">api/InventoryRecords.ts:138</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L143">api/InventoryRecords.ts:143</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="DeleteAssignment" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>Delete<wbr/>Assignment</span><a href="#DeleteAssignment" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="DeleteAssignment.DeleteAssignment-1">Delete<wbr/>Assignment<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, inventoryRecordID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span>buyerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userGroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#DeleteAssignment.DeleteAssignment-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Delete an inventory record assignment. 
+Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete-assignment%7Capi">docs</a> for more info</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>productID: <span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the product.</p>
+</div></li>
+<li>
+<h5>inventoryRecordID: <span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the inventory record.</p>
+</div></li>
+<li>
+<h5>listOptions: <span class="tsd-signature-symbol">{ </span><br/><span>    </span>buyerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userGroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol"> = {}</span></h5>
+<ul class="tsd-parameters">
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> buyerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the buyer.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> user<wbr/>GroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the user group.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the user.</p>
+</div></li></ul></li>
+<li>
+<h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L191">api/InventoryRecords.ts:191</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="DeleteVariant" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Delete<wbr/>Variant</span><a href="#DeleteVariant" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -183,7 +225,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L282">api/InventoryRecords.ts:282</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L362">api/InventoryRecords.ts:362</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="Get" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Get</span><a href="#Get" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -212,7 +254,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L93">api/InventoryRecords.ts:93</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L98">api/InventoryRecords.ts:98</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="GetVariant" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Get<wbr/>Variant</span><a href="#GetVariant" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -245,7 +287,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L235">api/InventoryRecords.ts:235</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L315">api/InventoryRecords.ts:315</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="List" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>List</span><a href="#List" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -297,7 +339,63 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Resources.RequiredObjectDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredObjectDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ListPage.html" class="tsd-signature-type" data-tsd-kind="Interface">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L49">api/InventoryRecords.ts:49</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L54">api/InventoryRecords.ts:54</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="ListAssignments" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>List<wbr/>Assignments</span><a href="#ListAssignments" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="ListAssignments.ListAssignments-1">List<wbr/>Assignments<span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecordAssignment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, listOptions<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-symbol">{ </span><br/><span>    </span>buyerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>inventoryRecordInteropID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>level<span class="tsd-signature-symbol">?: </span><a href="../types/PartyType.html" class="tsd-signature-type" data-tsd-kind="Type alias">PartyType</a><span class="tsd-signature-symbol">; </span><br/><span>    </span>page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>pageSize<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userGroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Resources.RequiredObjectDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredObjectDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ListPage.html" class="tsd-signature-type" data-tsd-kind="Interface">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecordAssignment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><a href="#ListAssignments.ListAssignments-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Get a list of inventory record assignments. 
+Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inventory-records/list-assignments%7Capi">docs</a> for more info</p>
+</div>
+<section class="tsd-panel tsd-type-parameters">
+<h4>Type Parameters</h4>
+<ul class="tsd-type-parameters">
+<li>
+<h4>TInventoryRecordAssignment<span class="tsd-signature-symbol"> extends </span><a href="../interfaces/InventoryRecordAssignment.html" class="tsd-signature-type" data-tsd-kind="Interface">InventoryRecordAssignment</a></h4></li></ul></section>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>productID: <span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the product.</p>
+</div></li>
+<li>
+<h5>listOptions: <span class="tsd-signature-symbol">{ </span><br/><span>    </span>buyerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>inventoryRecordInteropID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>level<span class="tsd-signature-symbol">?: </span><a href="../types/PartyType.html" class="tsd-signature-type" data-tsd-kind="Type alias">PartyType</a><span class="tsd-signature-symbol">; </span><br/><span>    </span>page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>pageSize<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userGroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span>    </span>userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span><br/><span class="tsd-signature-symbol">}</span><span class="tsd-signature-symbol"> = {}</span></h5>
+<ul class="tsd-parameters">
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> buyerID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the buyer.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> inventory<wbr/>Record<wbr/>InteropID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the inventory record interop.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> level<span class="tsd-signature-symbol">?: </span><a href="../types/PartyType.html" class="tsd-signature-type" data-tsd-kind="Type alias">PartyType</a></h5>
+<div class="tsd-comment tsd-typography"><p>Level of the inventory record assignment. Possible values: User, Group, Company.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> page<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Page of results to return. Default: 1. When paginating through many items (&gt; page 30), we recommend the &quot;Last ID&quot; method, as outlined in the Advanced Querying documentation.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> page<wbr/>Size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>Number of results to return per page. Default: 20, max: 100.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> user<wbr/>GroupID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the user group.</p>
+</div></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> userID<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the user.</p>
+</div></li></ul></li>
+<li>
+<h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Resources.RequiredObjectDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredObjectDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ListPage.html" class="tsd-signature-type" data-tsd-kind="Interface">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecordAssignment</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L219">api/InventoryRecords.ts:219</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="ListVariant" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>List<wbr/>Variant</span><a href="#ListVariant" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -353,7 +451,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/Resources.RequiredObjectDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredObjectDeep</a><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/ListPage.html" class="tsd-signature-type" data-tsd-kind="Interface">ListPage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L189">api/InventoryRecords.ts:189</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L269">api/InventoryRecords.ts:269</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="Patch" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Patch</span><a href="#Patch" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -384,7 +482,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L161">api/InventoryRecords.ts:161</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L166">api/InventoryRecords.ts:166</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="PatchVariant" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Patch<wbr/>Variant</span><a href="#PatchVariant" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -419,7 +517,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L306">api/InventoryRecords.ts:306</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L386">api/InventoryRecords.ts:386</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="Save" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Save</span><a href="#Save" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -452,7 +550,31 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L116">api/InventoryRecords.ts:116</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L121">api/InventoryRecords.ts:121</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="SaveAssignment" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>Save<wbr/>Assignment</span><a href="#SaveAssignment" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="SaveAssignment.SaveAssignment-1">Save<wbr/>Assignment<span class="tsd-signature-symbol">(</span>productID<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, inventoryRecordAssignment<span class="tsd-signature-symbol">: </span><a href="../interfaces/InventoryRecordAssignment.html" class="tsd-signature-type" data-tsd-kind="Interface">InventoryRecordAssignment</a>, requestOptions<span class="tsd-signature-symbol">?: </span><a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><a href="#SaveAssignment.SaveAssignment-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Create or update an inventory record assignment. 
+Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inventory-records/save-assignment%7Capi">docs</a> for more info</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>productID: <span class="tsd-signature-type">string</span></h5>
+<div class="tsd-comment tsd-typography"><p>ID of the product.</p>
+</div></li>
+<li>
+<h5>inventoryRecordAssignment: <a href="../interfaces/InventoryRecordAssignment.html" class="tsd-signature-type" data-tsd-kind="Interface">InventoryRecordAssignment</a></h5>
+<div class="tsd-comment tsd-typography"><p>Required fields: InventoryRecordID, BuyerID</p>
+</div></li>
+<li>
+<h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L241">api/InventoryRecords.ts:241</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="SaveVariant" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>Save<wbr/>Variant</span><a href="#SaveVariant" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -489,7 +611,7 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <h5>requestOptions: <a href="../interfaces/RequestOptions.html" class="tsd-signature-type" data-tsd-kind="Interface">RequestOptions</a><span class="tsd-signature-symbol"> = {}</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/RequiredDeep.html" class="tsd-signature-type" data-tsd-kind="Type alias">RequiredDeep</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type" data-tsd-kind="Type parameter">TInventoryRecord</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L259">api/InventoryRecords.ts:259</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/api/InventoryRecords.ts#L339">api/InventoryRecords.ts:339</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -520,14 +642,17 @@ Check out the <a href="https://ordercloud.io/api-reference/product-catalogs/inve
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#Create" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Create</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#CreateVariant" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Create<wbr/>Variant</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#Delete" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Delete</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#DeleteAssignment" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Delete<wbr/>Assignment</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#DeleteVariant" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Delete<wbr/>Variant</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#Get" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Get</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#GetVariant" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Get<wbr/>Variant</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#List" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>List</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#ListAssignments" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>List<wbr/>Assignments</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#ListVariant" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>List<wbr/>Variant</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#Patch" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Patch</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#PatchVariant" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Patch<wbr/>Variant</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#Save" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Save</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#SaveAssignment" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Save<wbr/>Assignment</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="Resources.InventoryRecords.html#SaveVariant" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>Save<wbr/>Variant</a></li></ul></li></ul></nav></div></div>
 <div class="container tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>

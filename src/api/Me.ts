@@ -14,6 +14,7 @@ import { TokenPasswordReset } from '../models/TokenPasswordReset';
 import { ProductCollection } from '../models/ProductCollection';
 import { ListPageWithFacets } from '../models/ListPageWithFacets';
 import { BuyerProduct } from '../models/BuyerProduct';
+import { InventoryRecord } from '../models/InventoryRecord';
 import { Spec } from '../models/Spec';
 import { Variant } from '../models/Variant';
 import { Promotion } from '../models/Promotion';
@@ -72,10 +73,12 @@ class Me {
         this.ListProductCollectionEntries = this.ListProductCollectionEntries.bind(this);
         this.ListProducts = this.ListProducts.bind(this);
         this.GetProduct = this.GetProduct.bind(this);
+        this.ListProductInventoryRecords = this.ListProductInventoryRecords.bind(this);
         this.ListSpecs = this.ListSpecs.bind(this);
         this.GetSpec = this.GetSpec.bind(this);
         this.ListVariants = this.ListVariants.bind(this);
         this.GetVariant = this.GetVariant.bind(this);
+        this.ListVariantInventoryRecords = this.ListVariantInventoryRecords.bind(this);
         this.ListPromotions = this.ListPromotions.bind(this);
         this.GetPromotion = this.GetPromotion.bind(this);
         this.Register = this.Register.bind(this);
@@ -899,6 +902,33 @@ class Me {
     }
 
    /**
+    * Get a list of product inventory records visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-inventory-records|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListProductInventoryRecords<TInventoryRecord extends InventoryRecord>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductInventoryRecords'>, sortBy?: Sortable<'Me.ListProductInventoryRecords'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/products/${productID}/inventoryrecords`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
     * Get a list of specs visible to this user. Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-specs|api docs} for more info 
     * 
@@ -990,6 +1020,34 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/products/${productID}/variants/${variantID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of variant inventory records visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-variant-inventory-records|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param variantID ID of the variant.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListVariantInventoryRecords<TInventoryRecord extends InventoryRecord>(productID: string, variantID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListVariantInventoryRecords'>, sortBy?: Sortable<'Me.ListVariantInventoryRecords'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/products/${productID}/variants/${variantID}/inventoryrecords`, { ...requestOptions, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

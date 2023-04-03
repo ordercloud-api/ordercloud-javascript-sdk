@@ -18,7 +18,7 @@ interface SortableMap {
 'Cart.ListEligiblePromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'Cart.ListLineItems': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Cart.ListPayments': ('DateCreated' | 'ID' | 'Type' | 'CreditCardID' | 'SpendingAccountID' | '!DateCreated' | '!ID' | '!Type' | '!CreditCardID' | '!SpendingAccountID')[]
-'Cart.ListPromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
+'Cart.ListPromotions': ('Name' | 'ID' | 'Code' | 'DateApplied' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!DateApplied' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'Catalogs.List': ('OwnerID' | 'Name' | 'ID' | '!OwnerID' | '!Name' | '!ID')[]
 'Categories.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'ImpersonationConfigs.List': ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID')[]
@@ -37,8 +37,10 @@ interface SortableMap {
 'Me.ListProductCollections': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
+'Me.ListProductInventoryRecords': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
 'Me.ListSpecs': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
 'Me.ListVariants': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
+'Me.ListVariantInventoryRecords': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
 'Me.ListPromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'Me.ListBuyerSellers': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListShipments': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
@@ -57,7 +59,7 @@ interface SortableMap {
 'Orders.ListEligiblePromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'LineItems.List': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Payments.List': ('DateCreated' | 'ID' | 'Type' | 'CreditCardID' | 'SpendingAccountID' | '!DateCreated' | '!ID' | '!Type' | '!CreditCardID' | '!SpendingAccountID')[]
-'Orders.ListPromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
+'Orders.ListPromotions': ('Name' | 'ID' | 'Code' | 'DateApplied' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!DateApplied' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'Orders.ListShipments': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
 'PriceSchedules.List': ('Name' | 'ID' | 'OwnerID' | '!Name' | '!ID' | '!OwnerID')[]
 'ProductFacets.List': ('ListOrder' | 'ID' | 'Name' | 'XpPath' | '!ListOrder' | '!ID' | '!Name' | '!XpPath')[]
@@ -120,8 +122,10 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListProductCollections' | 
 'Me.ListProductCollectionEntries' | 
 'Me.ListProducts' | 
+'Me.ListProductInventoryRecords' | 
 'Me.ListSpecs' | 
 'Me.ListVariants' | 
+'Me.ListVariantInventoryRecords' | 
 'Me.ListPromotions' | 
 'Me.ListBuyerSellers' | 
 'Me.ListShipments' | 

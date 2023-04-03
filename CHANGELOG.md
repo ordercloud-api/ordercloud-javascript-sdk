@@ -5,6 +5,9 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.5] - 2023-04-03
+- SDK up to date with [API v1.0.274](https://ordercloud.io/release-notes/v1.0.274), which expands support for Inventory Records
+
 ## [5.0.4] - 2023-03-17
 - Update axios peer dependency version from ^1.0.0 to ^1.1.3
     - A bug in axios was causing a filtering issue in our sdk
