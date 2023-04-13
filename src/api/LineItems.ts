@@ -245,7 +245,7 @@ class LineItems {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchShippingAddress<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+    public async PatchShippingAddress<TLineItem extends LineItem>(direction: OrderDirection, orderID: string, lineItemID: string, address: PartialDeep<Address>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}/lineitems/${lineItemID}/shipto`, { ...requestOptions, data: address, impersonating,  } )

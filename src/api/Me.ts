@@ -23,6 +23,8 @@ import { BuyerSupplier } from '../models/BuyerSupplier';
 import { Shipment } from '../models/Shipment';
 import { ShipmentItem } from '../models/ShipmentItem';
 import { SpendingAccount } from '../models/SpendingAccount';
+import { Subscription } from '../models/Subscription';
+import { LineItem } from '../models/LineItem';
 import { UserGroup } from '../models/UserGroup';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -88,6 +90,18 @@ class Me {
         this.ListShipmentItems = this.ListShipmentItems.bind(this);
         this.ListSpendingAccounts = this.ListSpendingAccounts.bind(this);
         this.GetSpendingAccount = this.GetSpendingAccount.bind(this);
+        this.ListSubscriptions = this.ListSubscriptions.bind(this);
+        this.CreateSubscription = this.CreateSubscription.bind(this);
+        this.GetSubscription = this.GetSubscription.bind(this);
+        this.SaveSubscription = this.SaveSubscription.bind(this);
+        this.DeleteSubscription = this.DeleteSubscription.bind(this);
+        this.PatchSubscription = this.PatchSubscription.bind(this);
+        this.ListSubscriptionItems = this.ListSubscriptionItems.bind(this);
+        this.CreateSubscriptionItem = this.CreateSubscriptionItem.bind(this);
+        this.GetSubscriptionItem = this.GetSubscriptionItem.bind(this);
+        this.SaveSubscriptionItem = this.SaveSubscriptionItem.bind(this);
+        this.DeleteSubscriptionItem = this.DeleteSubscriptionItem.bind(this);
+        this.PatchSubscriptionItem = this.PatchSubscriptionItem.bind(this);
         this.ListUserGroups = this.ListUserGroups.bind(this);
     }
 
@@ -274,7 +288,7 @@ class Me {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchAddress(addressID: string, buyerAddress: BuyerAddress,requestOptions: RequestOptions = {} ): Promise<void>{
+    public async PatchAddress(addressID: string, buyerAddress: PartialDeep<BuyerAddress>, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/me/addresses/${addressID}`, { ...requestOptions, data: buyerAddress, impersonating,  } )
@@ -532,7 +546,7 @@ class Me {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchCreditCard(creditcardID: string, buyerCreditCard: BuyerCreditCard,requestOptions: RequestOptions = {} ): Promise<void>{
+    public async PatchCreditCard(creditcardID: string, buyerCreditCard: PartialDeep<BuyerCreditCard>, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/me/creditcards/${creditcardID}`, { ...requestOptions, data: buyerCreditCard, impersonating,  } )
@@ -764,7 +778,7 @@ class Me {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchProductCollection<TProductCollection extends ProductCollection>(productCollectionID: string, productCollection: ProductCollection,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollection>>{
+    public async PatchProductCollection<TProductCollection extends ProductCollection>(productCollectionID: string, productCollection: PartialDeep<ProductCollection>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollection>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/me/productcollections/${productCollectionID}`, { ...requestOptions, data: productCollection, impersonating,  } )
@@ -1266,6 +1280,278 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/spendingaccounts/${spendingAccountID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of subscriptions visible to this user. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-subscriptions|api docs} for more info 
+    * 
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListSubscriptions<TSubscription extends Subscription>(listOptions: { search?: string, searchOn?: Searchable<'Me.ListSubscriptions'>, sortBy?: Sortable<'Me.ListSubscriptions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSubscription>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/subscriptions`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new subscription. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-subscription|api docs} for more info 
+    * 
+    * @param subscription Required fields: Frequency, Interval, NextOrderDate
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateSubscription<TSubscription extends Subscription>(subscription: Subscription,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSubscription>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/subscriptions`, { ...requestOptions, data: subscription, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single subscription. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-subscription|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetSubscription<TSubscription extends Subscription>(subscriptionID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSubscription>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/subscriptions/${subscriptionID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update a subscription. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-subscription|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param subscription Required fields: Frequency, Interval, NextOrderDate
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveSubscription<TSubscription extends Subscription>(subscriptionID: string, subscription: Subscription,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSubscription>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/me/subscriptions/${subscriptionID}`, { ...requestOptions, data: subscription, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a subscription. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-subscription|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteSubscription(subscriptionID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/subscriptions/${subscriptionID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a subscription. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-subscription|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param subscription 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchSubscription<TSubscription extends Subscription>(subscriptionID: string, subscription: PartialDeep<Subscription>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSubscription>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/me/subscriptions/${subscriptionID}`, { ...requestOptions, data: subscription, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of subscription items visible to this user. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-subscription-items|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListSubscriptionItems<TLineItem extends LineItem>(subscriptionID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListSubscriptionItems'>, sortBy?: Sortable<'Me.ListSubscriptionItems'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TLineItem>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/subscriptions/${subscriptionID}/items`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new subscription item. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-subscription-item|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param lineItem Required fields: ProductID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateSubscriptionItem<TLineItem extends LineItem>(subscriptionID: string, lineItem: LineItem,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/subscriptions/${subscriptionID}/items`, { ...requestOptions, data: lineItem, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single subscription item. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-subscription-item|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param subscriptionItemID ID of the subscription item.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetSubscriptionItem<TLineItem extends LineItem>(subscriptionID: string, subscriptionItemID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/subscriptions/${subscriptionID}/items/${subscriptionItemID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update a subscription item. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-subscription-item|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param subscriptionItemID ID of the subscription item.
+    * @param lineItem Required fields: ProductID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveSubscriptionItem<TLineItem extends LineItem>(subscriptionID: string, subscriptionItemID: string, lineItem: LineItem,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/me/subscriptions/${subscriptionID}/items/${subscriptionItemID}`, { ...requestOptions, data: lineItem, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a subscription item. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-subscription-item|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param subscriptionItemID ID of the subscription item.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteSubscriptionItem(subscriptionID: string, subscriptionItemID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/subscriptions/${subscriptionID}/items/${subscriptionItemID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a subscription item. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-subscription-item|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param subscriptionItemID ID of the subscription item.
+    * @param lineItem 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchSubscriptionItem<TLineItem extends LineItem>(subscriptionID: string, subscriptionItemID: string, lineItem: PartialDeep<LineItem>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/me/subscriptions/${subscriptionID}/items/${subscriptionItemID}`, { ...requestOptions, data: lineItem, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

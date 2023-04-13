@@ -16,4 +16,5 @@ export type MessageType = 'OrderDeclined' |
 'OrderReturnApproved' | 
 'OrderReturnSubmittedForYourApprovalHasBeenApproved' | 
 'OrderReturnSubmittedForYourApprovalHasBeenDeclined' | 
-'OrderReturnCompleted'
+'OrderReturnCompleted' | 
+'SubscriptionReminder'

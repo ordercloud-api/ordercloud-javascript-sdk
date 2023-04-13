@@ -33,6 +33,7 @@ export type ApiRole = 'ApiClientAdmin' |
 'MeAdmin' | 
 'MeCreditCardAdmin' | 
 'MessageConfigAssignmentAdmin' | 
+'MeSubscriptionAdmin' | 
 'MeXpAdmin' | 
 'OrderAdmin' | 
 'OrderReader' | 
@@ -57,6 +58,8 @@ export type ApiRole = 'ApiClientAdmin' |
 'Shopper' | 
 'SpendingAccountAdmin' | 
 'SpendingAccountReader' | 
+'SubscriptionAdmin' | 
+'SubscriptionReader' | 
 'SupplierAddressAdmin' | 
 'SupplierAddressReader' | 
 'SupplierAdmin' | 

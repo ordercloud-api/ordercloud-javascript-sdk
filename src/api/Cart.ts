@@ -255,7 +255,7 @@ class Cart {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchFromUser<TOrder extends Order>(user: User,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+    public async PatchFromUser<TOrder extends Order>(user: PartialDeep<User>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/cart/fromuser`, { ...requestOptions, data: user, impersonating,  } )
@@ -388,7 +388,7 @@ class Cart {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchLineItem<TLineItem extends LineItem>(lineItemID: string, lineItem: LineItem,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+    public async PatchLineItem<TLineItem extends LineItem>(lineItemID: string, lineItem: PartialDeep<LineItem>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/cart/lineitems/${lineItemID}`, { ...requestOptions, data: lineItem, impersonating,  } )
@@ -499,7 +499,7 @@ class Cart {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchPayment<TPayment extends Payment>(paymentID: string, payment: Payment,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
+    public async PatchPayment<TPayment extends Payment>(paymentID: string, payment: PartialDeep<Payment>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/cart/payments/${paymentID}`, { ...requestOptions, data: payment, impersonating,  } )

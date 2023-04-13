@@ -296,7 +296,7 @@ class Specs {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
+    public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: PartialDeep<SpecOption>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/specs/${specID}/options/${optionID}`, { ...requestOptions, data: specOption, impersonating,  } )
