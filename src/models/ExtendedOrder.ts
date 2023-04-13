@@ -30,5 +30,6 @@ export interface ExtendedOrder<TExtendedOrderXp = any, TProductXp = any, TVarian
     readonly Currency?: string
     readonly Total?: number
     readonly IsSubmitted?: boolean
+    readonly SubscriptionID?: string
     xp?: TExtendedOrderXp
 }

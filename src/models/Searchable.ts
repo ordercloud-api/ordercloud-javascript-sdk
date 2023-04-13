@@ -46,6 +46,8 @@ interface SearchableMap {
 'Me.ListShipments': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
 'Me.ListShipmentItems': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
 'Me.ListSpendingAccounts': ('ID' | 'Name' | 'RedemptionCode')[]
+'Me.ListSubscriptions': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Interval')[]
+'Me.ListSubscriptionItems': ('ID' | 'ProductID')[]
 'Me.ListUserGroups': ('ID' | 'Name' | 'Description')[]
 'MessageSenders.List': ('ID' | 'Name' | 'URL')[]
 'MessageSenders.ListCCListenerAssignments': ('BuyerID' | 'UserGroupID' | 'UserID' | 'MessageConfigName' | 'SupplierID')[]
@@ -76,6 +78,8 @@ interface SearchableMap {
 'Specs.List': ('Name' | 'ID')[]
 'Specs.ListOptions': ('Value' | 'ID')[]
 'Specs.ListProductAssignments': ('SpecID' | 'ProductID')[]
+'Subscriptions.List': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Interval')[]
+'SubscriptionItems.List': ('ID' | 'ProductID')[]
 'Suppliers.List': ('Name' | 'ID')[]
 'SupplierAddresses.List': ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[]
 'Suppliers.ListBuyers': ('ID' | 'Name')[]
@@ -131,6 +135,8 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListShipments' | 
 'Me.ListShipmentItems' | 
 'Me.ListSpendingAccounts' | 
+'Me.ListSubscriptions' | 
+'Me.ListSubscriptionItems' | 
 'Me.ListUserGroups' | 
 'MessageSenders.List' | 
 'MessageSenders.ListCCListenerAssignments' | 
@@ -161,6 +167,8 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Specs.List' | 
 'Specs.ListOptions' | 
 'Specs.ListProductAssignments' | 
+'Subscriptions.List' | 
+'SubscriptionItems.List' | 
 'Suppliers.List' | 
 'SupplierAddresses.List' | 
 'Suppliers.ListBuyers' | 

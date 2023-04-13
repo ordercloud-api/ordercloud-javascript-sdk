@@ -46,6 +46,8 @@ interface SortableMap {
 'Me.ListShipments': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
 'Me.ListShipmentItems': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
 'Me.ListSpendingAccounts': ('Name' | 'ID' | '!Name' | '!ID')[]
+'Me.ListSubscriptions': ('NextOrderDate' | 'LastOrderDate' | 'ID' | 'Interval' | 'EndDate' | 'FromCompanyID' | 'FromUserID' | 'ToCompanyID' | '!NextOrderDate' | '!LastOrderDate' | '!ID' | '!Interval' | '!EndDate' | '!FromCompanyID' | '!FromUserID' | '!ToCompanyID')[]
+'Me.ListSubscriptionItems': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Me.ListUserGroups': ('Name' | 'ID' | '!Name' | '!ID')[]
 'MessageSenders.List': ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[]
 'MessageSenders.ListCCListenerAssignments': ('BuyerID' | 'UserGroupID' | 'UserID' | 'MessageConfigName' | 'SupplierID' | '!BuyerID' | '!UserGroupID' | '!UserID' | '!MessageConfigName' | '!SupplierID')[]
@@ -76,6 +78,8 @@ interface SortableMap {
 'Specs.List': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
 'Specs.ListOptions': ('ListOrder' | 'ID' | '!ListOrder' | '!ID')[]
 'Specs.ListProductAssignments': ('SpecID' | 'ProductID' | 'DefaultOptionID' | 'DefaultValue' | '!SpecID' | '!ProductID' | '!DefaultOptionID' | '!DefaultValue')[]
+'Subscriptions.List': ('NextOrderDate' | 'LastOrderDate' | 'ID' | 'Interval' | 'EndDate' | 'FromCompanyID' | 'FromUserID' | 'ToCompanyID' | '!NextOrderDate' | '!LastOrderDate' | '!ID' | '!Interval' | '!EndDate' | '!FromCompanyID' | '!FromUserID' | '!ToCompanyID')[]
+'SubscriptionItems.List': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Suppliers.List': ('ID' | 'Name' | 'DateCreated' | '!ID' | '!Name' | '!DateCreated')[]
 'SupplierAddresses.List': ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[]
 'Suppliers.ListBuyers': ('Name' | 'ID' | '!Name' | '!ID')[]
@@ -131,6 +135,8 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListShipments' | 
 'Me.ListShipmentItems' | 
 'Me.ListSpendingAccounts' | 
+'Me.ListSubscriptions' | 
+'Me.ListSubscriptionItems' | 
 'Me.ListUserGroups' | 
 'MessageSenders.List' | 
 'MessageSenders.ListCCListenerAssignments' | 
@@ -161,6 +167,8 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Specs.List' | 
 'Specs.ListOptions' | 
 'Specs.ListProductAssignments' | 
+'Subscriptions.List' | 
+'SubscriptionItems.List' | 
 'Suppliers.List' | 
 'SupplierAddresses.List' | 
 'Suppliers.ListBuyers' | 

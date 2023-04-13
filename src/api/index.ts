@@ -40,8 +40,11 @@ import Payments from './Payments';
 import Shipments from './Shipments';
 import OrderReturns from './OrderReturns';
 import SellerApprovalRules from './SellerApprovalRules';
+import SubscriptionItems from './SubscriptionItems';
+import Subscriptions from './Subscriptions';
 import Me from './Me';
 import TrackingEvents from './TrackingEvents';
+import SubscriptionIntegrations from './SubscriptionIntegrations';
 import Auth from './Auth';
 import Tokens from './Tokens';
 
@@ -88,8 +91,11 @@ export {
     Shipments,
     OrderReturns,
     SellerApprovalRules,
+    SubscriptionItems,
+    Subscriptions,
     Me,
     TrackingEvents,
+    SubscriptionIntegrations,
     Auth,
     Tokens
 }

@@ -17,6 +17,7 @@ import { MessageSenderOrderReturnSubmittedForYourApprovalHasBeenApprovedPayload 
 import { MessageSenderOrderReturnSubmittedForYourApprovalHasBeenDeclinedPayload } from './MessageSenderOrderReturnSubmittedForYourApprovalHasBeenDeclinedPayload'
 import { MessageSenderOrderReturnCompletedPayload } from './MessageSenderOrderReturnCompletedPayload'
 import { MessageSenderOrderReturnSubmittedForApprovalPayload } from './MessageSenderOrderReturnSubmittedForApprovalPayload'
+import { MessageSenderSubscriptionReminderPayload } from './MessageSenderSubscriptionReminderPayload'
 
 export type MessageSenderPayloads<
   TMessageType extends MessageType
@@ -41,4 +42,5 @@ interface PayloadMap {
   'OrderReturnSubmittedForYourApprovalHasBeenApproved': MessageSenderOrderReturnSubmittedForYourApprovalHasBeenApprovedPayload
   'OrderReturnSubmittedForYourApprovalHasBeenDeclined': MessageSenderOrderReturnSubmittedForYourApprovalHasBeenDeclinedPayload
   'OrderReturnCompleted': MessageSenderOrderReturnCompletedPayload
+  'SubscriptionReminder': MessageSenderSubscriptionReminderPayload
 }

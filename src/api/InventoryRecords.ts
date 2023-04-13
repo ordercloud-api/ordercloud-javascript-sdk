@@ -383,7 +383,7 @@ class InventoryRecords {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchVariant<TInventoryRecord extends InventoryRecord>(productID: string, variantID: string, inventoryRecordID: string, inventoryRecord: InventoryRecord,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TInventoryRecord>>{
+    public async PatchVariant<TInventoryRecord extends InventoryRecord>(productID: string, variantID: string, inventoryRecordID: string, inventoryRecord: PartialDeep<InventoryRecord>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TInventoryRecord>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/products/${productID}/variants/${variantID}/inventoryrecords/${inventoryRecordID}`, { ...requestOptions, data: inventoryRecord, impersonating,  } )

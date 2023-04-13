@@ -308,7 +308,7 @@ class Orders {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+    public async PatchBillingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: PartialDeep<Address>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}/billto`, { ...requestOptions, data: address, impersonating,  } )
@@ -476,7 +476,7 @@ class Orders {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchFromUser<TOrder extends Order>(direction: OrderDirection, orderID: string, user: User,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+    public async PatchFromUser<TOrder extends Order>(direction: OrderDirection, orderID: string, user: PartialDeep<User>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}/fromuser`, { ...requestOptions, data: user, impersonating,  } )
@@ -647,7 +647,7 @@ class Orders {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async PatchShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+    public async PatchShippingAddress<TOrder extends Order>(direction: OrderDirection, orderID: string, address: PartialDeep<Address>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/orders/${direction}/${orderID}/shipto`, { ...requestOptions, data: address, impersonating,  } )

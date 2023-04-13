@@ -28,5 +28,6 @@ export interface Order<TOrderXp = any, TFromUserXp = any, TBillingAddressXp = an
     readonly Currency?: string
     readonly Total?: number
     readonly IsSubmitted?: boolean
+    readonly SubscriptionID?: string
     xp?: TOrderXp
 }
