@@ -9,9 +9,9 @@ export type MessageSenderProductCollectionInvitationDeclinedPayload<
 > = MessageSenderPayload<
   TConfigData,
   MessageSenderProductCollectionInvitationDeclinedEventBody<
-  TProductCollection, 
-  TInvitationInteropID, 
-  TUserID
+    TProductCollection,
+    TInvitationInteropID,
+    TUserID
   >
 >
 
