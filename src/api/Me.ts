@@ -12,6 +12,7 @@ import { Order } from '../models/Order';
 import { SearchType } from '../models/SearchType';
 import { TokenPasswordReset } from '../models/TokenPasswordReset';
 import { ProductCollection } from '../models/ProductCollection';
+import { ProductCollectionInvitation } from '../models/ProductCollectionInvitation';
 import { ListPageWithFacets } from '../models/ListPageWithFacets';
 import { BuyerProduct } from '../models/BuyerProduct';
 import { InventoryRecord } from '../models/InventoryRecord';
@@ -72,6 +73,13 @@ class Me {
         this.PatchProductCollection = this.PatchProductCollection.bind(this);
         this.CreateProductCollectionEntry = this.CreateProductCollectionEntry.bind(this);
         this.DeleteProductCollectionEntry = this.DeleteProductCollectionEntry.bind(this);
+        this.ListProductCollectionInvitations = this.ListProductCollectionInvitations.bind(this);
+        this.CreateProductCollectionInvitation = this.CreateProductCollectionInvitation.bind(this);
+        this.GetProductCollectionInvitation = this.GetProductCollectionInvitation.bind(this);
+        this.DeleteProductCollectionInvitation = this.DeleteProductCollectionInvitation.bind(this);
+        this.PatchProductCollectionInvitation = this.PatchProductCollectionInvitation.bind(this);
+        this.AcceptProductCollectionInvitation = this.AcceptProductCollectionInvitation.bind(this);
+        this.DeclineProductCollectionInvitation = this.DeclineProductCollectionInvitation.bind(this);
         this.ListProductCollectionEntries = this.ListProductCollectionEntries.bind(this);
         this.ListProducts = this.ListProducts.bind(this);
         this.GetProduct = this.GetProduct.bind(this);
@@ -826,6 +834,167 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/me/productcollections/${productCollectionID}/${productID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of product collection invitations visible to this user. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-collection-invitations|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListProductCollectionInvitations<TProductCollectionInvitation extends ProductCollectionInvitation>(productCollectionID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductCollectionInvitations'>, searchType?: SearchType, sortBy?: Sortable<'Me.ListProductCollectionInvitations'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductCollectionInvitation>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/productcollections/${productCollectionID}/invitations`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new product collection invitation. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-product-collection-invitation|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param productCollectionInvitation Required fields: Name
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateProductCollectionInvitation<TProductCollectionInvitation extends ProductCollectionInvitation>(productCollectionID: string, productCollectionInvitation: ProductCollectionInvitation,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollectionInvitation>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/productcollections/${productCollectionID}/invitations`, { ...requestOptions, data: productCollectionInvitation, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single product collection invitation. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-product-collection-invitation|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param invitationID ID of the invitation.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetProductCollectionInvitation<TProductCollectionInvitation extends ProductCollectionInvitation>(productCollectionID: string, invitationID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollectionInvitation>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/productcollections/${productCollectionID}/invitations/${invitationID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a product collection invitation. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-product-collection-invitation|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param invitationID ID of the invitation.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteProductCollectionInvitation(productCollectionID: string, invitationID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/productcollections/${productCollectionID}/invitations/${invitationID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a product collection invitation. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-product-collection-invitation|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param invitationID ID of the invitation.
+    * @param productCollectionInvitation 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchProductCollectionInvitation<TProductCollectionInvitation extends ProductCollectionInvitation>(productCollectionID: string, invitationID: string, productCollectionInvitation: PartialDeep<ProductCollectionInvitation>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProductCollectionInvitation>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/me/productcollections/${productCollectionID}/invitations/${invitationID}`, { ...requestOptions, data: productCollectionInvitation, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Accept a product collection invitation. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/accept-product-collection-invitation|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param invitationID ID of the invitation.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async AcceptProductCollectionInvitation(productCollectionID: string, invitationID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/productcollections/${productCollectionID}/invitations/accept/${invitationID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Decline a product collection invitation. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/decline-product-collection-invitation|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param invitationID ID of the invitation.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeclineProductCollectionInvitation(productCollectionID: string, invitationID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/productcollections/${productCollectionID}/invitations/decline/${invitationID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

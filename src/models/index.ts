@@ -1,3 +1,4 @@
+export * from './AccessLevel';
 export * from './AccessToken';
 export * from './AccessTokenBasic';
 export * from './Address';
@@ -85,6 +86,7 @@ export * from './Product';
 export * from './ProductAssignment';
 export * from './ProductCatalogAssignment';
 export * from './ProductCollection';
+export * from './ProductCollectionInvitation';
 export * from './ProductFacet';
 export * from './ProductSupplier';
 export * from './Promotion';

@@ -10,6 +10,8 @@ interface SortableMap {
 'ApprovalRules.List': ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[]
 'CostCenters.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'CreditCards.List': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate' | 'DateCreated' | '!ID' | '!CardholderName' | '!CardType' | '!ExpirationDate' | '!DateCreated')[]
+'ProductCollections.List': ('Name' | 'ID' | '!Name' | '!ID')[]
+'ProductCollections.ListEntries': string[]
 'Buyers.ListBuyerSellers': ('Name' | 'ID' | '!Name' | '!ID')[]
 'SpendingAccounts.List': ('Name' | 'ID' | '!Name' | '!ID')[]
 'UserGroups.List': ('Name' | 'ID' | '!Name' | '!ID')[]
@@ -35,6 +37,7 @@ interface SortableMap {
 'Me.ListOrders': ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[]
 'Me.ListApprovableOrders': ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[]
 'Me.ListProductCollections': ('Name' | 'ID' | '!Name' | '!ID')[]
+'Me.ListProductCollectionInvitations': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
 'Me.ListProductInventoryRecords': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
@@ -99,6 +102,8 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'ApprovalRules.List' | 
 'CostCenters.List' | 
 'CreditCards.List' | 
+'ProductCollections.List' | 
+'ProductCollections.ListEntries' | 
 'Buyers.ListBuyerSellers' | 
 'SpendingAccounts.List' | 
 'UserGroups.List' | 
@@ -124,6 +129,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListOrders' | 
 'Me.ListApprovableOrders' | 
 'Me.ListProductCollections' | 
+'Me.ListProductCollectionInvitations' | 
 'Me.ListProductCollectionEntries' | 
 'Me.ListProducts' | 
 'Me.ListProductInventoryRecords' | 
