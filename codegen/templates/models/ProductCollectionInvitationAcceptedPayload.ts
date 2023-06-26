@@ -8,7 +8,11 @@ export type MessageSenderProductCollectionInvitationAcceptedPayload<
   TUserID extends string = string
 > = MessageSenderPayload<
   TConfigData,
-  MessageSenderProductCollectionInvitationAcceptedEventBody<TProductCollection, TInvitationInteropID, TUserID>
+  MessageSenderProductCollectionInvitationAcceptedEventBody<
+    TProductCollection,
+    TInvitationInteropID,
+    TUserID
+  >
 >
 
 export interface MessageSenderProductCollectionInvitationAcceptedEventBody<
