@@ -10,6 +10,8 @@ interface SearchableMap {
 'ApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
 'CostCenters.List': ('ID' | 'Name' | 'Description')[]
 'CreditCards.List': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate')[]
+'ProductCollections.List': ('ID' | 'Name')[]
+'ProductCollections.ListEntries': string[]
 'Buyers.ListBuyerSellers': ('ID' | 'Name')[]
 'SpendingAccounts.List': ('ID' | 'Name' | 'RedemptionCode')[]
 'UserGroups.List': ('ID' | 'Name' | 'Description')[]
@@ -35,6 +37,7 @@ interface SearchableMap {
 'Me.ListOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Me.ListApprovableOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Me.ListProductCollections': ('ID' | 'Name')[]
+'Me.ListProductCollectionInvitations': ('ID' | 'Name')[]
 'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
 'Me.ListProductInventoryRecords': ('ID' | 'AddressID')[]
@@ -99,6 +102,8 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'ApprovalRules.List' | 
 'CostCenters.List' | 
 'CreditCards.List' | 
+'ProductCollections.List' | 
+'ProductCollections.ListEntries' | 
 'Buyers.ListBuyerSellers' | 
 'SpendingAccounts.List' | 
 'UserGroups.List' | 
@@ -124,6 +129,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListOrders' | 
 'Me.ListApprovableOrders' | 
 'Me.ListProductCollections' | 
+'Me.ListProductCollectionInvitations' | 
 'Me.ListProductCollectionEntries' | 
 'Me.ListProducts' | 
 'Me.ListProductInventoryRecords' | 

@@ -21,6 +21,7 @@ import CostCenters from './CostCenters';
 import CreditCards from './CreditCards';
 import SpendingAccounts from './SpendingAccounts';
 import ApprovalRules from './ApprovalRules';
+import ProductCollections from './ProductCollections';
 import Suppliers from './Suppliers';
 import SupplierUsers from './SupplierUsers';
 import SupplierUserGroups from './SupplierUserGroups';
@@ -72,6 +73,7 @@ export {
     CreditCards,
     SpendingAccounts,
     ApprovalRules,
+    ProductCollections,
     Suppliers,
     SupplierUsers,
     SupplierUserGroups,
