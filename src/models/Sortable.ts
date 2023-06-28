@@ -26,6 +26,7 @@ interface SortableMap {
 'ImpersonationConfigs.List': ('ImpersonationBuyerID' | 'ImpersonationGroupID' | 'ImpersonationUserID' | 'BuyerID' | 'GroupID' | 'UserID' | 'SecurityProfileID' | 'ClientID' | 'ID' | '!ImpersonationBuyerID' | '!ImpersonationGroupID' | '!ImpersonationUserID' | '!BuyerID' | '!GroupID' | '!UserID' | '!SecurityProfileID' | '!ClientID' | '!ID')[]
 'Incrementors.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'IntegrationEvents.List': ('ID' | 'EventType' | 'Name' | '!ID' | '!EventType' | '!Name')[]
+'DeliveryConfigurations.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'TrackingEvents.List': ('ID' | 'EventType' | '!ID' | '!EventType')[]
 'LineItems.ListAcrossOrders': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Locales.List': ('ID' | '!ID')[]
@@ -118,6 +119,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'ImpersonationConfigs.List' | 
 'Incrementors.List' | 
 'IntegrationEvents.List' | 
+'DeliveryConfigurations.List' | 
 'TrackingEvents.List' | 
 'LineItems.ListAcrossOrders' | 
 'Locales.List' | 
