@@ -6,4 +6,5 @@ export interface TrackingEvent {
     ClientID: string
     Name: string
     ConfigData?: any
+    DeliveryConfigID: string
 }

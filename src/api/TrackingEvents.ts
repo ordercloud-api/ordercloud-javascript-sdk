@@ -55,7 +55,7 @@ class TrackingEvents {
     * Create a new tracking event. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/tracking-events/create|api docs} for more info 
     * 
-    * @param trackingEvent Required fields: EventType, ClientID, Name
+    * @param trackingEvent Required fields: EventType, ClientID, Name, DeliveryConfigID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -98,7 +98,7 @@ class TrackingEvents {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/tracking-events/save|api docs} for more info 
     * 
     * @param eventID ID of the event.
-    * @param trackingEvent Required fields: EventType, ClientID, Name
+    * @param trackingEvent Required fields: EventType, ClientID, Name, DeliveryConfigID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

@@ -45,6 +45,7 @@ import SubscriptionItems from './SubscriptionItems';
 import Subscriptions from './Subscriptions';
 import Me from './Me';
 import TrackingEvents from './TrackingEvents';
+import DeliveryConfigurations from './DeliveryConfigurations';
 import SubscriptionIntegrations from './SubscriptionIntegrations';
 import Auth from './Auth';
 import Tokens from './Tokens';
@@ -97,6 +98,7 @@ export {
     Subscriptions,
     Me,
     TrackingEvents,
+    DeliveryConfigurations,
     SubscriptionIntegrations,
     Auth,
     Tokens
