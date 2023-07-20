@@ -94,6 +94,7 @@ export * from './ProductCatalogAssignment';
 export * from './ProductCollection';
 export * from './ProductCollectionInvitation';
 export * from './ProductFacet';
+export * from './ProductSeller';
 export * from './ProductSupplier';
 export * from './Promotion';
 export * from './PromotionAssignment';

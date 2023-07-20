@@ -42,6 +42,7 @@ interface SearchableMap {
 'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
 'Me.ListProductInventoryRecords': ('ID' | 'AddressID')[]
+'Me.ListProductSellers': ('ID' | 'ParentID' | 'Name' | 'Description')[]
 'Me.ListSpecs': ('ID' | 'ParentID' | 'Name' | 'Description')[]
 'Me.ListVariants': ('ID' | 'ParentID' | 'Name' | 'Description')[]
 'Me.ListVariantInventoryRecords': ('ID' | 'AddressID')[]
@@ -135,6 +136,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListProductCollectionEntries' | 
 'Me.ListProducts' | 
 'Me.ListProductInventoryRecords' | 
+'Me.ListProductSellers' | 
 'Me.ListSpecs' | 
 'Me.ListVariants' | 
 'Me.ListVariantInventoryRecords' | 
