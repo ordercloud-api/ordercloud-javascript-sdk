@@ -34,6 +34,9 @@ class InventoryRecords {
         this.SaveVariant = this.SaveVariant.bind(this);
         this.DeleteVariant = this.DeleteVariant.bind(this);
         this.PatchVariant = this.PatchVariant.bind(this);
+        this.DeleteVariantAssignment = this.DeleteVariantAssignment.bind(this);
+        this.ListVariantAssignments = this.ListVariantAssignments.bind(this);
+        this.SaveVariantAssignment = this.SaveVariantAssignment.bind(this);
     }
 
    /**
@@ -387,6 +390,84 @@ class InventoryRecords {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/products/${productID}/variants/${variantID}/inventoryrecords/${inventoryRecordID}`, { ...requestOptions, data: inventoryRecord, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete an inventory record variant assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete-variant-assignment|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param variantID ID of the variant.
+    * @param inventoryRecordID ID of the inventory record.
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteVariantAssignment(productID: string, variantID: string, inventoryRecordID: string, listOptions: { buyerID?: string, userID?: string, userGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/products/${productID}/variants/${variantID}/inventoryrecords/${inventoryRecordID}/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of inventory record variant assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/list-variant-assignments|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param variantID ID of the variant.
+    * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.inventoryRecordInteropID ID of the inventory record interop.
+    * @param listOptions.userID ID of the user.
+    * @param listOptions.userGroupID ID of the user group.
+    * @param listOptions.level Level of the inventory record assignment. Possible values: User, Group, Company.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListVariantAssignments<TInventoryRecordAssignment extends InventoryRecordAssignment>(productID: string, variantID: string, listOptions: { buyerID?: string, inventoryRecordInteropID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecordAssignment>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/products/${productID}/variants/${variantID}/inventoryrecords/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update an inventory record variant assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/save-variant-assignment|api docs} for more info 
+    * 
+    * @param productID ID of the product.
+    * @param variantID ID of the variant.
+    * @param inventoryRecordAssignment Required fields: InventoryRecordID, BuyerID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveVariantAssignment(productID: string, variantID: string, inventoryRecordAssignment: InventoryRecordAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/products/${productID}/variants/${variantID}/inventoryrecords/assignments`, { ...requestOptions, data: inventoryRecordAssignment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

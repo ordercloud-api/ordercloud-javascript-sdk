@@ -42,6 +42,7 @@ interface SortableMap {
 'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
 'Me.ListProductInventoryRecords': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
+'Me.ListProductSellers': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
 'Me.ListSpecs': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
 'Me.ListVariants': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
 'Me.ListVariantInventoryRecords': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
@@ -135,6 +136,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListProductCollectionEntries' | 
 'Me.ListProducts' | 
 'Me.ListProductInventoryRecords' | 
+'Me.ListProductSellers' | 
 'Me.ListSpecs' | 
 'Me.ListVariants' | 
 'Me.ListVariantInventoryRecords' | 
