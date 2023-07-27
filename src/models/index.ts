@@ -96,6 +96,7 @@ export * from './ProductCollectionInvitation';
 export * from './ProductFacet';
 export * from './ProductSeller';
 export * from './ProductSupplier';
+export * from './ProductSyncConfig';
 export * from './Promotion';
 export * from './PromotionAssignment';
 export * from './PromotionOverride';

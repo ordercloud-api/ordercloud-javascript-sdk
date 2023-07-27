@@ -46,6 +46,7 @@ import Subscriptions from './Subscriptions';
 import Me from './Me';
 import TrackingEvents from './TrackingEvents';
 import DeliveryConfigurations from './DeliveryConfigurations';
+import ProductSynchronization from './ProductSynchronization';
 import SubscriptionIntegrations from './SubscriptionIntegrations';
 import Auth from './Auth';
 import Tokens from './Tokens';
@@ -99,6 +100,7 @@ export {
     Me,
     TrackingEvents,
     DeliveryConfigurations,
+    ProductSynchronization,
     SubscriptionIntegrations,
     Auth,
     Tokens
