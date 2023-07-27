@@ -49,6 +49,7 @@ export type ApiRole = 'ApiClientAdmin' |
 'ProductFacetAdmin' | 
 'ProductFacetReader' | 
 'ProductReader' | 
+'ProductSyncConfigAdmin' | 
 'PromotionAdmin' | 
 'PromotionReader' | 
 'SecurityProfileAdmin' | 
@@ -82,4 +83,5 @@ export type ApiRole = 'ApiClientAdmin' |
 'IntegrationEventReader' | 
 'IntegrationEventAdmin' | 
 'TrackingEventReader' | 
-'TrackingEventAdmin'
+'TrackingEventAdmin' | 
+'DeliveryConfigAdmin'
