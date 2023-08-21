@@ -32,7 +32,7 @@ class Auth {
    * @param username of the user logging in
    * @param password of the user logging in
    * @param client_id of the application the user is logging into
-   * @param scope roles being requested - space delimited string or array
+   * @param scope optional roles being requested, if omitted will return all assigned roles
    * @param customRoles optional custom roles being requested - string array
    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -41,22 +41,29 @@ class Auth {
     username: string,
     password: string,
     clientID: string,
-    scope: ApiRole[],
+    scope?: ApiRole[],
     customRoles?: string[],
     requestOptions: {
       cancelToken?: CancelToken
       requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    if (!Array.isArray(scope)) {
+    if (scope && !Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
     if (customRoles != null && !Array.isArray(customRoles)) {
       throw new Error('custom roles must be defined as a string array')
     }
-    var _scope = customRoles?.length
-      ? `${scope.join(' ')} ${customRoles.join(' ')}`
-      : scope.join(' ')
+
+    let _scope: string | undefined
+    if (scope?.length && !customRoles?.length) {
+      _scope = scope.join(' ')
+    } else if (!scope?.length && customRoles?.length) {
+      _scope += ` ${customRoles.join(' ')}`
+    } else if (scope?.length && customRoles?.length) {
+      _scope = `${scope.join(' ')} ${customRoles.join(' ')}`
+    }
+
     const body = {
       grant_type: 'password',
       username,
@@ -105,22 +112,29 @@ class Auth {
     username: string,
     password: string,
     clientID: string,
-    scope: ApiRole[],
+    scope?: ApiRole[],
     customRoles?: string[],
     requestOptions: {
       cancelToken?: CancelToken
       requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    if (!Array.isArray(scope)) {
+    if (scope && !Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
     if (customRoles != null && !Array.isArray(customRoles)) {
       throw new Error('custom roles must be defined as a string array')
     }
-    var _scope = customRoles?.length
-      ? `${scope.join(' ')} ${customRoles.join(' ')}`
-      : scope.join(' ')
+
+    let _scope: string | undefined
+    if (scope?.length && !customRoles?.length) {
+      _scope = scope.join(' ')
+    } else if (!scope?.length && customRoles?.length) {
+      _scope += ` ${customRoles.join(' ')}`
+    } else if (scope?.length && customRoles?.length) {
+      _scope = `${scope.join(' ')} ${customRoles.join(' ')}`
+    }
+
     const body = {
       grant_type: 'password',
       scope: _scope,
@@ -166,22 +180,29 @@ class Auth {
   public async ClientCredentials(
     clientSecret: string,
     clientID: string,
-    scope: ApiRole[],
+    scope?: ApiRole[],
     customRoles?: string[],
     requestOptions: {
       cancelToken?: CancelToken
       requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    if (!Array.isArray(scope)) {
+    if (scope && !Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
     if (customRoles != null && !Array.isArray(customRoles)) {
       throw new Error('custom roles must be defined as a string array')
     }
-    var _scope = customRoles?.length
-      ? `${scope.join(' ')} ${customRoles.join(' ')}`
-      : scope.join(' ')
+
+    let _scope: string | undefined
+    if (scope?.length && !customRoles?.length) {
+      _scope = scope.join(' ')
+    } else if (!scope?.length && customRoles?.length) {
+      _scope += ` ${customRoles.join(' ')}`
+    } else if (scope?.length && customRoles?.length) {
+      _scope = `${scope.join(' ')} ${customRoles.join(' ')}`
+    }
+
     const body = {
       grant_type: 'client_credentials',
       scope: _scope,
@@ -265,7 +286,7 @@ class Auth {
    */
   public async Anonymous(
     clientID: string,
-    scope: ApiRole[],
+    scope?: ApiRole[],
     customRoles?: string[],
     requestOptions: {
       anonuserid?: string
@@ -273,15 +294,22 @@ class Auth {
       requestType?: string
     } = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    if (!Array.isArray(scope)) {
+    if (scope && !Array.isArray(scope)) {
       throw new Error('scope must be a string array')
     }
     if (customRoles != null && !Array.isArray(customRoles)) {
       throw new Error('custom roles must be defined as a string array')
     }
-    var _scope = customRoles?.length
-      ? `${scope.join(' ')} ${customRoles.join(' ')}`
-      : scope.join(' ')
+
+    let _scope: string | undefined
+    if (scope?.length && !customRoles?.length) {
+      _scope = scope.join(' ')
+    } else if (!scope?.length && customRoles?.length) {
+      _scope += ` ${customRoles.join(' ')}`
+    } else if (scope?.length && customRoles?.length) {
+      _scope = `${scope.join(' ')} ${customRoles.join(' ')}`
+    }
+
     const body = {
       grant_type: 'client_credentials',
       client_id: clientID,
