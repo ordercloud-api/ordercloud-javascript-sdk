@@ -34,7 +34,7 @@ class IntegrationEvents {
 
    /**
     * Get a list of integration events. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -60,7 +60,7 @@ class IntegrationEvents {
 
    /**
     * Create a new integration event. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/create|api docs} for more info 
     * 
     * @param integrationEvent Required fields: CustomImplementationUrl, Name, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -81,7 +81,7 @@ class IntegrationEvents {
 
    /**
     * Get a single integration event. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/get|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -102,7 +102,7 @@ class IntegrationEvents {
 
    /**
     * Create or update an integration event. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/save|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
     * @param integrationEvent Required fields: CustomImplementationUrl, Name, HashKey
@@ -124,7 +124,7 @@ class IntegrationEvents {
 
    /**
     * Delete an integration event. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/delete|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -145,7 +145,7 @@ class IntegrationEvents {
 
    /**
     * Partially update an integration event. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/patch|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
     * @param integrationEvent 
@@ -167,7 +167,7 @@ class IntegrationEvents {
 
    /**
     * Calculate an order. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/calculate|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/calculate|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
@@ -189,7 +189,7 @@ class IntegrationEvents {
 
    /**
     * Estimate shipping cost. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/estimate-shipping|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/estimate-shipping|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
@@ -211,7 +211,7 @@ class IntegrationEvents {
 
    /**
     * Select a ship method. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/select-shipmethods|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/select-shipmethods|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.
@@ -234,7 +234,7 @@ class IntegrationEvents {
 
    /**
     * Get a single order worksheet. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/integration-events/get-worksheet|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/get-worksheet|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
     * @param orderID ID of the order.

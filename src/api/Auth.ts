@@ -81,6 +81,7 @@ class Auth {
             'Content-Type': 'application/x-www-form-urlencoded',
             Accept: 'application/json',
           },
+          adapter: configuration.axiosAdapter,
           ...requestOptions,
         }
       )
@@ -153,6 +154,7 @@ class Auth {
             'Content-Type': 'application/x-www-form-urlencoded',
             Accept: 'application/json',
           },
+          adapter: configuration.axiosAdapter,
           ...requestOptions,
         }
       )
@@ -219,6 +221,7 @@ class Auth {
             'Content-Type': 'application/x-www-form-urlencoded',
             Accept: 'application/json',
           },
+          adapter: configuration.axiosAdapter,
           ...requestOptions,
         }
       )
@@ -262,6 +265,7 @@ class Auth {
             'Content-Type': 'application/x-www-form-urlencoded',
             Accept: 'application/json',
           },
+          adapter: configuration.axiosAdapter,
           ...requestOptions,
         }
       )
@@ -329,6 +333,7 @@ class Auth {
             'Content-Type': 'application/x-www-form-urlencoded',
             Accept: 'application/json',
           },
+          adapter: configuration.axiosAdapter,
           ...requestOptions,
         }
       )

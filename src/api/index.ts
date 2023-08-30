@@ -6,10 +6,8 @@ import OpenIdConnects from './OpenIdConnects';
 import AdminUsers from './AdminUsers';
 import AdminUserGroups from './AdminUserGroups';
 import AdminAddresses from './AdminAddresses';
-import MessageSenders from './MessageSenders';
 import ApiClients from './ApiClients';
 import Incrementors from './Incrementors';
-import IntegrationEvents from './IntegrationEvents';
 import Locales from './Locales';
 import Webhooks from './Webhooks';
 import XpIndices from './XpIndices';
@@ -46,6 +44,8 @@ import Subscriptions from './Subscriptions';
 import Me from './Me';
 import TrackingEvents from './TrackingEvents';
 import DeliveryConfigurations from './DeliveryConfigurations';
+import IntegrationEvents from './IntegrationEvents';
+import MessageSenders from './MessageSenders';
 import ProductSynchronization from './ProductSynchronization';
 import SubscriptionIntegrations from './SubscriptionIntegrations';
 import Auth from './Auth';
@@ -60,10 +60,8 @@ export {
     AdminUsers,
     AdminUserGroups,
     AdminAddresses,
-    MessageSenders,
     ApiClients,
     Incrementors,
-    IntegrationEvents,
     Locales,
     Webhooks,
     XpIndices,
@@ -100,6 +98,8 @@ export {
     Me,
     TrackingEvents,
     DeliveryConfigurations,
+    IntegrationEvents,
+    MessageSenders,
     ProductSynchronization,
     SubscriptionIntegrations,
     Auth,
