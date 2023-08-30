@@ -118,9 +118,10 @@ class HttpClient {
     config?: OcRequestConfig
   ): Promise<OcRequestConfig> {
     const sdkConfig = Configuration.Get()
-    const requestConfig = {
+    const requestConfig: OcRequestConfig = {
       ...config,
       paramsSerializer,
+      adapter: sdkConfig.axiosAdapter,
       timeout: sdkConfig.timeoutInMilliseconds,
       headers: {
         'Content-Type': 'application/json',

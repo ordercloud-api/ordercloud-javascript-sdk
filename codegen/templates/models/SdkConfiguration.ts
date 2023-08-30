@@ -1,3 +1,5 @@
+import { AxiosAdapter } from 'axios'
+
 export interface SdkConfiguration {
   /**
    * The apiurl that will be used to talk to the ordercloud API.
@@ -28,6 +30,11 @@ export interface SdkConfiguration {
    * Default timeout is 10,000 milliseconds or 10 seconds
    */
   timeoutInMilliseconds?: number
+
+  /**
+   * provide a custom axios adapter to handle dispatching request/responses
+   */
+  axiosAdapter?: AxiosAdapter
 
   cookieOptions?: CookieOptions
 }
