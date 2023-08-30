@@ -35,7 +35,7 @@ class MessageSenders {
 
    /**
     * Get a list of message senders. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -61,7 +61,7 @@ class MessageSenders {
 
    /**
     * Create a new message sender. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/create|api docs} for more info 
     * 
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -82,7 +82,7 @@ class MessageSenders {
 
    /**
     * Get a single message sender. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/get|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -103,7 +103,7 @@ class MessageSenders {
 
    /**
     * Create or update a message sender. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/save|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
     * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
@@ -125,7 +125,7 @@ class MessageSenders {
 
    /**
     * Delete a message sender. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/delete|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -146,7 +146,7 @@ class MessageSenders {
 
    /**
     * Partially update a message sender. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/patch|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
     * @param messageSender 
@@ -168,7 +168,7 @@ class MessageSenders {
 
    /**
     * Delete a message sender assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/delete-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/delete-assignment|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
     * @param listOptions.buyerID ID of the buyer.
@@ -193,7 +193,7 @@ class MessageSenders {
 
    /**
     * Get a list of message sender assignments. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/list-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/list-assignments|api docs} for more info 
     * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.messageSenderID ID of the message sender.
@@ -221,7 +221,7 @@ class MessageSenders {
 
    /**
     * Create or update a message sender assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/save-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/save-assignment|api docs} for more info 
     * 
     * @param messageSenderAssignment Required fields: MessageSenderID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -242,7 +242,7 @@ class MessageSenders {
 
    /**
     * Get a list of message sender cc listener assignments. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/list-cclistener-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/list-cclistener-assignments|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -268,7 +268,7 @@ class MessageSenders {
 
    /**
     * Create or update a message sender cc listener assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/message-senders/save-cclistener-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/save-cclistener-assignment|api docs} for more info 
     * 
     * @param messageCCListenerAssignment Required fields: MessageSenderAssignment, MessageType
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
