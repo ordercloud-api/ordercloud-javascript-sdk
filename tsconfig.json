@@ -21,6 +21,7 @@
     "theme": "default",
     "internalModule": "Resources",
     "readme": "none",
-    "gitRevision": "master"
+    "gitRevision": "master",
+    "gitRemote": "ordercloud-api"
   }
 }

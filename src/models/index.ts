@@ -77,6 +77,7 @@ export * from './OrderSplitResult';
 export * from './OrderStatus';
 export * from './OrderSubmitForApprovalResponse';
 export * from './OrderSubmitResponse';
+export * from './OrderSyncConfig';
 export * from './OrderWorksheet';
 export * from './PartyType';
 export * from './PasswordConfig';
