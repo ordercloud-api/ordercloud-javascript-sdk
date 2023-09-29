@@ -84,4 +84,5 @@ export type ApiRole = 'ApiClientAdmin' |
 'IntegrationEventAdmin' | 
 'TrackingEventReader' | 
 'TrackingEventAdmin' | 
-'DeliveryConfigAdmin'
+'DeliveryConfigAdmin' | 
+'OrderSyncConfigAdmin'
