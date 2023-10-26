@@ -1,4 +1,6 @@
 import { Order } from '../models/Order';
+import { BundleItems } from '../models/BundleItems';
+import { LineItem } from '../models/LineItem';
 import { OrderWorksheet } from '../models/OrderWorksheet';
 import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
@@ -6,7 +8,6 @@ import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { Promotion } from '../models/Promotion';
 import { User } from '../models/User';
-import { LineItem } from '../models/LineItem';
 import { Payment } from '../models/Payment';
 import { PaymentTransaction } from '../models/PaymentTransaction';
 import { OrderPromotion } from '../models/OrderPromotion';
@@ -31,6 +32,8 @@ class Cart {
         this.Patch = this.Patch.bind(this);
         this.SetActiveCart = this.SetActiveCart.bind(this);
         this.ApplyPromotions = this.ApplyPromotions.bind(this);
+        this.CreateBundleItem = this.CreateBundleItem.bind(this);
+        this.DeleteBundleItem = this.DeleteBundleItem.bind(this);
         this.Calculate = this.Calculate.bind(this);
         this.ListEligiblePromotions = this.ListEligiblePromotions.bind(this);
         this.EstimateShipping = this.EstimateShipping.bind(this);
@@ -172,6 +175,50 @@ class Cart {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/cart/applypromotions`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new cart bundle item. Adds bundle line items to the cart
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/create-bundle-item|api docs} for more info 
+    * 
+    * @param bundleID ID of the bundle.
+    * @param bundleItems 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateBundleItem<TLineItem extends LineItem>(bundleID: string, bundleItems: BundleItems,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/cart/bundles/${bundleID}`, { ...requestOptions, data: bundleItems, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a cart bundle item. 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/delete-bundle-item|api docs} for more info 
+    * 
+    * @param bundleID ID of the bundle.
+    * @param bundleItemID ID of the bundle item.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteBundleItem(bundleID: string, bundleItemID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/cart/bundles/${bundleID}/${bundleItemID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

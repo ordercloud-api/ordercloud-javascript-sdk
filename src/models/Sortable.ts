@@ -5,6 +5,7 @@ interface SortableMap {
 'AdminUsers.List': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
 'ApiClients.List': ('ID' | 'AppName' | 'DefaultContextUserName' | '!ID' | '!AppName' | '!DefaultContextUserName')[]
 'SellerApprovalRules.List': ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[]
+'Bundles.List': string[]
 'Buyers.List': ('ID' | 'Name' | 'DateCreated' | '!ID' | '!Name' | '!DateCreated')[]
 'Addresses.List': ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[]
 'ApprovalRules.List': ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[]
@@ -99,6 +100,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'AdminUsers.List' | 
 'ApiClients.List' | 
 'SellerApprovalRules.List' | 
+'Bundles.List' | 
 'Buyers.List' | 
 'Addresses.List' | 
 'ApprovalRules.List' | 

@@ -11,6 +11,9 @@ export type ApiRole = 'ApiClientAdmin' |
 'AdminUserReader' | 
 'ApprovalRuleAdmin' | 
 'ApprovalRuleReader' | 
+'BundleAdmin' | 
+'BundleAssignmentAdmin' | 
+'BundleReader' | 
 'BuyerAdmin' | 
 'BuyerImpersonation' | 
 'BuyerReader' | 

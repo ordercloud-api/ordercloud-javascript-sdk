@@ -4,6 +4,7 @@ import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { Catalog } from '../models/Catalog';
 import { CatalogAssignment } from '../models/CatalogAssignment';
+import { BundleCatalogAssignment } from '../models/BundleCatalogAssignment';
 import { ProductCatalogAssignment } from '../models/ProductCatalogAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -26,9 +27,12 @@ class Catalogs {
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
         this.DeleteAssignment = this.DeleteAssignment.bind(this);
+        this.DeleteBundleAssignment = this.DeleteBundleAssignment.bind(this);
         this.DeleteProductAssignment = this.DeleteProductAssignment.bind(this);
         this.ListAssignments = this.ListAssignments.bind(this);
         this.SaveAssignment = this.SaveAssignment.bind(this);
+        this.ListBundleAssignments = this.ListBundleAssignments.bind(this);
+        this.SaveBundleAssignment = this.SaveBundleAssignment.bind(this);
         this.ListProductAssignments = this.ListProductAssignments.bind(this);
         this.SaveProductAssignment = this.SaveProductAssignment.bind(this);
     }
@@ -189,6 +193,28 @@ class Catalogs {
     }
 
    /**
+    * Delete a catalog bundle assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete-bundle-assignment|api docs} for more info 
+    * 
+    * @param catalogID ID of the catalog.
+    * @param bundleID ID of the bundle.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteBundleAssignment(catalogID: string, bundleID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/catalogs/${catalogID}/bundleassignments/${bundleID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
     * Delete a catalog product assignment. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete-product-assignment|api docs} for more info 
     * 
@@ -247,6 +273,51 @@ class Catalogs {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/catalogs/assignments`, { ...requestOptions, data: catalogAssignment, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of catalog bundle assignments. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list-bundle-assignments|api docs} for more info 
+    * 
+    * @param listOptions.catalogID ID of the catalog.
+    * @param listOptions.bundleID ID of the bundle.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListBundleAssignments<TBundleCatalogAssignment extends BundleCatalogAssignment>(listOptions: { catalogID?: string, bundleID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBundleCatalogAssignment>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/catalogs/bundleassignments`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update a catalog bundle assignment. 
+    * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save-bundle-assignment|api docs} for more info 
+    * 
+    * @param bundleCatalogAssignment Required fields: CatalogID, BundleID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveBundleAssignment(bundleCatalogAssignment: BundleCatalogAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/catalogs/bundleassignments`, { ...requestOptions, data: bundleCatalogAssignment, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
