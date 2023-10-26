@@ -7,6 +7,7 @@ export interface Product<TProductXp = any> {
     ID?: string
     ParentID?: string
     IsParent?: boolean
+    readonly IsBundle?: boolean
     Name?: string
     Description?: string
     QuantityMultiplier?: number

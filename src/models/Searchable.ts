@@ -5,6 +5,7 @@ interface SearchableMap {
 'AdminUsers.List': ('ID' | 'Username' | 'LastName' | 'FirstName' | 'Email')[]
 'ApiClients.List': ('ID' | 'AppName' | 'DefaultContextUserName')[]
 'SellerApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
+'Bundles.List': string[]
 'Buyers.List': ('Name' | 'ID')[]
 'Addresses.List': ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[]
 'ApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
@@ -99,6 +100,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'AdminUsers.List' | 
 'ApiClients.List' | 
 'SellerApprovalRules.List' | 
+'Bundles.List' | 
 'Buyers.List' | 
 'Addresses.List' | 
 'ApprovalRules.List' | 

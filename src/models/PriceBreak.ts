@@ -4,4 +4,5 @@ export interface PriceBreak {
     Price?: number
     SalePrice?: number
     SubscriptionPrice?: number
+    BundlePrice?: number
 }

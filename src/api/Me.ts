@@ -27,6 +27,7 @@ import { ShipmentItem } from '../models/ShipmentItem';
 import { SpendingAccount } from '../models/SpendingAccount';
 import { Subscription } from '../models/Subscription';
 import { LineItem } from '../models/LineItem';
+import { BundleItems } from '../models/BundleItems';
 import { UserGroup } from '../models/UserGroup';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -112,6 +113,8 @@ class Me {
         this.SaveSubscriptionItem = this.SaveSubscriptionItem.bind(this);
         this.DeleteSubscriptionItem = this.DeleteSubscriptionItem.bind(this);
         this.PatchSubscriptionItem = this.PatchSubscriptionItem.bind(this);
+        this.CreateSubscriptionBundleItem = this.CreateSubscriptionBundleItem.bind(this);
+        this.DeleteSubscriptionBundleItem = this.DeleteSubscriptionBundleItem.bind(this);
         this.ListUserGroups = this.ListUserGroups.bind(this);
     }
 
@@ -1750,6 +1753,52 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/me/subscriptions/${subscriptionID}/items/${subscriptionItemID}`, { ...requestOptions, data: lineItem, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new subscription bundle item. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-subscription-bundle-item|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param bundleID ID of the bundle.
+    * @param bundleItems 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateSubscriptionBundleItem<TLineItem extends LineItem>(subscriptionID: string, bundleID: string, bundleItems: BundleItems,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TLineItem>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/subscriptions/${subscriptionID}/items/bundles/${bundleID}`, { ...requestOptions, data: bundleItems, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a subscription bundle item. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-subscription-bundle-item|api docs} for more info 
+    * 
+    * @param subscriptionID ID of the subscription.
+    * @param bundleID ID of the bundle.
+    * @param bundleItemID ID of the bundle item.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteSubscriptionBundleItem(subscriptionID: string, bundleID: string, bundleItemID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/subscriptions/${subscriptionID}/items/bundles/${bundleID}/${bundleItemID}`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

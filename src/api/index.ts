@@ -31,6 +31,7 @@ import PriceSchedules from './PriceSchedules';
 import Specs from './Specs';
 import ProductFacets from './ProductFacets';
 import InventoryRecords from './InventoryRecords';
+import Bundles from './Bundles';
 import Orders from './Orders';
 import Cart from './Cart';
 import LineItems from './LineItems';
@@ -39,6 +40,8 @@ import Payments from './Payments';
 import Shipments from './Shipments';
 import OrderReturns from './OrderReturns';
 import SellerApprovalRules from './SellerApprovalRules';
+import BundleLineItems from './BundleLineItems';
+import BundleSubscriptionItems from './BundleSubscriptionItems';
 import SubscriptionItems from './SubscriptionItems';
 import Subscriptions from './Subscriptions';
 import Me from './Me';
@@ -86,6 +89,7 @@ export {
     Specs,
     ProductFacets,
     InventoryRecords,
+    Bundles,
     Orders,
     Cart,
     LineItems,
@@ -94,6 +98,8 @@ export {
     Shipments,
     OrderReturns,
     SellerApprovalRules,
+    BundleLineItems,
+    BundleSubscriptionItems,
     SubscriptionItems,
     Subscriptions,
     Me,

@@ -10,6 +10,8 @@ export interface ExtendedLineItem<TExtendedLineItemXp = any, TFromUserXp = any, 
     ID?: string
     ProductID?: string
     Quantity?: number
+    readonly BundleItemID?: string
+    readonly IsBundle?: boolean
     readonly DateAdded?: string
     readonly QuantityShipped?: number
     UnitPrice?: number
