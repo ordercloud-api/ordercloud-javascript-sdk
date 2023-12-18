@@ -36,6 +36,7 @@ export * from './CreditCardAssignment';
 export * from './DeliveryConfig';
 export * from './DeliveryTargets';
 export * from './DiscoverEvent';
+export * from './ErrorConfig';
 export * from './EventHubConfig';
 export * from './ExtendedLineItem';
 export * from './ExtendedOrder';

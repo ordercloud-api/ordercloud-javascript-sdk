@@ -4,7 +4,7 @@ export interface ImpersonationConfig {
     ImpersonationBuyerID?: string
     ImpersonationGroupID?: string
     ImpersonationUserID?: string
-    BuyerID: string
+    BuyerID?: string
     GroupID?: string
     UserID?: string
     SecurityProfileID: string

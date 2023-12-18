@@ -47,6 +47,7 @@ import Subscriptions from './Subscriptions';
 import Me from './Me';
 import TrackingEvents from './TrackingEvents';
 import DeliveryConfigurations from './DeliveryConfigurations';
+import ErrorConfigs from './ErrorConfigs';
 import IntegrationEvents from './IntegrationEvents';
 import MessageSenders from './MessageSenders';
 import OrderSynchronization from './OrderSynchronization';
@@ -105,6 +106,7 @@ export {
     Me,
     TrackingEvents,
     DeliveryConfigurations,
+    ErrorConfigs,
     IntegrationEvents,
     MessageSenders,
     OrderSynchronization,
