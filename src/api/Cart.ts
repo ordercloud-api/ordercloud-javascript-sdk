@@ -1,4 +1,5 @@
 import { Order } from '../models/Order';
+import { Address } from '../models/Address';
 import { BundleItems } from '../models/BundleItems';
 import { LineItem } from '../models/LineItem';
 import { OrderWorksheet } from '../models/OrderWorksheet';
@@ -32,6 +33,8 @@ class Cart {
         this.Patch = this.Patch.bind(this);
         this.SetActiveCart = this.SetActiveCart.bind(this);
         this.ApplyPromotions = this.ApplyPromotions.bind(this);
+        this.SetBillingAddress = this.SetBillingAddress.bind(this);
+        this.PatchBillingAddress = this.PatchBillingAddress.bind(this);
         this.CreateBundleItem = this.CreateBundleItem.bind(this);
         this.DeleteBundleItem = this.DeleteBundleItem.bind(this);
         this.Calculate = this.Calculate.bind(this);
@@ -55,6 +58,8 @@ class Cart {
         this.AddPromotion = this.AddPromotion.bind(this);
         this.DeletePromotion = this.DeletePromotion.bind(this);
         this.SelectShipMethods = this.SelectShipMethods.bind(this);
+        this.SetShippingAddress = this.SetShippingAddress.bind(this);
+        this.PatchShippingAddress = this.PatchShippingAddress.bind(this);
         this.Submit = this.Submit.bind(this);
         this.Validate = this.Validate.bind(this);
         this.GetOrderWorksheet = this.GetOrderWorksheet.bind(this);
@@ -175,6 +180,48 @@ class Cart {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/cart/applypromotions`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Set a billing address. Use only when the address is not to be saved/reused.<br/></br>To use a saved address (i.e. from the Addresses resource), PATCH the order's BillingAddressID property instead.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/set-billing-address|api docs} for more info 
+    * 
+    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SetBillingAddress<TOrder extends Order>(address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/cart/billto`, { ...requestOptions, data: address, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a cart billing address. Not allowed on carts where BillingAddressID has been set. In that case, use the Addresses resource to update the saved address.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-billing-address|api docs} for more info 
+    * 
+    * @param address 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchBillingAddress<TOrder extends Order>(address: PartialDeep<Address>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/cart/billto`, { ...requestOptions, data: address, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
@@ -683,6 +730,48 @@ class Cart {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/cart/shipmethods`, { ...requestOptions, data: orderShipMethodSelection, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Set a shipping address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the order's ShippingAddressID property instead. The address used will be populated on the ShippingAddress property of each LineItem.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/set-shipping-address|api docs} for more info 
+    * 
+    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SetShippingAddress<TOrder extends Order>(address: Address,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/cart/shipto`, { ...requestOptions, data: address, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a cart shipping address. Not allowed on carts where ShippingAddressID has been set. In that case, use the Addresses resource to update the saved address.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-shipping-address|api docs} for more info 
+    * 
+    * @param address 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchShippingAddress<TOrder extends Order>(address: PartialDeep<Address>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrder>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/cart/shipto`, { ...requestOptions, data: address, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
