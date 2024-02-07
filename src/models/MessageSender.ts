@@ -6,8 +6,9 @@ export interface MessageSender<TMessageSenderXp = any> {
     Name: string
     MessageTypes: MessageType[]
     Description?: string
-    URL: string
+    URL?: string
     ElevatedRoles?: ApiRole[]
-    SharedKey: string
+    SharedKey?: string
     xp?: TMessageSenderXp
+    DeliveryConfigID?: string
 }

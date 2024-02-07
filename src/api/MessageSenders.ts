@@ -63,7 +63,7 @@ class MessageSenders {
     * Create a new message sender. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/create|api docs} for more info 
     * 
-    * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
+    * @param messageSender Required fields: Name, MessageTypes
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -106,7 +106,7 @@ class MessageSenders {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/save|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
-    * @param messageSender Required fields: Name, MessageTypes, URL, SharedKey
+    * @param messageSender Required fields: Name, MessageTypes
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

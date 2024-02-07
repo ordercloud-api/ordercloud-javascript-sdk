@@ -4,7 +4,6 @@ export interface SpendingAccount<TSpendingAccountXp = any> {
     Name: string
     Balance: number
     AllowAsPaymentMethod?: boolean
-    RedemptionCode?: string
     StartDate?: string
     EndDate?: string
     xp?: TSpendingAccountXp
