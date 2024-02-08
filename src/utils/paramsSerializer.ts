@@ -72,7 +72,7 @@ function inspectProp(propVal, propName, result) {
   } else {
     if (propVal === null) {
       throw new Error(
-        `Null is not a valid filter prop. Use negative filter "!" combined with wildcard filter "*" to define a filter for the absence of a value. \nex: an order list call with \{ xp: \{ hasPaid: '!*' \} \} would return a list of orders where xp.hasPaid is null or undefined\nhttps://ordercloud.io/features/advanced-querying#filtering`
+        `Null is not a valid filter prop. Use negative filter "!" combined with wildcard filter "*" to define a filter for the absence of a value. \nex: an order list call with { xp: { hasPaid: '!*' } } would return a list of orders where xp.hasPaid is null or undefined\nhttps://ordercloud.io/features/advanced-querying#filtering`
       )
     }
     result[propName] = propVal

@@ -155,6 +155,7 @@ export * from './Authentication';
 export * from './DecodedToken';
 export * from './Environment';
 export * from './Filters';
+export * from './IdentityToken';
 export * from './ListPage';
 export * from './ListPageWithFacets';
 export * from './MessageSenderForgottenPasswordPayload';

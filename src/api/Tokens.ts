@@ -14,10 +14,12 @@ class Tokens {
   private accessTokenCookieName = `.access-token`
   private impersonationTokenCookieName = '.impersonation-token'
   private refreshTokenCookieName = '.refresh-token'
+  private identityTokenCookieName = '.identity-token'
 
   private accessToken?: string = null
   private impersonationToken?: string = null
   private refreshToken?: string = null
+  private identityToken?: string = null
 
   /**
    * @ignore
@@ -33,6 +35,9 @@ class Tokens {
     this.RemoveRefreshToken = this.RemoveRefreshToken.bind(this)
     this.SetImpersonationToken = this.SetImpersonationToken.bind(this)
     this.SetRefreshToken = this.SetRefreshToken.bind(this)
+    this.RemoveIdentityToken = this.RemoveIdentityToken.bind(this)
+    this.GetIdentityToken = this.GetIdentityToken.bind(this)
+    this.SetIdentityToken = this.SetIdentityToken.bind(this)
     this._isTokenExpired = this._isTokenExpired.bind(this)
     this._tryRefreshToken = this._tryRefreshToken.bind(this)
   }
@@ -101,6 +106,28 @@ class Tokens {
     isNode()
       ? (this.refreshToken = null)
       : cookies.remove(this.refreshTokenCookieName)
+  }
+
+  /**
+   * Manage Identity Tokens
+   */
+
+  public GetIdentityToken(): string | undefined {
+    return isNode()
+      ? this.identityToken
+      : cookies.get(this.identityTokenCookieName)
+  }
+
+  public SetIdentityToken(token: string): void {
+    isNode()
+      ? (this.identityToken = token)
+      : cookies.set(this.identityTokenCookieName, token)
+  }
+
+  public RemoveIdentityToken(): void {
+    isNode()
+      ? (this.identityToken = null)
+      : cookies.remove(this.identityTokenCookieName)
   }
 
   /**

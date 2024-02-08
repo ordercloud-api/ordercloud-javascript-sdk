@@ -54,6 +54,7 @@ import OrderSynchronization from './OrderSynchronization';
 import ProductSynchronization from './ProductSynchronization';
 import SubscriptionIntegrations from './SubscriptionIntegrations';
 import Auth from './Auth';
+import UserInfo from './UserInfo';
 import Tokens from './Tokens';
 
 export {
@@ -113,5 +114,6 @@ export {
     ProductSynchronization,
     SubscriptionIntegrations,
     Auth,
+    UserInfo,
     Tokens
 }

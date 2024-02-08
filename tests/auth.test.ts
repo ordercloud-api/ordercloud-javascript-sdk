@@ -1,5 +1,6 @@
 import mockAxios from 'axios'
-import { Auth, ApiRole } from '../src/index'
+import { Auth, ApiRole, Tokens } from '../src/index'
+import { makeToken } from './utils'
 
 const testdata = {
   authUrl: 'https://api.ordercloud.io/oauth/token',
