@@ -33,5 +33,7 @@ export interface ExtendedLineItem<TExtendedLineItemXp = any, TFromUserXp = any, 
     readonly IsOnSale?: boolean
     readonly PriceOverridden?: boolean
     Specs?: LineItemSpec[]
+    readonly IncomingOrderID?: string
+    readonly OutgoingOrderID?: string
     xp?: TExtendedLineItemXp
 }

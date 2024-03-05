@@ -401,7 +401,7 @@ class Products {
     }
 
    /**
-    * Generate a variants. 
+    * Generate variants. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/generate-variants|api docs} for more info 
     * 
     * @param productID ID of the product.

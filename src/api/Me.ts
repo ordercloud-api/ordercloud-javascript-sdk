@@ -1319,7 +1319,7 @@ class Me {
     }
 
    /**
-    * Register a register. 
+    * Register a User. 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/register|api docs} for more info 
     * 
     * @param listOptions.anonUserToken Anon user token of the user.
@@ -1341,7 +1341,7 @@ class Me {
     }
 
    /**
-    * Get a list of buyer sellers visible to this user. Organizations you can place orders directly to.
+    * Get a list of sellers this user can purchase from. Organizations you can place orders directly to.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-buyer-sellers|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.

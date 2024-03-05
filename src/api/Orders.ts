@@ -682,7 +682,7 @@ class Orders {
     }
 
    /**
-    * Submit an order submit. 
+    * Submit an order. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/submit|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.

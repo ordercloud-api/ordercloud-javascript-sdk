@@ -3,6 +3,7 @@ export type MessageType = 'OrderDeclined' |
 'OrderSubmitted' | 
 'ShipmentCreated' | 
 'ForgottenPassword' | 
+'ForgottenUsername' | 
 'OrderSubmittedForYourApproval' | 
 'OrderSubmittedForApproval' | 
 'OrderApproved' | 
