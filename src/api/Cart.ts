@@ -801,7 +801,7 @@ class Cart {
     }
 
    /**
-    * Validate a cart validate. 
+    * Validate the cart in it's current state. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/validate|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

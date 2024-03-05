@@ -1,4 +1,5 @@
 import { MessageSenderForgottenPasswordPayload } from './MessageSenderForgottenPasswordPayload'
+import { MessageSenderForgottenUsernamePayload } from './MessageSenderForgottenUsernamePayload'
 import { MessageType } from './MessageType'
 import { MessageSenderNewUserInvitationPayload } from './MessageSenderNewUserInvitationPayload'
 import { MessageSenderOrderApprovedPayload } from './MessageSenderOrderApprovedPayload'
@@ -28,6 +29,7 @@ export type MessageSenderPayloads<
 interface PayloadMap {
   'NewUserInvitation': MessageSenderNewUserInvitationPayload
   'ForgottenPassword': MessageSenderForgottenPasswordPayload
+  'ForgottenUsername': MessageSenderForgottenUsernamePayload
   'OrderSubmitted': MessageSenderOrderSubmittedPayload
   'OrderSubmittedForApproval': MessageSenderOrderSubmittedForApprovalPayload
   'OrderApproved': MessageSenderOrderApprovedPayload

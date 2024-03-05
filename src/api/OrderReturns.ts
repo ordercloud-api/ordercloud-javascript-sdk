@@ -333,7 +333,7 @@ class OrderReturns {
     }
 
    /**
-    * Submit an order return submit. 
+    * Submit an order return. 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/submit|api docs} for more info 
     * 
     * @param returnID ID of the return.

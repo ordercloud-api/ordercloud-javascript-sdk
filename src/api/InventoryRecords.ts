@@ -254,7 +254,7 @@ class InventoryRecords {
     }
 
    /**
-    * Get a list of inventory record variants. 
+    * Get a list of variant inventory records. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/list-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -282,7 +282,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create a new inventory record variant. 
+    * Create a new variant inventory record. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/create-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -305,7 +305,7 @@ class InventoryRecords {
     }
 
    /**
-    * Get a single inventory record variant. 
+    * Get a single variant inventory record. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/get-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -328,7 +328,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create or update an inventory record variant. 
+    * Create or update a variant inventory record. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/save-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -352,7 +352,7 @@ class InventoryRecords {
     }
 
    /**
-    * Delete an inventory record variant. 
+    * Delete a variant inventory record. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -375,7 +375,7 @@ class InventoryRecords {
     }
 
    /**
-    * Partially update an inventory record variant. 
+    * Partially update a variant inventory record. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/patch-variant|api docs} for more info 
     * 
     * @param productID ID of the product.

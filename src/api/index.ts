@@ -1,5 +1,5 @@
 import SecurityProfiles from './SecurityProfiles';
-import ForgottenPassword from './ForgottenPassword';
+import ForgottenCredentials from './ForgottenCredentials';
 import ImpersonationConfigs from './ImpersonationConfigs';
 import Certs from './Certs';
 import OpenIdConnects from './OpenIdConnects';
@@ -59,7 +59,7 @@ import Tokens from './Tokens';
 
 export {
     SecurityProfiles,
-    ForgottenPassword,
+    ForgottenCredentials,
     ImpersonationConfigs,
     Certs,
     OpenIdConnects,
