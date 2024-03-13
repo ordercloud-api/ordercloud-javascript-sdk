@@ -11,4 +11,5 @@ export interface MessageSender<TMessageSenderXp = any> {
     SharedKey?: string
     xp?: TMessageSenderXp
     DeliveryConfigID?: string
+    AllowAllBuyers?: boolean
 }
