@@ -8,6 +8,7 @@ export interface Subscription<TSubscriptionXp = any> {
     NextOrderDate?: string
     readonly LastOrderDate?: string
     readonly NotificationDate?: string
+    readonly DateCreated?: string
     EndDate?: string
     Active?: boolean
     FromCompanyID?: string
