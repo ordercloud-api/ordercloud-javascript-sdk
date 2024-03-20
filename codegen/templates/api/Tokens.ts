@@ -10,6 +10,19 @@ import Configuration from '../Configuration'
 const isNode = new Function(
   'try {return this===global;}catch(e){return false;}'
 )
+
+// https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation#importing-runtime-specific-code
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
+const isEdgeRuntime = process.env.NEXT_RUNTIME === 'edge'
+
+/**
+ * @ignore
+ * not part of public api, don't include in generated docs
+ */
+const isServer = isNode() || isEdgeRuntime
 class Tokens {
   private accessTokenCookieName = `.access-token`
   private impersonationTokenCookieName = '.impersonation-token'
@@ -47,18 +60,18 @@ class Tokens {
    */
 
   public GetAccessToken(): string | undefined {
-    return isNode() ? this.accessToken : cookies.get(this.accessTokenCookieName)
+    return isServer ? this.accessToken : cookies.get(this.accessTokenCookieName)
   }
 
   public SetAccessToken(token: string): void {
     parseJwt(token) // check if token is valid
-    isNode()
+    isServer
       ? (this.accessToken = token)
       : cookies.set(this.accessTokenCookieName, token)
   }
 
   public RemoveAccessToken(): void {
-    isNode()
+    isServer
       ? (this.accessToken = '')
       : cookies.remove(this.accessTokenCookieName)
   }
@@ -68,20 +81,20 @@ class Tokens {
    */
 
   public GetImpersonationToken(): string | undefined {
-    return isNode()
+    return isServer
       ? this.impersonationToken
       : cookies.get(this.impersonationTokenCookieName)
   }
 
   public SetImpersonationToken(token: string): void {
     parseJwt(token) // check if token is valid
-    isNode()
+    isServer
       ? (this.impersonationToken = token)
       : cookies.set(this.impersonationTokenCookieName, token)
   }
 
   public RemoveImpersonationToken(): void {
-    isNode()
+    isServer
       ? (this.impersonationToken = null)
       : cookies.remove(this.impersonationTokenCookieName)
   }
@@ -91,19 +104,19 @@ class Tokens {
    */
 
   public GetRefreshToken(): string | undefined {
-    return isNode()
+    return isServer
       ? this.refreshToken
       : cookies.get(this.refreshTokenCookieName)
   }
 
   public SetRefreshToken(token: string): void {
-    isNode()
+    isServer
       ? (this.refreshToken = token)
       : cookies.set(this.refreshTokenCookieName, token)
   }
 
   public RemoveRefreshToken(): void {
-    isNode()
+    isServer
       ? (this.refreshToken = null)
       : cookies.remove(this.refreshTokenCookieName)
   }
@@ -113,19 +126,19 @@ class Tokens {
    */
 
   public GetIdentityToken(): string | undefined {
-    return isNode()
+    return isServer
       ? this.identityToken
       : cookies.get(this.identityTokenCookieName)
   }
 
   public SetIdentityToken(token: string): void {
-    isNode()
+    isServer
       ? (this.identityToken = token)
       : cookies.set(this.identityTokenCookieName, token)
   }
 
   public RemoveIdentityToken(): void {
-    isNode()
+    isServer
       ? (this.identityToken = null)
       : cookies.remove(this.identityTokenCookieName)
   }
