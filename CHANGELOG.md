@@ -5,6 +5,10 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [6.0.4] - 2024-03-20
+### Fixed
+- Error when trying to set token in edge runtime because trying to use document in server environment
+
 # [6.0.3] - 2024-03-19
 - Bring SDK up to date with API [v1.0.328](https://ordercloud.io/release-notes/v1.0.328), which adds Admin, Buyer and Supplier users to Entity Sync
 
