@@ -295,6 +295,22 @@ Products.List({search: 'Tennis balls'}, {cancelToken: signal.token})
 signal.cancel('This request was cancelled!')
 ```
 
+## Axios Adapters
+
+Adapters in Axios allow for custom handling of requests, which opens up possibilities for advanced functionalities such as caching, request mocking, and the option to switch HTTP APIs (for instance, from XHR to Fetch). You can use community created adapters, or create one yourself (just make sure it adheres to the [axios adapter interface](https://github.com/axios/axios/blob/v1.x/lib/adapters/README.md))
+
+Like all other sdk level options, Axios adapters can be defined with the Configuration service
+
+```typescript
+import { Configuration } from 'ordercloud-javascript-sdk';
+
+Configuration.Set({
+  baseApiUrl: 'https://sandboxapi.ordercloud.io',
+  timeoutInMilliseconds: 20 * 1000,
+  axiosAdapter: myAdapter
+})
+```
+
 ## Async/Await
 Async/Await is a special syntax to work with promises in a more comfortable fashion. Because the SDK is built with promises the syntax works right out of the box - simply add the `async` keyword to your outer function method.
 
