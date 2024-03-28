@@ -22,6 +22,9 @@ class EntitySynchronization {
         this.GetCategories = this.GetCategories.bind(this);
         this.SaveCategories = this.SaveCategories.bind(this);
         this.DeleteCategories = this.DeleteCategories.bind(this);
+        this.GetSuppliersEntitySyncConfig = this.GetSuppliersEntitySyncConfig.bind(this);
+        this.SaveSuppliersEntitySyncConfig = this.SaveSuppliersEntitySyncConfig.bind(this);
+        this.DeleteSuppliersEntitySyncConfig = this.DeleteSuppliersEntitySyncConfig.bind(this);
         this.GetSupplierUsersEntitySyncConfig = this.GetSupplierUsersEntitySyncConfig.bind(this);
         this.SaveSupplierUsersEntitySyncConfig = this.SaveSupplierUsersEntitySyncConfig.bind(this);
         this.DeleteSupplierUsersEntitySyncConfig = this.DeleteSupplierUsersEntitySyncConfig.bind(this);
@@ -202,6 +205,67 @@ class EntitySynchronization {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/integrations/entitysync/categories`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get the entity sync delivery configuration for Suppliers Get the entity sync delivery configuration for Suppliers
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-suppliers-entity-sync-config|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetSuppliersEntitySyncConfig<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/integrations/entitysync/suppliers`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update the entity sync delivery configuration for Suppliers Create or update the entity sync delivery configuration for Suppliers
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-suppliers-entity-sync-config|api docs} for more info 
+    * 
+    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveSuppliersEntitySyncConfig<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/integrations/entitysync/suppliers`, { ...requestOptions, data: entitySyncConfig, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete the entity sync delivery configuration for Suppliers Delete the entity sync delivery configuration for Suppliers
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-suppliers-entity-sync-config|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteSuppliersEntitySyncConfig(requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/integrations/entitysync/suppliers`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
