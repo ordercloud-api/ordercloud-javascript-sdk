@@ -5,6 +5,9 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [6.0.6] - 2024-04-03
+- Bring SDK up to date with API [v1.0.333](https://ordercloud.io/release-notes/v1.0.333)
+
 # [6.0.5] - 2024-03-28
 - Bring SDK up to date with API [v1.0.332](https://ordercloud.io/release-notes/v1.0.332), which adds Suppliers to Entity Sync
 
