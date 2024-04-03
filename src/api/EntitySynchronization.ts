@@ -153,7 +153,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for categories Get the entity sync delivery configuration for categories
+    * Get the entity sync delivery configuration for Categories Get the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-categories|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -173,7 +173,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for categories Create or update the entity sync delivery configuration for categories
+    * Create or update the entity sync delivery configuration for Categories Create or update the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-categories|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID
@@ -194,7 +194,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for categories Delete the entity sync delivery configuration for categories
+    * Delete the entity sync delivery configuration for Categories Delete the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-categories|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
