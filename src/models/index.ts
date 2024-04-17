@@ -12,6 +12,7 @@ export * from './ApprovalRule';
 export * from './ApprovalStatus';
 export * from './ApprovalType';
 export * from './AzureBlobConfig';
+export * from './AzureTableConfig';
 export * from './Bundle';
 export * from './BundleAssignment';
 export * from './BundleCatalogAssignment';
