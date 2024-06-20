@@ -7,9 +7,8 @@ import Configuration from '../Configuration'
  * @ignore
  * not part of public api, don't include in generated docs
  */
-const isNode = new Function(
-  'try {return this===global;}catch(e){return false;}'
-)
+const isNode =
+  typeof process !== 'undefined' && Boolean(process?.versions?.node)
 
 // https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation#importing-runtime-specific-code
 /**
@@ -22,7 +21,7 @@ const isEdgeRuntime = process.env.NEXT_RUNTIME === 'edge'
  * @ignore
  * not part of public api, don't include in generated docs
  */
-const isServer = isNode() || isEdgeRuntime
+const isServer = isNode || isEdgeRuntime
 class Tokens {
   private accessTokenCookieName = `.access-token`
   private impersonationTokenCookieName = '.impersonation-token'
