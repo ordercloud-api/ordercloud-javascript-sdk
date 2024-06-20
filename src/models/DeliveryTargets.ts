@@ -6,6 +6,7 @@ import { DiscoverEvent } from './DiscoverEvent';
 import { EventHubConfig } from './EventHubConfig';
 import { AzureBlobConfig } from './AzureBlobConfig';
 import { AzureTableConfig } from './AzureTableConfig';
+import { CosmosDbConfig } from './CosmosDbConfig';
 import { MandrillConfig } from './MandrillConfig';
 import { MessageSenderConfig } from './MessageSenderConfig';
 
@@ -18,6 +19,7 @@ export interface DeliveryTargets {
     EventHub?: EventHubConfig
     AzureBlob?: AzureBlobConfig
     AzureTable?: AzureTableConfig
+    CosmosDb?: CosmosDbConfig
     Mandrill?: MandrillConfig
     MessageSender?: MessageSenderConfig
 }
