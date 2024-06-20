@@ -30,6 +30,7 @@ export * from './CategoryAssignment';
 export * from './CategoryBundleAssignment';
 export * from './CategoryProductAssignment';
 export * from './CommerceRole';
+export * from './CosmosDbConfig';
 export * from './CostCenter';
 export * from './CostCenterAssignment';
 export * from './CreditCard';
