@@ -9,6 +9,7 @@ import { AzureTableConfig } from './AzureTableConfig';
 import { CosmosDbConfig } from './CosmosDbConfig';
 import { MandrillConfig } from './MandrillConfig';
 import { MessageSenderConfig } from './MessageSenderConfig';
+import { ContentHubConfig } from './ContentHubConfig';
 
 export interface DeliveryTargets {
     Kafka?: KafkaConfig
@@ -22,4 +23,5 @@ export interface DeliveryTargets {
     CosmosDb?: CosmosDbConfig
     Mandrill?: MandrillConfig
     MessageSender?: MessageSenderConfig
+    ContentHub?: ContentHubConfig
 }
