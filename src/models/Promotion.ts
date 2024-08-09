@@ -7,6 +7,8 @@ export interface Promotion<TPromotionXp = any> {
     RedemptionLimit?: number
     RedemptionLimitPerUser?: number
     readonly RedemptionCount?: number
+    ItemLimitPerOrder?: number
+    ItemSortBy?: string
     Description?: string
     FinePrint?: string
     StartDate?: string

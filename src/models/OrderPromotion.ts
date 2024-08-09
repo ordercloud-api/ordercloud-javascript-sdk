@@ -11,6 +11,8 @@ export interface OrderPromotion<TOrderPromotionXp = any> {
     RedemptionLimit?: number
     RedemptionLimitPerUser?: number
     readonly RedemptionCount?: number
+    ItemLimitPerOrder?: number
+    ItemSortBy?: string
     Description?: string
     FinePrint?: string
     StartDate?: string

@@ -615,7 +615,7 @@ class Cart {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async CreatePaymentTransaction<TPaymentTransaction extends PaymentTransaction>(paymentID: string, paymentTransaction: PaymentTransaction,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPaymentTransaction>>{
+    public async CreatePaymentTransaction<TPayment extends Payment>(paymentID: string, paymentTransaction: PaymentTransaction,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/cart/payments/${paymentID}/transactions`, { ...requestOptions, data: paymentTransaction, impersonating,  } )
