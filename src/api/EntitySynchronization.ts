@@ -22,6 +22,9 @@ class EntitySynchronization {
         this.GetCategories = this.GetCategories.bind(this);
         this.SaveCategories = this.SaveCategories.bind(this);
         this.DeleteCategories = this.DeleteCategories.bind(this);
+        this.GetInventoryRecordEntitySyncConfig = this.GetInventoryRecordEntitySyncConfig.bind(this);
+        this.SaveInventoryRecordEntitySyncConfig = this.SaveInventoryRecordEntitySyncConfig.bind(this);
+        this.DeleteInventoryRecordEntitySyncConfig = this.DeleteInventoryRecordEntitySyncConfig.bind(this);
         this.GetSuppliersEntitySyncConfig = this.GetSuppliersEntitySyncConfig.bind(this);
         this.SaveSuppliersEntitySyncConfig = this.SaveSuppliersEntitySyncConfig.bind(this);
         this.DeleteSuppliersEntitySyncConfig = this.DeleteSuppliersEntitySyncConfig.bind(this);
@@ -205,6 +208,67 @@ class EntitySynchronization {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/integrations/entitysync/categories`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get the entity sync delivery configuration for InventoryRecords Get the entity sync delivery configuration for InventoryRecords
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-inventory-record-entity-sync-config|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetInventoryRecordEntitySyncConfig<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/integrations/entitysync/products/inventoryrecords`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update the entity sync delivery configuration for InventoryRecords Create or update the entity sync delivery configuration for InventoryRecords
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-inventory-record-entity-sync-config|api docs} for more info 
+    * 
+    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveInventoryRecordEntitySyncConfig<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/integrations/entitysync/products/inventoryrecords`, { ...requestOptions, data: entitySyncConfig, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete the entity sync delivery configuration for InventoryRecords Delete the entity sync delivery configuration for InventoryRecords
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-inventory-record-entity-sync-config|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteInventoryRecordEntitySyncConfig(requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/integrations/entitysync/products/inventoryrecords`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
