@@ -26,6 +26,7 @@ export interface ExtendedOrder<TExtendedOrderXp = any, TProductXp = any, TVarian
     readonly Subtotal?: number
     ShippingCost?: number
     TaxCost?: number
+    Gratuity?: number
     readonly PromotionDiscount?: number
     readonly Currency?: string
     readonly Total?: number

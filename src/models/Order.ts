@@ -24,6 +24,7 @@ export interface Order<TOrderXp = any, TFromUserXp = any, TBillingAddressXp = an
     readonly Subtotal?: number
     ShippingCost?: number
     TaxCost?: number
+    Gratuity?: number
     readonly PromotionDiscount?: number
     readonly Currency?: string
     readonly Total?: number
