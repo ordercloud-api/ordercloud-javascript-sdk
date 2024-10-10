@@ -15,7 +15,7 @@ export interface Promotion<TPromotionXp = any> {
     StartDate?: string
     ExpirationDate?: string
     EligibleExpression: string
-    ValueExpression: string
+    ValueExpression?: string
     CanCombine?: boolean
     AllowAllBuyers?: boolean
     OwnerID?: string
