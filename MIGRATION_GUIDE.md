@@ -2,6 +2,32 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 6.x.x to version 7.x.x
+* The method names for the `EntitySynchronization` service have been streamlined for improved clarity. The previous naming convention included the suffix `EntitySyncConfig`, which has now been removed
+
+    Before:
+    ```typescript
+    EntitySynchronization.GetInventoryRecordEntitySyncConfig(...)
+    ```
+
+    After:
+    ```typescript
+    EntitySynchronization.GetInventoryRecords(...)
+    ```
+
+## version 5.x.x to version 6.x.x
+* `ForgottenPassword` service renamed to `ForgottenCredentials`
+
+    Before:
+    ```typescript
+    ForgottenPassword.SendVerificationCode(...)
+    ```
+
+    After:
+    ```typescript
+    ForgottenCredentials.SendVerificationCode(...)
+    ```
+
 ## version 4.x.x to version 5.x.x
 * [Axios](https://www.npmjs.com/package/axios) less than version 1.0.0 is no longer supported
 * The type for the `errors` property on the class `OrderCloudError` has changed
