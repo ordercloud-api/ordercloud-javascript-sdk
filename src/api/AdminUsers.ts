@@ -23,6 +23,7 @@ class AdminUsers {
         this.Save = this.Save.bind(this);
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
+        this.RevokeUserTokens = this.RevokeUserTokens.bind(this);
         this.UnlockUserAccount = this.UnlockUserAccount.bind(this);
     }
 
@@ -151,6 +152,27 @@ class AdminUsers {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/adminusers/${userID}`, { ...requestOptions, data: user, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Revoke a user tokens. Revokes all security tokens of specified user.
+    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/revoke-user-tokens|api docs} for more info 
+    * 
+    * @param userID ID of the user.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async RevokeUserTokens(userID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/adminusers/${userID}/tokens`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

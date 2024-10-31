@@ -28,6 +28,7 @@ class Users {
         this.Patch = this.Patch.bind(this);
         this.GetAccessToken = this.GetAccessToken.bind(this);
         this.Move = this.Move.bind(this);
+        this.RevokeUserTokens = this.RevokeUserTokens.bind(this);
         this.UnlockUserAccount = this.UnlockUserAccount.bind(this);
         this.ListAcrossBuyers = this.ListAcrossBuyers.bind(this);
     }
@@ -211,6 +212,28 @@ class Users {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/buyers/${buyerID}/users/${userID}/moveto/${newBuyerID}`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Revoke a user tokens. Revokes all security tokens of specified buyer user.
+    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/revoke-user-tokens|api docs} for more info 
+    * 
+    * @param buyerID ID of the buyer.
+    * @param userID ID of the user.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async RevokeUserTokens(buyerID: string, userID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/buyers/${buyerID}/users/${userID}/tokens`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

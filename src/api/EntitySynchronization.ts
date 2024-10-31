@@ -63,7 +63,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for AdminUsers Create or update the entity sync delivery configuration for AdminUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-admin-users|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -124,7 +124,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for Buyers Create or update the entity sync delivery configuration for Buyers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-buyers|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -185,7 +185,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for BuyerUserGroups Create or update the entity sync delivery configuration for BuyerUserGroups
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-user-groups|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -246,7 +246,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for BuyerUsers Create or update the entity sync delivery configuration for BuyerUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-buyer-users|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -307,7 +307,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for Categories Create or update the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-categories|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -368,7 +368,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for InventoryRecords Create or update the entity sync delivery configuration for InventoryRecords
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-inventory-records|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -429,7 +429,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for Suppliers Create or update the entity sync delivery configuration for Suppliers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-suppliers|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -490,7 +490,7 @@ class EntitySynchronization {
     * Create or update the entity sync delivery configuration for SupplierUsers Create or update the entity sync delivery configuration for SupplierUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-supplier-users|api docs} for more info 
     * 
-    * @param entitySyncConfig Required fields: DeliveryConfigID
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
