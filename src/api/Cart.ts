@@ -7,11 +7,10 @@ import { ListPage } from '../models/ListPage';
 import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
-import { Promotion } from '../models/Promotion';
+import { OrderPromotion } from '../models/OrderPromotion';
 import { User } from '../models/User';
 import { Payment } from '../models/Payment';
 import { PaymentTransaction } from '../models/PaymentTransaction';
-import { OrderPromotion } from '../models/OrderPromotion';
 import { OrderShipMethodSelection } from '../models/OrderShipMethodSelection';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -308,7 +307,7 @@ class Cart {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListEligiblePromotions<TPromotion extends Promotion>(listOptions: { search?: string, searchOn?: Searchable<'Cart.ListEligiblePromotions'>, sortBy?: Sortable<'Cart.ListEligiblePromotions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotion>>>{
+    public async ListEligiblePromotions<TOrderPromotion extends OrderPromotion>(listOptions: { search?: string, searchOn?: Searchable<'Cart.ListEligiblePromotions'>, sortBy?: Sortable<'Cart.ListEligiblePromotions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderPromotion>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/cart/eligiblepromotions`, { ...requestOptions, impersonating, params: listOptions  } )

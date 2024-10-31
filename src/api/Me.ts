@@ -115,6 +115,7 @@ class Me {
         this.PatchSubscriptionItem = this.PatchSubscriptionItem.bind(this);
         this.CreateSubscriptionBundleItem = this.CreateSubscriptionBundleItem.bind(this);
         this.DeleteSubscriptionBundleItem = this.DeleteSubscriptionBundleItem.bind(this);
+        this.RevokeTokens = this.RevokeTokens.bind(this);
         this.ListUserGroups = this.ListUserGroups.bind(this);
     }
 
@@ -1799,6 +1800,26 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/me/subscriptions/${subscriptionID}/items/bundles/${bundleID}/${bundleItemID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Revokes all tokens previously issued to the current user and forces them to reauthenticate. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/revoke-tokens|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async RevokeTokens(requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/tokens`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

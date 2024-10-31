@@ -2,6 +2,19 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 7.x.x to version 8.x.x
+* The return type for the `ListEligiblePromotions` method has been updated from `Promotion` to `OrderPromotion`
+
+    Before:
+    ```typescript
+    ListEligiblePromotions<TPromotion>(...) : Promise<RequiredDeep<ListPage<TPromotion>>>
+    ```
+
+    After:
+    ```typescript
+    ListEligiblePromotions<TOrderPromotion>(...) : Promise<RequiredDeep<ListPage<TOrderPromotion>>>
+    ```
+
 ## version 6.x.x to version 7.x.x
 * The method names for the `EntitySynchronization` service have been streamlined for improved clarity. The previous naming convention included the suffix `EntitySyncConfig`, which has now been removed
 
