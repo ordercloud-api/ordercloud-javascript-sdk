@@ -4,6 +4,7 @@ interface SortableMap {
 'AdminAddresses.List': ('AddressName' | 'ID' | 'DateCreated' | 'CompanyName' | 'FirstName' | 'LastName' | 'Street1' | 'Street2' | 'City' | 'State' | 'Zip' | 'Country' | 'Phone' | '!AddressName' | '!ID' | '!DateCreated' | '!CompanyName' | '!FirstName' | '!LastName' | '!Street1' | '!Street2' | '!City' | '!State' | '!Zip' | '!Country' | '!Phone')[]
 'AdminUsers.List': ('LastName' | 'FirstName' | 'Username' | 'ID' | 'Email' | 'DateCreated' | 'PasswordLastSetDate' | '!LastName' | '!FirstName' | '!Username' | '!ID' | '!Email' | '!DateCreated' | '!PasswordLastSetDate')[]
 'ApiClients.List': ('ID' | 'AppName' | 'DefaultContextUserName' | '!ID' | '!AppName' | '!DefaultContextUserName')[]
+'ApiClients.ListSecrets': ('ID' | '!ID')[]
 'SellerApprovalRules.List': ('Name' | 'ID' | 'ApprovingGroupID' | 'RuleExpression' | '!Name' | '!ID' | '!ApprovingGroupID' | '!RuleExpression')[]
 'Bundles.List': string[]
 'Buyers.List': ('ID' | 'Name' | 'DateCreated' | '!ID' | '!Name' | '!DateCreated')[]
@@ -99,6 +100,7 @@ interface SortableMap {
 type SortableEndpoint = 'AdminAddresses.List' | 
 'AdminUsers.List' | 
 'ApiClients.List' | 
+'ApiClients.ListSecrets' | 
 'SellerApprovalRules.List' | 
 'Bundles.List' | 
 'Buyers.List' | 
