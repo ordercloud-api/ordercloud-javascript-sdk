@@ -6,6 +6,8 @@ export * from './AddressAssignment';
 export * from './AdHocProduct';
 export * from './ApiClient';
 export * from './ApiClientAssignment';
+export * from './ApiClientSecret';
+export * from './ApiClientSecretCreateResponse';
 export * from './ApiRole';
 export * from './ApprovalInfo';
 export * from './ApprovalRule';

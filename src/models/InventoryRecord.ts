@@ -8,6 +8,7 @@ export interface InventoryRecord<TInventoryRecordXp = any, TAddressXp = any> {
     AddressID: string
     OrderCanExceed?: boolean
     QuantityAvailable?: number
+    NotificationPoint?: number
     readonly LastUpdated?: string
     xp?: TInventoryRecordXp
 }

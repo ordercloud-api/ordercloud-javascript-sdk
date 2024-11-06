@@ -3,6 +3,8 @@ import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { ApiClient } from '../models/ApiClient';
+import { ApiClientSecret } from '../models/ApiClientSecret';
+import { ApiClientSecretCreateResponse } from '../models/ApiClientSecretCreateResponse';
 import { ApiClientAssignment } from '../models/ApiClientAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -24,6 +26,11 @@ class ApiClients {
         this.Save = this.Save.bind(this);
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
+        this.ListSecrets = this.ListSecrets.bind(this);
+        this.CreateSecret = this.CreateSecret.bind(this);
+        this.GetSecret = this.GetSecret.bind(this);
+        this.DeleteSecret = this.DeleteSecret.bind(this);
+        this.PatchSecret = this.PatchSecret.bind(this);
         this.ListAssignments = this.ListAssignments.bind(this);
         this.SaveAssignment = this.SaveAssignment.bind(this);
         this.DeleteBuyerAssignment = this.DeleteBuyerAssignment.bind(this);
@@ -155,6 +162,122 @@ class ApiClients {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/apiclients/${apiClientID}`, { ...requestOptions, data: apiClient, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of API client secrets. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list-secrets|api docs} for more info 
+    * 
+    * @param apiClientID ID of the api client.
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListSecrets<TApiClientSecret extends ApiClientSecret>(apiClientID: string, listOptions: { search?: string, searchOn?: Searchable<'ApiClients.ListSecrets'>, sortBy?: Sortable<'ApiClients.ListSecrets'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientSecret>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/apiclients/${apiClientID}/secrets`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new API client secret. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/create-secret|api docs} for more info 
+    * 
+    * @param apiClientID ID of the api client.
+    * @param apiClientSecret Required fields: Name
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateSecret<TApiClientSecretCreateResponse extends ApiClientSecretCreateResponse>(apiClientID: string, apiClientSecret: ApiClientSecret,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClientSecretCreateResponse>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/apiclients/${apiClientID}/secrets`, { ...requestOptions, data: apiClientSecret, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single API client secret. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/get-secret|api docs} for more info 
+    * 
+    * @param apiClientID ID of the api client.
+    * @param apiClientSecretID ID of the api client secret.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetSecret<TApiClientSecret extends ApiClientSecret>(apiClientID: string, apiClientSecretID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClientSecret>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/apiclients/${apiClientID}/secrets/${apiClientSecretID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a API client secret. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-secret|api docs} for more info 
+    * 
+    * @param apiClientID ID of the api client.
+    * @param apiClientSecretID ID of the api client secret.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteSecret(apiClientID: string, apiClientSecretID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/apiclients/${apiClientID}/secrets/${apiClientSecretID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a API client secret. 
+    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/patch-secret|api docs} for more info 
+    * 
+    * @param apiClientID ID of the api client.
+    * @param apiClientSecretID ID of the api client secret.
+    * @param apiClientSecret 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchSecret<TApiClientSecret extends ApiClientSecret>(apiClientID: string, apiClientSecretID: string, apiClientSecret: PartialDeep<ApiClientSecret>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClientSecret>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/apiclients/${apiClientID}/secrets/${apiClientSecretID}`, { ...requestOptions, data: apiClientSecret, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
