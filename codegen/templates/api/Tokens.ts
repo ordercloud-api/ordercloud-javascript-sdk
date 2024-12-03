@@ -15,7 +15,10 @@ const isNode =
  * @ignore
  * not part of public api, don't include in generated docs
  */
-const isEdgeRuntime = process.env.NEXT_RUNTIME === 'edge'
+const isEdgeRuntime =
+  typeof process !== 'undefined' &&
+  process?.env?.NEXT_RUNTIME &&
+  process.env.NEXT_RUNTIME !== 'edge'
 
 /**
  * @ignore
