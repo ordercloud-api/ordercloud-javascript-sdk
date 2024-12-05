@@ -2,6 +2,31 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 8.x.x to version 9.x.x
+* The return type for the `Me.ListProductCollectionEntries` method has been updated from `BuyerProduct` to `ProductCollectionBuyerProduct`
+
+    Before:
+    ```typescript
+    ListProductCollectionEntries<TBuyerProduct>(...) : Promise<RequiredDeep<ListPageWithFacets<TBuyerProduct>>>
+    ```
+
+    After:
+    ```typescript
+    ListProductCollectionEntries<TProductCollectionBuyerProduct>(...) : Promise<RequiredDeep<ListPageWithFacets<TProductCollectionBuyerProduct>>>
+    ```
+
+    * The return type for the `ProductCollections.ListEntries` method has been updated from `Product` to `ProductCollectionProduct`
+
+    Before:
+    ```typescript
+    ListEntries<TProduct>(...) : Promise<RequiredDeep<ListPageWithFacets<TProduct>>>
+    ```
+
+    After:
+    ```typescript
+    ListEntries<TProductCollectionBuyerProduct>(...) : Promise<RequiredDeep<ListPageWithFacets<TProductCollectionBuyerProduct>>>
+    ```
+
 ## version 7.x.x to version 8.x.x
 * The return type for the `ListEligiblePromotions` method has been updated from `Promotion` to `OrderPromotion`
 

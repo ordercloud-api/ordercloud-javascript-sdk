@@ -4,7 +4,7 @@ import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { ProductCollection } from '../models/ProductCollection';
 import { ListPageWithFacets } from '../models/ListPageWithFacets';
-import { Product } from '../models/Product';
+import { ProductCollectionProduct } from '../models/ProductCollectionProduct';
 import { SearchType } from '../models/SearchType';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -91,7 +91,7 @@ class ProductCollections {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListEntries<TProduct extends Product>(buyerID: string, productCollectionID: string, listOptions: { search?: string, searchOn?: Searchable<'ProductCollections.ListEntries'>, searchType?: SearchType, sortBy?: Sortable<'ProductCollections.ListEntries'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TProduct>>>{
+    public async ListEntries<TProductCollectionProduct extends ProductCollectionProduct>(buyerID: string, productCollectionID: string, listOptions: { search?: string, searchOn?: Searchable<'ProductCollections.ListEntries'>, searchType?: SearchType, sortBy?: Sortable<'ProductCollections.ListEntries'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TProductCollectionProduct>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/productcollections/${productCollectionID}/products`, { ...requestOptions, impersonating, params: listOptions  } )

@@ -14,6 +14,8 @@ import { TokenPasswordReset } from '../models/TokenPasswordReset';
 import { ProductCollection } from '../models/ProductCollection';
 import { ProductCollectionInvitation } from '../models/ProductCollectionInvitation';
 import { ListPageWithFacets } from '../models/ListPageWithFacets';
+import { ProductCollectionBuyerProduct } from '../models/ProductCollectionBuyerProduct';
+import { ProductCollectionEntry } from '../models/ProductCollectionEntry';
 import { BuyerProduct } from '../models/BuyerProduct';
 import { InventoryRecord } from '../models/InventoryRecord';
 import { ProductSeller } from '../models/ProductSeller';
@@ -83,6 +85,7 @@ class Me {
         this.AcceptProductCollectionInvitation = this.AcceptProductCollectionInvitation.bind(this);
         this.DeclineProductCollectionInvitation = this.DeclineProductCollectionInvitation.bind(this);
         this.ListProductCollectionEntries = this.ListProductCollectionEntries.bind(this);
+        this.SaveProductCollectionEntry = this.SaveProductCollectionEntry.bind(this);
         this.ListProducts = this.ListProducts.bind(this);
         this.GetProduct = this.GetProduct.bind(this);
         this.ListProductInventoryRecords = this.ListProductInventoryRecords.bind(this);
@@ -1025,10 +1028,32 @@ class Me {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListProductCollectionEntries<TBuyerProduct extends BuyerProduct>(productCollectionID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductCollectionEntries'>, searchType?: SearchType, sortBy?: Sortable<'Me.ListProductCollectionEntries'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TBuyerProduct>>>{
+    public async ListProductCollectionEntries<TProductCollectionBuyerProduct extends ProductCollectionBuyerProduct>(productCollectionID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductCollectionEntries'>, searchType?: SearchType, sortBy?: Sortable<'Me.ListProductCollectionEntries'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPageWithFacets<TProductCollectionBuyerProduct>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/productcollections/${productCollectionID}/products`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update a product collection entry. Only available to Buyer Users.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-product-collection-entry|api docs} for more info 
+    * 
+    * @param productCollectionID ID of the product collection.
+    * @param productCollectionEntry Required fields: ProductID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveProductCollectionEntry(productCollectionID: string, productCollectionEntry: ProductCollectionEntry,requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/productcollections/${productCollectionID}/products`, { ...requestOptions, data: productCollectionEntry, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
