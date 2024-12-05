@@ -50,6 +50,7 @@ import DeliveryConfigurations from './DeliveryConfigurations';
 import EntitySynchronization from './EntitySynchronization';
 import ErrorConfigs from './ErrorConfigs';
 import IntegrationEvents from './IntegrationEvents';
+import InventoryIntegrations from './InventoryIntegrations';
 import MessageSenders from './MessageSenders';
 import OrderSynchronization from './OrderSynchronization';
 import ProductSynchronization from './ProductSynchronization';
@@ -111,6 +112,7 @@ export {
     EntitySynchronization,
     ErrorConfigs,
     IntegrationEvents,
+    InventoryIntegrations,
     MessageSenders,
     OrderSynchronization,
     ProductSynchronization,
