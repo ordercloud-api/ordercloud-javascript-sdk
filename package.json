@@ -37,7 +37,7 @@
   },
   "scripts": {
     "build": "run-s build:sdk build:docs test",
-    "clean:dist": "rm -rf dist",
+    "clean:dist": "npx rimraf dist",
     "prebuild:sdk": "npm run clean:dist && npm run generate-sdk && npm run beautify",
     "build:sdk": "rollup --config",
     "postbuild:sdk": "shx cp dist/index.d.ts dist/index.esm.d.ts",
