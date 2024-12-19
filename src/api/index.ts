@@ -54,6 +54,7 @@ import InventoryIntegrations from './InventoryIntegrations';
 import MessageSenders from './MessageSenders';
 import OrderSynchronization from './OrderSynchronization';
 import ProductSynchronization from './ProductSynchronization';
+import PromotionIntegrations from './PromotionIntegrations';
 import SubscriptionIntegrations from './SubscriptionIntegrations';
 import Auth from './Auth';
 import UserInfo from './UserInfo';
@@ -116,6 +117,7 @@ export {
     MessageSenders,
     OrderSynchronization,
     ProductSynchronization,
+    PromotionIntegrations,
     SubscriptionIntegrations,
     Auth,
     UserInfo,

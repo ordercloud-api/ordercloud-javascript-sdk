@@ -2,7 +2,7 @@
 export interface Promotion<TPromotionXp = any> {
     ID?: string
     LineItemLevel?: boolean
-    Code: string
+    Code?: string
     Name?: string
     RedemptionLimit?: number
     RedemptionLimitPerUser?: number
@@ -14,13 +14,14 @@ export interface Promotion<TPromotionXp = any> {
     FinePrint?: string
     StartDate?: string
     ExpirationDate?: string
-    EligibleExpression: string
+    EligibleExpression?: string
     ValueExpression?: string
     CanCombine?: boolean
     AllowAllBuyers?: boolean
     OwnerID?: string
     AutoApply?: boolean
     Active?: boolean
+    UseIntegration?: boolean
     Priority?: number
     xp?: TPromotionXp
 }
