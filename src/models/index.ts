@@ -120,6 +120,7 @@ export * from './ProductSupplier';
 export * from './ProductSyncConfig';
 export * from './Promotion';
 export * from './PromotionAssignment';
+export * from './PromotionIntegration';
 export * from './PromotionOverride';
 export * from './PublicKey';
 export * from './SearchIngestion';

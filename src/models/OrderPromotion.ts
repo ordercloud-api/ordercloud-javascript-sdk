@@ -25,6 +25,7 @@ export interface OrderPromotion<TOrderPromotionXp = any> {
     OwnerID?: string
     AutoApply?: boolean
     Active?: boolean
+    UseIntegration?: boolean
     Priority?: number
     xp?: TOrderPromotionXp
 }
