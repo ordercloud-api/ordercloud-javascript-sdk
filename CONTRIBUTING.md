@@ -45,6 +45,6 @@ Assuming you or a contributor followed the instructions for [submitting a pull r
 1. Verify the version has been bumped and adheres to [semantic versioning](https://semver.org/)
 2. Verify the [changelog](./CHANGELOG.md) has been updated
 3. Merge the pull request
-4. Create a [new release on github](https://github.com/ordercloud-api/ordercloud-javascript-sdk/releases/new)
-5. Publish on npm by running `npm run publish-please`
+4. Create a [new release on github](https://github.com/ordercloud-api/ordercloud-javascript-sdk/releases/new) with a new git tag.
+5. Run `npm publish --dry-run` for a preview, or `npm publish`.
 6. Have a beer! 🍻
