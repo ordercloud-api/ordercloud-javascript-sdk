@@ -6,7 +6,6 @@ import { Bundle } from '../models/Bundle';
 import { SearchType } from '../models/SearchType';
 import { ListPage } from '../models/ListPage';
 import { BundleAssignment } from '../models/BundleAssignment';
-import { PartyType } from '../models/PartyType';
 import { BundleProductAssignment } from '../models/BundleProductAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -226,7 +225,6 @@ class Bundles {
     * 
     * @param listOptions.bundleID ID of the bundle.
     * @param listOptions.buyerID ID of the buyer.
-    * @param listOptions.userID ID of the user.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the bundle assignment. Possible values: User, Group, Company.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
@@ -235,7 +233,7 @@ class Bundles {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListAssignments<TBundleAssignment extends BundleAssignment>(listOptions: { bundleID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBundleAssignment>>>{
+    public async ListAssignments<TBundleAssignment extends BundleAssignment>(listOptions: { bundleID?: string, buyerID?: string, userGroupID?: string, level?: 'Group' | 'Company', page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBundleAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/bundles/assignments`, { ...requestOptions, impersonating, params: listOptions  } )

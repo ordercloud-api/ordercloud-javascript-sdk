@@ -4,7 +4,6 @@ import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { Category } from '../models/Category';
 import { CategoryAssignment } from '../models/CategoryAssignment';
-import { PartyType } from '../models/PartyType';
 import { CategoryBundleAssignment } from '../models/CategoryBundleAssignment';
 import { CategoryProductAssignment } from '../models/CategoryProductAssignment';
 import { PartialDeep } from '../models/PartialDeep';
@@ -259,7 +258,6 @@ class Categories {
     * @param catalogID ID of the catalog.
     * @param listOptions.categoryID ID of the category.
     * @param listOptions.buyerID ID of the buyer.
-    * @param listOptions.userID ID of the user.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the category assignment. Possible values: User, Group, Company.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
@@ -268,7 +266,7 @@ class Categories {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListAssignments<TCategoryAssignment extends CategoryAssignment>(catalogID: string, listOptions: { categoryID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCategoryAssignment>>>{
+    public async ListAssignments<TCategoryAssignment extends CategoryAssignment>(catalogID: string, listOptions: { categoryID?: string, buyerID?: string, userGroupID?: string, level?: 'Group' | 'Company', page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCategoryAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/catalogs/${catalogID}/categories/assignments`, { ...requestOptions, impersonating, params: listOptions  } )

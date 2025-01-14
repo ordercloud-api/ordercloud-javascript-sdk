@@ -9,7 +9,6 @@ import { Spec } from '../models/Spec';
 import { ProductSupplier } from '../models/ProductSupplier';
 import { Variant } from '../models/Variant';
 import { ProductAssignment } from '../models/ProductAssignment';
-import { PartyType } from '../models/PartyType';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { RequestOptions } from '../models/RequestOptions';
@@ -429,7 +428,6 @@ class Products {
     * @param listOptions.productID ID of the product.
     * @param listOptions.priceScheduleID ID of the price schedule.
     * @param listOptions.buyerID ID of the buyer.
-    * @param listOptions.userID ID of the user.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the product assignment. Possible values: User, Group, Company.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
@@ -438,7 +436,7 @@ class Products {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListAssignments<TProductAssignment extends ProductAssignment>(listOptions: { productID?: string, priceScheduleID?: string, buyerID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductAssignment>>>{
+    public async ListAssignments<TProductAssignment extends ProductAssignment>(listOptions: { productID?: string, priceScheduleID?: string, buyerID?: string, userGroupID?: string, level?: 'Group' | 'Company', page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TProductAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/products/assignments`, { ...requestOptions, impersonating, params: listOptions  } )

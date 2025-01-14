@@ -4,7 +4,6 @@ import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { CostCenter } from '../models/CostCenter';
 import { CostCenterAssignment } from '../models/CostCenterAssignment';
-import { PartyType } from '../models/PartyType';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { RequestOptions } from '../models/RequestOptions';
@@ -199,7 +198,6 @@ class CostCenters {
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.costCenterID ID of the cost center.
-    * @param listOptions.userID ID of the user.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the cost center assignment. Possible values: User, Group, Company.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
@@ -208,7 +206,7 @@ class CostCenters {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string, listOptions: { costCenterID?: string, userID?: string, userGroupID?: string, level?: PartyType, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>>{
+    public async ListAssignments<TCostCenterAssignment extends CostCenterAssignment>(buyerID: string, listOptions: { costCenterID?: string, userGroupID?: string, level?: 'Group' | 'Company', page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCostCenterAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/buyers/${buyerID}/costcenters/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
