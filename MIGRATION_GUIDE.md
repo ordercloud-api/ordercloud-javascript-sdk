@@ -2,6 +2,19 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 9.x.x to version 10.x.x
+* The `userID` parameter as well as the 'User' option in the `level` parameter have been removed from listOptions on serveral list assignment operations: `Bundles.ListAssignments(), CostCenters.ListAssignments(), Categories.ListAssignments(), Locales.ListAssignments(), MessageSenders.ListAssignments(), InventoryRecords.ListAssignments(), InventoryRecords.ListVariantAssignments(), Products.ListAssignments(), Promotions.ListAssignments()`.  
+
+    Before:
+    ```typescript
+    Products.ListAssignments({ level: 'User'}); // 'Group' or 'Company' also valid 
+    ```
+
+    After:
+    ```typescript
+    Products.ListAssignments({ level: 'Group'}); // 'Company' also valid 
+    ```
+
 ## version 8.x.x to version 9.x.x
 * The return type for the `Me.ListProductCollectionEntries` method has been updated from `BuyerProduct` to `ProductCollectionBuyerProduct`
 
