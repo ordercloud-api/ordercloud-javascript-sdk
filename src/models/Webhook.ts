@@ -13,4 +13,6 @@ export interface Webhook {
     ApiClientIDs?: string[]
     WebhookRoutes?: WebhookRoute[]
     DeliveryConfigID?: string
+    CustomAuthHeaderName?: string
+    CustomAuthHeaderValue?: string
 }

@@ -199,7 +199,7 @@ class CostCenters {
     * @param buyerID ID of the buyer.
     * @param listOptions.costCenterID ID of the cost center.
     * @param listOptions.userGroupID ID of the user group.
-    * @param listOptions.level Level of the cost center assignment. Possible values: User, Group, Company.
+    * @param listOptions.level Level of the cost center assignment. Possible values: Group, Company.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
