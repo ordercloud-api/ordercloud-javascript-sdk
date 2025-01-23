@@ -8,4 +8,6 @@ export interface SubscriptionIntegration<TSubscriptionIntegrationXp = any> {
     NotificationDays?: number
     Url?: string
     xp?: TSubscriptionIntegrationXp
+    CustomAuthHeaderName?: string
+    CustomAuthHeaderValue?: string
 }
