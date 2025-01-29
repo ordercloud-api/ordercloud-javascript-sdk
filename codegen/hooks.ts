@@ -6,7 +6,13 @@ import {
   PostFormatOperationHook,
   PostFormatTemplateDataHook,
   Operation,
+  FilterResourcesHook,
 } from '@ordercloud/oc-codegen'
+
+const filterResources: FilterResourcesHook = function(resource) {
+  // we want to manually remove Certs from the resource array so that we can add custom logic in the codegen template
+  return resource.name !== 'Certs'
+}
 
 const postFormatModel: PostFormatModelHook = function(model, models) {
   // add model.typeParams and prop.typeParams
@@ -117,6 +123,7 @@ module.exports = {
   postFormatModel,
   postFormatOperation,
   postFormatTemplateData,
+  filterResources,
 }
 
 /******************

@@ -25,5 +25,6 @@ export interface ProductCollectionProduct<TProductCollectionProductXp = any> {
     DefaultSupplierID?: string
     AllSuppliersCanSell?: boolean
     Returnable?: boolean
+    readonly DateCreated?: string
     xp?: TProductCollectionProductXp
 }
