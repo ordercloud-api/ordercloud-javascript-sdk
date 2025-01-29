@@ -24,5 +24,6 @@ export interface ProductCollectionBuyerProduct<TProductCollectionBuyerProductXp 
     DefaultSupplierID?: string
     AllSuppliersCanSell?: boolean
     Returnable?: boolean
+    readonly DateCreated?: string
     xp?: TProductCollectionBuyerProductXp
 }

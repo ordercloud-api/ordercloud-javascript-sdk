@@ -1,7 +1,6 @@
 import SecurityProfiles from './SecurityProfiles';
 import ForgottenCredentials from './ForgottenCredentials';
 import ImpersonationConfigs from './ImpersonationConfigs';
-import Certs from './Certs';
 import OpenIdConnects from './OpenIdConnects';
 import AdminUsers from './AdminUsers';
 import AdminUserGroups from './AdminUserGroups';
@@ -59,12 +58,12 @@ import SubscriptionIntegrations from './SubscriptionIntegrations';
 import Auth from './Auth';
 import UserInfo from './UserInfo';
 import Tokens from './Tokens';
+import Certs from './Certs';
 
 export {
     SecurityProfiles,
     ForgottenCredentials,
     ImpersonationConfigs,
-    Certs,
     OpenIdConnects,
     AdminUsers,
     AdminUserGroups,
@@ -121,5 +120,6 @@ export {
     SubscriptionIntegrations,
     Auth,
     UserInfo,
-    Tokens
+    Tokens,
+    Certs
 }
