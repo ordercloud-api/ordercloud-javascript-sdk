@@ -8,6 +8,7 @@ import { Catalog } from '../models/Catalog';
 import { Category } from '../models/Category';
 import { CostCenter } from '../models/CostCenter';
 import { BuyerCreditCard } from '../models/BuyerCreditCard';
+import { GroupOrderInvitation } from '../models/GroupOrderInvitation';
 import { Order } from '../models/Order';
 import { SearchType } from '../models/SearchType';
 import { TokenPasswordReset } from '../models/TokenPasswordReset';
@@ -65,6 +66,11 @@ class Me {
         this.SaveCreditCard = this.SaveCreditCard.bind(this);
         this.DeleteCreditCard = this.DeleteCreditCard.bind(this);
         this.PatchCreditCard = this.PatchCreditCard.bind(this);
+        this.ListGroupOrderInvitations = this.ListGroupOrderInvitations.bind(this);
+        this.CreateGroupOrderInvitation = this.CreateGroupOrderInvitation.bind(this);
+        this.GetGroupOrderInvitation = this.GetGroupOrderInvitation.bind(this);
+        this.DeleteGroupOrderInvitation = this.DeleteGroupOrderInvitation.bind(this);
+        this.PatchGroupOrderInvitation = this.PatchGroupOrderInvitation.bind(this);
         this.ListOrders = this.ListOrders.bind(this);
         this.TransferAnonUserOrder = this.TransferAnonUserOrder.bind(this);
         this.ListApprovableOrders = this.ListApprovableOrders.bind(this);
@@ -567,6 +573,117 @@ class Me {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/me/creditcards/${creditcardID}`, { ...requestOptions, data: buyerCreditCard, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a list of group order invitations visible to this user. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-group-order-invitations|api docs} for more info 
+    * 
+    * @param listOptions.search Word or phrase to search for.
+    * @param listOptions.searchOn Comma-delimited list of fields to search on.
+    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
+    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListGroupOrderInvitations<TGroupOrderInvitation extends GroupOrderInvitation>(listOptions: { search?: string, searchOn?: Searchable<'Me.ListGroupOrderInvitations'>, sortBy?: Sortable<'Me.ListGroupOrderInvitations'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TGroupOrderInvitation>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/orderinvitations`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create a new group order invitation. A group order invitation allows other users to contribute to an existing order. Contributors may request an access token with the invitation ID that allows them to add line items and modify those line items.
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-group-order-invitation|api docs} for more info 
+    * 
+    * @param groupOrderInvitation Required fields: ExpirationDate, OrderID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async CreateGroupOrderInvitation<TGroupOrderInvitation extends GroupOrderInvitation>(groupOrderInvitation: GroupOrderInvitation,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TGroupOrderInvitation>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/me/orderinvitations`, { ...requestOptions, data: groupOrderInvitation, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Get a single group order invitation. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-group-order-invitation|api docs} for more info 
+    * 
+    * @param invitationID ID of the invitation.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetGroupOrderInvitation<TGroupOrderInvitation extends GroupOrderInvitation>(invitationID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TGroupOrderInvitation>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/me/orderinvitations/${invitationID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete a group order invitation. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-group-order-invitation|api docs} for more info 
+    * 
+    * @param invitationID ID of the invitation.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteGroupOrderInvitation(invitationID: string, requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/me/orderinvitations/${invitationID}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update a group order invitation. 
+    * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-group-order-invitation|api docs} for more info 
+    * 
+    * @param invitationID ID of the invitation.
+    * @param groupOrderInvitation 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchGroupOrderInvitation<TGroupOrderInvitation extends GroupOrderInvitation>(invitationID: string, groupOrderInvitation: PartialDeep<GroupOrderInvitation>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TGroupOrderInvitation>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/me/orderinvitations/${invitationID}`, { ...requestOptions, data: groupOrderInvitation, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

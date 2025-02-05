@@ -24,4 +24,5 @@ export type XpThingType = 'Address' |
 'MessageSender' | 
 'InventoryRecord' | 
 'ProductCollection' | 
-'Subscription'
+'Subscription' | 
+'GroupOrderInvitation'

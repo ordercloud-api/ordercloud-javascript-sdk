@@ -74,7 +74,7 @@ class XpIndices {
     * Delete a XP index. 
     * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/delete|api docs} for more info 
     * 
-    * @param thingType Thing type of the xp index. Possible values: Address, Variant, Order, OrderReturn, LineItem, CostCenter, CreditCard, Payment, Spec, SpecOption, UserGroup, Company, Category, PriceSchedule, Shipment, SpendingAccount, User, Promotion, ApprovalRule, SellerApprovalRule, Catalog, ProductFacet, MessageSender, InventoryRecord, ProductCollection, Subscription.
+    * @param thingType Thing type of the xp index. Possible values: Address, Variant, Order, OrderReturn, LineItem, CostCenter, CreditCard, Payment, Spec, SpecOption, UserGroup, Company, Category, PriceSchedule, Shipment, SpendingAccount, User, Promotion, ApprovalRule, SellerApprovalRule, Catalog, ProductFacet, MessageSender, InventoryRecord, ProductCollection, Subscription, GroupOrderInvitation.
     * @param key Key of the xp index.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

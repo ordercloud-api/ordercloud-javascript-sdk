@@ -32,7 +32,7 @@ class CreditCards {
 
    /**
     * Get a list of credit cards. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
@@ -59,7 +59,7 @@ class CreditCards {
 
    /**
     * Create a new credit card. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param creditCard 
@@ -81,7 +81,7 @@ class CreditCards {
 
    /**
     * Get a single credit card. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param creditCardID ID of the credit card.
@@ -103,7 +103,7 @@ class CreditCards {
 
    /**
     * Create or update a credit card. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param creditCardID ID of the credit card.
@@ -126,7 +126,7 @@ class CreditCards {
 
    /**
     * Delete a credit card. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param creditCardID ID of the credit card.
@@ -148,7 +148,7 @@ class CreditCards {
 
    /**
     * Partially update a credit card. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param creditCardID ID of the credit card.
@@ -171,7 +171,7 @@ class CreditCards {
 
    /**
     * Delete a credit card assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/delete-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/delete-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param creditCardID ID of the credit card.
@@ -195,7 +195,7 @@ class CreditCards {
 
    /**
     * Get a list of credit card assignments. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/list-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/list-assignments|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.creditCardID ID of the credit card.
@@ -222,7 +222,7 @@ class CreditCards {
 
    /**
     * Create or update a credit card assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/credit-cards/save-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/credit-cards/save-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param creditCardAssignment Required fields: CreditCardID

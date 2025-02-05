@@ -37,6 +37,7 @@ interface SearchableMap {
 'Me.ListCategories': ('ID' | 'Name' | 'Description')[]
 'Me.ListCostCenters': ('ID' | 'Name' | 'Description')[]
 'Me.ListCreditCards': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate')[]
+'Me.ListGroupOrderInvitations': ('ID' | 'Name' | 'OrderID' | 'OrderStatus')[]
 'Me.ListOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Me.ListApprovableOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Me.ListProductCollections': ('ID' | 'Name')[]
@@ -81,7 +82,6 @@ interface SearchableMap {
 'Promotions.List': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
 'SecurityProfiles.List': ('ID' | 'Name')[]
 'Shipments.List': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
-'Shipments.ListItems': []
 'Specs.List': ('Name' | 'ID')[]
 'Specs.ListOptions': ('Value' | 'ID')[]
 'Specs.ListProductAssignments': ('SpecID' | 'ProductID')[]
@@ -133,6 +133,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListCategories' | 
 'Me.ListCostCenters' | 
 'Me.ListCreditCards' | 
+'Me.ListGroupOrderInvitations' | 
 'Me.ListOrders' | 
 'Me.ListApprovableOrders' | 
 'Me.ListProductCollections' | 
@@ -177,7 +178,6 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Promotions.List' | 
 'SecurityProfiles.List' | 
 'Shipments.List' | 
-'Shipments.ListItems' | 
 'Specs.List' | 
 'Specs.ListOptions' | 
 'Specs.ListProductAssignments' | 

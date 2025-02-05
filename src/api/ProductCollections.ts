@@ -27,7 +27,7 @@ class ProductCollections {
 
    /**
     * Get a list of product collections. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/product-collections/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/product-collections/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
@@ -54,7 +54,7 @@ class ProductCollections {
 
    /**
     * Get a single product collection. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/product-collections/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/product-collections/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param productCollectionID ID of the product collection.
@@ -76,7 +76,7 @@ class ProductCollections {
 
    /**
     * Get a list of product collection entries. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/product-collections/list-entries|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/product-collections/list-entries|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param productCollectionID ID of the product collection.

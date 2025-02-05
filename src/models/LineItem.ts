@@ -32,5 +32,6 @@ export interface LineItem<TLineItemXp = any, TProductXp = any, TVariantXp = any,
     Specs?: LineItemSpec[]
     readonly IncomingOrderID?: string
     readonly OutgoingOrderID?: string
+    readonly InvitationID?: string
     xp?: TLineItemXp
 }

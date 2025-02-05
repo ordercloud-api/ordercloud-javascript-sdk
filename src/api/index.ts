@@ -1,6 +1,7 @@
 import SecurityProfiles from './SecurityProfiles';
 import ForgottenCredentials from './ForgottenCredentials';
 import ImpersonationConfigs from './ImpersonationConfigs';
+import GroupOrders from './GroupOrders';
 import OpenIdConnects from './OpenIdConnects';
 import AdminUsers from './AdminUsers';
 import AdminUserGroups from './AdminUserGroups';
@@ -64,6 +65,7 @@ export {
     SecurityProfiles,
     ForgottenCredentials,
     ImpersonationConfigs,
+    GroupOrders,
     OpenIdConnects,
     AdminUsers,
     AdminUserGroups,

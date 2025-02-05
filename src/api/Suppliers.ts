@@ -31,7 +31,7 @@ class Suppliers {
 
    /**
     * Get a list of suppliers. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -57,7 +57,7 @@ class Suppliers {
 
    /**
     * Create a new supplier. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/create|api docs} for more info 
     * 
     * @param supplier Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -78,7 +78,7 @@ class Suppliers {
 
    /**
     * Get a single supplier. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/get|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -99,7 +99,7 @@ class Suppliers {
 
    /**
     * Create or update a supplier. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/save|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param supplier Required fields: Name
@@ -121,7 +121,7 @@ class Suppliers {
 
    /**
     * Delete a supplier. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/delete|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -142,7 +142,7 @@ class Suppliers {
 
    /**
     * Partially update a supplier. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/patch|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param supplier 
@@ -164,7 +164,7 @@ class Suppliers {
 
    /**
     * Get a list of supplier buyers. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/list-buyers|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/list-buyers|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param listOptions.search Word or phrase to search for.
@@ -191,7 +191,7 @@ class Suppliers {
 
    /**
     * Create or update a supplier buyer. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/save-buyer|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/save-buyer|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param buyerID ID of the buyer.
@@ -213,7 +213,7 @@ class Suppliers {
 
    /**
     * Delete a supplier buyer. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/suppliers/delete-buyer|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/suppliers/delete-buyer|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param buyerID ID of the buyer.
