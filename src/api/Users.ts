@@ -35,7 +35,7 @@ class Users {
 
    /**
     * Get a list of users. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
@@ -63,7 +63,7 @@ class Users {
 
    /**
     * Create a new user. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
@@ -85,7 +85,7 @@ class Users {
 
    /**
     * Get a single user. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -107,7 +107,7 @@ class Users {
 
    /**
     * Create or update a user. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -130,7 +130,7 @@ class Users {
 
    /**
     * Delete a user. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -152,7 +152,7 @@ class Users {
 
    /**
     * Partially update a user. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -175,7 +175,7 @@ class Users {
 
    /**
     * Get a single user access token. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/get-access-token|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/get-access-token|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -198,7 +198,7 @@ class Users {
 
    /**
     * Move a user to a different buyer. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/move|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/move|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -222,7 +222,7 @@ class Users {
 
    /**
     * Revoke a user tokens. Revokes all security tokens of specified buyer user.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/revoke-user-tokens|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/revoke-user-tokens|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -244,7 +244,7 @@ class Users {
 
    /**
     * Unlock a user account. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/unlock-user-account|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/unlock-user-account|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userID ID of the user.
@@ -266,7 +266,7 @@ class Users {
 
    /**
     * Get a list of user across buyers. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/users/list-across-buyers|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/users/list-across-buyers|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.

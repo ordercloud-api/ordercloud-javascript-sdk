@@ -172,9 +172,6 @@ class Shipments {
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/list-items|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
-    * @param listOptions.search Word or phrase to search for.
-    * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
     * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
@@ -182,7 +179,7 @@ class Shipments {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string, listOptions: { search?: string, searchOn?: Searchable<'Shipments.ListItems'>, sortBy?: Sortable<'Shipments.ListItems'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>>{
+    public async ListItems<TShipmentItem extends ShipmentItem>(shipmentID: string, listOptions: { page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/shipments/${shipmentID}/items`, { ...requestOptions, impersonating, params: listOptions  } )

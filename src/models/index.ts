@@ -45,6 +45,7 @@ export * from './EntitySyncConfig';
 export * from './ErrorConfig';
 export * from './EventHubConfig';
 export * from './ExtendedLineItem';
+export * from './GroupOrderInvitation';
 export * from './HttpConfig';
 export * from './ImpersonateTokenRequest';
 export * from './ImpersonationConfig';

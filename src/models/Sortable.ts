@@ -37,6 +37,7 @@ interface SortableMap {
 'Me.ListCategories': ('ID' | 'Name' | '!ID' | '!Name')[]
 'Me.ListCostCenters': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListCreditCards': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate' | 'DateCreated' | '!ID' | '!CardholderName' | '!CardType' | '!ExpirationDate' | '!DateCreated')[]
+'Me.ListGroupOrderInvitations': ('ID' | 'Name' | 'OrderID' | 'OrderStatus' | '!ID' | '!Name' | '!OrderID' | '!OrderStatus')[]
 'Me.ListOrders': ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'Gratuity' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!Gratuity' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[]
 'Me.ListApprovableOrders': ('DateSubmitted' | 'DateCreated' | 'ID' | 'FromCompanyID' | 'ToCompanyID' | 'FromUserID' | 'Status' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | 'Subtotal' | 'ShippingCost' | 'TaxCost' | 'Gratuity' | 'PromotionDiscount' | 'Total' | 'IsSubmitted' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!FromCompanyID' | '!ToCompanyID' | '!FromUserID' | '!Status' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated' | '!Subtotal' | '!ShippingCost' | '!TaxCost' | '!Gratuity' | '!PromotionDiscount' | '!Total' | '!IsSubmitted')[]
 'Me.ListProductCollections': ('Name' | 'ID' | '!Name' | '!ID')[]
@@ -81,7 +82,6 @@ interface SortableMap {
 'Promotions.List': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'SecurityProfiles.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'Shipments.List': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
-'Shipments.ListItems': []
 'Specs.List': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
 'Specs.ListOptions': ('ListOrder' | 'ID' | '!ListOrder' | '!ID')[]
 'Specs.ListProductAssignments': ('SpecID' | 'ProductID' | 'DefaultOptionID' | 'DefaultValue' | '!SpecID' | '!ProductID' | '!DefaultOptionID' | '!DefaultValue')[]
@@ -133,6 +133,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListCategories' | 
 'Me.ListCostCenters' | 
 'Me.ListCreditCards' | 
+'Me.ListGroupOrderInvitations' | 
 'Me.ListOrders' | 
 'Me.ListApprovableOrders' | 
 'Me.ListProductCollections' | 
@@ -177,7 +178,6 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Promotions.List' | 
 'SecurityProfiles.List' | 
 'Shipments.List' | 
-'Shipments.ListItems' | 
 'Specs.List' | 
 'Specs.ListOptions' | 
 'Specs.ListProductAssignments' | 

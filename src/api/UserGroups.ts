@@ -31,7 +31,7 @@ class UserGroups {
 
    /**
     * Get a list of user groups. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
@@ -58,7 +58,7 @@ class UserGroups {
 
    /**
     * Create a new user group. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userGroup Required fields: Name
@@ -80,7 +80,7 @@ class UserGroups {
 
    /**
     * Get a single user group. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
@@ -102,7 +102,7 @@ class UserGroups {
 
    /**
     * Create or update a user group. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
@@ -125,7 +125,7 @@ class UserGroups {
 
    /**
     * Delete a user group. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
@@ -147,7 +147,7 @@ class UserGroups {
 
    /**
     * Partially update a user group. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
@@ -170,7 +170,7 @@ class UserGroups {
 
    /**
     * Delete a user group user assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/delete-user-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/delete-user-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userGroupID ID of the user group.
@@ -193,7 +193,7 @@ class UserGroups {
 
    /**
     * Get a list of user group user assignments. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/list-user-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/list-user-assignments|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
@@ -218,7 +218,7 @@ class UserGroups {
 
    /**
     * Create or update a user group user assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/user-groups/save-user-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/save-user-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param userGroupAssignment Required fields: UserGroupID, UserID

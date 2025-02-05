@@ -32,7 +32,7 @@ class SpendingAccounts {
 
    /**
     * Get a list of spending accounts. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
@@ -59,7 +59,7 @@ class SpendingAccounts {
 
    /**
     * Create a new spending account. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param spendingAccount Required fields: Name, Balance
@@ -81,7 +81,7 @@ class SpendingAccounts {
 
    /**
     * Get a single spending account. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
@@ -103,7 +103,7 @@ class SpendingAccounts {
 
    /**
     * Create or update a spending account. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
@@ -126,7 +126,7 @@ class SpendingAccounts {
 
    /**
     * Delete a spending account. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
@@ -148,7 +148,7 @@ class SpendingAccounts {
 
    /**
     * Partially update a spending account. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
@@ -171,7 +171,7 @@ class SpendingAccounts {
 
    /**
     * Delete a spending account assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/delete-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/delete-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountID ID of the spending account.
@@ -195,7 +195,7 @@ class SpendingAccounts {
 
    /**
     * Get a list of spending account assignments. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/list-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/list-assignments|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.spendingAccountID ID of the spending account.
@@ -222,7 +222,7 @@ class SpendingAccounts {
 
    /**
     * Create or update a spending account assignment. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/spending-accounts/save-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/spending-accounts/save-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param spendingAccountAssignment Required fields: SpendingAccountID

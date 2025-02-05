@@ -29,7 +29,7 @@ class SupplierUsers {
 
    /**
     * Get a list of supplier users. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/list|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param listOptions.userGroupID ID of the user group.
@@ -57,7 +57,7 @@ class SupplierUsers {
 
    /**
     * Create a new supplier user. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/create|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
@@ -79,7 +79,7 @@ class SupplierUsers {
 
    /**
     * Get a single supplier user. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/get|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
@@ -101,7 +101,7 @@ class SupplierUsers {
 
    /**
     * Create or update a supplier user. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/save|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
@@ -124,7 +124,7 @@ class SupplierUsers {
 
    /**
     * Delete a supplier user. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/delete|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
@@ -146,7 +146,7 @@ class SupplierUsers {
 
    /**
     * Partially update a supplier user. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/patch|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
@@ -169,7 +169,7 @@ class SupplierUsers {
 
    /**
     * Revoke a user tokens. Revokes all security tokens of specified supplier user.
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/revoke-user-tokens|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/revoke-user-tokens|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.
@@ -191,7 +191,7 @@ class SupplierUsers {
 
    /**
     * Unlock a user account. 
-    * Check out the {@link https://ordercloud.io/api-reference/suppliers/supplier-users/unlock-user-account|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-users/unlock-user-account|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
     * @param userID ID of the user.

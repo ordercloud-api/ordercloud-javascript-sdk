@@ -27,7 +27,7 @@ class ApprovalRules {
 
    /**
     * Get a list of approval rules. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
@@ -54,7 +54,7 @@ class ApprovalRules {
 
    /**
     * Create a new approval rule. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param approvalRule Required fields: ApprovingGroupID, RuleExpression
@@ -76,7 +76,7 @@ class ApprovalRules {
 
    /**
     * Get a single approval rule. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
@@ -98,7 +98,7 @@ class ApprovalRules {
 
    /**
     * Create or update an approval rule. If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
@@ -121,7 +121,7 @@ class ApprovalRules {
 
    /**
     * Delete an approval rule. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
@@ -143,7 +143,7 @@ class ApprovalRules {
 
    /**
     * Partially update an approval rule. 
-    * Check out the {@link https://ordercloud.io/api-reference/buyers/approval-rules/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param approvalRuleID ID of the approval rule.
