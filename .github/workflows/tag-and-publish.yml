@@ -1,0 +1,110 @@
+name: Tag, Release, & Publish
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+
+      # PowerShell script to check for uncommitted changes
+    - name: Check for uncommitted changes using git status --porcelain
+      id: check_changes
+      run: |
+        $STATUS = git status --porcelain
+        if ($STATUS) {
+          Write-Host "Uncommitted changes found"
+          echo "uncommitted=true" >> $env:GITHUB_OUTPUT
+        } else {
+          Write-Host "No uncommitted changes"
+          echo "uncommitted=false" >> $env:GITHUB_OUTPUT
+        }
+
+    - name: Extract Changelog Entry
+      id: extract_changelog
+      shell: pwsh
+      run: |
+
+        $version = (Get-Content package.json | ConvertFrom-Json).version
+        Write-Host "Version: $version"
+
+        # Set the path to your changelog file
+        $changelogFile = "CHANGELOG.md"
+
+        # Ensure the changelog file exists and read lines
+        if (Test-Path $changelogFile) {
+            $lines = Get-Content $changelogFile
+            $changelogContent = ""
+            $isCapturing = $false
+
+            # Capture changelog content for the specified version
+            foreach ($line in $lines) {
+                # Check if we match the version header 
+                if ($line -match "# \[$($version)\]") {
+                    $isCapturing = $true
+                    continue  
+                }
+                if ($isCapturing) {
+                    $changelogContent += "$line`n"
+                    # Stop when another version header is found (match format like '# [1.0.0]')
+                    if ($line -match "# \[\d+\.\d+\.\d+\]") {
+                        break  
+                    }
+                }
+            }
+
+            # Clean up changelog content
+            if ($changelogContent) {
+                $changelogContent = $changelogContent.Trim()
+                $changelogContent = $changelogContent -replace "# \[\d+\.\d+\.\d+\] - \d{4}-\d{2}-\d{2}\s*", ""
+
+                Write-Host "Changelog entry for version $version found!"
+                Write-Host "Changelog content: $changelogContent"  
+
+                # Store the changelog content in the GITHUB_ENV variable
+                echo "changelog_content=$changelogContent" >> $env:GITHUB_OUTPUT
+            } else {
+                Write-Host "No changelog entry found for version $version."
+                exit 1
+            }
+        } else {
+            Write-Host "Changelog file not found."
+            exit 1
+        }
+
+    - name: Tag
+      id: autotagger
+      if: steps.check_changes.outputs.uncommitted == 'false'
+      uses: Klemensas/action-autotag@stable
+      with:
+        tag_message: ${{ steps.extract_changelog.outputs.changelog_content }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Release
+      id: create_release
+      if: steps.check_changes.outputs.uncommitted == 'false' && steps.autotagger.outputs.tagname != ''
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.autotagger.outputs.tagname }}
+        release_name: ${{ steps.autotagger.outputs.tagname }}
+        body: ${{ steps.extract_changelog.outputs.changelog_content }}
+        draft: false
+
+    - name: Publish to npm
+      if: steps.check_changes.outputs.uncommitted == 'false'
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
+      run: |
+        npm publish --dry-run --access public
