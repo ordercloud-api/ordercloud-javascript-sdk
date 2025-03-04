@@ -9,8 +9,9 @@ import { OrderApproval } from '../models/OrderApproval';
 import { OrderApprovalInfo } from '../models/OrderApprovalInfo';
 import { Address } from '../models/Address';
 import { User } from '../models/User';
-import { OrderPromotion } from '../models/OrderPromotion';
+import { EligiblePromotion } from '../models/EligiblePromotion';
 import { OrderSplitResult } from '../models/OrderSplitResult';
+import { OrderPromotion } from '../models/OrderPromotion';
 import { Shipment } from '../models/Shipment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -430,7 +431,7 @@ class Orders {
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListEligiblePromotions<TOrderPromotion extends OrderPromotion>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Orders.ListEligiblePromotions'>, sortBy?: Sortable<'Orders.ListEligiblePromotions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderPromotion>>>{
+    public async ListEligiblePromotions<TEligiblePromotion extends EligiblePromotion>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Orders.ListEligiblePromotions'>, sortBy?: Sortable<'Orders.ListEligiblePromotions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TEligiblePromotion>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/orders/${direction}/${orderID}/eligiblepromotions`, { ...requestOptions, impersonating, params: listOptions  } )

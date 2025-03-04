@@ -18,7 +18,7 @@ class GroupOrders {
 
    /**
     * Get a single group order token. 
-    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/group-orders/get-token|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/group-orders/get-token|api docs} for more info 
     * 
     * @param invitationID ID of the invitation.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
