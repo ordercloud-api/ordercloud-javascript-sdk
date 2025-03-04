@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
 
@@ -15,19 +15,6 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
-
-      # PowerShell script to check for uncommitted changes
-    - name: Check for uncommitted changes using git status --porcelain
-      id: check_changes
-      run: |
-        $STATUS = git status --porcelain
-        if ($STATUS) {
-          Write-Host "Uncommitted changes found"
-          echo "uncommitted=true" >> $env:GITHUB_OUTPUT
-        } else {
-          Write-Host "No uncommitted changes"
-          echo "uncommitted=false" >> $env:GITHUB_OUTPUT
-        }
 
     - name: Extract Changelog Entry
       id: extract_changelog
