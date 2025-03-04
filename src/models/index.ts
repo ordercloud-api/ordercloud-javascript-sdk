@@ -41,6 +41,7 @@ export * from './CreditCardAssignment';
 export * from './DeliveryConfig';
 export * from './DeliveryTargets';
 export * from './DiscoverEvent';
+export * from './EligiblePromotion';
 export * from './EntitySyncConfig';
 export * from './ErrorConfig';
 export * from './EventHubConfig';

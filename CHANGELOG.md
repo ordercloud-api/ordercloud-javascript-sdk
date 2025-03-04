@@ -5,6 +5,10 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [11.0.0] - 2025-03-04
+- Bring SDK up to date with API v1.0.384
+- This version includes a breaking change to the return type of `Cart.ListEligiblePromotions` and `Orders.ListEligiblePromotions`.  See migration guide for more details.
+
 # [10.0.3] - 2025-02-05
 - Bring SDK up to date with API [v1.0.378](https://ordercloud.io/release-notes/v1.0.378)
 

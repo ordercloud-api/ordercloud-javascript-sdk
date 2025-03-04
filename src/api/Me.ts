@@ -1951,7 +1951,7 @@ class Me {
     }
 
    /**
-    * Revokes all tokens previously issued to the current user and forces them to reauthenticate. 
+    * Revoke tokens Revokes all tokens previously issued to the current user and forces them to reauthenticate.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/revoke-tokens|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

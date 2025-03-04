@@ -1,7 +1,6 @@
 import SecurityProfiles from './SecurityProfiles';
 import ForgottenCredentials from './ForgottenCredentials';
 import ImpersonationConfigs from './ImpersonationConfigs';
-import GroupOrders from './GroupOrders';
 import OpenIdConnects from './OpenIdConnects';
 import AdminUsers from './AdminUsers';
 import AdminUserGroups from './AdminUserGroups';
@@ -42,6 +41,7 @@ import OrderReturns from './OrderReturns';
 import SellerApprovalRules from './SellerApprovalRules';
 import BundleLineItems from './BundleLineItems';
 import BundleSubscriptionItems from './BundleSubscriptionItems';
+import GroupOrders from './GroupOrders';
 import SubscriptionItems from './SubscriptionItems';
 import Subscriptions from './Subscriptions';
 import Me from './Me';
@@ -65,7 +65,6 @@ export {
     SecurityProfiles,
     ForgottenCredentials,
     ImpersonationConfigs,
-    GroupOrders,
     OpenIdConnects,
     AdminUsers,
     AdminUserGroups,
@@ -106,6 +105,7 @@ export {
     SellerApprovalRules,
     BundleLineItems,
     BundleSubscriptionItems,
+    GroupOrders,
     SubscriptionItems,
     Subscriptions,
     Me,

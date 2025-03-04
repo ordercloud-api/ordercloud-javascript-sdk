@@ -2,6 +2,19 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 10.x.x to version 11.x.x
+* The return type for the `Cart.ListEligiblePromotions` and `Orders.ListEligiblePromotions` methods have been updated from `OrderPromotion` to `EligiblePromotion`
+
+    Before:
+    ```typescript
+    Orders.ListEligiblePromotions<TOrderPromotion>(...) : Promise<RequiredDeep<ListPage<TOrderPromotion>>>
+    ```
+
+    After:
+    ```typescript
+    Orders.ListEligiblePromotions<TEligiblePromotion>(...) : Promise<RequiredDeep<ListPage<TEligiblePromotion>>>
+    ```
+
 ## version 9.x.x to version 10.x.x
 * The `userID` parameter as well as the 'User' option in the `level` parameter have been removed from listOptions on serveral list assignment operations: `Bundles.ListAssignments(), CostCenters.ListAssignments(), Categories.ListAssignments(), Locales.ListAssignments(), MessageSenders.ListAssignments(), InventoryRecords.ListAssignments(), InventoryRecords.ListVariantAssignments(), Products.ListAssignments(), Promotions.ListAssignments()`.  
 
