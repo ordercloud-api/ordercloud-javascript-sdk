@@ -70,7 +70,6 @@ jobs:
 
     - name: Tag
       id: autotagger
-      if: steps.check_changes.outputs.uncommitted == 'false'
       uses: Klemensas/action-autotag@stable
       with:
         tag_message: ${{ steps.extract_changelog.outputs.changelog_content }}
@@ -79,7 +78,7 @@ jobs:
 
     - name: Release
       id: create_release
-      if: steps.check_changes.outputs.uncommitted == 'false' && steps.autotagger.outputs.tagname != ''
+      if: steps.autotagger.outputs.tagname != ''
       uses: actions/create-release@v1.0.0
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -90,7 +89,6 @@ jobs:
         draft: false
 
     - name: Publish to npm
-      if: steps.check_changes.outputs.uncommitted == 'false'
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
       run: |
