@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # [11.0.2] - 2025-04-04
-- Bring SDK up to date with API [v1.0.393](https://developers.sitecore.com/changelog/ordercloud/03042025/refresh-tokens-for-impersonation-and-extended-anonymous-token-duration)
+- Bring SDK up to date with API v1.0.393
 
 # [11.0.1] - 2025-03-05
 - Introduce github action workflows
