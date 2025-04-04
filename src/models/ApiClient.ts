@@ -7,6 +7,7 @@ export interface ApiClient<TApiClientXp = any> {
     Active?: boolean
     AppName: string
     RefreshTokenDuration?: number
+    AnonymousTokenDuration?: number
     DefaultContextUserName?: string
     xp?: TApiClientXp
     AllowAnyBuyer?: boolean
