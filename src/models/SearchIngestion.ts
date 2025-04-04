@@ -1,3 +1,4 @@
+import { SearchIngestionContent } from './SearchIngestionContent';
 
 export interface SearchIngestion {
     Domain?: string
@@ -5,4 +6,5 @@ export interface SearchIngestion {
     Endpoint?: string
     Entity?: string
     ApiKey?: string
+    Content?: SearchIngestionContent
 }

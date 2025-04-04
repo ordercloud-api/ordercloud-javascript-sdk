@@ -124,6 +124,8 @@ export * from './PromotionAssignment';
 export * from './PromotionIntegration';
 export * from './PromotionOverride';
 export * from './SearchIngestion';
+export * from './SearchIngestionContent';
+export * from './SearchIngestionHttpContent';
 export * from './SearchType';
 export * from './SecurityProfile';
 export * from './SecurityProfileAssignment';

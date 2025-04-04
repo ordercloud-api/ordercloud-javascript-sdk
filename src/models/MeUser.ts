@@ -21,5 +21,6 @@ export interface MeUser<TMeUserXp = any> {
     readonly AvailableRoles?: string[]
     readonly Locale?: Locale
     readonly DateCreated?: string
+    readonly LastActive?: string
     readonly PasswordLastSetDate?: string
 }
