@@ -20,4 +20,5 @@ export type MessageType = 'OrderDeclined' |
 'OrderReturnCompleted' | 
 'SubscriptionReminder' | 
 'ProductCollectionInvitationAccepted' | 
-'ProductCollectionInvitationDeclined'
+'ProductCollectionInvitationDeclined' | 
+'OneTimePassword'

@@ -8,6 +8,7 @@ import { ListPage } from '../models/ListPage';
 import { Spec } from '../models/Spec';
 import { ProductSupplier } from '../models/ProductSupplier';
 import { Variant } from '../models/Variant';
+import { VariantOverrides } from '../models/VariantOverrides';
 import { ProductAssignment } from '../models/ProductAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -405,14 +406,15 @@ class Products {
     * 
     * @param productID ID of the product.
     * @param listOptions.overwriteExisting Overwrite existing of the product.
+    * @param variantOverrides 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async GenerateVariants<TProduct extends Product>(productID: string, listOptions: { overwriteExisting?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProduct>>{
+    public async GenerateVariants<TProduct extends Product>(productID: string, variantOverrides: VariantOverrides,listOptions: { overwriteExisting?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TProduct>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
-        return await http.post(`/products/${productID}/variants/generate`, { ...requestOptions, impersonating, params: listOptions  } )
+        return await http.post(`/products/${productID}/variants/generate`, { ...requestOptions, data: variantOverrides, impersonating, params: listOptions  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
