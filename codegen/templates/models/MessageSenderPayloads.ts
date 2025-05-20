@@ -21,6 +21,7 @@ import { MessageSenderOrderReturnSubmittedForApprovalPayload } from './MessageSe
 import { MessageSenderSubscriptionReminderPayload } from './MessageSenderSubscriptionReminderPayload'
 import { MessageSenderProductCollectionInvitationAcceptedPayload } from './ProductCollectionInvitationAcceptedPayload'
 import { MessageSenderProductCollectionInvitationDeclinedPayload } from './ProductCollectionInvitationDeclinedPayload'
+import { MessageSenderOneTimePasswordPayload } from './MessageSenderOneTimePasswordPayload'
 
 export type MessageSenderPayloads<
   TMessageType extends MessageType
@@ -49,4 +50,5 @@ interface PayloadMap {
   'SubscriptionReminder': MessageSenderSubscriptionReminderPayload
   'ProductCollectionInvitationAccepted': MessageSenderProductCollectionInvitationAcceptedPayload
   'ProductCollectionInvitationDeclined': MessageSenderProductCollectionInvitationDeclinedPayload
+  'OneTimePassword': MessageSenderOneTimePasswordPayload
 }
