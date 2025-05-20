@@ -1,3 +1,4 @@
+import { OneTimePasswordRequest } from '../models/OneTimePasswordRequest';
 import { PasswordResetRequest } from '../models/PasswordResetRequest';
 import { PasswordReset } from '../models/PasswordReset';
 import { PartialDeep } from '../models/PartialDeep';
@@ -14,9 +15,31 @@ class ForgottenCredentials {
     * not part of public api, don't include in generated docs
     */
     constructor() {
+        this.SendOneTimePassword = this.SendOneTimePassword.bind(this);
         this.SendVerificationCode = this.SendVerificationCode.bind(this);
         this.ResetPasswordByVerificationCode = this.ResetPasswordByVerificationCode.bind(this);
         this.RetrieveUsername = this.RetrieveUsername.bind(this);
+    }
+
+   /**
+    * Send an one time password. 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-credentials/send-one-time-password|api docs} for more info 
+    * 
+    * @param oneTimePasswordRequest Required fields: ClientID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SendOneTimePassword(oneTimePasswordRequest: OneTimePasswordRequest,requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/password/onetimepassword`, { ...requestOptions, data: oneTimePasswordRequest, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
     }
 
    /**

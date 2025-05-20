@@ -4,4 +4,5 @@ export interface ProductSyncConfig {
     SyncProductDeleted?: boolean
     DeliveryConfigID?: string
     ConfigData?: any
+    Paused?: boolean
 }

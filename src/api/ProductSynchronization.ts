@@ -1,4 +1,5 @@
 import { ProductSyncConfig } from '../models/ProductSyncConfig';
+import { SyncProduct } from '../models/SyncProduct';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
 import { RequestOptions } from '../models/RequestOptions';
@@ -17,6 +18,7 @@ class ProductSynchronization {
         this.Save = this.Save.bind(this);
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
+        this.Sync = this.Sync.bind(this);
     }
 
    /**
@@ -93,6 +95,27 @@ class ProductSynchronization {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.patch(`/integrations/productsync`, { ...requestOptions, data: productSyncConfig, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Sync a product. 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/product-synchronization/sync|api docs} for more info 
+    * 
+    * @param syncProduct Required fields: ProductID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Sync(syncProduct: SyncProduct,requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/integrations/productsync/sync`, { ...requestOptions, data: syncProduct, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
