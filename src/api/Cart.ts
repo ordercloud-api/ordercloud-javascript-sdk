@@ -12,6 +12,7 @@ import { User } from '../models/User';
 import { Payment } from '../models/Payment';
 import { PaymentTransaction } from '../models/PaymentTransaction';
 import { OrderPromotion } from '../models/OrderPromotion';
+import { RefreshPromosResponse } from '../models/RefreshPromosResponse';
 import { OrderShipMethodSelection } from '../models/OrderShipMethodSelection';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -57,6 +58,7 @@ class Cart {
         this.ListPromotions = this.ListPromotions.bind(this);
         this.AddPromotion = this.AddPromotion.bind(this);
         this.DeletePromotion = this.DeletePromotion.bind(this);
+        this.RefreshPromotions = this.RefreshPromotions.bind(this);
         this.SelectShipMethods = this.SelectShipMethods.bind(this);
         this.SetShippingAddress = this.SetShippingAddress.bind(this);
         this.PatchShippingAddress = this.PatchShippingAddress.bind(this);
@@ -169,7 +171,7 @@ class Cart {
     }
 
    /**
-    * AutoApply eligible promotions. Apply up to 100 eligible promotions to the cart.
+    * Auto-apply promotions to the cart. Apply up to 100 eligible promotions where AutoApply=true.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/apply-promotions|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -709,6 +711,26 @@ class Cart {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/cart/promotions/${promoCode}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Refresh promotions on the cart. Re-calculates promotion discounts, removes promotions that are no longer valid, and adds eligible promotions where AutoApply=true (up to limit of 100)
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/refresh-promotions|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async RefreshPromotions<TRefreshPromosResponse extends RefreshPromosResponse>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TRefreshPromosResponse>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/cart/refreshpromotions`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
