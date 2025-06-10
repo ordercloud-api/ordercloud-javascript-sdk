@@ -1,6 +1,7 @@
 export * from './AccessLevel';
 export * from './AccessToken';
 export * from './AccessTokenBasic';
+export * from './AddedPromo';
 export * from './Address';
 export * from './AddressAssignment';
 export * from './AdHocProduct';
@@ -124,6 +125,8 @@ export * from './Promotion';
 export * from './PromotionAssignment';
 export * from './PromotionIntegration';
 export * from './PromotionOverride';
+export * from './RefreshPromosResponse';
+export * from './RemovedPromo';
 export * from './SearchIngestion';
 export * from './SearchIngestionContent';
 export * from './SearchIngestionHttpContent';

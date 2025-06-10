@@ -4,6 +4,7 @@ export interface OrderCalculateResponse<TOrderCalculateResponseXp = any, TProduc
     LineItemOverrides?: LineItemOverride<TProductXp>[]
     ShippingTotal?: number
     TaxTotal?: number
+    FeeTotal?: number
     HttpStatusCode?: number
     UnhandledErrorBody?: string
     xp?: TOrderCalculateResponseXp

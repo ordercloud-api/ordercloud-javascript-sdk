@@ -12,6 +12,7 @@ import { User } from '../models/User';
 import { EligiblePromotion } from '../models/EligiblePromotion';
 import { OrderSplitResult } from '../models/OrderSplitResult';
 import { OrderPromotion } from '../models/OrderPromotion';
+import { RefreshPromosResponse } from '../models/RefreshPromosResponse';
 import { Shipment } from '../models/Shipment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -48,6 +49,7 @@ class Orders {
         this.ListPromotions = this.ListPromotions.bind(this);
         this.AddPromotion = this.AddPromotion.bind(this);
         this.RemovePromotion = this.RemovePromotion.bind(this);
+        this.RefreshPromotions = this.RefreshPromotions.bind(this);
         this.Ship = this.Ship.bind(this);
         this.ListShipments = this.ListShipments.bind(this);
         this.SetShippingAddress = this.SetShippingAddress.bind(this);
@@ -202,7 +204,7 @@ class Orders {
     }
 
    /**
-    * AutoApply eligible promotions. Apply up to 100 eligible promotions to an order.
+    * Auto-apply promotions to an order. Apply up to 100 eligible promotions where AutoApply=true.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/apply-promotions|api docs} for more info 
     * 
     * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
@@ -554,6 +556,28 @@ class Orders {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/orders/${direction}/${orderID}/promotions/${promoCode}`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Refresh promotions on an order. Re-calculates promotion discounts, removes promotions that are no longer valid, and adds eligible promotions where AutoApply=true (up to limit of 100)
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/refresh-promotions|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param orderID ID of the order.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async RefreshPromotions<TRefreshPromosResponse extends RefreshPromosResponse>(direction: OrderDirection, orderID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TRefreshPromosResponse>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/orders/${direction}/${orderID}/refreshpromotions`, { ...requestOptions, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
