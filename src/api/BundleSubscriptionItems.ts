@@ -19,7 +19,7 @@ class BundleSubscriptionItems {
     }
 
    /**
-    * Create a new bundle subscription item. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a bundle subscription item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/bundle-subscription-items/create|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -42,7 +42,7 @@ class BundleSubscriptionItems {
     }
 
    /**
-    * Delete a bundle subscription item. 
+    * Delete a bundle subscription item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/bundle-subscription-items/delete|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.

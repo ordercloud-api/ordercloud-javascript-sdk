@@ -38,14 +38,14 @@ class Catalogs {
     }
 
    /**
-    * Get a list of catalogs. 
+    * List catalogs 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -64,7 +64,7 @@ class Catalogs {
     }
 
    /**
-    * Create a new catalog. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a catalog 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/create|api docs} for more info 
     * 
     * @param catalog Required fields: Name
@@ -85,7 +85,7 @@ class Catalogs {
     }
 
    /**
-    * Get a single catalog. 
+    * Retrieve a catalog 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/get|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -106,7 +106,7 @@ class Catalogs {
     }
 
    /**
-    * Create or update a catalog. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a catalog If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -128,7 +128,7 @@ class Catalogs {
     }
 
    /**
-    * Delete a catalog. 
+    * Delete a catalog 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -149,7 +149,7 @@ class Catalogs {
     }
 
    /**
-    * Partially update a catalog. 
+    * Partially update a catalog 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/patch|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -171,7 +171,7 @@ class Catalogs {
     }
 
    /**
-    * Delete a catalog assignment. 
+    * Delete a catalog assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -193,7 +193,7 @@ class Catalogs {
     }
 
    /**
-    * Delete a catalog bundle assignment. 
+    * Delete a catalog bundle assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete-bundle-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -215,7 +215,7 @@ class Catalogs {
     }
 
    /**
-    * Delete a catalog product assignment. 
+    * Delete a catalog product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/delete-product-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -237,13 +237,13 @@ class Catalogs {
     }
 
    /**
-    * Get a list of catalog assignments. 
+    * List catalog assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list-assignments|api docs} for more info 
     * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.buyerID ID of the buyer.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -261,7 +261,7 @@ class Catalogs {
     }
 
    /**
-    * Create or update a catalog assignment. 
+    * Create or update a catalog assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save-assignment|api docs} for more info 
     * 
     * @param catalogAssignment Required fields: CatalogID, BuyerID
@@ -282,13 +282,13 @@ class Catalogs {
     }
 
    /**
-    * Get a list of catalog bundle assignments. 
+    * List catalog bundle assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list-bundle-assignments|api docs} for more info 
     * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.bundleID ID of the bundle.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -306,7 +306,7 @@ class Catalogs {
     }
 
    /**
-    * Create or update a catalog bundle assignment. 
+    * Create or update a catalog bundle assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save-bundle-assignment|api docs} for more info 
     * 
     * @param bundleCatalogAssignment Required fields: CatalogID, BundleID
@@ -327,13 +327,13 @@ class Catalogs {
     }
 
    /**
-    * Get a list of catalog product assignments. 
+    * List catalog product assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/list-product-assignments|api docs} for more info 
     * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.productID ID of the product.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -351,7 +351,7 @@ class Catalogs {
     }
 
    /**
-    * Create or update a catalog product assignment. 
+    * Create or update a catalog product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save-product-assignment|api docs} for more info 
     * 
     * @param productCatalogAssignment Required fields: CatalogID, ProductID

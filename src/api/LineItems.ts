@@ -33,20 +33,20 @@ class LineItems {
     }
 
    /**
-    * Get a list of line item across orders. 
+    * List line item across orders 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/list-across-orders|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.supplierID ID of the supplier.
     * @param listOptions.from Lower bound of date range that the order was created.
     * @param listOptions.to Upper bound of date range that the order was created.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.searchType Type of search to perform.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -65,16 +65,16 @@ class LineItems {
     }
 
    /**
-    * Get a list of line items. 
+    * List line items 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/list|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -93,10 +93,10 @@ class LineItems {
     }
 
    /**
-    * Create a new line item. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/create|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param lineItem Required fields: ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -116,10 +116,10 @@ class LineItems {
     }
 
    /**
-    * Get a single line item. 
+    * Retrieve a line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/get|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -139,10 +139,10 @@ class LineItems {
     }
 
    /**
-    * Create or update a line item. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a line item If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/save|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
     * @param lineItem Required fields: ProductID
@@ -163,10 +163,10 @@ class LineItems {
     }
 
    /**
-    * Delete a line item. 
+    * Delete a line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/delete|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -186,10 +186,10 @@ class LineItems {
     }
 
    /**
-    * Partially update a line item. 
+    * Partially update a line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/patch|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
     * @param lineItem 
@@ -210,10 +210,10 @@ class LineItems {
     }
 
    /**
-    * Set a shipping address. Set the Shipping Address of the Line Item. Appropriate only when the Address is not to be saved/reused. To use a Saved Address (i.e. from the Addresses resource), PATCH the Line Item's ShippingAddressID property instead.
+    * Set a shipping address Set the Shipping Address of the Line Item. Appropriate only when the Address is not to be saved/reused. To use a Saved Address (i.e. from the Addresses resource), PATCH the Line Item's ShippingAddressID property instead.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/set-shipping-address|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -234,10 +234,10 @@ class LineItems {
     }
 
    /**
-    * Partially update a line item shipping address. Partially update the Shipping Address of the Line Item. Not allowed on unsubmitted Line Items where ShippingAddressID has been set. In that case, use the Addresses resource to update the Saved Address.
+    * Partially update a line item shipping address Partially update the Shipping Address of the Line Item. Not allowed on unsubmitted Line Items where ShippingAddressID has been set. In that case, use the Addresses resource to update the Saved Address.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/line-items/patch-shipping-address|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param lineItemID ID of the line item.
     * @param address 

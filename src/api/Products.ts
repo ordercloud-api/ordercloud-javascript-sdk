@@ -45,7 +45,7 @@ class Products {
     }
 
    /**
-    * Get a list of products. 
+    * List products 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list|api docs} for more info 
     * 
     * @param listOptions.catalogID ID of the catalog.
@@ -53,10 +53,10 @@ class Products {
     * @param listOptions.supplierID ID of the supplier.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.searchType Type of search to perform.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -75,7 +75,7 @@ class Products {
     }
 
    /**
-    * Create a new product. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a product 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/create|api docs} for more info 
     * 
     * @param product Required fields: Name
@@ -96,7 +96,7 @@ class Products {
     }
 
    /**
-    * Get a single product. 
+    * Retrieve a product 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/get|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -117,7 +117,7 @@ class Products {
     }
 
    /**
-    * Create or update a product. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a product If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -139,7 +139,7 @@ class Products {
     }
 
    /**
-    * Delete a product. 
+    * Delete a product 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/delete|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -160,7 +160,7 @@ class Products {
     }
 
    /**
-    * Partially update a product. 
+    * Partially update a product 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/patch|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -182,7 +182,7 @@ class Products {
     }
 
    /**
-    * Delete a product assignment. 
+    * Delete a product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/delete-assignment|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -207,15 +207,15 @@ class Products {
     }
 
    /**
-    * Get a list of product specs. 
+    * List product specs 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-specs|api docs} for more info 
     * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -234,15 +234,15 @@ class Products {
     }
 
    /**
-    * Get a list of product suppliers. 
+    * List product suppliers 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-suppliers|api docs} for more info 
     * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -261,7 +261,7 @@ class Products {
     }
 
    /**
-    * Create or update a product supplier. 
+    * Create or update a product supplier 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-supplier|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -284,7 +284,7 @@ class Products {
     }
 
    /**
-    * Remove a product supplier. 
+    * Remove a product supplier 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/remove-supplier|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -306,15 +306,15 @@ class Products {
     }
 
    /**
-    * Get a list of product variants. 
+    * List product variants 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-variants|api docs} for more info 
     * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -333,7 +333,7 @@ class Products {
     }
 
    /**
-    * Get a single product variant. 
+    * Retrieve a product variant 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/get-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -355,7 +355,7 @@ class Products {
     }
 
    /**
-    * Update a product variant. Update a product variant.
+    * Update a product variant Update a product variant.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -378,7 +378,7 @@ class Products {
     }
 
    /**
-    * Partially update a product variant. 
+    * Partially update a product variant 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/patch-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -401,7 +401,7 @@ class Products {
     }
 
    /**
-    * Generate variants. 
+    * Generate variants 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/generate-variants|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -424,7 +424,7 @@ class Products {
     }
 
    /**
-    * Get a list of product assignments. 
+    * List product assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/list-assignments|api docs} for more info 
     * 
     * @param listOptions.productID ID of the product.
@@ -432,8 +432,8 @@ class Products {
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the product assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -451,7 +451,7 @@ class Products {
     }
 
    /**
-    * Create or update a product assignment. 
+    * Create or update a product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/products/save-assignment|api docs} for more info 
     * 
     * @param productAssignment Required fields: ProductID, BuyerID

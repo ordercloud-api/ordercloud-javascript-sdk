@@ -46,7 +46,7 @@
     "test:browser": "jest --config tests/config/browser.config.js",
     "test:server": "jest --config tests/config/server.config.js",
     "beautify": "prettier --write codegen/**/*.ts --loglevel silent",
-    "generate-sdk": "npm run buildCodegen && oc-codegen -t codegen/templates -o ./src -b codegen/handlebars-extensions -k codegen/hooks.js -c",
+    "generate-sdk": "npm run buildCodegen && oc-codegen -t codegen/templates -i https://qaapi.ordercloud.io/v1/openapi/v3 -o ./src -b codegen/handlebars-extensions -k codegen/hooks.js -c",
     "debug-template-data": "npm run buildCodegen && oc-codegen -d -k codegen/hooks.js > templateData.json",
     "buildCodegen": "tsc --p codegen/tsconfig.json"
   },

@@ -17,7 +17,7 @@ class GroupOrders {
     }
 
    /**
-    * Get a single group order token. 
+    * Retrieve a group order token 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/group-orders/get-token|api docs} for more info 
     * 
     * @param invitationID ID of the invitation.

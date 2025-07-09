@@ -31,15 +31,15 @@ class Addresses {
     }
 
    /**
-    * Get a list of addresses. 
+    * List addresses 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -58,7 +58,7 @@ class Addresses {
     }
 
    /**
-    * Create a new address. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an address 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -80,7 +80,7 @@ class Addresses {
     }
 
    /**
-    * Get a single address. 
+    * Retrieve an address 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -102,7 +102,7 @@ class Addresses {
     }
 
    /**
-    * Create or update an address. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an address If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -125,7 +125,7 @@ class Addresses {
     }
 
    /**
-    * Delete an address. 
+    * Delete an address 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -147,7 +147,7 @@ class Addresses {
     }
 
    /**
-    * Partially update an address. 
+    * Partially update an address 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -170,7 +170,7 @@ class Addresses {
     }
 
    /**
-    * Delete an address assignment. 
+    * Delete an address assignment 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/delete-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -194,7 +194,7 @@ class Addresses {
     }
 
    /**
-    * Get a list of address assignments. 
+    * List address assignments 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/list-assignments|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -204,8 +204,8 @@ class Addresses {
     * @param listOptions.level Level of the address assignment. Possible values: User, Group, Company.
     * @param listOptions.isShipping Is shipping of the address assignment.
     * @param listOptions.isBilling Is billing of the address assignment.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -223,7 +223,7 @@ class Addresses {
     }
 
    /**
-    * Create or update an address assignment. 
+    * Create or update an address assignment 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/addresses/save-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.

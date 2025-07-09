@@ -20,10 +20,10 @@ class BundleLineItems {
     }
 
    /**
-    * Create a new bundle line item. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a bundle line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/bundle-line-items/create|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param bundleID ID of the bundle.
     * @param bundleItems 
@@ -44,10 +44,10 @@ class BundleLineItems {
     }
 
    /**
-    * Delete a bundle line item. 
+    * Delete a bundle line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/bundle-line-items/delete|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param bundleID ID of the bundle.
     * @param bundleItemID ID of the bundle item.

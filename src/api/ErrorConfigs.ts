@@ -21,7 +21,7 @@ class ErrorConfigs {
     }
 
    /**
-    * Get a single error config. 
+    * Retrieve an error config 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/error-configs/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -41,7 +41,7 @@ class ErrorConfigs {
     }
 
    /**
-    * Create or update an error config. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an error config If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/error-configs/save|api docs} for more info 
     * 
     * @param errorConfig Required fields: DeliveryConfigID
@@ -62,7 +62,7 @@ class ErrorConfigs {
     }
 
    /**
-    * Delete an error config. 
+    * Delete an error config 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/error-configs/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -82,7 +82,7 @@ class ErrorConfigs {
     }
 
    /**
-    * Partially update an error config. 
+    * Partially update an error config 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/error-configs/patch|api docs} for more info 
     * 
     * @param errorConfig 
@@ -103,7 +103,7 @@ class ErrorConfigs {
     }
 
    /**
-    * Validates an error config. 
+    * Validates an error config 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/error-configs/validate|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

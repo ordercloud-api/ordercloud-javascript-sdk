@@ -39,21 +39,22 @@ class InventoryRecords {
     }
 
    /**
-    * Get a list of inventory records. 
+    * List inventory records 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/list|api docs} for more info 
     * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.includeAddress Include address of the inventory record.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async List<TInventoryRecord extends InventoryRecord>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'InventoryRecords.List'>, sortBy?: Sortable<'InventoryRecords.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
+    public async List<TInventoryRecord extends InventoryRecord>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'InventoryRecords.List'>, sortBy?: Sortable<'InventoryRecords.List'>, page?: number, pageSize?: number, filters?: Filters, includeAddress?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/products/${productID}/inventoryrecords`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -66,7 +67,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create a new inventory record. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/create|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -88,7 +89,7 @@ class InventoryRecords {
     }
 
    /**
-    * Get a single inventory record. 
+    * Retrieve an inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/get|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -110,7 +111,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create or update an inventory record. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an inventory record If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/save|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -133,7 +134,7 @@ class InventoryRecords {
     }
 
    /**
-    * Delete an inventory record. 
+    * Delete an inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -155,7 +156,7 @@ class InventoryRecords {
     }
 
    /**
-    * Partially update an inventory record. 
+    * Partially update an inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/patch|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -178,7 +179,7 @@ class InventoryRecords {
     }
 
    /**
-    * Delete an inventory record assignment. 
+    * Delete an inventory record assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete-assignment|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -203,7 +204,7 @@ class InventoryRecords {
     }
 
    /**
-    * Get a list of inventory record assignments. 
+    * List inventory record assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/list-assignments|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -211,8 +212,8 @@ class InventoryRecords {
     * @param listOptions.inventoryRecordID ID of the inventory record.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the inventory record assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -230,7 +231,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create or update an inventory record assignment. 
+    * Create or update an inventory record assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/save-assignment|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -252,7 +253,7 @@ class InventoryRecords {
     }
 
    /**
-    * Get a list of variant inventory records. 
+    * Get a list of variant inventory records 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/list-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -260,14 +261,15 @@ class InventoryRecords {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.includeAddress Include address of the inventory record.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListVariant<TInventoryRecord extends InventoryRecord>(productID: string, variantID: string, listOptions: { search?: string, searchOn?: Searchable<'InventoryRecords.ListVariant'>, sortBy?: Sortable<'InventoryRecords.ListVariant'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
+    public async ListVariant<TInventoryRecord extends InventoryRecord>(productID: string, variantID: string, listOptions: { search?: string, searchOn?: Searchable<'InventoryRecords.ListVariant'>, sortBy?: Sortable<'InventoryRecords.ListVariant'>, page?: number, pageSize?: number, filters?: Filters, includeAddress?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/products/${productID}/variants/${variantID}/inventoryrecords`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -280,7 +282,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create a new variant inventory record. 
+    * Create a new variant inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/create-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -303,7 +305,7 @@ class InventoryRecords {
     }
 
    /**
-    * Get a single variant inventory record. 
+    * Get a single variant inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/get-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -326,7 +328,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create or update a variant inventory record. 
+    * Create or update a variant inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/save-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -350,7 +352,7 @@ class InventoryRecords {
     }
 
    /**
-    * Delete a variant inventory record. 
+    * Delete a variant inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -373,7 +375,7 @@ class InventoryRecords {
     }
 
    /**
-    * Partially update a variant inventory record. 
+    * Partially update a variant inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/patch-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -397,7 +399,7 @@ class InventoryRecords {
     }
 
    /**
-    * Delete an inventory record variant assignment. 
+    * Delete an inventory record variant assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/delete-variant-assignment|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -423,7 +425,7 @@ class InventoryRecords {
     }
 
    /**
-    * Get a list of inventory record variant assignments. 
+    * List inventory record variant assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/list-variant-assignments|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -432,8 +434,8 @@ class InventoryRecords {
     * @param listOptions.inventoryRecordID ID of the inventory record.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the inventory record assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -451,7 +453,7 @@ class InventoryRecords {
     }
 
    /**
-    * Create or update an inventory record variant assignment. 
+    * Create or update an inventory record variant assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/inventory-records/save-variant-assignment|api docs} for more info 
     * 
     * @param productID ID of the product.

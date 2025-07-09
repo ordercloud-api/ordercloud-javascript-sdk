@@ -20,7 +20,7 @@ class OrderSynchronization {
     }
 
    /**
-    * Get a single order sync. 
+    * Retrieve an order sync 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/order-synchronization/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -40,7 +40,7 @@ class OrderSynchronization {
     }
 
    /**
-    * Create or update an order sync. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an order sync If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/order-synchronization/save|api docs} for more info 
     * 
     * @param orderSyncConfig Required fields: DeliveryConfigID
@@ -61,7 +61,7 @@ class OrderSynchronization {
     }
 
    /**
-    * Delete an order sync. 
+    * Delete an order sync 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/order-synchronization/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -81,7 +81,7 @@ class OrderSynchronization {
     }
 
    /**
-    * Partially update an order sync. 
+    * Partially update an order sync 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/order-synchronization/patch|api docs} for more info 
     * 
     * @param orderSyncConfig 

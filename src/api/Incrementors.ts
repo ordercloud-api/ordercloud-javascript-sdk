@@ -26,14 +26,14 @@ class Incrementors {
     }
 
    /**
-    * Get a list of incrementors. 
+    * List incrementors 
     * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -52,7 +52,7 @@ class Incrementors {
     }
 
    /**
-    * Create a new incrementor. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an incrementor 
     * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/create|api docs} for more info 
     * 
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
@@ -73,7 +73,7 @@ class Incrementors {
     }
 
    /**
-    * Get a single incrementor. 
+    * Retrieve an incrementor 
     * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/get|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.
@@ -94,7 +94,7 @@ class Incrementors {
     }
 
    /**
-    * Create or update an incrementor. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an incrementor If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/save|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.
@@ -116,7 +116,7 @@ class Incrementors {
     }
 
    /**
-    * Delete an incrementor. 
+    * Delete an incrementor 
     * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/delete|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.
@@ -137,7 +137,7 @@ class Incrementors {
     }
 
    /**
-    * Partially update an incrementor. 
+    * Partially update an incrementor 
     * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/patch|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.

@@ -33,14 +33,14 @@ class IntegrationEvents {
     }
 
    /**
-    * Get a list of integration events. 
+    * List integration events 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -59,7 +59,7 @@ class IntegrationEvents {
     }
 
    /**
-    * Create a new integration event. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an integration event 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/create|api docs} for more info 
     * 
     * @param integrationEvent Required fields: CustomImplementationUrl, Name, HashKey
@@ -80,7 +80,7 @@ class IntegrationEvents {
     }
 
    /**
-    * Get a single integration event. 
+    * Retrieve an integration event 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/get|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
@@ -101,7 +101,7 @@ class IntegrationEvents {
     }
 
    /**
-    * Create or update an integration event. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an integration event If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/save|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
@@ -123,7 +123,7 @@ class IntegrationEvents {
     }
 
    /**
-    * Delete an integration event. 
+    * Delete an integration event 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/delete|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
@@ -144,7 +144,7 @@ class IntegrationEvents {
     }
 
    /**
-    * Partially update an integration event. 
+    * Partially update an integration event 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/patch|api docs} for more info 
     * 
     * @param integrationEventID ID of the integration event.
@@ -166,10 +166,10 @@ class IntegrationEvents {
     }
 
    /**
-    * Calculate an order. 
+    * Calculate an order 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/calculate|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -188,10 +188,10 @@ class IntegrationEvents {
     }
 
    /**
-    * Estimate shipping cost. 
+    * Estimate shipping cost 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/estimate-shipping|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -210,10 +210,10 @@ class IntegrationEvents {
     }
 
    /**
-    * Select a ship method. 
+    * Select a ship method 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/select-shipmethods|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param orderShipMethodSelection 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -233,10 +233,10 @@ class IntegrationEvents {
     }
 
    /**
-    * Get a single order worksheet. 
+    * Get a single order worksheet 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/integration-events/get-worksheet|api docs} for more info 
     * 
-    * @param direction Direction of the order, from the current user's perspective. Possible values: incoming, outgoing, all.
+    * @param direction Direction of the order, from the current user's perspective.
     * @param orderID ID of the order.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.

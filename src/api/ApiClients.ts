@@ -38,14 +38,14 @@ class ApiClients {
     }
 
    /**
-    * Get a list of API clients. 
+    * List API clients 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -64,7 +64,7 @@ class ApiClients {
     }
 
    /**
-    * Create a new API client. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an API client 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/create|api docs} for more info 
     * 
     * @param apiClient Required fields: AccessTokenDuration, AppName
@@ -85,7 +85,7 @@ class ApiClients {
     }
 
    /**
-    * Get a single API client. 
+    * Retrieve an API client 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/get|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -106,7 +106,7 @@ class ApiClients {
     }
 
    /**
-    * Update an API client. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an API client If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/save|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -128,7 +128,7 @@ class ApiClients {
     }
 
    /**
-    * Delete a API client. 
+    * Delete an API client 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -149,7 +149,7 @@ class ApiClients {
     }
 
    /**
-    * Partially update a API client. 
+    * Partially update an API client 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/patch|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -171,15 +171,15 @@ class ApiClients {
     }
 
    /**
-    * Get a list of API client secrets. 
+    * List API client secrets 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list-secrets|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -198,7 +198,7 @@ class ApiClients {
     }
 
    /**
-    * Create a new API client secret. 
+    * Create an API client secret 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/create-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -220,7 +220,7 @@ class ApiClients {
     }
 
    /**
-    * Get a single API client secret. 
+    * Retrieve an API client secret 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/get-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -242,7 +242,7 @@ class ApiClients {
     }
 
    /**
-    * Delete a API client secret. 
+    * Delete an API client secret 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -264,7 +264,7 @@ class ApiClients {
     }
 
    /**
-    * Partially update a API client secret. 
+    * Partially update an API client secret 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/patch-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -287,14 +287,14 @@ class ApiClients {
     }
 
    /**
-    * Get a list of API client assignments. 
+    * List API client assignments 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list-assignments|api docs} for more info 
     * 
     * @param listOptions.apiClientID ID of the api client.
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.supplierID ID of the supplier.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -312,7 +312,7 @@ class ApiClients {
     }
 
    /**
-    * Create or update a API client assignment. 
+    * Create or update an API client assignment 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/save-assignment|api docs} for more info 
     * 
     * @param apiClientAssignment Required fields: ApiClientID
@@ -333,7 +333,7 @@ class ApiClients {
     }
 
    /**
-    * Delete a API client buyer assignment. 
+    * Delete an API client buyer assignment 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-buyer-assignment|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
@@ -355,7 +355,7 @@ class ApiClients {
     }
 
    /**
-    * Delete a API client supplier assignment. 
+    * Delete an API client supplier assignment 
     * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-supplier-assignment|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.

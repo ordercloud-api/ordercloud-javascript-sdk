@@ -37,15 +37,15 @@ class OrderReturns {
     }
 
    /**
-    * Get a list of order returns. 
+    * List order returns 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/list|api docs} for more info 
     * 
     * @param listOptions.approvable Only returns orders awaiting the user's approval if true.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -64,7 +64,7 @@ class OrderReturns {
     }
 
    /**
-    * Create a new order return. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/create|api docs} for more info 
     * 
     * @param orderReturn Required fields: OrderID
@@ -85,7 +85,7 @@ class OrderReturns {
     }
 
    /**
-    * Get a single order return. 
+    * Retrieve an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/get|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -106,7 +106,7 @@ class OrderReturns {
     }
 
    /**
-    * Create or update an order return. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an order return If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/save|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -128,7 +128,7 @@ class OrderReturns {
     }
 
    /**
-    * Delete an order return. 
+    * Delete an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/delete|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -149,7 +149,7 @@ class OrderReturns {
     }
 
    /**
-    * Partially update an order return. 
+    * Partially update an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/patch|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -171,15 +171,15 @@ class OrderReturns {
     }
 
    /**
-    * Get a list of order return approvals. Returns all Approvals associated with the Order Return.
+    * List order return approvals Returns all Approvals associated with the Order Return.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/list-approvals|api docs} for more info 
     * 
     * @param returnID ID of the return.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -198,7 +198,7 @@ class OrderReturns {
     }
 
    /**
-    * Approve an order return. 
+    * Approve an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/approve|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -220,7 +220,7 @@ class OrderReturns {
     }
 
    /**
-    * Cancel an OrderReturn. 
+    * Cancel an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/cancel|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -241,7 +241,7 @@ class OrderReturns {
     }
 
    /**
-    * Complete an OrderReturn. Use only when an order return won't have an associated payment. You will not to reopen an order return after completing it.
+    * Complete an order return Use only when an order return won't have an associated payment. You will not to reopen an order return after completing it.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/complete|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -262,7 +262,7 @@ class OrderReturns {
     }
 
    /**
-    * Decline an order return. 
+    * Decline an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/decline|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -284,15 +284,15 @@ class OrderReturns {
     }
 
    /**
-    * Get a list of order return eligible approvers. Returns all Users who can approve or decline this order return (but have not done so).
+    * List order return eligible approvers Returns all Users who can approve or decline this order return (but have not done so).
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/list-eligible-approvers|api docs} for more info 
     * 
     * @param returnID ID of the return.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -311,7 +311,7 @@ class OrderReturns {
     }
 
    /**
-    * Delete an order return item. 
+    * Delete an order return item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/delete-item|api docs} for more info 
     * 
     * @param returnID ID of the return.
@@ -333,7 +333,7 @@ class OrderReturns {
     }
 
    /**
-    * Submit an order return. 
+    * Submit an order return 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/order-returns/submit|api docs} for more info 
     * 
     * @param returnID ID of the return.

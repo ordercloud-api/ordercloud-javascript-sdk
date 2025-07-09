@@ -38,7 +38,7 @@ class Categories {
     }
 
    /**
-    * Get a list of categories. 
+    * List categories 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/list|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -46,8 +46,8 @@ class Categories {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -66,7 +66,7 @@ class Categories {
     }
 
    /**
-    * Create a new category. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.<br/></br>Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
+    * Create a category Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/create|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -89,7 +89,7 @@ class Categories {
     }
 
    /**
-    * Get a single category. 
+    * Retrieve a category 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/get|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -111,7 +111,7 @@ class Categories {
     }
 
    /**
-    * Create or update a category. If an object with the same ID already exists, it will be overwritten.<br/></br>Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
+    * Create or update a category If an object with the same ID already exists, it will be overwritten.<br/></br>Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -135,7 +135,7 @@ class Categories {
     }
 
    /**
-    * Delete a category. Deleting a parent category will also delete all of that category's children.
+    * Delete a category Deleting a parent category will also delete all of that category's children.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/delete|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -157,7 +157,7 @@ class Categories {
     }
 
    /**
-    * Partially update a category. Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
+    * Partially update a category Setting adjustListOrders to true will increase ListOrder for all categories with the same or higher ListOrder.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/patch|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -181,7 +181,7 @@ class Categories {
     }
 
    /**
-    * Delete a category assignment. 
+    * Delete a category assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/delete-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -206,7 +206,7 @@ class Categories {
     }
 
    /**
-    * Delete a category bundle assignment. 
+    * Delete a category bundle assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/delete-bundle-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -229,7 +229,7 @@ class Categories {
     }
 
    /**
-    * Delete a category product assignment. 
+    * Delete a category product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/delete-product-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -252,7 +252,7 @@ class Categories {
     }
 
    /**
-    * Get a list of category assignments. 
+    * List category assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/list-assignments|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -260,8 +260,8 @@ class Categories {
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the category assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -279,7 +279,7 @@ class Categories {
     }
 
    /**
-    * Create or update a category assignment. 
+    * Create or update a category assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -301,14 +301,14 @@ class Categories {
     }
 
    /**
-    * Get a list of category bundle assignments. 
+    * List category bundle assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/list-bundle-assignments|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
     * @param listOptions.categoryID ID of the category.
     * @param listOptions.bundleID ID of the bundle.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -326,7 +326,7 @@ class Categories {
     }
 
    /**
-    * Create or update a category bundle assignment. 
+    * Create or update a category bundle assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save-bundle-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -348,14 +348,14 @@ class Categories {
     }
 
    /**
-    * Get a list of category product assignments. 
+    * List category product assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/list-product-assignments|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
     * @param listOptions.categoryID ID of the category.
     * @param listOptions.productID ID of the product.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -373,7 +373,7 @@ class Categories {
     }
 
    /**
-    * Create or update a category product assignment. 
+    * Create or update a category product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/categories/save-product-assignment|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.

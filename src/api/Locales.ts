@@ -30,14 +30,14 @@ class Locales {
     }
 
    /**
-    * Get a list of locales. 
+    * List locales 
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -56,7 +56,7 @@ class Locales {
     }
 
    /**
-    * Create a new locale. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a locale 
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/create|api docs} for more info 
     * 
     * @param locale Required fields: Currency
@@ -77,7 +77,7 @@ class Locales {
     }
 
    /**
-    * Get a single locale. 
+    * Retrieve a locale 
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/get|api docs} for more info 
     * 
     * @param localeID ID of the locale.
@@ -98,7 +98,7 @@ class Locales {
     }
 
    /**
-    * Create or update a locale. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a locale If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/save|api docs} for more info 
     * 
     * @param localeID ID of the locale.
@@ -120,7 +120,7 @@ class Locales {
     }
 
    /**
-    * Delete a locale. 
+    * Delete a locale 
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/delete|api docs} for more info 
     * 
     * @param localeID ID of the locale.
@@ -141,7 +141,7 @@ class Locales {
     }
 
    /**
-    * Partially update a locale. 
+    * Partially update a locale 
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/patch|api docs} for more info 
     * 
     * @param localeID ID of the locale.
@@ -163,7 +163,7 @@ class Locales {
     }
 
    /**
-    * Delete a locale assignment. 
+    * Delete a locale assignment 
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/delete-assignment|api docs} for more info 
     * 
     * @param localeID ID of the locale.
@@ -187,15 +187,15 @@ class Locales {
     }
 
    /**
-    * Get a list of locale assignments. 
+    * List locale assignments 
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/list-assignments|api docs} for more info 
     * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.localeID ID of the locale.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the locale assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -213,7 +213,7 @@ class Locales {
     }
 
    /**
-    * Create or update a locale assignment. Do not assign a user multiple groups with different assigned locales. That is considered a misconfiguration, and will yield unexpected results.
+    * Create or update a locale assignment Do not assign a user multiple groups with different assigned locales. That is considered a misconfiguration, and will yield unexpected results.
     * Check out the {@link https://ordercloud.io/api-reference/seller/locales/save-assignment|api docs} for more info 
     * 
     * @param localeAssignment Required fields: LocaleID, BuyerID

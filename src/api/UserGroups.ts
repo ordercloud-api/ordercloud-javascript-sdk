@@ -30,15 +30,15 @@ class UserGroups {
     }
 
    /**
-    * Get a list of user groups. 
+    * List user groups 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -57,7 +57,7 @@ class UserGroups {
     }
 
    /**
-    * Create a new user group. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a user group 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -79,7 +79,7 @@ class UserGroups {
     }
 
    /**
-    * Get a single user group. 
+    * Retrieve a user group 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -101,7 +101,7 @@ class UserGroups {
     }
 
    /**
-    * Create or update a user group. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a user group If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -124,7 +124,7 @@ class UserGroups {
     }
 
    /**
-    * Delete a user group. 
+    * Delete a user group 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -146,7 +146,7 @@ class UserGroups {
     }
 
    /**
-    * Partially update a user group. 
+    * Partially update a user group 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -169,7 +169,7 @@ class UserGroups {
     }
 
    /**
-    * Delete a user group user assignment. 
+    * Delete a user group user assignment 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/delete-user-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -192,14 +192,14 @@ class UserGroups {
     }
 
    /**
-    * Get a list of user group user assignments. 
+    * List user group user assignments 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/list-user-assignments|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.userID ID of the user.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -217,7 +217,7 @@ class UserGroups {
     }
 
    /**
-    * Create or update a user group user assignment. 
+    * Create or update a user group user assignment 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/user-groups/save-user-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.

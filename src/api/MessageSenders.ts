@@ -33,14 +33,14 @@ class MessageSenders {
     }
 
    /**
-    * Get a list of message senders. 
+    * List message senders 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -59,7 +59,7 @@ class MessageSenders {
     }
 
    /**
-    * Create a new message sender. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a message sender 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/create|api docs} for more info 
     * 
     * @param messageSender Required fields: Name, MessageTypes
@@ -80,7 +80,7 @@ class MessageSenders {
     }
 
    /**
-    * Get a single message sender. 
+    * Retrieve a message sender 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/get|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
@@ -101,7 +101,7 @@ class MessageSenders {
     }
 
    /**
-    * Create or update a message sender. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a message sender If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/save|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
@@ -123,7 +123,7 @@ class MessageSenders {
     }
 
    /**
-    * Delete a message sender. 
+    * Delete a message sender 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/delete|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
@@ -144,7 +144,7 @@ class MessageSenders {
     }
 
    /**
-    * Partially update a message sender. 
+    * Partially update a message sender 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/patch|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
@@ -166,7 +166,7 @@ class MessageSenders {
     }
 
    /**
-    * Delete a message sender assignment. 
+    * Delete a message sender assignment 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/delete-assignment|api docs} for more info 
     * 
     * @param messageSenderID ID of the message sender.
@@ -191,15 +191,15 @@ class MessageSenders {
     }
 
    /**
-    * Get a list of message sender assignments. 
+    * List message sender assignments 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/list-assignments|api docs} for more info 
     * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.messageSenderID ID of the message sender.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the message sender assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -218,7 +218,7 @@ class MessageSenders {
     }
 
    /**
-    * Create or update a message sender assignment. 
+    * Create or update a message sender assignment 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/save-assignment|api docs} for more info 
     * 
     * @param messageSenderAssignment Required fields: MessageSenderID
@@ -239,14 +239,14 @@ class MessageSenders {
     }
 
    /**
-    * Get a list of message sender cc listener assignments. 
+    * List message sender cc listener assignments 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/list-cclistener-assignments|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -265,7 +265,7 @@ class MessageSenders {
     }
 
    /**
-    * Create or update a message sender cc listener assignment. 
+    * Create or update a message sender cc listener assignment 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/message-senders/save-cclistener-assignment|api docs} for more info 
     * 
     * @param messageCCListenerAssignment Required fields: MessageSenderAssignment, MessageType

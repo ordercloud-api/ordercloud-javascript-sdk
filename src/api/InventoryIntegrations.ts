@@ -20,7 +20,7 @@ class InventoryIntegrations {
     }
 
    /**
-    * Get a single inventory integration. 
+    * Retrieve an inventory integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/inventory-integrations/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -40,7 +40,7 @@ class InventoryIntegrations {
     }
 
    /**
-    * Create or update an inventory integration. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an inventory integration If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/inventory-integrations/save|api docs} for more info 
     * 
     * @param inventoryIntegration Required fields: DeliveryConfigID
@@ -61,7 +61,7 @@ class InventoryIntegrations {
     }
 
    /**
-    * Delete an inventory integration. 
+    * Delete an inventory integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/inventory-integrations/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -81,7 +81,7 @@ class InventoryIntegrations {
     }
 
    /**
-    * Partially update an inventory integration. 
+    * Partially update an inventory integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/inventory-integrations/patch|api docs} for more info 
     * 
     * @param inventoryIntegration 

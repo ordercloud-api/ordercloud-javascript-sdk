@@ -30,15 +30,15 @@ class CostCenters {
     }
 
    /**
-    * Get a list of cost centers. 
+    * List cost centers 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -57,7 +57,7 @@ class CostCenters {
     }
 
    /**
-    * Create a new cost center. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a cost center 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -79,7 +79,7 @@ class CostCenters {
     }
 
    /**
-    * Get a single cost center. 
+    * Retrieve a cost center 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -101,7 +101,7 @@ class CostCenters {
     }
 
    /**
-    * Create or update a cost center. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a cost center If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -124,7 +124,7 @@ class CostCenters {
     }
 
    /**
-    * Delete a cost center. 
+    * Delete a cost center 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -146,7 +146,7 @@ class CostCenters {
     }
 
    /**
-    * Partially update a cost center. 
+    * Partially update a cost center 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -169,7 +169,7 @@ class CostCenters {
     }
 
    /**
-    * Delete a cost center assignment. 
+    * Delete a cost center assignment 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/delete-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -193,15 +193,15 @@ class CostCenters {
     }
 
    /**
-    * Get a list of cost center assignments. 
+    * List cost center assignments 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/list-assignments|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.costCenterID ID of the cost center.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the cost center assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -219,7 +219,7 @@ class CostCenters {
     }
 
    /**
-    * Create or update a cost center assignment. 
+    * Create or update a cost center assignment 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/cost-centers/save-assignment|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
