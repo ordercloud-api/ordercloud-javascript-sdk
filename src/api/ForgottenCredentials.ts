@@ -22,7 +22,7 @@ class ForgottenCredentials {
     }
 
    /**
-    * Send an one time password. 
+    * Send an one time password 
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-credentials/send-one-time-password|api docs} for more info 
     * 
     * @param oneTimePasswordRequest Required fields: ClientID
@@ -43,7 +43,7 @@ class ForgottenCredentials {
     }
 
    /**
-    * Send a verification code. Sends a temporary verification code via email, which must subsequently be passed in a Reset Password call. The verification code expires in 120 minutes.
+    * Send a verification code Sends a temporary verification code via email, which must subsequently be passed in a Reset Password call. The verification code expires in 120 minutes.
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-credentials/send-verification-code|api docs} for more info 
     * 
     * @param passwordResetRequest Required fields: ClientID
@@ -64,7 +64,7 @@ class ForgottenCredentials {
     }
 
    /**
-    * Reset a password by verification code. 
+    * Reset a password by verification code 
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-credentials/reset-password-by-verification-code|api docs} for more info 
     * 
     * @param verificationCode Verification code of the password reset.
@@ -86,7 +86,7 @@ class ForgottenCredentials {
     }
 
    /**
-    * Retrieve a username. Sends an email with username for every username associated with an email. Always returns a 200 success regardless of if email doesn’t exist in the clientID.
+    * Retrieve a username Sends an email with username for every username associated with an email. Always returns a 200 success regardless of if email doesn’t exist in the clientID.
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/forgotten-credentials/retrieve-username|api docs} for more info 
     * 
     * @param listOptions.clientID ID of the client.

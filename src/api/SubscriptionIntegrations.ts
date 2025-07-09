@@ -20,7 +20,7 @@ class SubscriptionIntegrations {
     }
 
    /**
-    * Get a single subscription integration. 
+    * Retrieve a subscription integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/subscription-integrations/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -40,7 +40,7 @@ class SubscriptionIntegrations {
     }
 
    /**
-    * Create or update a subscription integration. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a subscription integration If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/subscription-integrations/save|api docs} for more info 
     * 
     * @param subscriptionIntegration Required fields: ApiClientID, HashKey
@@ -61,7 +61,7 @@ class SubscriptionIntegrations {
     }
 
    /**
-    * Delete a subscription integration. 
+    * Delete a subscription integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/subscription-integrations/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -81,7 +81,7 @@ class SubscriptionIntegrations {
     }
 
    /**
-    * Partially update a subscription integration. 
+    * Partially update a subscription integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/subscription-integrations/patch|api docs} for more info 
     * 
     * @param subscriptionIntegration 

@@ -26,14 +26,14 @@ class ProductFacets {
     }
 
    /**
-    * Get a list of product facets. 
+    * List product facets 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -52,7 +52,7 @@ class ProductFacets {
     }
 
    /**
-    * Create a new product facet. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a product facet 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/create|api docs} for more info 
     * 
     * @param productFacet Required fields: Name
@@ -73,7 +73,7 @@ class ProductFacets {
     }
 
    /**
-    * Get a single product facet. 
+    * Retrieve a product facet 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/get|api docs} for more info 
     * 
     * @param productFacetID ID of the product facet.
@@ -94,7 +94,7 @@ class ProductFacets {
     }
 
    /**
-    * Create or update a product facet. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a product facet If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/save|api docs} for more info 
     * 
     * @param productFacetID ID of the product facet.
@@ -116,7 +116,7 @@ class ProductFacets {
     }
 
    /**
-    * Delete a product facet. 
+    * Delete a product facet 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/delete|api docs} for more info 
     * 
     * @param productFacetID ID of the product facet.
@@ -137,7 +137,7 @@ class ProductFacets {
     }
 
    /**
-    * Partially update a product facet. 
+    * Partially update a product facet 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/product-facets/patch|api docs} for more info 
     * 
     * @param productFacetID ID of the product facet.

@@ -22,7 +22,7 @@ class ProductSynchronization {
     }
 
    /**
-    * Get a single product sync. 
+    * Retrieve a product sync 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/product-synchronization/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -42,7 +42,7 @@ class ProductSynchronization {
     }
 
    /**
-    * Create or update a product sync. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a product sync If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/product-synchronization/save|api docs} for more info 
     * 
     * @param productSyncConfig Required fields: SyncProductChanged, SyncProductDeleted, DeliveryConfigID
@@ -63,7 +63,7 @@ class ProductSynchronization {
     }
 
    /**
-    * Delete a product sync. 
+    * Delete a product sync 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/product-synchronization/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -83,7 +83,7 @@ class ProductSynchronization {
     }
 
    /**
-    * Partially update a product sync. 
+    * Partially update a product sync 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/product-synchronization/patch|api docs} for more info 
     * 
     * @param productSyncConfig 
@@ -104,7 +104,7 @@ class ProductSynchronization {
     }
 
    /**
-    * Sync a product. 
+    * Sync a product 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/product-synchronization/sync|api docs} for more info 
     * 
     * @param syncProduct Required fields: ProductID

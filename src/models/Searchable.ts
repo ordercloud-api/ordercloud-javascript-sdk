@@ -36,7 +36,7 @@ interface SearchableMap {
 'Me.ListCatalogs': ('ID' | 'Name' | 'Description')[]
 'Me.ListCategories': ('ID' | 'Name' | 'Description')[]
 'Me.ListCostCenters': ('ID' | 'Name' | 'Description')[]
-'Me.ListCreditCards': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate')[]
+'Me.ListCreditCards': ('ID' | 'CardholderName' | 'CardType' | 'ExpirationDate' | 'Editable')[]
 'Me.ListGroupOrderInvitations': ('ID' | 'Name' | 'OrderID' | 'OrderStatus')[]
 'Me.ListOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
 'Me.ListApprovableOrders': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Comments')[]
@@ -45,14 +45,13 @@ interface SearchableMap {
 'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
 'Me.ListProductInventoryRecords': ('ID' | 'AddressID')[]
-'Me.ListProductSellers': ('ID' | 'ParentID' | 'Name' | 'Description')[]
-'Me.ListSpecs': ('ID' | 'ParentID' | 'Name' | 'Description')[]
-'Me.ListVariants': ('ID' | 'ParentID' | 'Name' | 'Description')[]
+'Me.ListProductSellers': ('ID' | 'Name')[]
+'Me.ListSpecs': ('Name' | 'ID')[]
+'Me.ListVariants': ('ID' | 'Name' | 'Description')[]
 'Me.ListVariantInventoryRecords': ('ID' | 'AddressID')[]
 'Me.ListPromotions': ('ID' | 'Name' | 'Code' | 'Description' | 'FinePrint' | 'EligibleExpression' | 'ValueExpression')[]
 'Me.ListBuyerSellers': ('ID' | 'Name')[]
 'Me.ListShipments': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
-'Me.ListShipmentItems': ('ID' | 'BuyerID' | 'Shipper' | 'DateShipped' | 'DateDelivered' | 'TrackingNumber')[]
 'Me.ListSpendingAccounts': ('ID' | 'Name')[]
 'Me.ListSubscriptions': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Interval')[]
 'Me.ListSubscriptionItems': ('ID' | 'ProductID')[]
@@ -148,7 +147,6 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'Me.ListPromotions' | 
 'Me.ListBuyerSellers' | 
 'Me.ListShipments' | 
-'Me.ListShipmentItems' | 
 'Me.ListSpendingAccounts' | 
 'Me.ListSubscriptions' | 
 'Me.ListSubscriptionItems' | 

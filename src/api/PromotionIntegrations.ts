@@ -20,7 +20,7 @@ class PromotionIntegrations {
     }
 
    /**
-    * Get a single promotion integration. 
+    * Retrieve a promotion integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/promotion-integrations/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -40,7 +40,7 @@ class PromotionIntegrations {
     }
 
    /**
-    * Create or update a promotion integration. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a promotion integration If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/integrations/promotion-integrations/save|api docs} for more info 
     * 
     * @param promotionIntegration Required fields: HashKey
@@ -61,7 +61,7 @@ class PromotionIntegrations {
     }
 
    /**
-    * Delete a promotion integration. 
+    * Delete a promotion integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/promotion-integrations/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -81,7 +81,7 @@ class PromotionIntegrations {
     }
 
    /**
-    * Partially update a promotion integration. 
+    * Partially update a promotion integration 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/promotion-integrations/patch|api docs} for more info 
     * 
     * @param promotionIntegration 

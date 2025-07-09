@@ -36,7 +36,7 @@ class Bundles {
     }
 
    /**
-    * Get a list of bundles. 
+    * List bundles 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/list|api docs} for more info 
     * 
     * @param listOptions.catalogID ID of the catalog.
@@ -44,10 +44,10 @@ class Bundles {
     * @param listOptions.supplierID ID of the supplier.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.searchType Type of search to perform.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -66,7 +66,7 @@ class Bundles {
     }
 
    /**
-    * Create a new bundle. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a bundle 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/create|api docs} for more info 
     * 
     * @param bundle Required fields: Name
@@ -87,7 +87,7 @@ class Bundles {
     }
 
    /**
-    * Get a single bundle. 
+    * Retrieve a bundle 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/get|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -108,7 +108,7 @@ class Bundles {
     }
 
    /**
-    * Create or update a bundle. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a bundle If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/save|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -130,7 +130,7 @@ class Bundles {
     }
 
    /**
-    * Delete a bundle. 
+    * Delete a bundle 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/delete|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -151,7 +151,7 @@ class Bundles {
     }
 
    /**
-    * Partially update a bundle. 
+    * Partially update a bundle 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/patch|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -173,7 +173,7 @@ class Bundles {
     }
 
    /**
-    * Delete a bundle assignment. 
+    * Delete a bundle assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/delete-assignment|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -198,7 +198,7 @@ class Bundles {
     }
 
    /**
-    * Delete a bundle product assignment. 
+    * Delete a bundle product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/delete-product-assignment|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -220,15 +220,15 @@ class Bundles {
     }
 
    /**
-    * Get a list of bundle assignments. 
+    * List bundle assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/list-assignments|api docs} for more info 
     * 
     * @param listOptions.bundleID ID of the bundle.
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the bundle assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -246,7 +246,7 @@ class Bundles {
     }
 
    /**
-    * Create or update a bundle assignment. 
+    * Create or update a bundle assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/save-assignment|api docs} for more info 
     * 
     * @param bundleAssignment Required fields: BundleID, BuyerID
@@ -267,13 +267,13 @@ class Bundles {
     }
 
    /**
-    * Get a list of bundle product assignments. 
+    * List bundle product assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/list-product-assignments|api docs} for more info 
     * 
     * @param listOptions.bundleID ID of the bundle.
     * @param listOptions.productID ID of the product.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -291,7 +291,7 @@ class Bundles {
     }
 
    /**
-    * Create or update a bundle product assignment. 
+    * Create or update a bundle product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/bundles/save-product-assignment|api docs} for more info 
     * 
     * @param bundleProductAssignment Required fields: ProductID, BundleID, Required

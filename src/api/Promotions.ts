@@ -30,14 +30,14 @@ class Promotions {
     }
 
    /**
-    * Get a list of promotions. 
+    * List promotions 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -56,7 +56,7 @@ class Promotions {
     }
 
    /**
-    * Create a new promotion. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a promotion 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/create|api docs} for more info 
     * 
     * @param promotion Required fields: Code, EligibleExpression
@@ -77,7 +77,7 @@ class Promotions {
     }
 
    /**
-    * Get a single promotion. 
+    * Retrieve a promotion 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/get|api docs} for more info 
     * 
     * @param promotionID ID of the promotion.
@@ -98,7 +98,7 @@ class Promotions {
     }
 
    /**
-    * Create or update a promotion. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a promotion If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/save|api docs} for more info 
     * 
     * @param promotionID ID of the promotion.
@@ -120,7 +120,7 @@ class Promotions {
     }
 
    /**
-    * Delete a promotion. 
+    * Delete a promotion 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/delete|api docs} for more info 
     * 
     * @param promotionID ID of the promotion.
@@ -141,7 +141,7 @@ class Promotions {
     }
 
    /**
-    * Partially update a promotion. 
+    * Partially update a promotion 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/patch|api docs} for more info 
     * 
     * @param promotionID ID of the promotion.
@@ -163,7 +163,7 @@ class Promotions {
     }
 
    /**
-    * Delete a promotion assignment. 
+    * Delete a promotion assignment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/delete-assignment|api docs} for more info 
     * 
     * @param promotionID ID of the promotion.
@@ -187,15 +187,15 @@ class Promotions {
     }
 
    /**
-    * Get a list of promotion assignments. 
+    * List promotion assignments 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/list-assignments|api docs} for more info 
     * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.promotionID ID of the promotion.
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.level Level of the promotion assignment. Possible values: Group, Company.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -213,7 +213,7 @@ class Promotions {
     }
 
    /**
-    * Create or update a promotion assignment. 
+    * Create or update a promotion assignment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/save-assignment|api docs} for more info 
     * 
     * @param promotionAssignment Required fields: PromotionID, BuyerID

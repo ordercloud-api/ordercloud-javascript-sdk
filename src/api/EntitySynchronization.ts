@@ -64,7 +64,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for AdminUsers Get the entity sync delivery configuration for AdminUsers
+    * Retrieve the entity sync delivery configuration for admin users Get the entity sync delivery configuration for AdminUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-admin-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -84,7 +84,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for AdminUsers Create or update the entity sync delivery configuration for AdminUsers
+    * Create or update the entity sync delivery configuration for admin users Create or update the entity sync delivery configuration for AdminUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-admin-users|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -105,7 +105,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for AdminUsers Delete the entity sync delivery configuration for AdminUsers
+    * Delete the entity sync delivery configuration for admin users Delete the entity sync delivery configuration for AdminUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-admin-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -125,7 +125,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for AdminUsers Partially update the entity sync delivery configuration for AdminUsers
+    * Partially update the entity sync delivery configuration for admin users Partially update the entity sync delivery configuration for AdminUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-admin-users|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -146,7 +146,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync an admin user. 
+    * Sync an admin user 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-admin-user|api docs} for more info 
     * 
     * @param syncAdminUser Required fields: UserID
@@ -167,7 +167,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for Buyers Get the entity sync delivery configuration for Buyers
+    * Retrieve the entity sync delivery configuration for buyers Get the entity sync delivery configuration for Buyers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-buyers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -187,7 +187,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for Buyers Create or update the entity sync delivery configuration for Buyers
+    * Create or update the entity sync delivery configuration for buyers Create or update the entity sync delivery configuration for Buyers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-buyers|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -208,7 +208,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for Buyers Delete the entity sync delivery configuration for Buyers
+    * Delete the entity sync delivery configuration for buyers Delete the entity sync delivery configuration for Buyers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-buyers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -228,7 +228,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for Buyers Partially update the entity sync delivery configuration for Buyers
+    * Partially update the entity sync delivery configuration for buyers Partially update the entity sync delivery configuration for Buyers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-buyers|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -249,7 +249,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync a buyer. 
+    * Sync a buyer 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-buyer|api docs} for more info 
     * 
     * @param syncBuyer Required fields: BuyerID
@@ -270,7 +270,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for BuyerUserGroups Get the entity sync delivery configuration for BuyerUserGroups
+    * Retrieve the entity sync delivery configuration for buyer user groups Get the entity sync delivery configuration for BuyerUserGroups
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-buyer-user-groups|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -290,7 +290,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for BuyerUserGroups Create or update the entity sync delivery configuration for BuyerUserGroups
+    * Create or update the entity sync delivery configuration for buyer user groups Create or update the entity sync delivery configuration for BuyerUserGroups
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-user-groups|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -311,7 +311,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for BuyerUserGroups Delete the entity sync delivery configuration for BuyerUserGroups
+    * Delete the entity sync delivery configuration for buyer user groups Delete the entity sync delivery configuration for BuyerUserGroups
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-user-groups|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -331,7 +331,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for BuyerUserGroups Partially update the entity sync delivery configuration for BuyerUserGroups
+    * Partially update the entity sync delivery configuration for buyer user groups Partially update the entity sync delivery configuration for BuyerUserGroups
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-buyer-user-groups|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -352,7 +352,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync a buyer user group. 
+    * Sync a buyer user group 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-buyer-user-group|api docs} for more info 
     * 
     * @param syncBuyerUserGroup Required fields: BuyerID, UserGroupID
@@ -373,7 +373,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for BuyerUsers Get the entity sync delivery configuration for BuyerUsers
+    * Retrieve the entity sync delivery configuration for buyer users Get the entity sync delivery configuration for BuyerUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-buyer-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -393,7 +393,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for BuyerUsers Create or update the entity sync delivery configuration for BuyerUsers
+    * Create or update the entity sync delivery configuration for buyer users Create or update the entity sync delivery configuration for BuyerUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-buyer-users|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -414,7 +414,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for BuyerUsers Delete the entity sync delivery configuration for BuyerUsers
+    * Delete the entity sync delivery configuration for buyer users Delete the entity sync delivery configuration for BuyerUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-buyer-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -434,7 +434,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for BuyerUsers Partially update the entity sync delivery configuration for BuyerUsers
+    * Partially update the entity sync delivery configuration for buyer users Partially update the entity sync delivery configuration for BuyerUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-buyer-users|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -455,7 +455,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync a buyer user. 
+    * Sync a buyer user 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-buyer-user|api docs} for more info 
     * 
     * @param syncBuyerUser Required fields: BuyerID, UserID
@@ -476,7 +476,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for Categories Get the entity sync delivery configuration for Categories
+    * Retrieve the entity sync delivery configuration for categories Get the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-categories|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -496,7 +496,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for Categories Create or update the entity sync delivery configuration for Categories
+    * Create or update the entity sync delivery configuration for categories Create or update the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-categories|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -517,7 +517,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for Categories Delete the entity sync delivery configuration for Categories
+    * Delete the entity sync delivery configuration for categories Delete the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-categories|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -537,7 +537,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for Categories Partially update the entity sync delivery configuration for Categories
+    * Partially update the entity sync delivery configuration for categories Partially update the entity sync delivery configuration for Categories
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-categories|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -558,7 +558,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync a category. 
+    * Sync a category 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-category|api docs} for more info 
     * 
     * @param syncCategory Required fields: CatalogID, CategoryID
@@ -579,7 +579,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for InventoryRecords Get the entity sync delivery configuration for InventoryRecords
+    * Retrieve the entity sync delivery configuration for inventory records Get the entity sync delivery configuration for InventoryRecords
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-inventory-records|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -599,7 +599,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for InventoryRecords Create or update the entity sync delivery configuration for InventoryRecords
+    * Create or update the entity sync delivery configuration for inventory records Create or update the entity sync delivery configuration for InventoryRecords
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-inventory-records|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -620,7 +620,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for InventoryRecords Delete the entity sync delivery configuration for InventoryRecords
+    * Delete the entity sync delivery configuration for inventory records Delete the entity sync delivery configuration for InventoryRecords
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-inventory-records|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -640,7 +640,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for InventoryRecords Partially update the entity sync delivery configuration for InventoryRecords
+    * Partially update the entity sync delivery configuration for inventory records Partially update the entity sync delivery configuration for InventoryRecords
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-inventory-records|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -661,7 +661,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync an inventory record. 
+    * Sync an inventory record 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-inventory-record|api docs} for more info 
     * 
     * @param syncInventoryRecord Required fields: ProductID, InventoryRecordID
@@ -682,7 +682,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync a supplier. 
+    * Sync a supplier 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-supplier|api docs} for more info 
     * 
     * @param syncSupplier Required fields: SupplierID
@@ -703,7 +703,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for Suppliers Get the entity sync delivery configuration for Suppliers
+    * Retrieve the entity sync delivery configuration for suppliers Get the entity sync delivery configuration for Suppliers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-suppliers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -723,7 +723,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for Suppliers Create or update the entity sync delivery configuration for Suppliers
+    * Create or update the entity sync delivery configuration for suppliers Create or update the entity sync delivery configuration for Suppliers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-suppliers|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -744,7 +744,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for Suppliers Delete the entity sync delivery configuration for Suppliers
+    * Delete the entity sync delivery configuration for suppliers Delete the entity sync delivery configuration for Suppliers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-suppliers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -764,7 +764,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for Suppliers Partially update the entity sync delivery configuration for Suppliers
+    * Partially update the entity sync delivery configuration for suppliers Partially update the entity sync delivery configuration for Suppliers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-suppliers|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -785,7 +785,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Get the entity sync delivery configuration for SupplierUsers Get the entity sync delivery configuration for SupplierUsers
+    * Retrieve the entity sync delivery configuration for supplier users Get the entity sync delivery configuration for SupplierUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-supplier-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -805,7 +805,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Create or update the entity sync delivery configuration for SupplierUsers Create or update the entity sync delivery configuration for SupplierUsers
+    * Create or update the entity sync delivery configuration for supplier users Create or update the entity sync delivery configuration for SupplierUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-supplier-users|api docs} for more info 
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
@@ -826,7 +826,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Delete the entity sync delivery configuration for SupplierUsers Delete the entity sync delivery configuration for SupplierUsers
+    * Delete the entity sync delivery configuration for supplier users Delete the entity sync delivery configuration for SupplierUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-supplier-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -846,7 +846,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Partially update the entity sync delivery configuration for SupplierUsers Partially update the entity sync delivery configuration for SupplierUsers
+    * Partially update the entity sync delivery configuration for supplier users Partially update the entity sync delivery configuration for SupplierUsers
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-supplier-users|api docs} for more info 
     * 
     * @param entitySyncConfig 
@@ -867,7 +867,7 @@ class EntitySynchronization {
     }
 
    /**
-    * Sync a supplier user. 
+    * Sync a supplier user 
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-supplier-user|api docs} for more info 
     * 
     * @param syncSupplierUser Required fields: SupplierID, UserID

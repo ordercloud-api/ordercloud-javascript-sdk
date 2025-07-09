@@ -34,15 +34,15 @@ class Shipments {
     }
 
    /**
-    * Get a list of shipments. 
+    * List shipments 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/list|api docs} for more info 
     * 
     * @param listOptions.orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -61,7 +61,7 @@ class Shipments {
     }
 
    /**
-    * Create a new shipment. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a shipment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/create|api docs} for more info 
     * 
     * @param shipment 
@@ -82,7 +82,7 @@ class Shipments {
     }
 
    /**
-    * Get a single shipment. 
+    * Retrieve a shipment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/get|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -103,7 +103,7 @@ class Shipments {
     }
 
    /**
-    * Create or update a shipment. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a shipment If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/save|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -125,7 +125,7 @@ class Shipments {
     }
 
    /**
-    * Delete a shipment. 
+    * Delete a shipment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/delete|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -146,7 +146,7 @@ class Shipments {
     }
 
    /**
-    * Partially update a shipment. 
+    * Partially update a shipment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/patch|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -168,12 +168,12 @@ class Shipments {
     }
 
    /**
-    * Get a list of shipment items. 
+    * List shipment items 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/list-items|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -192,7 +192,7 @@ class Shipments {
     }
 
    /**
-    * Create or update a shipment item. 
+    * Create or update a shipment item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/save-item|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -214,7 +214,7 @@ class Shipments {
     }
 
    /**
-    * Get a single shipment item. 
+    * Retrieve a shipment item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/get-item|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -237,7 +237,7 @@ class Shipments {
     }
 
    /**
-    * Delete a shipment item. 
+    * Delete a shipment item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/delete-item|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -260,7 +260,7 @@ class Shipments {
     }
 
    /**
-    * Set a ship from address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the shipment's FromAddressID property instead.
+    * Set a ship from address Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the shipment's FromAddressID property instead.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/set-ship-from-address|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -282,7 +282,7 @@ class Shipments {
     }
 
    /**
-    * Set a ship to address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the shipment's ToAddressID property instead.
+    * Set a ship to address Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the shipment's ToAddressID property instead.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/shipments/set-ship-to-address|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.

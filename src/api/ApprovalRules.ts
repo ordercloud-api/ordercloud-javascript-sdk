@@ -26,15 +26,15 @@ class ApprovalRules {
     }
 
    /**
-    * Get a list of approval rules. 
+    * List approval rules 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/list|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -53,7 +53,7 @@ class ApprovalRules {
     }
 
    /**
-    * Create a new approval rule. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an approval rule 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/create|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -75,7 +75,7 @@ class ApprovalRules {
     }
 
    /**
-    * Get a single approval rule. 
+    * Retrieve an approval rule 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/get|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -97,7 +97,7 @@ class ApprovalRules {
     }
 
    /**
-    * Create or update an approval rule. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an approval rule If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/save|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -120,7 +120,7 @@ class ApprovalRules {
     }
 
    /**
-    * Delete an approval rule. 
+    * Delete an approval rule 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/delete|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.
@@ -142,7 +142,7 @@ class ApprovalRules {
     }
 
    /**
-    * Partially update an approval rule. 
+    * Partially update an approval rule 
     * Check out the {@link https://ordercloud.io/api-reference/buyer/approval-rules/patch|api docs} for more info 
     * 
     * @param buyerID ID of the buyer.

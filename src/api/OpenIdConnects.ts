@@ -26,14 +26,14 @@ class OpenIdConnects {
     }
 
    /**
-    * Get a list of OpenID Connects. 
+    * List OpenID Connects 
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -52,7 +52,7 @@ class OpenIdConnects {
     }
 
    /**
-    * Create a new OpenID Connect. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an OpenID Connect 
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/create|api docs} for more info 
     * 
     * @param openIdConnect Required fields: OrderCloudApiClientID, ConnectClientID, ConnectClientSecret, AppStartUrl, AuthorizationEndpoint, TokenEndpoint
@@ -73,7 +73,7 @@ class OpenIdConnects {
     }
 
    /**
-    * Get a single OpenID Connect. 
+    * Retrieve an OpenID Connect 
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/get|api docs} for more info 
     * 
     * @param openidconnectID ID of the openidconnect.
@@ -94,7 +94,7 @@ class OpenIdConnects {
     }
 
    /**
-    * Create or update a OpenID Connect. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an OpenID Connect If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/save|api docs} for more info 
     * 
     * @param openidconnectID ID of the openidconnect.
@@ -116,7 +116,7 @@ class OpenIdConnects {
     }
 
    /**
-    * Delete a OpenID Connect. 
+    * Delete an OpenID Connect 
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/delete|api docs} for more info 
     * 
     * @param openidconnectID ID of the openidconnect.
@@ -137,7 +137,7 @@ class OpenIdConnects {
     }
 
    /**
-    * Partially update a OpenID Connect. 
+    * Partially update an OpenID Connect 
     * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/open-id-connects/patch|api docs} for more info 
     * 
     * @param openidconnectID ID of the openidconnect.

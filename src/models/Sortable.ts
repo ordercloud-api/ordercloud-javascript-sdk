@@ -45,14 +45,13 @@ interface SortableMap {
 'Me.ListProductCollectionEntries': string[]
 'Me.ListProducts': string[]
 'Me.ListProductInventoryRecords': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
-'Me.ListProductSellers': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
-'Me.ListSpecs': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
-'Me.ListVariants': ('OwnerID' | 'Name' | 'ID' | 'ParentID' | '!OwnerID' | '!Name' | '!ID' | '!ParentID')[]
+'Me.ListProductSellers': ('Name' | 'ID' | '!Name' | '!ID')[]
+'Me.ListSpecs': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
+'Me.ListVariants': ('ID' | 'Name' | '!ID' | '!Name')[]
 'Me.ListVariantInventoryRecords': ('ID' | 'AddressID' | '!ID' | '!AddressID')[]
 'Me.ListPromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'Me.ListBuyerSellers': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListShipments': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
-'Me.ListShipmentItems': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
 'Me.ListSpendingAccounts': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListSubscriptions': ('NextOrderDate' | 'LastOrderDate' | 'DateCreated' | 'ID' | 'Interval' | 'EndDate' | 'FromCompanyID' | 'FromUserID' | 'ToCompanyID' | '!NextOrderDate' | '!LastOrderDate' | '!DateCreated' | '!ID' | '!Interval' | '!EndDate' | '!FromCompanyID' | '!FromUserID' | '!ToCompanyID')[]
 'Me.ListSubscriptionItems': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
@@ -148,7 +147,6 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListPromotions' | 
 'Me.ListBuyerSellers' | 
 'Me.ListShipments' | 
-'Me.ListShipmentItems' | 
 'Me.ListSpendingAccounts' | 
 'Me.ListSubscriptions' | 
 'Me.ListSubscriptionItems' | 

@@ -28,14 +28,14 @@ class AdminUsers {
     }
 
    /**
-    * Get a list of admin users. 
+    * List admin users 
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -54,7 +54,7 @@ class AdminUsers {
     }
 
    /**
-    * Create a new admin user. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create an admin user 
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/create|api docs} for more info 
     * 
     * @param user Required fields: Username, FirstName, LastName, Email, Active
@@ -75,7 +75,7 @@ class AdminUsers {
     }
 
    /**
-    * Get a single admin user. 
+    * Retrieve an admin user 
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/get|api docs} for more info 
     * 
     * @param userID ID of the user.
@@ -96,7 +96,7 @@ class AdminUsers {
     }
 
    /**
-    * Create or update an admin user. If an object with the same ID already exists, it will be overwritten.
+    * Create or update an admin user If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/save|api docs} for more info 
     * 
     * @param userID ID of the user.
@@ -118,7 +118,7 @@ class AdminUsers {
     }
 
    /**
-    * Delete an admin user. 
+    * Delete an admin user 
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/delete|api docs} for more info 
     * 
     * @param userID ID of the user.
@@ -139,7 +139,7 @@ class AdminUsers {
     }
 
    /**
-    * Partially update an admin user. 
+    * Partially update an admin user 
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/patch|api docs} for more info 
     * 
     * @param userID ID of the user.
@@ -161,7 +161,7 @@ class AdminUsers {
     }
 
    /**
-    * Revoke a user tokens. Revokes all security tokens of specified user.
+    * Revoke a user tokens Revokes all security tokens of specified user.
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/revoke-user-tokens|api docs} for more info 
     * 
     * @param userID ID of the user.
@@ -182,7 +182,7 @@ class AdminUsers {
     }
 
    /**
-    * Unlock a user account. 
+    * Unlock a user account 
     * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/unlock-user-account|api docs} for more info 
     * 
     * @param userID ID of the user.

@@ -29,14 +29,14 @@ class PriceSchedules {
     }
 
    /**
-    * Get a list of price schedules. 
+    * List price schedules 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -55,7 +55,7 @@ class PriceSchedules {
     }
 
    /**
-    * Create a new price schedule. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a price schedule 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/create|api docs} for more info 
     * 
     * @param priceSchedule Required fields: Name
@@ -76,7 +76,7 @@ class PriceSchedules {
     }
 
    /**
-    * Get a single price schedule. 
+    * Retrieve a price schedule 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/get|api docs} for more info 
     * 
     * @param priceScheduleID ID of the price schedule.
@@ -97,7 +97,7 @@ class PriceSchedules {
     }
 
    /**
-    * Create or update a price schedule. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a price schedule If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/save|api docs} for more info 
     * 
     * @param priceScheduleID ID of the price schedule.
@@ -119,7 +119,7 @@ class PriceSchedules {
     }
 
    /**
-    * Delete a price schedule. 
+    * Delete a price schedule 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/delete|api docs} for more info 
     * 
     * @param priceScheduleID ID of the price schedule.
@@ -140,7 +140,7 @@ class PriceSchedules {
     }
 
    /**
-    * Partially update a price schedule. 
+    * Partially update a price schedule 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/patch|api docs} for more info 
     * 
     * @param priceScheduleID ID of the price schedule.
@@ -162,7 +162,7 @@ class PriceSchedules {
     }
 
    /**
-    * Create or update a price schedule price break. 
+    * Create or update a price schedule price break 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/save-price-break|api docs} for more info 
     * 
     * @param priceScheduleID ID of the price schedule.
@@ -184,7 +184,7 @@ class PriceSchedules {
     }
 
    /**
-    * Delete a price schedule price break. 
+    * Delete a price schedule price break 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/price-schedules/delete-price-break|api docs} for more info 
     * 
     * @param priceScheduleID ID of the price schedule.

@@ -44,6 +44,7 @@ export * from './DeliveryTargets';
 export * from './DiscoverEvent';
 export * from './EligiblePromotion';
 export * from './EntitySyncConfig';
+export * from './Error';
 export * from './ErrorConfig';
 export * from './EventHubConfig';
 export * from './ExtendedLineItem';

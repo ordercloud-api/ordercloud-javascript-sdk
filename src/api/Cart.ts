@@ -68,7 +68,7 @@ class Cart {
     }
 
    /**
-    * Get a single cart. If the ID of the Order returned is null, the cart has not yet been interacted with. Once an item is added, the Order.ID will be populated.
+    * Retrieve a cart If the ID of the Order returned is null, the cart has not yet been interacted with. Once an item is added, the Order.ID will be populated.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -88,7 +88,7 @@ class Cart {
     }
 
    /**
-    * Create or update a cart. If an object with the same ID already exists, it will be overwritten.<br/></br>The recommended way to initiate a new cart is to add a line item. If there is a specific reason an order needs to exist prior to adding a line item, this method can be used to initiate a new cart.
+    * Create or update a cart If an object with the same ID already exists, it will be overwritten.<br/></br>The recommended way to initiate a new cart is to add a line item. If there is a specific reason an order needs to exist prior to adding a line item, this method can be used to initiate a new cart.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/save|api docs} for more info 
     * 
     * @param order 
@@ -109,7 +109,7 @@ class Cart {
     }
 
    /**
-    * Delete a cart. Empties the cart. Any promotions, payments or other items associated with the cart will also be removed.
+    * Delete a cart Empties the cart. Any promotions, payments or other items associated with the cart will also be removed.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -129,7 +129,7 @@ class Cart {
     }
 
    /**
-    * Partially update a cart. 
+    * Partially update a cart 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch|api docs} for more info 
     * 
     * @param order 
@@ -150,7 +150,7 @@ class Cart {
     }
 
    /**
-    * Set an active cart. 
+    * Set an active cart 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/set-active-cart|api docs} for more info 
     * 
     * @param orderID ID of the order.
@@ -171,7 +171,7 @@ class Cart {
     }
 
    /**
-    * Auto-apply promotions to the cart. Apply up to 100 eligible promotions where AutoApply=true.
+    * Auto-apply promotions to the cart Apply up to 100 eligible promotions where AutoApply=true.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/apply-promotions|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -191,7 +191,7 @@ class Cart {
     }
 
    /**
-    * Set a billing address. Use only when the address is not to be saved/reused.<br/></br>To use a saved address (i.e. from the Addresses resource), PATCH the order's BillingAddressID property instead.
+    * Set a billing address Use only when the address is not to be saved/reused.<br/></br>To use a saved address (i.e. from the Addresses resource), PATCH the order's BillingAddressID property instead.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/set-billing-address|api docs} for more info 
     * 
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -212,7 +212,7 @@ class Cart {
     }
 
    /**
-    * Partially update a cart billing address. Not allowed on carts where BillingAddressID has been set. In that case, use the Addresses resource to update the saved address.
+    * Partially update a cart billing address Not allowed on carts where BillingAddressID has been set. In that case, use the Addresses resource to update the saved address.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-billing-address|api docs} for more info 
     * 
     * @param address 
@@ -233,7 +233,7 @@ class Cart {
     }
 
    /**
-    * Create a new cart bundle item. Adds bundle line items to the cart
+    * Create a cart bundle item Adds bundle line items to the cart
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/create-bundle-item|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -255,7 +255,7 @@ class Cart {
     }
 
    /**
-    * Delete a cart bundle item. 
+    * Delete a cart bundle item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/delete-bundle-item|api docs} for more info 
     * 
     * @param bundleID ID of the bundle.
@@ -277,7 +277,7 @@ class Cart {
     }
 
    /**
-    * Calculate the cart. 
+    * Calculate the cart 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/calculate|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -297,14 +297,14 @@ class Cart {
     }
 
    /**
-    * List eligible promotions. Get a list of promotions eligible for the cart.
+    * List eligible promotions for the cart 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/list-eligible-promotions|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -323,7 +323,7 @@ class Cart {
     }
 
    /**
-    * Estimate shipping cost. 
+    * Estimate shipping cost 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/estimate-shipping|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -343,7 +343,7 @@ class Cart {
     }
 
    /**
-    * Update cart FromUser. Only FirstName, LastName, and Email can be updated.<br/></br>Primarily used to facilitate guest checkout scenarios.
+    * Partially update a cart from user Only FirstName, LastName, and Email can be updated.<br/></br>Primarily used to facilitate guest checkout scenarios.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-from-user|api docs} for more info 
     * 
     * @param user 
@@ -364,14 +364,14 @@ class Cart {
     }
 
    /**
-    * Get a list of cart line items. 
+    * List cart line items 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/list-line-items|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -390,7 +390,7 @@ class Cart {
     }
 
    /**
-    * Create a new cart line item. Adds a line item to the cart
+    * Create a cart line item Adds a line item to the cart
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/create-line-item|api docs} for more info 
     * 
     * @param lineItem Required fields: ProductID
@@ -411,7 +411,7 @@ class Cart {
     }
 
    /**
-    * Get a single cart line item. 
+    * Retrieve a cart line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/get-line-item|api docs} for more info 
     * 
     * @param lineItemID ID of the line item.
@@ -432,7 +432,7 @@ class Cart {
     }
 
    /**
-    * Create or update a cart line item. 
+    * Create or update a cart line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/save-line-item|api docs} for more info 
     * 
     * @param lineItemID ID of the line item.
@@ -454,7 +454,7 @@ class Cart {
     }
 
    /**
-    * Delete a cart line item. 
+    * Delete a cart line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/delete-line-item|api docs} for more info 
     * 
     * @param lineItemID ID of the line item.
@@ -475,7 +475,7 @@ class Cart {
     }
 
    /**
-    * Partially update a cart line item. 
+    * Partially update a cart line item 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-line-item|api docs} for more info 
     * 
     * @param lineItemID ID of the line item.
@@ -497,14 +497,14 @@ class Cart {
     }
 
    /**
-    * Get a list of cart payments. 
+    * List cart payments 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/list-payments|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -523,7 +523,7 @@ class Cart {
     }
 
    /**
-    * Create a new cart payment. 
+    * Create a cart payment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/create-payment|api docs} for more info 
     * 
     * @param payment 
@@ -544,7 +544,7 @@ class Cart {
     }
 
    /**
-    * Get a single cart payment. 
+    * Retrieve a cart payment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/get-payment|api docs} for more info 
     * 
     * @param paymentID ID of the payment.
@@ -565,7 +565,7 @@ class Cart {
     }
 
    /**
-    * Delete a cart payment. 
+    * Delete a cart payment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/delete-payment|api docs} for more info 
     * 
     * @param paymentID ID of the payment.
@@ -586,7 +586,7 @@ class Cart {
     }
 
    /**
-    * Partially update a cart payment. 
+    * Partially update a cart payment 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-payment|api docs} for more info 
     * 
     * @param paymentID ID of the payment.
@@ -608,7 +608,7 @@ class Cart {
     }
 
    /**
-    * Create a new cart payment transaction. 
+    * Create a cart payment transaction 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/create-payment-transaction|api docs} for more info 
     * 
     * @param paymentID ID of the payment.
@@ -630,7 +630,7 @@ class Cart {
     }
 
    /**
-    * Delete a cart payment transaction. 
+    * Delete a cart payment transaction 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/delete-payment-transaction|api docs} for more info 
     * 
     * @param paymentID ID of the payment.
@@ -652,14 +652,14 @@ class Cart {
     }
 
    /**
-    * Get a list of cart promotions. 
+    * List cart promotions 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/list-promotions|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -678,7 +678,7 @@ class Cart {
     }
 
    /**
-    * Add a promotion. 
+    * Add a promotion 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/add-promotion|api docs} for more info 
     * 
     * @param promoCode Promo code of the order promotion.
@@ -699,7 +699,7 @@ class Cart {
     }
 
    /**
-    * Delete a cart promotion. 
+    * Delete a cart promotion 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/delete-promotion|api docs} for more info 
     * 
     * @param promoCode Promo code of the cart.
@@ -720,7 +720,7 @@ class Cart {
     }
 
    /**
-    * Refresh promotions on the cart. Re-calculates promotion discounts, removes promotions that are no longer valid, and adds eligible promotions where AutoApply=true (up to limit of 100)
+    * Refresh promotions on the cart Re-calculates promotion discounts, removes promotions that are no longer valid, and adds eligible promotions where AutoApply=true (up to limit of 100)
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/refresh-promotions|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -740,7 +740,7 @@ class Cart {
     }
 
    /**
-    * Select a ship method. 
+    * Select a ship method 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/select-ship-methods|api docs} for more info 
     * 
     * @param orderShipMethodSelection 
@@ -761,7 +761,7 @@ class Cart {
     }
 
    /**
-    * Set a shipping address. Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the order's ShippingAddressID property instead. The address used will be populated on the ShippingAddress property of each LineItem.
+    * Set a shipping address Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the order's ShippingAddressID property instead. The address used will be populated on the ShippingAddress property of each LineItem.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/set-shipping-address|api docs} for more info 
     * 
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -782,7 +782,7 @@ class Cart {
     }
 
    /**
-    * Partially update a cart shipping address. Not allowed on carts where ShippingAddressID has been set. In that case, use the Addresses resource to update the saved address.
+    * Partially update a cart shipping address Not allowed on carts where ShippingAddressID has been set. In that case, use the Addresses resource to update the saved address.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/patch-shipping-address|api docs} for more info 
     * 
     * @param address 
@@ -803,7 +803,7 @@ class Cart {
     }
 
    /**
-    * Submit the cart. 
+    * Submit the cart 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/submit|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -823,7 +823,7 @@ class Cart {
     }
 
    /**
-    * Validate the cart in it's current state. 
+    * Validate the cart in it's current state 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/validate|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -843,7 +843,7 @@ class Cart {
     }
 
    /**
-    * Get a single cart order worksheet. 
+    * Retrieve a cart order worksheet 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/get-order-worksheet|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

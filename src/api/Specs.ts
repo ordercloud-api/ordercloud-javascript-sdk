@@ -37,14 +37,14 @@ class Specs {
     }
 
    /**
-    * Get a list of specs. 
+    * List specs 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -63,7 +63,7 @@ class Specs {
     }
 
    /**
-    * Create a new spec. If ID is provided and an object with that ID already exists, a 409 (conflict) error is returned.
+    * Create a spec 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/create|api docs} for more info 
     * 
     * @param spec Required fields: Name
@@ -84,7 +84,7 @@ class Specs {
     }
 
    /**
-    * Get a single spec. 
+    * Retrieve a spec 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/get|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -105,7 +105,7 @@ class Specs {
     }
 
    /**
-    * Create or update a spec. If an object with the same ID already exists, it will be overwritten.
+    * Create or update a spec If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/save|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -127,7 +127,7 @@ class Specs {
     }
 
    /**
-    * Delete a spec. 
+    * Delete a spec 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/delete|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -148,7 +148,7 @@ class Specs {
     }
 
    /**
-    * Partially update a spec. 
+    * Partially update a spec 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/patch|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -170,15 +170,15 @@ class Specs {
     }
 
    /**
-    * Get a list of spec options. 
+    * List spec options 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/list-options|api docs} for more info 
     * 
     * @param specID ID of the spec.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -197,7 +197,7 @@ class Specs {
     }
 
    /**
-    * Create a new spec option. A Spec can have multiple Options-- for example, if the spec is called 'Color', the options might be 'Blue', 'Red', and 'Green'. 
+    * Create a spec option A Spec can have multiple Options-- for example, if the spec is called 'Color', the options might be 'Blue', 'Red', and 'Green'. 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/create-option|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -219,7 +219,7 @@ class Specs {
     }
 
    /**
-    * Get a single spec option. 
+    * Retrieve a spec option 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/get-option|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -241,7 +241,7 @@ class Specs {
     }
 
    /**
-    * Create or update a spec option. 
+    * Create or update a spec option 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/save-option|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -264,7 +264,7 @@ class Specs {
     }
 
    /**
-    * Delete a spec option. 
+    * Delete a spec option 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/delete-option|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -286,7 +286,7 @@ class Specs {
     }
 
    /**
-    * Partially update a spec option. 
+    * Partially update a spec option 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/patch-option|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -309,7 +309,7 @@ class Specs {
     }
 
    /**
-    * Delete a spec product assignment. 
+    * Delete a spec product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/delete-product-assignment|api docs} for more info 
     * 
     * @param specID ID of the spec.
@@ -331,14 +331,14 @@ class Specs {
     }
 
    /**
-    * Get a list of spec product assignments. 
+    * List spec product assignments 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/list-product-assignments|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -357,7 +357,7 @@ class Specs {
     }
 
    /**
-    * Create or update a spec product assignment. 
+    * Create or update a spec product assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/specs/save-product-assignment|api docs} for more info 
     * 
     * @param specProductAssignment Required fields: SpecID, ProductID

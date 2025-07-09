@@ -129,7 +129,7 @@ class Me {
     }
 
    /**
-    * Get the Current Authenticated User 
+    * Get the currently authenticated user 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -149,7 +149,7 @@ class Me {
     }
 
    /**
-    * Update the Currently Authenticated User If an object with the same ID already exists, it will be overwritten.
+    * Update the currently authenticated user If an object with the same ID already exists, it will be overwritten.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save|api docs} for more info 
     * 
     * @param meUser Required fields: Username, FirstName, LastName, Email, Active
@@ -170,7 +170,7 @@ class Me {
     }
 
    /**
-    * Patch the Currently Authenticated User. 
+    * Patch the currently authenticated user 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch|api docs} for more info 
     * 
     * @param meUser 
@@ -191,14 +191,14 @@ class Me {
     }
 
    /**
-    * Get a list of addresses visible to this user. Only available to Buyer Users.
+    * List addresses visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-addresses|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -217,7 +217,7 @@ class Me {
     }
 
    /**
-    * Create a new address. Only available to Buyer Users. Addresses created using this endpoint are considered private, and only accessible to the user who created them.
+    * Create an address Only available to Buyer Users. Addresses created using this endpoint are considered private, and only accessible to the user who created them.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-address|api docs} for more info 
     * 
     * @param buyerAddress Required fields: Street1, City, State, Zip, Country
@@ -238,7 +238,7 @@ class Me {
     }
 
    /**
-    * Get a single address. Only available to Buyer Users.
+    * Retrieve an address Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-address|api docs} for more info 
     * 
     * @param addressID ID of the address.
@@ -259,7 +259,7 @@ class Me {
     }
 
    /**
-    * Update an address. Only available to Buyer Users.
+    * Update an address Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-address|api docs} for more info 
     * 
     * @param addressID ID of the address.
@@ -281,7 +281,7 @@ class Me {
     }
 
    /**
-    * Delete an address. Only available to Buyer Users.
+    * Delete an address Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-address|api docs} for more info 
     * 
     * @param addressID ID of the address.
@@ -302,7 +302,7 @@ class Me {
     }
 
    /**
-    * Partially update an address. Only available to Buyer Users.
+    * Partially update an address Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-address|api docs} for more info 
     * 
     * @param addressID ID of the address.
@@ -324,14 +324,14 @@ class Me {
     }
 
    /**
-    * Get a list of catalogs visible to this user. Only available to Buyer Users.
+    * List catalogs visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-catalogs|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -351,7 +351,7 @@ class Me {
     }
 
    /**
-    * Get a single catalog. Only available to Buyer Users.
+    * Retrieve a catalog Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-catalog|api docs} for more info 
     * 
     * @param catalogID ID of the catalog.
@@ -372,7 +372,7 @@ class Me {
     }
 
    /**
-    * Get a list of categories visible to this user. Only available to Buyer Users.
+    * List categories visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-categories|api docs} for more info 
     * 
     * @param listOptions.depth Indicates how deep down the hierarchy to return results. Valid values are a number of 1 or greater, or 'all'. Relative to ParentID if specified. Default is 1.
@@ -381,8 +381,8 @@ class Me {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -401,7 +401,7 @@ class Me {
     }
 
    /**
-    * Get a single category. Only available to Buyer Users.
+    * Retrieve a category Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-category|api docs} for more info 
     * 
     * @param categoryID ID of the category.
@@ -423,14 +423,14 @@ class Me {
     }
 
    /**
-    * Get a list of cost centers visible to this user. Only available to Buyer Users.
+    * List cost centers visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-cost-centers|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -449,14 +449,14 @@ class Me {
     }
 
    /**
-    * Get a list of credit cards visible to this user. Only available to Buyer Users.
+    * List credit cards visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-credit-cards|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -475,7 +475,7 @@ class Me {
     }
 
    /**
-    * Create a new credit card. Only available to Buyer Users. Credit Cards created using this endpoint are considered private, and only accessible to the user who created them.
+    * Create a credit card Only available to Buyer Users. Credit Cards created using this endpoint are considered private, and only accessible to the user who created them.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-credit-card|api docs} for more info 
     * 
     * @param buyerCreditCard 
@@ -496,7 +496,7 @@ class Me {
     }
 
    /**
-    * Get a single credit card. Only available to Buyer Users.
+    * Retrieve a credit card Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-credit-card|api docs} for more info 
     * 
     * @param creditcardID ID of the creditcard.
@@ -517,7 +517,7 @@ class Me {
     }
 
    /**
-    * Update a credit card. Only available to Buyer Users.
+    * Update a credit card Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-credit-card|api docs} for more info 
     * 
     * @param creditcardID ID of the creditcard.
@@ -539,7 +539,7 @@ class Me {
     }
 
    /**
-    * Delete a credit card. Only available to Buyer Users.
+    * Delete a credit card Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-credit-card|api docs} for more info 
     * 
     * @param creditcardID ID of the creditcard.
@@ -560,7 +560,7 @@ class Me {
     }
 
    /**
-    * Partially update a credit card. Only available to Buyer Users.
+    * Partially update a credit card Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-credit-card|api docs} for more info 
     * 
     * @param creditcardID ID of the creditcard.
@@ -582,14 +582,14 @@ class Me {
     }
 
    /**
-    * Get a list of group order invitations visible to this user. 
+    * List group order invitations visible to this user 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-group-order-invitations|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -608,7 +608,7 @@ class Me {
     }
 
    /**
-    * Create a new group order invitation. A group order invitation allows other users to contribute to an existing order. Contributors may request an access token with the invitation ID that allows them to add line items and modify those line items.
+    * Create a group order invitation A group order invitation allows other users to contribute to an existing order. Contributors may request an access token with the invitation ID that allows them to add line items and modify those line items.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-group-order-invitation|api docs} for more info 
     * 
     * @param groupOrderInvitation Required fields: ExpirationDate, OrderID
@@ -629,7 +629,7 @@ class Me {
     }
 
    /**
-    * Get a single group order invitation. 
+    * Retrieve a group order invitation 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-group-order-invitation|api docs} for more info 
     * 
     * @param invitationID ID of the invitation.
@@ -650,7 +650,7 @@ class Me {
     }
 
    /**
-    * Delete a group order invitation. 
+    * Delete a group order invitation 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-group-order-invitation|api docs} for more info 
     * 
     * @param invitationID ID of the invitation.
@@ -671,7 +671,7 @@ class Me {
     }
 
    /**
-    * Partially update a group order invitation. 
+    * Partially update a group order invitation 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-group-order-invitation|api docs} for more info 
     * 
     * @param invitationID ID of the invitation.
@@ -693,17 +693,17 @@ class Me {
     }
 
    /**
-    * Get a list of orders visible to this user. List orders created by this user.
+    * List orders visible to this user List orders created by this user.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-orders|api docs} for more info 
     * 
     * @param listOptions.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
     * @param listOptions.to Upper bound of date range that the order was created (if outgoing) or submitted (if incoming).
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.searchType Type of search to perform.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -722,7 +722,7 @@ class Me {
     }
 
    /**
-    * Transfer an order. If a user begins an order as the anonymous shopper and later logs in, use this endpoint to transfer that order to them.
+    * Transfer an anon user order If a user begins an order as the anonymous shopper and later logs in, use this endpoint to transfer that order to them.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/transfer-anon-user-order|api docs} for more info 
     * 
     * @param listOptions.anonUserToken Anon user token of the me.
@@ -743,7 +743,7 @@ class Me {
     }
 
    /**
-    * Get a list of orders that this user can approve. 
+    * Get a list of orders that this user can approve 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-approvable-orders|api docs} for more info 
     * 
     * @param listOptions.from Lower bound of date range that the order was created (if outgoing) or submitted (if incoming).
@@ -751,8 +751,8 @@ class Me {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -771,7 +771,7 @@ class Me {
     }
 
    /**
-    * Reset a password by token. 
+    * Reset a password by token 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/reset-password-by-token|api docs} for more info 
     * 
     * @param tokenPasswordReset Required fields: NewPassword
@@ -792,14 +792,14 @@ class Me {
     }
 
    /**
-    * Get a list of product collections visible to this user. Only available to Buyer Users.
+    * List product collections visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-collections|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -818,7 +818,7 @@ class Me {
     }
 
    /**
-    * Create a new product collection. Only available to Buyer Users.
+    * Create a product collection Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-product-collection|api docs} for more info 
     * 
     * @param productCollection Required fields: Name
@@ -839,7 +839,7 @@ class Me {
     }
 
    /**
-    * Get a single product collection. Only available to Buyer Users.
+    * Retrieve a product collection Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-product-collection|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -860,7 +860,7 @@ class Me {
     }
 
    /**
-    * Create or update a product collection. Only available to Buyer Users.
+    * Create or update a product collection Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-product-collection|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -882,7 +882,7 @@ class Me {
     }
 
    /**
-    * Delete a product collection. Only available to Buyer Users.
+    * Delete a product collection Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-product-collection|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -903,7 +903,7 @@ class Me {
     }
 
    /**
-    * Partially update a product collection. Only available to Buyer Users.
+    * Partially update a product collection Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-product-collection|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -925,7 +925,7 @@ class Me {
     }
 
    /**
-    * Create a new product collection entry. Only available to Buyer Users.
+    * Create a product collection entry Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-product-collection-entry|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -947,7 +947,7 @@ class Me {
     }
 
    /**
-    * Delete a product collection entry. Only available to Buyer Users.
+    * Delete a product collection entry Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-product-collection-entry|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -969,16 +969,16 @@ class Me {
     }
 
    /**
-    * Get a list of product collection invitations visible to this user. Only available to Buyer Users.
+    * List product collection invitations visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-collection-invitations|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.searchType Type of search to perform.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -997,7 +997,7 @@ class Me {
     }
 
    /**
-    * Create a new product collection invitation. Only available to Buyer Users.
+    * Create a product collection invitation Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-product-collection-invitation|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -1019,7 +1019,7 @@ class Me {
     }
 
    /**
-    * Get a single product collection invitation. Only available to Buyer Users.
+    * Retrieve a product collection invitation Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-product-collection-invitation|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -1041,7 +1041,7 @@ class Me {
     }
 
    /**
-    * Delete a product collection invitation. Only available to Buyer Users.
+    * Delete a product collection invitation Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-product-collection-invitation|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -1063,7 +1063,7 @@ class Me {
     }
 
    /**
-    * Partially update a product collection invitation. Only available to Buyer Users.
+    * Partially update a product collection invitation Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-product-collection-invitation|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -1086,7 +1086,7 @@ class Me {
     }
 
    /**
-    * Accept a product collection invitation. 
+    * Accept a product collection invitation 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/accept-product-collection-invitation|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -1108,7 +1108,7 @@ class Me {
     }
 
    /**
-    * Decline a product collection invitation. 
+    * Decline a product collection invitation 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/decline-product-collection-invitation|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -1130,16 +1130,16 @@ class Me {
     }
 
    /**
-    * Get a list of product collection entries visible to this user. Only available to Buyer Users.
+    * List product collection entries visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-collection-entries|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.searchType Type of search to perform.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1158,7 +1158,7 @@ class Me {
     }
 
    /**
-    * Create or update a product collection entry. Only available to Buyer Users.
+    * Create or update a product collection entry Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-product-collection-entry|api docs} for more info 
     * 
     * @param productCollectionID ID of the product collection.
@@ -1180,7 +1180,7 @@ class Me {
     }
 
    /**
-    * Get a list of products visible to this user. Only available to Buyer Users.
+    * List products visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-products|api docs} for more info 
     * 
     * @param listOptions.catalogID ID of the catalog.
@@ -1188,10 +1188,10 @@ class Me {
     * @param listOptions.depth Indicates how deep down the category hierarchy to return results. Valid values are a number of 1 or greater, or 'all'. Relative to CategoryID if specified, otherwise top level of the Catalog. Default is 'all'.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.searchType Type of search to perform. Possible values: AnyTerm (default), AllTermsAnyField, AllTermsSameField, ExactPhrase, ExactPhrasePrefix.
+    * @param listOptions.searchType Type of search to perform.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param listOptions.sellerID ID of the seller.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -1211,7 +1211,7 @@ class Me {
     }
 
    /**
-    * Get a single product. Only available to Buyer Users.
+    * Retrieve a product Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-product|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -1233,21 +1233,22 @@ class Me {
     }
 
    /**
-    * Get a list of product inventory records visible to this user. Only available to Buyer Users.
+    * List product inventory records visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-inventory-records|api docs} for more info 
     * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.includeAddress Include address of the inventory record.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListProductInventoryRecords<TInventoryRecord extends InventoryRecord>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductInventoryRecords'>, sortBy?: Sortable<'Me.ListProductInventoryRecords'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
+    public async ListProductInventoryRecords<TInventoryRecord extends InventoryRecord>(productID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListProductInventoryRecords'>, sortBy?: Sortable<'Me.ListProductInventoryRecords'>, page?: number, pageSize?: number, filters?: Filters, includeAddress?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/products/${productID}/inventoryrecords`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -1260,15 +1261,15 @@ class Me {
     }
 
    /**
-    * Get a list of product sellers visible to this user. Only available to Buyer Users.
+    * List product sellers visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-product-sellers|api docs} for more info 
     * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1287,7 +1288,7 @@ class Me {
     }
 
    /**
-    * Get a list of specs visible to this user. Only available to Buyer Users.
+    * List specs visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-specs|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -1295,8 +1296,8 @@ class Me {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1315,7 +1316,7 @@ class Me {
     }
 
    /**
-    * Get a single spec. Only available to Buyer Users.
+    * Retrieve a spec Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-spec|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -1338,15 +1339,15 @@ class Me {
     }
 
    /**
-    * Get a list of variants visible to this user. Only available to Buyer Users.
+    * List variants visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-variants|api docs} for more info 
     * 
     * @param productID ID of the product.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1365,7 +1366,7 @@ class Me {
     }
 
    /**
-    * Get a single variant. Only available to Buyer Users.
+    * Retrieve a variant Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-variant|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -1387,7 +1388,7 @@ class Me {
     }
 
    /**
-    * Get a list of variant inventory records visible to this user. Only available to Buyer Users.
+    * List variant inventory records visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-variant-inventory-records|api docs} for more info 
     * 
     * @param productID ID of the product.
@@ -1395,14 +1396,15 @@ class Me {
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
+    * @param listOptions.includeAddress Include address of the inventory record.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListVariantInventoryRecords<TInventoryRecord extends InventoryRecord>(productID: string, variantID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListVariantInventoryRecords'>, sortBy?: Sortable<'Me.ListVariantInventoryRecords'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
+    public async ListVariantInventoryRecords<TInventoryRecord extends InventoryRecord>(productID: string, variantID: string, listOptions: { search?: string, searchOn?: Searchable<'Me.ListVariantInventoryRecords'>, sortBy?: Sortable<'Me.ListVariantInventoryRecords'>, page?: number, pageSize?: number, filters?: Filters, includeAddress?: boolean } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TInventoryRecord>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/products/${productID}/variants/${variantID}/inventoryrecords`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -1415,14 +1417,14 @@ class Me {
     }
 
    /**
-    * Get a list of promotions visible to this user. Only available to Buyer Users.
+    * List promotions visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-promotions|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1441,7 +1443,7 @@ class Me {
     }
 
    /**
-    * Get a single promotion. Only available to Buyer Users.
+    * Retrieve a promotion Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-promotion|api docs} for more info 
     * 
     * @param promotionID ID of the promotion.
@@ -1462,7 +1464,7 @@ class Me {
     }
 
    /**
-    * Register a User. 
+    * Register a user 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/register|api docs} for more info 
     * 
     * @param listOptions.anonUserToken Anon user token of the user.
@@ -1484,14 +1486,14 @@ class Me {
     }
 
    /**
-    * Get a list of sellers this user can purchase from. Organizations you can place orders directly to.
+    * Get a list of sellers this user can purchase from Organizations you can place orders directly to.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-buyer-sellers|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1510,15 +1512,15 @@ class Me {
     }
 
    /**
-    * Get a list of shipments visible to this user. Only available to Buyer Users.
+    * List shipments visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-shipments|api docs} for more info 
     * 
     * @param listOptions.orderID ID of the order.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1537,7 +1539,7 @@ class Me {
     }
 
    /**
-    * Get a single shipment. Only available to Buyer Users.
+    * Retrieve a shipment Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-shipment|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
@@ -1558,22 +1560,19 @@ class Me {
     }
 
    /**
-    * Get a list of shipment items visible to this user. Only available to Buyer Users.
+    * List shipment items visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-shipment-items|api docs} for more info 
     * 
     * @param shipmentID ID of the shipment.
     * @param listOptions.orderID ID of the order.
-    * @param listOptions.search Word or phrase to search for.
-    * @param listOptions.searchOn Comma-delimited list of fields to search on.
-    * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListShipmentItems<TShipmentItem extends ShipmentItem>(shipmentID: string, listOptions: { orderID?: string, search?: string, searchOn?: Searchable<'Me.ListShipmentItems'>, sortBy?: Sortable<'Me.ListShipmentItems'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>>{
+    public async ListShipmentItems<TShipmentItem extends ShipmentItem>(shipmentID: string, listOptions: { orderID?: string, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TShipmentItem>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/me/shipments/${shipmentID}/items`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -1586,14 +1585,14 @@ class Me {
     }
 
    /**
-    * Get a list of spending accounts visible to this user. Only available to Buyer Users.
+    * List spending accounts visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-spending-accounts|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1612,7 +1611,7 @@ class Me {
     }
 
    /**
-    * Get a single spending account. Only available to Buyer Users.
+    * Retrieve a spending account Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-spending-account|api docs} for more info 
     * 
     * @param spendingAccountID ID of the spending account.
@@ -1633,14 +1632,14 @@ class Me {
     }
 
    /**
-    * Get a list of subscriptions visible to this user. 
+    * List subscriptions visible to this user 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-subscriptions|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1659,7 +1658,7 @@ class Me {
     }
 
    /**
-    * Create a new subscription. 
+    * Create a subscription 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-subscription|api docs} for more info 
     * 
     * @param subscription Required fields: Frequency, Interval, NextOrderDate
@@ -1680,7 +1679,7 @@ class Me {
     }
 
    /**
-    * Get a single subscription. 
+    * Retrieve a subscription 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-subscription|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1701,7 +1700,7 @@ class Me {
     }
 
    /**
-    * Create or update a subscription. 
+    * Create or update a subscription 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-subscription|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1723,7 +1722,7 @@ class Me {
     }
 
    /**
-    * Delete a subscription. 
+    * Delete a subscription 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-subscription|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1744,7 +1743,7 @@ class Me {
     }
 
    /**
-    * Partially update a subscription. 
+    * Partially update a subscription 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-subscription|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1766,15 +1765,15 @@ class Me {
     }
 
    /**
-    * Get a list of subscription items visible to this user. 
+    * List subscription items visible to this user 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-subscription-items|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
@@ -1793,7 +1792,7 @@ class Me {
     }
 
    /**
-    * Create a new subscription item. 
+    * Create a subscription item 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-subscription-item|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1815,7 +1814,7 @@ class Me {
     }
 
    /**
-    * Get a single subscription item. 
+    * Retrieve a subscription item 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/get-subscription-item|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1837,7 +1836,7 @@ class Me {
     }
 
    /**
-    * Create or update a subscription item. 
+    * Create or update a subscription item 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-subscription-item|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1860,7 +1859,7 @@ class Me {
     }
 
    /**
-    * Delete a subscription item. 
+    * Delete a subscription item 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-subscription-item|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1882,7 +1881,7 @@ class Me {
     }
 
    /**
-    * Partially update a subscription item. 
+    * Partially update a subscription item 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/patch-subscription-item|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1905,7 +1904,7 @@ class Me {
     }
 
    /**
-    * Create a new subscription bundle item. 
+    * Create a subscription bundle item 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-subscription-bundle-item|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1928,7 +1927,7 @@ class Me {
     }
 
    /**
-    * Delete a subscription bundle item. 
+    * Delete a subscription bundle item 
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/delete-subscription-bundle-item|api docs} for more info 
     * 
     * @param subscriptionID ID of the subscription.
@@ -1971,14 +1970,14 @@ class Me {
     }
 
    /**
-    * Get a list of user groups visible to this user. Only available to Buyer Users.
+    * List user groups visible to this user Only available to Buyer Users.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/list-user-groups|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
     * @param listOptions.sortBy Comma-delimited list of fields to sort by.
-    * @param listOptions.page Page of results to return. Default: 1. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
-    * @param listOptions.pageSize Number of results to return per page. Default: 20, max: 100.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
