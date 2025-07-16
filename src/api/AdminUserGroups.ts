@@ -31,7 +31,7 @@ class AdminUserGroups {
 
    /**
     * List admin user groups 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -57,7 +57,7 @@ class AdminUserGroups {
 
    /**
     * Create an admin user group 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/create|api docs} for more info 
     * 
     * @param userGroup Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -78,7 +78,7 @@ class AdminUserGroups {
 
    /**
     * Retrieve an admin user group 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/get|api docs} for more info 
     * 
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -99,7 +99,7 @@ class AdminUserGroups {
 
    /**
     * Create or update an admin user group If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/save|api docs} for more info 
     * 
     * @param userGroupID ID of the user group.
     * @param userGroup Required fields: Name
@@ -121,7 +121,7 @@ class AdminUserGroups {
 
    /**
     * Delete an admin user group 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/delete|api docs} for more info 
     * 
     * @param userGroupID ID of the user group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -142,7 +142,7 @@ class AdminUserGroups {
 
    /**
     * Partially update an admin user group 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/patch|api docs} for more info 
     * 
     * @param userGroupID ID of the user group.
     * @param userGroup 
@@ -164,7 +164,7 @@ class AdminUserGroups {
 
    /**
     * Delete an admin user group user assignment 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/delete-user-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/delete-user-assignment|api docs} for more info 
     * 
     * @param userGroupID ID of the user group.
     * @param userID ID of the user.
@@ -186,7 +186,7 @@ class AdminUserGroups {
 
    /**
     * List admin user group user assignments 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/list-user-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/list-user-assignments|api docs} for more info 
     * 
     * @param listOptions.userGroupID ID of the user group.
     * @param listOptions.userID ID of the user.
@@ -210,7 +210,7 @@ class AdminUserGroups {
 
    /**
     * Create or update an admin user group user assignment 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-user-groups/save-user-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-user-groups/save-user-assignment|api docs} for more info 
     * 
     * @param userGroupAssignment Required fields: UserGroupID, UserID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

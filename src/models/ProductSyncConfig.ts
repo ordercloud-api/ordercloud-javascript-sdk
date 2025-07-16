@@ -5,4 +5,5 @@ export interface ProductSyncConfig {
     DeliveryConfigID?: string
     ConfigData?: any
     Paused?: boolean
+    ExcludePriceSchedules?: boolean
 }

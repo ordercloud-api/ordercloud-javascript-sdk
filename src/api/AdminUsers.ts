@@ -29,7 +29,7 @@ class AdminUsers {
 
    /**
     * List admin users 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -55,7 +55,7 @@ class AdminUsers {
 
    /**
     * Create an admin user 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/create|api docs} for more info 
     * 
     * @param user Required fields: Username, FirstName, LastName, Email, Active
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -76,7 +76,7 @@ class AdminUsers {
 
    /**
     * Retrieve an admin user 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/get|api docs} for more info 
     * 
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -97,7 +97,7 @@ class AdminUsers {
 
    /**
     * Create or update an admin user If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/save|api docs} for more info 
     * 
     * @param userID ID of the user.
     * @param user Required fields: Username, FirstName, LastName, Email, Active
@@ -119,7 +119,7 @@ class AdminUsers {
 
    /**
     * Delete an admin user 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/delete|api docs} for more info 
     * 
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -140,7 +140,7 @@ class AdminUsers {
 
    /**
     * Partially update an admin user 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/patch|api docs} for more info 
     * 
     * @param userID ID of the user.
     * @param user 
@@ -162,7 +162,7 @@ class AdminUsers {
 
    /**
     * Revoke a user tokens Revokes all security tokens of specified user.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/revoke-user-tokens|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/revoke-user-tokens|api docs} for more info 
     * 
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -183,7 +183,7 @@ class AdminUsers {
 
    /**
     * Unlock a user account 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-users/unlock-user-account|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-users/unlock-user-account|api docs} for more info 
     * 
     * @param userID ID of the user.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

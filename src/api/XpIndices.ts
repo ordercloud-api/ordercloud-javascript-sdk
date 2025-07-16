@@ -25,7 +25,7 @@ class XpIndices {
 
    /**
     * List XP indices 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/xp-indices/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -51,7 +51,7 @@ class XpIndices {
 
    /**
     * Create or update an xp index 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/put|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/xp-indices/put|api docs} for more info 
     * 
     * @param xpIndex 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -72,7 +72,7 @@ class XpIndices {
 
    /**
     * Delete a XP index 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/xp-indices/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/xp-indices/delete|api docs} for more info 
     * 
     * @param thingType Thing type of the xp index. Possible values: Address, Variant, Order, OrderReturn, LineItem, CostCenter, CreditCard, Payment, Spec, SpecOption, UserGroup, Company, Category, PriceSchedule, Shipment, SpendingAccount, User, Promotion, ApprovalRule, SellerApprovalRule, Catalog, ProductFacet, MessageSender, InventoryRecord, ProductCollection, Subscription, GroupOrderInvitation.
     * @param key Key of the xp index.

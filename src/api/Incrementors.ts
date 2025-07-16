@@ -27,7 +27,7 @@ class Incrementors {
 
    /**
     * List incrementors 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/incrementors/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -53,7 +53,7 @@ class Incrementors {
 
    /**
     * Create an incrementor 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/incrementors/create|api docs} for more info 
     * 
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -74,7 +74,7 @@ class Incrementors {
 
    /**
     * Retrieve an incrementor 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/incrementors/get|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -95,7 +95,7 @@ class Incrementors {
 
    /**
     * Create or update an incrementor If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/incrementors/save|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
@@ -117,7 +117,7 @@ class Incrementors {
 
    /**
     * Delete an incrementor 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/incrementors/delete|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -138,7 +138,7 @@ class Incrementors {
 
    /**
     * Partially update an incrementor 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/incrementors/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/incrementors/patch|api docs} for more info 
     * 
     * @param incrementorID ID of the incrementor.
     * @param incrementor 

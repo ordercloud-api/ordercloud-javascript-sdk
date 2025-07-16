@@ -1,3 +1,4 @@
+import ApiClients from './ApiClients';
 import SecurityProfiles from './SecurityProfiles';
 import ForgottenCredentials from './ForgottenCredentials';
 import ImpersonationConfigs from './ImpersonationConfigs';
@@ -5,7 +6,6 @@ import OpenIdConnects from './OpenIdConnects';
 import AdminUsers from './AdminUsers';
 import AdminUserGroups from './AdminUserGroups';
 import AdminAddresses from './AdminAddresses';
-import ApiClients from './ApiClients';
 import Incrementors from './Incrementors';
 import Locales from './Locales';
 import Webhooks from './Webhooks';
@@ -62,6 +62,7 @@ import Tokens from './Tokens';
 import Certs from './Certs';
 
 export {
+    ApiClients,
     SecurityProfiles,
     ForgottenCredentials,
     ImpersonationConfigs,
@@ -69,7 +70,6 @@ export {
     AdminUsers,
     AdminUserGroups,
     AdminAddresses,
-    ApiClients,
     Incrementors,
     Locales,
     Webhooks,

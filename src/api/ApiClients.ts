@@ -39,7 +39,7 @@ class ApiClients {
 
    /**
     * List API clients 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -65,7 +65,7 @@ class ApiClients {
 
    /**
     * Create an API client 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/create|api docs} for more info 
     * 
     * @param apiClient Required fields: AccessTokenDuration, AppName
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -86,7 +86,7 @@ class ApiClients {
 
    /**
     * Retrieve an API client 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/get|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -107,7 +107,7 @@ class ApiClients {
 
    /**
     * Create or update an API client If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/save|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param apiClient Required fields: AccessTokenDuration, AppName
@@ -129,7 +129,7 @@ class ApiClients {
 
    /**
     * Delete an API client 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/delete|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -150,7 +150,7 @@ class ApiClients {
 
    /**
     * Partially update an API client 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/patch|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param apiClient 
@@ -172,7 +172,7 @@ class ApiClients {
 
    /**
     * List API client secrets 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list-secrets|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/list-secrets|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param listOptions.search Word or phrase to search for.
@@ -199,7 +199,7 @@ class ApiClients {
 
    /**
     * Create an API client secret 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/create-secret|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/create-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param apiClientSecret Required fields: Name
@@ -221,7 +221,7 @@ class ApiClients {
 
    /**
     * Retrieve an API client secret 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/get-secret|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/get-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param apiClientSecretID ID of the api client secret.
@@ -243,7 +243,7 @@ class ApiClients {
 
    /**
     * Delete an API client secret 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-secret|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/delete-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param apiClientSecretID ID of the api client secret.
@@ -265,7 +265,7 @@ class ApiClients {
 
    /**
     * Partially update an API client secret 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/patch-secret|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/patch-secret|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param apiClientSecretID ID of the api client secret.
@@ -288,7 +288,7 @@ class ApiClients {
 
    /**
     * List API client assignments 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/list-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/list-assignments|api docs} for more info 
     * 
     * @param listOptions.apiClientID ID of the api client.
     * @param listOptions.buyerID ID of the buyer.
@@ -313,7 +313,7 @@ class ApiClients {
 
    /**
     * Create or update an API client assignment 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/save-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/save-assignment|api docs} for more info 
     * 
     * @param apiClientAssignment Required fields: ApiClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -334,7 +334,7 @@ class ApiClients {
 
    /**
     * Delete an API client buyer assignment 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-buyer-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/delete-buyer-assignment|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param buyerID ID of the buyer.
@@ -356,7 +356,7 @@ class ApiClients {
 
    /**
     * Delete an API client supplier assignment 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/api-clients/delete-supplier-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/authentication-and-authorization/api-clients/delete-supplier-assignment|api docs} for more info 
     * 
     * @param apiClientID ID of the api client.
     * @param supplierID ID of the supplier.
