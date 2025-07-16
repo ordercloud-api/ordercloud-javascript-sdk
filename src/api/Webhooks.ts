@@ -27,7 +27,7 @@ class Webhooks {
 
    /**
     * List webhooks 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/webhooks/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -53,7 +53,7 @@ class Webhooks {
 
    /**
     * Create a webhook 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/webhooks/create|api docs} for more info 
     * 
     * @param webhook Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -74,7 +74,7 @@ class Webhooks {
 
    /**
     * Retrieve a webhook 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/webhooks/get|api docs} for more info 
     * 
     * @param webhookID ID of the webhook.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -95,7 +95,7 @@ class Webhooks {
 
    /**
     * Create or update a webhook If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/webhooks/save|api docs} for more info 
     * 
     * @param webhookID ID of the webhook.
     * @param webhook Required fields: Name
@@ -117,7 +117,7 @@ class Webhooks {
 
    /**
     * Delete a webhook 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/webhooks/delete|api docs} for more info 
     * 
     * @param webhookID ID of the webhook.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -138,7 +138,7 @@ class Webhooks {
 
    /**
     * Partially update a webhook 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/webhooks/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/webhooks/patch|api docs} for more info 
     * 
     * @param webhookID ID of the webhook.
     * @param webhook 

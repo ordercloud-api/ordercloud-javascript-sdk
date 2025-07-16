@@ -31,7 +31,7 @@ class Locales {
 
    /**
     * List locales 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -57,7 +57,7 @@ class Locales {
 
    /**
     * Create a locale 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/create|api docs} for more info 
     * 
     * @param locale Required fields: Currency
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -78,7 +78,7 @@ class Locales {
 
    /**
     * Retrieve a locale 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/get|api docs} for more info 
     * 
     * @param localeID ID of the locale.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -99,7 +99,7 @@ class Locales {
 
    /**
     * Create or update a locale If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/save|api docs} for more info 
     * 
     * @param localeID ID of the locale.
     * @param locale Required fields: Currency
@@ -121,7 +121,7 @@ class Locales {
 
    /**
     * Delete a locale 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/delete|api docs} for more info 
     * 
     * @param localeID ID of the locale.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -142,7 +142,7 @@ class Locales {
 
    /**
     * Partially update a locale 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/patch|api docs} for more info 
     * 
     * @param localeID ID of the locale.
     * @param locale 
@@ -164,7 +164,7 @@ class Locales {
 
    /**
     * Delete a locale assignment 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/delete-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/delete-assignment|api docs} for more info 
     * 
     * @param localeID ID of the locale.
     * @param listOptions.buyerID ID of the buyer.
@@ -188,7 +188,7 @@ class Locales {
 
    /**
     * List locale assignments 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/list-assignments|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/list-assignments|api docs} for more info 
     * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.localeID ID of the locale.
@@ -214,7 +214,7 @@ class Locales {
 
    /**
     * Create or update a locale assignment Do not assign a user multiple groups with different assigned locales. That is considered a misconfiguration, and will yield unexpected results.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/locales/save-assignment|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/locales/save-assignment|api docs} for more info 
     * 
     * @param localeAssignment Required fields: LocaleID, BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

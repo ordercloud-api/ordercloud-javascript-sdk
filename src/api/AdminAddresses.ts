@@ -27,7 +27,7 @@ class AdminAddresses {
 
    /**
     * List admin addresses 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/list|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-addresses/list|api docs} for more info 
     * 
     * @param listOptions.search Word or phrase to search for.
     * @param listOptions.searchOn Comma-delimited list of fields to search on.
@@ -53,7 +53,7 @@ class AdminAddresses {
 
    /**
     * Create an admin address 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/create|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-addresses/create|api docs} for more info 
     * 
     * @param address Required fields: Street1, City, State, Zip, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -74,7 +74,7 @@ class AdminAddresses {
 
    /**
     * Retrieve an admin address 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/get|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-addresses/get|api docs} for more info 
     * 
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -95,7 +95,7 @@ class AdminAddresses {
 
    /**
     * Create or update an admin address If an object with the same ID already exists, it will be overwritten.
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/save|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-addresses/save|api docs} for more info 
     * 
     * @param addressID ID of the address.
     * @param address Required fields: Street1, City, State, Zip, Country
@@ -117,7 +117,7 @@ class AdminAddresses {
 
    /**
     * Delete an admin address 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/delete|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-addresses/delete|api docs} for more info 
     * 
     * @param addressID ID of the address.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -138,7 +138,7 @@ class AdminAddresses {
 
    /**
     * Partially update an admin address 
-    * Check out the {@link https://ordercloud.io/api-reference/seller/admin-addresses/patch|api docs} for more info 
+    * Check out the {@link https://ordercloud.io/api-reference/marketplace-owner/admin-addresses/patch|api docs} for more info 
     * 
     * @param addressID ID of the address.
     * @param address 
