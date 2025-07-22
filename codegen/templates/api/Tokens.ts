@@ -30,11 +30,13 @@ class Tokens {
   private impersonationTokenCookieName = '.impersonation-token'
   private refreshTokenCookieName = '.refresh-token'
   private identityTokenCookieName = '.identity-token'
+  private identityProviderAccessTokenCookieName = '.idp-access-token'
 
   private accessToken?: string = null
   private impersonationToken?: string = null
   private refreshToken?: string = null
   private identityToken?: string = null
+  private identityProviderAccessToken?: string = null
 
   /**
    * @ignore
@@ -143,6 +145,27 @@ class Tokens {
     isServer
       ? (this.identityToken = null)
       : cookies.remove(this.identityTokenCookieName)
+  }
+
+  /**
+   * Manage Identity Provider Tokens
+   */
+  public GetIdpAccessToken(): string | undefined {
+    return isServer
+      ? this.identityProviderAccessToken
+      : cookies.get(this.identityProviderAccessTokenCookieName)
+  }
+
+  public SetIdpAccessToken(token: string): void {
+    isServer
+      ? (this.identityProviderAccessToken = token)
+      : cookies.set(this.identityProviderAccessTokenCookieName, token)
+  }
+
+  public RemoveIdpAccessToken(): void {
+    isServer
+      ? (this.identityProviderAccessToken = null)
+      : cookies.remove(this.identityProviderAccessTokenCookieName)
   }
 
   /**
