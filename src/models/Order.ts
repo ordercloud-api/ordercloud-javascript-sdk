@@ -1,10 +1,10 @@
-import { User } from './User';
+import { OrderUser } from './OrderUser';
 import { Address } from './Address';
 import { OrderStatus } from './OrderStatus';
 
 export interface Order<TOrderXp = any, TFromUserXp = any, TBillingAddressXp = any> {
     ID?: string
-    readonly FromUser?: User<TFromUserXp>
+    readonly FromUser?: OrderUser<TFromUserXp>
     FromCompanyID?: string
     ToCompanyID?: string
     FromUserID?: string

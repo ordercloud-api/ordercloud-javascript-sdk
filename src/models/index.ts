@@ -99,6 +99,7 @@ export * from './OrderStatus';
 export * from './OrderSubmitForApprovalResponse';
 export * from './OrderSubmitResponse';
 export * from './OrderSyncConfig';
+export * from './OrderUser';
 export * from './OrderWorksheet';
 export * from './PartyType';
 export * from './PasswordConfig';

@@ -57,7 +57,7 @@ class SupplierAddresses {
     * Check out the {@link https://ordercloud.io/api-reference/supplier/supplier-addresses/create|api docs} for more info 
     * 
     * @param supplierID ID of the supplier.
-    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param address Required fields: Street1, City, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -102,7 +102,7 @@ class SupplierAddresses {
     * 
     * @param supplierID ID of the supplier.
     * @param addressID ID of the address.
-    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param address Required fields: Street1, City, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

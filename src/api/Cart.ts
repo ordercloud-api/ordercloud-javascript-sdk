@@ -194,7 +194,7 @@ class Cart {
     * Set a billing address Use only when the address is not to be saved/reused.<br/></br>To use a saved address (i.e. from the Addresses resource), PATCH the order's BillingAddressID property instead.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/set-billing-address|api docs} for more info 
     * 
-    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param address Required fields: Street1, City, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -764,7 +764,7 @@ class Cart {
     * Set a shipping address Use only when the address is not to be saved/reused. To use a saved address (i.e. from the Addresses resource), PATCH the order's ShippingAddressID property instead. The address used will be populated on the ShippingAddress property of each LineItem.
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/cart/set-shipping-address|api docs} for more info 
     * 
-    * @param address Required fields: Street1, City, State, Zip, Country
+    * @param address Required fields: Street1, City, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
