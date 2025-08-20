@@ -1,18 +1,17 @@
 import { Locale } from './Locale';
 
-export interface User<TUserXp = any> {
-    readonly FailedLoginAttempts?: number
+export interface OrderUser<TOrderUserXp = any> {
     ID?: string
     readonly CompanyID?: string
-    Username: string
+    Username?: string
     Password?: string
-    FirstName: string
-    LastName: string
-    Email: string
+    FirstName?: string
+    LastName?: string
+    Email?: string
     Phone?: string
     TermsAccepted?: string
-    Active: boolean
-    xp?: TUserXp
+    Active?: boolean
+    xp?: TOrderUserXp
     readonly AvailableRoles?: string[]
     readonly Locale?: Locale
     readonly DateCreated?: string

@@ -220,7 +220,7 @@ class Me {
     * Create an address Only available to Buyer Users. Addresses created using this endpoint are considered private, and only accessible to the user who created them.
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/create-address|api docs} for more info 
     * 
-    * @param buyerAddress Required fields: Street1, City, State, Zip, Country
+    * @param buyerAddress Required fields: Street1, City, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -263,7 +263,7 @@ class Me {
     * Check out the {@link https://ordercloud.io/api-reference/me-and-my-stuff/me/save-address|api docs} for more info 
     * 
     * @param addressID ID of the address.
-    * @param buyerAddress Required fields: Street1, City, State, Zip, Country
+    * @param buyerAddress Required fields: Street1, City, Country
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
