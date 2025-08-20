@@ -5,6 +5,9 @@ All notable changes to the ordercloud-javascript-sdk will be documented in this 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+# [11.1.2] - 2025-08-20
+- Bring SDK up to date with API v1.0.412
+
 # [11.1.1] - 2025-07-23
 - Re-published package with missing build output included. No changes to runtime code.
 
