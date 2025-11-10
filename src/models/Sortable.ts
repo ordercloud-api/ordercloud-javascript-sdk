@@ -52,6 +52,7 @@ interface SortableMap {
 'Me.ListPromotions': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'Me.ListBuyerSellers': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListShipments': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
+'Me.ListShipmentItems': ('OrderID' | 'LineItemID' | '!OrderID' | '!LineItemID')[]
 'Me.ListSpendingAccounts': ('Name' | 'ID' | '!Name' | '!ID')[]
 'Me.ListSubscriptions': ('NextOrderDate' | 'LastOrderDate' | 'DateCreated' | 'ID' | 'Interval' | 'EndDate' | 'FromCompanyID' | 'FromUserID' | 'ToCompanyID' | '!NextOrderDate' | '!LastOrderDate' | '!DateCreated' | '!ID' | '!Interval' | '!EndDate' | '!FromCompanyID' | '!FromUserID' | '!ToCompanyID')[]
 'Me.ListSubscriptionItems': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
@@ -81,6 +82,7 @@ interface SortableMap {
 'Promotions.List': ('Name' | 'ID' | 'Code' | 'StartDate' | 'ExpirationDate' | 'EligibleExpression' | 'ValueExpression' | 'CanCombine' | 'AutoApply' | 'Active' | 'Priority' | '!Name' | '!ID' | '!Code' | '!StartDate' | '!ExpirationDate' | '!EligibleExpression' | '!ValueExpression' | '!CanCombine' | '!AutoApply' | '!Active' | '!Priority')[]
 'SecurityProfiles.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'Shipments.List': ('DateShipped' | 'OwnerID' | 'ID' | 'BuyerID' | 'Shipper' | 'DateDelivered' | 'Cost' | '!DateShipped' | '!OwnerID' | '!ID' | '!BuyerID' | '!Shipper' | '!DateDelivered' | '!Cost')[]
+'Shipments.ListItems': ('OrderID' | 'LineItemID' | '!OrderID' | '!LineItemID')[]
 'Specs.List': ('ListOrder' | 'Name' | 'ID' | '!ListOrder' | '!Name' | '!ID')[]
 'Specs.ListOptions': ('ListOrder' | 'ID' | '!ListOrder' | '!ID')[]
 'Specs.ListProductAssignments': ('SpecID' | 'ProductID' | 'DefaultOptionID' | 'DefaultValue' | '!SpecID' | '!ProductID' | '!DefaultOptionID' | '!DefaultValue')[]
@@ -147,6 +149,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Me.ListPromotions' | 
 'Me.ListBuyerSellers' | 
 'Me.ListShipments' | 
+'Me.ListShipmentItems' | 
 'Me.ListSpendingAccounts' | 
 'Me.ListSubscriptions' | 
 'Me.ListSubscriptionItems' | 
@@ -176,6 +179,7 @@ type SortableEndpoint = 'AdminAddresses.List' |
 'Promotions.List' | 
 'SecurityProfiles.List' | 
 'Shipments.List' | 
+'Shipments.ListItems' | 
 'Specs.List' | 
 'Specs.ListOptions' | 
 'Specs.ListProductAssignments' | 
