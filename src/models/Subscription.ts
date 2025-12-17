@@ -17,5 +17,6 @@ export interface Subscription<TSubscriptionXp = any> {
     Payment?: SubscriptionPayment
     BillingAddressID?: string
     ShippingAddressID?: string
+    readonly ProjectedSubtotal?: number
     xp?: TSubscriptionXp
 }
