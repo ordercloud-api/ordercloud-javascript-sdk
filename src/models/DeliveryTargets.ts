@@ -7,7 +7,7 @@ import { EventHubConfig } from './EventHubConfig';
 import { AzureBlobConfig } from './AzureBlobConfig';
 import { AzureTableConfig } from './AzureTableConfig';
 import { CosmosDbConfig } from './CosmosDbConfig';
-import { MandrillConfig } from './MandrillConfig';
+import { MailchimpConfig } from './MailchimpConfig';
 import { MessageSenderConfig } from './MessageSenderConfig';
 import { ContentHubConfig } from './ContentHubConfig';
 
@@ -21,7 +21,7 @@ export interface DeliveryTargets {
     AzureBlob?: AzureBlobConfig
     AzureTable?: AzureTableConfig
     CosmosDb?: CosmosDbConfig
-    Mandrill?: MandrillConfig
+    Mailchimp?: MailchimpConfig
     MessageSender?: MessageSenderConfig
     ContentHub?: ContentHubConfig
 }

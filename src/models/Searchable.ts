@@ -56,7 +56,7 @@ interface SearchableMap {
 'Me.ListSubscriptions': ('ID' | 'FromCompanyID' | 'ToCompanyID' | 'Interval')[]
 'Me.ListSubscriptionItems': ('ID' | 'ProductID')[]
 'Me.ListUserGroups': ('ID' | 'Name' | 'Description')[]
-'MessageSenders.List': ('ID' | 'Name' | 'URL')[]
+'MessageSenders.List': ('ID' | 'Name')[]
 'MessageSenders.ListCCListenerAssignments': ('BuyerID' | 'UserGroupID' | 'UserID' | 'MessageConfigName' | 'SupplierID')[]
 'OpenIdConnects.List': ('ID')[]
 'OrderReturns.List': ('ID' | 'OrderID')[]

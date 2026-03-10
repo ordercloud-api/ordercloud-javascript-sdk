@@ -57,7 +57,7 @@ interface SortableMap {
 'Me.ListSubscriptions': ('ID' | 'Interval' | 'NextOrderDate' | 'LastOrderDate' | 'DateCreated' | 'EndDate' | 'FromCompanyID' | 'FromUserID' | 'ToCompanyID' | '!ID' | '!Interval' | '!NextOrderDate' | '!LastOrderDate' | '!DateCreated' | '!EndDate' | '!FromCompanyID' | '!FromUserID' | '!ToCompanyID')[]
 'Me.ListSubscriptionItems': ('DateAdded' | 'ID' | 'ProductID' | '!DateAdded' | '!ID' | '!ProductID')[]
 'Me.ListUserGroups': ('Name' | 'ID' | '!Name' | '!ID')[]
-'MessageSenders.List': ('ID' | 'Name' | 'URL' | '!ID' | '!Name' | '!URL')[]
+'MessageSenders.List': ('ID' | 'Name' | '!ID' | '!Name')[]
 'MessageSenders.ListCCListenerAssignments': ('BuyerID' | 'UserGroupID' | 'UserID' | 'MessageConfigName' | 'SupplierID' | '!BuyerID' | '!UserGroupID' | '!UserID' | '!MessageConfigName' | '!SupplierID')[]
 'OpenIdConnects.List': ('ID' | '!ID')[]
 'OrderReturns.List': ('DateSubmitted' | 'DateCreated' | 'ID' | 'OrderID' | 'DateApproved' | 'DateDeclined' | 'DateCanceled' | 'DateCompleted' | 'LastUpdated' | '!DateSubmitted' | '!DateCreated' | '!ID' | '!OrderID' | '!DateApproved' | '!DateDeclined' | '!DateCanceled' | '!DateCompleted' | '!LastUpdated')[]

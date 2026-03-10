@@ -69,7 +69,7 @@ export * from './ListFacet';
 export * from './ListFacetValue';
 export * from './Locale';
 export * from './LocaleAssignment';
-export * from './MandrillConfig';
+export * from './MailchimpConfig';
 export * from './MeBuyer';
 export * from './MeSeller';
 export * from './MessageCCListenerAssignment';

@@ -2,6 +2,42 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 11.x.x to version 12.x.x
+* The `URL` and `SharedKey` properties have been removed from the `MessageSender` model, and `DeliveryConfigID` is now required. Configuration must be provided via a `DeliveryConfig` (managed through the new `DeliveryConfigurations` service) using either a `MailchimpConfig` or `MessageSenderConfig` delivery target. See the [updated Message Senders KB article](https://ordercloud.io/knowledge-base/message-senders#configuration-options) for more details. 
+
+> Note: All existing Message Senders were migrated automatically
+
+    Before:
+    ```typescript
+    const messageSender: MessageSender = {
+        Name: 'My Sender',
+        MessageTypes: ['OrderSubmitted'],
+        URL: 'https://my-endpoint.com',
+        SharedKey: 'my-secret-key',
+    }
+    ```
+
+    After:
+    ```typescript
+    // First, create a DeliveryConfig with the equivalent configuration
+    const deliveryConfig = await DeliveryConfigurations.Create({
+        Name: 'My Delivery Config',
+        DeliveryTargets: {
+            MessageSender: {
+                Endpoint: 'https://my-endpoint.com',
+                Secret: 'my-secret-key',
+            }
+        }
+    })
+
+    // Then reference it on the MessageSender
+    const messageSender: MessageSender = {
+        Name: 'My Sender',
+        MessageTypes: ['OrderSubmitted'],
+        DeliveryConfigID: deliveryConfig.ID,
+    }
+    ```
+
 ## version 10.x.x to version 11.x.x
 * The return type for the `Cart.ListEligiblePromotions` and `Orders.ListEligiblePromotions` methods have been updated from `OrderPromotion` to `EligiblePromotion`
 
