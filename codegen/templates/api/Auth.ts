@@ -3,7 +3,7 @@ import axios, { CancelToken } from 'axios'
 import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
 import { ApiRole } from '../models/ApiRole'
-import paramsSerializer from '../utils/ParamsSerializer'
+import paramsSerializer from '../utils/paramsSerializer'
 import { RequiredDeep } from '../models/RequiredDeep'
 import OrderCloudError from '../utils/OrderCloudError'
 

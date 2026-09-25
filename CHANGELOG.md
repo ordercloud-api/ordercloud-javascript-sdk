@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # [13.0.0] - 2026-09-25
 - Bring SDK up to date with API v1.0.470. Breaking: `ApiClient.ClientSecret` and `SecurityProfile.IsExternalRoleGroup` are removed. Buyer product `PriceSchedule` is now `BuyerPriceSchedule`.
-- Update dev dependencies to the latest minor versions that still install on TypeScript 4.9.
+- Update dev dependencies, including TypeScript 5.9 and TypeDoc 0.28. TypeDoc 0.28 requires the missing-exports plugin to be listed explicitly.
 
 # [12.0.0] - 2026-03-10
 - Bring SDK up to date with API v1.0.437. Includes a breaking change to Message Senders - see migration guide for more details.

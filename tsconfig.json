@@ -19,9 +19,10 @@
     "out": "docs",
     "name": "ordercloud-javascript-sdk",
     "theme": "default",
-    "internalModule": "Resources",
     "readme": "none",
     "gitRevision": "master",
-    "gitRemote": "ordercloud-api"
+    "gitRemote": "origin",
+    "plugin": ["typedoc-plugin-missing-exports"],
+    "internalModule": "Resources"
   }
 }
