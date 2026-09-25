@@ -11,6 +11,7 @@ export type ApiRole = 'ApiClientAdmin' |
 'AdminUserReader' | 
 'ApprovalRuleAdmin' | 
 'ApprovalRuleReader' | 
+'BulkReader' | 
 'BundleAdmin' | 
 'BundleAssignmentAdmin' | 
 'BundleReader' | 
@@ -40,6 +41,7 @@ export type ApiRole = 'ApiClientAdmin' |
 'MeSubscriptionAdmin' | 
 'MeXpAdmin' | 
 'OrderAdmin' | 
+'OrderEditAfterSubmit' | 
 'OrderReader' | 
 'OverrideShipping' | 
 'OverrideTax' | 

@@ -7,5 +7,4 @@ export interface SecurityProfile {
     Roles?: ApiRole[]
     CustomRoles?: string[]
     PasswordConfig?: PasswordConfig
-    readonly IsExternalRoleGroup?: boolean
 }

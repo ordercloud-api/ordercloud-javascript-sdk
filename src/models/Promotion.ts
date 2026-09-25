@@ -23,5 +23,8 @@ export interface Promotion<TPromotionXp = any> {
     Active?: boolean
     UseIntegration?: boolean
     Priority?: number
+    GeneratedCodeCount?: number
+    GeneratedCodeLength?: number
+    GeneratedCodePrefix?: string
     xp?: TPromotionXp
 }

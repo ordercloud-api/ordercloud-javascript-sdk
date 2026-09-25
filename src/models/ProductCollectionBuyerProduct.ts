@@ -1,10 +1,10 @@
-import { PriceSchedule } from './PriceSchedule';
+import { BuyerPriceSchedule } from './BuyerPriceSchedule';
 import { Inventory } from './Inventory';
 
 export interface ProductCollectionBuyerProduct<TProductCollectionBuyerProductXp = any, TPriceScheduleXp = any> {
     ListOrder?: number
     DateAdded?: string
-    readonly PriceSchedule?: PriceSchedule<TPriceScheduleXp>
+    readonly PriceSchedule?: BuyerPriceSchedule<TPriceScheduleXp>
     ID?: string
     ParentID?: string
     IsParent?: boolean

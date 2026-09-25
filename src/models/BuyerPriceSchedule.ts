@@ -1,10 +1,12 @@
-import { PriceBreak } from './PriceBreak';
+import { BuyerPriceBreak } from './BuyerPriceBreak';
+import { BuyerDiscount } from './BuyerDiscount';
 
-export interface PriceSchedule<TPriceScheduleXp = any> {
-    PriceBreaks?: PriceBreak[]
+export interface BuyerPriceSchedule<TBuyerPriceScheduleXp = any> {
+    PriceBreaks?: BuyerPriceBreak[]
+    Discount?: BuyerDiscount
     OwnerID?: string
     ID?: string
-    Name: string
+    Name?: string
     ApplyTax?: boolean
     ApplyShipping?: boolean
     MinQuantity?: number
@@ -15,5 +17,5 @@ export interface PriceSchedule<TPriceScheduleXp = any> {
     SaleStart?: string
     SaleEnd?: string
     readonly IsOnSale?: boolean
-    xp?: TPriceScheduleXp
+    xp?: TBuyerPriceScheduleXp
 }

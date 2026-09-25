@@ -1,8 +1,8 @@
-import { PriceSchedule } from './PriceSchedule';
+import { BuyerPriceSchedule } from './BuyerPriceSchedule';
 import { Inventory } from './Inventory';
 
 export interface BuyerProduct<TBuyerProductXp = any, TPriceScheduleXp = any> {
-    readonly PriceSchedule?: PriceSchedule<TPriceScheduleXp>
+    readonly PriceSchedule?: BuyerPriceSchedule<TPriceScheduleXp>
     ID?: string
     ParentID?: string
     IsParent?: boolean

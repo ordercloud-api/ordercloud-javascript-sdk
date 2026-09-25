@@ -1,7 +1,7 @@
-import { PriceSchedule } from './PriceSchedule';
+import { BuyerPriceSchedule } from './BuyerPriceSchedule';
 
 export interface ProductSeller<TPriceScheduleXp = any> {
-    PriceSchedule?: PriceSchedule<TPriceScheduleXp>
+    PriceSchedule?: BuyerPriceSchedule<TPriceScheduleXp>
     ID?: string
     Name?: string
 }

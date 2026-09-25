@@ -27,5 +27,8 @@ export interface RemovedPromo<TRemovedPromoXp = any> {
     Active?: boolean
     UseIntegration?: boolean
     Priority?: number
+    GeneratedCodeCount?: number
+    GeneratedCodeLength?: number
+    GeneratedCodePrefix?: string
     xp?: TRemovedPromoXp
 }

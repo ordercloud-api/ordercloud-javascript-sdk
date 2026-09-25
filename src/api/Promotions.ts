@@ -3,6 +3,7 @@ import { Searchable } from '../models/Searchable';
 import { Sortable } from '../models/Sortable';
 import { Filters } from '../models/Filters';
 import { Promotion } from '../models/Promotion';
+import { PromotionCode } from '../models/PromotionCode';
 import { PromotionAssignment } from '../models/PromotionAssignment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -25,6 +26,7 @@ class Promotions {
         this.Delete = this.Delete.bind(this);
         this.Patch = this.Patch.bind(this);
         this.DeleteAssignment = this.DeleteAssignment.bind(this);
+        this.ListCodes = this.ListCodes.bind(this);
         this.ListAssignments = this.ListAssignments.bind(this);
         this.SaveAssignment = this.SaveAssignment.bind(this);
     }
@@ -59,7 +61,7 @@ class Promotions {
     * Create a promotion 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/create|api docs} for more info 
     * 
-    * @param promotion Required fields: Code, EligibleExpression
+    * @param promotion Required fields: EligibleExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -102,7 +104,7 @@ class Promotions {
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/save|api docs} for more info 
     * 
     * @param promotionID ID of the promotion.
-    * @param promotion Required fields: Code, EligibleExpression
+    * @param promotion Required fields: EligibleExpression
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
@@ -187,13 +189,36 @@ class Promotions {
     }
 
    /**
+    * List promotion codes List generated codes for a promotion. Only applicable when GeneratedCodeCount > 0.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/list-codes|api docs} for more info 
+    * 
+    * @param promotionID ID of the promotion.
+    * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
+    * @param listOptions.pageSize Number of results to return per page.
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async ListCodes<TPromotionCode extends PromotionCode>(promotionID: string, listOptions: { page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPromotionCode>>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/promotions/${promotionID}/codes`, { ...requestOptions, impersonating, params: listOptions  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
     * List promotion assignments 
     * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/promotions/list-assignments|api docs} for more info 
     * 
     * @param listOptions.buyerID ID of the buyer.
     * @param listOptions.promotionID ID of the promotion.
     * @param listOptions.userGroupID ID of the user group.
-    * @param listOptions.level Level of the promotion assignment. Possible values: Group, Company.
+    * @param listOptions.level Level of the promotion assignment. Possible values: Group, Company, BuyerGroup.
     * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).

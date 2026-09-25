@@ -7,6 +7,7 @@ interface SearchableMap {
 'ApiClients.ListSecrets': ('ID')[]
 'SellerApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
 'Bundles.List': string[]
+'BuyerGroups.List': ('ID' | 'Name' | 'Description')[]
 'Buyers.List': ('Name' | 'ID')[]
 'Addresses.List': ('ID' | 'AddressName' | 'CompanyName' | 'City' | 'Street1' | 'Street2' | 'LastName' | 'FirstName' | 'State' | 'Zip')[]
 'ApprovalRules.List': ('ID' | 'Name' | 'Description' | 'RuleExpression')[]
@@ -102,6 +103,7 @@ type SearchableEndpoint = 'AdminAddresses.List' |
 'ApiClients.ListSecrets' | 
 'SellerApprovalRules.List' | 
 'Bundles.List' | 
+'BuyerGroups.List' | 
 'Buyers.List' | 
 'Addresses.List' | 
 'ApprovalRules.List' | 

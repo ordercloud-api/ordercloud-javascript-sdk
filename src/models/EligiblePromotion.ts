@@ -24,5 +24,8 @@ export interface EligiblePromotion<TEligiblePromotionXp = any> {
     Active?: boolean
     UseIntegration?: boolean
     Priority?: number
+    GeneratedCodeCount?: number
+    GeneratedCodeLength?: number
+    GeneratedCodePrefix?: string
     xp?: TEligiblePromotionXp
 }

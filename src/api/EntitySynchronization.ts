@@ -3,6 +3,7 @@ import { SyncAdminUser } from '../models/SyncAdminUser';
 import { SyncBuyer } from '../models/SyncBuyer';
 import { SyncBuyerUserGroup } from '../models/SyncBuyerUserGroup';
 import { SyncBuyerUser } from '../models/SyncBuyerUser';
+import { SyncCatalog } from '../models/SyncCatalog';
 import { SyncCategory } from '../models/SyncCategory';
 import { SyncInventoryRecord } from '../models/SyncInventoryRecord';
 import { SyncSupplier } from '../models/SyncSupplier';
@@ -41,6 +42,11 @@ class EntitySynchronization {
         this.DeleteBuyerUsers = this.DeleteBuyerUsers.bind(this);
         this.PatchBuyerUsers = this.PatchBuyerUsers.bind(this);
         this.SyncBuyerUser = this.SyncBuyerUser.bind(this);
+        this.GetCatalogs = this.GetCatalogs.bind(this);
+        this.SaveCatalogs = this.SaveCatalogs.bind(this);
+        this.DeleteCatalogs = this.DeleteCatalogs.bind(this);
+        this.PatchCatalogs = this.PatchCatalogs.bind(this);
+        this.SyncCatalog = this.SyncCatalog.bind(this);
         this.GetCategories = this.GetCategories.bind(this);
         this.SaveCategories = this.SaveCategories.bind(this);
         this.DeleteCategories = this.DeleteCategories.bind(this);
@@ -467,6 +473,109 @@ class EntitySynchronization {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/integrations/entitysync/buyers/users/sync`, { ...requestOptions, data: syncBuyerUser, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Retrieve the entity sync delivery configuration for catalogs Get the entity sync delivery configuration for Catalogs
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-catalogs|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async GetCatalogs<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.get(`/integrations/entitysync/catalogs`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Create or update the entity sync delivery configuration for catalogs Create or update the entity sync delivery configuration for Catalogs
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/save-catalogs|api docs} for more info 
+    * 
+    * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SaveCatalogs<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.put(`/integrations/entitysync/catalogs`, { ...requestOptions, data: entitySyncConfig, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Delete the entity sync delivery configuration for catalogs Delete the entity sync delivery configuration for Catalogs
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-catalogs|api docs} for more info 
+    * 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async DeleteCatalogs(requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.delete(`/integrations/entitysync/catalogs`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Partially update the entity sync delivery configuration for catalogs Partially update the entity sync delivery configuration for Catalogs
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/patch-catalogs|api docs} for more info 
+    * 
+    * @param entitySyncConfig 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async PatchCatalogs<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.patch(`/integrations/entitysync/catalogs`, { ...requestOptions, data: entitySyncConfig, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Sync a catalog 
+    * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/sync-catalog|api docs} for more info 
+    * 
+    * @param syncCatalog Required fields: CatalogID
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async SyncCatalog(syncCatalog: SyncCatalog,requestOptions: RequestOptions = {} ): Promise<void>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/integrations/entitysync/catalogs/sync`, { ...requestOptions, data: syncCatalog, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)
