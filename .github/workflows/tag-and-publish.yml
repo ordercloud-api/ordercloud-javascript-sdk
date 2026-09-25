@@ -18,6 +18,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
+        registry-url: https://registry.npmjs.org
 
     - name: Install Dependencies
       run: npm i
@@ -64,10 +65,15 @@ jobs:
                 $changelogContent = $changelogContent -replace "# \[\d+\.\d+\.\d+\] - \d{4}-\d{2}-\d{2}\s*", ""
 
                 Write-Host "Changelog entry for version $version found!"
-                Write-Host "Changelog content: $changelogContent"  
+                Write-Host "Changelog content: $changelogContent"
 
-                # Store the changelog content in the GITHUB_ENV variable
-                echo "changelog_content=$changelogContent" >> $env:GITHUB_OUTPUT
+                # Multiline values must use a delimiter. A single echo drops newlines
+                # and can break the following release step. The closing delimiter
+                # cannot be indented, so write the three parts separately.
+                $changelogContent = $changelogContent -replace "`r", ""
+                Add-Content -Path $env:GITHUB_OUTPUT -Value "changelog_content<<EOF" -Encoding utf8NoBOM
+                Add-Content -Path $env:GITHUB_OUTPUT -Value $changelogContent -Encoding utf8NoBOM
+                Add-Content -Path $env:GITHUB_OUTPUT -Value "EOF" -Encoding utf8NoBOM
             } else {
                 Write-Host "No changelog entry found for version $version."
                 exit 1
@@ -98,7 +104,7 @@ jobs:
         draft: false
 
     - name: Publish to npm
+      if: steps.autotagger.outputs.tagname != ''
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} 
-      run: |
-        npm publish --access public
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npm publish --access public
