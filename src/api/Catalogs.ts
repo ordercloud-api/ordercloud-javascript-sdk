@@ -176,11 +176,12 @@ class Catalogs {
     * 
     * @param catalogID ID of the catalog.
     * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.buyerGroupID ID of the buyer group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async DeleteAssignment(catalogID: string, listOptions: { buyerID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
+    public async DeleteAssignment(catalogID: string, listOptions: { buyerID?: string, buyerGroupID?: string } = {}, requestOptions: RequestOptions = {} ): Promise<void>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.delete(`/catalogs/${catalogID}/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -242,13 +243,14 @@ class Catalogs {
     * 
     * @param listOptions.catalogID ID of the catalog.
     * @param listOptions.buyerID ID of the buyer.
+    * @param listOptions.buyerGroupID ID of the buyer group.
     * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
-    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>(listOptions: { catalogID?: string, buyerID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>>{
+    public async ListAssignments<TCatalogAssignment extends CatalogAssignment>(listOptions: { catalogID?: string, buyerID?: string, buyerGroupID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TCatalogAssignment>>>{
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.get(`/catalogs/assignments`, { ...requestOptions, impersonating, params: listOptions  } )
@@ -264,7 +266,7 @@ class Catalogs {
     * Create or update a catalog assignment 
     * Check out the {@link https://ordercloud.io/api-reference/product-catalogs/catalogs/save-assignment|api docs} for more info 
     * 
-    * @param catalogAssignment Required fields: CatalogID, BuyerID
+    * @param catalogAssignment Required fields: CatalogID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
     * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.

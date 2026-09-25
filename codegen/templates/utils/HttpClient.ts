@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 import tokenService from '../api/Tokens'
 import Configuration from '../Configuration'
-import paramsSerializer from './ParamsSerializer'
+import paramsSerializer from './paramsSerializer'
 
 /**
  * @ignore

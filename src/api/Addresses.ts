@@ -201,7 +201,7 @@ class Addresses {
     * @param listOptions.addressID ID of the address.
     * @param listOptions.userID ID of the user.
     * @param listOptions.userGroupID ID of the user group.
-    * @param listOptions.level Level of the address assignment. Possible values: User, Group, Company.
+    * @param listOptions.level Level of the address assignment. Possible values: User, Group, Company, BuyerGroup.
     * @param listOptions.isShipping Is shipping of the address assignment.
     * @param listOptions.isBilling Is billing of the address assignment.
     * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.

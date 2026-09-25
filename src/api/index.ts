@@ -6,6 +6,7 @@ import OpenIdConnects from './OpenIdConnects';
 import AdminUsers from './AdminUsers';
 import AdminUserGroups from './AdminUserGroups';
 import AdminAddresses from './AdminAddresses';
+import BuyerGroups from './BuyerGroups';
 import Incrementors from './Incrementors';
 import Locales from './Locales';
 import Webhooks from './Webhooks';
@@ -31,6 +32,7 @@ import Specs from './Specs';
 import ProductFacets from './ProductFacets';
 import InventoryRecords from './InventoryRecords';
 import Bundles from './Bundles';
+import Discounts from './Discounts';
 import Orders from './Orders';
 import Cart from './Cart';
 import LineItems from './LineItems';
@@ -70,6 +72,7 @@ export {
     AdminUsers,
     AdminUserGroups,
     AdminAddresses,
+    BuyerGroups,
     Incrementors,
     Locales,
     Webhooks,
@@ -95,6 +98,7 @@ export {
     ProductFacets,
     InventoryRecords,
     Bundles,
+    Discounts,
     Orders,
     Cart,
     LineItems,

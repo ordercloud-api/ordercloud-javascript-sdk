@@ -25,5 +25,8 @@ export interface AddedPromo<TAddedPromoXp = any> {
     Active?: boolean
     UseIntegration?: boolean
     Priority?: number
+    GeneratedCodeCount?: number
+    GeneratedCodeLength?: number
+    GeneratedCodePrefix?: string
     xp?: TAddedPromoXp
 }

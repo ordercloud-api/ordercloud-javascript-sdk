@@ -27,5 +27,8 @@ export interface OrderPromotion<TOrderPromotionXp = any> {
     Active?: boolean
     UseIntegration?: boolean
     Priority?: number
+    GeneratedCodeCount?: number
+    GeneratedCodeLength?: number
+    GeneratedCodePrefix?: string
     xp?: TOrderPromotionXp
 }

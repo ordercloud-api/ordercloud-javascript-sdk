@@ -2,7 +2,6 @@ import { ApiRole } from './ApiRole';
 
 export interface ApiClient<TApiClientXp = any> {
     readonly ID?: string
-    ClientSecret?: string
     AccessTokenDuration: number
     Active?: boolean
     AppName: string

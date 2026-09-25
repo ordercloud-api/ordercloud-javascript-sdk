@@ -13,6 +13,7 @@ import { EligiblePromotion } from '../models/EligiblePromotion';
 import { OrderSplitResult } from '../models/OrderSplitResult';
 import { OrderPromotion } from '../models/OrderPromotion';
 import { RefreshPromosResponse } from '../models/RefreshPromosResponse';
+import { OrderRepeatResponse } from '../models/OrderRepeatResponse';
 import { Shipment } from '../models/Shipment';
 import { PartialDeep } from '../models/PartialDeep';
 import { RequiredDeep } from '../models/RequiredDeep';
@@ -50,6 +51,7 @@ class Orders {
         this.AddPromotion = this.AddPromotion.bind(this);
         this.RemovePromotion = this.RemovePromotion.bind(this);
         this.RefreshPromotions = this.RefreshPromotions.bind(this);
+        this.Repeat = this.Repeat.bind(this);
         this.Ship = this.Ship.bind(this);
         this.ListShipments = this.ListShipments.bind(this);
         this.SetShippingAddress = this.SetShippingAddress.bind(this);
@@ -578,6 +580,29 @@ class Orders {
         const impersonating = this.impersonating;
         this.impersonating = false;
         return await http.post(`/orders/${direction}/${orderID}/refreshpromotions`, { ...requestOptions, impersonating,  } )
+        .catch(ex => {
+            if(ex.response) {
+                throw new OrderCloudError(ex)
+            }
+            throw ex;
+        })
+    }
+
+   /**
+    * Repeat an order Creates a new unsubmitted order from a previously submitted order, copying available line items with recalculated prices.
+    * Check out the {@link https://ordercloud.io/api-reference/orders-and-fulfillment/orders/repeat|api docs} for more info 
+    * 
+    * @param direction Direction of the order, from the current user's perspective.
+    * @param orderID ID of the order.
+    * @param order 
+    * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
+    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
+    */
+    public async Repeat<TOrderRepeatResponse extends OrderRepeatResponse>(direction: OrderDirection, orderID: string, order: Order,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderRepeatResponse>>{
+        const impersonating = this.impersonating;
+        this.impersonating = false;
+        return await http.post(`/orders/${direction}/${orderID}/repeat`, { ...requestOptions, data: order, impersonating,  } )
         .catch(ex => {
             if(ex.response) {
                 throw new OrderCloudError(ex)

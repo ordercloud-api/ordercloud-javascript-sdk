@@ -1,6 +1,7 @@
 import { PriceBreak } from './PriceBreak';
 
 export interface PriceSchedule<TPriceScheduleXp = any> {
+    PriceBreaks?: PriceBreak[]
     OwnerID?: string
     ID?: string
     Name: string
@@ -10,7 +11,6 @@ export interface PriceSchedule<TPriceScheduleXp = any> {
     MaxQuantity?: number
     UseCumulativeQuantity?: boolean
     RestrictedQuantity?: boolean
-    PriceBreaks?: PriceBreak[]
     Currency?: string
     SaleStart?: string
     SaleEnd?: string
