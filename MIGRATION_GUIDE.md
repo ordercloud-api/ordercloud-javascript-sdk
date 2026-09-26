@@ -2,6 +2,21 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 13.x.x to version 14.x.x
+* `customRoles` is no longer a positional argument on `Auth.Login`, `Auth.ElevatedLogin`, `Auth.ClientCredentials`, or `Auth.Anonymous`. Pass it on the request options object, along with `cancelToken`, `requestType`, and (for `Anonymous`) `anonuserid`.
+
+    Before:
+    ```typescript
+    Auth.Login(username, password, clientID, scope, customRoles, requestOptions)
+    Auth.Anonymous(clientID, scope, customRoles, { anonuserid })
+    ```
+
+    After:
+    ```typescript
+    Auth.Login(username, password, clientID, scope, { ...requestOptions, customRoles })
+    Auth.Anonymous(clientID, scope, { anonuserid, customRoles })
+    ```
+
 ## version 11.x.x to version 12.x.x
 * The `URL` and `SharedKey` properties have been removed from the `MessageSender` model, and `DeliveryConfigID` is now required. Configuration must be provided via a `DeliveryConfig` (managed through the new `DeliveryConfigurations` service) using either a `MailchimpConfig` or `MessageSenderConfig` delivery target. See the [updated Message Senders KB article](https://ordercloud.io/knowledge-base/message-senders#configuration-options) for more details. 
 

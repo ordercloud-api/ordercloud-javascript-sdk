@@ -103,6 +103,13 @@ Auth.Login(username, password, clientID, scope)
       Tokens.SetAccessToken(token)
   })
   .catch(err => console.log(err));
+
+// Custom roles are optional and belong on the request options object.
+// ElevatedLogin, ClientCredentials, and Anonymous use the same shape.
+// Anonymous also accepts anonuserid on that object.
+Auth.Login(username, password, clientID, scope, {
+  customRoles: ['InventoryAdmin'],
+})
 ```
 
 ## 🔍 Filtering
