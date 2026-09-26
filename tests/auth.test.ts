@@ -16,182 +16,244 @@ const testdata = {
 }
 
 afterEach(() => {
-  // cleans up any tracked calls before the next test
   jest.clearAllMocks()
 })
 
 const urlencode = encodeURIComponent
-test('can auth with login, no custom roles', async () => {
-  await Auth.Login(
-    testdata.username,
-    testdata.password,
-    testdata.clientID,
-    testdata.scope as ApiRole[]
+
+type ScopeCase = {
+  name: string
+  scope?: ApiRole[]
+  customRoles?: string[]
+  expectedScope?: string
+}
+
+const scopeCases: ScopeCase[] = [
+  {
+    name: 'standard roles only',
+    scope: testdata.scope,
+    expectedScope: testdata.scope.join(' '),
+  },
+  {
+    name: 'custom roles only',
+    customRoles: testdata.customRoles,
+    expectedScope: testdata.customRoles.join(' '),
+  },
+  {
+    name: 'standard and custom roles',
+    scope: testdata.scope,
+    customRoles: testdata.customRoles,
+    expectedScope: `${testdata.scope.join(' ')} ${testdata.customRoles.join(
+      ' '
+    )}`,
+  },
+  {
+    name: 'neither standard nor custom roles',
+  },
+]
+
+function withScope(
+  parts: string[],
+  scope?: string,
+  at = parts.length
+): string[] {
+  const next = parts.slice()
+  if (scope) {
+    next.splice(at, 0, `scope=${urlencode(scope)}`)
+  }
+  return next
+}
+
+function loginBody(scope?: string): string {
+  return withScope(
+    [
+      'grant_type=password',
+      `username=${urlencode(testdata.username)}`,
+      `password=${urlencode(testdata.password)}`,
+      `client_id=${testdata.clientID}`,
+    ],
+    scope
+  ).join('&')
+}
+
+function elevatedLoginBody(scope?: string): string {
+  return withScope(
+    [
+      'grant_type=password',
+      `client_id=${testdata.clientID}`,
+      `username=${urlencode(testdata.username)}`,
+      `password=${urlencode(testdata.password)}`,
+      `client_secret=${urlencode(testdata.clientSecret)}`,
+    ],
+    scope,
+    1
+  ).join('&')
+}
+
+function clientCredentialsBody(scope?: string): string {
+  return withScope(
+    [
+      'grant_type=client_credentials',
+      `client_id=${testdata.clientID}`,
+      `client_secret=${testdata.clientSecret}`,
+    ],
+    scope,
+    1
+  ).join('&')
+}
+
+function anonymousBody(scope?: string, anonuserid?: string): string {
+  const parts = withScope(
+    ['grant_type=client_credentials', `client_id=${testdata.clientID}`],
+    scope
   )
+  if (anonuserid) {
+    parts.push(`anonuserid=${anonuserid}`)
+  }
+  return parts.join('&')
+}
+
+function expectTokenRequest(
+  body: string,
+  config: Record<string, unknown> = {}
+) {
   expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=password&username=${urlencode(
-    testdata.username
-  )}&password=${urlencode(testdata.password)}&client_id=${
-    testdata.clientID
-  }&scope=${urlencode(testdata.scope.join(' '))}`
   expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
     headers: testdata.authHeaders,
+    ...config,
+  })
+  const axiosConfig = (mockAxios.post as jest.Mock).mock.calls[0][2]
+  expect(axiosConfig).not.toHaveProperty('customRoles')
+  expect(axiosConfig).not.toHaveProperty('anonuserid')
+}
+
+describe('Login', () => {
+  test.each(scopeCases)(
+    '$name',
+    async ({ scope, customRoles, expectedScope }) => {
+      const requestOptions = {
+        customRoles,
+        requestType: 'login',
+      }
+      await Auth.Login(
+        testdata.username,
+        testdata.password,
+        testdata.clientID,
+        scope,
+        requestOptions
+      )
+      expectTokenRequest(loginBody(expectedScope), { requestType: 'login' })
+      expect(requestOptions.customRoles).toBe(customRoles)
+    }
+  )
+
+  test('rejects a non-array scope', async () => {
+    await expect(
+      Auth.Login(
+        testdata.username,
+        testdata.password,
+        testdata.clientID,
+        'BuyerAdmin' as any
+      )
+    ).rejects.toThrow('scope must be a string array')
+    expect(mockAxios.post).not.toHaveBeenCalled()
+  })
+
+  test('rejects non-array custom roles', async () => {
+    await expect(
+      Auth.Login(
+        testdata.username,
+        testdata.password,
+        testdata.clientID,
+        undefined,
+        {
+          customRoles: 'InventoryAdmin' as any,
+        }
+      )
+    ).rejects.toThrow('custom roles must be defined as a string array')
+    expect(mockAxios.post).not.toHaveBeenCalled()
   })
 })
 
-test('can auth with login without scope or custom roles', async () => {
-  await Auth.Login(testdata.username, testdata.password, testdata.clientID)
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=password&username=${urlencode(
-    testdata.username
-  )}&password=${urlencode(testdata.password)}&client_id=${testdata.clientID}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
+describe('ElevatedLogin', () => {
+  test.each(scopeCases)(
+    '$name',
+    async ({ scope, customRoles, expectedScope }) => {
+      await Auth.ElevatedLogin(
+        testdata.clientSecret,
+        testdata.username,
+        testdata.password,
+        testdata.clientID,
+        scope,
+        { customRoles, requestType: 'elevated' }
+      )
+      expectTokenRequest(elevatedLoginBody(expectedScope), {
+        requestType: 'elevated',
+      })
+    }
+  )
 })
 
-test('can auth with login with custom roles', async () => {
-  await Auth.Login(
-    testdata.username,
-    testdata.password,
-    testdata.clientID,
-    testdata.scope as ApiRole[],
-    testdata.customRoles
+describe('ClientCredentials', () => {
+  test.each(scopeCases)(
+    '$name',
+    async ({ scope, customRoles, expectedScope }) => {
+      await Auth.ClientCredentials(
+        testdata.clientSecret,
+        testdata.clientID,
+        scope,
+        { customRoles, requestType: 'client' }
+      )
+      expectTokenRequest(clientCredentialsBody(expectedScope), {
+        requestType: 'client',
+      })
+    }
   )
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=password&username=${urlencode(
-    testdata.username
-  )}&password=${urlencode(testdata.password)}&client_id=${
-    testdata.clientID
-  }&scope=${urlencode(
-    `${testdata.scope.join(' ')} ${testdata.customRoles?.join?.(' ')}`
-  )}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
 })
 
-test('can auth with elevated login, no custom roles', async () => {
-  await Auth.ElevatedLogin(
-    testdata.clientSecret,
-    testdata.username,
-    testdata.password,
-    testdata.clientID,
-    testdata.scope
+describe('Anonymous', () => {
+  test.each(scopeCases)(
+    '$name',
+    async ({ scope, customRoles, expectedScope }) => {
+      await Auth.Anonymous(testdata.clientID, scope, {
+        customRoles,
+        requestType: 'anonymous',
+      })
+      expectTokenRequest(anonymousBody(expectedScope), {
+        requestType: 'anonymous',
+      })
+    }
   )
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=password&scope=${urlencode(
-    testdata.scope.join(' ')
-  )}&client_id=${testdata.clientID}&username=${urlencode(
-    testdata.username
-  )}&password=${urlencode(testdata.password)}&client_secret=${urlencode(
-    testdata.clientSecret
-  )}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
-})
 
-test('can auth with elevated login with custom roles', async () => {
-  await Auth.ElevatedLogin(
-    testdata.clientSecret,
-    testdata.username,
-    testdata.password,
-    testdata.clientID,
-    testdata.scope,
-    testdata.customRoles
-  )
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=password&scope=${urlencode(
-    `${testdata.scope.join(' ')} ${testdata.customRoles?.join?.(' ')}`
-  )}&client_id=${testdata.clientID}&username=${urlencode(
-    testdata.username
-  )}&password=${urlencode(testdata.password)}&client_secret=${urlencode(
-    testdata.clientSecret
-  )}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
-})
-
-test('can auth with client credentials, no custom roles', async () => {
-  await Auth.ClientCredentials(
-    testdata.clientSecret,
-    testdata.clientID,
-    testdata.scope as ApiRole[]
-  )
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=client_credentials&scope=${urlencode(
-    testdata.scope.join(' ')
-  )}&client_id=${testdata.clientID}&client_secret=${testdata.clientSecret}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
-})
-
-test('can auth with client credentials with custom roles', async () => {
-  await Auth.ClientCredentials(
-    testdata.clientSecret,
-    testdata.clientID,
-    testdata.scope as ApiRole[],
-    testdata.customRoles
-  )
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=client_credentials&scope=${urlencode(
-    `${testdata.scope.join(' ')} ${testdata.customRoles?.join?.(' ')}`
-  )}&client_id=${testdata.clientID}&client_secret=${testdata.clientSecret}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
+  test('puts anonuserid on the token body', async () => {
+    const requestOptions = {
+      anonuserid: 'myanonuserid',
+      customRoles: testdata.customRoles,
+      requestType: 'anonymous',
+    }
+    await Auth.Anonymous(testdata.clientID, testdata.scope, requestOptions)
+    expectTokenRequest(
+      anonymousBody(
+        `${testdata.scope.join(' ')} ${testdata.customRoles.join(' ')}`,
+        'myanonuserid'
+      ),
+      { requestType: 'anonymous' }
+    )
+    expect(requestOptions).toEqual({
+      anonuserid: 'myanonuserid',
+      customRoles: testdata.customRoles,
+      requestType: 'anonymous',
+    })
   })
 })
 
 test('can auth with refresh token', async () => {
   const refreshToken = 'mock-refresh-token'
-  await Auth.RefreshToken(refreshToken, testdata.clientID)
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  const body = `grant_type=refresh_token&client_id=${testdata.clientID}&refresh_token=${refreshToken}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
+  await Auth.RefreshToken(refreshToken, testdata.clientID, {
+    requestType: 'refresh',
   })
-})
-
-test('can auth anonymous, no custom roles', async () => {
-  await Auth.Anonymous(testdata.clientID, testdata.scope)
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-
-  const body = `grant_type=client_credentials&client_id=${
-    testdata.clientID
-  }&scope=${urlencode(testdata.scope.join(' '))}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
-})
-
-test('handles auth anonymous with anonuserid', async () => {
-  await Auth.Anonymous(testdata.clientID, testdata.scope, undefined, {
-    anonuserid: 'myanonuserid',
-  })
-
-  const body = `grant_type=client_credentials&client_id=${
-    testdata.clientID
-  }&scope=${urlencode(testdata.scope.join(' '))}&anonuserid=myanonuserid`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
-})
-
-test('can auth anonymous with custom roles', async () => {
-  await Auth.Anonymous(testdata.clientID, testdata.scope, testdata.customRoles)
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-
-  const body = `grant_type=client_credentials&client_id=${
-    testdata.clientID
-  }&scope=${urlencode(
-    `${testdata.scope.join(' ')} ${testdata.customRoles?.join?.(' ')}`
-  )}`
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-  })
+  expectTokenRequest(
+    `grant_type=refresh_token&client_id=${testdata.clientID}&refresh_token=${refreshToken}`,
+    { requestType: 'refresh' }
+  )
 })
