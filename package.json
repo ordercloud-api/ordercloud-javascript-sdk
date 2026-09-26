@@ -41,7 +41,7 @@
     "prebuild:sdk": "npm run clean:dist && npm run generate-sdk && npm run beautify",
     "build:sdk": "rollup --config",
     "postbuild:sdk": "shx cp dist/index.d.ts dist/index.esm.d.ts",
-    "build:docs": "typedoc",
+    "build:docs": "typedoc && node scripts/check-docs-source-links.js",
     "test": "npm run test:browser && npm run test:server",
     "test:browser": "jest --config tests/config/browser.config.js",
     "test:server": "jest --config tests/config/server.config.js",
