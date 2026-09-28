@@ -1,10 +1,10 @@
 import { BuyerPriceSchedule } from './BuyerPriceSchedule';
 import { Inventory } from './Inventory';
 
-export interface ProductCollectionBuyerProduct<TProductCollectionBuyerProductXp = any, TPriceScheduleXp = any> {
+export interface ProductCollectionBuyerProduct<TProductCollectionBuyerProductXp = any, TPriceSchedule extends BuyerPriceSchedule = BuyerPriceSchedule> {
     ListOrder?: number
     DateAdded?: string
-    readonly PriceSchedule?: BuyerPriceSchedule<TPriceScheduleXp>
+    readonly PriceSchedule?: TPriceSchedule
     ID?: string
     ParentID?: string
     IsParent?: boolean

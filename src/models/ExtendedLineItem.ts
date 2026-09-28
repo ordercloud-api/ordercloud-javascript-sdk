@@ -4,9 +4,9 @@ import { LineItemVariant } from './LineItemVariant';
 import { Address } from './Address';
 import { LineItemSpec } from './LineItemSpec';
 
-export interface ExtendedLineItem<TExtendedLineItemXp = any, TFromUserXp = any, TBillingAddressXp = any, TOrderXp = any, TProductXp = any, TVariantXp = any, TShippingAddressXp = any, TShipFromAddressXp = any> {
+export interface ExtendedLineItem<TExtendedLineItemXp = any, TOrder extends Order = Order, TProduct extends LineItemProduct = LineItemProduct, TVariant extends LineItemVariant = LineItemVariant, TShippingAddress extends Address = Address, TShipFromAddress extends Address = Address> {
     OrderID?: string
-    Order?: Order<TOrderXp,TFromUserXp,TBillingAddressXp>
+    Order?: TOrder
     ID?: string
     ProductID?: string
     Quantity?: number
@@ -25,10 +25,10 @@ export interface ExtendedLineItem<TExtendedLineItemXp = any, TFromUserXp = any, 
     ShippingAccount?: string
     ShippingAddressID?: string
     ShipFromAddressID?: string
-    readonly Product?: LineItemProduct<TProductXp>
-    readonly Variant?: LineItemVariant<TVariantXp>
-    readonly ShippingAddress?: Address<TShippingAddressXp>
-    readonly ShipFromAddress?: Address<TShipFromAddressXp>
+    readonly Product?: TProduct
+    readonly Variant?: TVariant
+    readonly ShippingAddress?: TShippingAddress
+    readonly ShipFromAddress?: TShipFromAddress
     readonly SupplierID?: string
     InventoryRecordID?: string
     readonly PriceScheduleID?: string

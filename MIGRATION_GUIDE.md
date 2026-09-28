@@ -2,6 +2,26 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## version 13.x.x to version 14.x.x
+* Nested models are no longer described by hoisting each nested `xp` onto the parent. A model's own `xp` stays the first parameter. Each nested model that previously contributed `xp` parameters is now one parameter constrained to that model.
+
+    Before:
+    ```typescript
+    interface MyOrder extends Order<MyOrderXp, MyFromUserXp, MyBillingAddressXp> {}
+    type Worksheet = OrderWorksheet<MyFromUserXp, MyBillingAddressXp, MyOrderXp, MyProductXp>
+    ```
+
+    After:
+    ```typescript
+    interface MyOrderUser extends OrderUser<MyFromUserXp> {}
+    interface MyAddress extends Address<MyBillingAddressXp> {}
+    interface MyOrder extends Order<MyOrderXp, MyOrderUser, MyAddress> {}
+    interface MyLineItem extends LineItem<MyLineItemXp, MyProduct, MyVariant, MyAddress, MyAddress> {}
+    type Worksheet = OrderWorksheet<MyOrder, MyLineItem>
+    ```
+
+    `Order<MyOrderXp>` still types only the order `xp`. `Category<MyCategoryXp>` is unchanged. `ListPageWithFacets<Product>` is unchanged. Its second parameter is now a `ListFacet`, so facet `xp` is declared as `ListPageWithFacets<Product, ListFacet<MyFacetXp>>`.
+
 ## version 11.x.x to version 12.x.x
 * The `URL` and `SharedKey` properties have been removed from the `MessageSender` model, and `DeliveryConfigID` is now required. Configuration must be provided via a `DeliveryConfig` (managed through the new `DeliveryConfigurations` service) using either a `MailchimpConfig` or `MessageSenderConfig` delivery target. See the [updated Message Senders KB article](https://ordercloud.io/knowledge-base/message-senders#configuration-options) for more details. 
 
