@@ -1,10 +1,10 @@
 import { Address } from './Address';
 
-export interface InventoryRecord<TInventoryRecordXp = any, TAddressXp = any> {
+export interface InventoryRecord<TInventoryRecordXp = any, TAddress extends Address = Address> {
     ID?: string
     OwnerID?: string
     AllowAllBuyers?: boolean
-    readonly Address?: Address<TAddressXp>
+    readonly Address?: TAddress
     AddressID: string
     OrderCanExceed?: boolean
     QuantityAvailable?: number

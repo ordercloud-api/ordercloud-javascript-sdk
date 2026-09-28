@@ -1,7 +1,7 @@
 import { Order } from './Order';
 import { UnavailableLineItem } from './UnavailableLineItem';
 
-export interface OrderRepeatResponse<TFromUserXp = any, TBillingAddressXp = any, TOrderXp = any> {
-    Order?: Order<TOrderXp,TFromUserXp,TBillingAddressXp>
+export interface OrderRepeatResponse<TOrder extends Order = Order> {
+    Order?: TOrder
     UnavailableItems?: UnavailableLineItem[]
 }
