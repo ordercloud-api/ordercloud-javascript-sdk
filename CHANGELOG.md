@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 # [14.0.0] - 2026-09-28
 - Breaking: `customRoles` is a property of the auth options object on `Auth.Login`, `Auth.ElevatedLogin`, `Auth.ClientCredentials`, and `Auth.Anonymous`, instead of its own argument. Custom roles with no standard roles are sent as the scope string. That case previously sent the literal text `undefined`.
+- Breaking: a nested model is one type parameter constrained to that model, instead of one parameter per nested `xp`. `Order<MyOrderXp>` is unchanged. `Order<MyOrderXp, MyFromUserXp>` and `OrderWorksheet<SomeXp>` are not. See the migration guide.
 
 # [13.0.0] - 2026-09-25
 - Bring SDK up to date with API v1.0.470. Breaking: `ApiClient.ClientSecret` and `SecurityProfile.IsExternalRoleGroup` are removed. Buyer product `PriceSchedule` is now `BuyerPriceSchedule`.

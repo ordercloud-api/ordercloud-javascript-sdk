@@ -435,7 +435,26 @@ Categories.List<MyCategory>('mock-catalog-id')
   })
 ```
 
-This is nicer and especially preferable for models like `Order` which have many nested models each with their own `xp` fields that must be defined at the top level. For example: `Order<OrderXp, FromUserXp, BillingAddressXp>`. Declaring those 3 xp types once on a custom `MyOrder` interface is far cleaner than declaring them on every call to `Orders.Get` or `Orders.List`.
+A model's own `xp` is still the first type parameter, so `Category<MyCategoryXp>` and `Order<MyOrderXp>` keep working. Nested models are passed as the extended type, not as a separate `xp` parameter for each nested field:
+
+```typescript
+interface MyOrderXp {
+  ErpId?: string;
+}
+
+interface MyOrderUser extends OrderUser<{ Department?: string }> {}
+interface MyAddress extends Address<{ Dock?: string }> {}
+interface MyOrder extends Order<MyOrderXp, MyOrderUser, MyAddress> {}
+
+interface MyLineItemXp {
+  GiftWrap?: boolean;
+}
+interface MyLineItem extends LineItem<MyLineItemXp, LineItemProduct, LineItemVariant, MyAddress, MyAddress> {}
+
+type Worksheet = OrderWorksheet<MyOrder, MyLineItem>
+```
+
+`Order<MyOrderXp, MyFromUserXp>` does not compile: the second parameter is the user model, not that user's `xp`. `OrderWorksheet<SomeXp>` does not compile: the first parameter is `TOrder extends Order`.
 
 ### Typescript utilities
 
