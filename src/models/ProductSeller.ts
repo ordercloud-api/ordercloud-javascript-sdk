@@ -1,7 +1,7 @@
 import { BuyerPriceSchedule } from './BuyerPriceSchedule';
 
-export interface ProductSeller<TPriceScheduleXp = any> {
-    PriceSchedule?: BuyerPriceSchedule<TPriceScheduleXp>
+export interface ProductSeller<TPriceSchedule extends BuyerPriceSchedule = BuyerPriceSchedule> {
+    PriceSchedule?: TPriceSchedule
     ID?: string
     Name?: string
 }

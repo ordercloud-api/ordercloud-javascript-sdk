@@ -1,6 +1,6 @@
 import { Address } from './Address';
 
-export interface Shipment<TShipmentXp = any, TFromAddressXp = any, TToAddressXp = any> {
+export interface Shipment<TShipmentXp = any, TFromAddress extends Address = Address, TToAddress extends Address = Address> {
     ID?: string
     BuyerID?: string
     Shipper?: string
@@ -13,6 +13,6 @@ export interface Shipment<TShipmentXp = any, TFromAddressXp = any, TToAddressXp 
     Account?: string
     FromAddressID?: string
     ToAddressID?: string
-    readonly FromAddress?: Address<TFromAddressXp>
-    readonly ToAddress?: Address<TToAddressXp>
+    readonly FromAddress?: TFromAddress
+    readonly ToAddress?: TToAddress
 }

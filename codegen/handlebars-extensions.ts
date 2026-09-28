@@ -20,8 +20,14 @@ function handlebarsExt(Handlebars) {
 
   Handlebars.registerHelper(
     'commaSeparateWithDefaultAny',
-    (types: string[]) => {
-      return types.map(t => `${t} = any`).join(', ')
+    (types: { name: string; constraint?: string }[]) => {
+      return types
+        .map(t =>
+          t.constraint
+            ? `${t.name} extends ${t.constraint} = ${t.constraint}`
+            : `${t.name} = any`
+        )
+        .join(', ')
     }
   )
 }
