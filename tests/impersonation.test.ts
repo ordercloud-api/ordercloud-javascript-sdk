@@ -1,6 +1,6 @@
-import mockAxios from 'axios'
 import { Tokens, Products } from '../src'
 import { makeToken } from './utils'
+import { expectJsonCall, installFetchMock } from './fetchMock'
 
 const apiUrl = 'https://api.ordercloud.io/v1'
 const testdata = {
@@ -8,7 +8,7 @@ const testdata = {
 }
 
 beforeEach(() => {
-  jest.clearAllMocks() // cleans up any tracked calls before the next test
+  installFetchMock()
   Tokens.RemoveImpersonationToken()
 })
 
@@ -17,35 +17,17 @@ test('should use impersonation token if call As method', async () => {
   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOiJ0ZXN0YnV5ZXIiLCJjaWQiOiI5N2JiZjJjYy01OWQxLTQ0OWEtYjY3Yy1hZTkyNjJhZGQyODQiLCJ1IjoiMTkyMDU2MyIsInVzcnR5cGUiOiJidXllciIsInJvbGUiOlsiTWVBZGRyZXNzQWRtaW4iLCJNZUFkbWluIiwiTWVDcmVkaXRDYXJkQWRtaW4iLCJNZVhwQWRtaW4iLCJTaG9wcGVyIiwiQnV5ZXJSZWFkZXIiXSwiaXNzIjoiaHR0cHM6Ly9hdXRoLm9yZGVyY2xvdWQuaW8iLCJhdWQiOiJodHRwczovL2FwaS5vcmRlcmNsb3VkLmlvIiwiZXhwIjoxNTY1NDE2Njg1LCJuYmYiOjE1NjUzODA2ODV9.Fa35Zwz3dsolWgb2X2T4119RxZAGQiE2NoeRNeLaUek'
   Tokens.SetImpersonationToken(impersonationToken)
   await Products.As().Delete(testdata.productID)
-  expect(mockAxios.delete).toHaveBeenCalledTimes(1)
-  expect(mockAxios.delete).toHaveBeenCalledWith(
+  expectJsonCall(
+    'DELETE',
     `${apiUrl}/products/${testdata.productID}`,
-    {
-      paramsSerializer: expect.any(Object),
-      timeout: 60000,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${impersonationToken}`,
-      },
-    }
+    impersonationToken
   )
 })
 
 test('should use passed in token if defined', async () => {
   const token = makeToken()
   await Products.Delete(testdata.productID, { accessToken: token })
-  expect(mockAxios.delete).toHaveBeenCalledTimes(1)
-  expect(mockAxios.delete).toHaveBeenCalledWith(
-    `${apiUrl}/products/${testdata.productID}`,
-    {
-      paramsSerializer: expect.any(Object),
-      timeout: 60000,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    }
-  )
+  expectJsonCall('DELETE', `${apiUrl}/products/${testdata.productID}`, token)
 })
 
 test('should prioritize passed in token', async () => {
@@ -53,16 +35,5 @@ test('should prioritize passed in token', async () => {
   Tokens.SetImpersonationToken(impersonationToken)
   const token = makeToken()
   await Products.As().Delete(testdata.productID, { accessToken: token })
-  expect(mockAxios.delete).toHaveBeenCalledTimes(1)
-  expect(mockAxios.delete).toHaveBeenCalledWith(
-    `${apiUrl}/products/${testdata.productID}`,
-    {
-      paramsSerializer: expect.any(Object),
-      timeout: 60000,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    }
-  )
+  expectJsonCall('DELETE', `${apiUrl}/products/${testdata.productID}`, token)
 })

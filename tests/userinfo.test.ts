@@ -1,10 +1,9 @@
-import mockAxios from 'axios'
 import { UserInfo, Tokens } from '../src/index'
 import { makeToken } from './utils'
+import { expectJsonCall, installFetchMock } from './fetchMock'
 
-afterEach(() => {
-  // cleans up any tracked calls before the next test
-  jest.clearAllMocks()
+beforeEach(() => {
+  installFetchMock()
 })
 
 test('handles auth userinfo', async () => {
@@ -12,15 +11,5 @@ test('handles auth userinfo', async () => {
   Tokens.SetAccessToken(validToken)
   await UserInfo.GetToken()
 
-  expect(mockAxios.get).toHaveBeenCalledWith(
-    'https://api.ordercloud.io/oauth/userinfo',
-    {
-      paramsSerializer: expect.any(Object),
-      timeout: 60000,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${validToken}`,
-      },
-    }
-  )
+  expectJsonCall('GET', 'https://api.ordercloud.io/oauth/userinfo', validToken)
 })

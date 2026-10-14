@@ -43,7 +43,7 @@ function safeParseErrors(ex): ApiError[] {
       return value.Errors
     }
     if (typeof value === 'string') {
-      // axios sometimes returns a string, so we must deserialize it ourselves
+      // the body is sometimes a string, so we must deserialize it ourselves
       if (value && value.charCodeAt(0) === 65279) {
         // there seems to be a BOM character at the beginning
         // of this string that causes json parsing to fail

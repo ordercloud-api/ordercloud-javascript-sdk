@@ -38,11 +38,7 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 
 ## Requirements
 
-[Axios](https://www.npmjs.com/package/axios) is a peer dependency of the OrderCloudSDK.
-
-> Note: Peer dependencies are not installed automatically. They must be installed separately.
-
-Why isn't axios a dependency of OrderCloud SDK? Since axios is a fairly popular http library and may already exist as a dependency in your project it is considered best practice to have it defined as a peer dependency. This way, there isn't a potential for two versions of axios to be installed which could result in weird bugs, not to mention a bloated javascript bundle.
+The SDK sends HTTP with the platform [`fetch`](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) implementation. It runs in browsers and Node versions that provide global `fetch`. No HTTP library is installed with the SDK.
 
 ## ⚙️ Installation
 
@@ -234,10 +230,12 @@ Products.Get('my-product')
       // https://ordercloud-api.github.io/ordercloud-javascript-sdk/classes/orderclouderror
       console.log(error.message);
       console.log(JSON.stringify(error.errors, null, 4));
-    } else if (error.request) {
-      // the request was made but no response received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of http.ClientRequest in node.js
-      console.log(error.request);
+    } else if (error.isCancellation) {
+      // the caller aborted the request
+      console.log(error.message);
+    } else if (error.isTimeout) {
+      // the request exceeded timeoutInMilliseconds
+      console.log(error.message);
     } else {
       // Something happened in setting up the request that triggered an Error
       console.log('Error', error.message);
@@ -245,62 +243,49 @@ Products.Get('my-product')
   })
 ```
 
-## Interceptors
+## Request and response hooks
 
-You can use [axios interceptors](https://github.com/axios/axios#interceptors) to intercept a request before it goes out to the API or to intercept a response before it gets handled by the SDK. This enables you to log, rewrite, or even retry calls.
-
-The SDK does not use a custom axios instance, so you can set up your interceptors right off of axios.
+`Configuration.Set` accepts `onRequest` and `onResponse`. Use them to log, rewrite, or retry a call. `onRequest` returns the request that will be sent. `onResponse` runs before the SDK returns data or throws `OrderCloudError`.
 
 ```javascript
-// Add a request interceptor
-axios.interceptors.request.use(function (config) {
-    // Do something before request is sent
-    return config;
-  }, function (error) {
-    // Do something with request error
-    return Promise.reject(error);
-  });
+import { Configuration } from 'ordercloud-javascript-sdk';
 
-// Add a response interceptor
-axios.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    return response;
-  }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    return Promise.reject(error);
-  });
+Configuration.Set({
+  onRequest(request) {
+    console.log(request.method, request.url)
+    return request
+  },
+  onResponse(response) {
+    console.log(response.status)
+    return response
+  },
+})
 ```
 
 ## Cancelling Requests
 
-In addition to `requestOptions.accessToken` the sdk provides `requestOptions.cancelToken` which enables [axios request cancellation](https://github.com/axios/axios#cancellation). This option is useful for cleaning up outstanding requests when changes in your user experience no longer require the data requested. For instance, you could use the cancel token to clean up outstanding requests [when your react component unmounts](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup).
+`requestOptions.signal` accepts an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal). Use it to drop a request when the result is no longer needed, for instance [when a react component unmounts](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup).
 
 ```javascript
-import axios from 'axios';
-import { Products } from 'ordercloud-javascript-sdk';
+import { Products, isCancellation } from 'ordercloud-javascript-sdk';
 
-const signal = axios.CancelToken.source();
+const controller = new AbortController();
 
-Products.List({search: 'Tennis balls'}, {cancelToken: signal.token})
+Products.List({search: 'Tennis balls'}, {signal: controller.signal})
   .catch(ex => {
-    if (axios.isCancel(ex)) {
+    if (isCancellation(ex)) {
       console.log(ex) // 'This request was cancelled!'
     } else {
       console.log(ex) // Normal ordercloud exception
     }
   })
 
-// Oops! I don't want to resolve this request anymore
-signal.cancel('This request was cancelled!')
+controller.abort()
 ```
 
-## Axios Adapters
+## Custom fetch
 
-Adapters in Axios allow for custom handling of requests, which opens up possibilities for advanced functionalities such as caching, request mocking, and the option to switch HTTP APIs (for instance, from XHR to Fetch). You can use community created adapters, or create one yourself (just make sure it adheres to the [axios adapter interface](https://github.com/axios/axios/blob/v1.x/lib/adapters/README.md))
-
-Like all other sdk level options, Axios adapters can be defined with the Configuration service
+Pass a `fetch` function to the Configuration service to mock, cache, or reroute HTTP. The default is the platform global `fetch`.
 
 ```typescript
 import { Configuration } from 'ordercloud-javascript-sdk';
@@ -308,7 +293,7 @@ import { Configuration } from 'ordercloud-javascript-sdk';
 Configuration.Set({
   baseApiUrl: 'https://sandboxapi.ordercloud.io',
   timeoutInMilliseconds: 20 * 1000,
-  axiosAdapter: myAdapter
+  fetch: myFetch
 })
 ```
 

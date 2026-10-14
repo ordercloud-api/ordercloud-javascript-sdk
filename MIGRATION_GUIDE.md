@@ -2,6 +2,37 @@
 
 The objective of this guide is to document the breaking changes and updates required to migrate from one major version to the next.
 
+## Unreleased
+
+* Axios is no longer a peer dependency. The SDK sends requests with the platform `fetch`. Remove `axios` from your app if you installed it only for the SDK.
+
+* `requestOptions.cancelToken` is now `requestOptions.signal`, an `AbortSignal`. A cancelled call rejects with `CancellationError`. `isCancellation(error)` identifies it. It is not an `OrderCloudError`.
+
+    Before:
+    ```typescript
+    import axios from 'axios'
+    const source = axios.CancelToken.source()
+    Products.List({}, { cancelToken: source.token })
+    source.cancel()
+    ```
+
+    After:
+    ```typescript
+    import { isCancellation } from 'ordercloud-javascript-sdk'
+    const controller = new AbortController()
+    Products.List({}, { signal: controller.signal }).catch(error => {
+      if (isCancellation(error)) {
+        return
+      }
+      throw error
+    })
+    controller.abort()
+    ```
+
+* `SdkConfiguration.axiosAdapter` is removed. Pass `fetch` to use your own HTTP implementation. Global axios interceptors no longer see SDK calls. Use `onRequest` and `onResponse` on `Configuration.Set`.
+
+* `OrderCloudError` still exposes `status`, `statusText`, `errorCode`, `errors`, `response`, and `isOrderCloudError`. `error.request` is no longer an axios `XMLHttpRequest` or Node `ClientRequest`. It is `{ url, method }`.
+
 ## version 11.x.x to version 12.x.x
 * The `URL` and `SharedKey` properties have been removed from the `MessageSender` model, and `DeliveryConfigID` is now required. Configuration must be provided via a `DeliveryConfig` (managed through the new `DeliveryConfigurations` service) using either a `MailchimpConfig` or `MessageSenderConfig` delivery target. See the [updated Message Senders KB article](https://ordercloud.io/knowledge-base/message-senders#configuration-options) for more details. 
 

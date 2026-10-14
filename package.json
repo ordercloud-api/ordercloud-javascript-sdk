@@ -58,7 +58,6 @@
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "add": "^2.0.9",
-    "axios": "^1.20.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-jest": "^23.20.0",
@@ -77,8 +76,5 @@
     "typedoc-plugin-missing-exports": "^4.1.4",
     "typescript": "^5.9.3",
     "yarn": "^1.22.22"
-  },
-  "peerDependencies": {
-    "axios": "^1.1.3"
   }
 }

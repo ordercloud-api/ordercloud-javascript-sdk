@@ -48,7 +48,7 @@ class ApiClients {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List<TApiClient extends ApiClient>(listOptions: { search?: string, searchOn?: Searchable<'ApiClients.List'>, sortBy?: Sortable<'ApiClients.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClient>>>{
@@ -69,7 +69,7 @@ class ApiClients {
     * 
     * @param apiClient Required fields: AccessTokenDuration, AppName
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create<TApiClient extends ApiClient>(apiClient: ApiClient,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
@@ -90,7 +90,7 @@ class ApiClients {
     * 
     * @param apiClientID ID of the api client.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TApiClient extends ApiClient>(apiClientID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
@@ -112,7 +112,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param apiClient Required fields: AccessTokenDuration, AppName
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save<TApiClient extends ApiClient>(apiClientID: string, apiClient: ApiClient,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
@@ -133,7 +133,7 @@ class ApiClients {
     * 
     * @param apiClientID ID of the api client.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(apiClientID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -155,7 +155,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param apiClient 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TApiClient extends ApiClient>(apiClientID: string, apiClient: PartialDeep<ApiClient>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClient>>{
@@ -182,7 +182,7 @@ class ApiClients {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListSecrets<TApiClientSecret extends ApiClientSecret>(apiClientID: string, listOptions: { search?: string, searchOn?: Searchable<'ApiClients.ListSecrets'>, sortBy?: Sortable<'ApiClients.ListSecrets'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientSecret>>>{
@@ -204,7 +204,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param apiClientSecret Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async CreateSecret<TApiClientSecretCreateResponse extends ApiClientSecretCreateResponse>(apiClientID: string, apiClientSecret: ApiClientSecret,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClientSecretCreateResponse>>{
@@ -226,7 +226,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param apiClientSecretID ID of the api client secret.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetSecret<TApiClientSecret extends ApiClientSecret>(apiClientID: string, apiClientSecretID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClientSecret>>{
@@ -248,7 +248,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param apiClientSecretID ID of the api client secret.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteSecret(apiClientID: string, apiClientSecretID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -271,7 +271,7 @@ class ApiClients {
     * @param apiClientSecretID ID of the api client secret.
     * @param apiClientSecret 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchSecret<TApiClientSecret extends ApiClientSecret>(apiClientID: string, apiClientSecretID: string, apiClientSecret: PartialDeep<ApiClientSecret>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TApiClientSecret>>{
@@ -296,7 +296,7 @@ class ApiClients {
     * @param listOptions.page Page of results to return. When paginating through many items (> page 30), we recommend the "Last ID" method, as outlined in the Advanced Querying documentation.
     * @param listOptions.pageSize Number of results to return per page.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListAssignments<TApiClientAssignment extends ApiClientAssignment>(listOptions: { apiClientID?: string, buyerID?: string, supplierID?: string, page?: number, pageSize?: number } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TApiClientAssignment>>>{
@@ -317,7 +317,7 @@ class ApiClients {
     * 
     * @param apiClientAssignment Required fields: ApiClientID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAssignment(apiClientAssignment: ApiClientAssignment,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -339,7 +339,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param buyerID ID of the buyer.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteBuyerAssignment(apiClientID: string, buyerID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -361,7 +361,7 @@ class ApiClients {
     * @param apiClientID ID of the api client.
     * @param supplierID ID of the supplier.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteSupplierAssignment(apiClientID: string, supplierID: string, requestOptions: RequestOptions = {} ): Promise<void>{
