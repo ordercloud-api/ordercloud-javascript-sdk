@@ -1,4 +1,22 @@
-import { AxiosAdapter } from 'axios'
+export interface SdkHttpRequest {
+  url: string
+  method: string
+  headers: Record<string, string>
+  body?: string
+  signal?: AbortSignal
+  /**
+   * Caller-supplied label from `requestOptions.requestType`. Not sent on the wire.
+   */
+  requestType?: string
+}
+
+export interface SdkHttpResponse {
+  data: any
+  status: number
+  statusText: string
+  headers: Headers
+  request: { url: string; method: string }
+}
 
 export interface SdkConfiguration {
   /**
@@ -28,14 +46,29 @@ export interface SdkConfiguration {
   /**
    * specifies the number of milliseconds before the request times out.
    * If the request takes longer than `timeoutInMilliseconds`, the request will be aborted.
-   * Default timeout is 10,000 milliseconds or 10 seconds
+   * Default timeout is 60,000 milliseconds or 60 seconds
    */
   timeoutInMilliseconds?: number
 
   /**
-   * provide a custom axios adapter to handle dispatching request/responses
+   * Optional fetch implementation. Defaults to the platform global `fetch`.
+   * Use this to mock, cache, or reroute HTTP.
    */
-  axiosAdapter?: AxiosAdapter
+  fetch?: (input: string, init?: RequestInit) => Promise<Response>
+
+  /**
+   * Runs before a request is sent. Return the request that should be sent.
+   */
+  onRequest?: (
+    request: SdkHttpRequest
+  ) => SdkHttpRequest | Promise<SdkHttpRequest>
+
+  /**
+   * Runs after a response is received and before the SDK returns data or throws.
+   */
+  onResponse?: (
+    response: SdkHttpResponse
+  ) => SdkHttpResponse | Promise<SdkHttpResponse>
 
   cookieOptions?: CookieOptions
 }

@@ -1,6 +1,6 @@
 import { SpecOption } from './SpecOption';
 
-export interface Spec<TSpecXp = any, TOptionsXp = any> {
+export interface Spec<TSpecXp = any, TSpecOption extends SpecOption = SpecOption> {
     OwnerID?: string
     ID?: string
     ListOrder?: number
@@ -12,5 +12,5 @@ export interface Spec<TSpecXp = any, TOptionsXp = any> {
     DefinesVariant?: boolean
     xp?: TSpecXp
     readonly OptionCount?: number
-    readonly Options?: SpecOption<TOptionsXp>[]
+    readonly Options?: TSpecOption[]
 }

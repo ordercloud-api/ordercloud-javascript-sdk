@@ -2,14 +2,14 @@ import { OrderUser } from './OrderUser';
 import { Address } from './Address';
 import { OrderStatus } from './OrderStatus';
 
-export interface Order<TOrderXp = any, TFromUserXp = any, TBillingAddressXp = any> {
+export interface Order<TOrderXp = any, TFromUser extends OrderUser = OrderUser, TBillingAddress extends Address = Address> {
     ID?: string
-    readonly FromUser?: OrderUser<TFromUserXp>
+    readonly FromUser?: TFromUser
     FromCompanyID?: string
     ToCompanyID?: string
     FromUserID?: string
     BillingAddressID?: string
-    readonly BillingAddress?: Address<TBillingAddressXp>
+    readonly BillingAddress?: TBillingAddress
     ShippingAddressID?: string
     Comments?: string
     readonly LineItemCount?: number

@@ -16,12 +16,12 @@ const filterResources: FilterResourcesHook = function(resource) {
 
 const postFormatModel: PostFormatModelHook = function(model, models) {
   // add model.typeParams and prop.typeParams
-  inspectModelForTypeParams(models, model, model)
+  inspectModelForTypeParams(models, model)
 
   // add model.hasTypeParams and prop.hasTypeParams
   model['hasTypeParams'] = Boolean(model['typeParams'].length)
   model.properties.forEach(prop => {
-    prop['hasTypeParams'] = Boolean(prop['typeParams'].length)
+    prop['hasTypeParams'] = Boolean(prop['modelTypeParam'])
   })
 
   // add prop.typescriptType to props on model
@@ -198,91 +198,95 @@ function findTypeForModelProps(prop: Param, model: Model) {
     return enumString
   }
 
-  const typeParams = prop['hasTypeParams']
-    ? `<${prop['typeParams'].join(',')}>`
-    : ''
+  if (prop['modelTypeParam']) {
+    return prop.isArray ? `${prop['modelTypeParam']}[]` : prop['modelTypeParam']
+  }
+
   const jsType = javascriptTypes[prop.type] || prop.type
 
   if (prop.isArray) {
-    return prop.isCustomType ? `${prop.type + typeParams}[]` : `${jsType}[]`
+    return prop.isCustomType ? `${prop.type}[]` : `${jsType}[]`
   }
 
   if (!prop.hasRequiredFields && prop.isCustomType) {
-    return prop.type + typeParams
+    return prop.type
   }
 
   return jsType
 }
 
-function inspectModelForTypeParams(
-  allModels: Model[],
-  rootModel: Model,
-  inspectModel: Model,
-  rootProp?: Param,
-  parentProp?: Param
-) {
-  if (!inspectModel['typeParams']) {
-    inspectModel['typeParams'] = []
+/**
+ * Own xp stays the first parameter and defaults to any.
+ * Each direct custom-type property that today contributes nested xp
+ * becomes one parameter constrained to that model. Nested xp names
+ * are not hoisted onto the parent.
+ */
+function inspectModelForTypeParams(allModels: Model[], model: Model) {
+  const typeParams: { name: string; constraint?: string }[] = []
+  const usedNames = new Set<string>()
+
+  if (model.properties.some(prop => prop.isXp)) {
+    const ownXpName = `T${model.name}Xp`
+    typeParams.push({ name: ownXpName })
+    usedNames.add(ownXpName)
   }
-  inspectModel.properties.forEach(prop => {
-    if (!prop['typeParams']) {
-      prop['typeParams'] = []
+
+  model.properties.forEach(prop => {
+    prop['modelTypeParam'] = undefined
+    if (!prop.isCustomType || prop.isXp) {
+      return
     }
-    if (prop.isXp) {
-      if (!rootProp) {
-        // first level of properties, only the xp for that resource will exist
-        // move it to front for convention where first xp is always that resource's xp
-        const typeParam = `T${inspectModel.name}Xp`
-        rootModel['typeParams'].unshift(typeParam)
-        prop['typeParams'].unshift(typeParam)
-      } else {
-        let typeParam = parentProp
-          ? `T${parentProp.name}Xp`
-          : `T${rootProp.name}Xp`
-        if (typeParam === 'TItemsXp') {
-          typeParam = `T${rootProp.type}Xp`
-          rootModel['typeParams'].unshift(typeParam)
-          rootProp['typeParams'].unshift(typeParam)
-        } else {
-          rootModel['typeParams'].push(typeParam)
-          rootProp['typeParams'].push(typeParam)
-        }
-      }
+    if (!customTypeContributesXp(allModels, prop.type)) {
+      return
     }
-    if (prop.isCustomType) {
-      const toInspect = allModels.find(model => {
-        return model.name === prop.type || model.type === prop.type
-      })
-      if (!toInspect) {
-        throw new Error(`Unable to find next model to inspect for ${prop.type}`)
-      }
-      if (!rootProp && !parentProp) {
-        inspectModelForTypeParams(allModels, rootModel, toInspect, prop)
-      } else if (rootProp && !parentProp) {
-        inspectModelForTypeParams(
-          allModels,
-          rootModel,
-          toInspect,
-          rootProp,
-          prop
-        )
-      }
-    }
+    const name = modelTypeParamName(prop, usedNames)
+    usedNames.add(name)
+    typeParams.push({ name, constraint: prop.type })
+    prop['modelTypeParam'] = name
   })
 
-  // This is a little hacky but basically we want the first type parameter to be the type for the xp of the model
-  // for example ShipEstimate<ShipEstimateXp...> otherwise, the xp type would be at the end of the list
-  // lke so: ShipEstimate<SomeXp, SomeOtherXp...ShipEstimateXp>
-  if (
-    rootProp &&
-    rootProp['typeParams'] &&
-    rootProp['typeParams'].length > 1 &&
-    rootProp['typeParams'].includes(`T${rootProp.name}Xp`)
-  ) {
-    const toMoveIndex = rootProp['typeParams'].findIndex(
-      p => p === `T${rootProp.name}Xp`
-    )
-    const toMove = rootProp['typeParams'].splice(toMoveIndex, 1)
-    rootProp['typeParams'].unshift(toMove[0])
+  model['typeParams'] = typeParams
+}
+
+function modelTypeParamName(prop: Param, usedNames: Set<string>): string {
+  // Arrays take the element type name (LineItems -> TLineItem).
+  // Other properties take the property name (FromUser -> TFromUser)
+  // so two Address fields stay distinct.
+  const preferred = prop.isArray ? `T${prop.type}` : `T${prop.name}`
+  if (!usedNames.has(preferred)) {
+    return preferred
   }
+  const byProperty = `T${prop.name}`
+  if (!usedNames.has(byProperty)) {
+    return byProperty
+  }
+  return `T${prop.name}_${prop.type}`
+}
+
+function customTypeContributesXp(
+  allModels: Model[],
+  typeName: string,
+  depth = 0
+): boolean {
+  const model = allModels.find(
+    candidate => candidate.name === typeName || candidate.type === typeName
+  )
+  if (!model) {
+    throw new Error(`Unable to find next model to inspect for ${typeName}`)
+  }
+  for (const prop of model.properties) {
+    if (prop.isXp) {
+      return true
+    }
+    // Match the previous hoist depth: xp on this model, and xp on its
+    // direct custom-type children. Do not walk further.
+    if (
+      depth < 1 &&
+      prop.isCustomType &&
+      customTypeContributesXp(allModels, prop.type, depth + 1)
+    ) {
+      return true
+    }
+  }
+  return false
 }

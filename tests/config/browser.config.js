@@ -4,4 +4,5 @@ module.exports = {
     '^.+\\.tsx?$': 'ts-jest',
   },
   'testEnvironment': 'jsdom', // Default: simulates browser environment
+  'setupFiles': ['<rootDir>/../setupBrowser.js'],
 }

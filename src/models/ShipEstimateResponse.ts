@@ -1,7 +1,7 @@
 import { ShipEstimate } from './ShipEstimate';
 
-export interface ShipEstimateResponse<TShipEstimateResponseXp = any, TShipEstimatesXp = any, TShipMethodsXp = any> {
-    ShipEstimates?: ShipEstimate<TShipEstimatesXp,TShipMethodsXp>[]
+export interface ShipEstimateResponse<TShipEstimateResponseXp = any, TShipEstimate extends ShipEstimate = ShipEstimate> {
+    ShipEstimates?: TShipEstimate[]
     HttpStatusCode?: number
     UnhandledErrorBody?: string
     xp?: TShipEstimateResponseXp

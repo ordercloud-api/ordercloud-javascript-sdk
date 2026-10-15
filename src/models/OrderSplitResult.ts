@@ -1,6 +1,6 @@
 import { Order } from './Order';
 
-export interface OrderSplitResult<TFromUserXp = any, TBillingAddressXp = any, TOutgoingOrdersXp = any> {
-    OutgoingOrders?: Order<TOutgoingOrdersXp,TFromUserXp,TBillingAddressXp>[]
+export interface OrderSplitResult<TOrder extends Order = Order> {
+    OutgoingOrders?: TOrder[]
     RemainingLineItemIDs?: string[]
 }

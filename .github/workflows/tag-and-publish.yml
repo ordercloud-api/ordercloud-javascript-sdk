@@ -2,14 +2,72 @@ name: Tag, Release, & Publish
 
 permissions:
   contents: write
+  id-token: write
   
 on:
   push:
     branches:
       - master
+      - ci/npm-trusted-publishing
 
 jobs:
+  verify-trusted-publishing:
+    if: github.ref == 'refs/heads/ci/npm-trusted-publishing'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - name: Check npm version
+        run: npm --version
+
+      - name: Exchange OIDC token with npm
+        run: |
+          node --input-type=module <<'NODE'
+          const audience = "npm:registry.npmjs.org";
+          const packageName = "ordercloud-javascript-sdk";
+          const requestUrl = process.env.ACTIONS_ID_TOKEN_REQUEST_URL;
+          const requestToken = process.env.ACTIONS_ID_TOKEN_REQUEST_TOKEN;
+          if (!requestUrl || !requestToken) {
+            throw new Error("GitHub did not provide an OIDC token request endpoint.");
+          }
+
+          const separator = requestUrl.includes("?") ? "&" : "?";
+          const identityResponse = await fetch(
+            `${requestUrl}${separator}audience=${encodeURIComponent(audience)}`,
+            { headers: { Authorization: `bearer ${requestToken}` } }
+          );
+          if (!identityResponse.ok) {
+            throw new Error(`GitHub OIDC request failed (${identityResponse.status}).`);
+          }
+          const { value: identityToken } = await identityResponse.json();
+          if (!identityToken) {
+            throw new Error("GitHub OIDC response did not include an identity token.");
+          }
+          console.log(`::add-mask::${identityToken}`);
+
+          const exchangeResponse = await fetch(
+            `https://registry.npmjs.org/-/npm/v1/oidc/token/exchange/package/${encodeURIComponent(packageName)}`,
+            { method: "POST", headers: { Authorization: `Bearer ${identityToken}` } }
+          );
+          const body = await exchangeResponse.json().catch(() => ({}));
+          if (body.token) console.log(`::add-mask::${body.token}`);
+          if (!exchangeResponse.ok || !body.token) {
+            const detail = { ...body };
+            delete detail.token;
+            throw new Error(
+              `npm rejected the trusted publisher (${exchangeResponse.status}): ${JSON.stringify(detail)}`
+            );
+          }
+          console.log(`Trusted publishing accepted. Publish token expires ${body.expires ?? "unknown"}.`);
+          NODE
+
   build:
+    if: github.ref == 'refs/heads/master'
     runs-on: windows-latest # ubuntu throws error on build
     steps:
     - uses: actions/checkout@v4
@@ -17,7 +75,7 @@ jobs:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 24
         registry-url: https://registry.npmjs.org
 
     - name: Install Dependencies
@@ -105,6 +163,4 @@ jobs:
 
     - name: Publish to npm
       if: steps.autotagger.outputs.tagname != ''
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       run: npm publish --access public

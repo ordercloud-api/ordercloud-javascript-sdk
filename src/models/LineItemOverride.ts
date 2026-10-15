@@ -1,10 +1,10 @@
 import { AdHocProduct } from './AdHocProduct';
 import { PromotionOverride } from './PromotionOverride';
 
-export interface LineItemOverride<TProductXp = any> {
+export interface LineItemOverride<TProduct extends AdHocProduct = AdHocProduct> {
     LineItemID?: string
     UnitPrice?: number
-    Product?: AdHocProduct<TProductXp>
+    Product?: TProduct
     PromotionOverrides?: PromotionOverride[]
     InventoryRecordID?: string
     Remove?: boolean

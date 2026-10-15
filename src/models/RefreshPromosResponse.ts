@@ -1,7 +1,7 @@
 import { AddedPromo } from './AddedPromo';
 import { RemovedPromo } from './RemovedPromo';
 
-export interface RefreshPromosResponse<TPromosAddedXp = any, TPromosRemovedXp = any> {
-    PromosAdded?: AddedPromo<TPromosAddedXp>[]
-    PromosRemoved?: RemovedPromo<TPromosRemovedXp>[]
+export interface RefreshPromosResponse<TAddedPromo extends AddedPromo = AddedPromo, TRemovedPromo extends RemovedPromo = RemovedPromo> {
+    PromosAdded?: TAddedPromo[]
+    PromosRemoved?: TRemovedPromo[]
 }
