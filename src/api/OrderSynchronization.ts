@@ -24,7 +24,7 @@ class OrderSynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/order-synchronization/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TOrderSyncConfig extends OrderSyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSyncConfig>>{
@@ -45,7 +45,7 @@ class OrderSynchronization {
     * 
     * @param orderSyncConfig Required fields: DeliveryConfigID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save<TOrderSyncConfig extends OrderSyncConfig>(orderSyncConfig: OrderSyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSyncConfig>>{
@@ -65,7 +65,7 @@ class OrderSynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/order-synchronization/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -86,7 +86,7 @@ class OrderSynchronization {
     * 
     * @param orderSyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TOrderSyncConfig extends OrderSyncConfig>(orderSyncConfig: PartialDeep<OrderSyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderSyncConfig>>{

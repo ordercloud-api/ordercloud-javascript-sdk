@@ -48,7 +48,7 @@ class OrderReturns {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List<TOrderReturn extends OrderReturn>(listOptions: { approvable?: boolean, search?: string, searchOn?: Searchable<'OrderReturns.List'>, sortBy?: Sortable<'OrderReturns.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderReturn>>>{
@@ -69,7 +69,7 @@ class OrderReturns {
     * 
     * @param orderReturn Required fields: OrderID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create<TOrderReturn extends OrderReturn>(orderReturn: OrderReturn,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -90,7 +90,7 @@ class OrderReturns {
     * 
     * @param returnID ID of the return.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TOrderReturn extends OrderReturn>(returnID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -112,7 +112,7 @@ class OrderReturns {
     * @param returnID ID of the return.
     * @param orderReturn Required fields: OrderID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save<TOrderReturn extends OrderReturn>(returnID: string, orderReturn: OrderReturn,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -133,7 +133,7 @@ class OrderReturns {
     * 
     * @param returnID ID of the return.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(returnID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -155,7 +155,7 @@ class OrderReturns {
     * @param returnID ID of the return.
     * @param orderReturn 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TOrderReturn extends OrderReturn>(returnID: string, orderReturn: PartialDeep<OrderReturn>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -182,7 +182,7 @@ class OrderReturns {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListApprovals<TOrderReturnApproval extends OrderReturnApproval>(returnID: string, listOptions: { search?: string, searchOn?: Searchable<'OrderReturns.ListApprovals'>, sortBy?: Sortable<'OrderReturns.ListApprovals'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TOrderReturnApproval>>>{
@@ -204,7 +204,7 @@ class OrderReturns {
     * @param returnID ID of the return.
     * @param approvalInfo 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Approve<TOrderReturn extends OrderReturn>(returnID: string, approvalInfo: ApprovalInfo,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -225,7 +225,7 @@ class OrderReturns {
     * 
     * @param returnID ID of the return.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Cancel<TOrderReturn extends OrderReturn>(returnID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -246,7 +246,7 @@ class OrderReturns {
     * 
     * @param returnID ID of the return.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Complete<TOrderReturn extends OrderReturn>(returnID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -268,7 +268,7 @@ class OrderReturns {
     * @param returnID ID of the return.
     * @param approvalInfo 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Decline<TOrderReturn extends OrderReturn>(returnID: string, approvalInfo: ApprovalInfo,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -295,7 +295,7 @@ class OrderReturns {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListEligibleApprovers<TUser extends User>(returnID: string, listOptions: { search?: string, searchOn?: Searchable<'OrderReturns.ListEligibleApprovers'>, sortBy?: Sortable<'OrderReturns.ListEligibleApprovers'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TUser>>>{
@@ -317,7 +317,7 @@ class OrderReturns {
     * @param returnID ID of the return.
     * @param lineItemID ID of the line item.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteItem<TOrderReturn extends OrderReturn>(returnID: string, lineItemID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{
@@ -338,7 +338,7 @@ class OrderReturns {
     * 
     * @param returnID ID of the return.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Submit<TOrderReturn extends OrderReturn>(returnID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TOrderReturn>>{

@@ -1,5 +1,3 @@
-import { CancelToken } from 'axios'
-
 export interface RequestOptions {
   /**
    * Alternative token to the one stored in the sdk instance (useful for impersonation).
@@ -7,9 +5,9 @@ export interface RequestOptions {
   accessToken?: string
 
   /**
-   * [Axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
    */
-  cancelToken?: CancelToken
+  signal?: AbortSignal
 
   /**
    * Identify the type of request. Useful for error logs.

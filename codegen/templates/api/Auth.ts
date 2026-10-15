@@ -1,11 +1,11 @@
 /* eslint-disable no-var */
-import axios, { CancelToken } from 'axios'
 import { AccessToken } from '../models/AccessToken'
 import Configuration from '../Configuration'
 import { ApiRole } from '../models/ApiRole'
 import paramsSerializer from '../utils/paramsSerializer'
 import { RequiredDeep } from '../models/RequiredDeep'
 import OrderCloudError from '../utils/OrderCloudError'
+import http from '../utils/HttpClient'
 
 /**
  * @ignore
@@ -36,14 +36,37 @@ function resolveAuthScope(
   return undefined
 }
 
+interface AuthRequestOptions {
+  customRoles?: string[]
+  anonuserid?: string
+  signal?: AbortSignal
+  requestType?: string
+}
+
+async function postToken(
+  body: { [key: string]: any },
+  requestOptions: AuthRequestOptions = {}
+): Promise<any> {
+  const configuration = Configuration.Get()
+  try {
+    return await http.formPost(
+      `${configuration.baseApiUrl}/oauth/token`,
+      paramsSerializer.serialize(body),
+      {
+        signal: requestOptions.signal,
+        requestType: requestOptions.requestType,
+      }
+    )
+  } catch (e) {
+    if (e.response) {
+      throw new OrderCloudError(e)
+    }
+    throw e
+  }
+}
+
 class Auth {
   constructor() {
-    if (typeof axios === 'undefined') {
-      throw new Error(
-        'Ordercloud is missing required peer dependency axios. This must be installed and loaded before the OrderCloud SDK'
-      )
-    }
-
     /**
      * @ignore
      * not part of public api, don't include in generated docs
@@ -63,7 +86,7 @@ class Auth {
    * @param client_id of the application the user is logging into
    * @param scope optional roles being requested, if omitted will return all assigned roles
    * @param requestOptions.customRoles optional custom roles being requested - string array
-   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async Login(
@@ -71,13 +94,9 @@ class Auth {
     password: string,
     clientID: string,
     scope?: ApiRole[],
-    requestOptions: {
-      customRoles?: string[]
-      cancelToken?: CancelToken
-      requestType?: string
-    } = {}
+    requestOptions: AuthRequestOptions = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    const { customRoles, ...axiosOptions } = requestOptions
+    const { customRoles } = requestOptions
     const body = {
       grant_type: 'password',
       username,
@@ -85,27 +104,7 @@ class Auth {
       client_id: clientID,
       scope: resolveAuthScope(scope, customRoles),
     }
-    const configuration = Configuration.Get()
-    const response = await axios
-      .post(
-        `${configuration.baseApiUrl}/oauth/token`,
-        paramsSerializer.serialize(body),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Accept: 'application/json',
-          },
-          adapter: configuration.axiosAdapter,
-          ...axiosOptions,
-        }
-      )
-      .catch(e => {
-        if (e.response) {
-          throw new OrderCloudError(e)
-        }
-        throw e
-      })
-    return response.data
+    return await postToken(body, requestOptions)
   }
 
   /**
@@ -119,7 +118,7 @@ class Auth {
    * @param requestOptions.customRoles optional custom roles being requested - string array
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
-   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async ElevatedLogin(
@@ -128,13 +127,9 @@ class Auth {
     password: string,
     clientID: string,
     scope?: ApiRole[],
-    requestOptions: {
-      customRoles?: string[]
-      cancelToken?: CancelToken
-      requestType?: string
-    } = {}
+    requestOptions: AuthRequestOptions = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    const { customRoles, ...axiosOptions } = requestOptions
+    const { customRoles } = requestOptions
     const body = {
       grant_type: 'password',
       scope: resolveAuthScope(scope, customRoles),
@@ -143,27 +138,7 @@ class Auth {
       password,
       client_secret: clientSecret,
     }
-    const configuration = Configuration.Get()
-    const response = await axios
-      .post(
-        `${configuration.baseApiUrl}/oauth/token`,
-        paramsSerializer.serialize(body),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Accept: 'application/json',
-          },
-          adapter: configuration.axiosAdapter,
-          ...axiosOptions,
-        }
-      )
-      .catch(e => {
-        if (e.response) {
-          throw new OrderCloudError(e)
-        }
-        throw e
-      })
-    return response.data
+    return await postToken(body, requestOptions)
   }
 
   /**
@@ -175,47 +150,23 @@ class Auth {
    * @param requestOptions.customRoles optional custom roles being requested - string array
    * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
    * @param reportProgress flag to report request and response progress.
-   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async ClientCredentials(
     clientSecret: string,
     clientID: string,
     scope?: ApiRole[],
-    requestOptions: {
-      customRoles?: string[]
-      cancelToken?: CancelToken
-      requestType?: string
-    } = {}
+    requestOptions: AuthRequestOptions = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    const { customRoles, ...axiosOptions } = requestOptions
+    const { customRoles } = requestOptions
     const body = {
       grant_type: 'client_credentials',
       scope: resolveAuthScope(scope, customRoles),
       client_id: clientID,
       client_secret: clientSecret,
     }
-    const configuration = Configuration.Get()
-    const response = await axios
-      .post(
-        `${configuration.baseApiUrl}/oauth/token`,
-        paramsSerializer.serialize(body),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Accept: 'application/json',
-          },
-          adapter: configuration.axiosAdapter,
-          ...axiosOptions,
-        }
-      )
-      .catch(e => {
-        if (e.response) {
-          throw new OrderCloudError(e)
-        }
-        throw e
-      })
-    return response.data
+    return await postToken(body, requestOptions)
   }
 
   /**
@@ -223,43 +174,20 @@ class Auth {
    *
    * @param refreshToken of the application
    * @param clientID of the application the user is logging into
-   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async RefreshToken(
     refreshToken: string,
     clientID: string,
-    requestOptions: {
-      cancelToken?: CancelToken
-      requestType?: string
-    } = {}
+    requestOptions: AuthRequestOptions = {}
   ): Promise<RequiredDeep<AccessToken>> {
     const body = {
       grant_type: 'refresh_token',
       client_id: clientID,
       refresh_token: refreshToken,
     }
-    const configuration = Configuration.Get()
-    const response = await axios
-      .post(
-        `${configuration.baseApiUrl}/oauth/token`,
-        paramsSerializer.serialize(body),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Accept: 'application/json',
-          },
-          adapter: configuration.axiosAdapter,
-          ...requestOptions,
-        }
-      )
-      .catch(e => {
-        if (e.response) {
-          throw new OrderCloudError(e)
-        }
-        throw e
-      })
-    return response.data
+    return await postToken(body, requestOptions)
   }
 
   /**
@@ -269,20 +197,15 @@ class Auth {
    * @param scope roles being requested - space delimited string or array
    * @param requestOptions.customRoles optional custom roles being requested - string array
    * @param requestOptions.anonuserid Provide an externally generated id to track this user session, used specifically for the tracking events feature for integrating with Send and Discover
-   * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+   * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
    * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
    */
   public async Anonymous(
     clientID: string,
     scope?: ApiRole[],
-    requestOptions: {
-      customRoles?: string[]
-      anonuserid?: string
-      cancelToken?: CancelToken
-      requestType?: string
-    } = {}
+    requestOptions: AuthRequestOptions = {}
   ): Promise<RequiredDeep<AccessToken>> {
-    const { customRoles, anonuserid, ...axiosOptions } = requestOptions
+    const { customRoles, anonuserid } = requestOptions
     const body = {
       grant_type: 'client_credentials',
       client_id: clientID,
@@ -291,27 +214,7 @@ class Auth {
     if (anonuserid) {
       body['anonuserid'] = anonuserid
     }
-    const configuration = Configuration.Get()
-    const response = await axios
-      .post(
-        `${configuration.baseApiUrl}/oauth/token`,
-        paramsSerializer.serialize(body),
-        {
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            Accept: 'application/json',
-          },
-          adapter: configuration.axiosAdapter,
-          ...axiosOptions,
-        }
-      )
-      .catch(e => {
-        if (e.response) {
-          throw new OrderCloudError(e)
-        }
-        throw e
-      })
-    return response.data
+    return await postToken(body, requestOptions)
   }
 }
 

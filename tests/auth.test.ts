@@ -1,5 +1,5 @@
-import mockAxios from 'axios'
 import { Auth, ApiRole } from '../src/index'
+import { expectFormPost, fetchCalls, installFetchMock } from './fetchMock'
 
 const testdata = {
   authUrl: 'https://api.ordercloud.io/oauth/token',
@@ -15,8 +15,8 @@ const testdata = {
   },
 }
 
-afterEach(() => {
-  jest.clearAllMocks()
+beforeEach(() => {
+  installFetchMock()
 })
 
 const urlencode = encodeURIComponent
@@ -95,7 +95,7 @@ function clientCredentialsBody(scope?: string): string {
     [
       'grant_type=client_credentials',
       `client_id=${testdata.clientID}`,
-      `client_secret=${testdata.clientSecret}`,
+      `client_secret=${urlencode(testdata.clientSecret)}`,
     ],
     scope,
     1
@@ -113,18 +113,8 @@ function anonymousBody(scope?: string, anonuserid?: string): string {
   return parts.join('&')
 }
 
-function expectTokenRequest(
-  body: string,
-  config: Record<string, unknown> = {}
-) {
-  expect(mockAxios.post).toHaveBeenCalledTimes(1)
-  expect(mockAxios.post).toHaveBeenCalledWith(testdata.authUrl, body, {
-    headers: testdata.authHeaders,
-    ...config,
-  })
-  const axiosConfig = (mockAxios.post as jest.Mock).mock.calls[0][2]
-  expect(axiosConfig).not.toHaveProperty('customRoles')
-  expect(axiosConfig).not.toHaveProperty('anonuserid')
+function expectTokenRequest(body: string) {
+  expectFormPost(testdata.authUrl, body, testdata.authHeaders)
 }
 
 describe('Login', () => {
@@ -142,7 +132,7 @@ describe('Login', () => {
         scope,
         requestOptions
       )
-      expectTokenRequest(loginBody(expectedScope), { requestType: 'login' })
+      expectTokenRequest(loginBody(expectedScope))
       expect(requestOptions.customRoles).toBe(customRoles)
     }
   )
@@ -156,7 +146,7 @@ describe('Login', () => {
         'BuyerAdmin' as any
       )
     ).rejects.toThrow('scope must be a string array')
-    expect(mockAxios.post).not.toHaveBeenCalled()
+    expect(fetchCalls()).toHaveLength(0)
   })
 
   test('rejects non-array custom roles', async () => {
@@ -171,7 +161,7 @@ describe('Login', () => {
         }
       )
     ).rejects.toThrow('custom roles must be defined as a string array')
-    expect(mockAxios.post).not.toHaveBeenCalled()
+    expect(fetchCalls()).toHaveLength(0)
   })
 })
 
@@ -187,9 +177,7 @@ describe('ElevatedLogin', () => {
         scope,
         { customRoles, requestType: 'elevated' }
       )
-      expectTokenRequest(elevatedLoginBody(expectedScope), {
-        requestType: 'elevated',
-      })
+      expectTokenRequest(elevatedLoginBody(expectedScope))
     }
   )
 })
@@ -204,9 +192,7 @@ describe('ClientCredentials', () => {
         scope,
         { customRoles, requestType: 'client' }
       )
-      expectTokenRequest(clientCredentialsBody(expectedScope), {
-        requestType: 'client',
-      })
+      expectTokenRequest(clientCredentialsBody(expectedScope))
     }
   )
 })
@@ -219,9 +205,7 @@ describe('Anonymous', () => {
         customRoles,
         requestType: 'anonymous',
       })
-      expectTokenRequest(anonymousBody(expectedScope), {
-        requestType: 'anonymous',
-      })
+      expectTokenRequest(anonymousBody(expectedScope))
     }
   )
 
@@ -236,8 +220,7 @@ describe('Anonymous', () => {
       anonymousBody(
         `${testdata.scope.join(' ')} ${testdata.customRoles.join(' ')}`,
         'myanonuserid'
-      ),
-      { requestType: 'anonymous' }
+      )
     )
     expect(requestOptions).toEqual({
       anonuserid: 'myanonuserid',
@@ -253,7 +236,6 @@ test('can auth with refresh token', async () => {
     requestType: 'refresh',
   })
   expectTokenRequest(
-    `grant_type=refresh_token&client_id=${testdata.clientID}&refresh_token=${refreshToken}`,
-    { requestType: 'refresh' }
+    `grant_type=refresh_token&client_id=${testdata.clientID}&refresh_token=${refreshToken}`
   )
 })

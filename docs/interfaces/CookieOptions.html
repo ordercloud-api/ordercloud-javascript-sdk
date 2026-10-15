@@ -12,7 +12,7 @@
 <h1>Interface CookieOptions</h1></div>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">CookieOptions</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#domain">domain</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#path">path</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#prefix">prefix</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#samesite">samesite</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;lax&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;none&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;strict&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#secure">secure</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L43">models/SdkConfiguration.ts:43</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L76">models/SdkConfiguration.ts:76</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -35,7 +35,7 @@
 <div class="tsd-comment tsd-typography"><p>The cookie will be available only for this domain and its sub-domains</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L47">models/SdkConfiguration.ts:47</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L80">models/SdkConfiguration.ts:80</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="path"><code class="tsd-tag">Optional</code><span>path</span><a href="#path" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
@@ -43,14 +43,14 @@
 defaults to '/' which means it is available on all paths in the domain</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L70">models/SdkConfiguration.ts:70</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L103">models/SdkConfiguration.ts:103</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="prefix"><code class="tsd-tag">Optional</code><span>prefix</span><a href="#prefix" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">prefix</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>prefix for all cookies set by ordercloud</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L64">models/SdkConfiguration.ts:64</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L97">models/SdkConfiguration.ts:97</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="samesite"><code class="tsd-tag">Optional</code><span>samesite</span><a href="#samesite" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">samesite</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">&quot;lax&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;none&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;strict&quot;</span></div>
@@ -58,7 +58,7 @@ defaults to '/' which means it is available on all paths in the domain</p>
 in first or third party contexts <a href="https://adzerk.com/blog/chrome-samesite/">https://adzerk.com/blog/chrome-samesite/</a></p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L59">models/SdkConfiguration.ts:59</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L92">models/SdkConfiguration.ts:92</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="secure"><code class="tsd-tag">Optional</code><span>secure</span><a href="#secure" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">secure</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -66,7 +66,7 @@ in first or third party contexts <a href="https://adzerk.com/blog/chrome-samesit
 secured connection (generally https)</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L53">models/SdkConfiguration.ts:53</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/ordercloud-api/ordercloud-javascript-sdk/blob/master/src/models/SdkConfiguration.ts#L86">models/SdkConfiguration.ts:86</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

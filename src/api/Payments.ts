@@ -41,7 +41,7 @@ class Payments {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List<TPayment extends Payment>(direction: OrderDirection, orderID: string, listOptions: { search?: string, searchOn?: Searchable<'Payments.List'>, sortBy?: Sortable<'Payments.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TPayment>>>{
@@ -64,7 +64,7 @@ class Payments {
     * @param orderID ID of the order.
     * @param payment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create<TPayment extends Payment>(direction: OrderDirection, orderID: string, payment: Payment,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
@@ -87,7 +87,7 @@ class Payments {
     * @param orderID ID of the order.
     * @param paymentID ID of the payment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
@@ -110,7 +110,7 @@ class Payments {
     * @param orderID ID of the order.
     * @param paymentID ID of the payment.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(direction: OrderDirection, orderID: string, paymentID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -134,7 +134,7 @@ class Payments {
     * @param paymentID ID of the payment.
     * @param payment 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, payment: PartialDeep<Payment>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
@@ -158,7 +158,7 @@ class Payments {
     * @param paymentID ID of the payment.
     * @param paymentTransaction Required fields: Type, DateExecuted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async CreateTransaction<TPayment extends Payment>(direction: OrderDirection, orderID: string, paymentID: string, paymentTransaction: PaymentTransaction,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TPayment>>{
@@ -182,7 +182,7 @@ class Payments {
     * @param paymentID ID of the payment.
     * @param transactionID ID of the transaction.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteTransaction(direction: OrderDirection, orderID: string, paymentID: string, transactionID: string, requestOptions: RequestOptions = {} ): Promise<void>{

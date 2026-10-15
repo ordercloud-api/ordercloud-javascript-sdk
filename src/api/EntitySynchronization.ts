@@ -74,7 +74,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-admin-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetAdminUsers<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -95,7 +95,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveAdminUsers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -115,7 +115,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-admin-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteAdminUsers(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -136,7 +136,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchAdminUsers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -157,7 +157,7 @@ class EntitySynchronization {
     * 
     * @param syncAdminUser Required fields: UserID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncAdminUser(syncAdminUser: SyncAdminUser,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -177,7 +177,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-buyers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetBuyers<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -198,7 +198,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveBuyers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -218,7 +218,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-buyers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteBuyers(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -239,7 +239,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchBuyers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -260,7 +260,7 @@ class EntitySynchronization {
     * 
     * @param syncBuyer Required fields: BuyerID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncBuyer(syncBuyer: SyncBuyer,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -280,7 +280,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-buyer-user-groups|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetBuyerUserGroups<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -301,7 +301,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveUserGroups<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -321,7 +321,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-user-groups|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteUserGroups(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -342,7 +342,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchBuyerUserGroups<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -363,7 +363,7 @@ class EntitySynchronization {
     * 
     * @param syncBuyerUserGroup Required fields: BuyerID, UserGroupID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncBuyerUserGroup(syncBuyerUserGroup: SyncBuyerUserGroup,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -383,7 +383,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-buyer-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetBuyerUsers<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -404,7 +404,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveBuyerUsers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -424,7 +424,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-buyer-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteBuyerUsers(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -445,7 +445,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchBuyerUsers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -466,7 +466,7 @@ class EntitySynchronization {
     * 
     * @param syncBuyerUser Required fields: BuyerID, UserID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncBuyerUser(syncBuyerUser: SyncBuyerUser,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -486,7 +486,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-catalogs|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetCatalogs<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -507,7 +507,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveCatalogs<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -527,7 +527,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-catalogs|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteCatalogs(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -548,7 +548,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchCatalogs<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -569,7 +569,7 @@ class EntitySynchronization {
     * 
     * @param syncCatalog Required fields: CatalogID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncCatalog(syncCatalog: SyncCatalog,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -589,7 +589,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-categories|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetCategories<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -610,7 +610,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveCategories<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -630,7 +630,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-categories|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteCategories(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -651,7 +651,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchCategories<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -672,7 +672,7 @@ class EntitySynchronization {
     * 
     * @param syncCategory Required fields: CatalogID, CategoryID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncCategory(syncCategory: SyncCategory,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -692,7 +692,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-inventory-records|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetInventoryRecords<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -713,7 +713,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveInventoryRecords<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -733,7 +733,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-inventory-records|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteInventoryRecords(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -754,7 +754,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchInventoryRecords<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -775,7 +775,7 @@ class EntitySynchronization {
     * 
     * @param syncInventoryRecord Required fields: ProductID, InventoryRecordID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncInventoryRecord(syncInventoryRecord: SyncInventoryRecord,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -796,7 +796,7 @@ class EntitySynchronization {
     * 
     * @param syncSupplier Required fields: SupplierID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncSupplier(syncSupplier: SyncSupplier,requestOptions: RequestOptions = {} ): Promise<void>{
@@ -816,7 +816,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-suppliers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetSuppliers<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -837,7 +837,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveSuppliers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -857,7 +857,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-suppliers|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteSuppliers(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -878,7 +878,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchSuppliers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -898,7 +898,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/get-supplier-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetSupplierUsers<TEntitySyncConfig extends EntitySyncConfig>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -919,7 +919,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig Required fields: DeliveryConfigID, SyncEntityChanged, SyncEntityDeleted
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveSupplierUsers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: EntitySyncConfig,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -939,7 +939,7 @@ class EntitySynchronization {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/entity-synchronization/delete-supplier-users|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteSupplierUsers(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -960,7 +960,7 @@ class EntitySynchronization {
     * 
     * @param entitySyncConfig 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchSupplierUsers<TEntitySyncConfig extends EntitySyncConfig>(entitySyncConfig: PartialDeep<EntitySyncConfig>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TEntitySyncConfig>>{
@@ -981,7 +981,7 @@ class EntitySynchronization {
     * 
     * @param syncSupplierUser Required fields: SupplierID, UserID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SyncSupplierUser(syncSupplierUser: SyncSupplierUser,requestOptions: RequestOptions = {} ): Promise<void>{

@@ -24,7 +24,7 @@ class SubscriptionIntegrations {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/subscription-integrations/get|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TSubscriptionIntegration extends SubscriptionIntegration>(requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSubscriptionIntegration>>{
@@ -45,7 +45,7 @@ class SubscriptionIntegrations {
     * 
     * @param subscriptionIntegration Required fields: ApiClientID, HashKey
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save<TSubscriptionIntegration extends SubscriptionIntegration>(subscriptionIntegration: SubscriptionIntegration,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSubscriptionIntegration>>{
@@ -65,7 +65,7 @@ class SubscriptionIntegrations {
     * Check out the {@link https://ordercloud.io/api-reference/integrations/subscription-integrations/delete|api docs} for more info 
     * 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(requestOptions: RequestOptions = {} ): Promise<void>{
@@ -86,7 +86,7 @@ class SubscriptionIntegrations {
     * 
     * @param subscriptionIntegration 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TSubscriptionIntegration extends SubscriptionIntegration>(subscriptionIntegration: PartialDeep<SubscriptionIntegration>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSubscriptionIntegration>>{

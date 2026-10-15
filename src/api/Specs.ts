@@ -47,7 +47,7 @@ class Specs {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List<TSpec extends Spec>(listOptions: { search?: string, searchOn?: Searchable<'Specs.List'>, sortBy?: Sortable<'Specs.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpec>>>{
@@ -68,7 +68,7 @@ class Specs {
     * 
     * @param spec Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create<TSpec extends Spec>(spec: Spec,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
@@ -89,7 +89,7 @@ class Specs {
     * 
     * @param specID ID of the spec.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TSpec extends Spec>(specID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
@@ -111,7 +111,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param spec Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save<TSpec extends Spec>(specID: string, spec: Spec,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
@@ -132,7 +132,7 @@ class Specs {
     * 
     * @param specID ID of the spec.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(specID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -154,7 +154,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param spec 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TSpec extends Spec>(specID: string, spec: PartialDeep<Spec>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpec>>{
@@ -181,7 +181,7 @@ class Specs {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListOptions<TSpecOption extends SpecOption>(specID: string, listOptions: { search?: string, searchOn?: Searchable<'Specs.ListOptions'>, sortBy?: Sortable<'Specs.ListOptions'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecOption>>>{
@@ -203,7 +203,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param specOption Required fields: Value
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async CreateOption<TSpecOption extends SpecOption>(specID: string, specOption: SpecOption,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
@@ -225,7 +225,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param optionID ID of the option.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async GetOption<TSpecOption extends SpecOption>(specID: string, optionID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
@@ -248,7 +248,7 @@ class Specs {
     * @param optionID ID of the option.
     * @param specOption Required fields: Value
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: SpecOption,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
@@ -270,7 +270,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param optionID ID of the option.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteOption(specID: string, optionID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -293,7 +293,7 @@ class Specs {
     * @param optionID ID of the option.
     * @param specOption 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async PatchOption<TSpecOption extends SpecOption>(specID: string, optionID: string, specOption: PartialDeep<SpecOption>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TSpecOption>>{
@@ -315,7 +315,7 @@ class Specs {
     * @param specID ID of the spec.
     * @param productID ID of the product.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async DeleteProductAssignment(specID: string, productID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -341,7 +341,7 @@ class Specs {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async ListProductAssignments<TSpecProductAssignment extends SpecProductAssignment>(listOptions: { search?: string, searchOn?: Searchable<'Specs.ListProductAssignments'>, sortBy?: Sortable<'Specs.ListProductAssignments'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TSpecProductAssignment>>>{
@@ -362,7 +362,7 @@ class Specs {
     * 
     * @param specProductAssignment Required fields: SpecID, ProductID
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async SaveProductAssignment(specProductAssignment: SpecProductAssignment,requestOptions: RequestOptions = {} ): Promise<void>{

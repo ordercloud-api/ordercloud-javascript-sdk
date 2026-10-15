@@ -36,7 +36,7 @@ class Incrementors {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List<TIncrementor extends Incrementor>(listOptions: { search?: string, searchOn?: Searchable<'Incrementors.List'>, sortBy?: Sortable<'Incrementors.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TIncrementor>>>{
@@ -57,7 +57,7 @@ class Incrementors {
     * 
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create<TIncrementor extends Incrementor>(incrementor: Incrementor,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{
@@ -78,7 +78,7 @@ class Incrementors {
     * 
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TIncrementor extends Incrementor>(incrementorID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{
@@ -100,7 +100,7 @@ class Incrementors {
     * @param incrementorID ID of the incrementor.
     * @param incrementor Required fields: LastNumber, LeftPaddingCount
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save<TIncrementor extends Incrementor>(incrementorID: string, incrementor: Incrementor,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{
@@ -121,7 +121,7 @@ class Incrementors {
     * 
     * @param incrementorID ID of the incrementor.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(incrementorID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -143,7 +143,7 @@ class Incrementors {
     * @param incrementorID ID of the incrementor.
     * @param incrementor 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TIncrementor extends Incrementor>(incrementorID: string, incrementor: PartialDeep<Incrementor>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TIncrementor>>{

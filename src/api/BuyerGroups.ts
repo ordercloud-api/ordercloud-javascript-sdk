@@ -36,7 +36,7 @@ class BuyerGroups {
     * @param listOptions.pageSize Number of results to return per page.
     * @param listOptions.filters An object or dictionary representing key/value pairs to apply as filters. Valid keys are top-level properties of the returned model or 'xp.???'
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async List<TBuyerGroup extends BuyerGroup>(listOptions: { search?: string, searchOn?: Searchable<'BuyerGroups.List'>, sortBy?: Sortable<'BuyerGroups.List'>, page?: number, pageSize?: number, filters?: Filters } = {}, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<ListPage<TBuyerGroup>>>{
@@ -57,7 +57,7 @@ class BuyerGroups {
     * 
     * @param buyerGroup Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Create<TBuyerGroup extends BuyerGroup>(buyerGroup: BuyerGroup,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerGroup>>{
@@ -78,7 +78,7 @@ class BuyerGroups {
     * 
     * @param buyerGroupID ID of the buyer group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Get<TBuyerGroup extends BuyerGroup>(buyerGroupID: string, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerGroup>>{
@@ -100,7 +100,7 @@ class BuyerGroups {
     * @param buyerGroupID ID of the buyer group.
     * @param buyerGroup Required fields: Name
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Save<TBuyerGroup extends BuyerGroup>(buyerGroupID: string, buyerGroup: BuyerGroup,requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerGroup>>{
@@ -121,7 +121,7 @@ class BuyerGroups {
     * 
     * @param buyerGroupID ID of the buyer group.
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Delete(buyerGroupID: string, requestOptions: RequestOptions = {} ): Promise<void>{
@@ -143,7 +143,7 @@ class BuyerGroups {
     * @param buyerGroupID ID of the buyer group.
     * @param buyerGroup 
     * @param requestOptions.accessToken Provide an alternative token to the one stored in the sdk instance (useful for impersonation).
-    * @param requestOptions.cancelToken Provide an [axios cancelToken](https://github.com/axios/axios#cancellation) that can be used to cancel the request.
+    * @param requestOptions.signal Provide an [AbortSignal](https://developer.mozilla.org/en-US/docs/Web/API/AbortSignal) that can be used to cancel the request.
     * @param requestOptions.requestType Provide a value that can be used to identify the type of request. Useful for error logs.
     */
     public async Patch<TBuyerGroup extends BuyerGroup>(buyerGroupID: string, buyerGroup: PartialDeep<BuyerGroup>, requestOptions: RequestOptions = {} ): Promise<RequiredDeep<TBuyerGroup>>{
