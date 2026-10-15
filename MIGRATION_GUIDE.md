@@ -65,6 +65,21 @@ The objective of this guide is to document the breaking changes and updates requ
 
     `Order<MyOrderXp>` still types only the order `xp`. `Category<MyCategoryXp>` is unchanged. `ListPageWithFacets<Product>` is unchanged. Its second parameter is now a `ListFacet`, so facet `xp` is declared as `ListPageWithFacets<Product, ListFacet<MyFacetXp>>`.
 
+## version 12.x.x to version 13.x.x
+* `ApiClient.ClientSecret` is removed.
+* `SecurityProfile.IsExternalRoleGroup` is removed.
+* A buyer product's `PriceSchedule` is a `BuyerPriceSchedule`, not a `PriceSchedule`. `PriceSchedule` remains the seller price schedule. `BuyerPriceSchedule` uses `BuyerPriceBreak`s and may include a `Discount`.
+
+    Before:
+    ```typescript
+    const schedule: PriceSchedule | undefined = buyerProduct.PriceSchedule
+    ```
+
+    After:
+    ```typescript
+    const schedule: BuyerPriceSchedule | undefined = buyerProduct.PriceSchedule
+    ```
+
 ## version 11.x.x to version 12.x.x
 * The `URL` and `SharedKey` properties have been removed from the `MessageSender` model, and `DeliveryConfigID` is now required. Configuration must be provided via a `DeliveryConfig` (managed through the new `DeliveryConfigurations` service) using either a `MailchimpConfig` or `MessageSenderConfig` delivery target. See the [updated Message Senders KB article](https://ordercloud.io/knowledge-base/message-senders#configuration-options) for more details. 
 

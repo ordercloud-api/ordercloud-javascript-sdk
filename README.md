@@ -15,7 +15,7 @@ The OrderCloud SDK for Javascript is a modern client library for building soluti
 - [👬 Impersonation](#-impersonation)
 - [Configuration](#configuration)
 - [Handling Errors 🐛](#handling-errors-)
-- [Interceptors](#interceptors)
+- [Request and response hooks](#request-and-response-hooks)
 - [Cancelling Requests](#cancelling-requests)
 - [Async/Await](#asyncawait)
 - [Typescript Support](#typescript-support)
@@ -252,18 +252,20 @@ Products.Get('my-product')
 
 ## Request and response hooks
 
-`Configuration.Set` accepts `onRequest` and `onResponse`. Use them to log, rewrite, or retry a call. `onRequest` returns the request that will be sent. `onResponse` runs before the SDK returns data or throws `OrderCloudError`.
+`onRequest` and `onResponse` replace axios interceptors. Set them once with `Configuration.Set`. `onRequest` runs before the call is sent and returns the request to send. `onResponse` runs after the body is read and before the SDK returns data or throws `OrderCloudError`.
+
+The request has `url`, `method`, `headers`, `body`, and `signal`. The response has `data`, `status`, `statusText`, `headers`, and `request`.
 
 ```javascript
 import { Configuration } from 'ordercloud-javascript-sdk';
 
 Configuration.Set({
   onRequest(request) {
-    console.log(request.method, request.url)
+    request.headers['X-Request-Id'] = 'abc'
     return request
   },
   onResponse(response) {
-    console.log(response.status)
+    console.log(response.status, response.request.url)
     return response
   },
 })
